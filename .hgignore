@@ -1,3 +1,4 @@
 syntax: glob
 libraries/Box2D-master/Box2D/Build/
 libraries/Box2D-master/Contributions/
+libraries/SFML-master/build/
