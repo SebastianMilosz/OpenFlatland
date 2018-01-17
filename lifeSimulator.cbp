@@ -34,6 +34,7 @@
 			<Add option="-DSFML_STATIC" />
 			<Add option="-DGLEW_STATIC" />
 			<Add directory="libraries/SFML-master/include" />
+			<Add directory="libraries/Box2D-master/Box2D" />
 		</Compiler>
 		<Linker>
 			<Add library="sfml-graphics-s" />
@@ -47,8 +48,10 @@
 			<Add library="gdi32" />
 			<Add library="opengl32" />
 			<Add library="winmm" />
+			<Add library="Box2D" />
 			<Add directory="libraries/SFML-master/build/lib" />
 			<Add directory="libraries/SFML-master/extlibs/libs-mingw/x64" />
+			<Add directory="libraries/Box2D-master/Box2D/Build/Box2D" />
 		</Linker>
 		<Unit filename="main.cpp" />
 		<Extensions>
