@@ -27,7 +27,21 @@ void CreateBox(b2World& World, int MouseX, int MouseY)
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Test");
-    tgui::Gui gui{window}; // Create the gui and attach it to the window
+    tgui::Gui gui(window); // Create the gui and attach it to the window
+
+    auto menu = tgui::MenuBar::create();
+    //menu->setRenderer(theme.getRenderer("MenuBar"));
+    menu->setSize((float)window.getSize().x, 22.f);
+    menu->addMenu("File");
+    menu->addMenuItem("Load");
+    menu->addMenuItem("Save");
+    menu->addMenuItem("Exit");
+    menu->addMenu("Edit");
+    menu->addMenuItem("Copy");
+    menu->addMenuItem("Paste");
+    menu->addMenu("Help");
+    menu->addMenuItem("About");
+    gui.add(menu);
 
     b2Vec2 gravity(0.f, 9.8f);
     b2World world(gravity);
