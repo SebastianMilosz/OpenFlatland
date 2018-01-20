@@ -1,0 +1,15 @@
+comment: false
+codecov:
+  branch: 0.8-dev
+coverage:
+  range: 50...90
+  status:
+    project: false
+    patch: false
+    changes: false
+  ignore:
+    - tests/.*
+    - examples/.*
+    - include/TGUI/Aurora/.*
+    - include/TGUI/Widgets/devel/.*
+    - src/TGUI/Widgets/devel/.*
