@@ -33,6 +33,7 @@
 			<Add option="-fexceptions" />
 			<Add option="-DSFML_STATIC" />
 			<Add option="-DGLEW_STATIC" />
+			<Add directory="libraries/TGUI-0.8-dev/include" />
 			<Add directory="libraries/SFML-master/include" />
 			<Add directory="libraries/Box2D-master/Box2D" />
 		</Compiler>
@@ -49,6 +50,7 @@
 			<Add library="opengl32" />
 			<Add library="winmm" />
 			<Add library="Box2D" />
+			<Add directory="libraries/TGUI-0.8-dev/build/lib" />
 			<Add directory="libraries/SFML-master/build/lib" />
 			<Add directory="libraries/SFML-master/extlibs/libs-mingw/x64" />
 			<Add directory="libraries/Box2D-master/Box2D/Build/Box2D" />

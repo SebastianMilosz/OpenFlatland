@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 #include <Box2D/Box2D.h>
 
 using namespace std;
@@ -26,6 +27,7 @@ void CreateBox(b2World& World, int MouseX, int MouseY)
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Test");
+    tgui::Gui gui{window}; // Create the gui and attach it to the window
 
     b2Vec2 gravity(0.f, 9.8f);
     b2World world(gravity);
@@ -37,6 +39,8 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            gui.handleEvent(event); // Pass the event to the widgets
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -74,6 +78,8 @@ int main()
                 window.draw(GroundSprite);
             }
         }
+
+        gui.draw(); // Draw all widgets
 
         window.display();
     }

@@ -1,0 +1,96 @@
+sudo: false
+language: cpp
+
+git:
+  depth: 10
+
+matrix:
+  include:
+  - os: linux
+    env: COMPILER=g++-4.9
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-4.9
+        - libudev-dev
+        - libxrandr-dev
+    cache:
+      ccache: true
+      directories:
+      - $HOME/SFML_LINUX
+
+  - os: linux
+    env: COMPILER=g++-6
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-6
+        - libudev-dev
+        - libx11-xcb-dev
+        - libxcb-image0-dev
+        - libxcb-randr0-dev
+    cache:
+      directories:
+      - $HOME/SFML-2.4.0_LINUX
+
+  - language: android
+    env:
+    - ANDROID_NDK=$HOME/android-ndk-r12b
+    android:
+      components:
+      - android-23
+    addons:
+      apt:
+        packages:
+        - ant
+    cache:
+      directories:
+      - $ANDROID_NDK/sources/sfml
+
+  - os: osx
+    cache:
+      directories:
+      - $HOME/SFML_OSX
+
+script:
+  - >
+    if [[ $ANDROID_NDK ]]; then
+      chmod +x tests/travis_android.sh
+      tests/travis_android.sh
+    elif [[ $TRAVIS_OS_NAME == 'linux' ]]; then
+      export CXX=$COMPILER;
+      if [[ $CXX == g++-4.9 ]]; then
+        chmod +x tests/travis_linux.sh
+        tests/travis_linux.sh
+      elif [[ $CXX == g++-6 ]]; then
+        chmod +x tests/travis_linux_tests.sh
+        tests/travis_linux_tests.sh
+      else
+        echo 'Invalid compiler'
+        exit 1
+      fi
+    elif [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+      chmod +x tests/travis_osx.sh
+      tests/travis_osx.sh
+    else
+      echo 'Invalid OS'
+      exit 1
+    fi
+
+after_success:
+  - >
+    if [[ $TRAVIS_OS_NAME == 'linux' && $CXX == g++-6 ]]; then
+      bash <(curl -s https://codecov.io/bash) -x gcov-6 -a "-s /home/travis/build/texus/TGUI -pr"
+    fi
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/66857e210e9200bcb6b7
+    on_success: change
+    on_failure: always
+    on_start: never
