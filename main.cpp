@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "entityshell.h"
+
 #include <SFML/Graphics.hpp>
 #include <TGUI/TGUI.hpp>
 #include <Box2D/Box2D.h>
