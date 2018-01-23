@@ -6,17 +6,17 @@
 class EntityShell
 {
     public:
-        EntityShell();
+        EntityShell( b2World& World, int x, int y, int z );
         virtual ~EntityShell();
         EntityShell(const EntityShell& other);
         EntityShell& operator=(const EntityShell& other);
 
-        unsigned int Getx() { return m_Body->GetPosition().x; }
-        void Setx(unsigned int val) { m_x = val; }
-        unsigned int Gety() { return m_y; }
-        void Sety(unsigned int val) { m_y = val; }
-        unsigned int Getz() { return m_z; }
-        void Setz(unsigned int val) { m_z = val; }
+        unsigned int GetX();
+        void SetX(unsigned int val);
+        unsigned int GetY();
+        void SetY(unsigned int val);
+        unsigned int GetZ();
+        void SetZ(unsigned int val);
 
     protected:
 

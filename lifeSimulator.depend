@@ -1,7 +1,10 @@
 # depslib dependency file v1.0
-1515959670 source:d:\sourcecode\lifesimulator\main.cpp
+1516745309 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
+	"entityshell.h"
 	<SFML/Graphics.hpp>
+	<TGUI/TGUI.hpp>
+	<Box2D/Box2D.h>
 
 1515499614 d:\sourcecode\lifesimulator\libraries\sfml-master\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -403,4 +406,678 @@
 	<SFML/System/String.hpp>
 	<string>
 	<vector>
+
+1516745093 d:\sourcecode\lifesimulator\include\entityshell.h
+	<Box2D/Box2D.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\box2d.h
+	<Box2D/Common/b2Settings.h>
+	<Box2D/Common/b2Draw.h>
+	<Box2D/Common/b2Timer.h>
+	<Box2D/Collision/Shapes/b2CircleShape.h>
+	<Box2D/Collision/Shapes/b2EdgeShape.h>
+	<Box2D/Collision/Shapes/b2ChainShape.h>
+	<Box2D/Collision/Shapes/b2PolygonShape.h>
+	<Box2D/Collision/b2BroadPhase.h>
+	<Box2D/Collision/b2Distance.h>
+	<Box2D/Collision/b2DynamicTree.h>
+	<Box2D/Collision/b2TimeOfImpact.h>
+	<Box2D/Dynamics/b2Body.h>
+	<Box2D/Dynamics/b2Fixture.h>
+	<Box2D/Dynamics/b2WorldCallbacks.h>
+	<Box2D/Dynamics/b2TimeStep.h>
+	<Box2D/Dynamics/b2World.h>
+	<Box2D/Dynamics/Contacts/b2Contact.h>
+	<Box2D/Dynamics/Joints/b2DistanceJoint.h>
+	<Box2D/Dynamics/Joints/b2FrictionJoint.h>
+	<Box2D/Dynamics/Joints/b2GearJoint.h>
+	<Box2D/Dynamics/Joints/b2MotorJoint.h>
+	<Box2D/Dynamics/Joints/b2MouseJoint.h>
+	<Box2D/Dynamics/Joints/b2PrismaticJoint.h>
+	<Box2D/Dynamics/Joints/b2PulleyJoint.h>
+	<Box2D/Dynamics/Joints/b2RevoluteJoint.h>
+	<Box2D/Dynamics/Joints/b2RopeJoint.h>
+	<Box2D/Dynamics/Joints/b2WeldJoint.h>
+	<Box2D/Dynamics/Joints/b2WheelJoint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\common\b2settings.h
+	<stddef.h>
+	<assert.h>
+	<float.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\common\b2draw.h
+	<Box2D/Common/b2Math.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\common\b2math.h
+	<Box2D/Common/b2Settings.h>
+	<math.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\common\b2timer.h
+	<Box2D/Common/b2Settings.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\shapes\b2circleshape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\shapes\b2shape.h
+	<Box2D/Common/b2BlockAllocator.h>
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Collision.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\common\b2blockallocator.h
+	<Box2D/Common/b2Settings.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\b2collision.h
+	<Box2D/Common/b2Math.h>
+	<limits.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\shapes\b2edgeshape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\shapes\b2chainshape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\shapes\b2polygonshape.h
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\b2broadphase.h
+	<Box2D/Common/b2Settings.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/b2DynamicTree.h>
+	<algorithm>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\b2dynamictree.h
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Common/b2GrowableStack.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\common\b2growablestack.h
+	<Box2D/Common/b2Settings.h>
+	<string.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\b2distance.h
+	<Box2D/Common/b2Math.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\collision\b2timeofimpact.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Distance.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\b2body.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+	<memory>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\b2fixture.h
+	<Box2D/Dynamics/b2Body.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\b2worldcallbacks.h
+	<Box2D/Common/b2Settings.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\b2timestep.h
+	<Box2D/Common/b2Math.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\b2world.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Common/b2BlockAllocator.h>
+	<Box2D/Common/b2StackAllocator.h>
+	<Box2D/Dynamics/b2ContactManager.h>
+	<Box2D/Dynamics/b2WorldCallbacks.h>
+	<Box2D/Dynamics/b2TimeStep.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\common\b2stackallocator.h
+	<Box2D/Common/b2Settings.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\b2contactmanager.h
+	<Box2D/Collision/b2BroadPhase.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\contacts\b2contact.h
+	<Box2D/Common/b2Math.h>
+	<Box2D/Collision/b2Collision.h>
+	<Box2D/Collision/Shapes/b2Shape.h>
+	<Box2D/Dynamics/b2Fixture.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2distancejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2joint.h
+	<Box2D/Common/b2Math.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2frictionjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2gearjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2motorjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2mousejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2prismaticjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2pulleyjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2revolutejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2ropejoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2weldjoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\dynamics\joints\b2wheeljoint.h
+	<Box2D/Dynamics/Joints/b2Joint.h>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\tgui.hpp
+	<TGUI/Clipboard.hpp>
+	<TGUI/Animation.hpp>
+	<TGUI/Widget.hpp>
+	<TGUI/ToolTip.hpp>
+	<TGUI/Container.hpp>
+	<TGUI/Gui.hpp>
+	<TGUI/Loading/Deserializer.hpp>
+	<TGUI/Loading/Serializer.hpp>
+	<TGUI/Loading/Theme.hpp>
+	<TGUI/Loading/WidgetFactory.hpp>
+	<TGUI/Widgets/BitmapButton.hpp>
+	<TGUI/Widgets/Button.hpp>
+	<TGUI/Widgets/Canvas.hpp>
+	<TGUI/Widgets/ChatBox.hpp>
+	<TGUI/Widgets/CheckBox.hpp>
+	<TGUI/Widgets/ChildWindow.hpp>
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<TGUI/Widgets/ComboBox.hpp>
+	<TGUI/Widgets/EditBox.hpp>
+	<TGUI/Widgets/Group.hpp>
+	<TGUI/Widgets/Grid.hpp>
+	<TGUI/Widgets/HorizontalLayout.hpp>
+	<TGUI/Widgets/HorizontalWrap.hpp>
+	<TGUI/Widgets/Knob.hpp>
+	<TGUI/Widgets/Label.hpp>
+	<TGUI/Widgets/ListBox.hpp>
+	<TGUI/Widgets/MenuBar.hpp>
+	<TGUI/Widgets/MessageBox.hpp>
+	<TGUI/Widgets/Panel.hpp>
+	<TGUI/Widgets/Picture.hpp>
+	<TGUI/Widgets/ProgressBar.hpp>
+	<TGUI/Widgets/RadioButton.hpp>
+	<TGUI/Widgets/RadioButtonGroup.hpp>
+	<TGUI/Widgets/RangeSlider.hpp>
+	<TGUI/Widgets/ScrollablePanel.hpp>
+	<TGUI/Widgets/Scrollbar.hpp>
+	<TGUI/Widgets/Slider.hpp>
+	<TGUI/Widgets/SpinButton.hpp>
+	<TGUI/Widgets/Tabs.hpp>
+	<TGUI/Widgets/TextBox.hpp>
+	<TGUI/Widgets/VerticalLayout.hpp>
+	<TGUI/SignalImpl.hpp>
+	<SFML/Graphics.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\clipboard.hpp
+	<TGUI/Config.hpp>
+	<SFML/System/String.hpp>
+	<SFML/Window/WindowHandle.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\config.hpp
+	<SFML/Config.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\animation.hpp
+	<TGUI/Widget.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widget.hpp
+	<TGUI/Global.hpp>
+	<TGUI/Signal.hpp>
+	<TGUI/Sprite.hpp>
+	<TGUI/Layout.hpp>
+	<TGUI/Vector2f.hpp>
+	<TGUI/Loading/Theme.hpp>
+	<TGUI/Loading/DataIO.hpp>
+	<TGUI/Loading/Serializer.hpp>
+	<TGUI/Loading/Deserializer.hpp>
+	<TGUI/Renderers/WidgetRenderer.hpp>
+	<TGUI/Aurora/SmartPtr/CopiedPtr.hpp>
+	<TGUI/Aurora/Tools/Downcast.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<unordered_set>
+	<any>
+	<TGUI/Any.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\global.hpp
+	<TGUI/Config.hpp>
+	<TGUI/Exception.hpp>
+	<TGUI/Font.hpp>
+	<cstdint>
+	<string>
+	<memory>
+	<iostream>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\exception.hpp
+	<string>
+	<stdexcept>
+	<TGUI/Config.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\font.hpp
+	<TGUI/Config.hpp>
+	<SFML/Graphics/Font.hpp>
+	<cstdint>
+	<string>
+	<cstddef>
+	<memory>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signal.hpp
+	<TGUI/Global.hpp>
+	<TGUI/Vector2f.hpp>
+	<SFML/System/String.hpp>
+	<functional>
+	<typeindex>
+	<memory>
+	<vector>
+	<deque>
+	<map>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\vector2f.hpp
+	<TGUI/Global.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Err.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\sprite.hpp
+	<TGUI/Texture.hpp>
+	<TGUI/Vector2f.hpp>
+	<TGUI/FloatRect.hpp>
+	<TGUI/Color.hpp>
+	<SFML/Graphics/Transformable.hpp>
+	<SFML/Graphics/RenderStates.hpp>
+	<SFML/Graphics/Vertex.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\texture.hpp
+	<TGUI/TextureData.hpp>
+	<TGUI/Vector2f.hpp>
+	<SFML/System/String.hpp>
+	<functional>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\texturedata.hpp
+	<TGUI/Config.hpp>
+	<SFML/Graphics/Image.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Shader.hpp>
+	<memory>
+	<string>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\floatrect.hpp
+	<TGUI/Config.hpp>
+	<SFML/Graphics/Rect.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\color.hpp
+	<TGUI/Config.hpp>
+	<SFML/Graphics/Color.hpp>
+	<cstdint>
+	<string>
+	<map>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\layout.hpp
+	<TGUI/Config.hpp>
+	<TGUI/Vector2f.hpp>
+	<type_traits>
+	<functional>
+	<memory>
+	<string>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\loading\theme.hpp
+	<TGUI/Loading/ThemeLoader.hpp>
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\loading\themeloader.hpp
+	<TGUI/Config.hpp>
+	<SFML/System/String.hpp>
+	<memory>
+	<string>
+	<vector>
+	<map>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\widgetrenderer.hpp
+	<TGUI/Config.hpp>
+	<TGUI/ObjectConverter.hpp>
+	<TGUI/Loading/DataIO.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\objectconverter.hpp
+	<TGUI/TextStyle.hpp>
+	<TGUI/Outline.hpp>
+	<TGUI/Texture.hpp>
+	<TGUI/Color.hpp>
+	<TGUI/Font.hpp>
+	<variant>
+	<TGUI/Any.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\textstyle.hpp
+	<TGUI/Config.hpp>
+	<SFML/Graphics/Text.hpp>
+	<string>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\outline.hpp
+	<TGUI/Vector2f.hpp>
+	<TGUI/AbsoluteOrRelativeValue.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\absoluteorrelativevalue.hpp
+	<TGUI/Global.hpp>
+	<TGUI/to_string.hpp>
+	<type_traits>
+	<string>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\to_string.hpp
+	<sstream>
+	<locale>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\any.hpp
+	<type_traits>
+	<utility>
+	<typeinfo>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\loading\dataio.hpp
+	<TGUI/Config.hpp>
+	<SFML/System/String.hpp>
+	<sstream>
+	<memory>
+	<vector>
+	<string>
+	<map>
+	<cstdio>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\loading\serializer.hpp
+	<TGUI/ObjectConverter.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\loading\deserializer.hpp
+	<TGUI/ObjectConverter.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\smartptr\copiedptr.hpp
+	<TGUI/Aurora/SmartPtr/ClonersAndDeleters.hpp>
+	<TGUI/Aurora/SmartPtr/Detail/PtrOwner.hpp>
+	<TGUI/Aurora/Tools/SafeBool.hpp>
+	<TGUI/Aurora/Tools/Swap.hpp>
+	<TGUI/Aurora/Config.hpp>
+	<algorithm>
+	<type_traits>
+	<utility>
+	<TGUI/Aurora/SmartPtr/Detail/Factories.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\smartptr\clonersanddeleters.hpp
+	<TGUI/Aurora/Meta/Templates.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\meta\templates.hpp
+	<TGUI/Aurora/Config.hpp>
+	<type_traits>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\config.hpp
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\smartptr\detail\ptrowner.hpp
+	<TGUI/Aurora/Tools/NonCopyable.hpp>
+	<cassert>
+	<utility>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\tools\noncopyable.hpp
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\tools\safebool.hpp
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\tools\swap.hpp
+	<utility>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\smartptr\detail\factories.hpp
+	<TGUI/Aurora/Meta/Preprocessor.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\meta\preprocessor.hpp
+	<TGUI/Aurora/Config.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\aurora\tools\downcast.hpp
+	<cassert>
+	<type_traits>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\tooltip.hpp
+	<TGUI/Config.hpp>
+	<TGUI/Vector2f.hpp>
+	<SFML/System/Time.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\container.hpp
+	<list>
+	<TGUI/Widget.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\gui.hpp
+	<TGUI/Container.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<queue>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\loading\widgetfactory.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Loading/DataIO.hpp>
+	<functional>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\bitmapbutton.hpp
+	<TGUI/Widgets/Button.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\button.hpp
+	<TGUI/Renderers/ButtonRenderer.hpp>
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<TGUI/Text.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\buttonrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\clickablewidget.hpp
+	<TGUI/Widget.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\text.hpp
+	<TGUI/Font.hpp>
+	<TGUI/Color.hpp>
+	<TGUI/Vector2f.hpp>
+	<TGUI/TextStyle.hpp>
+	<SFML/Graphics/Text.hpp>
+	<SFML/Graphics/Transformable.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\canvas.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<SFML/Graphics/RenderTexture.hpp>
+	<SFML/Graphics/Sprite.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\chatbox.hpp
+	<TGUI/Widgets/Scrollbar.hpp>
+	<TGUI/Renderers/ChatBoxRenderer.hpp>
+	<TGUI/Text.hpp>
+	<deque>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\scrollbar.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Renderers/ScrollbarRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\scrollbarrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\chatboxrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\checkbox.hpp
+	<TGUI/Widgets/RadioButton.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\radiobutton.hpp
+	<TGUI/Renderers/RadioButtonRenderer.hpp>
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<TGUI/Text.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\radiobuttonrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\childwindow.hpp
+	<TGUI/Container.hpp>
+	<TGUI/Widgets/Button.hpp>
+	<TGUI/Renderers/ChildWindowRenderer.hpp>
+	<limits>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\childwindowrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\combobox.hpp
+	<TGUI/Widgets/ListBox.hpp>
+	<TGUI/Renderers/ComboBoxRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\listbox.hpp
+	<TGUI/Widgets/Scrollbar.hpp>
+	<TGUI/Renderers/ListBoxRenderer.hpp>
+	<TGUI/Text.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\listboxrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\comboboxrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\editbox.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<TGUI/Renderers/EditBoxRenderer.hpp>
+	<TGUI/FloatRect.hpp>
+	<TGUI/Text.hpp>
+	<regex>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\editboxrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\group.hpp
+	<TGUI/Container.hpp>
+	<TGUI/Renderers/GroupRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\grouprenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\grid.hpp
+	<TGUI/Container.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\horizontallayout.hpp
+	<TGUI/Widgets/BoxLayoutRatios.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\boxlayoutratios.hpp
+	<TGUI/Widgets/BoxLayout.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\boxlayout.hpp
+	<TGUI/Widgets/Group.hpp>
+	<TGUI/Renderers/BoxLayoutRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\boxlayoutrenderer.hpp
+	<TGUI/Renderers/GroupRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\horizontalwrap.hpp
+	<TGUI/Widgets/BoxLayout.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\knob.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Renderers/KnobRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\knobrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\label.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<TGUI/Renderers/LabelRenderer.hpp>
+	<TGUI/Text.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\labelrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\menubar.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Renderers/MenuBarRenderer.hpp>
+	<TGUI/Text.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\menubarrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\messagebox.hpp
+	<TGUI/Widgets/Label.hpp>
+	<TGUI/Widgets/Button.hpp>
+	<TGUI/Widgets/ChildWindow.hpp>
+	<TGUI/Renderers/MessageBoxRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\messageboxrenderer.hpp
+	<TGUI/Renderers/ChildWindowRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\panel.hpp
+	<TGUI/Widgets/Group.hpp>
+	<TGUI/Renderers/PanelRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\panelrenderer.hpp
+	<TGUI/Renderers/GroupRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\picture.hpp
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<TGUI/Renderers/PictureRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\picturerenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\progressbar.hpp
+	<TGUI/Renderers/ProgressBarRenderer.hpp>
+	<TGUI/Widgets/ClickableWidget.hpp>
+	<TGUI/Text.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\progressbarrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\radiobuttongroup.hpp
+	<TGUI/Widgets/Group.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\rangeslider.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Renderers/RangeSliderRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\rangesliderrenderer.hpp
+	<TGUI/Renderers/SliderRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\sliderrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\scrollablepanel.hpp
+	<TGUI/Widgets/Panel.hpp>
+	<TGUI/Widgets/Scrollbar.hpp>
+	<TGUI/Renderers/ScrollablePanelRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\scrollablepanelrenderer.hpp
+	<TGUI/Renderers/PanelRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\slider.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Renderers/SliderRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\spinbutton.hpp
+	<TGUI/Renderers/SpinButtonRenderer.hpp>
+	<TGUI/Widgets/ClickableWidget.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\spinbuttonrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\tabs.hpp
+	<TGUI/Widget.hpp>
+	<TGUI/Renderers/TabsRenderer.hpp>
+	<TGUI/Text.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\tabsrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\textbox.hpp
+	<TGUI/Widgets/Scrollbar.hpp>
+	<TGUI/Renderers/TextBoxRenderer.hpp>
+	<TGUI/Text.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\renderers\textboxrenderer.hpp
+	<TGUI/Renderers/WidgetRenderer.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\widgets\verticallayout.hpp
+	<TGUI/Widgets/BoxLayoutRatios.hpp>
+
+1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
+	<TGUI/Signal.hpp>
+
+1516745339 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+	"entityshell.h"
 

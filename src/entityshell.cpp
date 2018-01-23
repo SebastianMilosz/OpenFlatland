@@ -1,13 +1,26 @@
 #include "entityshell.h"
 
+static const float SCALE = 30.f;
+
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell()
+EntityShell::EntityShell( b2World& world, int x, int y, int z )
 {
-    //ctor
+    b2BodyDef BodyDef;
+    BodyDef.position = b2Vec2(x/SCALE, y/SCALE);
+    BodyDef.type = b2_dynamicBody;
+    m_Body = world.CreateBody(&BodyDef);
+
+    b2PolygonShape Shape;
+    Shape.SetAsBox((32.f/2)/SCALE, (32.f/2)/SCALE);
+    b2FixtureDef FixtureDef;
+    FixtureDef.density = 1.f;
+    FixtureDef.friction = 0.7f;
+    FixtureDef.shape = &Shape;
+    m_Body->CreateFixture(&FixtureDef);
 }
 
 /*****************************************************************************/
@@ -47,7 +60,7 @@ EntityShell& EntityShell::operator=(const EntityShell& rhs)
   * @brief
  **
 ******************************************************************************/
-unsigned int GetX()
+unsigned int EntityShell::GetX()
 {
     if( m_Body == NULL ) return 0;
 
@@ -59,9 +72,9 @@ unsigned int GetX()
   * @brief
  **
 ******************************************************************************/
-void SetX(unsigned int val)
+void EntityShell::SetX(unsigned int val)
 {
-    m_x = val;
+    //m_x = val;
 }
 
 /*****************************************************************************/
@@ -69,7 +82,39 @@ void SetX(unsigned int val)
   * @brief
  **
 ******************************************************************************/
-unsigned int Gety() { return m_y; }
-void Sety(unsigned int val) { m_y = val; }
-unsigned int Getz() { return m_z; }
-void Setz(unsigned int val) { m_z = val; }
+unsigned int EntityShell::GetY()
+{
+    if( m_Body == NULL ) return 0;
+
+    return m_Body->GetPosition().y;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityShell::SetY(unsigned int val)
+{
+    //m_y = val;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+unsigned int EntityShell::GetZ()
+{
+    return 0;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityShell::SetZ(unsigned int val)
+{
+    //m_z = val;
+}

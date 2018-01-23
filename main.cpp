@@ -10,22 +10,6 @@ using namespace std;
 
 static const float SCALE = 30.f;
 
-void CreateBox(b2World& World, int MouseX, int MouseY)
-{
-    b2BodyDef BodyDef;
-    BodyDef.position = b2Vec2(MouseX/SCALE, MouseY/SCALE);
-    BodyDef.type = b2_dynamicBody;
-    b2Body* Body = World.CreateBody(&BodyDef);
-
-    b2PolygonShape Shape;
-    Shape.SetAsBox((32.f/2)/SCALE, (32.f/2)/SCALE);
-    b2FixtureDef FixtureDef;
-    FixtureDef.density = 1.f;
-    FixtureDef.friction = 0.7f;
-    FixtureDef.shape = &Shape;
-    Body->CreateFixture(&FixtureDef);
-}
-
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Test");
@@ -45,7 +29,7 @@ int main()
     menu->addMenuItem("About");
     gui.add(menu);
 
-    b2Vec2 gravity(0.f, 9.8f);
+    b2Vec2 gravity(0.f, 0.f);
     b2World world(gravity);
 
     while (window.isOpen())
@@ -63,7 +47,7 @@ int main()
         {
             int MouseX = sf::Mouse::getPosition(window).x;
             int MouseY = sf::Mouse::getPosition(window).y;
-            CreateBox(world, MouseX, MouseY);
+            EntityShell* entity = new EntityShell( world, MouseX, MouseY, 0 );
         }
 
         /** Simulate the world */
