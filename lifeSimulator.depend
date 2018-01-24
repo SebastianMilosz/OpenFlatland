@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1516745309 source:d:\sourcecode\lifesimulator\main.cpp
+1516829157 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
-	"entityshell.h"
+	"entityfactory.h"
+	"entity.h"
 	<SFML/Graphics.hpp>
 	<TGUI/TGUI.hpp>
 	<Box2D/Box2D.h>
@@ -1080,4 +1081,14 @@
 
 1516745339 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.h"
+
+1516829112 d:\sourcecode\lifesimulator\include\entityfactory.h
+	"entity.h"
+	<list>
+
+1516829424 d:\sourcecode\lifesimulator\include\entity.h
+	<entityshell.h>
+
+1516825071 source:d:\sourcecode\lifesimulator\src\entity.cpp
+	"entity.h"
 

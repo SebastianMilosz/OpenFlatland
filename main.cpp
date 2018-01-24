@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include "entityshell.h"
+#include "entityfactory.h"
+#include "entity.h"
 
 #include <SFML/Graphics.hpp>
 #include <TGUI/TGUI.hpp>
@@ -29,8 +30,9 @@ int main()
     menu->addMenuItem("About");
     gui.add(menu);
 
-    b2Vec2 gravity(0.f, 0.f);
-    b2World world(gravity);
+    b2Vec2          m_Gravity( 0.f, 0.f );
+    b2World         m_World( m_Gravity );
+    EntityFactory   m_Factory( m_World );
 
     while (window.isOpen())
     {
@@ -47,15 +49,15 @@ int main()
         {
             int MouseX = sf::Mouse::getPosition(window).x;
             int MouseY = sf::Mouse::getPosition(window).y;
-            EntityShell* entity = new EntityShell( world, MouseX, MouseY, 0 );
+            std::shared_ptr<Entity> entity = m_Factory.Create( MouseX, MouseY, 0 );
         }
 
         /** Simulate the world */
-        world.Step(1/60.f, 8, 3);
+        m_World.Step(1/60.f, 8, 3);
 
         window.clear();
 
-        for(b2Body* BodyIterator = world.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
+        for(b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
         {
             if (BodyIterator->GetType() == b2_dynamicBody)
             {
