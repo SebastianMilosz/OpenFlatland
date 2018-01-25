@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1516829157 source:d:\sourcecode\lifesimulator\main.cpp
+1516918401 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
+	"world.h"
 	"entityfactory.h"
 	"entity.h"
 	<SFML/Graphics.hpp>
@@ -408,7 +409,8 @@
 	<string>
 	<vector>
 
-1516745093 d:\sourcecode\lifesimulator\include\entityshell.h
+1516917074 d:\sourcecode\lifesimulator\include\entityshell.h
+	"world.h"
 	<Box2D/Box2D.h>
 
 1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\box2d.h
@@ -1079,16 +1081,28 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1516745339 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1516917237 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.h"
 
-1516829112 d:\sourcecode\lifesimulator\include\entityfactory.h
+1516916969 d:\sourcecode\lifesimulator\include\entityfactory.h
+	"world.h"
 	"entity.h"
 	<list>
 
 1516829424 d:\sourcecode\lifesimulator\include\entity.h
 	<entityshell.h>
 
-1516825071 source:d:\sourcecode\lifesimulator\src\entity.cpp
+1516829432 source:d:\sourcecode\lifesimulator\src\entity.cpp
 	"entity.h"
+
+1516918480 d:\sourcecode\lifesimulator\include\world.h
+	<SFML/Graphics.hpp>
+	<TGUI/TGUI.hpp>
+	<Box2D/Box2D.h>
+
+1516916932 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
+	"entityfactory.h"
+
+1516918472 source:d:\sourcecode\lifesimulator\src\world.cpp
+	"world.h"
 

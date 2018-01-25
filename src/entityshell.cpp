@@ -7,7 +7,7 @@ static const float SCALE = 30.f;
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell( b2World& world, int x, int y, int z )
+EntityShell::EntityShell( World& world, int x, int y, int z )
 {
     b2BodyDef BodyDef;
     BodyDef.position = b2Vec2(x/SCALE, y/SCALE);

@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-EntityFactory::EntityFactory( b2World& world ) :
+EntityFactory::EntityFactory( World& world ) :
     m_world( world )
 {
     //ctor
