@@ -1,12 +1,14 @@
 #ifndef ENTITYSHELL_H
 #define ENTITYSHELL_H
 
+#include "world.h"
+
 #include <Box2D/Box2D.h>
 
 class EntityShell
 {
     public:
-        EntityShell( b2World& World, int x, int y, int z );
+        EntityShell( World& World, int x, int y, int z );
         virtual ~EntityShell();
         EntityShell(const EntityShell& other);
         EntityShell& operator=(const EntityShell& other);

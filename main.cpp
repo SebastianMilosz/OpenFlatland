@@ -1,15 +1,12 @@
 #include <iostream>
 
+#include "world.h"
 #include "entityfactory.h"
 #include "entity.h"
 
 #include <SFML/Graphics.hpp>
 #include <TGUI/TGUI.hpp>
 #include <Box2D/Box2D.h>
-
-using namespace std;
-
-static const float SCALE = 30.f;
 
 int main()
 {
@@ -30,8 +27,7 @@ int main()
     menu->addMenuItem("About");
     gui.add(menu);
 
-    b2Vec2          m_Gravity( 0.f, 0.f );
-    b2World         m_World( m_Gravity );
+    World           m_World;
     EntityFactory   m_Factory( m_World );
 
     while (window.isOpen())
@@ -53,33 +49,11 @@ int main()
         }
 
         /** Simulate the world */
-        m_World.Step(1/60.f, 8, 3);
+        m_World.PhysisStep();
 
         window.clear();
 
-        for(b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext())
-        {
-            if (BodyIterator->GetType() == b2_dynamicBody)
-            {
-                sf::CircleShape circle;
-                circle.setRadius(10);
-                circle.setOutlineColor(sf::Color::Red);
-                circle.setOutlineThickness(5);
-                circle.setOrigin(16.f, 16.f);
-                circle.setPosition(SCALE * BodyIterator->GetPosition().x, SCALE * BodyIterator->GetPosition().y);
-                circle.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
-                window.draw(circle);
-            }
-            else
-            {
-                sf::Sprite GroundSprite;
-                //GroundSprite.SetTexture(GroundTexture);
-                GroundSprite.setOrigin(400.f, 8.f);
-                GroundSprite.setPosition(BodyIterator->GetPosition().x * SCALE, BodyIterator->GetPosition().y * SCALE);
-                GroundSprite.setRotation(180/b2_pi * BodyIterator->GetAngle());
-                window.draw(GroundSprite);
-            }
-        }
+        m_World.Draw( window );
 
         gui.draw(); // Draw all widgets
 
