@@ -62,11 +62,13 @@
 		<Unit filename="include/entity.h" />
 		<Unit filename="include/entityfactory.h" />
 		<Unit filename="include/entityshell.h" />
+		<Unit filename="include/guiwidgetslayer.h" />
 		<Unit filename="include/world.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/entity.cpp" />
 		<Unit filename="src/entityfactory.cpp" />
 		<Unit filename="src/entityshell.cpp" />
+		<Unit filename="src/guiwidgetslayer.cpp" />
 		<Unit filename="src/world.cpp" />
 		<Extensions>
 			<code_completion />

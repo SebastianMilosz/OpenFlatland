@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1516918401 source:d:\sourcecode\lifesimulator\main.cpp
+1517004700 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
 	"world.h"
 	"entityfactory.h"
+	"guiwidgetslayer.h"
 	"entity.h"
 	<SFML/Graphics.hpp>
 	<TGUI/TGUI.hpp>
@@ -1105,4 +1106,8 @@
 
 1516918472 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.h"
+
+1517004640 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
+	<SFML/Graphics.hpp>
+	<TGUI/TGUI.hpp>
 
