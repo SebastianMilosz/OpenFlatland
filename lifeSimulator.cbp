@@ -33,14 +33,18 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 			<Add option="-DSFML_STATIC" />
 			<Add option="-DGLEW_STATIC" />
+			<Add directory="libraries/libsigc++-2.99.10/build" />
+			<Add directory="libraries/libsigc++-2.99.10" />
 			<Add directory="libraries/TGUI-0.8-dev/include" />
 			<Add directory="libraries/SFML-master/include" />
 			<Add directory="libraries/Box2D-master/Box2D" />
 		</Compiler>
 		<Linker>
+			<Add library="sigc-3.0" />
 			<Add library="tgui-s" />
 			<Add library="sfml-graphics-s" />
 			<Add library="sfml-network-s" />
@@ -54,6 +58,7 @@
 			<Add library="opengl32" />
 			<Add library="winmm" />
 			<Add library="Box2D" />
+			<Add directory="libraries/libsigc++-2.99.10/build/sigc++" />
 			<Add directory="libraries/TGUI-0.8-dev/build/lib" />
 			<Add directory="libraries/SFML-master/build/lib" />
 			<Add directory="libraries/SFML-master/extlibs/libs-mingw/x64" />
