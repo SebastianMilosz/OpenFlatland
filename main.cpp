@@ -5,6 +5,7 @@
 #include "guiwidgetslayer.h"
 #include "entity.h"
 
+#include <cpgf/gcallbacklist.h>
 #include <SFML/Graphics.hpp>
 #include <TGUI/TGUI.hpp>
 #include <Box2D/Box2D.h>

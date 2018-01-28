@@ -17,27 +17,14 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     menu->addMenuItem("Save");
     menu->addMenuItem("Exit");
     menu->addMenu("Edit");
-    menu->addMenuItem("Copy");
-    menu->addMenuItem("Paste");
+    menu->addMenuItem("Add");
+    menu->addMenuItem("Select");
     menu->addMenu("Help");
     menu->addMenuItem("About");
+
+    menu->bindCallback(&sf::Window::close, ptr, tgui::MenuBar::MenuItemClicked);
+
     m_gui.add( menu );
-
-    auto button = tgui::Button::create();
-    //button->setRenderer(theme.getRenderer("Button"));
-    button->setPosition(75, 70);
-    button->setText("OK");
-    button->setSize(100, 30);
-    button->connect("pressed", [=](){  });
-    m_gui.add(button);
-
-
-    auto child = tgui::ChildWindow::create();
-    //child->setRenderer(theme.getRenderer("ChildWindow"));
-    child->setSize(250, 120);
-    child->setPosition(420, 80);
-    child->setTitle("Child window");
-    m_gui.add(child);
 }
 
 /*****************************************************************************/
@@ -80,6 +67,12 @@ bool GUIWidgetsLayer::MouseOnGui()
 ******************************************************************************/
 bool GUIWidgetsLayer::HandleEvent( sf::Event& event )
 {
+    // catch the resize events
+    if (event.type == sf::Event::Resized)
+    {
+        m_gui.setView( m_window.getView() );
+    }
+
     return m_gui.handleEvent( event );
 }
 
