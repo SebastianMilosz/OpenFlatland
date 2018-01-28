@@ -4,3 +4,4 @@ libraries/Box2D-master/Contributions/
 libraries/SFML-master/build/
 libraries/libjpeg-turbo-1.2.1/build
 libraries/TGUI-0.8-dev/build
+libraries/libsigc++-2.99.10/build
