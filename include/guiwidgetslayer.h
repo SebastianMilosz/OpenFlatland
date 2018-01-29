@@ -16,11 +16,16 @@ class GUIWidgetsLayer
         bool HandleEvent( sf::Event& event );
         void Draw();
 
+        void SetMode( int mode );
+        int  GetMode();
+
     protected:
 
     private:
         tgui::Gui           m_gui;
         sf::RenderWindow&   m_window;
+
+        int m_mode;
 
         std::vector< sf::Rect<int> > m_guiRegions;
 };
