@@ -5,26 +5,47 @@
   * @brief
  **
 ******************************************************************************/
+void GUIWidgetsLayer::SetMode( int mode )
+{
+    m_mode = mode;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+int GUIWidgetsLayer::GetMode()
+{
+    return m_mode;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_window( window ),
-    m_gui( window )
+    m_gui( window ),
+    m_mode( 0 )
 {
-    auto menu = tgui::MenuBar::create();
-    //menu->setRenderer(theme.getRenderer("MenuBar"));
-    menu->setSize((float)window.getSize().x, 22.f);
-    menu->addMenu("File");
-    menu->addMenuItem("Load");
-    menu->addMenuItem("Save");
-    menu->addMenuItem("Exit");
-    menu->addMenu("Edit");
-    menu->addMenuItem("Add");
-    menu->addMenuItem("Select");
-    menu->addMenu("Help");
-    menu->addMenuItem("About");
+    tgui::Button::Ptr button_add = tgui::Button::create();
+    //button->setRenderer(theme.getRenderer("Button"));
+    button_add->setPosition(5, 5);
+    button_add->setText("<Add>");
+    button_add->setSize(50, 30);
+    m_gui.add(button_add);
 
-    menu->bindCallback(&sf::Window::close, ptr, tgui::MenuBar::MenuItemClicked);
+    tgui::Button::Ptr button_sel = tgui::Button::create();
+    //button->setRenderer(theme.getRenderer("Button"));
+    button_sel->setPosition(5, 35);
+    button_sel->setText("Sel");
+    button_sel->setSize(50, 30);
+    m_gui.add(button_sel);
 
-    m_gui.add( menu );
+    button_add->connect("pressed", [=](){ button_add->setText("<Add>"); button_sel->setText(" Sel "); this->SetMode( 0 ); });
+    button_sel->connect("pressed", [=](){ button_add->setText(" Add "); button_sel->setText("<Sel>"); this->SetMode( 1 ); });
 }
 
 /*****************************************************************************/

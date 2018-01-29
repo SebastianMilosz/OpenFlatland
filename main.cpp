@@ -65,11 +65,14 @@ int main()
 
         if( m_Widgets.MouseOnGui() == false )
         {
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            if( m_Widgets.GetMode() == 0 )
             {
-                int MouseX = sf::Mouse::getPosition(window).x;
-                int MouseY = sf::Mouse::getPosition(window).y;
-                std::shared_ptr<Entity> entity = m_Factory.Create( MouseX, MouseY, 0 );
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                {
+                    int MouseX = sf::Mouse::getPosition(window).x;
+                    int MouseY = sf::Mouse::getPosition(window).y;
+                    std::shared_ptr<Entity> entity = m_Factory.Create( MouseX, MouseY, 0 );
+                }
             }
         }
 
