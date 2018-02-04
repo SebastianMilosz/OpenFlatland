@@ -7,7 +7,6 @@
 
 #include <cpgf/gcallbacklist.h>
 #include <SFML/Graphics.hpp>
-#include <TGUI/TGUI.hpp>
 #include <Box2D/Box2D.h>
 
 void zoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, float zoom )
@@ -65,13 +64,24 @@ int main()
 
         if( m_Widgets.MouseOnGui() == false )
         {
-            if( m_Widgets.GetMode() == 0 )
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                // get the current mouse position in the window
+                sf::Vector2i pixelPos = sf::Mouse::getPosition( window );
+
+                // convert it to world coordinates
+                sf::Vector2f worldPos = window.mapPixelToCoords( pixelPos );
+
+                int MouseX = worldPos.x;
+                int MouseY = worldPos.y;
+
+                if( m_Widgets.GetMode() == 0 )
                 {
-                    int MouseX = sf::Mouse::getPosition(window).x;
-                    int MouseY = sf::Mouse::getPosition(window).y;
                     std::shared_ptr<Entity> entity = m_Factory.Create( MouseX, MouseY, 0 );
+                }
+                else if( m_Widgets.GetMode() == 1 )
+                {
+                    m_World.MouseDown( MouseX, MouseY );
                 }
             }
         }

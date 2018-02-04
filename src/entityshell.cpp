@@ -7,11 +7,13 @@ static const float SCALE = 30.f;
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell( World& world, int x, int y, int z )
+EntityShell::EntityShell( World& world, int x, int y, int z ) :
+    m_color(sf::Color::Red)
 {
     b2BodyDef BodyDef;
     BodyDef.position = b2Vec2(x/SCALE, y/SCALE);
     BodyDef.type = b2_dynamicBody;
+    BodyDef.userData = (void*)this;
     m_Body = world.CreateBody(&BodyDef);
 
     b2PolygonShape Shape;

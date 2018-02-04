@@ -4,6 +4,7 @@
 #include "world.h"
 
 #include <Box2D/Box2D.h>
+#include <SFML/Graphics.hpp>
 
 class EntityShell
 {
@@ -20,10 +21,14 @@ class EntityShell
         unsigned int GetZ();
         void SetZ(unsigned int val);
 
+        void SetColor( const sf::Color& color ) { m_color = color; }
+        sf::Color& GetColor() { return m_color; }
+
     protected:
 
     private:
-        b2Body* m_Body;
+        b2Body*     m_Body;
+        sf::Color   m_color;
 };
 
 #endif // ENTITYSHELL_H

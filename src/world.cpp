@@ -1,6 +1,37 @@
 #include "world.h"
+#include "entityshell.h"
 
 static const float SCALE = 30.f;
+
+class QueryCallback : public b2QueryCallback
+{
+public:
+   QueryCallback(const b2Vec2& point)
+   {
+      m_point = point;
+      m_fixture = NULL;
+   }
+
+   bool ReportFixture(b2Fixture* fixture)
+   {
+      b2Body* body = fixture->GetBody();
+      if (body->GetType() == b2_dynamicBody)
+      {
+         bool inside = fixture->TestPoint(m_point);
+         if (inside)
+         {
+            m_fixture = fixture;
+
+            // We are done, terminate the query.
+            return false;
+         }
+      }
+      // Continue the query.
+      return true;
+   }
+   b2Vec2 m_point;
+   b2Fixture* m_fixture;
+};
 
 /*****************************************************************************/
 /**
@@ -56,14 +87,26 @@ bool World::Draw( sf::RenderWindow& window )
     {
         if (BodyIterator->GetType() == b2_dynamicBody)
         {
-            sf::CircleShape circle;
-            circle.setRadius(10);
-            circle.setOutlineColor(sf::Color::Red);
-            circle.setOutlineThickness(5);
-            circle.setOrigin(16.f, 16.f);
-            circle.setPosition(SCALE * BodyIterator->GetPosition().x, SCALE * BodyIterator->GetPosition().y);
-            circle.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
-            window.draw(circle);
+            void* userVoid = BodyIterator->GetUserData();
+
+            if( userVoid )
+            {
+                EntityShell* entShell = static_cast<EntityShell*>(userVoid);
+
+                if( entShell )
+                {
+                    sf::Color& entColor = entShell->GetColor();
+
+                    sf::CircleShape circle;
+                    circle.setRadius(10);
+                    circle.setOutlineColor( entColor );
+                    circle.setOutlineThickness(5);
+                    circle.setOrigin(16.f, 16.f);
+                    circle.setPosition(SCALE * BodyIterator->GetPosition().x, SCALE * BodyIterator->GetPosition().y);
+                    circle.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
+                    window.draw(circle);
+                }
+            }
         }
         else
         {
@@ -75,4 +118,59 @@ bool World::Draw( sf::RenderWindow& window )
             window.draw(GroundSprite);
         }
     }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+bool World::MouseDown( int x, int y )
+{
+    b2Body* body = getBodyAtMouse( x, y );
+
+    if( body )
+    {
+        void* userVoid = body->GetUserData();
+
+        if( userVoid )
+        {
+            EntityShell* entShell = static_cast<EntityShell*>(userVoid);
+
+            if( entShell )
+            {
+                entShell->SetColor( sf::Color::Blue );
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+b2Body* World::getBodyAtMouse( int x, int y )
+{
+   b2Vec2 mouseV2;
+   mouseV2.Set(x,y);
+
+   // small box:
+   b2AABB aabb = b2AABB();
+   aabb.lowerBound.Set(x -0.001, y - 0.001);
+   aabb.upperBound.Set(x +0.001, y + 0.001);
+
+   // Query the world for overlapping shapes.
+   QueryCallback callback(mouseV2);
+   m_World.QueryAABB(&callback, aabb);
+
+   if (callback.m_fixture)
+   {
+        return callback.m_fixture->GetBody();
+   }
+
+   return NULL;
 }
