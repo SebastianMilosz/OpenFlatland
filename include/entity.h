@@ -3,7 +3,6 @@
 
 #include <entityshell.h>
 
-
 class Entity
 {
     public:
@@ -12,7 +11,7 @@ class Entity
         Entity(const Entity& other);
         Entity& operator=(const Entity& other);
 
-        AddShell( std::shared_ptr<EntityShell> shell )
+        void AddShell( std::shared_ptr<EntityShell> shell )
         {
             m_shell = shell;
         }

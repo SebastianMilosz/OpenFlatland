@@ -2,7 +2,6 @@
 #define WORLD_H
 
 #include <SFML/Graphics.hpp>
-#include <TGUI/TGUI.hpp>
 #include <Box2D/Box2D.h>
 
 class World
@@ -15,10 +14,13 @@ class World
 
         bool PhysisStep();
         bool Draw( sf::RenderWindow& window );
+        bool MouseDown( int x, int y );
 
     protected:
 
     private:
+        b2Body* getBodyAtMouse( int x, int y );
+
         b2Vec2   m_Gravity;
         b2World  m_World;
 };

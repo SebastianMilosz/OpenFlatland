@@ -2,7 +2,6 @@
 #define GUIWIDGETSLAYER_H
 
 #include <SFML/Graphics.hpp>
-#include <TGUI/TGUI.hpp>
 
 class GUIWidgetsLayer
 {
@@ -22,7 +21,6 @@ class GUIWidgetsLayer
     protected:
 
     private:
-        tgui::Gui           m_gui;
         sf::RenderWindow&   m_window;
 
         int m_mode;

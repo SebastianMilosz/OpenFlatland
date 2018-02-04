@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1517168772 source:d:\sourcecode\lifesimulator\main.cpp
+1517739508 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
 	"world.h"
 	"entityfactory.h"
@@ -7,7 +7,6 @@
 	"entity.h"
 	<cpgf/gcallbacklist.h>
 	<SFML/Graphics.hpp>
-	<TGUI/TGUI.hpp>
 	<Box2D/Box2D.h>
 
 1515499614 d:\sourcecode\lifesimulator\libraries\sfml-master\include\sfml\graphics.hpp
@@ -411,9 +410,10 @@
 	<string>
 	<vector>
 
-1516917074 d:\sourcecode\lifesimulator\include\entityshell.h
+1517346690 d:\sourcecode\lifesimulator\include\entityshell.h
 	"world.h"
 	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
 
 1396991172 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\box2d.h
 	<Box2D/Common/b2Settings.h>
@@ -1083,7 +1083,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1516917237 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1517346789 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.h"
 
 1516916969 d:\sourcecode\lifesimulator\include\entityfactory.h
@@ -1091,28 +1091,27 @@
 	"entity.h"
 	<list>
 
-1516829424 d:\sourcecode\lifesimulator\include\entity.h
+1517739921 d:\sourcecode\lifesimulator\include\entity.h
 	<entityshell.h>
 
 1516829432 source:d:\sourcecode\lifesimulator\src\entity.cpp
 	"entity.h"
 
-1516918480 d:\sourcecode\lifesimulator\include\world.h
+1517739468 d:\sourcecode\lifesimulator\include\world.h
 	<SFML/Graphics.hpp>
-	<TGUI/TGUI.hpp>
 	<Box2D/Box2D.h>
 
 1516916932 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
 	"entityfactory.h"
 
-1516918472 source:d:\sourcecode\lifesimulator\src\world.cpp
+1517347021 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.h"
+	"entityshell.h"
 
-1517264134 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
+1517739519 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
 	<SFML/Graphics.hpp>
-	<TGUI/TGUI.hpp>
 
-1517168824 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
+1517739686 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
 	"guiwidgetslayer.h"
 
 1490449098 d:\sourcecode\lifesimulator\libraries\cpgf-master\include\cpgf\gcallbacklist.h
@@ -1156,4 +1155,108 @@
 
 1490449098 d:\sourcecode\lifesimulator\libraries\cpgf-master\include\cpgf\genableif.h
 	"cpgf/gcompiler.h"
+
+1517524764 source:d:\sourcecode\lifesimulator\libraries\imgui-master\imgui.cpp
+	"imgui.h"
+	"imgui_internal.h"
+	<ctype.h>
+	<stdlib.h>
+	<stdio.h>
+	<limits.h>
+	<stddef.h>
+	<stdint.h>
+	"stb_textedit.h"
+	<Windows.h>
+	<windows.h>
+	<imm.h>
+	"imgui_user.inl"
+
+1517524764 d:\sourcecode\lifesimulator\libraries\imgui-master\imgui.h
+	"imconfig.h"
+	<float.h>
+	<stdarg.h>
+	<stddef.h>
+	<string.h>
+	<assert.h>
+	"imgui_user.h"
+
+1517738346 d:\sourcecode\lifesimulator\libraries\imgui-master\imconfig.h
+	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Color.hpp>
+
+1517524764 d:\sourcecode\lifesimulator\libraries\imgui-master\imgui_internal.h
+	<stdio.h>
+	<math.h>
+	"stb_textedit.h"
+
+1517524764 d:\sourcecode\lifesimulator\libraries\imgui-master\stb_textedit.h
+	<string.h>
+
+1517524764 source:d:\sourcecode\lifesimulator\libraries\imgui-master\imgui_draw.cpp
+	"imgui.h"
+	"imgui_internal.h"
+	<stdio.h>
+	<malloc.h>
+	<alloca.h>
+	<stdlib.h>
+	"stb_rect_pack.h"
+	"stb_truetype.h"
+
+1517524764 d:\sourcecode\lifesimulator\libraries\imgui-master\stb_rect_pack.h
+	<stdlib.h>
+	<assert.h>
+
+1517524764 d:\sourcecode\lifesimulator\libraries\imgui-master\stb_truetype.h
+	"stb_truetype.h"
+	<stdio.h>
+	"stb_truetype.h"
+	<math.h>
+	<math.h>
+	<math.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<memory.h>
+
+1516993128 source:d:\sourcecode\lifesimulator\libraries\imgui-sfml-master\imgui-sfml.cpp
+	"imgui-SFML.h"
+	<imgui.h>
+	<SFML/OpenGL.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/Graphics/RenderTarget.hpp>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/Graphics/Sprite.hpp>
+	<SFML/Graphics/Texture.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Window.hpp>
+	<cmath>
+	<cstddef>
+	<cassert>
+	<SFML/Window/Touch.hpp>
+	<jni.h>
+	<android/native_activity.h>
+	<SFML/System/NativeActivity.hpp>
+
+1516993128 d:\sourcecode\lifesimulator\libraries\imgui-sfml-master\imgui-sfml.h
+	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<SFML/Graphics/Color.hpp>
+	<SFML/System/Time.hpp>
+
+1515499614 d:\sourcecode\lifesimulator\libraries\sfml-master\include\sfml\opengl.hpp
+	<SFML/Config.hpp>
+	<windows.h>
+	<GL/gl.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<OpenGLES/ES1/gl.h>
+	<OpenGLES/ES1/glext.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GLES2/gl2ext.h>
+
+1515499614 d:\sourcecode\lifesimulator\libraries\sfml-master\include\sfml\system\nativeactivity.hpp
+	<SFML/System/Export.hpp>
 
