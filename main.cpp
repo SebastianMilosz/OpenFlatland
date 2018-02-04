@@ -25,7 +25,7 @@ int main()
 {
     const float zoomAmount{ 1.1f }; // zoom by 10%
 
-    sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Test");
+    sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Life Simulator");
 
     sf::View view( window.getDefaultView() );
 
@@ -75,11 +75,11 @@ int main()
                 int MouseX = worldPos.x;
                 int MouseY = worldPos.y;
 
-                if( m_Widgets.GetMode() == 0 )
+                if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_ENTITY )
                 {
                     std::shared_ptr<Entity> entity = m_Factory.Create( MouseX, MouseY, 0 );
                 }
-                else if( m_Widgets.GetMode() == 1 )
+                else if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_SEL_ENTITY )
                 {
                     m_World.MouseDown( MouseX, MouseY );
                 }
