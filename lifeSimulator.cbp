@@ -9,7 +9,7 @@
 			<Target title="Debug">
 				<Option output="../bin/lifeSimulator/Debug/lifeSimulator" prefix_auto="1" extension_auto="1" />
 				<Option object_output="../bin/lifeSimulator/obj/Debug/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-std=c++11" />
@@ -79,6 +79,7 @@
 		<Unit filename="libraries/imgui-master/imconfig.h" />
 		<Unit filename="libraries/imgui-master/imgui.cpp" />
 		<Unit filename="libraries/imgui-master/imgui.h" />
+		<Unit filename="libraries/imgui-master/imgui_demo.cpp" />
 		<Unit filename="libraries/imgui-master/imgui_draw.cpp" />
 		<Unit filename="libraries/imgui-master/imgui_internal.h" />
 		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.cpp" />

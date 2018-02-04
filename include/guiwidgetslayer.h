@@ -6,6 +6,9 @@
 class GUIWidgetsLayer
 {
     public:
+        enum { MOUSE_MODE_SEL_ENTITY, MOUSE_MODE_DEL_ENTITY, MOUSE_MODE_ADD_ENTITY };
+
+    public:
         GUIWidgetsLayer( sf::RenderWindow& window );
         virtual ~GUIWidgetsLayer();
 
@@ -15,8 +18,13 @@ class GUIWidgetsLayer
         bool HandleEvent( sf::Event& event );
         void Draw();
 
-        void SetMode( int mode );
-        int  GetMode();
+        void        SetMouseModeString( std::string mode );
+        std::string GetMouseModeString();
+
+        void        SetMouseModeId( int mode );
+        int         GetMouseModeId();
+
+        int GetFps();
 
     protected:
 
@@ -24,7 +32,8 @@ class GUIWidgetsLayer
         sf::RenderWindow&   m_window;
         sf::Clock           m_deltaClock;
 
-        int m_mode;
+        int                 m_MouseMode;
+        bool                m_mouseCapturedByGui;
 
         std::vector< sf::Rect<int> > m_guiRegions;
 };

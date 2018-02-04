@@ -1,5 +1,7 @@
 #include "guiwidgetslayer.h"
 
+#include <chrono>
+#include <ctime>
 #include <imgui.h>
 #include <imgui-SFML.h>
 
@@ -13,9 +15,11 @@
   * @brief
  **
 ******************************************************************************/
-void GUIWidgetsLayer::SetMode( int mode )
+void GUIWidgetsLayer::SetMouseModeString( std::string mode )
 {
-    m_mode = mode;
+         if ( mode == "Add Entity" ) { m_MouseMode = MOUSE_MODE_ADD_ENTITY; }
+    else if ( mode == "Del Entity" ) { m_MouseMode = MOUSE_MODE_DEL_ENTITY; }
+    else if ( mode == "Sel Entity" ) { m_MouseMode = MOUSE_MODE_SEL_ENTITY; }
 }
 
 /*****************************************************************************/
@@ -23,9 +27,35 @@ void GUIWidgetsLayer::SetMode( int mode )
   * @brief
  **
 ******************************************************************************/
-int GUIWidgetsLayer::GetMode()
+std::string GUIWidgetsLayer::GetMouseModeString()
 {
-    return m_mode;
+    switch ( m_MouseMode )
+    {
+        case MOUSE_MODE_ADD_ENTITY: return "Add Entity";
+        case MOUSE_MODE_DEL_ENTITY: return "Del Entity";
+        case MOUSE_MODE_SEL_ENTITY: return "Sel Entity";
+        default: return "unknown";
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void GUIWidgetsLayer::SetMouseModeId( int mode )
+{
+    m_MouseMode = mode;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+int GUIWidgetsLayer::GetMouseModeId()
+{
+    return m_MouseMode;
 }
 
 /*****************************************************************************/
@@ -35,7 +65,8 @@ int GUIWidgetsLayer::GetMode()
 ******************************************************************************/
 GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_window( window ),
-    m_mode( 0 )
+    m_MouseMode( MOUSE_MODE_SEL_ENTITY ),
+    m_mouseCapturedByGui(false)
 {
     ImGui::SFML::Init( m_window );
 }
@@ -47,7 +78,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
 ******************************************************************************/
 GUIWidgetsLayer::~GUIWidgetsLayer()
 {
-    //dtor
+    ImGui::SFML::Shutdown();
 }
 
 /*****************************************************************************/
@@ -57,10 +88,7 @@ GUIWidgetsLayer::~GUIWidgetsLayer()
 ******************************************************************************/
 bool GUIWidgetsLayer::MouseOnGui()
 {
-    int MouseX = sf::Mouse::getPosition(m_window).x;
-    int MouseY = sf::Mouse::getPosition(m_window).y;
-
-    return false;
+    return m_mouseCapturedByGui;
 }
 
 /*****************************************************************************/
@@ -82,11 +110,45 @@ void GUIWidgetsLayer::Draw()
 {
     ImGui::SFML::Update( m_window, m_deltaClock.restart() );
 
-    ImGui::Begin("Hello, world!");
-    ImGui::Button("Look at this pretty button");
+    if (ImGui::BeginMainMenuBar())
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("Load")) {}
+            if (ImGui::MenuItem("Save")) {}
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Mode"))
+        {
+            if (ImGui::MenuItem("Sel Entity", NULL, (m_MouseMode == MOUSE_MODE_SEL_ENTITY ? true : false) )) { m_MouseMode = MOUSE_MODE_SEL_ENTITY; }
+            if (ImGui::MenuItem("Del Entity", NULL, (m_MouseMode == MOUSE_MODE_DEL_ENTITY ? true : false) )) { m_MouseMode = MOUSE_MODE_DEL_ENTITY; }
+            if (ImGui::MenuItem("Add Entity", NULL, (m_MouseMode == MOUSE_MODE_ADD_ENTITY ? true : false) )) { m_MouseMode = MOUSE_MODE_ADD_ENTITY; }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Edit"))
+        {
+            if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+            if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+            ImGui::Separator();
+            if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+            if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+            if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
+    }
+
+    ImGui::Begin("Application Info");
+
+    ImGui::Text( "FPS: %d", GetFps() );
+
     ImGui::End();
 
     ImGui::SFML::Render( m_window );
+
+    ImGuiIO& IOS = ImGui::GetIO();
+
+    m_mouseCapturedByGui = IOS.WantCaptureMouse;
 }
 
 /*****************************************************************************/
@@ -98,4 +160,29 @@ void GUIWidgetsLayer::AddGuiRegion( int x, int y, int w, int h )
 {
     sf::Rect<int> rec( x, y, w, h );
     m_guiRegions.push_back( rec );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+int GUIWidgetsLayer::GetFps()
+{
+    using namespace std::chrono;
+    static int count = 0;
+    static auto last = high_resolution_clock::now();
+    auto now = high_resolution_clock::now();
+    static int fps = 0;
+
+    count++;
+
+    if( duration_cast<milliseconds>(now - last).count() > 1000 )
+    {
+        fps = count;
+        count = 0;
+        last = now;
+    }
+
+    return fps;
 }

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1517739508 source:d:\sourcecode\lifesimulator\main.cpp
+1517782770 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
 	"world.h"
 	"entityfactory.h"
@@ -1108,11 +1108,19 @@
 	"world.h"
 	"entityshell.h"
 
-1517741477 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
+1517782947 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
 	<SFML/Graphics.hpp>
 
-1517739686 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
+1517782753 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
 	"guiwidgetslayer.h"
+	<chrono>
+	<ctime>
+	<imgui.h>
+	<imgui-SFML.h>
+	<SFML/Graphics/RenderWindow.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Graphics/CircleShape.hpp>
 
 1490449098 d:\sourcecode\lifesimulator\libraries\cpgf-master\include\cpgf\gcallbacklist.h
 	"cpgf/gcallback.h"
@@ -1259,4 +1267,13 @@
 
 1515499614 d:\sourcecode\lifesimulator\libraries\sfml-master\include\sfml\system\nativeactivity.hpp
 	<SFML/System/Export.hpp>
+
+1517524764 source:d:\sourcecode\lifesimulator\libraries\imgui-master\imgui_demo.cpp
+	"imgui.h"
+	<ctype.h>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdint.h>
 
