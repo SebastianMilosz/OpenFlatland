@@ -1,5 +1,13 @@
 #include "guiwidgetslayer.h"
 
+#include <imgui.h>
+#include <imgui-SFML.h>
+
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+
 /*****************************************************************************/
 /**
   * @brief
@@ -29,7 +37,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_window( window ),
     m_mode( 0 )
 {
-
+    ImGui::SFML::Init( m_window );
 }
 
 /*****************************************************************************/
@@ -62,7 +70,7 @@ bool GUIWidgetsLayer::MouseOnGui()
 ******************************************************************************/
 bool GUIWidgetsLayer::HandleEvent( sf::Event& event )
 {
-
+    ImGui::SFML::ProcessEvent( event );
 }
 
 /*****************************************************************************/
@@ -72,7 +80,13 @@ bool GUIWidgetsLayer::HandleEvent( sf::Event& event )
 ******************************************************************************/
 void GUIWidgetsLayer::Draw()
 {
+    ImGui::SFML::Update( m_window, m_deltaClock.restart() );
 
+    ImGui::Begin("Hello, world!");
+    ImGui::Button("Look at this pretty button");
+    ImGui::End();
+
+    ImGui::SFML::Render( m_window );
 }
 
 /*****************************************************************************/

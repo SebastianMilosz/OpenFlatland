@@ -7,3 +7,4 @@ libraries/TGUI-0.8-dev/build
 libraries/libsigc++-2.99.10/build
 libraries/lua-5.3.4/build
 libraries/cpgf-master/build
+imgui.ini
