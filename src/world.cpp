@@ -160,8 +160,8 @@ b2Body* World::getBodyAtMouse( int x, int y )
 
    // small box:
    b2AABB aabb = b2AABB();
-   aabb.lowerBound.Set(x -0.001, y - 0.001);
-   aabb.upperBound.Set(x +0.001, y + 0.001);
+   aabb.lowerBound.Set(x -1.001, y - 1.001);
+   aabb.upperBound.Set(x +1.001, y + 1.001);
 
    // Query the world for overlapping shapes.
    QueryCallback callback(mouseV2);
