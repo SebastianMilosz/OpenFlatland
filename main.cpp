@@ -4,7 +4,10 @@
 #include "entityfactory.h"
 #include "guiwidgetslayer.h"
 #include "entity.h"
+#include "logwidget.h"
 
+#include <utilities/LoggerUtilities.h>
+#include <utilities/FileUtilities.h>
 #include <cpgf/gcallbacklist.h>
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
@@ -23,6 +26,15 @@ void zoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, float zoom )
 
 int main()
 {
+    // Logger Setup
+    std::string apiDir = utilities::file::GetExecutablePath();
+    std::string logFilePath = apiDir + std::string("/lifesim.txt");
+
+    LOGGERINS().LogPath = logFilePath;
+    LOGGERINS().OnMessage.connect(&GetLogWidget(), &LogWidget::OnLogMessage);
+
+    LOGGER( LOG_INFO << "Scintillation Counter Tester Start" );
+
     const float zoomAmount{ 1.1f }; // zoom by 10%
 
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Life Simulator");

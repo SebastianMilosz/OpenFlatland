@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "logwidget.h"
+
 class GUIWidgetsLayer
 {
     public:
@@ -26,6 +28,8 @@ class GUIWidgetsLayer
 
         int GetFps();
 
+        LogWidget& GetLogWidget() { return m_logWidget; }
+
     protected:
 
     private:
@@ -36,6 +40,9 @@ class GUIWidgetsLayer
         bool                m_mouseCapturedByGui;
 
         std::vector< sf::Rect<int> > m_guiRegions;
+
+        // Okienka Gui
+        LogWidget m_logWidget;
 };
 
 #endif // GUIWIDGETSLAYER_H

@@ -1,4 +1,4 @@
-#include "LoggerUtilities.h"
+#include "utilities/LoggerUtilities.h"
 
 using namespace utilities::debug;
 using namespace utilities::math;
@@ -199,7 +199,7 @@ void cLog::cLogEntryContainer::SaveAsCSV( std::string path )
                                     temp->Text + "\n";
             fputs ( logLine.c_str() ,fp );
         }
-		
+
 		fclose(fp);
     }
 }
@@ -271,9 +271,9 @@ void cLog::cLogEntryContainer::SaveAsHTML( std::string path )
         fileLine += "</table></br></br>";
 
         fputs ( fileLine.c_str() , fp );
-		
+
 		fclose(fp);
-    } 
+    }
 }
 
 /*****************************************************************************/

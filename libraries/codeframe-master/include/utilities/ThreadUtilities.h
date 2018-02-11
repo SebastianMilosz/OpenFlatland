@@ -10,7 +10,7 @@
 #include <errno.h>
 #include <string>
 #include <sigslot.h>
-#include <DataTypesUtilities.h>
+#include <utilities/DataTypesUtilities.h>
 
 using namespace sigslot;
 

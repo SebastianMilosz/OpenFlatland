@@ -40,16 +40,24 @@
 			<Add option="-Wall" />
 			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
+			<Add option="-pthread" />
 			<Add option="-DSFML_STATIC" />
 			<Add option="-DGLEW_STATIC" />
+			<Add option="-DWIN32" />
+			<Add directory="libraries/codeframe-master/thirdparty/sigslot-1.0.0" />
 			<Add directory="libraries/imgui-sfml-master" />
 			<Add directory="libraries/imgui-master" />
 			<Add directory="libraries/SFML-master/include" />
 			<Add directory="libraries/Box2D-master/Box2D" />
 			<Add directory="libraries/lua-5.3.4/src" />
 			<Add directory="libraries/cpgf-master/include" />
+			<Add directory="libraries/codeframe-master/include" />
 		</Compiler>
 		<Linker>
+			<Add option="-static-libstdc++" />
+			<Add option="-static-libgcc" />
+			<Add option="-static" />
+			<Add option="-pthread" />
 			<Add library="sfml-graphics-s" />
 			<Add library="sfml-network-s" />
 			<Add library="sfml-window-s" />
@@ -75,7 +83,23 @@
 		<Unit filename="include/entityfactory.h" />
 		<Unit filename="include/entityshell.h" />
 		<Unit filename="include/guiwidgetslayer.h" />
+		<Unit filename="include/logwidget.h" />
 		<Unit filename="include/world.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/DataTypesUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/FileUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/FilepathUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/HashUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/LoggerUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/MathUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/PerformanceUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/SysUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/TextUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/ThreadUtilities.h" />
+		<Unit filename="libraries/codeframe-master/src/utilities/FileUtilities.cpp" />
+		<Unit filename="libraries/codeframe-master/src/utilities/LoggerUtilities.cpp" />
+		<Unit filename="libraries/codeframe-master/src/utilities/PerformanceUtilities.cpp" />
+		<Unit filename="libraries/codeframe-master/src/utilities/SysUtilities.cpp" />
+		<Unit filename="libraries/codeframe-master/src/utilities/ThreadUtilities.cpp" />
 		<Unit filename="libraries/imgui-master/imconfig.h" />
 		<Unit filename="libraries/imgui-master/imgui.cpp" />
 		<Unit filename="libraries/imgui-master/imgui.h" />
@@ -89,6 +113,7 @@
 		<Unit filename="src/entityfactory.cpp" />
 		<Unit filename="src/entityshell.cpp" />
 		<Unit filename="src/guiwidgetslayer.cpp" />
+		<Unit filename="src/logwidget.cpp" />
 		<Unit filename="src/world.cpp" />
 		<Extensions>
 			<code_completion />

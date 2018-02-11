@@ -6,10 +6,10 @@
 #include <fstream>
 #include <vector>
 
-#include <ThreadUtilities.h>
-#include <MathUtilities.h>
-#include <FileUtilities.h>
-#include <SysUtilities.h>
+#include <utilities/ThreadUtilities.h>
+#include <utilities/MathUtilities.h>
+#include <utilities/FileUtilities.h>
+#include <utilities/SysUtilities.h>
 #include <sigslot.h>
 
 #define LOGGERINS() utilities::debug::cLog::GetInstance()
