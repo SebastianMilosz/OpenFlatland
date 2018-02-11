@@ -1,10 +1,12 @@
 # depslib dependency file v1.0
-1517782770 source:d:\sourcecode\lifesimulator\main.cpp
+1518260081 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
 	"world.h"
 	"entityfactory.h"
 	"guiwidgetslayer.h"
 	"entity.h"
+	<utilities/LoggerUtilities.h>
+	<utilities/FileUtilities.h>
 	<cpgf/gcallbacklist.h>
 	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
@@ -1083,7 +1085,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1517346789 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1518259939 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.h"
 
 1516916969 d:\sourcecode\lifesimulator\include\entityfactory.h
@@ -1108,8 +1110,9 @@
 	"world.h"
 	"entityshell.h"
 
-1517782947 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
+1518347143 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
 	<SFML/Graphics.hpp>
+	"logwidget.h"
 
 1517783001 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
 	"guiwidgetslayer.h"
@@ -1276,4 +1279,110 @@
 	<stdlib.h>
 	<stddef.h>
 	<stdint.h>
+
+1518260166 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\fileutilities.cpp
+	"utilities/FileUtilities.h"
+	"utilities/MathUtilities.h"
+	<algorithm>
+
+1505672326 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\fileutilities.h
+	<iostream>
+	<fstream>
+	<string>
+	<stdio.h>
+	<stdint.h>
+	<stdlib.h>
+	<limits.h>
+	<vector>
+	<limits.h>
+	<windows.h>
+	<direct.h>
+	<unistd.h>
+
+1505672326 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
+	<string>
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<sstream>
+	<ios>
+	<iomanip>
+	<stdint.h>
+	<stdlib.h>
+
+1518260246 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\performanceutilities.cpp
+	"utilities/PerformanceUtilities.h"
+	"utilities/SysUtilities.h"
+	<sys/time.h>
+
+1505672326 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\performanceutilities.h
+	<string>
+	<iostream>
+	<fstream>
+	<vector>
+
+1505672326 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\sysutilities.h
+	<string>
+	<sstream>
+	<ctime>
+	<stdio.h>
+	<stdlib.h>
+	<sys/timeb.h>
+
+1518291832 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\threadutilities.cpp
+	<iostream>
+	<thread>
+	<sys/types.h>
+	<sys/stat.h>
+	<sys/time.h>
+	"utilities/ThreadUtilities.h"
+	<windows.h>
+
+1518260413 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\threadutilities.h
+	<pthread.h>
+	<unistd.h>
+	<errno.h>
+	<string>
+	<sigslot.h>
+	<utilities/DataTypesUtilities.h>
+
+1505672326 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\sigslot-1.0.0\sigslot.h
+	<set>
+	<list>
+	<windows.h>
+	<pthread.h>
+
+1505672326 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\datatypesutilities.h
+	<cstdlib>
+	<inttypes.h>
+
+1518260231 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\loggerutilities.cpp
+	"utilities/LoggerUtilities.h"
+
+1518260497 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\loggerutilities.h
+	<string>
+	<iostream>
+	<fstream>
+	<vector>
+	<utilities/ThreadUtilities.h>
+	<utilities/MathUtilities.h>
+	<utilities/FileUtilities.h>
+	<utilities/SysUtilities.h>
+	<sigslot.h>
+
+1518260238 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\sysutilities.cpp
+	"utilities/SysUtilities.h"
+	<stdint.h>
+	<sys/timeb.h>
+	<sys/types.h>
+	<windows.h>
+
+1518345995 source:d:\sourcecode\lifesimulator\src\logwidget.cpp
+	"logwidget.h"
+
+1518345740 d:\sourcecode\lifesimulator\include\logwidget.h
+	<imgui.h>
+	<imgui-SFML.h>
+	<utilities/LoggerUtilities.h>
+	<utilities/FileUtilities.h>
 
