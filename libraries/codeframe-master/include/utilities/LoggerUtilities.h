@@ -151,7 +151,7 @@ namespace utilities
 			    void SetLogPath(std::string p);
                 void SetLogDebugLevel( int debugLevel );
 
-			    signal5<std::string, std::string, std::string, std::string, int> OnMessage;
+			    signal4<std::string, std::string, std::string, int> OnMessage;
 
                             std::string LogPath;
 

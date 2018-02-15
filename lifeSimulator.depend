@@ -1,10 +1,12 @@
 # depslib dependency file v1.0
-1518260081 source:d:\sourcecode\lifesimulator\main.cpp
+1518350654 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
+	"version.h"
 	"world.h"
 	"entityfactory.h"
 	"guiwidgetslayer.h"
 	"entity.h"
+	"logwidget.h"
 	<utilities/LoggerUtilities.h>
 	<utilities/FileUtilities.h>
 	<cpgf/gcallbacklist.h>
@@ -1099,22 +1101,22 @@
 1516829432 source:d:\sourcecode\lifesimulator\src\entity.cpp
 	"entity.h"
 
-1517739468 d:\sourcecode\lifesimulator\include\world.h
+1518733470 d:\sourcecode\lifesimulator\include\world.h
 	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
 
 1516916932 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
 	"entityfactory.h"
 
-1517870024 source:d:\sourcecode\lifesimulator\src\world.cpp
+1518733519 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.h"
 	"entityshell.h"
 
-1518347143 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
+1518348870 d:\sourcecode\lifesimulator\include\guiwidgetslayer.h
 	<SFML/Graphics.hpp>
 	"logwidget.h"
 
-1517783001 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
+1518348993 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
 	"guiwidgetslayer.h"
 	<chrono>
 	<ctime>
@@ -1356,10 +1358,10 @@
 	<cstdlib>
 	<inttypes.h>
 
-1518260231 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\loggerutilities.cpp
+1518348041 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\loggerutilities.cpp
 	"utilities/LoggerUtilities.h"
 
-1518260497 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\loggerutilities.h
+1518347871 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\loggerutilities.h
 	<string>
 	<iostream>
 	<fstream>
@@ -1377,12 +1379,14 @@
 	<sys/types.h>
 	<windows.h>
 
-1518345995 source:d:\sourcecode\lifesimulator\src\logwidget.cpp
+1518349275 source:d:\sourcecode\lifesimulator\src\logwidget.cpp
 	"logwidget.h"
 
-1518345740 d:\sourcecode\lifesimulator\include\logwidget.h
+1518347894 d:\sourcecode\lifesimulator\include\logwidget.h
 	<imgui.h>
 	<imgui-SFML.h>
 	<utilities/LoggerUtilities.h>
 	<utilities/FileUtilities.h>
+
+1518350563 d:\sourcecode\lifesimulator\include\version.h
 

@@ -305,11 +305,21 @@ void cLog::Message( std::string title, std::string msg, int type, int debugLevel
 {
     (void)debugLevel;
 
+    std::string timeStamp = GetNow();
+
     if( LogPath != "" )
     {
-        std::string timeStamp = GetNow();
-        OnMessage.Emit( LogPath, timeStamp, title, msg, type );
+        // File Loggin
+        std::fstream f;
+        f.open( LogPath.c_str(), std::ios::out|std::ios::app );
+        if( !f.fail() )
+        {
+            f << timeStamp << " : " << title << " : " << msg << "\r\n";
+            f.close();
+        }
     }
+
+    OnMessage.Emit( timeStamp, title, msg, type );
 }
 
 /*****************************************************************************/
