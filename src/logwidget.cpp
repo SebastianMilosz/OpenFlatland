@@ -25,16 +25,9 @@ LogWidget::~LogWidget()
   * @brief
  **
 ******************************************************************************/
-void LogWidget::OnLogMessage(std::string logPath, std::string timestamp, std::string title, std::string msg, int type)
+void LogWidget::OnLogMessage(std::string timestamp, std::string title, std::string msg, int type)
 {
-    // File Loggin
-    std::fstream f;
-    f.open(logPath.c_str(), std::ios::out|std::ios::app);
-    if(!f.fail())
-    {
-        f << timestamp << " : " << title << " : " << msg << "\r\n";
-        f.close();
-    }
+    AddLog( "[%s] : [%s] : [%d] : %s\n", timestamp.c_str(), title.c_str(), type, msg.c_str() );
 }
 
 /*****************************************************************************/

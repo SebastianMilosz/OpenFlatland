@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "version.h"
 #include "world.h"
 #include "entityfactory.h"
 #include "guiwidgetslayer.h"
@@ -28,16 +29,14 @@ int main()
 {
     // Logger Setup
     std::string apiDir = utilities::file::GetExecutablePath();
-    std::string logFilePath = apiDir + std::string("/lifesim.txt");
-
+    std::string logFilePath = apiDir + std::string("/") + std::string( APPLICATION_NAME ) + std::string(".txt");
     LOGGERINS().LogPath = logFilePath;
-    LOGGERINS().OnMessage.connect(&GetLogWidget(), &LogWidget::OnLogMessage);
 
-    LOGGER( LOG_INFO << "Scintillation Counter Tester Start" );
+    LOGGER( LOG_INFO << APPLICATION_NAME << " Start Initializing" );
 
     const float zoomAmount{ 1.1f }; // zoom by 10%
 
-    sf::RenderWindow window(sf::VideoMode(800, 600, 32), "Life Simulator");
+    sf::RenderWindow window(sf::VideoMode(800, 600, 32), APPLICATION_NAME );
 
     sf::View view( window.getDefaultView() );
 
@@ -46,6 +45,12 @@ int main()
     GUIWidgetsLayer m_Widgets( window );
     World           m_World;
     EntityFactory   m_Factory( m_World );
+
+    LOGGER( LOG_INFO << APPLICATION_NAME << " Initialized" );
+
+    LOGGERINS().OnMessage.connect(&m_Widgets.GetLogWidget(), &LogWidget::OnLogMessage);
+
+    LOGGER( LOG_INFO << APPLICATION_NAME << " Start Processing" );
 
     while (window.isOpen())
     {

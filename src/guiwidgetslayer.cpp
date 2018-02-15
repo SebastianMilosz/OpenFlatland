@@ -66,7 +66,8 @@ int GUIWidgetsLayer::GetMouseModeId()
 GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_window( window ),
     m_MouseMode( MOUSE_MODE_SEL_ENTITY ),
-    m_mouseCapturedByGui(false)
+    m_mouseCapturedByGui(false),
+    m_logWidgetOpen(true)
 {
     ImGui::SFML::Init( m_window );
 }
@@ -135,7 +136,17 @@ void GUIWidgetsLayer::Draw()
             if (ImGui::MenuItem("Paste", "CTRL+V")) {}
             ImGui::EndMenu();
         }
+        if (ImGui::BeginMenu("Window"))
+        {
+            if (ImGui::MenuItem("Log", NULL, m_logWidgetOpen)) { if( m_logWidgetOpen ) m_logWidgetOpen = false; else m_logWidgetOpen = true; }
+            ImGui::EndMenu();
+        }
         ImGui::EndMainMenuBar();
+    }
+
+    if( m_logWidgetOpen == true )
+    {
+        m_logWidget.Draw( "Log", &m_logWidgetOpen );
     }
 
     ImGui::Begin("Application Info");

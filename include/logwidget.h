@@ -15,7 +15,7 @@ class LogWidget : public sigslot::has_slots<>
         void Clear();
         void AddLog(const char* fmt, ...) IM_FMTARGS(2);
         void Draw(const char* title, bool* p_open = NULL);
-        void OnLogMessage(std::string logPath, std::string timestamp, std::string title, std::string msg, int type);
+        void OnLogMessage(std::string timestamp, std::string title, std::string msg, int type);
 
     private:
         ImGuiTextBuffer     Buf;

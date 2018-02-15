@@ -23,6 +23,7 @@ class World
 
         b2Vec2   m_Gravity;
         b2World  m_World;
+        sf::Font m_font;
 };
 
 #endif // WORLD_H

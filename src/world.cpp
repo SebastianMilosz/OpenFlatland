@@ -42,7 +42,11 @@ World::World() :
     m_Gravity( 0.f, 0.f ),
     m_World( m_Gravity )
 {
-    //ctor
+     // Load it from a file
+     if (!m_font.loadFromFile("arial.ttf"))
+     {
+         // error...
+     }
 }
 
 /*****************************************************************************/
@@ -105,6 +109,14 @@ bool World::Draw( sf::RenderWindow& window )
                     circle.setPosition(SCALE * BodyIterator->GetPosition().x, SCALE * BodyIterator->GetPosition().y);
                     circle.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
                     window.draw(circle);
+
+                    sf::Text text;
+                    text.setString("Hello world");
+                    text.setColor(sf::Color::White);
+                    text.setCharacterSize(24);
+                    text.setFont(m_font);
+                    text.setPosition(SCALE * BodyIterator->GetPosition().x + 10, SCALE * BodyIterator->GetPosition().y + 10);
+                    window.draw(text);
                 }
             }
         }
@@ -127,7 +139,7 @@ bool World::Draw( sf::RenderWindow& window )
 ******************************************************************************/
 bool World::MouseDown( int x, int y )
 {
-    b2Body* body = getBodyAtMouse( x, y );
+    b2Body* body = getBodyAtMouse( x / SCALE, y / SCALE );
 
     if( body )
     {

@@ -38,6 +38,7 @@ class GUIWidgetsLayer
 
         int                 m_MouseMode;
         bool                m_mouseCapturedByGui;
+        bool                m_logWidgetOpen;
 
         std::vector< sf::Rect<int> > m_guiRegions;
 

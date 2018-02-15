@@ -84,6 +84,9 @@
 		<Unit filename="include/entityshell.h" />
 		<Unit filename="include/guiwidgetslayer.h" />
 		<Unit filename="include/logwidget.h" />
+		<Unit filename="include/version.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/world.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/DataTypesUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FileUtilities.h" />
