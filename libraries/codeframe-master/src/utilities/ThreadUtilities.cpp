@@ -34,8 +34,8 @@ uint8_t WrThread::NCPU()
 ******************************************************************************/
 WrThread::WrThread() : m_running(false)
 {
-    m_ThreadState = IDLE;
-    pthread_attr_init( &m_thread_attr );
+    //m_ThreadState = IDLE;
+    //pthread_attr_init( &m_thread_attr );
 }
 
 /*****************************************************************************/
@@ -45,9 +45,9 @@ WrThread::WrThread() : m_running(false)
 ******************************************************************************/
 WrThread::~WrThread()
 {
-    m_ThreadState = SHUTDOWN;
+    //m_ThreadState = SHUTDOWN;
 
-    Join();
+    //Join();
 }
 
 /*****************************************************************************/
@@ -67,6 +67,7 @@ bool WrThread::ForceTerminateProcessing()
 ******************************************************************************/
 void WrThread::TerminateProcessing()
 {
+    /*
     if( m_running )
     {
         if( m_ThreadState < CLOSING )
@@ -85,6 +86,7 @@ void WrThread::TerminateProcessing()
             m_ThreadState = REDYTODELETE;
         }
     }
+    */
 }
 
 /*****************************************************************************/
@@ -94,6 +96,7 @@ void WrThread::TerminateProcessing()
 ******************************************************************************/
 void WrThread::Exec()
 {
+    /*
     StartProcessing();
 
     if(m_ThreadState < PROCESSING) m_ThreadState = PROCESSING;
@@ -113,6 +116,7 @@ void WrThread::Exec()
     {
         Sleep( 500 );
     }
+    */
 }
 
 /*****************************************************************************/
@@ -123,9 +127,11 @@ void WrThread::Exec()
 ******************************************************************************/
 void* WrThread::ExecFunc(void * p_this)
 {
+    /*
     WrThread * tp_this = static_cast<WrThread*>(p_this);
     tp_this->Exec();
     tp_this->m_running = false;
+    */
     return NULL;
 }
 
@@ -139,10 +145,12 @@ void WrThread::Start()
     if(m_running)
     return;
 
+    /*
     if(pthread_create(&m_thread, &m_thread_attr, ExecFunc, static_cast<void *>(this)) == 0)
     {
         m_running = true;
     }
+    */
 }
 
 /*****************************************************************************/
@@ -243,15 +251,17 @@ void WrThread::Sleep(unsigned long msec)
   * @brief
  **
 ******************************************************************************/
-WrMutex::WrMutex()
-      :m_pmutex(0),
+WrMutex::WrMutex() :
+//      :m_pmutex(0),
        m_isOwner(true)
 {
+    /*
     m_pmutex = new pthread_mutex_t;
     if (pthread_mutex_init(m_pmutex, 0) == 0)
     {
         //ok
     }
+    */
 }
 
 /*****************************************************************************/
@@ -261,6 +271,7 @@ WrMutex::WrMutex()
 ******************************************************************************/
 WrMutex::~WrMutex()
 {
+    /*
     if (m_isOwner)
     {
         if (pthread_mutex_destroy(m_pmutex) == EBUSY)
@@ -270,6 +281,7 @@ WrMutex::~WrMutex()
         }
         delete m_pmutex;
     }
+    */
 }
 
 /*****************************************************************************/
@@ -280,8 +292,10 @@ WrMutex::~WrMutex()
 ******************************************************************************/
 WrMutex::WrMutex(const WrMutex& copy)
 {
+    /*
     m_pmutex = copy.m_pmutex;
     m_isOwner = false;
+    */
 }
 
 /*****************************************************************************/
@@ -291,10 +305,12 @@ WrMutex::WrMutex(const WrMutex& copy)
 ******************************************************************************/
 bool WrMutex::Lock()
 {
+    /*
     if (pthread_mutex_lock(m_pmutex) == 0)
     {
         return true;
     }
+    */
     return false;
 }
 
@@ -305,10 +321,12 @@ bool WrMutex::Lock()
 ******************************************************************************/
 bool WrMutex::Unlock()
 {
+    /*
     if (pthread_mutex_unlock(m_pmutex) == 0)
     {
         return true;
     }
+    */
     return false;
 }
 
@@ -319,10 +337,12 @@ bool WrMutex::Unlock()
 ******************************************************************************/
 bool WrMutex::TryLock()
 {
+    /*
     if (pthread_mutex_trylock(m_pmutex) == 0)
     {
         return true;
     }
+    */
     return false;
 }
 
@@ -333,6 +353,7 @@ bool WrMutex::TryLock()
 ******************************************************************************/
 bool WrMutex::TryLock(unsigned long  ms)
 {
+    /*
     time_t sec = (time_t)(ms/1000);
 
     const timespec req = {sec, 0};
@@ -341,6 +362,7 @@ bool WrMutex::TryLock(unsigned long  ms)
     {
         return true;
     }
+    */
     return false;
 }
 
@@ -351,11 +373,13 @@ bool WrMutex::TryLock(unsigned long  ms)
 ******************************************************************************/
 WrThreadEvent::WrThreadEvent() : m_isOwner(true)
 {
+    /*
     m_pcond = new pthread_cond_t;
     if (pthread_cond_init(m_pcond, NULL) == 0)
     {
         //ok
     }
+    */
 }
 
 /*****************************************************************************/
@@ -365,6 +389,7 @@ WrThreadEvent::WrThreadEvent() : m_isOwner(true)
 ******************************************************************************/
 WrThreadEvent::~WrThreadEvent()
 {
+    /*
     if (m_isOwner)
     {
         switch (pthread_cond_destroy(m_pcond))
@@ -380,6 +405,7 @@ WrThreadEvent::~WrThreadEvent()
 
         delete m_pcond;
     }
+    */
 }
 
 /*****************************************************************************/
@@ -390,8 +416,10 @@ WrThreadEvent::~WrThreadEvent()
 ******************************************************************************/
 WrThreadEvent::WrThreadEvent(const WrThreadEvent& copy)
 {
+    /*
     m_pcond = copy.m_pcond;
     m_isOwner = false;
+    */
 }
 
 /*****************************************************************************/
@@ -401,10 +429,12 @@ WrThreadEvent::WrThreadEvent(const WrThreadEvent& copy)
 ******************************************************************************/
 void WrThreadEvent::Notify()
 {
+    /*
     if (pthread_cond_signal(m_pcond) == 0)
     {
         //ok
     }
+    */
 }
 
 /*****************************************************************************/
@@ -414,10 +444,12 @@ void WrThreadEvent::Notify()
 ******************************************************************************/
 void WrThreadEvent::NotifyAll()
 {
+    /*
     if (pthread_cond_broadcast(m_pcond) == 0)
     {
         //ok
     }
+    */
 }
 
 /*****************************************************************************/
@@ -427,10 +459,12 @@ void WrThreadEvent::NotifyAll()
 ******************************************************************************/
 void WrThreadEvent::Wait(WrMutex& mutex)
 {
+    /*
     if (pthread_cond_wait(m_pcond, mutex.m_pmutex) == 0)
     {
         //ok
     }
+    */
 }
 
 /*****************************************************************************/
@@ -443,6 +477,7 @@ void WrThreadEvent::Wait(WrMutex& mutex)
 ******************************************************************************/
 bool WrThreadEvent::Wait(WrMutex& mutex, long msec)
 {
+    /*
     timespec  timeout;
     timeval   timenow;
 
@@ -462,6 +497,9 @@ bool WrThreadEvent::Wait(WrMutex& mutex, long msec)
     {
         return false;
     }
+    */
+
+    return false;
 }
 
 /*****************************************************************************/

@@ -5,7 +5,7 @@
 
 #define HAVE_STRUCT_TIMESPEC            // redefinition of struct timespec
 
-#include <pthread.h>
+//#include <pthread.h>
 #include <unistd.h>
 #include <errno.h>
 #include <string>
@@ -36,7 +36,7 @@ class WrMutex
         bool TryLock(unsigned long ms);
 
     private:
-        pthread_mutex_t      *m_pmutex;
+        //pthread_mutex_t      *m_pmutex;
         bool                  m_isOwner;
 };
 
@@ -81,7 +81,7 @@ class WrThreadEvent
         bool   Wait(WrMutex& mutex, long msec);
 
     private:
-        pthread_cond_t      *m_pcond;
+        //pthread_cond_t      *m_pcond;
         bool                 m_isOwner;
 };
 
@@ -129,8 +129,8 @@ class WrThread
         volatile eTState m_ThreadState;
 
     private:
-        pthread_t      m_thread;
-        pthread_attr_t m_thread_attr;
+        //pthread_t      m_thread;
+        //pthread_attr_t m_thread_attr;
         volatile bool  m_running;
 
         void Exec();

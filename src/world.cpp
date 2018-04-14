@@ -1,7 +1,22 @@
 #include "world.h"
 #include "entityshell.h"
 
+#include <string>
+#include <sstream>
+
+#include <utilities/LoggerUtilities.h>
+
+// Box2D works with meters where 1mt = 30 pixels
 static const float SCALE = 30.f;
+
+namespace std {
+    template<typename T>
+    std::string to_string(const T &n) {
+        std::ostringstream s;
+        s << n;
+        return s.str();
+    }
+}
 
 class QueryCallback : public b2QueryCallback
 {
@@ -101,21 +116,24 @@ bool World::Draw( sf::RenderWindow& window )
                 {
                     sf::Color& entColor = entShell->GetColor();
 
+                    float xpos = BodyIterator->GetPosition().x;
+                    float ypos = BodyIterator->GetPosition().y;
+
                     sf::CircleShape circle;
                     circle.setRadius(10);
                     circle.setOutlineColor( entColor );
-                    circle.setOutlineThickness(5);
+                    circle.setOutlineThickness(1);
                     circle.setOrigin(16.f, 16.f);
-                    circle.setPosition(SCALE * BodyIterator->GetPosition().x, SCALE * BodyIterator->GetPosition().y);
+                    circle.setPosition(SCALE * xpos, SCALE * ypos);
                     circle.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
                     window.draw(circle);
 
                     sf::Text text;
-                    text.setString("Hello world");
+                    text.setString( std::string("(") + std::to_string(xpos) + std::string(", ") + std::to_string(ypos) + std::string(")") );
                     text.setColor(sf::Color::White);
-                    text.setCharacterSize(24);
+                    text.setCharacterSize(12);
                     text.setFont(m_font);
-                    text.setPosition(SCALE * BodyIterator->GetPosition().x + 10, SCALE * BodyIterator->GetPosition().y + 10);
+                    text.setPosition(SCALE * xpos, SCALE * ypos);
                     window.draw(text);
                 }
             }
@@ -137,9 +155,9 @@ bool World::Draw( sf::RenderWindow& window )
   * @brief
  **
 ******************************************************************************/
-bool World::MouseDown( int x, int y )
+bool World::MouseDown( float x, float y )
 {
-    b2Body* body = getBodyAtMouse( x / SCALE, y / SCALE );
+    b2Body* body = getBodyAtMouse( x/SCALE, y/SCALE );
 
     if( body )
     {
@@ -151,6 +169,8 @@ bool World::MouseDown( int x, int y )
 
             if( entShell )
             {
+                LOGGER( LOG_INFO << "Entity Selected: x=" << entShell->GetX() << " x=" << entShell->GetY() );
+
                 entShell->SetColor( sf::Color::Blue );
                 return true;
             }
@@ -165,15 +185,15 @@ bool World::MouseDown( int x, int y )
   * @brief
  **
 ******************************************************************************/
-b2Body* World::getBodyAtMouse( int x, int y )
+b2Body* World::getBodyAtMouse( float x, float y )
 {
    b2Vec2 mouseV2;
    mouseV2.Set(x,y);
 
    // small box:
    b2AABB aabb = b2AABB();
-   aabb.lowerBound.Set(x -1.001, y - 1.001);
-   aabb.upperBound.Set(x +1.001, y + 1.001);
+   aabb.lowerBound.Set(x -0.001, y - 0.001);
+   aabb.upperBound.Set(x +0.001, y + 0.001);
 
    // Query the world for overlapping shapes.
    QueryCallback callback(mouseV2);
