@@ -1,20 +1,11 @@
 #ifndef THREADWRAPPER_H
 #define THREADWRAPPER_H
 
-#define __CLEANUP_CXX
-
-#define HAVE_STRUCT_TIMESPEC            // redefinition of struct timespec
-
-//#include <pthread.h>
 #include <unistd.h>
 #include <errno.h>
 #include <string>
 #include <sigslot.h>
-#include <utilities/DataTypesUtilities.h>
-
-using namespace sigslot;
-
-enum { WRTHREAD_MIN_PRIORITY = 0, WRTHREAD_NORMAL_PRIORITY, WRTHREAD_HIGH_PRIORITY };
+#include <pthread.h>
 
 /*****************************************************************************/
 /**
@@ -27,8 +18,8 @@ class WrMutex
         friend class WrThreadEvent;
 
         WrMutex();
-       ~WrMutex();
         WrMutex(const WrMutex& copy);
+       ~WrMutex();
 
         bool Lock();
         bool Unlock();
@@ -36,8 +27,8 @@ class WrMutex
         bool TryLock(unsigned long ms);
 
     private:
-        //pthread_mutex_t      *m_pmutex;
-        bool                  m_isOwner;
+        pthread_mutex_t* m_pmutex;
+        bool             m_isOwner;
 };
 
 /*****************************************************************************/
@@ -47,20 +38,12 @@ class WrMutex
 ******************************************************************************/
 class cMutexLocker
 {
-private:
-    WrMutex* m_mutex;
+    public:
+        cMutexLocker( WrMutex* mutex );
+       ~cMutexLocker();
 
-public:
-    cMutexLocker( WrMutex* mutex )
-    {
-        m_mutex = mutex;
-        if(m_mutex) m_mutex->Lock();
-    }
-
-    ~cMutexLocker()
-    {
-        if(m_mutex) m_mutex->Unlock();
-    }
+    private:
+        WrMutex* m_mutex;
 };
 
 /*****************************************************************************/
@@ -72,7 +55,7 @@ class WrThreadEvent
 {
     public:
         WrThreadEvent();
-        ~WrThreadEvent();
+       ~WrThreadEvent();
         WrThreadEvent(const WrThreadEvent& copy);
 
         void   Notify();
@@ -81,8 +64,8 @@ class WrThreadEvent
         bool   Wait(WrMutex& mutex, long msec);
 
     private:
-        //pthread_cond_t      *m_pcond;
-        bool                 m_isOwner;
+        pthread_cond_t* m_pcond;
+        bool            m_isOwner;
 };
 
 /*****************************************************************************/
@@ -96,7 +79,6 @@ class WrThread
                  WrThread();
         virtual ~WrThread();
 
-        // Sterowanie watkiem wbudowanym
         void   Start();
         void   Stop();
         void   Pause();
@@ -111,14 +93,22 @@ class WrThread
 
         static uint8_t NCPU();
 
-        enum eTState {
+        enum eTState
+        {
             IDLE         = 0x00,
             PAUSE        = 0x01,
             PROCESSING   = 0x02,
             CLOSING      = 0x03,
             REDYTODELETE = 0x04,
             SHUTDOWN     = 0x05
-            };
+        };
+
+        enum eTPriority
+        {
+            WRTHREAD_MIN_PRIORITY = 0,
+            WRTHREAD_NORMAL_PRIORITY,
+            WRTHREAD_HIGH_PRIORITY
+        };
 
     protected:
         virtual bool ForceTerminateProcessing(); ///< Metoda powinna zawierac kod wymuszajacy zamkniecie watku tj. zakonczenie procesow blokujacych
@@ -129,8 +119,8 @@ class WrThread
         volatile eTState m_ThreadState;
 
     private:
-        //pthread_t      m_thread;
-        //pthread_attr_t m_thread_attr;
+        pthread_t      m_thread;
+        pthread_attr_t m_thread_attr;
         volatile bool  m_running;
 
         void Exec();
@@ -144,18 +134,18 @@ class WrThread
 ******************************************************************************/
 class WrTimer : public WrThread
 {
-private:
-    int m_timeout;
+    public:
+        WrTimer( int timeout );
+       ~WrTimer();
 
-    bool StartProcessing();
-    bool Processing();
-    bool EndProcessing();
+       sigslot::signal0<> signalTimeout;
 
-public:
-    WrTimer( int timeout );
-   ~WrTimer();
+    private:
+        int m_timeout;
 
-   signal0<> signalTimeout;
+        bool StartProcessing();
+        bool Processing();
+        bool EndProcessing();
 };
 
 #endif // THREADWRAPPER_H

@@ -1087,7 +1087,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1518893380 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1518900104 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.h"
 
 1516920569 d:\sourcecode\lifesimulator\include\entityfactory.h
@@ -1109,7 +1109,7 @@
 1518899822 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
 	"entityfactory.h"
 
-1518894490 source:d:\sourcecode\lifesimulator\src\world.cpp
+1518898090 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.h"
 	"entityshell.h"
 	<string>
@@ -1120,7 +1120,7 @@
 	<SFML/Graphics.hpp>
 	"logwidget.h"
 
-1518889101 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
+1518892701 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
 	"guiwidgetslayer.h"
 	<chrono>
 	<ctime>
@@ -1335,21 +1335,21 @@
 	<stdlib.h>
 	<sys/timeb.h>
 
-1523705497 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\threadutilities.cpp
+1523715898 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\threadutilities.cpp
 	<iostream>
-	<thread>
 	<sys/types.h>
 	<sys/stat.h>
 	<sys/time.h>
-	"utilities/ThreadUtilities.h"
+	<utilities/ThreadUtilities.h>
+	<utilities/DataTypesUtilities.h>
 	<windows.h>
 
-1523705452 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\threadutilities.h
+1523714946 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\threadutilities.h
 	<unistd.h>
 	<errno.h>
 	<string>
 	<sigslot.h>
-	<utilities/DataTypesUtilities.h>
+	<pthread.h>
 
 1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\sigslot-1.0.0\sigslot.h
 	<set>
@@ -1382,7 +1382,7 @@
 	<sys/types.h>
 	<windows.h>
 
-1518349275 source:d:\sourcecode\lifesimulator\src\logwidget.cpp
+1518352875 source:d:\sourcecode\lifesimulator\src\logwidget.cpp
 	"logwidget.h"
 
 1518351494 d:\sourcecode\lifesimulator\include\logwidget.h
@@ -1414,4 +1414,7 @@
 	<errno.h>
 	<sys/types.h>
 	<time.h>
+
+1523705410 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
+	"entityghost.h"
 
