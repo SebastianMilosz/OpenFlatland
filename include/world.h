@@ -14,12 +14,12 @@ class World
 
         bool PhysisStep();
         bool Draw( sf::RenderWindow& window );
-        bool MouseDown( int x, int y );
+        bool MouseDown( float x, float y );
 
     protected:
 
     private:
-        b2Body* getBodyAtMouse( int x, int y );
+        b2Body* getBodyAtMouse( float x, float y );
 
         b2Vec2   m_Gravity;
         b2World  m_World;

@@ -151,7 +151,19 @@ void GUIWidgetsLayer::Draw()
 
     ImGui::Begin("Application Info");
 
+    // get the current mouse position in the window
+    sf::Vector2i pixelPos = sf::Mouse::getPosition( m_window );
+
+    // convert it to world coordinates
+    sf::Vector2f worldPos = m_window.mapPixelToCoords( pixelPos );
+
     ImGui::Text( "FPS: %d", GetFps() );
+
+    ImGui::Text( "Screen: (%d, %d)", pixelPos.x, pixelPos.y );
+
+    ImGui::Text( "World: (%3.2f, %3.2f)", worldPos.x, worldPos.y );
+
+    ImGui::Text( "World: (%3.2f, %3.2f)", worldPos.x/30.f, worldPos.y/30.f );
 
     ImGui::End();
 

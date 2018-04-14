@@ -1,12 +1,11 @@
-#include "entityfactory.h"
+#include "entityghost.h"
 
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-EntityFactory::EntityFactory( World& world ) :
-    m_world( world )
+EntityGhost::EntityGhost( World& World, int x, int y, int z )
 {
     //ctor
 }
@@ -16,7 +15,7 @@ EntityFactory::EntityFactory( World& world ) :
   * @brief
  **
 ******************************************************************************/
-EntityFactory::~EntityFactory()
+EntityGhost::~EntityGhost()
 {
     //dtor
 }
@@ -26,17 +25,19 @@ EntityFactory::~EntityFactory()
   * @brief
  **
 ******************************************************************************/
-std::shared_ptr<Entity> EntityFactory::Create( int x, int y, int z )
+EntityGhost::EntityGhost(const EntityGhost& other)
 {
-    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-
-    // Factory production line
-    entity->AddShell( std::make_shared<EntityShell>( m_world, x, y, z ) );
-    entity->AddGhost( std::make_shared<EntityGhost>( m_world, x, y, z ) );
-
-    m_entityList.push_back( entity );
-
-    return entity;
+    //copy ctor
 }
 
-
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+EntityGhost& EntityGhost::operator=(const EntityGhost& rhs)
+{
+    if (this == &rhs) return *this; // handle self assignment
+    //assignment operator
+    return *this;
+}

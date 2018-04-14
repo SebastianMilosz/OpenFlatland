@@ -98,7 +98,7 @@ int main()
                 }
                 else if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_SEL_ENTITY )
                 {
-                    m_World.MouseDown( MouseX, MouseY );
+                    m_World.MouseDown( worldPos.x, worldPos.y );
                 }
             }
         }
