@@ -9,22 +9,13 @@
   * @brief
  **
 ******************************************************************************/
-class Entity
+class Entity : public EntityGhost
 {
     public:
-        Entity();
+        Entity( int x, int y, int z );
         virtual ~Entity();
         Entity(const Entity& other);
         Entity& operator=(const Entity& other);
-
-        void AddShell( std::shared_ptr<EntityShell> shell );
-        void AddGhost( std::shared_ptr<EntityGhost> ghost );
-
-    protected:
-
-    private:
-        std::shared_ptr<EntityShell> m_shell;
-        std::shared_ptr<EntityGhost> m_ghost;
 };
 
 #endif // ENTITY_H

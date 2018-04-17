@@ -4,13 +4,15 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 
+#include "entityshell.h"
+
 class World
 {
     public:
-        World();
+                 World();
         virtual ~World();
 
-        b2Body* CreateBody( b2BodyDef* def );
+        bool AddShell( EntityShell& shell );
 
         bool PhysisStep();
         bool Draw( sf::RenderWindow& window );
