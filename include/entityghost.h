@@ -1,15 +1,12 @@
 #ifndef ENTITYGHOST_H
 #define ENTITYGHOST_H
 
-#include "world.h"
+#include "entityshell.h"
 
-#include <Box2D/Box2D.h>
-#include <SFML/Graphics.hpp>
-
-class EntityGhost
+class EntityGhost : public EntityShell
 {
     public:
-        EntityGhost( World& World, int x, int y, int z );
+        EntityGhost( int x, int y, int z );
         virtual ~EntityGhost();
         EntityGhost(const EntityGhost& other);
         EntityGhost& operator=(const EntityGhost& other);

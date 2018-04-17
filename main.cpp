@@ -94,7 +94,7 @@ int main()
 
                 if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_ENTITY )
                 {
-                    std::shared_ptr<Entity> entity = m_Factory.Create( MouseX, MouseY, 0 );
+                    m_World.AddShell( dynamic_cast<EntityShell>( m_Factory.Create( MouseX, MouseY, 0 ) ) );
                 }
                 else if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_SEL_ENTITY )
                 {

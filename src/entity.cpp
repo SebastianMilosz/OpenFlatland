@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-Entity::Entity()
+Entity::Entity( int x, int y, int z ) : EntityGhost( x, y, z )
 {
     //ctor
 }
@@ -25,7 +25,7 @@ Entity::~Entity()
   * @brief
  **
 ******************************************************************************/
-Entity::Entity(const Entity& other)
+Entity::Entity(const Entity& other) : EntityGhost( 0, 0, 0 )
 {
     //copy ctor
 }
@@ -40,24 +40,4 @@ Entity& Entity::operator=(const Entity& rhs)
     if (this == &rhs) return *this; // handle self assignment
     //assignment operator
     return *this;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void Entity::AddShell( std::shared_ptr<EntityShell> shell )
-{
-    m_shell = shell;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void Entity::AddGhost( std::shared_ptr<EntityGhost> ghost )
-{
-    m_ghost = ghost;
 }

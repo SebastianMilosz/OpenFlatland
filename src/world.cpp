@@ -1,5 +1,4 @@
 #include "world.h"
-#include "entityshell.h"
 
 #include <string>
 #include <sstream>
@@ -79,9 +78,14 @@ World::~World()
   * @brief
  **
 ******************************************************************************/
-b2Body* World::CreateBody( b2BodyDef* def )
+bool World::AddShell( EntityShell& shell )
 {
-    return m_World.CreateBody( def );
+    EntityShell::sEntityShellDescriptor& desc = shell.GetDescriptor();
+
+    desc.Body = m_World.CreateBody( &desc.BodyDef );
+    desc.Body->CreateFixture( &desc.FixtureDef );
+
+    return true;
 }
 
 /*****************************************************************************/
