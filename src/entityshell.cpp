@@ -12,7 +12,7 @@ EntityShell::EntityShell( int x, int y, int z )
     m_descryptor.Body = NULL;
 
     m_descryptor.Shape.m_p.Set(0, 0);
-    m_descryptor.Shape.m_radius = 1.0;
+    m_descryptor.Shape.m_radius = 15.0f/PIXELS_IN_METER;
     m_descryptor.BodyDef.position = b2Vec2((float)x/PIXELS_IN_METER, (float)y/PIXELS_IN_METER);
     m_descryptor.BodyDef.type = b2_dynamicBody;
     m_descryptor.BodyDef.userData = (void*)this;

@@ -130,7 +130,7 @@ bool World::Draw( sf::RenderWindow& window )
                     float ypos = BodyIterator->GetPosition().y;
 
                     sf::CircleShape circle;
-                    circle.setRadius(10);
+                    circle.setRadius(SCALE * 0.5f);
                     circle.setOutlineColor( entColor );
                     circle.setOutlineThickness(1);
                     circle.setOrigin(16.f, 16.f);
