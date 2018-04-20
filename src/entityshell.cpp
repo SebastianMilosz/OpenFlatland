@@ -9,17 +9,16 @@ static const float PIXELS_IN_METER = 30.f;
 ******************************************************************************/
 EntityShell::EntityShell( int x, int y, int z )
 {
-    b2PolygonShape Shape;
-    Shape.SetAsBox((32.f/2)/PIXELS_IN_METER, (32.f/2)/PIXELS_IN_METER);
-
     m_descryptor.Body = NULL;
 
+    m_descryptor.Shape.m_p.Set(0, 0);
+    m_descryptor.Shape.m_radius = 1.0;
     m_descryptor.BodyDef.position = b2Vec2((float)x/PIXELS_IN_METER, (float)y/PIXELS_IN_METER);
     m_descryptor.BodyDef.type = b2_dynamicBody;
     m_descryptor.BodyDef.userData = (void*)this;
     m_descryptor.FixtureDef.density = 1.f;
     m_descryptor.FixtureDef.friction = 0.7f;
-    m_descryptor.FixtureDef.shape = &Shape;
+    m_descryptor.FixtureDef.shape = &m_descryptor.Shape;
 }
 
 /*****************************************************************************/
@@ -49,7 +48,10 @@ EntityShell::sEntityShellDescriptor& EntityShell::GetDescriptor()
 ******************************************************************************/
 EntityShell::EntityShell(const EntityShell& other)
 {
-    //copy ctor
+    m_descryptor.Body = other.m_descryptor.Body;
+    m_descryptor.FixtureDef = other.m_descryptor.FixtureDef;
+    m_descryptor.BodyDef = other.m_descryptor.BodyDef;
+    m_descryptor.Color = other.m_descryptor.Color;
 }
 
 /*****************************************************************************/
@@ -59,7 +61,13 @@ EntityShell::EntityShell(const EntityShell& other)
 ******************************************************************************/
 EntityShell& EntityShell::operator=(const EntityShell& rhs)
 {
-    if (this == &rhs) return *this; // handle self assignment
+    if ( this == &rhs )
+    {
+        m_descryptor.Body = rhs.m_descryptor.Body;
+        m_descryptor.FixtureDef = rhs.m_descryptor.FixtureDef;
+        m_descryptor.BodyDef = rhs.m_descryptor.BodyDef;
+        m_descryptor.Color = rhs.m_descryptor.Color;
+    }
     //assignment operator
     return *this;
 }
