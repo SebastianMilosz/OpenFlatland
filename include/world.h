@@ -12,7 +12,7 @@ class World
                  World();
         virtual ~World();
 
-        bool AddShell( EntityShell& shell );
+        bool AddShell( std::shared_ptr<EntityShell> shell );
 
         bool PhysisStep();
         bool Draw( sf::RenderWindow& window );

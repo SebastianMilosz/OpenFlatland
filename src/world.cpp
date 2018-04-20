@@ -78,14 +78,20 @@ World::~World()
   * @brief
  **
 ******************************************************************************/
-bool World::AddShell( EntityShell& shell )
+bool World::AddShell( std::shared_ptr<EntityShell> shell )
 {
-    EntityShell::sEntityShellDescriptor& desc = shell.GetDescriptor();
+    EntityShell::sEntityShellDescriptor& desc = shell->GetDescriptor();
 
-    desc.Body = m_World.CreateBody( &desc.BodyDef );
-    desc.Body->CreateFixture( &desc.FixtureDef );
+    b2Body* body = m_World.CreateBody( &desc.BodyDef );
 
-    return true;
+    if( (b2Body*)NULL != body )
+    {
+        body->CreateFixture( &desc.FixtureDef );
+        desc.Body = body;
+        return true;
+    }
+
+    return false;
 }
 
 /*****************************************************************************/

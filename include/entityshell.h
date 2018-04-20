@@ -15,10 +15,11 @@ class EntityShell
             {
             }
 
-            b2Body*      Body;
-            b2FixtureDef FixtureDef;
-            b2BodyDef    BodyDef;
-            sf::Color    Color;
+            b2Body*         Body;
+            b2CircleShape   Shape;
+            b2FixtureDef    FixtureDef;
+            b2BodyDef       BodyDef;
+            sf::Color       Color;
         };
 
     public:
