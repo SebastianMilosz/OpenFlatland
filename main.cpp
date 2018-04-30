@@ -54,8 +54,14 @@ int main()
 
     while (window.isOpen())
     {
+        // get the current mouse position in the window
+        sf::Vector2i pixelPos = sf::Mouse::getPosition( window );
+
+        // convert it to world coordinates
+        sf::Vector2f worldPos = window.mapPixelToCoords( pixelPos );
+
         sf::Event event;
-        while (window.pollEvent(event))
+        while ( window.pollEvent(event) )
         {
             if (event.type == sf::Event::Closed)
                 window.close();
@@ -68,7 +74,7 @@ int main()
                 window.setView(sf::View(visibleArea));
             }
 
-            else if (event.type == sf::Event::MouseWheelScrolled)
+            else if ( event.type == sf::Event::MouseWheelScrolled )
 			{
 				if (event.mouseWheelScroll.delta > 0)
 					zoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, window, (1.f / zoomAmount));
@@ -76,27 +82,28 @@ int main()
 					zoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, window, zoomAmount);
 			}
 
+			else if ( event.type == sf::Event::MouseButtonReleased )
+            {
+                m_World.MouseUp( worldPos.x, worldPos.y );
+            }
+
+            else if ( event.type == sf::Event::MouseMoved )
+            {
+                m_World.MouseMove( worldPos.x, worldPos.y );
+            }
+
             m_Widgets.HandleEvent(event);
         }
 
-        if( m_Widgets.MouseOnGui() == false )
+        if ( m_Widgets.MouseOnGui() == false )
         {
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
             {
-                // get the current mouse position in the window
-                sf::Vector2i pixelPos = sf::Mouse::getPosition( window );
-
-                // convert it to world coordinates
-                sf::Vector2f worldPos = window.mapPixelToCoords( pixelPos );
-
-                int MouseX = worldPos.x;
-                int MouseY = worldPos.y;
-
-                if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_ENTITY )
+                if ( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_ENTITY )
                 {
-                    m_World.AddShell( std::dynamic_pointer_cast<EntityShell>( m_Factory.Create( MouseX, MouseY, 0 ) ) );
+                    m_World.AddShell( std::dynamic_pointer_cast<EntityShell>( m_Factory.Create( worldPos.x, worldPos.y, 0 ) ) );
                 }
-                else if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_SEL_ENTITY )
+                else if ( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_SEL_ENTITY )
                 {
                     m_World.MouseDown( worldPos.x, worldPos.y );
                 }

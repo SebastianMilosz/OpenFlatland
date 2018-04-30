@@ -16,16 +16,24 @@ class World
 
         bool PhysisStep();
         bool Draw( sf::RenderWindow& window );
-        bool MouseDown( float x, float y );
+
+        void MouseDown( float x, float y );
+        void MouseUp( float x, float y );
+        void MouseMove( float x, float y );
 
     protected:
 
     private:
         b2Body* getBodyAtMouse( float x, float y );
 
-        b2Vec2   m_Gravity;
-        b2World  m_World;
-        sf::Font m_font;
+        b2Body*         m_GroundBody;
+        b2MouseJoint*   m_MouseJoint;
+        b2MouseJointDef m_JointDef;
+        b2Vec2          m_Gravity;
+        b2World         m_World;
+        sf::Font        m_font;
+
+        bool            m_entitySelMode;
 };
 
 #endif // WORLD_H
