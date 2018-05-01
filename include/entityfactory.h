@@ -12,6 +12,9 @@ class EntityFactory
         EntityFactory( World& world );
         virtual ~EntityFactory();
 
+        void Save( std::string file );
+        void Load( std::string file );
+
         std::shared_ptr<Entity> Create( int x, int y, int z );
 
     protected:
