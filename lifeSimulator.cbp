@@ -53,6 +53,9 @@
 			<Add directory="libraries/lua-5.3.4/src" />
 			<Add directory="libraries/cpgf-master/include" />
 			<Add directory="libraries/codeframe-master/include" />
+			<Add directory="libraries/codeframe-master/include/utilities" />
+			<Add directory="libraries/codeframe-master/thirdparty/pugixml-1.7/src" />
+			<Add directory="libraries/codeframe-master/thirdparty/smartpointer" />
 		</Compiler>
 		<Linker>
 			<Add option="-static-libstdc++" />
@@ -90,6 +93,7 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/world.h" />
+		<Unit filename="libraries/codeframe-master/include/serializable.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/DataTypesUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FileUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FilepathUtilities.h" />
@@ -100,11 +104,29 @@
 		<Unit filename="libraries/codeframe-master/include/utilities/SysUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/TextUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/ThreadUtilities.h" />
+		<Unit filename="libraries/codeframe-master/src/cxml.cpp" />
+		<Unit filename="libraries/codeframe-master/src/cxmlnode.cpp" />
+		<Unit filename="libraries/codeframe-master/src/instancemanager.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializable.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializablechildlist.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializablecontainer.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializableinterface.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializablelua.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializableproperty.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializableregister.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializablestorage.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializableversion.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/FileUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/LoggerUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/PerformanceUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/SysUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/ThreadUtilities.cpp" />
+		<Unit filename="libraries/codeframe-master/src/xmlformatter.cpp" />
+		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugiconfig.hpp" />
+		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugixml.cpp" />
+		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugixml.hpp" />
+		<Unit filename="libraries/codeframe-master/thirdparty/smartpointer/smartpointer.h" />
+		<Unit filename="libraries/codeframe-master/thirdparty/smartpointer/yasper.h" />
 		<Unit filename="libraries/imgui-master/imconfig.h" />
 		<Unit filename="libraries/imgui-master/imgui.cpp" />
 		<Unit filename="libraries/imgui-master/imgui.h" />
@@ -113,6 +135,7 @@
 		<Unit filename="libraries/imgui-master/imgui_internal.h" />
 		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.cpp" />
 		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.h" />
+		<Unit filename="libraries/sigslot-1.0.0/sigslot.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/entity.cpp" />
 		<Unit filename="src/entityfactory.cpp" />

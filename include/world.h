@@ -1,6 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include <serializable.h>
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 
