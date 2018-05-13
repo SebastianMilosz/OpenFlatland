@@ -7,7 +7,8 @@ static const float PIXELS_IN_METER = 30.f;
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell( int x, int y, int z )
+EntityShell::EntityShell( std::string name, int x, int y, int z ) :
+    cSerializable( name, NULL )
 {
     m_descryptor.Body = NULL;
 
@@ -46,7 +47,8 @@ EntityShell::sEntityShellDescriptor& EntityShell::GetDescriptor()
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell(const EntityShell& other)
+EntityShell::EntityShell(const EntityShell& other) :
+    EntityShell( other.ObjectName(), 0, 0, 0 )
 {
     m_descryptor.Body = other.m_descryptor.Body;
     m_descryptor.FixtureDef = other.m_descryptor.FixtureDef;

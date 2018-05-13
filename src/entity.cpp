@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-Entity::Entity( int x, int y, int z ) : EntityGhost( x, y, z )
+Entity::Entity( std::string name, int x, int y, int z ) : EntityGhost( name, x, y, z )
 {
     //ctor
 }
@@ -25,7 +25,7 @@ Entity::~Entity()
   * @brief
  **
 ******************************************************************************/
-Entity::Entity(const Entity& other) : EntityGhost( 0, 0, 0 )
+Entity::Entity(const Entity& other) : EntityGhost( other.ObjectName(), 0, 0, 0 )
 {
     //copy ctor
 }

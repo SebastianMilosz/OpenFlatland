@@ -106,7 +106,7 @@ namespace codeframe
 
             int Count() const { return m_size; }
 
-            virtual smart::ptr<T> Create( std::string className, std::string objName, int cnt = -1 ) = 0;
+            virtual smart_ptr<T> Create( std::string className, std::string objName, int cnt = -1 ) = 0;
 
             /*****************************************************************************/
             /**
@@ -119,7 +119,7 @@ namespace codeframe
                 {
                     std::string objNameNum = objName + utilities::math::IntToStr( i );
 
-                    if( Create( className, objNameNum, i ).IsValid() == false )
+                    if( smart_ptr_isValid( Create( className, objNameNum, i ) ) == false )
                     {
                         throw std::runtime_error( "cSerializableContainer::Create return NULL" );
                     }
@@ -131,13 +131,13 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            smart::ptr<T> IsName( std::string name )
+            smart_ptr<T> IsName( std::string name )
             {
-                for(typename std::vector< smart::ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+                for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
                 {
-                    smart::ptr<T> sptr = *it;
+                    smart_ptr<T> sptr = *it;
 
-                    if( sptr.IsValid() )
+                    if( smart_ptr_isValid( sptr ) == true )
                     {
                         if( name == sptr->ObjectName() ) return sptr;
                     }
@@ -178,11 +178,11 @@ namespace codeframe
             {
                 if( m_containerVector.size() <= objId ) return false;
 
-                smart::ptr<T> obj = m_containerVector[ objId ];
+                smart_ptr<T> obj = m_containerVector[ objId ];
 
                 if( obj )
                 {
-                    m_containerVector[ objId ] = smart::ptr<T>(NULL);
+                    m_containerVector[ objId ] = smart_ptr<T>(NULL);
                     if( m_size ) m_size--;
                     return true;
                 }
@@ -208,13 +208,13 @@ namespace codeframe
             ******************************************************************************/
             virtual bool DisposeByBuildType( std::string serType, cIgnoreList ignore = cIgnoreList() )
             {
-                for(typename std::vector< smart::ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end();)
+                for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end();)
                 {
-                    smart::ptr<T> sptr = *it;
+                    smart_ptr<T> sptr = *it;
 
-                    if( sptr.IsValid() && sptr->BuildType() == serType && ignore.IsIgnored( sptr ) == false )
+                    if( smart_ptr_isValid( sptr ) && sptr->BuildType() == serType && ignore.IsIgnored( smart_ptr_getRaw( sptr ) ) == false )
                     {
-                        *it = smart::ptr<T>(NULL);
+                        *it = smart_ptr<T>(NULL);
                         if( m_size ) m_size--;
                         signalSelected.Emit( m_select );
                     }
@@ -232,17 +232,17 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            virtual bool Dispose( smart::ptr<T> obj )
+            virtual bool Dispose( smart_ptr<T> obj )
             {
-                for(typename std::vector< smart::ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+                for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
                 {
-                    smart::ptr<T> sptr = *it;
+                    smart_ptr<T> sptr = *it;
 
-                    if( sptr.IsValid() && obj.IsValid() )
+                    if( smart_ptr_isValid( sptr ) && smart_ptr_isValid( obj ) )
                     {
                         if( sptr->ObjectName() == obj->ObjectName() )
                         {
-                            *it = smart::ptr<T>();
+                            *it = smart_ptr<T>();
                             if( m_size ) m_size--;
                             signalSelected.Emit( m_select );
                             return true;
@@ -262,14 +262,14 @@ namespace codeframe
             {
                 if( m_containerVector.size() == 0 ) return true;    // Pusty kontener zwracamy prawde bo nie ma nic do usuwania
 
-                for(typename std::vector< smart::ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+                for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
                 {
-                    smart::ptr<T> obj = *it;
+                    smart_ptr<T> obj = *it;
 
                     // Usuwamy tylko jesli nikt inny nie korzysta z obiektu
-                    if( obj.GetCount() <= 2 )
+                    if( smart_ptr_getCount( obj ) <= 2 )
                     {
-                        obj = smart::ptr<T>(NULL);
+                        obj = smart_ptr<T>(NULL);
                     }
                     else // Nie mozna usunac obiektu
                     {
@@ -298,7 +298,7 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            smart::ptr<T> operator[]( int i )
+            smart_ptr<T> operator[]( int i )
             {
                 return Get( i );
             }
@@ -334,7 +334,7 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            smart::ptr<T> GetSelected()
+            smart_ptr<T> GetSelected()
             {
                 if( IsInRange( m_select ) )
                 {
@@ -343,7 +343,7 @@ namespace codeframe
 
                 throw std::out_of_range( "cSerializableContainer::GetSelected(" + utilities::math::IntToStr(m_select) + "): Out of range" );
 
-                return smart::ptr<T>();
+                return smart_ptr<T>();
             }
 
             /*****************************************************************************/
@@ -361,11 +361,11 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            smart::ptr<T> Get( int id )
+            smart_ptr<T> Get( int id )
             {
                 if( IsInRange( id ) )
                 {
-                    smart::ptr<T> obj = m_containerVector.at( id );
+                    smart_ptr<T> obj = m_containerVector.at( id );
 
                     if( obj.IsValid() )
                     {
@@ -383,7 +383,7 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            int Add( smart::ptr<T> classType, int pos = -1 )
+            int Add( smart_ptr<T> classType, int pos = -1 )
             {
                 return InsertObject( classType, pos );
             }
@@ -396,7 +396,7 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            virtual int InsertObject( smart::ptr<T> classType, int pos = -1 )
+            virtual int InsertObject( smart_ptr<T> classType, int pos = -1 )
             {
                 // pos == -1 oznacza pierwszy lepszy
                 bool found  = false;
@@ -407,9 +407,9 @@ namespace codeframe
                     // Szukamy bezposrednio
                     if( pos >= 0 )
                     {
-                        smart::ptr<T> tmp = m_containerVector[ pos ];
+                        smart_ptr<T> tmp = m_containerVector[ pos ];
 
-                        if( tmp.IsValid() )
+                        if( smart_ptr_isValid( tmp ) )
                         {
                             m_containerVector[ pos ] = classType;
                             found = true;
@@ -420,11 +420,11 @@ namespace codeframe
                     if( found == false )
                     {
                         // Po calym wektorze szukamy pustych miejsc
-                        for(typename std::vector< smart::ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+                        for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
                         {
-                            smart::ptr<T> obj = *it;
+                            smart_ptr<T> obj = *it;
 
-                            if( obj.IsValid() == false )
+                            if( smart_ptr_isValid( obj ) == false )
                             {
                                 // Znalezlismy wiec zapisujemy
                                 *it = classType;
@@ -452,7 +452,7 @@ namespace codeframe
             }
 
         private:
-            std::vector< smart::ptr<T> > m_containerVector;
+            std::vector< smart_ptr<T> > m_containerVector;
     };
 
 }

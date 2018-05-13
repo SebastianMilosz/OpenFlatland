@@ -379,7 +379,7 @@ namespace codeframe
                             // Jesli jeszcze nie istnieje dodajemy
                             if( (bool)containerObject->IsName( buildName ) == false )
                             {
-                                if( containerObject->Create( buildClass, buildName ).IsValid() == false )
+                                if( smart_ptr_isValid( containerObject->Create( buildClass, buildName ) ) == false )
                                 {
                                     LOGGER( LOG_ERROR  << "Dynamic Object " << buildName << " cannot be created from class: " << buildClass );
                                 }

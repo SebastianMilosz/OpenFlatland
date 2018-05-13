@@ -414,7 +414,8 @@
 	<string>
 	<vector>
 
-1524258560 d:\sourcecode\lifesimulator\include\entityshell.h
+1525600767 d:\sourcecode\lifesimulator\include\entityshell.h
+	<serializable.h>
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
@@ -1086,23 +1087,24 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1524264923 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1525601092 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.h"
 
-1525095268 d:\sourcecode\lifesimulator\include\entityfactory.h
+1526220697 d:\sourcecode\lifesimulator\include\entityfactory.h
 	"world.h"
 	"entity.h"
-	<list>
+	<serializable.h>
+	<serializablecontainer.h>
 
-1523999877 d:\sourcecode\lifesimulator\include\entity.h
-	<entityshell.h>
-	<entityghost.h>
+1525600831 d:\sourcecode\lifesimulator\include\entity.h
+	<serializable.h>
+	"entityshell.h"
+	"entityghost.h"
 
-1524000200 source:d:\sourcecode\lifesimulator\src\entity.cpp
+1525601024 source:d:\sourcecode\lifesimulator\src\entity.cpp
 	"entity.h"
 
-1525107578 d:\sourcecode\lifesimulator\include\world.h
-	<serializable.h>
+1525532088 d:\sourcecode\lifesimulator\include\world.h
 	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
 	"entityshell.h"
@@ -1393,7 +1395,7 @@
 
 1518354163 d:\sourcecode\lifesimulator\include\version.h
 
-1524000251 d:\sourcecode\lifesimulator\include\entityghost.h
+1525600794 d:\sourcecode\lifesimulator\include\entityghost.h
 	"entityshell.h"
 
 1427057874 d:\sourcecode\lifesimulator\libraries\pthreads-win32_2_9_1\include\pthread.h
@@ -1413,7 +1415,7 @@
 	<sys/types.h>
 	<time.h>
 
-1524000917 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
+1525601042 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
 	"entityghost.h"
 
 1512916324 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\instancemanager.cpp
@@ -1425,7 +1427,7 @@
 	<algorithm>
 	<ThreadUtilities.h>
 
-1504821200 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.h
+1526222603 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.h
 	"serializableproperty.h"
 	"serializablechildlist.h"
 	<vector>
@@ -1570,4 +1572,42 @@
 	"serializableinterface.h"
 	"serializableproperty.h"
 	<LoggerUtilities.h>
+
+1500912709 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
+	"serializablecontainer.h"
+
+1526250038 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.h
+	<serializable.h>
+	<MathUtilities.h>
+	<exception>
+	<stdexcept>
+	<vector>
+	<smartpointer.h>
+
+1526244311 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\smartpointer\smartpointer.h
+	<memory>
+
+1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\smartpointer\yasper.h
+	<exception>
+
+1504816556 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablelua.cpp
+	"serializable.h"
+	<LuaBridge.h>
+	<fstream>
+
+1512916324 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablestorage.cpp
+	"serializablestorage.h"
+
+1508010921 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
+	"serializableinterface.h"
+
+1526220463 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+	<MathUtilities.h>
+	<LoggerUtilities.h>
+	<serializable.h>
+	<serializablecontainer.h>
+	<iostream>
+	<exception>
+	<stdexcept>
+	"xmlformatter.h"
 
