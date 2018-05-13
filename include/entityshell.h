@@ -1,11 +1,17 @@
 #ifndef ENTITYSHELL_H
 #define ENTITYSHELL_H
 
+#include <serializable.h>
 #include <Box2D/Box2D.h>
 #include <SFML/Graphics.hpp>
 
-class EntityShell
+class EntityShell : public codeframe::cSerializable
 {
+    public:
+        std::string Role()      const { return "Object";      }
+        std::string Class()     const { return "EntityShell"; }
+        std::string BuildType() const { return "Dynamic";     }
+
     public:
         struct sEntityShellDescriptor
         {
@@ -23,7 +29,7 @@ class EntityShell
         };
 
     public:
-                 EntityShell( int x, int y, int z );
+                 EntityShell( std::string name, int x, int y, int z );
                  EntityShell( const EntityShell& other );
         virtual ~EntityShell();
 

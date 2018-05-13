@@ -4,10 +4,16 @@
 #include "world.h"
 #include "entity.h"
 
-#include <list>
+#include <serializable.h>
+#include <serializablecontainer.h>
 
-class EntityFactory
+class EntityFactory : public codeframe::cSerializableContainer<Entity>
 {
+    public:
+        std::string Role()      const { return "Object";     }
+        std::string Class()     const { return "MainWindow"; }
+        std::string BuildType() const { return "Static";     }
+
     public:
         EntityFactory( World& world );
         virtual ~EntityFactory();
@@ -15,13 +21,13 @@ class EntityFactory
         void Save( std::string file );
         void Load( std::string file );
 
-        std::shared_ptr<Entity> Create( int x, int y, int z );
+        smart_ptr<Entity> Create( int x, int y, int z );
 
     protected:
+        smart_ptr<Entity> Create( std::string className, std::string objName, int cnt );
 
     private:
         World&                               m_world;
-        std::list< std::shared_ptr<Entity> > m_entityList;
 };
 
 #endif // ENTITYFACTORY_H

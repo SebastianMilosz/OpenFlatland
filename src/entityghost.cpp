@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-EntityGhost::EntityGhost( int x, int y, int z ) : EntityShell( x, y, z )
+EntityGhost::EntityGhost( std::string name, int x, int y, int z ) : EntityShell( name, x, y, z )
 {
     //ctor
 }
@@ -25,7 +25,8 @@ EntityGhost::~EntityGhost()
   * @brief
  **
 ******************************************************************************/
-EntityGhost::EntityGhost(const EntityGhost& other) : EntityShell( 0, 0, 0 )
+EntityGhost::EntityGhost(const EntityGhost& other) :
+    EntityShell( other.ObjectName(), 0, 0, 0 )
 {
     //copy ctor
 }

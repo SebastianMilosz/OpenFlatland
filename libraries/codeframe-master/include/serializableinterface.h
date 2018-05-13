@@ -69,7 +69,7 @@ namespace codeframe
             };
 
         public:
-            virtual std::string     Class() = 0;                                // Nazwa serializowanej klasy
+            virtual std::string     Class()     const = 0;                      // Nazwa serializowanej klasy
             virtual std::string     Role()      const { return "Object";    }   // Rola serializowanego obiektu
             virtual std::string     BuildType() const { return "Static";    }   // Sposob budowania obiektu (statycznym, dynamiczny)
             cSerializableChildList* ChildList()       { return &m_childList;}
