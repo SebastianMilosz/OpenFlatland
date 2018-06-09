@@ -1,5 +1,7 @@
 #include "entityshell.h"
 
+#include <utilities/LoggerUtilities.h>
+
 static const float PIXELS_IN_METER = 30.f;
 
 /*****************************************************************************/
@@ -29,7 +31,7 @@ EntityShell::EntityShell( std::string name, int x, int y, int z ) :
 ******************************************************************************/
 EntityShell::~EntityShell()
 {
-    //dtor
+
 }
 
 /*****************************************************************************/
@@ -48,9 +50,10 @@ EntityShell::sEntityShellDescriptor& EntityShell::GetDescriptor()
  **
 ******************************************************************************/
 EntityShell::EntityShell(const EntityShell& other) :
-    EntityShell( other.ObjectName(), 0, 0, 0 )
+    cSerializable( other )
 {
     m_descryptor.Body = other.m_descryptor.Body;
+    m_descryptor.Shape = other.m_descryptor.Shape;
     m_descryptor.FixtureDef = other.m_descryptor.FixtureDef;
     m_descryptor.BodyDef = other.m_descryptor.BodyDef;
     m_descryptor.Color = other.m_descryptor.Color;
@@ -66,6 +69,7 @@ EntityShell& EntityShell::operator=(const EntityShell& rhs)
     if ( this == &rhs )
     {
         m_descryptor.Body = rhs.m_descryptor.Body;
+        m_descryptor.Shape = rhs.m_descryptor.Shape;
         m_descryptor.FixtureDef = rhs.m_descryptor.FixtureDef;
         m_descryptor.BodyDef = rhs.m_descryptor.BodyDef;
         m_descryptor.Color = rhs.m_descryptor.Color;

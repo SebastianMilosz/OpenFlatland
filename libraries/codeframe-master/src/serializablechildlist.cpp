@@ -20,7 +20,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableChildList::Register( cSerializable* child )
+    void cSerializableChildList::Register( cSerializableInterface* child )
     {
         if( child )
         {
@@ -34,12 +34,12 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableChildList::UnRegister( cSerializable* child )
+    void cSerializableChildList::UnRegister( cSerializableInterface* child )
     {
-        if( child == NULL ) return;
-
-        m_childVector.erase(std::remove(m_childVector.begin(), m_childVector.end(), child), m_childVector.end());
-        child->ParentUnbound();
-        m_childCnt--;
+        if( child )
+        {
+            m_childVector.erase(std::remove(m_childVector.begin(), m_childVector.end(), child), m_childVector.end());
+            m_childCnt--;
+        }
     }
 }

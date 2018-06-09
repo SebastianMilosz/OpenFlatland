@@ -10,16 +10,13 @@
 class EntityFactory : public codeframe::cSerializableContainer<Entity>
 {
     public:
-        std::string Role()      const { return "Object";     }
-        std::string Class()     const { return "MainWindow"; }
-        std::string BuildType() const { return "Static";     }
+        std::string Role()      const { return "Container";     }
+        std::string Class()     const { return "EntityFactory"; }
+        std::string BuildType() const { return "Static";        }
 
     public:
         EntityFactory( World& world );
         virtual ~EntityFactory();
-
-        void Save( std::string file );
-        void Load( std::string file );
 
         smart_ptr<Entity> Create( int x, int y, int z );
 

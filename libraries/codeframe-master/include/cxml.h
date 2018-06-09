@@ -31,13 +31,13 @@ namespace codeframe
        ~cXML();
 
         cXML&         PointToRoot(                             );
-        cXML&         PointToNode( std::string& name           );
+        cXML&         PointToNode( std::string const& name     );
         cXML&         Add        ( cXML        xml             );
 
         std::string   Protocol   (                             );
         std::string   ToString   (                             );
-        void          ToFile     ( std::string& filePath       );
-        void          FromFile   ( std::string& filePath       );
+        void          ToFile     ( std::string const& filePath );
+        void          FromFile   ( std::string const& filePath );
         void          FromString ( std::string xmlString       );
         void          FromBuffer ( const char* data, int dsize );
         void          Dispose    (                             );

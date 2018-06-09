@@ -6,31 +6,31 @@
 
 namespace codeframe
 {
-    class cSerializable;
+    class cSerializableInterface;
 
     class cSerializableChildList
     {
         friend class iterator;
 
         private:
-            int                         m_childCnt;
-            std::vector<cSerializable*> m_childVector;
+            int                                  m_childCnt;
+            std::vector<cSerializableInterface*> m_childVector;
 
         public:
-            class iterator : public std::iterator<std::input_iterator_tag, cSerializable*>
+            class iterator : public std::iterator<std::input_iterator_tag, cSerializableInterface*>
             {
                 friend class cSerializableChildList;
 
                 private:
                     int                     m_childCnt;
                     cSerializableChildList* m_childList;
-                    cSerializable*          m_serializable;
+                    cSerializableInterface* m_serializable;
 
                 public:
                     iterator(const iterator& n) : m_childCnt(n.m_childCnt), m_childList(n.m_childList), m_serializable(n.m_serializable) {}
 
                     // Operator wskaznikowy wyodrebnienia wskazywanej wartosci
-                    cSerializable* operator *()
+                    cSerializableInterface* operator *()
                     {
                         m_serializable = m_childList->m_childVector.at( m_childCnt );
                         return m_serializable;
@@ -53,8 +53,8 @@ namespace codeframe
 
         public:
             cSerializableChildList();
-            void Register  ( cSerializable* child );
-            void UnRegister( cSerializable* child );
+            void Register  ( cSerializableInterface* child );
+            void UnRegister( cSerializableInterface* child );
 
             // Iterator
             iterator begin() throw()      { return iterator(this, 0);                    }

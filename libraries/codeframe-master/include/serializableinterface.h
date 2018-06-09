@@ -69,32 +69,48 @@ namespace codeframe
             };
 
         public:
-            virtual std::string     Class()     const = 0;                      // Nazwa serializowanej klasy
-            virtual std::string     Role()      const { return "Object";    }   // Rola serializowanego obiektu
-            virtual std::string     BuildType() const { return "Static";    }   // Sposob budowania obiektu (statycznym, dynamiczny)
+            virtual std::string             ObjectName() const = 0;   ///< Nazwa serializowanego objektu
+            virtual std::string             Class()      const = 0;   ///< Nazwa serializowanej klasy
+            virtual std::string             Role()       const = 0;   ///< Rola serializowanego obiektu
+            virtual std::string             BuildType()  const = 0;   ///< Sposob budowania obiektu (statycznym, dynamiczny)
+            virtual bool                    IsPropertyUnique( std::string const& name ) const = 0;
+            virtual bool                    IsNameUnique    ( std::string const& name, bool checkParent = false ) const = 0;
+            virtual std::string             Path() const = 0;
+            virtual cSerializableInterface* GetRootObject() = 0;
+            virtual Property*               GetPropertyByName  ( std::string const& name ) = 0;
+            virtual Property*               GetPropertyById    ( uint32_t    id   ) = 0;
+            virtual Property*               GetPropertyFromPath( std::string const& path ) = 0;
+            virtual cSerializableInterface* GetChildByName     ( std::string const& name ) = 0;
+            virtual void                    PulseChanged       ( bool fullTree = false ) = 0;
+            virtual void                    CommitChanges      () = 0;
+            virtual void                    Enable             ( bool val ) = 0;
+            virtual void                    ParentUnbound      () = 0;
+            virtual void                    ParentBound        ( cSerializableInterface* obj ) = 0;
+
             cSerializableChildList* ChildList()       { return &m_childList;}
             void                    Lock     () const { m_Mutex.Lock();     }
             void                    Unlock   () const { m_Mutex.Unlock();   }
 
-            static float       Version();
-            static std::string VersionString();
+            // Library version nr. and string
+            static float       LibraryVersion();
+            static std::string LibraryVersionString();
 
             // Iterator
-            iterator         begin() throw();
-            iterator         end()  throw();
-            int              size() const;
+            iterator begin() throw();
+            iterator end()   throw();
+            int      size()  const;
 
         protected:
-            mutable WrMutex       m_Mutex;
+                     cSerializableInterface();
+            virtual ~cSerializableInterface();
 
-            cSerializableInterface() : m_dummyProperty(NULL, "DUMMY", 0, cPropertyInfo()) {}
+            Property* GetObjectFieldValue( int cnt );     ///< Zwraca wartosc pola do serializacji
+            int       GetObjectFieldCnt() const;          ///< Zwraca ilosc skladowych do serializacji
 
             std::vector<Property*>  m_vMainPropertyList;  ///< Kontenet zawierajacy wskazniki do parametrow
             Property_Int            m_dummyProperty;
-
-            cSerializableChildList m_childList;
-            Property* GetObjectFieldValue( int cnt );        // Zwraca wartosc pola do serializacji
-            int       GetObjectFieldCnt() const;                   // Zwraca ilosc skladowych do serializacji
+            mutable WrMutex         m_Mutex;
+            cSerializableChildList  m_childList;
     };
 
 }

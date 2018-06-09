@@ -1,6 +1,6 @@
 #include <MathUtilities.h>
 #include <LoggerUtilities.h>
-#include <serializable.h>
+#include <serializableinterface.h>
 #include <serializablecontainer.h>
 #include <iostream>
 #include <exception>
@@ -16,7 +16,7 @@ namespace codeframe
       * @param filePath
      **
     ******************************************************************************/
-    cXmlFormatter::cXmlFormatter( cSerializable* serializableObject, int shareLevel )
+    cXmlFormatter::cXmlFormatter( cSerializableInterface* serializableObject, int shareLevel )
     {
         m_shareLevel         = shareLevel;
         m_serializableObject = serializableObject;
@@ -112,7 +112,7 @@ namespace codeframe
             // Po wszystkich obiektach dzieci ladujemy zawartosc
             for( cSerializableChildList::iterator it = m_serializableObject->ChildList()->begin(); it != m_serializableObject->ChildList()->end(); ++it )
             {
-                cSerializable* iser = *it;
+                cSerializableInterface* iser = *it;
 
                 // Jesli jest to kontener to po jego dzieciach czyli obiektach
                 if( iser->Role() == "Container" )
@@ -125,7 +125,7 @@ namespace codeframe
 
                         if( childNodeObject.IsValid() == true )
                         {
-                            cSerializable* iserc = *itc;
+                            cSerializableInterface* iserc = *itc;
 
                             // Po wszystkich polach serializacji tego obiektu
                             for( cSerializable::iterator itcp = iserc->begin(); itcp != iserc->end(); ++itcp )
@@ -207,7 +207,9 @@ namespace codeframe
             // Dozwolone sa tylko nazwy unikalne na danym poziomie
             if( m_serializableObject->IsNameUnique( m_serializableObject->ObjectName() ) == false )
             {
-                throw std::runtime_error( "cXmlFormatter::LoadFromXML() Name is not Unique" );
+                std::string throwString = std::string("cXmlFormatter::LoadFromXML() Name is not Unique: ") + m_serializableObject->ObjectName();
+
+                throw std::runtime_error( throwString );
             }
 
             cXMLNode rootObjNode = xml.FindChildByAttribute(XMLTAG_OBJECT, "name", serializableObjectName.c_str());
@@ -238,7 +240,9 @@ namespace codeframe
                     // Dozwolone sa tylko pola unikalne na danym poziomie
                     if( m_serializableObject->IsPropertyUnique( iser->Name() ) == false )
                     {
-                        throw std::runtime_error( "cXmlFormatter::LoadFromXML() Property is not Unique" );
+                        std::string throwString = std::string("cXmlFormatter::LoadFromXML() Property is not Unique: ") + iser->Name();
+
+                        throw std::runtime_error( throwString );
                     }
 
                     cXMLNode propertyNode = rootObjNode.FindChildByAttribute(XMLTAG_PROPERTY, "name", iser->Name().c_str());
@@ -305,7 +309,7 @@ namespace codeframe
                         if( href.size() )
                         {
                             // Okreslamy obiekt root dla danego obiektu i wzgledem niego okreslamy cel
-                            cSerializable* rootObj = m_serializableObject->GetRootObject();
+                            cSerializableInterface* rootObj = m_serializableObject->GetRootObject();
 
                             Property* refProperty = rootObj->GetPropertyFromPath( href );
 
@@ -404,7 +408,7 @@ namespace codeframe
                 // Po wszystkich obiektach dzieci ladujemy zawartosc
                 for( cSerializableChildList::iterator it = m_serializableObject->ChildList()->begin(); it != m_serializableObject->ChildList()->end(); ++it )
                 {
-                    cSerializable* iser = *it;
+                    cSerializableInterface* iser = *it;
                     cXmlFormatter formatter( iser );
 
                     cXMLNode childNode = childNodeContainer.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr(childLp++).c_str());
@@ -512,7 +516,7 @@ namespace codeframe
 
                 for( cSerializableChildList::iterator it = m_serializableObject->ChildList()->begin(); it != m_serializableObject->ChildList()->end(); ++it )
                 {
-                    cSerializable* iser = *it;
+                    cSerializableInterface* iser = *it;
 
                     if( iser )
                     {

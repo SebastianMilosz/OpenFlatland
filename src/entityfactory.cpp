@@ -27,32 +27,11 @@ EntityFactory::~EntityFactory()
   * @brief
  **
 ******************************************************************************/
-void EntityFactory::Save( std::string file )
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityFactory::Load( std::string file )
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 smart_ptr<Entity> EntityFactory::Create( int x, int y, int z )
 {
     smart_ptr<Entity> entity = smart_ptr<Entity>( new Entity( "Unknown", x, y, z ) );
 
-    //m_entityList.push_back( entity );
-    InsertObject( entity, 1 );
+    InsertObject( entity );
 
     return entity;
 }

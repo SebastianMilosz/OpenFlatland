@@ -29,7 +29,8 @@ int main()
 {
     // Logger Setup
     std::string apiDir = utilities::file::GetExecutablePath();
-    std::string logFilePath = apiDir + std::string("/") + std::string( APPLICATION_NAME ) + std::string(".txt");
+    std::string logFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_log.txt");
+    std::string cfgFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_cfg.xml");
     LOGGERINS().LogPath = logFilePath;
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Initializing" );
@@ -45,6 +46,8 @@ int main()
     GUIWidgetsLayer m_Widgets( window );
     World           m_World;
     EntityFactory   m_Factory( m_World );
+
+    m_Factory.LoadFromFile( cfgFilePath );
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Initialized" );
 
@@ -121,6 +124,8 @@ int main()
 
         window.display();
     }
+
+    m_Factory.SaveToFile( cfgFilePath );
 
     return 0;
 }

@@ -25,7 +25,7 @@ Entity::~Entity()
   * @brief
  **
 ******************************************************************************/
-Entity::Entity(const Entity& other) : EntityGhost( other.ObjectName(), 0, 0, 0 )
+Entity::Entity(const Entity& other) : EntityGhost( other )
 {
     //copy ctor
 }
