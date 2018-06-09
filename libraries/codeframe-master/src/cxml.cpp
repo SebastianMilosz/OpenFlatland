@@ -131,7 +131,7 @@ cXML::~cXML()
   * @brief
  **
 ******************************************************************************/
-cXML& cXML::PointToNode(std::string& name )
+cXML& cXML::PointToNode(std::string const& name )
 {
     (void)name;
 
@@ -179,7 +179,7 @@ std::string cXML::ToString()
   * @brief
  **
 ******************************************************************************/
-void cXML::ToFile(std::string& filePath )
+void cXML::ToFile(std::string const& filePath )
 {
     CreateXMLDeclaration();
     std::ofstream filestream( filePath.c_str(), std::fstream::in | std::fstream::out | std::fstream::trunc );
@@ -193,7 +193,7 @@ void cXML::ToFile(std::string& filePath )
   * @brief
  **
 ******************************************************************************/
-void cXML::FromFile(std::string& filePath )
+void cXML::FromFile(std::string const& filePath )
 {
     std::filebuf fb;
     if( fb.open(filePath.c_str(), std::ios::in) )

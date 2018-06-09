@@ -17,7 +17,7 @@ class EntityShell : public codeframe::cSerializable
         {
             sEntityShellDescriptor() :
                 Body( NULL ),
-                Color(sf::Color::Red)
+                Color( sf::Color::Red )
             {
             }
 
@@ -42,8 +42,14 @@ class EntityShell : public codeframe::cSerializable
         unsigned int GetZ();
         void SetZ(unsigned int val);
 
-        void SetColor( const sf::Color& color ) { m_descryptor.Color = color; }
-        sf::Color& GetColor() { return m_descryptor.Color; }
+        void SetColor( const sf::Color& color )
+        {
+            m_descryptor.Color = color;
+        }
+        sf::Color& GetColor()
+        {
+            return m_descryptor.Color;
+        }
 
         sEntityShellDescriptor& GetDescriptor();
 

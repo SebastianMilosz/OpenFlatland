@@ -1029,7 +1029,7 @@ namespace codeframe
     ******************************************************************************/
     bool Property::IsReference() const
     {
-        if( cInstanceManager::IsInstance( reinterpret_cast<cInstanceManager*>(m_referenceParent) ) ) { return true; }
+        if( cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(m_referenceParent) ) ) { return true; }
         return false;
     }
 

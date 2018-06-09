@@ -7,7 +7,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-float cSerializableInterface::Version()
+float cSerializableInterface::LibraryVersion()
 {
     return 0.2;
 }
@@ -17,7 +17,7 @@ float cSerializableInterface::Version()
   * @brief
  **
 ******************************************************************************/
-std::string cSerializableInterface::VersionString()
+std::string cSerializableInterface::LibraryVersionString()
 {
     return std::string( "Serializable library version 0.2" );
 }

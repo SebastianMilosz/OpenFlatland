@@ -8,6 +8,7 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="../bin/lifeSimulator/Debug/lifeSimulator" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/lifeSimulator/Debug/" />
 				<Option object_output="../bin/lifeSimulator/obj/Debug/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -24,6 +25,7 @@
 			</Target>
 			<Target title="Release">
 				<Option output="../bin/lifeSimulator/Release/lifeSimulator" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/lifeSimulator/Release/" />
 				<Option object_output="../bin/lifeSimulator/obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -94,6 +96,8 @@
 		</Unit>
 		<Unit filename="include/world.h" />
 		<Unit filename="libraries/codeframe-master/include/serializable.h" />
+		<Unit filename="libraries/codeframe-master/include/serializablecontainer.h" />
+		<Unit filename="libraries/codeframe-master/include/serializableinterface.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/DataTypesUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FileUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FilepathUtilities.h" />

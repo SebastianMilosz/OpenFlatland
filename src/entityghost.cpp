@@ -26,7 +26,7 @@ EntityGhost::~EntityGhost()
  **
 ******************************************************************************/
 EntityGhost::EntityGhost(const EntityGhost& other) :
-    EntityShell( other.ObjectName(), 0, 0, 0 )
+    EntityShell( other )
 {
     //copy ctor
 }

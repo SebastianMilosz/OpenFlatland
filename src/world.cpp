@@ -131,7 +131,7 @@ bool World::Draw( sf::RenderWindow& window )
 {
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext() )
     {
-        if (BodyIterator->GetType() == b2_dynamicBody)
+        if ( BodyIterator->GetType() == b2_dynamicBody )
         {
             void* userVoid = BodyIterator->GetUserData();
 
@@ -149,7 +149,7 @@ bool World::Draw( sf::RenderWindow& window )
                     sf::CircleShape circle;
                     circle.setRadius(SCALE * 0.5f);
                     circle.setOutlineColor( entColor );
-                    circle.setOutlineThickness(1);
+                    circle.setOutlineThickness(3);
                     circle.setOrigin(16.f, 16.f);
                     circle.setPosition(SCALE * xpos, SCALE * ypos);
                     circle.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
@@ -200,26 +200,21 @@ void World::MouseDown( float x, float y )
 
                 if ( (EntityShell*)NULL != entShell )
                 {
-                    b2Body* body = entShell->GetDescriptor().Body;
-
-                    if ( body )
+                    if ( m_MouseJoint )
                     {
-                        if ( m_MouseJoint )
-                        {
-                            m_World.DestroyJoint( m_MouseJoint );
-                            m_MouseJoint = NULL;
-                        }
-
-                        b2Vec2 locationWorld = b2Vec2(x/SCALE, y/SCALE);
-
-                        m_JointDef.bodyB    = body;
-                        m_JointDef.maxForce = 1000.0f * body->GetMass();
-                        m_JointDef.target   = locationWorld;
-                        m_MouseJoint        = (b2MouseJoint*)m_World.CreateJoint( &m_JointDef );
-
-                        entShell->SetColor( sf::Color::Blue );
-                        body->SetAwake(true);
+                        m_World.DestroyJoint( m_MouseJoint );
+                        m_MouseJoint = NULL;
                     }
+
+                    b2Vec2 locationWorld = b2Vec2(x/SCALE, y/SCALE);
+
+                    m_JointDef.bodyB    = body;
+                    m_JointDef.maxForce = 1000.0f * body->GetMass();
+                    m_JointDef.target   = locationWorld;
+                    m_MouseJoint        = (b2MouseJoint*)m_World.CreateJoint( &m_JointDef );
+
+                    entShell->SetColor( sf::Color::Blue );
+                    body->SetAwake(true);
                 }
             }
         }

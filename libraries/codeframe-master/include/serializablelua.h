@@ -19,7 +19,7 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief
+      * @brief Scripting functionality
       * @author Sebastian Milosz
       * @version 1.0
       * @note cSerializableLua

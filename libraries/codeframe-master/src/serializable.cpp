@@ -18,6 +18,7 @@ namespace codeframe
     ******************************************************************************/
     void cSerializable::ParentUnbound()
     {
+        m_parent->ChildList()->UnRegister( this );
         m_parent = NULL;
     }
 
@@ -26,13 +27,10 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable::cSerializable( std::string name, cSerializable* parent ) :
-        m_delay( 0 ),
-        m_parent( parent ),
-        m_shareLevel( ShareFull ),
-        m_sContainerName( name )
-
+    void cSerializable::ParentBound( cSerializableInterface* obj )
     {
+        m_parent = obj;
+
         // Rejestrujemy sie u rodzica
         if( m_parent )
         {
@@ -43,6 +41,21 @@ namespace codeframe
         {
             //Start();
         }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    cSerializable::cSerializable( const std::string& name, cSerializable* parent ) :
+        cSerializableStorage(),
+		m_delay( 0 ),
+        m_parent( NULL ),
+        m_sContainerName( name )
+
+    {
+        ParentBound( parent );
     }
 
     /*****************************************************************************/
@@ -71,7 +84,7 @@ namespace codeframe
             // Zmuszamy dzieci do aktualizacji
             for( cSerializableChildList::iterator it = this->ChildList()->begin(); it != this->ChildList()->end(); ++it )
             {
-                cSerializable* iser = *it;
+                cSerializableInterface* iser = *it;
 
                 if( iser )
                 {
@@ -90,7 +103,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::SetName( std::string name )
+    void cSerializable::SetName( std::string const& name )
     {
         m_sContainerName = name;
     }
@@ -100,7 +113,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    Property* cSerializable::GetPropertyByName( std::string name )
+    Property* cSerializable::GetPropertyByName( std::string const& name )
     {
         // Po wszystkich zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
@@ -247,7 +260,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::LoadFromFile( std::string filePath, std::string container, bool createIfNotExist )
+    cSerializable* cSerializable::LoadFromFile( std::string const& filePath, std::string const& container, bool createIfNotExist )
     {
         try
         {
@@ -288,7 +301,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::SaveToFile( std::string filePath, std::string container )
+    cSerializable* cSerializable::SaveToFile( std::string const& filePath, std::string const& container )
     {
         try
         {
@@ -316,7 +329,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::LoadFromXML( cXML xml, std::string container )
+    cSerializable* cSerializable::LoadFromXML( cXML xml, std::string const& container )
     {
         try
         {
@@ -343,7 +356,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cXML cSerializable::SaveToXML( std::string container, int mode __attribute__((unused)) )
+    cXML cSerializable::SaveToXML( std::string const& container, int mode __attribute__((unused)) )
     {
         try
         {
@@ -370,7 +383,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cSerializable::IsPropertyUnique( std::string name ) const
+    bool cSerializable::IsPropertyUnique( std::string const& name ) const
     {
         int octcnt = 0;
 
@@ -394,7 +407,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cSerializable::IsNameUnique( std::string name, bool checkParent ) const
+    bool cSerializable::IsNameUnique( std::string const& name, bool checkParent ) const
     {
         int octcnt = 0;
 
@@ -420,7 +433,7 @@ namespace codeframe
         // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
         for( cSerializableChildList::iterator it = this->Parent()->ChildList()->begin(); it != this->Parent()->ChildList()->end(); ++it )
         {
-            cSerializable* iser = *it;
+            cSerializableInterface* iser = *it;
 
             if( iser )
             {
@@ -448,7 +461,7 @@ namespace codeframe
     {
         std::string path;
 
-        cSerializable* parent = Parent();
+        cSerializableInterface* parent = Parent();
 
         if( parent )
         {
@@ -485,7 +498,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::Parent() const
+    cSerializableInterface* cSerializable::Parent() const
     {
         return m_parent;
     }
@@ -495,11 +508,11 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::GetChildByName( std::string name )
+    cSerializableInterface* cSerializable::GetChildByName( std::string const& name )
     {
         for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
         {
-            cSerializable* iser = *it;
+            cSerializableInterface* iser = *it;
             if( iser->ObjectName() == name ) return iser;
         }
         return NULL;
@@ -510,7 +523,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::GetRootObject()
+    cSerializableInterface* cSerializable::GetRootObject()
     {
         if( Parent() ) return Parent()->GetRootObject();
 
@@ -522,12 +535,12 @@ namespace codeframe
       * @brief Return serializable object from string path
      **
     ******************************************************************************/
-    cSerializable* cSerializable::GetObjectFromPath( std::string path )
+    cSerializableInterface* cSerializable::GetObjectFromPath( std::string const& path )
     {
         // Rozdzelamy stringa na kawalki
-        vector<std::string> tokens;
-        std::string         delimiters = "/";
-        cSerializable*      curObject = this;
+        vector<std::string>     tokens;
+        std::string             delimiters = "/";
+        cSerializableInterface* curObject = this;
 
         utilities::text::split( path, delimiters, tokens);
 
@@ -564,14 +577,14 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    Property* cSerializable::GetPropertyFromPath( std::string path )
+    Property* cSerializable::GetPropertyFromPath( std::string const& path )
     {
         // Wydzielamy sciezke od nazwy propertisa
         std::string::size_type found = path.find_last_of(".");
         std::string objPath      = path.substr( 0, found );
         std::string propertyName = path.substr( found+1  );
 
-        cSerializable* object = GetObjectFromPath( objPath );
+        cSerializableInterface* object = GetObjectFromPath( objPath );
 
         if( object )
         {
@@ -601,7 +614,7 @@ namespace codeframe
 
         for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
         {
-            cSerializable* iser = *it;
+            cSerializableInterface* iser = *it;
             if( iser )
             {
                 iser->CommitChanges();
@@ -638,7 +651,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::Enable( int val )
+    void cSerializable::Enable( bool val )
     {
         // Po wszystkich propertisach ustawiamy nowy stan
         Lock();
@@ -654,7 +667,7 @@ namespace codeframe
 
         for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
         {
-            cSerializable* iser = *it;
+            cSerializableInterface* iser = *it;
             if( iser )
             {
                 iser->Enable( val );

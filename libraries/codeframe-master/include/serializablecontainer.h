@@ -90,9 +90,9 @@ namespace codeframe
             unsigned int m_size;
 
         public:
-            std::string Role()      { return "Container"; }
-            std::string Class()     { return "cSerializableContainer"; }
-            std::string BuildType() { return "Static"; }
+            std::string Role()      const { return "Container"; }
+            std::string Class()     const { return "cSerializableContainer"; }
+            std::string BuildType() const { return "Static"; }
 
         public:
             cSerializableContainer( std::string name, cSerializable* parentObject ) :  cSerializable( name, parentObject ), m_select(0), m_size( 0 )
@@ -402,7 +402,7 @@ namespace codeframe
                 bool found  = false;
                 int  retPos = -1;
 
-                if( pos < (int)m_containerVector.size() )
+                if( pos < static_cast<int>(m_containerVector.size()) )
                 {
                     // Szukamy bezposrednio
                     if( pos >= 0 )
@@ -416,7 +416,7 @@ namespace codeframe
                         }
                     }
 
-                    // Czukamy wolnego miejsca
+                    // Szukamy wolnego miejsca
                     if( found == false )
                     {
                         // Po calym wektorze szukamy pustych miejsc
@@ -441,6 +441,15 @@ namespace codeframe
                 {
                     m_containerVector.push_back( classType );
                     retPos = m_containerVector.size() - 1;
+                }
+
+                // If there is no parent we become one
+                if( NULL == classType->Parent() )
+                {
+                    cSerializableInterface* serObj = static_cast<cSerializableInterface*>( smart_ptr_getRaw( classType ) );
+                    cSerializableInterface* serPar = static_cast<cSerializableInterface*>( this );
+
+                    classType->ParentBound( serPar );
                 }
 
                 m_select = retPos;

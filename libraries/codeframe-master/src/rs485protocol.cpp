@@ -179,7 +179,7 @@ namespace codeframe
                             uint16_t     dataTimeStampTableSize   = dataTable[ data_cnt++ ];
                             unsigned int dataTimeStampTableSize64 = dataTimeStampTableSize >> 2;    // :4
 
-                            if( (dataTimeStampTableSize64 > 0) && (dataTimeStampTableSize < 16) && (dataTimeStampTableSize64 < *timeStampTableSize64) )
+                            if( (dataTimeStampTableSize64 > 0) && (dataTimeStampTableSize64 < 16) && (dataTimeStampTableSize64 < *timeStampTableSize64) )
                             {
                                 memset( (char*)timestampTable, 0, *timeStampTableSize64 );
 
@@ -209,7 +209,7 @@ namespace codeframe
                             }
                             else
                             {
-                                LOGGER( LOG_ERROR << "Timestamp Error: " << *timeStampTableSize64 );
+                                LOGGER( LOG_ERROR << "Timestamp Error: " << dataTimeStampTableSize );
                                 isError = true;
                             }
                         }
