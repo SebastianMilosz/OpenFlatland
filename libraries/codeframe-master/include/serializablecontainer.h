@@ -35,7 +35,7 @@ namespace codeframe
             bool Ignore;
         };
 
-        void AddToList( cSerializable* serObj, bool ignore = true )
+        void AddToList( cSerializableInterface* serObj, bool ignore = true )
         {
             if( serObj )
             {
@@ -48,7 +48,7 @@ namespace codeframe
             m_vectorIgnoreEntry.push_back( sIgnoreEntry( name, className, buildType, ignore ) );
         }
 
-        bool IsIgnored( cSerializable* serObj )
+        bool IsIgnored( cSerializableInterface* serObj )
         {
             if( m_vectorIgnoreEntry.empty() == false && serObj )
             {

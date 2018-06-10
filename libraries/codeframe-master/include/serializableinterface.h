@@ -76,6 +76,7 @@ namespace codeframe
             virtual bool                    IsPropertyUnique( std::string const& name ) const = 0;
             virtual bool                    IsNameUnique    ( std::string const& name, bool checkParent = false ) const = 0;
             virtual std::string             Path() const = 0;
+            virtual cSerializableInterface* Parent() const = 0;
             virtual cSerializableInterface* GetRootObject() = 0;
             virtual Property*               GetPropertyByName  ( std::string const& name ) = 0;
             virtual Property*               GetPropertyById    ( uint32_t    id   ) = 0;

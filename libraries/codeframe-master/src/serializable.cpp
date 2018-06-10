@@ -276,7 +276,7 @@ namespace codeframe
             }
 
             cXML          xml      ( filePath );
-            cXmlFormatter formatter( this, m_shareLevel );
+            cXmlFormatter formatter( dynamic_cast<cSerializableInterface*>(this), m_shareLevel );
 
             if( xml.Protocol() == "1.0" )
             {

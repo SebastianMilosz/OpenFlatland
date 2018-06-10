@@ -41,15 +41,15 @@ smart_ptr<Entity> EntityFactory::Create( int x, int y, int z )
   * @brief
  **
 ******************************************************************************/
-smart_ptr<Entity> EntityFactory::Create( std::string className, std::string objName, int cnt )
+smart_ptr<codeframe::cSerializableInterface> EntityFactory::Create( std::string className, std::string objName, int cnt )
 {
     if( className == "Entity" )
     {
-        smart_ptr<Entity> obj = smart_ptr<Entity>( new Entity( objName, 0, 0, 0 ) );
+        smart_ptr<codeframe::cSerializableInterface> obj = smart_ptr<codeframe::cSerializableInterface>( new Entity( objName, 0, 0, 0 ) );
 
         InsertObject( obj, cnt );
         return obj;
     }
 
-    return smart_ptr<Entity>();
+    return smart_ptr<codeframe::cSerializableInterface>();
 }

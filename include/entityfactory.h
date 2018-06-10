@@ -6,8 +6,9 @@
 
 #include <serializable.h>
 #include <serializablecontainer.h>
+#include <serializableinterface.h>
 
-class EntityFactory : public codeframe::cSerializableContainer<Entity>
+class EntityFactory : public codeframe::cSerializableContainer<codeframe::cSerializableInterface>
 {
     public:
         std::string Role()      const { return "Container";     }
@@ -21,7 +22,7 @@ class EntityFactory : public codeframe::cSerializableContainer<Entity>
         smart_ptr<Entity> Create( int x, int y, int z );
 
     protected:
-        smart_ptr<Entity> Create( std::string className, std::string objName, int cnt );
+        smart_ptr<codeframe::cSerializableInterface> Create( std::string className, std::string objName, int cnt );
 
     private:
         World&                               m_world;
