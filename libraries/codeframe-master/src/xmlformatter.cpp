@@ -347,10 +347,10 @@ namespace codeframe
             if( thisRole == "Container" )
             {
                 // Rzutujemy na kontener
-                cSerializableContainer<cSerializableInterface>* containerObject = dynamic_cast< cSerializableContainer<cSerializableInterface>* >(m_serializableObject);
+                cSerializableContainer* containerObject = dynamic_cast< cSerializableContainer* >(m_serializableObject);
 
                 // Usuwamy wszystkie dynamiczne obiekty z kontenera
-                if( (cSerializableContainer<cSerializableInterface>*)NULL != containerObject )
+                if( (cSerializableContainer*)NULL != containerObject )
                 {
                     cIgnoreList ignore;
 

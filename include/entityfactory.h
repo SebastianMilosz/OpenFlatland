@@ -8,7 +8,7 @@
 #include <serializablecontainer.h>
 #include <serializableinterface.h>
 
-class EntityFactory : public codeframe::cSerializableContainer<codeframe::cSerializableInterface>
+class EntityFactory : public codeframe::cSerializableContainer
 {
     public:
         std::string Role()      const { return "Container";     }

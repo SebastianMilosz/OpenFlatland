@@ -1091,7 +1091,7 @@
 	"entityshell.h"
 	<utilities/LoggerUtilities.h>
 
-1528632580 d:\sourcecode\lifesimulator\include\entityfactory.h
+1528666707 d:\sourcecode\lifesimulator\include\entityfactory.h
 	"world.h"
 	"entity.h"
 	<serializable.h>
@@ -1111,7 +1111,7 @@
 	<Box2D/Box2D.h>
 	"entityshell.h"
 
-1528555047 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
+1528632599 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
 	"entityfactory.h"
 
 1528553848 source:d:\sourcecode\lifesimulator\src\world.cpp
@@ -1580,12 +1580,13 @@
 1500912709 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
 	"serializablecontainer.h"
 
-1528631060 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.h
+1528666759 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.h
 	<serializable.h>
 	<MathUtilities.h>
 	<exception>
 	<stdexcept>
 	<vector>
+	<cstdbool>
 	<smartpointer.h>
 
 1526244311 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\smartpointer\smartpointer.h
@@ -1605,7 +1606,7 @@
 1527193944 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
 	"serializableinterface.h"
 
-1528631833 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+1528666681 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
 	<MathUtilities.h>
 	<LoggerUtilities.h>
 	<serializableinterface.h>
