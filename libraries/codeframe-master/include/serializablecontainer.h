@@ -6,6 +6,7 @@
 #include <exception>
 #include <stdexcept>
 #include <vector>
+#include <cstdbool>
 #include <smartpointer.h>
 
 #define MAXID 100
@@ -82,7 +83,6 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    template < typename T >
     class cSerializableContainer : public cSerializable
     {
         private:
@@ -104,9 +104,12 @@ namespace codeframe
                 Dispose();
             }
 
-            int Count() const { return m_size; }
+            int Count() const
+            {
+                return m_size;
+            }
 
-            virtual smart_ptr<T> Create( std::string className, std::string objName, int cnt = -1 ) = 0;
+            virtual smart_ptr<cSerializableInterface> Create( std::string className, std::string objName, int cnt = -1 ) = 0;
 
             /*****************************************************************************/
             /**
@@ -131,19 +134,19 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            smart_ptr<T> IsName( std::string name )
+            bool IsName( std::string& name )
             {
-                for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+                for(typename std::vector< smart_ptr<cSerializableInterface> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
                 {
-                    smart_ptr<T> sptr = *it;
+                    smart_ptr<cSerializableInterface> sptr = *it;
 
                     if( smart_ptr_isValid( sptr ) == true )
                     {
-                        if( name == sptr->ObjectName() ) return sptr;
+                        if( name == sptr->ObjectName() ) return true;
                     }
                 }
 
-                return NULL;
+                return false;
             }
 
             /*****************************************************************************/
@@ -178,11 +181,11 @@ namespace codeframe
             {
                 if( m_containerVector.size() <= objId ) return false;
 
-                smart_ptr<T> obj = m_containerVector[ objId ];
+                smart_ptr<cSerializableInterface> obj = m_containerVector[ objId ];
 
                 if( obj )
                 {
-                    m_containerVector[ objId ] = smart_ptr<T>(NULL);
+                    m_containerVector[ objId ] = smart_ptr<cSerializableInterface>(NULL);
                     if( m_size ) m_size--;
                     return true;
                 }
@@ -208,13 +211,13 @@ namespace codeframe
             ******************************************************************************/
             virtual bool DisposeByBuildType( std::string serType, cIgnoreList ignore = cIgnoreList() )
             {
-                for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end();)
+                for(typename std::vector< smart_ptr<cSerializableInterface> >::iterator it = m_containerVector.begin(); it != m_containerVector.end();)
                 {
-                    smart_ptr<T> sptr = *it;
+                    smart_ptr<cSerializableInterface> sptr = *it;
 
                     if( smart_ptr_isValid( sptr ) && sptr->BuildType() == serType && ignore.IsIgnored( smart_ptr_getRaw( sptr ) ) == false )
                     {
-                        *it = smart_ptr<T>(NULL);
+                        *it = smart_ptr<cSerializableInterface>(NULL);
                         if( m_size ) m_size--;
                         signalSelected.Emit( m_select );
                     }
@@ -232,7 +235,8 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            virtual bool Dispose( smart_ptr<T> obj )
+            template<typename T>
+            bool Dispose( smart_ptr<T> obj )
             {
                 for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
                 {
@@ -262,14 +266,14 @@ namespace codeframe
             {
                 if( m_containerVector.size() == 0 ) return true;    // Pusty kontener zwracamy prawde bo nie ma nic do usuwania
 
-                for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+                for(typename std::vector< smart_ptr<cSerializableInterface> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
                 {
-                    smart_ptr<T> obj = *it;
+                    smart_ptr<cSerializableInterface> obj = *it;
 
                     // Usuwamy tylko jesli nikt inny nie korzysta z obiektu
                     if( smart_ptr_getCount( obj ) <= 2 )
                     {
-                        obj = smart_ptr<T>(NULL);
+                        obj = smart_ptr<cSerializableInterface>(NULL);
                     }
                     else // Nie mozna usunac obiektu
                     {
@@ -298,9 +302,10 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
+            template<typename T>
             smart_ptr<T> operator[]( int i )
             {
-                return Get( i );
+                return Get<T>( i );
             }
 
             /*****************************************************************************/
@@ -334,11 +339,12 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
+            template<typename T>
             smart_ptr<T> GetSelected()
             {
                 if( IsInRange( m_select ) )
                 {
-                    return Get( m_select );
+                    return Get<T>( m_select );
                 }
 
                 throw std::out_of_range( "cSerializableContainer::GetSelected(" + utilities::math::IntToStr(m_select) + "): Out of range" );
@@ -361,6 +367,7 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
+            template<typename T>
             smart_ptr<T> Get( int id )
             {
                 if( IsInRange( id ) )
@@ -383,7 +390,7 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            int Add( smart_ptr<T> classType, int pos = -1 )
+            int Add( smart_ptr<cSerializableInterface> classType, int pos = -1 )
             {
                 return InsertObject( classType, pos );
             }
@@ -396,7 +403,7 @@ namespace codeframe
               * @brief
              **
             ******************************************************************************/
-            virtual int InsertObject( smart_ptr<T> classType, int pos = -1 )
+            virtual int InsertObject( smart_ptr<cSerializableInterface> classType, int pos = -1 )
             {
                 // pos == -1 oznacza pierwszy lepszy
                 bool found  = false;
@@ -407,7 +414,7 @@ namespace codeframe
                     // Szukamy bezposrednio
                     if( pos >= 0 )
                     {
-                        smart_ptr<T> tmp = m_containerVector[ pos ];
+                        smart_ptr<cSerializableInterface> tmp = m_containerVector[ pos ];
 
                         if( smart_ptr_isValid( tmp ) )
                         {
@@ -420,9 +427,9 @@ namespace codeframe
                     if( found == false )
                     {
                         // Po calym wektorze szukamy pustych miejsc
-                        for(typename std::vector< smart_ptr<T> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+                        for(typename std::vector< smart_ptr<cSerializableInterface> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
                         {
-                            smart_ptr<T> obj = *it;
+                            smart_ptr<cSerializableInterface> obj = *it;
 
                             if( smart_ptr_isValid( obj ) == false )
                             {
@@ -446,9 +453,7 @@ namespace codeframe
                 // If there is no parent we become one
                 if( NULL == classType->Parent() )
                 {
-                    cSerializableInterface* serObj = static_cast<cSerializableInterface*>( smart_ptr_getRaw( classType ) );
                     cSerializableInterface* serPar = static_cast<cSerializableInterface*>( this );
-
                     classType->ParentBound( serPar );
                 }
 
@@ -461,7 +466,7 @@ namespace codeframe
             }
 
         private:
-            std::vector< smart_ptr<T> > m_containerVector;
+            std::vector< smart_ptr<cSerializableInterface> > m_containerVector;
     };
 
 }
