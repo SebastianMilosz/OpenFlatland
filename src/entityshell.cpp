@@ -2,6 +2,8 @@
 
 #include <utilities/LoggerUtilities.h>
 
+using namespace codeframe;
+
 static const float PIXELS_IN_METER = 30.f;
 
 /*****************************************************************************/
@@ -10,7 +12,10 @@ static const float PIXELS_IN_METER = 30.f;
  **
 ******************************************************************************/
 EntityShell::EntityShell( std::string name, int x, int y, int z ) :
-    cSerializable( name, NULL )
+    cSerializable( name, NULL ),
+    X( this, "X", &EntityShell::GetX, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos") ),
+    Y( this, "Y", &EntityShell::GetY, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos") ),
+    Z( this, "Z", &EntityShell::GetZ, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos") )
 {
     m_descryptor.Body = NULL;
 
@@ -50,7 +55,10 @@ EntityShell::sEntityShellDescriptor& EntityShell::GetDescriptor()
  **
 ******************************************************************************/
 EntityShell::EntityShell(const EntityShell& other) :
-    cSerializable( other )
+    cSerializable( other ),
+    X( this, "X", &EntityShell::GetX, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos") ),
+    Y( this, "Y", &EntityShell::GetY, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos") ),
+    Z( this, "Z", &EntityShell::GetZ, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos") )
 {
     m_descryptor.Body = other.m_descryptor.Body;
     m_descryptor.Shape = other.m_descryptor.Shape;
