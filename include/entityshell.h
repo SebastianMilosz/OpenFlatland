@@ -33,6 +33,10 @@ class EntityShell : public codeframe::cSerializable
                  EntityShell( const EntityShell& other );
         virtual ~EntityShell();
 
+        codeframe::Property_pRea<EntityShell, unsigned int> X;
+        codeframe::Property_pRea<EntityShell, unsigned int> Y;
+        codeframe::Property_pRea<EntityShell, unsigned int> Z;
+
         EntityShell& operator=(const EntityShell& other);
 
         unsigned int GetX();

@@ -447,6 +447,18 @@ namespace codeframe
            using Property::operator =;
     };
 
+    template <class T, class retT>
+    class Property_pRea : public Property
+    {
+        public:
+            Property_pRea( cSerializable* parentpc, std::string name, retT (T::*getValue)(),  cPropertyInfo info ) : Property( parentpc, name, 0.0, info ) {}
+           ~Property_pRea() {}
+           using Property::operator =;
+
+        private:
+            retT (T::*GetValue)();
+    };
+
     class Property_Str : public Property
     {
         public:
