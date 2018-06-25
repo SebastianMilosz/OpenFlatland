@@ -10,7 +10,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface::cSerializableInterface() : m_dummyProperty(NULL, "DUMMY", 0, cPropertyInfo())
+    cSerializableInterface::cSerializableInterface() : m_dummyProperty(NULL, "DUMMY", TYPE_NON, cPropertyInfo())
     {
 
     }
@@ -30,10 +30,10 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    Property* cSerializableInterface::GetObjectFieldValue( int cnt )
+    PropertyBase* cSerializableInterface::GetObjectFieldValue( int cnt )
     {
         m_Mutex.Lock();
-        Property* retParameter = m_vMainPropertyList.at( cnt );
+        PropertyBase* retParameter = m_vMainPropertyList.at( cnt );
         m_Mutex.Unlock();
 
         return retParameter;

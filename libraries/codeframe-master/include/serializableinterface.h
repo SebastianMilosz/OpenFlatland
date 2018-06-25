@@ -29,11 +29,9 @@ namespace codeframe
     class cSerializableInterface : public sigslot::has_slots<>
     {
         public:
-            class iterator : public std::iterator<std::input_iterator_tag, Property*>
+            class iterator : public std::iterator<std::input_iterator_tag, PropertyBase*>
             {
-                friend class Property;
-                friend class Property_Int;
-                friend class Property_Str;
+                friend class PropertyBase;
                 friend class cSerializableInterface;
 
             public:
@@ -41,7 +39,7 @@ namespace codeframe
                 iterator(const iterator& n) : m_base(n.m_base), m_param(n.m_param), m_curId(n.m_curId) {}
 
                 // Operator wskaznikowy wyodrebnienia wskazywanej wartosci
-                Property* operator *()
+                PropertyBase* operator *()
                 {
                     m_param = m_base->GetObjectFieldValue( m_curId );
                     return m_param;
@@ -64,7 +62,7 @@ namespace codeframe
 
             private:
                    cSerializableInterface* m_base;
-                   Property*               m_param;
+                   PropertyBase*           m_param;
                    int                     m_curId;
             };
 
@@ -78,9 +76,9 @@ namespace codeframe
             virtual std::string             Path() const = 0;
             virtual cSerializableInterface* Parent() const = 0;
             virtual cSerializableInterface* GetRootObject() = 0;
-            virtual Property*               GetPropertyByName  ( std::string const& name ) = 0;
-            virtual Property*               GetPropertyById    ( uint32_t    id   ) = 0;
-            virtual Property*               GetPropertyFromPath( std::string const& path ) = 0;
+            virtual PropertyBase*           GetPropertyByName  ( std::string const& name ) = 0;
+            virtual PropertyBase*           GetPropertyById    ( uint32_t    id   ) = 0;
+            virtual PropertyBase*           GetPropertyFromPath( std::string const& path ) = 0;
             virtual cSerializableInterface* GetChildByName     ( std::string const& name ) = 0;
             virtual void                    PulseChanged       ( bool fullTree = false ) = 0;
             virtual void                    CommitChanges      () = 0;
@@ -105,13 +103,13 @@ namespace codeframe
                      cSerializableInterface();
             virtual ~cSerializableInterface();
 
-            Property* GetObjectFieldValue( int cnt );     ///< Zwraca wartosc pola do serializacji
-            int       GetObjectFieldCnt() const;          ///< Zwraca ilosc skladowych do serializacji
+            PropertyBase* GetObjectFieldValue( int cnt );     ///< Zwraca wartosc pola do serializacji
+            int           GetObjectFieldCnt() const;          ///< Zwraca ilosc skladowych do serializacji
 
-            std::vector<Property*>  m_vMainPropertyList;  ///< Kontenet zawierajacy wskazniki do parametrow
-            Property_Int            m_dummyProperty;
-            mutable WrMutex         m_Mutex;
-            cSerializableChildList  m_childList;
+            std::vector<PropertyBase*>  m_vMainPropertyList;  ///< Kontenet zawierajacy wskazniki do parametrow
+            PropertyBase                m_dummyProperty;
+            mutable WrMutex             m_Mutex;
+            cSerializableChildList      m_childList;
     };
 
 }

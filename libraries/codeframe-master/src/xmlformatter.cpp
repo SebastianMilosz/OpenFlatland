@@ -77,7 +77,7 @@ namespace codeframe
             // Po wszystkich polach serializacji tego obiektu
             for( cSerializable::iterator it = m_serializableObject->begin(); it != m_serializableObject->end(); ++it )
             {
-                Property* iser = *it;
+                PropertyBase* iser = *it;
 
                 cXMLNode propertyNode = mio1node.FindChildByAttribute("feald", "name", iser->Name().c_str());
 
@@ -130,7 +130,7 @@ namespace codeframe
                             // Po wszystkich polach serializacji tego obiektu
                             for( cSerializable::iterator itcp = iserc->begin(); itcp != iserc->end(); ++itcp )
                             {
-                                Property* isercp = *itcp;
+                                PropertyBase* isercp = *itcp;
 
                                 cXMLNode propertyNode_1 = childNodeObject.FindChildByAttribute("feald", "name", isercp->Name().c_str());
 
@@ -233,14 +233,14 @@ namespace codeframe
             // Po wszystkich polach serializacji tego obiektu
             for( cSerializable::iterator it = m_serializableObject->begin(); it != m_serializableObject->end(); ++it )
             {
-                Property* iser = *it;
+                PropertyBase* iser = *it;
 
                 if( iser->Info().GetXmlMode() & XMLMODE_R )
                 {
                     // Dozwolone sa tylko pola unikalne na danym poziomie
                     if( m_serializableObject->IsPropertyUnique( iser->Name() ) == false )
                     {
-                        std::string throwString = std::string("cXmlFormatter::LoadFromXML() Property is not Unique: ") + iser->Name();
+                        std::string throwString = std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name();
 
                         throw std::runtime_error( throwString );
                     }
@@ -311,7 +311,7 @@ namespace codeframe
                             // Okreslamy obiekt root dla danego obiektu i wzgledem niego okreslamy cel
                             cSerializableInterface* rootObj = m_serializableObject->GetRootObject();
 
-                            Property* refProperty = rootObj->GetPropertyFromPath( href );
+                            PropertyBase* refProperty = rootObj->GetPropertyFromPath( href );
 
                             if( refProperty )
                             {
@@ -451,7 +451,7 @@ namespace codeframe
             // Po wszystkich polach serializacji
             for( cSerializable::iterator it = m_serializableObject->begin(); it != m_serializableObject->end(); ++it )
             {
-                Property* iser = *it;
+                PropertyBase* iser = *it;
 
                 if( iser->Info().GetXmlMode() & XMLMODE_W ) // Jesli dozwolony zapis do xmla dla tego propertisa
                 {
