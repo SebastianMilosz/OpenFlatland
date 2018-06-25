@@ -13,9 +13,9 @@ static const float PIXELS_IN_METER = 30.f;
 ******************************************************************************/
 EntityShell::EntityShell( std::string name, int x, int y, int z ) :
     cSerializable( name, NULL ),
-    X( this, "X", &EntityShell::GetX, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos") ),
-    Y( this, "Y", &EntityShell::GetY, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos") ),
-    Z( this, "Z", &EntityShell::GetZ, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos") )
+    X( this, "X", 0, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), &EntityShell::GetX ),
+    Y( this, "Y", 0, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), &EntityShell::GetY ),
+    Z( this, "Z", 0, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), &EntityShell::GetZ )
 {
     m_descryptor.Body = NULL;
 
@@ -56,9 +56,9 @@ EntityShell::sEntityShellDescriptor& EntityShell::GetDescriptor()
 ******************************************************************************/
 EntityShell::EntityShell(const EntityShell& other) :
     cSerializable( other ),
-    X( this, "X", &EntityShell::GetX, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos") ),
-    Y( this, "Y", &EntityShell::GetY, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos") ),
-    Z( this, "Z", &EntityShell::GetZ, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos") )
+    X( this, "X", 0, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), &EntityShell::GetX ),
+    Y( this, "Y", 0, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), &EntityShell::GetY ),
+    Z( this, "Z", 0, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), &EntityShell::GetZ )
 {
     m_descryptor.Body = other.m_descryptor.Body;
     m_descryptor.Shape = other.m_descryptor.Shape;

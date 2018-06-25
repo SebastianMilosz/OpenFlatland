@@ -70,7 +70,7 @@ namespace codeframe
         // Emitujemy sygnaly zmiany wszystkich propertisow
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
-            Property* temp = m_vMainPropertyList.at(n);
+            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp )
             {
                 temp->PulseChanged();
@@ -113,12 +113,12 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    Property* cSerializable::GetPropertyByName( std::string const& name )
+    PropertyBase* cSerializable::GetPropertyByName( std::string const& name )
     {
         // Po wszystkich zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
-            Property* temp = m_vMainPropertyList.at(n);
+            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Name() == name )
             {
                 return temp;
@@ -135,13 +135,13 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    Property* cSerializable::GetPropertyById( uint32_t id )
+    PropertyBase* cSerializable::GetPropertyById( uint32_t id )
     {
         //m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
-            Property* temp = m_vMainPropertyList.at(n);
+            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Id() == id )
             {
                 return temp;
@@ -167,7 +167,7 @@ namespace codeframe
         // Po wszystkic1h zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
-            Property* temp = m_vMainPropertyList.at(n);
+            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Id() == id )
             {
                 retName = temp->Name();
@@ -199,7 +199,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::RegisterProperty( Property* prop )
+    void cSerializable::RegisterProperty( PropertyBase* prop )
     {
         Lock();
         m_vMainPropertyList.push_back( prop );
@@ -213,13 +213,13 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::UnRegisterProperty( Property* prop )
+    void cSerializable::UnRegisterProperty( PropertyBase* prop )
     {
         Lock();
         // Po wszystkic1h zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
-            Property* temp = m_vMainPropertyList.at(n);
+            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Name() == prop->Name() )
             {
                 // Wywalamy z listy
@@ -390,7 +390,7 @@ namespace codeframe
         Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
-            Property* temp = m_vMainPropertyList.at(n);
+            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Name() == name )
             {
                 octcnt++;
@@ -577,7 +577,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    Property* cSerializable::GetPropertyFromPath( std::string const& path )
+    PropertyBase* cSerializable::GetPropertyFromPath( std::string const& path )
     {
         // Wydzielamy sciezke od nazwy propertisa
         std::string::size_type found = path.find_last_of(".");
@@ -588,7 +588,7 @@ namespace codeframe
 
         if( object )
         {
-            Property* prop = object->GetPropertyByName( propertyName );
+            PropertyBase* prop = object->GetPropertyByName( propertyName );
             return prop;
         }
 
@@ -605,7 +605,7 @@ namespace codeframe
         Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
-            Property* temp = m_vMainPropertyList.at(n);
+            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp )
             {
                 temp->CommitChanges();
@@ -629,7 +629,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::slotPropertyChangedGlobal( Property* prop )
+    void cSerializable::slotPropertyChangedGlobal( PropertyBase* prop )
     {
         signalPropertyChanged.Emit( prop );
     }
@@ -639,7 +639,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::slotPropertyChanged( Property* prop __attribute__((unused)) )
+    void cSerializable::slotPropertyChanged( PropertyBase* prop __attribute__((unused)) )
     {
         #ifdef SERIALIZABLE_USE_WXWIDGETS
         wxUpdatePropertyValue( prop );
@@ -658,7 +658,7 @@ namespace codeframe
 
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
-            Property* temp = m_vMainPropertyList.at(n);
+            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp )
             {
                 temp->Info().Enable( val );

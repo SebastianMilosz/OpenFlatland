@@ -44,10 +44,10 @@ namespace codeframe
         {
             getGlobalNamespace( l )
             .beginNamespace( "CLASS" )
-                .beginClass<Property>( "Property" )
-                    .addProperty( "Number", &Property::GetNumber, &Property::SetNumber )
-                    .addProperty( "String", &Property::GetString, &Property::SetString )
-                    .addProperty( "Real"  , &Property::GetReal,   &Property::SetReal   )
+                .beginClass<PropertyBase>( "PropertyBase" )
+                    .addProperty( "Number", &PropertyBase::GetNumber, &PropertyBase::SetNumber )
+                    .addProperty( "String", &PropertyBase::GetString, &PropertyBase::SetString )
+                    .addProperty( "Real"  , &PropertyBase::GetReal,   &PropertyBase::SetReal   )
                 .endClass()
             .endNamespace();
         }
@@ -55,7 +55,7 @@ namespace codeframe
         // Po wszystkich propertisach dodajemy do lua
         for( iterator it = this->begin(); it != this->end(); ++it )
         {
-            Property* iser = *it;
+            PropertyBase* iser = *it;
 
             std::string namespaceLUAName = iser->Path();
             std::string objectLUAName    = iser->Name();

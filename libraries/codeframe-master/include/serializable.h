@@ -18,7 +18,7 @@ namespace codeframe
     ******************************************************************************/
     class cSerializable : public cSerializableLua, public cSerializableStorage
     {
-        friend class Property;
+        friend class PropertyBase;
 
         public:
                              cSerializable( std::string const& name, cSerializable* parent = NULL );
@@ -40,12 +40,12 @@ namespace codeframe
             cSerializableInterface* GetRootObject      (                  );
             cSerializableInterface* GetObjectFromPath  ( std::string const& path );
             cSerializableInterface* GetChildByName     ( std::string const& name );
-            void                    RegisterProperty   ( Property*   prop );
-            void                    UnRegisterProperty ( Property*   prop );
+            void                    RegisterProperty   ( PropertyBase*   prop );
+            void                    UnRegisterProperty ( PropertyBase*   prop );
             void                    ClearPropertyList  (                  );
-            Property*               GetPropertyByName  ( std::string const& name );
-            Property*               GetPropertyById    ( uint32_t    id   );
-            Property*               GetPropertyFromPath( std::string const& path );
+            PropertyBase*           GetPropertyByName  ( std::string const& name );
+            PropertyBase*           GetPropertyById    ( uint32_t    id   );
+            PropertyBase*           GetPropertyFromPath( std::string const& path );
             std::string             GetNameById        ( uint32_t    id   ) const;
             void                    PulseChanged       ( bool fullTree = false );
             void                    CommitChanges      (                  );
@@ -54,18 +54,18 @@ namespace codeframe
             void                    ParentBound        ( cSerializableInterface* obj );
 
         public: // @todo move to Property Sygnaly
-            signal1<Property*> signalPropertyChanged;                   ///< Emitowany gdy propertis został zmieniony razem z wskaznikiem na niego
-            signal1<Property*> signalPropertyUpdateFail;                ///< Emitowany gdy oczekiwano ustawienia propertisa
+            signal1<PropertyBase*> signalPropertyChanged;                   ///< Emitowany gdy propertis został zmieniony razem z wskaznikiem na niego
+            signal1<PropertyBase*> signalPropertyUpdateFail;                ///< Emitowany gdy oczekiwano ustawienia propertisa
 
         protected: // Sloty
-            virtual void slotPropertyChangedGlobal( Property* prop );   ///<
+            virtual void slotPropertyChangedGlobal( PropertyBase* prop );   ///<
 
             void    EnterPulseState()    { m_pulseState = true;  }
             void    LeavePulseState()    { m_pulseState = false; }
             bool    IsPulseState() const { return  m_pulseState; }
 
         private:
-            virtual void slotPropertyChanged( Property* prop );   ///<
+            virtual void slotPropertyChanged( PropertyBase* prop );   ///<
 
             int                     m_delay;
             cSerializableInterface* m_parent;

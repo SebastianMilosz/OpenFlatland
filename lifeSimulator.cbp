@@ -98,6 +98,10 @@
 		<Unit filename="libraries/codeframe-master/include/serializable.h" />
 		<Unit filename="libraries/codeframe-master/include/serializablecontainer.h" />
 		<Unit filename="libraries/codeframe-master/include/serializableinterface.h" />
+		<Unit filename="libraries/codeframe-master/include/serializablepropertyinfo.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializablestorage.h" />
+		<Unit filename="libraries/codeframe-master/include/typeinfo.cpp" />
+		<Unit filename="libraries/codeframe-master/include/typeinfo.hpp" />
 		<Unit filename="libraries/codeframe-master/include/utilities/DataTypesUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FileUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FilepathUtilities.h" />
