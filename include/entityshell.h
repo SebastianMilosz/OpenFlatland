@@ -37,6 +37,8 @@ class EntityShell : public codeframe::cSerializable
         codeframe::Property<unsigned int, EntityShell> Y;
         codeframe::Property<unsigned int, EntityShell> Z;
 
+        codeframe::Property<std::string, EntityShell> Name;
+
         EntityShell& operator=(const EntityShell& other);
 
         unsigned int GetX();
