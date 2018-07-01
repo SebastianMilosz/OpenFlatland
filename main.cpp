@@ -9,6 +9,7 @@
 
 #include <utilities/LoggerUtilities.h>
 #include <utilities/FileUtilities.h>
+#include <serializable.h>
 #include <cpgf/gcallbacklist.h>
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
@@ -27,6 +28,8 @@ void zoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, float zoom )
 
 int main()
 {
+    CODEFRAME_TYPES_INITIALIZE();
+
     // Logger Setup
     std::string apiDir = utilities::file::GetExecutablePath();
     std::string logFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_log.txt");

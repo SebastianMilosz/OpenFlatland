@@ -414,7 +414,7 @@
 	<string>
 	<vector>
 
-1529946772 d:\sourcecode\lifesimulator\include\entityshell.h
+1530437278 d:\sourcecode\lifesimulator\include\entityshell.h
 	<serializable.h>
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
@@ -1443,13 +1443,14 @@
 	<MathUtilities.h>
 	<ThreadUtilities.h>
 
-1529958173 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.h
+1530483600 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.h
 	"serializableregister.h"
 	"serializablepropertyinfo.hpp"
 	"typeinfo.hpp"
 	<ThreadUtilities.h>
 	<sigslot.h>
 	<climits>
+	<string>
 	<cimage.h>
 
 1504816663 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableregister.h
@@ -1622,6 +1623,10 @@
 	<string>
 	<limits.h>
 
-1529965305 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
+1530480962 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
+
+1530479885 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
+	"typeinfo.hpp"
+	<MathUtilities.h>
 
