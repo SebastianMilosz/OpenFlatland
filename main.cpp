@@ -28,7 +28,7 @@ void zoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, float zoom )
 
 int main()
 {
-    CODEFRAME_TYPES_INITIALIZE();
+    codeframe::CODEFRAME_TYPES_INITIALIZE();
 
     // Logger Setup
     std::string apiDir = utilities::file::GetExecutablePath();

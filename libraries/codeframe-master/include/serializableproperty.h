@@ -87,9 +87,7 @@ namespace codeframe
             virtual PropertyBase& operator=(double        val);
             virtual PropertyBase& operator=(std::string   val);
             virtual PropertyBase& operator++();
-            virtual PropertyBase  operator++(int);
             virtual PropertyBase& operator--();
-            virtual PropertyBase  operator--(int);
             virtual PropertyBase& operator+=(const PropertyBase& rhs);
             virtual PropertyBase& operator-=(const PropertyBase& rhs);
             virtual PropertyBase  operator+(const PropertyBase& rhs);
@@ -231,19 +229,15 @@ namespace codeframe
             {
                 bool retVal = false;
 
-                // If type has conversion to int callback
-                if( NULL != GetTypeInfo<retT>().ToIntCallback )
+                m_Mutex.Lock();
+                int thisValue = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValue );
+
+                if( thisValue == sval )
                 {
-                    m_Mutex.Lock();
-                    int thisValue = GetTypeInfo<retT>().ToIntCallback( (void*)&m_baseValue );
-
-                    if( thisValue == sval )
-                    {
-                        retVal = true;
-                    }
-
-                    m_Mutex.Unlock();
+                    retVal = true;
                 }
+
+                m_Mutex.Unlock();
 
                 return retVal;
             }
@@ -274,11 +268,12 @@ namespace codeframe
             {
                 if( Info().GetEnable() == true )
                 {
-                    if( NULL != GetTypeInfo<retT>().FromIntegerCallback )
+                    retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
+                    if( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
-                        m_baseValue = GetTypeInfo<retT>().FromIntegerCallback( val );
+                        m_baseValue = *valueT;
                         m_Mutex.Unlock();
                     }
                 }
@@ -290,11 +285,12 @@ namespace codeframe
             {
                 if( Info().GetEnable() == true )
                 {
-                    if( NULL != GetTypeInfo<retT>().FromIntegerCallback )
+                    retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
+                    if( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
-                        m_baseValue = GetTypeInfo<retT>().FromIntegerCallback( val );
+                        m_baseValue = *valueT;
                         m_Mutex.Unlock();
                     }
                 }
@@ -306,11 +302,12 @@ namespace codeframe
             {
                 if( Info().GetEnable() == true )
                 {
-                    if( NULL != GetTypeInfo<retT>().FromIntegerCallback )
+                    retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
+                    if( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
-                        m_baseValue = GetTypeInfo<retT>().FromIntegerCallback( val );
+                        m_baseValue = *valueT;
                         m_Mutex.Unlock();
                     }
                 }
@@ -322,11 +319,12 @@ namespace codeframe
             {
                 if( Info().GetEnable() == true )
                 {
-                    if( NULL != GetTypeInfo<retT>().FromIntegerCallback )
+                    retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
+                    if( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
-                        m_baseValue = GetTypeInfo<retT>().FromIntegerCallback( val );
+                        m_baseValue = *valueT;
                         m_Mutex.Unlock();
                     }
                 }
@@ -338,11 +336,12 @@ namespace codeframe
             {
                 if( Info().GetEnable() == true )
                 {
-                    if( NULL != GetTypeInfo<retT>().FromIntegerCallback )
+                    retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
+                    if( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
-                        m_baseValue = GetTypeInfo<retT>().FromIntegerCallback( val );
+                        m_baseValue = *valueT;
                         m_Mutex.Unlock();
                     }
                 }
@@ -354,11 +353,12 @@ namespace codeframe
             {
                 if( Info().GetEnable() == true )
                 {
-                    if( NULL != GetTypeInfo<retT>().FromRealCallback )
+                    retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromReal( val ) );
+                    if( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
-                        m_baseValue = GetTypeInfo<retT>().FromRealCallback( val );
+                        m_baseValue = *valueT;
                         m_Mutex.Unlock();
                     }
                 }
@@ -370,11 +370,12 @@ namespace codeframe
             {
                 if( Info().GetEnable() == true )
                 {
-                    if( NULL != GetTypeInfo<retT>().FromRealCallback )
+                    retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromReal( val ) );
+                    if( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
-                        m_baseValue = GetTypeInfo<retT>().FromRealCallback( val );
+                        m_baseValue = *valueT;
                         m_Mutex.Unlock();
                     }
                 }
@@ -386,11 +387,12 @@ namespace codeframe
             {
                 if( Info().GetEnable() == true )
                 {
-                    if( NULL != GetTypeInfo<retT>().FromTextCallback )
+                    retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromText( val ) );
+                    if( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
-                        m_baseValue = GetTypeInfo<retT>().FromTextCallback( val );
+                        m_baseValue = *valueT;
                         m_Mutex.Unlock();
                     }
                 }
@@ -497,12 +499,10 @@ namespace codeframe
 
                 bool retVal = false;
 
-                if( NULL != GetTypeInfo<retT>().ToIntegerCallback )
-                {
-                    m_Mutex.Lock();
-                    retVal = GetTypeInfo<retT>().ToIntegerCallback( (void*)&m_baseValue );
-                    m_Mutex.Unlock();
-                }
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
                 return retVal;
             }
 
@@ -515,12 +515,10 @@ namespace codeframe
 
                 char retVal = false;
 
-                if( NULL != GetTypeInfo<retT>().ToIntegerCallback )
-                {
-                    m_Mutex.Lock();
-                    retVal = GetTypeInfo<retT>().ToIntegerCallback( (void*)&m_baseValue );
-                    m_Mutex.Unlock();
-                }
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
                 return retVal;
             }
 
@@ -532,7 +530,7 @@ namespace codeframe
                     return (unsigned char)(*m_reference);
                 }
 
-                unsigned char retVal = false;
+                unsigned char retVal = 0U;
 
                 if( NULL != GetTypeInfo<retT>().ToIntegerCallback )
                 {
@@ -551,14 +549,12 @@ namespace codeframe
                     return (int)(*m_reference);
                 }
 
-                int retVal = false;
+                int retVal = 0;
 
-                if( NULL != GetTypeInfo<retT>().ToIntegerCallback )
-                {
-                    m_Mutex.Lock();
-                    retVal = GetTypeInfo<retT>().ToIntegerCallback( (void*)&m_baseValue );
-                    m_Mutex.Unlock();
-                }
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
                 return retVal;
             }
 
@@ -569,14 +565,12 @@ namespace codeframe
                     return (unsigned int)(*m_reference);
                 }
 
-                unsigned int retVal = false;
+                unsigned int retVal = 0U;
 
-                if( NULL != GetTypeInfo<retT>().ToIntegerCallback )
-                {
-                    m_Mutex.Lock();
-                    retVal = GetTypeInfo<retT>().ToIntegerCallback( (void*)&m_baseValue );
-                    m_Mutex.Unlock();
-                }
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
                 return retVal;
             }
 
@@ -587,7 +581,7 @@ namespace codeframe
                     return (float)(*m_reference);
                 }
 
-                float retVal = false;
+                float retVal = 0.0F;
 
                 if( NULL != GetTypeInfo<retT>().ToRealCallback )
                 {
@@ -605,14 +599,12 @@ namespace codeframe
                     return (double)(*m_reference);
                 }
 
-                double retVal = false;
+                double retVal = 0.0F;
 
-                if( NULL != GetTypeInfo<retT>().ToRealCallback )
-                {
-                    m_Mutex.Lock();
-                    retVal = GetTypeInfo<retT>().ToRealCallback( (void*)&m_baseValue );
-                    m_Mutex.Unlock();
-                }
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToReal( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
                 return retVal;
             }
 
@@ -623,15 +615,45 @@ namespace codeframe
                     return (std::string)(*m_reference);
                 }
 
-                std::string retVal = false;
+                std::string retVal = "";
 
-                if( NULL != GetTypeInfo<retT>().ToTextCallback )
-                {
-                    m_Mutex.Lock();
-                    retVal = GetTypeInfo<retT>().ToTextCallback( (void*)&m_baseValue );
-                    m_Mutex.Unlock();
-                }
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToText( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
                 return retVal;
+            }
+
+            virtual std::string PreviousValueString() const
+            {
+                std::string retVal = "";
+
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToText( (void*)&m_baseValuePrew );
+                m_Mutex.Unlock();
+
+                return retVal;
+            }
+
+            virtual std::string CurentValueString() const
+            {
+                std::string retVal = "";
+
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToText( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
+                return retVal;
+            }
+
+            virtual int PreviousValueInteger() const
+            {
+
+            }
+
+            virtual int CurentValueInteger() const
+            {
+
             }
 
         private:
