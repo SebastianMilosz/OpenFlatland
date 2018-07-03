@@ -349,29 +349,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::PreviousValueString() const
     {
-        switch ( m_type )
-        {
-            case TYPE_TEXT:
-            {
-                //return prew_type_text;
-            }
-            case TYPE_INT:
-            {
-                //return utilities::math::IntToStr(prew_v.type_int);
-            }
-            case TYPE_REAL:
-            {
-                //return utilities::math::FloatToStr(prew_v.type_real);
-            }
-            case TYPE_CHAR:
-            {
-                //return utilities::math::IntToStr(prew_v.type_char);
-            }
-            default:
-            {
-                return "unknown";
-            }
-        }
+        return "unknown";
     }
 
     /*****************************************************************************/
@@ -381,14 +359,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::CurentValueString() const
     {
-        switch ( m_type )
-        {
-            //case TYPE_TEXT: { return type_text;                                }
-            //case TYPE_INT:  { return utilities::math::IntToStr(v.type_int);    }
-            //case TYPE_REAL: { return utilities::math::FloatToStr(v.type_real); }
-            //case TYPE_CHAR: { return utilities::math::IntToStr(v.type_char);   }
-            default:        { return "unknown";                                }
-        }
+        return "unknown";
     }
 
     /*****************************************************************************/
@@ -398,14 +369,7 @@ namespace codeframe
     ******************************************************************************/
     int PropertyBase::PreviousValueInteger() const
     {
-        switch ( m_type )
-        {
-            //case TYPE_TEXT: { return 0;                }
-            //case TYPE_INT:  { return prew_v.type_int;  }
-            //case TYPE_REAL: { return prew_v.type_real; }
-            //case TYPE_CHAR: { return prew_v.type_char; }
-            default:        { return 0;                }
-        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -415,14 +379,7 @@ namespace codeframe
     ******************************************************************************/
     int PropertyBase::CurentValueInteger() const
     {
-        switch ( m_type )
-        {
-            //case TYPE_TEXT: { return 0;           }
-            //case TYPE_INT:  { return v.type_int;  }
-            //case TYPE_REAL: { return v.type_real; }
-            //case TYPE_CHAR: { return v.type_char; }
-            default:        { return 0;           }
-        }
+        return 0;
     }
 
     /*****************************************************************************/

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1526419872 source:d:\sourcecode\lifesimulator\main.cpp
+1530567362 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
 	"version.h"
 	"world.h"
@@ -9,6 +9,7 @@
 	"logwidget.h"
 	<utilities/LoggerUtilities.h>
 	<utilities/FileUtilities.h>
+	<serializable.h>
 	<cpgf/gcallbacklist.h>
 	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
@@ -1443,7 +1444,7 @@
 	<MathUtilities.h>
 	<ThreadUtilities.h>
 
-1530483600 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.h
+1530654629 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.h
 	"serializableregister.h"
 	"serializablepropertyinfo.hpp"
 	"typeinfo.hpp"
@@ -1545,7 +1546,7 @@
 	<new>
 	<stdint.h>
 
-1529955335 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
+1530566932 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
 	<exception>
 	<stdexcept>
 	<sstream>
@@ -1623,10 +1624,10 @@
 	<string>
 	<limits.h>
 
-1530480962 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
+1530653717 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
 
-1530479885 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
+1530566197 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
 	"typeinfo.hpp"
 	<MathUtilities.h>
 
