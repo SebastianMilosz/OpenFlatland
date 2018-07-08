@@ -2,24 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugiconfig.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\src\serializable.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="466" topLine="9" />
+			<Cursor1 position="3837" topLine="102" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\serializablestorage.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\world.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="153" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\include\typeinfo.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1305" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\src\serializablecontainer.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="36" topLine="0" />
+			<Cursor1 position="5081" topLine="171" />
 		</Cursor>
 	</File>
 	<File name="src\entity.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -27,29 +17,9 @@
 			<Cursor1 position="271" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\src\serializableinterface.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugixml.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="427" topLine="2" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\src\serializableversion.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="284" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugixml.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3938" topLine="96" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\include\utilities\FileUtilities.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3259" topLine="103" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\thirdparty\smartpointer\smartpointer.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="271" topLine="0" />
+			<Cursor1 position="1921" topLine="55" />
 		</Cursor>
 	</File>
 	<File name="include\entityfactory.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -57,49 +27,9 @@
 			<Cursor1 position="643" topLine="4" />
 		</Cursor>
 	</File>
-	<File name="src\logwidget.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\guiwidgetslayer.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2248" topLine="57" />
-		</Cursor>
-	</File>
-	<File name="include\world.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="673" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\entityfactory.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="933" topLine="21" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\src\cxmlnode.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="43" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\world.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2472" topLine="94" />
-		</Cursor>
-	</File>
-	<File name="libraries\imgui-master\imgui.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1227" topLine="23" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\src\instancemanager.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="54" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\include\utilities\MathUtilities.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="250" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src\entityghost.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="287" topLine="0" />
+			<Cursor1 position="4838" topLine="145" />
 		</Cursor>
 	</File>
 	<File name="libraries\codeframe-master\src\serializablechildlist.cpp" open="0" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -107,54 +37,44 @@
 			<Cursor1 position="830" topLine="19" />
 		</Cursor>
 	</File>
-	<File name="libraries\imgui-sfml-master\imgui-SFML.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\imgui-master\imgui.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="707" topLine="16" />
+			<Cursor1 position="1227" topLine="23" />
 		</Cursor>
 	</File>
-	<File name="include\logwidget.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\entityghost.cpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="436" topLine="0" />
+			<Cursor1 position="287" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\utilities\ThreadUtilities.h" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\logwidget.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1296" topLine="43" />
+			<Cursor1 position="2248" topLine="57" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\serializablepropertyinfo.hpp" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\include\utilities\TextUtilities.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="315" topLine="1" />
+			<Cursor1 position="0" topLine="13" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\src\serializablelua.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\src\cxml.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1881" topLine="51" />
+			<Cursor1 position="3566" topLine="119" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\typeinfo.hpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\src\instancemanager.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2334" topLine="67" />
+			<Cursor1 position="54" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\entity.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\entityshell.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="546" topLine="1" />
+			<Cursor1 position="459" topLine="5" />
 		</Cursor>
 	</File>
 	<File name="libraries\codeframe-master\src\serializableproperty.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="10475" topLine="381" />
-		</Cursor>
-	</File>
-	<File name="include\entityghost.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="72" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\entityshell.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="983" topLine="4" />
+			<Cursor1 position="8072" topLine="265" />
 		</Cursor>
 	</File>
 	<File name="libraries\codeframe-master\src\utilities\FileUtilities.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -167,29 +87,29 @@
 			<Cursor1 position="65" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\src\utilities\ThreadUtilities.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\entity.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="8659" topLine="341" />
+			<Cursor1 position="546" topLine="1" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\utilities\LoggerUtilities.h" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\src\serializablecontainer.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6003" topLine="146" />
+			<Cursor1 position="36" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\entityghost.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="273" topLine="0" />
+			<Cursor1 position="72" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\serializable.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\src\serializableversion.cpp" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="577" topLine="11" />
+			<Cursor1 position="284" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src\entityshell.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\entityshell.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="459" topLine="5" />
+			<Cursor1 position="983" topLine="4" />
 		</Cursor>
 	</File>
 	<File name="include\guiwidgetslayer.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -197,19 +117,59 @@
 			<Cursor1 position="568" topLine="0" />
 		</Cursor>
 	</File>
+	<File name="libraries\codeframe-master\src\utilities\ThreadUtilities.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8659" topLine="341" />
+		</Cursor>
+	</File>
+	<File name="include\logwidget.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="436" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include\world.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="673" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\thirdparty\smartpointer\smartpointer.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="271" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\src\xmlformatter.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="21889" topLine="467" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\include\serializable.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="577" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\src\serializablelua.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1881" topLine="51" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\src\cxmlnode.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="43" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="libraries\codeframe-master\src\utilities\LoggerUtilities.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="11479" topLine="302" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\serializablecontainer.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\include\typeinfo.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="16741" topLine="445" />
+			<Cursor1 position="1305" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\src\utilities\SysUtilities.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\src\serializableinterface.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="604" topLine="0" />
+			<Cursor1 position="427" topLine="2" />
 		</Cursor>
 	</File>
 	<File name="include\version.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -217,9 +177,49 @@
 			<Cursor1 position="94" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\src\xmlformatter.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\src\utilities\SysUtilities.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="20651" topLine="441" />
+			<Cursor1 position="604" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\include\typeinfo.hpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2347" topLine="80" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\include\utilities\MathUtilities.h" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="446" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="src\entityfactory.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="933" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="273" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\include\utilities\LoggerUtilities.h" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6003" topLine="146" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\include\utilities\ThreadUtilities.h" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1296" topLine="43" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\include\serializablecontainer.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="16741" topLine="445" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugiconfig.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="466" topLine="9" />
 		</Cursor>
 	</File>
 	<File name="libraries\codeframe-master\include\serializableinterface.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -227,29 +227,29 @@
 			<Cursor1 position="1024" topLine="94" />
 		</Cursor>
 	</File>
-	<File name="src\guiwidgetslayer.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\include\utilities\FileUtilities.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4838" topLine="145" />
+			<Cursor1 position="3259" topLine="103" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\utilities\TextUtilities.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugixml.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="13" />
+			<Cursor1 position="3938" topLine="96" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugixml.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\include\serializablepropertyinfo.hpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1921" topLine="55" />
+			<Cursor1 position="3788" topLine="99" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\src\cxml.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\imgui-sfml-master\imgui-SFML.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3566" topLine="119" />
+			<Cursor1 position="707" topLine="16" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\src\serializable.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\include\serializablestorage.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3837" topLine="102" />
+			<Cursor1 position="153" topLine="9" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

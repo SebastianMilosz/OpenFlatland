@@ -77,7 +77,7 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Operatory przypisania
+      * @brief
      **
     ******************************************************************************/
     PropertyBase& PropertyBase::operator=(PropertyBase val)
@@ -97,6 +97,26 @@ namespace codeframe
         return *this;
     }
 
+    bool PropertyBase::operator==(const PropertyBase& sval)
+    {
+        return false;
+    }
+
+    bool PropertyBase::operator!=(const PropertyBase& sval)
+    {
+        return false;
+    }
+
+    bool PropertyBase::operator==(const int& sval)
+    {
+        return false;
+    }
+
+    bool PropertyBase::operator!=(const int& sval)
+    {
+        return false;
+    }
+
     /*****************************************************************************/
     /**
       * @brief
@@ -104,30 +124,6 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase& PropertyBase::operator=(bool val)
     {
-        if( Info().GetEnable() == true )
-        {
-            m_Mutex.Lock();
-
-            //if( v.type_char != val )
-            //{
-            //    prew_v.type_char = v.type_char;
-            //    v.type_char      = val;
-            //    m_type           = TYPE_CHAR;
-
-                if(m_propertyInfo.IsEventEnable()) { signalChanged.Emit( this ); }
-            //}
-
-            // Przypisanie wartosci zdalnej referencji
-            if( m_reference )
-            {
-                *m_reference = val;
-            }
-
-            ValueUpdate();
-
-            m_Mutex.Unlock();
-        }
-
         return *this;
     }
 
@@ -138,30 +134,16 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase& PropertyBase::operator=(char val)
     {
-        if( Info().GetEnable() == true )
-        {
-            m_Mutex.Lock();
+        return *this;
+    }
 
-            //if( v.type_char != val )
-            //{
-            //    prew_v.type_char = v.type_char;
-            //    m_type           = TYPE_CHAR;
-            //    v.type_char      = val;
-
-                if(m_propertyInfo.IsEventEnable()) { signalChanged.Emit( this ); }
-            //}
-
-            // Przypisanie wartosci zdalnej referencji
-            if( m_reference )
-            {
-                *m_reference = val;
-            }
-
-            ValueUpdate();
-
-            m_Mutex.Unlock();
-        }
-
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase& PropertyBase::operator=(unsigned char val)
+    {
         return *this;
     }
 
@@ -172,30 +154,6 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase& PropertyBase::operator=(int val)
     {
-        if( Info().GetEnable() == true )
-        {
-            m_Mutex.Lock();
-
-            //if( v.type_int != val )
-            //{
-            //    prew_v.type_int = v.type_int;
-            //    m_type          = TYPE_INT;
-            //    v.type_int      = val;
-
-                if(m_propertyInfo.IsEventEnable()) { signalChanged.Emit( this ); }
-            //}
-
-            // Przypisanie wartosci zdalnej referencji
-            if( m_reference )
-            {
-                *m_reference = val;
-            }
-
-            ValueUpdate();
-
-            m_Mutex.Unlock();
-        }
-
         return *this;
     }
 
@@ -206,30 +164,16 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase& PropertyBase::operator=(unsigned int val)
     {
-        if( Info().GetEnable() == true )
-        {
-            m_Mutex.Lock();
+        return *this;
+    }
 
-            //if( v.type_int != (int)val )
-            //{
-            //    prew_v.type_int = v.type_int;
-            //    m_type          = TYPE_INT;
-            //    v.type_int      = val;
-
-                if(m_propertyInfo.IsEventEnable()) { signalChanged.Emit( this ); }
-            //}
-
-            // Przypisanie wartosci zdalnej referencji
-            if( m_reference )
-            {
-                *m_reference = val;
-            }
-
-            ValueUpdate();
-
-            m_Mutex.Unlock();
-        }
-
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase& PropertyBase::operator=(float val)
+    {
         return *this;
     }
 
@@ -240,30 +184,6 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase& PropertyBase::operator=(double val)
     {
-        if( Info().GetEnable() == true )
-        {
-            m_Mutex.Lock();
-
-            //if(v.type_real != val)
-            //{
-            //    prew_v.type_real = v.type_real;
-            //    m_type           = TYPE_REAL;
-            //    v.type_real      = val;
-
-                if(m_propertyInfo.IsEventEnable()) { signalChanged.Emit( this ); }
-            //}
-
-            // Przypisanie wartosci zdalnej referencji
-            if( m_reference )
-            {
-                *m_reference = val;
-            }
-
-            ValueUpdate();
-
-            m_Mutex.Unlock();
-        }
-
         return *this;
     }
 
@@ -274,30 +194,86 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase& PropertyBase::operator=(std::string val)
     {
-        if( Info().GetEnable() == true )
-        {
-            m_Mutex.Lock();
+        return *this;
+    }
 
-            //if( type_text != val )
-            //{
-            //    prew_type_text = type_text;
-            //    m_type         = TYPE_TEXT;
-            //    type_text      = val;
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase& PropertyBase::operator++()
+    {
+        return *this;
+    }
 
-                if(m_propertyInfo.IsEventEnable()) { signalChanged.Emit( this ); }
-            //}
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase& PropertyBase::operator--()
+    {
+        return *this;
+    }
 
-            // Przypisanie wartosci zdalnej referencji
-            if( m_reference )
-            {
-                *m_reference = val;
-            }
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase& PropertyBase::operator+=(const PropertyBase& rhs)
+    {
+        return *this;
+    }
 
-            ValueUpdate();
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase& PropertyBase::operator-=(const PropertyBase& rhs)
+    {
+        return *this;
+    }
 
-            m_Mutex.Unlock();
-        }
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase PropertyBase::operator+(const PropertyBase& rhs)
+    {
+        return *this;
+    }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase PropertyBase::operator-(const PropertyBase& rhs)
+    {
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase& PropertyBase::operator+=(const int rhs)
+    {
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase& PropertyBase::operator-=(const int rhs)
+    {
         return *this;
     }
 
@@ -349,7 +325,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::PreviousValueString() const
     {
-        return "unknown";
+        return "unknown from base";
     }
 
     /*****************************************************************************/
@@ -359,7 +335,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::CurentValueString() const
     {
-        return "unknown";
+        return "unknown from base";
     }
 
     /*****************************************************************************/
@@ -389,14 +365,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::TypeString() const
     {
-        switch ( m_type )
-        {
-            //case TYPE_TEXT:         { return "text";          }
-            //case TYPE_INT:          { return "int";           }
-            //case TYPE_REAL:         { return "real";          }
-            //case TYPE_CHAR:         { return "char";          }
-            default:                { return "default";       }
-        }
+        return "default type from base";
     }
 
     /*****************************************************************************/
@@ -408,10 +377,13 @@ namespace codeframe
     {
         std::string propPath;
 
-        if( m_parentpc )
+        if ( m_parentpc )
         {
             propPath = m_parentpc->Path();
-            if(addName) { propPath += "." + Name(); }
+            if ( addName )
+            {
+                propPath += "." + Name();
+            }
         }
         else
         {
@@ -451,11 +423,11 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::WaitForUpdatePulse()
     {
-        if(m_isWaitForUpdate == true && m_waitForUpdateCnt > 0)
+        if ( (m_isWaitForUpdate == true) && (m_waitForUpdateCnt > 0) )
         {
            m_waitForUpdateCnt--;
 
-           if(m_waitForUpdateCnt == 0)
+           if ( m_waitForUpdateCnt == 0 )
            {
               m_isWaitForUpdate = false;
               //m_parentpc->signalUpdateFail.Emit( m_id );
@@ -471,11 +443,11 @@ namespace codeframe
     bool PropertyBase::ConnectReference( PropertyBase* refProp )
     {
         // Sprawdzamy czy zgadza sie typ
-        if( refProp != NULL && this->Type() == refProp->Type() )
+        if ( (refProp != NULL) && (this->Type() == refProp->Type()) )
         {
             m_Mutex.Lock();
-            m_referenceParent   = refProp->m_parentpc;
-            m_reference         = refProp;
+            m_referenceParent = refProp->m_parentpc;
+            m_reference       = refProp;
             m_Mutex.Unlock();
             return true;
         }
@@ -490,12 +462,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::CommitChanges()
     {
-        if( m_parentpc &&  m_parentpc->IsPulseState() )
+        if ( (NULL != m_parentpc) &&  (m_parentpc->IsPulseState() == true) )
         {
             m_pulseAbort = true;
         }
-        //prew_type_text = type_text;
-        //prew_v         = v;
     }
 
     /*****************************************************************************/
@@ -505,11 +475,6 @@ namespace codeframe
     ******************************************************************************/
     bool PropertyBase::IsChanged() const
     {
-        /*
-        if( prew_type_text   != type_text  ||
-            prew_v.type_int  != v.type_int ||
-            prew_v.type_char != v.type_char ) return true;
-            */
         return false;
     }
 
@@ -520,7 +485,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::PulseChanged()
     {
-        if( m_pulseAbort && m_parentpc &&  m_parentpc->IsPulseState() ) { return; }
+        if ( (m_pulseAbort == true) && (m_parentpc != NULL) &&  (m_parentpc->IsPulseState() == true) )
+        {
+            return;
+        }
 
         m_pulseAbort = false;
 
@@ -545,7 +513,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::SetNumber( int val )
     {
-        if(Info().GetEnable() == false) return;
+        if ( Info().GetEnable() == false )
+        {
+            return;
+        }
 
         *this = (int)val;
     }
@@ -568,7 +539,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::SetReal( double val )
     {
-        if(Info().GetEnable() == false) return;
+        if ( Info().GetEnable() == false )
+        {
+            return;
+        }
 
         *this = (double)val;
     }
@@ -589,9 +563,12 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void PropertyBase::SetString( std::string  val )
+    void PropertyBase::SetString( std::string val )
     {
-        if(Info().GetEnable() == false) return;
+        if ( Info().GetEnable() == false )
+        {
+            return;
+        }
 
         *this = (std::string)val;
     }
@@ -614,7 +591,10 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::ToString()
     {
-        if( Info().GetKind() != KIND_ENUM ) return (std::string)(*this);
+        if ( Info().GetKind() != KIND_ENUM )
+        {
+            return (std::string)(*this);
+        }
 
         std::string enumString = Info().GetEnum();
 
@@ -622,7 +602,7 @@ namespace codeframe
 
         std::istringstream is( enumString );
         std::string part;
-        while (getline(is, part, ','))
+        while ( getline(is, part, ',') )
         {
             part.erase(std::remove(part.begin(), part.end(), ' '), part.end());
 
@@ -631,7 +611,10 @@ namespace codeframe
 
         unsigned int enumPos = (int)(*this);
 
-        if( enumPos >= output.size() ) return "unknown";
+        if ( enumPos >= output.size() )
+        {
+            return "unknown";
+        }
 
         return output[ enumPos ];
     }
@@ -643,7 +626,10 @@ namespace codeframe
     ******************************************************************************/
     int PropertyBase::ToEnumPosition( std::string enumStringValue )
     {
-        if( Info().GetKind() != KIND_ENUM ) return 0;
+        if ( Info().GetKind() != KIND_ENUM )
+        {
+            return 0;
+        }
 
         std::string enumString = Info().GetEnum();
 
@@ -651,11 +637,14 @@ namespace codeframe
 
         std::istringstream is( enumString );
         std::string part;
-        while (getline(is, part, ','))
+        while ( getline(is, part, ',') )
         {
             part.erase(std::remove(part.begin(), part.end(), ' '), part.end());
 
-            if( part == enumStringValue ) return pos;
+            if ( part == enumStringValue )
+            {
+                return pos;
+            }
             pos++;
         }
 
@@ -669,8 +658,100 @@ namespace codeframe
     ******************************************************************************/
     bool PropertyBase::IsReference() const
     {
-        if( cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(m_referenceParent) ) ) { return true; }
+        if ( cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(m_referenceParent) ) )
+        {
+            return true;
+        }
         return false;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator bool() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator char() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator unsigned char() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator int() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator unsigned int() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator unsigned short() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator double() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator float() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::operator std::string() const
+    {
+        return "";
+    }
 }

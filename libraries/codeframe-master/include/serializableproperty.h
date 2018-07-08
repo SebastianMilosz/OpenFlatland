@@ -98,10 +98,12 @@ namespace codeframe
             // Operatory rzutowania
             virtual operator bool() const;
             virtual operator char() const;
+            virtual operator unsigned char() const;
             virtual operator int() const;
             virtual operator unsigned int() const;
             virtual operator unsigned short() const;
             virtual operator double() const;
+            virtual operator float() const;
             virtual operator std::string() const;
 
             bool                    IsReference() const;
@@ -266,14 +268,28 @@ namespace codeframe
             // From fundamental type bool
             virtual Property& operator=(bool val)
             {
-                if( Info().GetEnable() == true )
+                if ( Info().GetEnable() == true )
                 {
                     retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
-                    if( NULL != valueT )
+                    if ( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
                         m_baseValue = *valueT;
+
+                        if ( m_propertyInfo.IsEventEnable() )
+                        {
+                            signalChanged.Emit( this );
+                        }
+
+                        // Przypisanie wartosci zdalnej referencji
+                        if ( m_reference )
+                        {
+                            *m_reference = val;
+                        }
+
+                        ValueUpdate();
+
                         m_Mutex.Unlock();
                     }
                 }
@@ -283,14 +299,28 @@ namespace codeframe
             // From fundamental type char
             virtual Property& operator=(char val)
             {
-                if( Info().GetEnable() == true )
+                if ( Info().GetEnable() == true )
                 {
                     retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
-                    if( NULL != valueT )
+                    if ( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
                         m_baseValue = *valueT;
+
+                        if ( m_propertyInfo.IsEventEnable() )
+                        {
+                            signalChanged.Emit( this );
+                        }
+
+                        // Przypisanie wartosci zdalnej referencji
+                        if ( m_reference )
+                        {
+                            *m_reference = val;
+                        }
+
+                        ValueUpdate();
+
                         m_Mutex.Unlock();
                     }
                 }
@@ -300,14 +330,28 @@ namespace codeframe
             // From fundamental type unsigned char
             virtual Property& operator=(unsigned char val)
             {
-                if( Info().GetEnable() == true )
+                if ( Info().GetEnable() == true )
                 {
                     retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
-                    if( NULL != valueT )
+                    if ( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
                         m_baseValue = *valueT;
+
+                        if ( m_propertyInfo.IsEventEnable() )
+                        {
+                            signalChanged.Emit( this );
+                        }
+
+                        // Przypisanie wartosci zdalnej referencji
+                        if ( m_reference )
+                        {
+                            *m_reference = val;
+                        }
+
+                        ValueUpdate();
+
                         m_Mutex.Unlock();
                     }
                 }
@@ -317,14 +361,28 @@ namespace codeframe
             // From fundamental type int
             virtual Property& operator=(int val)
             {
-                if( Info().GetEnable() == true )
+                if ( Info().GetEnable() == true )
                 {
                     retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
-                    if( NULL != valueT )
+                    if ( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
                         m_baseValue = *valueT;
+
+                        if ( m_propertyInfo.IsEventEnable() )
+                        {
+                            signalChanged.Emit( this );
+                        }
+
+                        // Przypisanie wartosci zdalnej referencji
+                        if ( m_reference )
+                        {
+                            *m_reference = val;
+                        }
+
+                        ValueUpdate();
+
                         m_Mutex.Unlock();
                     }
                 }
@@ -334,14 +392,28 @@ namespace codeframe
             // From fundamental type unsigned int
             virtual Property& operator=(unsigned int val)
             {
-                if( Info().GetEnable() == true )
+                if ( Info().GetEnable() == true )
                 {
                     retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( val ) );
-                    if( NULL != valueT )
+                    if ( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
                         m_baseValue = *valueT;
+
+                        if ( m_propertyInfo.IsEventEnable() )
+                        {
+                            signalChanged.Emit( this );
+                        }
+
+                        // Przypisanie wartosci zdalnej referencji
+                        if ( m_reference )
+                        {
+                            *m_reference = val;
+                        }
+
+                        ValueUpdate();
+
                         m_Mutex.Unlock();
                     }
                 }
@@ -351,14 +423,28 @@ namespace codeframe
             // From fundamental type float
             virtual Property& operator=(float val)
             {
-                if( Info().GetEnable() == true )
+                if ( Info().GetEnable() == true )
                 {
                     retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromReal( val ) );
-                    if( NULL != valueT )
+                    if ( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
                         m_baseValue = *valueT;
+
+                        if ( m_propertyInfo.IsEventEnable() )
+                        {
+                            signalChanged.Emit( this );
+                        }
+
+                        // Przypisanie wartosci zdalnej referencji
+                        if ( m_reference )
+                        {
+                            *m_reference = val;
+                        }
+
+                        ValueUpdate();
+
                         m_Mutex.Unlock();
                     }
                 }
@@ -368,14 +454,28 @@ namespace codeframe
             // From fundamental type double
             virtual Property& operator=(double val)
             {
-                if( Info().GetEnable() == true )
+                if ( Info().GetEnable() == true )
                 {
                     retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromReal( val ) );
-                    if( NULL != valueT )
+                    if ( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
                         m_baseValue = *valueT;
+
+                        if ( m_propertyInfo.IsEventEnable() )
+                        {
+                            signalChanged.Emit( this );
+                        }
+
+                        // Przypisanie wartosci zdalnej referencji
+                        if ( m_reference )
+                        {
+                            *m_reference = val;
+                        }
+
+                        ValueUpdate();
+
                         m_Mutex.Unlock();
                     }
                 }
@@ -385,14 +485,28 @@ namespace codeframe
             // From extended type std::string
             virtual Property& operator=(std::string val)
             {
-                if( Info().GetEnable() == true )
+                if ( Info().GetEnable() == true )
                 {
                     retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromText( val ) );
-                    if( NULL != valueT )
+                    if ( NULL != valueT )
                     {
                         m_Mutex.Lock();
                         m_baseValuePrew = m_baseValue;
                         m_baseValue = *valueT;
+
+                        if ( m_propertyInfo.IsEventEnable() )
+                        {
+                            signalChanged.Emit( this );
+                        }
+
+                        // Przypisanie wartosci zdalnej referencji
+                        if ( m_reference )
+                        {
+                            *m_reference = val;
+                        }
+
+                        ValueUpdate();
+
                         m_Mutex.Unlock();
                     }
                 }
@@ -446,8 +560,15 @@ namespace codeframe
             virtual Property  operator-(const Property& rhs)
             {
                 m_Mutex.Lock();
-                m_baseValuePrew = m_baseValue;
-                m_baseValue = m_baseValue - rhs.m_baseValue;
+                int valA = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValue     );
+                int valB = GetTypeInfo<retT>().ToInteger( (void*)&rhs.m_baseValue );
+
+                retT* valueT = static_cast<retT*>( GetTypeInfo<retT>().FromInteger( valA - valB ) );
+                if( NULL != valueT )
+                {
+                    m_baseValuePrew = m_baseValue;
+                    m_baseValue = *valueT;
+                }
                 m_Mutex.Unlock();
 
                 return *this;
@@ -532,12 +653,10 @@ namespace codeframe
 
                 unsigned char retVal = 0U;
 
-                if( NULL != GetTypeInfo<retT>().ToIntegerCallback )
-                {
-                    m_Mutex.Lock();
-                    retVal = GetTypeInfo<retT>().ToIntegerCallback( (void*)&m_baseValue );
-                    m_Mutex.Unlock();
-                }
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
                 return retVal;
             }
 
@@ -583,12 +702,10 @@ namespace codeframe
 
                 float retVal = 0.0F;
 
-                if( NULL != GetTypeInfo<retT>().ToRealCallback )
-                {
-                    m_Mutex.Lock();
-                    retVal = GetTypeInfo<retT>().ToRealCallback( (void*)&m_baseValue );
-                    m_Mutex.Unlock();
-                }
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToReal( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
                 return retVal;
             }
 
@@ -648,13 +765,51 @@ namespace codeframe
 
             virtual int PreviousValueInteger() const
             {
+                int retVal = 0;
 
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValuePrew );
+                m_Mutex.Unlock();
+
+                return retVal;
             }
 
             virtual int CurentValueInteger() const
             {
+                int retVal = 0;
 
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<retT>().ToInteger( (void*)&m_baseValue );
+                m_Mutex.Unlock();
+
+                return retVal;
             }
+
+            std::string TypeString() const
+            {
+                return GetTypeInfo<retT>().TypeUserName;
+            }
+
+            void CommitChanges()
+            {
+                PropertyBase::CommitChanges();
+
+                m_Mutex.Lock();
+                m_baseValuePrew = m_baseValue;
+                m_Mutex.Unlock();
+            }
+
+            bool IsChanged() const
+            {
+                if ( m_baseValuePrew != m_baseValue )
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+
 
         private:
             retT m_baseValue;
