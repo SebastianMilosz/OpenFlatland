@@ -462,7 +462,9 @@ namespace codeframe
     #ifdef ID_FIELD
                     descr.AppendAttribute("id", LongToHex( iser->Id() ).c_str());
     #endif
+
                     descr.AppendAttribute("value", ((std::string)(*iser)).c_str());
+
     #ifdef PATH_FIELD
                     descr.AppendAttribute("path", iser->Path().c_str());
     #endif
