@@ -22,7 +22,11 @@ namespace codeframe
             TypeUserName( typeUser ),
             TypeCode( enumType ),
             ToIntegerCallback( NULL ),
+            ToRealCallback( NULL ),
             ToTextCallback( NULL ),
+            FromIntegerCallback( NULL ),
+            FromRealCallback( NULL ),
+            FromTextCallback( NULL ),
             BytePrec( bytePrec ),
             Sign( sign )
         {

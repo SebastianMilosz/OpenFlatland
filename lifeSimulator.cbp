@@ -107,6 +107,7 @@
 		<Unit filename="libraries/codeframe-master/include/utilities/FilepathUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/HashUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/LoggerUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/utilities/MathUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/include/utilities/MathUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/PerformanceUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/SysUtilities.h" />

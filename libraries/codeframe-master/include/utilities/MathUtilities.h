@@ -15,18 +15,7 @@ namespace utilities
 {
 	namespace math
 	{
-		/*****************************************************************************/
-		/**
-		  * @brief
-		 **
-		******************************************************************************/
-		inline std::string IntToStr(int nbr)
-		{
-		    if(nbr > 999999999) return std::string("GetStringFromInt - Overload");
-		    char buffer [12];
-		    sprintf (buffer, "%d",nbr);
-		    return std::string(buffer);
-        }
+		std::string IntToStr(int nbr);
 
         /*****************************************************************************/
         /**

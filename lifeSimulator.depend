@@ -1310,7 +1310,7 @@
 	<direct.h>
 	<unistd.h>
 
-1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
+1531174282 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
 	<string>
 	<stdio.h>
 	<stdlib.h>
@@ -1546,7 +1546,7 @@
 	<new>
 	<stdint.h>
 
-1530742084 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
+1531086804 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
 	<exception>
 	<stdexcept>
 	<sstream>
@@ -1610,7 +1610,7 @@
 1527193944 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
 	"serializableinterface.h"
 
-1529955492 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+1531167298 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
 	<MathUtilities.h>
 	<LoggerUtilities.h>
 	<serializableinterface.h>
@@ -1624,10 +1624,13 @@
 	<string>
 	<limits.h>
 
-1530653717 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
+1531172044 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
 
-1530566197 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
+1531172010 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
 	"typeinfo.hpp"
 	<MathUtilities.h>
+
+1531174264 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.cpp
+	"MathUtilities.h"
 
