@@ -11,7 +11,10 @@ std::string utilities::math::IntToStr(int nbr)
     {
         return std::string("GetStringFromInt - Overload");
     }
-    char buffer [12];
+    char buffer[12];
     sprintf (buffer, "%d",nbr);
-    return std::string(buffer);
+
+    std::string retVal(&buffer[0]);
+
+    return retVal;
 }
