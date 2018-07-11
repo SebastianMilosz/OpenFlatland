@@ -20,35 +20,28 @@ namespace codeframe
         TypeInfo( const char* typeName, const char* typeUser, const eType enumType, unsigned char bytePrec = 4, bool sign = true ) :
             TypeCompName( typeName ),
             TypeUserName( typeUser ),
-            TypeCode( enumType ),
-            ToIntegerCallback( NULL ),
-            ToRealCallback( NULL ),
-            ToTextCallback( NULL ),
-            FromIntegerCallback( NULL ),
-            FromRealCallback( NULL ),
-            FromTextCallback( NULL ),
-            BytePrec( bytePrec ),
-            Sign( sign )
+            TypeCode( enumType )
         {
-
+            BytePrec = bytePrec;
+            Sign = sign;
         }
 
-        void SetToIntegerCallback( int (*toIntegerCallback)(void* value, unsigned char bytePrec, bool sign) )
+        static void SetToIntegerCallback( int (*toIntegerCallback)(void* value, unsigned char bytePrec, bool sign) )
         {
             ToIntegerCallback = toIntegerCallback;
         }
 
-        void SetToRealCallback( int (*toRealCallback)(void* value, unsigned char bytePrec, bool sign) )
+        static void SetToRealCallback( int (*toRealCallback)(void* value, unsigned char bytePrec, bool sign) )
         {
             ToRealCallback = toRealCallback;
         }
 
-        void SetToTextCallback( int (*toTextCallback)(void* value, unsigned char bytePrec, bool sign) )
+        static void SetToTextCallback( int (*toTextCallback)(void* value, unsigned char bytePrec, bool sign) )
         {
             ToTextCallback = toTextCallback;
         }
 
-        int ToInteger( void* value )
+        static int ToInteger( void* value )
         {
             if( NULL != ToIntegerCallback )
             {
@@ -56,7 +49,7 @@ namespace codeframe
             }
         }
 
-        float ToReal( void* value )
+        static float ToReal( void* value )
         {
             if( NULL != ToRealCallback )
             {
@@ -64,7 +57,7 @@ namespace codeframe
             }
         }
 
-        std::string ToText( void* value )
+        static std::string ToText( void* value )
         {
             if( NULL != ToTextCallback )
             {
@@ -73,19 +66,19 @@ namespace codeframe
         }
 
         // Conversions from standard types
-        void* FromInteger( int value )
+        static void* FromInteger( int value )
         {
 
             return NULL;
         }
 
-        void* FromReal( float value )
+        static void* FromReal( float value )
         {
 
             return NULL;
         }
 
-        void* FromText( std::string value )
+        static void* FromText( std::string value )
         {
 
             return NULL;
@@ -95,21 +88,39 @@ namespace codeframe
         const char* TypeUserName;
         const eType TypeCode;
 
-        const unsigned char BytePrec;
-        const bool Sign;
+        static const unsigned char BytePrec;
+        static const bool Sign;
 
         // Conversions to standard types
-        int         ( *ToIntegerCallback )( void* value, unsigned char bytePrec, bool sign );
-        float       ( *ToRealCallback    )( void* value, unsigned char bytePrec, bool sign );
-        std::string ( *ToTextCallback    )( void* value, unsigned char bytePrec, bool sign );
+        static int         ( *ToIntegerCallback )( void* value, unsigned char bytePrec, bool sign );
+        static float       ( *ToRealCallback    )( void* value, unsigned char bytePrec, bool sign );
+        static std::string ( *ToTextCallback    )( void* value, unsigned char bytePrec, bool sign );
 
         // Conversions from standard types
-        void* ( *FromIntegerCallback )( int         value );
-        void* ( *FromRealCallback    )( float       value );
-        void* ( *FromTextCallback    )( std::string value );
+        static void* ( *FromIntegerCallback )( int         value );
+        static void* ( *FromRealCallback    )( float       value );
+        static void* ( *FromTextCallback    )( std::string value );
 
         static const eType StringToTypeCode( std::string typeText );
     };
+
+    template <typename T>
+    TypeInfo<T>::ToIntegerCallback = NULL;
+
+    template <typename T>
+    TypeInfo<T>::ToRealCallback = NULL;
+
+    template <typename T>
+    TypeInfo<T>::ToTextCallback = NULL;
+
+    template <typename T>
+    TypeInfo<T>::FromIntegerCallback = NULL;
+
+    template <typename T>
+    TypeInfo<T>::FromRealCallback = NULL;
+
+    template <typename T>
+    TypeInfo<T>::FromTextCallback = NULL;
 
     template<typename T>
     TypeInfo<T> GetTypeInfo();

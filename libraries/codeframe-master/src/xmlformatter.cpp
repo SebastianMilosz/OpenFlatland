@@ -459,6 +459,7 @@ namespace codeframe
 
                     descr.AppendAttribute("name", iser->Name().c_str());
                     descr.AppendAttribute("type", iser->TypeString().c_str());
+
     #ifdef ID_FIELD
                     descr.AppendAttribute("id", LongToHex( iser->Id() ).c_str());
     #endif
@@ -468,9 +469,16 @@ namespace codeframe
     #ifdef PATH_FIELD
                     descr.AppendAttribute("path", iser->Path().c_str());
     #endif
+
                     if( iser->Info().GetDescription() != "" ) descr.AppendAttribute("desc", iser->Info().GetDescription().c_str());
                     if( iser->Info().GetEnum()        != "" ) descr.AppendAttribute("enum", iser->Info().GetEnum().c_str());
-                    if( iser->Info().GetKind()        != 0  ) descr.AppendAttribute("kind", utilities::math::IntToStr( iser->Info().GetKind() ).c_str());
+
+                    if( iser->Info().GetKind() != 0  )
+                    {
+                        eKind kind = iser->Info().GetKind();
+                        std::string kindString = utilities::math::IntToStr( static_cast<int>(kind) );
+                        descr.AppendAttribute("kind", kindString.c_str() );
+                    }
 
                     if( iser->Info().GetMin() != INT_MIN ) descr.AppendAttribute("min", utilities::math::IntToStr( iser->Info().GetMin() ).c_str());
                     if( iser->Info().GetMax() != INT_MAX ) descr.AppendAttribute("max", utilities::math::IntToStr( iser->Info().GetMax() ).c_str());

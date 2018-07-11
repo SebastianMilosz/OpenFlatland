@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1530567362 source:d:\sourcecode\lifesimulator\main.cpp
+1531259286 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
 	"version.h"
 	"world.h"
@@ -1491,7 +1491,7 @@
 
 1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugiconfig.hpp
 
-1512916324 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxmlnode.cpp
+1531259642 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxmlnode.cpp
 	"cxmlnode.h"
 	<pugixml.hpp>
 
@@ -1610,7 +1610,7 @@
 1527193944 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
 	"serializableinterface.h"
 
-1531167298 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+1531260998 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
 	<MathUtilities.h>
 	<LoggerUtilities.h>
 	<serializableinterface.h>
@@ -1624,13 +1624,14 @@
 	<string>
 	<limits.h>
 
-1531172044 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
+1531347927 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
 
 1531172010 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
 	"typeinfo.hpp"
 	<MathUtilities.h>
 
-1531174264 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.cpp
+1531259424 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.cpp
 	"MathUtilities.h"
+	<sstream>
 

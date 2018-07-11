@@ -60,7 +60,10 @@ cXMLNode::cXMLNode( const pugi::xml_node& node ) : m_xmlNode(NULL)
 ******************************************************************************/
 cXMLNode::~cXMLNode()
 {
-    if( m_xmlNode != NULL ) delete m_xmlNode;
+    if( m_xmlNode != NULL )
+    {
+        delete m_xmlNode;
+    }
 }
 
 /*****************************************************************************/
