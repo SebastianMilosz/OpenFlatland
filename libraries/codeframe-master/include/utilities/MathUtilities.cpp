@@ -1,5 +1,7 @@
 #include "MathUtilities.h"
 
+#include <sstream>
+
 /*****************************************************************************/
 /**
   * @brief
@@ -7,14 +9,9 @@
 ******************************************************************************/
 std::string utilities::math::IntToStr(int nbr)
 {
-    if ( nbr > 999999999 )
-    {
-        return std::string("GetStringFromInt - Overload");
-    }
-    char buffer[12];
-    sprintf (buffer, "%d",nbr);
+    std::ostringstream s;
+    s << nbr;
+    std::string converted(s.str());
 
-    std::string retVal(&buffer[0]);
-
-    return retVal;
+    return converted;
 }
