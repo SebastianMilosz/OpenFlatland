@@ -20,65 +20,71 @@ namespace codeframe
         TypeInfo( const char* typeName, const char* typeUser, const eType enumType, unsigned char bytePrec = 4, bool sign = true ) :
             TypeCompName( typeName ),
             TypeUserName( typeUser ),
-            TypeCode( enumType )
+            TypeCode( enumType ),
+            BytePrec( bytePrec ),
+            Sign( sign ),
+            ToIntegerCallback( NULL ),
+            ToRealCallback( NULL ),
+            ToTextCallback( NULL )
         {
-            BytePrec = bytePrec;
-            Sign = sign;
         }
 
-        static void SetToIntegerCallback( int (*toIntegerCallback)(void* value, unsigned char bytePrec, bool sign) )
+        void SetToIntegerCallback( int (*toIntegerCallback)(void* value, unsigned char bytePrec, bool sign) )
         {
             ToIntegerCallback = toIntegerCallback;
         }
 
-        static void SetToRealCallback( int (*toRealCallback)(void* value, unsigned char bytePrec, bool sign) )
+        void SetToRealCallback( int (*toRealCallback)(void* value, unsigned char bytePrec, bool sign) )
         {
             ToRealCallback = toRealCallback;
         }
 
-        static void SetToTextCallback( int (*toTextCallback)(void* value, unsigned char bytePrec, bool sign) )
+        void SetToTextCallback( int (*toTextCallback)(void* value, unsigned char bytePrec, bool sign) )
         {
             ToTextCallback = toTextCallback;
         }
 
-        static int ToInteger( void* value )
+        int ToInteger( void* value )
         {
             if( NULL != ToIntegerCallback )
             {
                 return ToIntegerCallback( value, BytePrec, Sign );
             }
+            return 0U;
         }
 
-        static float ToReal( void* value )
+        float ToReal( void* value )
         {
             if( NULL != ToRealCallback )
             {
                 return ToRealCallback( value, BytePrec, Sign );
             }
+            return 0.0F;
         }
 
-        static std::string ToText( void* value )
+        std::string ToText( void* value )
         {
             if( NULL != ToTextCallback )
             {
                 return ToTextCallback( value, BytePrec, Sign );
             }
+            return "";
         }
 
         // Conversions from standard types
-        static void* FromInteger( int value )
+        void* FromInteger( int value )
         {
 
             return NULL;
         }
 
-        static void* FromReal( float value )
+        void* FromReal( float value )
         {
 
             return NULL;
         }
 
-        static void* FromText( std::string value )
+        void* FromText( std::string value )
         {
 
             return NULL;
@@ -88,46 +94,32 @@ namespace codeframe
         const char* TypeUserName;
         const eType TypeCode;
 
-        static const unsigned char BytePrec;
-        static const bool Sign;
+        unsigned char BytePrec;
+        bool Sign;
 
         // Conversions to standard types
-        static int         ( *ToIntegerCallback )( void* value, unsigned char bytePrec, bool sign );
-        static float       ( *ToRealCallback    )( void* value, unsigned char bytePrec, bool sign );
-        static std::string ( *ToTextCallback    )( void* value, unsigned char bytePrec, bool sign );
+        int         ( *ToIntegerCallback )( void* value, unsigned char bytePrec, bool sign );
+        float       ( *ToRealCallback    )( void* value, unsigned char bytePrec, bool sign );
+        std::string ( *ToTextCallback    )( void* value, unsigned char bytePrec, bool sign );
 
         // Conversions from standard types
-        static void* ( *FromIntegerCallback )( int         value );
-        static void* ( *FromRealCallback    )( float       value );
-        static void* ( *FromTextCallback    )( std::string value );
+        void* ( *FromIntegerCallback )( int         value );
+        void* ( *FromRealCallback    )( float       value );
+        void* ( *FromTextCallback    )( std::string value );
 
         static const eType StringToTypeCode( std::string typeText );
     };
 
-    template <typename T>
-    TypeInfo<T>::ToIntegerCallback = NULL;
-
-    template <typename T>
-    TypeInfo<T>::ToRealCallback = NULL;
-
-    template <typename T>
-    TypeInfo<T>::ToTextCallback = NULL;
-
-    template <typename T>
-    TypeInfo<T>::FromIntegerCallback = NULL;
-
-    template <typename T>
-    TypeInfo<T>::FromRealCallback = NULL;
-
-    template <typename T>
-    TypeInfo<T>::FromTextCallback = NULL;
-
     template<typename T>
-    TypeInfo<T> GetTypeInfo();
+    TypeInfo<T>& GetTypeInfo();
 
     #define REGISTER_TYPE(T,S,PrecByte,Sign) \
       template<> \
-      TypeInfo<T> GetTypeInfo<T>() { TypeInfo<T> type(#T,S,TypeInfo<T>::StringToTypeCode(S),PrecByte,Sign); return type; }
+      TypeInfo<T>& GetTypeInfo<T>() \
+      { \
+          static TypeInfo<T> type(#T,S,TypeInfo<T>::StringToTypeCode(S),PrecByte,Sign); \
+          return type; \
+      }
 
     void CODEFRAME_TYPES_INITIALIZE( void );
 }
