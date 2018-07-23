@@ -4,16 +4,94 @@
 
 namespace codeframe
 {
-    int StringToInteger( void* value, unsigned char bytePrec, bool sign )
+    int IntFromString( std::string value )
     {
-        std::string* stringTypePtr = static_cast<std::string*>(value);
+        return utilities::math::StrToInt( value );
+    }
 
-        if( NULL != stringTypePtr )
-        {
-            return utilities::math::StrToInt( *stringTypePtr );
-        }
+    unsigned int UIntFromString( std::string value )
+    {
+        return utilities::math::StrToInt( value );
+    }
 
+    std::string StringFromString( std::string value )
+    {
+        return value;
+    }
+
+    std::string IntToString( int value )
+    {
+        return "NONE";
+    }
+
+    std::string UIntToString( unsigned int value )
+    {
+        return "NONE";
+    }
+
+    std::string StringToString( std::string value )
+    {
+        return "NONE";
+    }
+
+    int IntToInt( int value )
+    {
         return 0;
+    }
+
+    int UIntToInt( unsigned int value )
+    {
+        return 0;
+    }
+
+    int StringToInt( std::string value )
+    {
+        return 0;
+    }
+
+    int IntFromInt( int value )
+    {
+        return 0;
+    }
+
+    unsigned int UIntFromInt( int value )
+    {
+        return 0U;
+    }
+
+    std::string StringFromInt( int value )
+    {
+        return "0";
+    }
+
+    double IntToReal( int value )
+    {
+        return value;
+    }
+
+    double UIntToReal( unsigned int value )
+    {
+        return value;
+    }
+
+    double StringToReal( std::string value )
+    {
+        return 0;
+    }
+
+    int IntFromReal( double value )
+    {
+        return value;
+    }
+
+    unsigned int UIntFromReal( double value )
+    {
+        return value;
+    }
+
+    std::string StringFromReal( double value )
+    {
+        return "0";
     }
 
     template<typename T>
@@ -38,6 +116,28 @@ namespace codeframe
 
     void CODEFRAME_TYPES_INITIALIZE( void )
     {
-        GetTypeInfo<std::string>().SetToIntegerCallback( &StringToInteger );
+        GetTypeInfo<int         >().SetFromStringCallback( &IntFromString    );
+        GetTypeInfo<unsigned int>().SetFromStringCallback( &UIntFromString   );
+        GetTypeInfo<std::string >().SetFromStringCallback( &StringFromString );
+
+        GetTypeInfo<int         >().SetToStringCallback( &IntToString    );
+        GetTypeInfo<unsigned int>().SetToStringCallback( &UIntToString   );
+        GetTypeInfo<std::string >().SetToStringCallback( &StringToString );
+
+        GetTypeInfo<int         >().SetFromIntegerCallback( &IntFromInt    );
+        GetTypeInfo<unsigned int>().SetFromIntegerCallback( &UIntFromInt   );
+        GetTypeInfo<std::string >().SetFromIntegerCallback( &StringFromInt );
+
+        GetTypeInfo<int         >().SetToIntegerCallback( &IntToInt    );
+        GetTypeInfo<unsigned int>().SetToIntegerCallback( &UIntToInt   );
+        GetTypeInfo<std::string >().SetToIntegerCallback( &StringToInt );
+
+        GetTypeInfo<int         >().SetFromRealCallback( &IntFromReal    );
+        GetTypeInfo<unsigned int>().SetFromRealCallback( &UIntFromReal   );
+        GetTypeInfo<std::string >().SetFromRealCallback( &StringFromReal );
+
+        GetTypeInfo<int         >().SetToRealCallback( &IntToReal    );
+        GetTypeInfo<unsigned int>().SetToRealCallback( &UIntToReal   );
+        GetTypeInfo<std::string >().SetToRealCallback( &StringToReal );
     }
 }
