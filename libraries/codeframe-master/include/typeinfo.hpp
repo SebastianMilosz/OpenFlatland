@@ -5,6 +5,10 @@
 
 namespace codeframe
 {
+    typedef int IntegerType;
+    typedef double RealType;
+    typedef std::string StringType;
+
     enum eType
     {
         TYPE_NON = 0,   ///< No type
@@ -23,71 +27,93 @@ namespace codeframe
             TypeCode( enumType ),
             BytePrec( bytePrec ),
             Sign( sign ),
-            ToIntegerCallback( NULL ),
-            ToRealCallback( NULL ),
-            ToTextCallback( NULL )
+            FromStringCallback( NULL ),
+            ToStringCallback( NULL )
         {
         }
 
-        void SetToIntegerCallback( int (*toIntegerCallback)(void* value, unsigned char bytePrec, bool sign) )
+        void SetFromStringCallback( T (*fromStringCallback)( StringType value ) )
+        {
+            FromStringCallback = fromStringCallback;
+        }
+
+        T FromString( StringType value )
+        {
+            if ( NULL != FromStringCallback )
+            {
+                return FromStringCallback( value );
+            }
+            return T();
+        }
+
+        void SetToStringCallback( StringType (*toStringCallback)( T value ) )
+        {
+            ToStringCallback = toStringCallback;
+        }
+
+        StringType ToString( T value )
+        {
+            if ( NULL != ToStringCallback )
+            {
+                return ToStringCallback( value );
+            }
+            return StringType("");
+        }
+
+        void SetFromIntegerCallback( T (*fromIntegerCallback)( int value ) )
+        {
+            FromIntegerCallback = fromIntegerCallback;
+        }
+
+        T FromInteger( int value )
+        {
+            if ( NULL != FromIntegerCallback )
+            {
+                return FromIntegerCallback( value );
+            }
+            return T();
+        }
+
+        void SetToIntegerCallback( int (*toIntegerCallback)( T value ) )
         {
             ToIntegerCallback = toIntegerCallback;
         }
 
-        void SetToRealCallback( int (*toRealCallback)(void* value, unsigned char bytePrec, bool sign) )
+        int ToInteger( T value )
+        {
+            if ( NULL != ToIntegerCallback )
+            {
+                return ToIntegerCallback( value );
+            }
+            return 0;
+        }
+
+        void SetFromRealCallback( T (*fromRealCallback)( double value ) )
+        {
+            FromRealCallback = fromRealCallback;
+        }
+
+        T FromReal( double value )
+        {
+            if ( NULL != FromRealCallback )
+            {
+                return FromRealCallback( value );
+            }
+            return T();
+        }
+
+        void SetToRealCallback( double (*toRealCallback)( T value ) )
         {
             ToRealCallback = toRealCallback;
         }
 
-        void SetToTextCallback( int (*toTextCallback)(void* value, unsigned char bytePrec, bool sign) )
+        double ToReal( T value )
         {
-            ToTextCallback = toTextCallback;
-        }
-
-        int ToInteger( void* value )
-        {
-            if( NULL != ToIntegerCallback )
+            if ( NULL != ToRealCallback )
             {
-                return ToIntegerCallback( value, BytePrec, Sign );
-            }
-            return 0U;
-        }
-
-        float ToReal( void* value )
-        {
-            if( NULL != ToRealCallback )
-            {
-                return ToRealCallback( value, BytePrec, Sign );
+                return ToRealCallback( value );
             }
             return 0.0F;
-        }
-
-        std::string ToText( void* value )
-        {
-            if( NULL != ToTextCallback )
-            {
-                return ToTextCallback( value, BytePrec, Sign );
-            }
-            return "";
-        }
-
-        // Conversions from standard types
-        void* FromInteger( int value )
-        {
-
-            return NULL;
-        }
-
-        void* FromReal( float value )
-        {
-
-            return NULL;
-        }
-
-        void* FromText( std::string value )
-        {
-
-            return NULL;
         }
 
         const char* TypeCompName;
@@ -97,15 +123,12 @@ namespace codeframe
         unsigned char BytePrec;
         bool Sign;
 
-        // Conversions to standard types
-        int         ( *ToIntegerCallback )( void* value, unsigned char bytePrec, bool sign );
-        float       ( *ToRealCallback    )( void* value, unsigned char bytePrec, bool sign );
-        std::string ( *ToTextCallback    )( void* value, unsigned char bytePrec, bool sign );
-
-        // Conversions from standard types
-        void* ( *FromIntegerCallback )( int         value );
-        void* ( *FromRealCallback    )( float       value );
-        void* ( *FromTextCallback    )( std::string value );
+        T           ( *FromStringCallback )( StringType  value );
+        StringType  ( *ToStringCallback   )( T           value );
+        T           ( *FromIntegerCallback)( int         value );
+        int         ( *ToIntegerCallback  )( T           value );
+        T           ( *FromRealCallback   )( double      value );
+        double      ( *ToRealCallback     )( T           value );
 
         static const eType StringToTypeCode( std::string typeText );
     };
