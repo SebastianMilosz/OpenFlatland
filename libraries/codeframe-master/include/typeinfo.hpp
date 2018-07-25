@@ -19,128 +19,60 @@ namespace codeframe
     };
 
     template<typename T>
-    struct TypeInfo
+    class TypeInfo
     {
-        TypeInfo( const char* typeName, const char* typeUser, const eType enumType, unsigned char bytePrec = 4, bool sign = true ) :
-            TypeCompName( typeName ),
-            TypeUserName( typeUser ),
-            TypeCode( enumType ),
-            BytePrec( bytePrec ),
-            Sign( sign ),
-            FromStringCallback( NULL ),
-            ToStringCallback( NULL )
-        {
-        }
+        public:
+            TypeInfo( const char* typeName, const char* typeUser, const eType enumType );
 
-        void SetFromStringCallback( T (*fromStringCallback)( StringType value ) )
-        {
-            FromStringCallback = fromStringCallback;
-        }
+            static const eType StringToTypeCode( std::string typeText );
 
-        T FromString( StringType value )
-        {
-            if ( NULL != FromStringCallback )
+            void SetFromStringCallback ( T (*fromStringCallback )( StringType  value ) );
+            void SetFromIntegerCallback( T (*fromIntegerCallback)( IntegerType value ) );
+            void SetFromRealCallback   ( T (*fromRealCallback   )( RealType    value ) );
+
+            void SetToStringCallback ( StringType  (*toStringCallback )( T value ) );
+            void SetToIntegerCallback( IntegerType (*toIntegerCallback)( T value ) );
+            void SetToRealCallback   ( RealType    (*toRealCallback   )( T value ) );
+
+            T FromString ( StringType value  );
+            T FromInteger( IntegerType value );
+            T FromReal   ( RealType value    );
+
+            StringType  ToString ( T value );
+            IntegerType ToInteger( T value );
+            RealType    ToReal   ( T value );
+
+            const eType GetTypeCode() const
             {
-                return FromStringCallback( value );
+                return TypeCode;
             }
-            return T();
-        }
 
-        void SetToStringCallback( StringType (*toStringCallback)( T value ) )
-        {
-            ToStringCallback = toStringCallback;
-        }
-
-        StringType ToString( T value )
-        {
-            if ( NULL != ToStringCallback )
+            const char* GetTypeUserName() const
             {
-                return ToStringCallback( value );
+                return TypeUserName;
             }
-            return StringType("");
-        }
 
-        void SetFromIntegerCallback( T (*fromIntegerCallback)( int value ) )
-        {
-            FromIntegerCallback = fromIntegerCallback;
-        }
+        private:
+            const char* TypeCompName;
+            const char* TypeUserName;
+            const eType TypeCode;
 
-        T FromInteger( int value )
-        {
-            if ( NULL != FromIntegerCallback )
-            {
-                return FromIntegerCallback( value );
-            }
-            return T();
-        }
-
-        void SetToIntegerCallback( int (*toIntegerCallback)( T value ) )
-        {
-            ToIntegerCallback = toIntegerCallback;
-        }
-
-        int ToInteger( T value )
-        {
-            if ( NULL != ToIntegerCallback )
-            {
-                return ToIntegerCallback( value );
-            }
-            return 0;
-        }
-
-        void SetFromRealCallback( T (*fromRealCallback)( double value ) )
-        {
-            FromRealCallback = fromRealCallback;
-        }
-
-        T FromReal( double value )
-        {
-            if ( NULL != FromRealCallback )
-            {
-                return FromRealCallback( value );
-            }
-            return T();
-        }
-
-        void SetToRealCallback( double (*toRealCallback)( T value ) )
-        {
-            ToRealCallback = toRealCallback;
-        }
-
-        double ToReal( T value )
-        {
-            if ( NULL != ToRealCallback )
-            {
-                return ToRealCallback( value );
-            }
-            return 0.0F;
-        }
-
-        const char* TypeCompName;
-        const char* TypeUserName;
-        const eType TypeCode;
-
-        unsigned char BytePrec;
-        bool Sign;
-
-        T           ( *FromStringCallback )( StringType  value );
-        StringType  ( *ToStringCallback   )( T           value );
-        T           ( *FromIntegerCallback)( int         value );
-        int         ( *ToIntegerCallback  )( T           value );
-        T           ( *FromRealCallback   )( double      value );
-        double      ( *ToRealCallback     )( T           value );
-
-        static const eType StringToTypeCode( std::string typeText );
+            T           ( *FromStringCallback )( StringType  value );
+            StringType  ( *ToStringCallback   )( T           value );
+            T           ( *FromIntegerCallback)( IntegerType value );
+            IntegerType ( *ToIntegerCallback  )( T           value );
+            T           ( *FromRealCallback   )( RealType    value );
+            RealType    ( *ToRealCallback     )( T           value );
     };
 
     template<typename T>
     TypeInfo<T>& GetTypeInfo();
 
-    #define REGISTER_TYPE(T,S,PrecByte,Sign) \
+    #define REGISTER_TYPE(T,S) \
       template<> \
       TypeInfo<T>& GetTypeInfo<T>() \
       { \
-          static TypeInfo<T> type(#T,S,TypeInfo<T>::StringToTypeCode(S),PrecByte,Sign); \
+          static TypeInfo<T> type(#T,S,TypeInfo<T>::StringToTypeCode(S)); \
           return type; \
       }
 
