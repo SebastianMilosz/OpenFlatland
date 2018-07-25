@@ -98,6 +98,9 @@
 		<Unit filename="libraries/codeframe-master/include/serializable.h" />
 		<Unit filename="libraries/codeframe-master/include/serializablecontainer.h" />
 		<Unit filename="libraries/codeframe-master/include/serializableinterface.h" />
+		<Unit filename="libraries/codeframe-master/include/serializablepropertybase.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="libraries/codeframe-master/include/serializablepropertyinfo.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablestorage.h" />
 		<Unit filename="libraries/codeframe-master/include/typeinfo.cpp" />

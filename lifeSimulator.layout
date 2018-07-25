@@ -2,44 +2,34 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
+	<File name="libraries\codeframe-master\src\serializableproperty.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="182" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\include\typeinfo.hpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="158" topLine="43" />
+		</Cursor>
+	</File>
 	<File name="libraries\codeframe-master\include\utilities\MathUtilities.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="329" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\serializableinterface.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\include\utilities\MathUtilities.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4809" topLine="32" />
+			<Cursor1 position="298" topLine="10" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\src\serializable.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src\world.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9921" topLine="299" />
+			<Cursor1 position="1179" topLine="47" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\typeinfo.hpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\include\typeinfo.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3337" topLine="111" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\src\cxmlnode.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1572" topLine="53" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4040" topLine="112" />
-		</Cursor>
-	</File>
-	<File name="libraries\codeframe-master\src\serializableproperty.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="13262" topLine="454" />
-		</Cursor>
-	</File>
-	<File name="include\entity.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="478" topLine="0" />
+			<Cursor1 position="1151" topLine="48" />
 		</Cursor>
 	</File>
 	<File name="libraries\codeframe-master\src\xmlformatter.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -47,9 +37,14 @@
 			<Cursor1 position="21154" topLine="466" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\utilities\MathUtilities.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\entity.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="553" topLine="20" />
+			<Cursor1 position="478" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\include\serializableinterface.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4809" topLine="32" />
 		</Cursor>
 	</File>
 	<File name="src\entityshell.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -57,9 +52,24 @@
 			<Cursor1 position="751" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="libraries\codeframe-master\include\typeinfo.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="libraries\codeframe-master\include\serializablepropertybase.hpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1332" topLine="61" />
+			<Cursor1 position="225" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4040" topLine="112" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\src\cxmlnode.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1572" topLine="53" />
+		</Cursor>
+	</File>
+	<File name="libraries\codeframe-master\src\serializable.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9921" topLine="299" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

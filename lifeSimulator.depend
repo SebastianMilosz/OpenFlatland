@@ -1444,15 +1444,10 @@
 	<MathUtilities.h>
 	<ThreadUtilities.h>
 
-1532384170 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.h
-	"serializableregister.h"
-	"serializablepropertyinfo.hpp"
-	"typeinfo.hpp"
-	<ThreadUtilities.h>
-	<sigslot.h>
+1532557326 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.h
+	"serializablepropertybase.hpp"
 	<climits>
 	<string>
-	<cimage.h>
 
 1504816663 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableregister.h
 	<stdint.h>
@@ -1624,14 +1619,23 @@
 	<string>
 	<limits.h>
 
-1532384400 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
+1532556752 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
 
-1532380562 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
+1532556767 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
 	"typeinfo.hpp"
 	<MathUtilities.h>
 
 1531259424 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.cpp
 	"MathUtilities.h"
 	<sstream>
+
+1532557345 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertybase.hpp
+	"serializableregister.h"
+	"serializablepropertyinfo.hpp"
+	"typeinfo.hpp"
+	"ThreadUtilities.h"
+	<sigslot.h>
+	<climits>
+	<string>
 
