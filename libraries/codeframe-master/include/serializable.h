@@ -34,7 +34,7 @@ namespace codeframe
             bool                    IsPropertyUnique( std::string const& name ) const;
             bool                    IsNameUnique    ( std::string const& name, bool checkParent = false ) const;
             std::string             Path() const;
-            std::string             ObjectName() const;
+            std::string             ObjectName( bool idSuffix = true ) const;
             std::string             SizeString() const;
             cSerializableInterface* Parent()     const;
             cSerializableInterface* GetRootObject      (                  );

@@ -67,10 +67,11 @@ namespace codeframe
             };
 
         public:
-            virtual std::string             ObjectName() const = 0;   ///< Nazwa serializowanego objektu
+            virtual std::string             ObjectName( bool idSuffix = true ) const = 0;   ///< Nazwa serializowanego objektu
             virtual std::string             Class()      const = 0;   ///< Nazwa serializowanej klasy
             virtual std::string             Role()       const = 0;   ///< Rola serializowanego obiektu
             virtual std::string             BuildType()  const = 0;   ///< Sposob budowania obiektu (statycznym, dynamiczny)
+            virtual void                    SetName( std::string const& name ) = 0;
             virtual bool                    IsPropertyUnique( std::string const& name ) const = 0;
             virtual bool                    IsNameUnique    ( std::string const& name, bool checkParent = false ) const = 0;
             virtual std::string             Path() const = 0;
@@ -89,6 +90,9 @@ namespace codeframe
             cSerializableChildList* ChildList()       { return &m_childList;}
             void                    Lock     () const { m_Mutex.Lock();     }
             void                    Unlock   () const { m_Mutex.Unlock();   }
+
+            int  GetId() const { return m_Id; }
+            void SetId( int id ) { m_Id = id; }
 
             // Library version nr. and string
             static float       LibraryVersion();
@@ -110,6 +114,7 @@ namespace codeframe
             PropertyBase                m_dummyProperty;
             mutable WrMutex             m_Mutex;
             cSerializableChildList      m_childList;
+            int                         m_Id;
     };
 
 }

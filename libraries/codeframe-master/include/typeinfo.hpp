@@ -5,6 +5,13 @@
 
 namespace codeframe
 {
+    template <typename T, typename B>
+    class TypeConversionFunctor
+    {
+        public:
+            virtual T operator()( B& value ) const = 0;
+    };
+
     typedef int IntegerType;
     typedef double RealType;
     typedef std::string StringType;

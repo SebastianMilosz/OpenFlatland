@@ -10,7 +10,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface::cSerializableInterface() : m_dummyProperty(NULL, "DUMMY", TYPE_NON, cPropertyInfo())
+    cSerializableInterface::cSerializableInterface() :
+        m_dummyProperty(NULL, "DUMMY", TYPE_NON, cPropertyInfo()),
+        m_Id( -1 )
     {
 
     }
