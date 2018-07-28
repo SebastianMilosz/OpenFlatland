@@ -202,17 +202,35 @@ namespace codeframe
     {
         if( m_serializableObject )
         {
-            std::string serializableObjectName = m_serializableObject->ObjectName();
+            std::string serializableObjectName = m_serializableObject->ObjectName( false ); // No sufix only name
+            int serializableObjectId           = m_serializableObject->GetId();             // container iterator
 
             // Dozwolone sa tylko nazwy unikalne na danym poziomie
-            if( m_serializableObject->IsNameUnique( m_serializableObject->ObjectName() ) == false )
+            if( m_serializableObject->IsNameUnique( m_serializableObject->ObjectName() ) == false ) // Test Unique with Id number
             {
                 std::string throwString = std::string("cXmlFormatter::LoadFromXML() Name is not Unique: ") + m_serializableObject->ObjectName();
 
                 throw std::runtime_error( throwString );
             }
 
-            cXMLNode rootObjNode = xml.FindChildByAttribute(XMLTAG_OBJECT, "name", serializableObjectName.c_str());
+            cXMLNode rootObjNode;
+
+            if( serializableObjectId >= 0 ) // If Id then unique is Id
+            {
+                rootObjNode = xml.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr( serializableObjectId ).c_str());
+
+                // Name will have to also match
+                std::string name = std::string( rootObjNode.GetAttributeAsString("name") );
+
+                if( name != serializableObjectName )
+                {
+                    rootObjNode = cXMLNode();
+                }
+            }
+            else // Name is unique
+            {
+                rootObjNode = xml.FindChildByAttribute(XMLTAG_OBJECT, "name", serializableObjectName.c_str());
+            }
 
             // Jesli nieznaleziono na tym poziomie przeszukujemy glebiej tak dlugo az znajdziemy
             if( rootObjNode.IsValid() == false )
@@ -226,6 +244,7 @@ namespace codeframe
                 std::string errormsg = std::string("cXmlFormatter::LoadFromXML() rootObjNode == NULL no object name ");
                 errormsg += serializableObjectName;
                 errormsg += std::string("inside xml document");
+
 
                 throw std::runtime_error( errormsg.c_str() );
             }
@@ -440,7 +459,7 @@ namespace codeframe
         {
             // Serializacja pol obiektu
             cXMLNode rootNode = xmlDocument.AppendChild( XMLTAG_OBJECT );
-            rootNode.AppendAttribute("name", m_serializableObject->ObjectName().c_str());
+            rootNode.AppendAttribute("name", m_serializableObject->ObjectName( false ).c_str());
             rootNode.AppendAttribute("build", m_serializableObject->BuildType().c_str());
             rootNode.AppendAttribute("role", m_serializableObject->Role().c_str());
             rootNode.AppendAttribute("class", m_serializableObject->Class().c_str());
@@ -517,7 +536,7 @@ namespace codeframe
 
             // Serializacja dzieci
             cXMLNode childNode = rootNode.AppendChild(XMLTAG_CHILD);
-            childNode.AppendAttribute("name", m_serializableObject->ObjectName().c_str());
+            childNode.AppendAttribute("name", m_serializableObject->ObjectName( false ).c_str());
             childNode.AppendAttribute("cnt", utilities::math::IntToStr(m_serializableObject->ChildList()->size()).c_str());
 
             if( m_shareLevel == 1 )

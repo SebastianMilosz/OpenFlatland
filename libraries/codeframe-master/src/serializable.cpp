@@ -478,8 +478,16 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string cSerializable::ObjectName() const
+    std::string cSerializable::ObjectName( bool idSuffix ) const
     {
+        if( (GetId() >= 0) && (idSuffix == true) )
+        {
+            std::string cntName;
+
+            cntName = m_sContainerName + utilities::math::IntToStr( GetId() );
+
+            return cntName;
+        }
         return m_sContainerName;
     }
 

@@ -13,9 +13,9 @@ static const float PIXELS_IN_METER = 30.f;
 ******************************************************************************/
 EntityShell::EntityShell( std::string name, int x, int y, int z ) :
     cSerializable( name, NULL ),
-    X   ( this, "X"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), &EntityShell::GetX ),
-    Y   ( this, "Y"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), &EntityShell::GetY ),
-    Z   ( this, "Z"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), &EntityShell::GetZ ),
+    X   ( this, "X"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), this, &EntityShell::GetX ),
+    Y   ( this, "Y"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), this, &EntityShell::GetY ),
+    Z   ( this, "Z"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), this, &EntityShell::GetZ ),
     Name( this, "Name", "", cPropertyInfo().Kind( KIND_TEXT ).Description("Name") )
 {
     m_descryptor.Body = NULL;
@@ -57,9 +57,9 @@ EntityShell::sEntityShellDescriptor& EntityShell::GetDescriptor()
 ******************************************************************************/
 EntityShell::EntityShell(const EntityShell& other) :
     cSerializable( other ),
-    X   ( this, "X"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), &EntityShell::GetX ),
-    Y   ( this, "Y"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), &EntityShell::GetY ),
-    Z   ( this, "Z"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), &EntityShell::GetZ ),
+    X   ( this, "X"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), this, &EntityShell::GetX ),
+    Y   ( this, "Y"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), this, &EntityShell::GetY ),
+    Z   ( this, "Z"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), this, &EntityShell::GetZ ),
     Name( this, "Name", 0, cPropertyInfo().Kind( KIND_TEXT ).Description("Name") )
 {
     m_descryptor.Body = other.m_descryptor.Body;

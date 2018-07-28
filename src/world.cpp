@@ -175,6 +175,8 @@ bool World::Draw( sf::RenderWindow& window )
             window.draw(GroundSprite);
         }
     }
+
+    return true;
 }
 
 /*****************************************************************************/

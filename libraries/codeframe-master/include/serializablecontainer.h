@@ -142,7 +142,12 @@ namespace codeframe
 
                     if( smart_ptr_isValid( sptr ) == true )
                     {
-                        if( name == sptr->ObjectName() ) return true;
+                        std::string inContainerName = sptr->ObjectName();
+
+                        if( name == inContainerName )
+                        {
+                            return true;
+                        }
                     }
                 }
 
@@ -459,6 +464,8 @@ namespace codeframe
 
                 m_select = retPos;
                 m_size++;
+
+                classType->SetId( m_select );
 
                 // Emitujemy sygnal zmiany selekcji
                 signalSelected.Emit( m_select );

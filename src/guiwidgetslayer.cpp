@@ -100,6 +100,7 @@ bool GUIWidgetsLayer::MouseOnGui()
 bool GUIWidgetsLayer::HandleEvent( sf::Event& event )
 {
     ImGui::SFML::ProcessEvent( event );
+    return true;
 }
 
 /*****************************************************************************/
