@@ -8,9 +8,10 @@
 class EntityShell : public codeframe::cSerializable
 {
     public:
-        std::string Role()      const { return "Object";      }
-        std::string Class()     const { return "EntityShell"; }
-        std::string BuildType() const { return "Dynamic";     }
+        std::string Role()            const { return "Object";      }
+        std::string Class()           const { return "EntityShell"; }
+        std::string BuildType()       const { return "Dynamic";     }
+        std::string ConstructPatern() const { return "X,Y,Z"; }
 
     public:
         struct sEntityShellDescriptor

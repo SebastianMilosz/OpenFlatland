@@ -25,6 +25,13 @@ namespace codeframe
         TYPE_EXTENDED   ///< Extended type inherit from ExtendTypeInterface
     };
 
+    struct VariantValue
+    {
+        eType       Type;   ///< string to type conversion
+        std::string Name;   ///< variable name
+        std::string Value;  ///< variable value
+    };
+
     template<typename T>
     class TypeInfo
     {

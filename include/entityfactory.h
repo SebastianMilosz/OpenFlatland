@@ -11,9 +11,10 @@
 class EntityFactory : public codeframe::cSerializableContainer
 {
     public:
-        std::string Role()      const { return "Container";     }
-        std::string Class()     const { return "EntityFactory"; }
-        std::string BuildType() const { return "Static";        }
+        std::string Role()            const { return "Container";     }
+        std::string Class()           const { return "EntityFactory"; }
+        std::string BuildType()       const { return "Static";        }
+        std::string ConstructPatern() const { return ""; }
 
     public:
         EntityFactory( World& world );
@@ -22,7 +23,11 @@ class EntityFactory : public codeframe::cSerializableContainer
         smart_ptr<Entity> Create( int x, int y, int z );
 
     protected:
-        smart_ptr<codeframe::cSerializableInterface> Create( std::string className, std::string objName, int cnt );
+        smart_ptr<codeframe::cSerializableInterface> Create(
+                                                             const std::string className,
+                                                             const std::string objName,
+                                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                            );
 
     private:
         World&                               m_world;

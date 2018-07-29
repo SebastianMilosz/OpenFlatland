@@ -109,7 +109,11 @@ namespace codeframe
                 return m_size;
             }
 
-            virtual smart_ptr<cSerializableInterface> Create( std::string className, std::string objName, int cnt = -1 ) = 0;
+            virtual smart_ptr<cSerializableInterface> Create(
+                                                             const std::string className,
+                                                             const std::string objName,
+                                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                             ) = 0;
 
             /*****************************************************************************/
             /**
@@ -122,7 +126,7 @@ namespace codeframe
                 {
                     std::string objNameNum = objName + utilities::math::IntToStr( i );
 
-                    if( smart_ptr_isValid( Create( className, objNameNum, i ) ) == false )
+                    if( smart_ptr_isValid( Create( className, objNameNum ) ) == false )
                     {
                         throw std::runtime_error( "cSerializableContainer::Create return NULL" );
                     }
