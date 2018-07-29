@@ -2,6 +2,7 @@
 #define TYPEINFO_HPP_INCLUDED
 
 #include <string>
+#include <MathUtilities.h>
 
 namespace codeframe
 {
@@ -25,11 +26,38 @@ namespace codeframe
         TYPE_EXTENDED   ///< Extended type inherit from ExtendTypeInterface
     };
 
+    /// @todo Przeprojektowac!!!!
     struct VariantValue
     {
+        bool IsName( std::string name ) const
+        {
+            if (name == Name)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        const eType GetType() const
+        {
+            return Type;
+        }
+
+        IntegerType IntegerValue() const
+        {
+            return Value.Integer;
+        }
+
         eType       Type;   ///< string to type conversion
         std::string Name;   ///< variable name
-        std::string Value;  ///< variable value
+
+        union ValueUnion
+        {
+            int     Integer;
+            double  Real;
+        } Value;
+
+        std::string ValueString;  ///< variable value
     };
 
     template<typename T>
