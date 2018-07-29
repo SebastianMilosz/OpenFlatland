@@ -1,5 +1,6 @@
 #include <MathUtilities.h>
 #include <LoggerUtilities.h>
+#include <TextUtilities.h>
 #include <serializableinterface.h>
 #include <serializablecontainer.h>
 #include <iostream>
@@ -392,9 +393,10 @@ namespace codeframe
                     for( int objectLp = 0; objectLp < childCnt; objectLp++ )
                     {
                         cXMLNode childNode = childNodeContainer.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr( objectLp ).c_str());
-                        std::string buildType  = std::string( childNode.GetAttributeAsString("build") );
-                        std::string buildClass = std::string( childNode.GetAttributeAsString("class") );
-                        std::string buildName  = std::string( childNode.GetAttributeAsString("name") );
+                        std::string buildType      = std::string( childNode.GetAttributeAsString("build") );
+                        std::string buildClass     = std::string( childNode.GetAttributeAsString("class") );
+                        std::string buildName      = std::string( childNode.GetAttributeAsString("name") );
+                        std::string buildConstruct = std::string( childNode.GetAttributeAsString("construct") );
 
                         // Jesli obiekt budowany dynamicznie
                         if( buildType == "Dynamic" )
@@ -402,7 +404,26 @@ namespace codeframe
                             // Jesli jeszcze nie istnieje dodajemy
                             if( (bool)containerObject->IsName( buildName ) == false )
                             {
-                                if( smart_ptr_isValid( containerObject->Create( buildClass, buildName ) ) == false )
+                                bool constructRes = false;
+
+                                if( buildConstruct != "" )
+                                {
+                                    std::vector<std::string> paramNameVector;
+                                    utilities::text::split( buildConstruct, ",", paramNameVector);
+
+                                    std::vector<codeframe::VariantValue> paramVector;
+
+                                    // Filling parameter vector
+
+
+                                    constructRes = smart_ptr_isValid( containerObject->Create( buildClass, buildName, paramVector ) );
+                                }
+                                else
+                                {
+                                    constructRes = smart_ptr_isValid( containerObject->Create( buildClass, buildName ) );
+                                }
+
+                                if( constructRes == false )
                                 {
                                     LOGGER( LOG_ERROR  << "Dynamic Object " << buildName << " cannot be created from class: " << buildClass );
                                 }
@@ -459,10 +480,11 @@ namespace codeframe
         {
             // Serializacja pol obiektu
             cXMLNode rootNode = xmlDocument.AppendChild( XMLTAG_OBJECT );
-            rootNode.AppendAttribute("name", m_serializableObject->ObjectName( false ).c_str());
-            rootNode.AppendAttribute("build", m_serializableObject->BuildType().c_str());
-            rootNode.AppendAttribute("role", m_serializableObject->Role().c_str());
-            rootNode.AppendAttribute("class", m_serializableObject->Class().c_str());
+            rootNode.AppendAttribute( "name",      m_serializableObject->ObjectName( false ).c_str() );
+            rootNode.AppendAttribute( "build",     m_serializableObject->BuildType().c_str() );
+            rootNode.AppendAttribute( "role",      m_serializableObject->Role().c_str() );
+            rootNode.AppendAttribute( "class",     m_serializableObject->Class().c_str() );
+            rootNode.AppendAttribute( "construct", m_serializableObject->ConstructPatern().c_str() );
     #ifdef PATH_FIELD
             rootNode.AppendAttribute("path", m_serializableObject->Path().c_str());
     #endif

@@ -68,9 +68,11 @@ namespace codeframe
 
         public:
             virtual std::string             ObjectName( bool idSuffix = true ) const = 0;   ///< Nazwa serializowanego objektu
-            virtual std::string             Class()      const = 0;   ///< Nazwa serializowanej klasy
-            virtual std::string             Role()       const = 0;   ///< Rola serializowanego obiektu
-            virtual std::string             BuildType()  const = 0;   ///< Sposob budowania obiektu (statycznym, dynamiczny)
+            virtual std::string             Class()      const = 0;         ///< Nazwa serializowanej klasy
+            virtual std::string             Role()       const = 0;         ///< Rola serializowanego obiektu
+            virtual std::string             BuildType()  const = 0;         ///< Sposob budowania obiektu (statycznym, dynamiczny)
+            virtual std::string             ConstructPatern() const = 0;    ///< Parametry konstruktora
+
             virtual void                    SetName( std::string const& name ) = 0;
             virtual bool                    IsPropertyUnique( std::string const& name ) const = 0;
             virtual bool                    IsNameUnique    ( std::string const& name, bool checkParent = false ) const = 0;
