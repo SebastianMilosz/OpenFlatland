@@ -414,7 +414,48 @@ namespace codeframe
                                     std::vector<codeframe::VariantValue> paramVector;
 
                                     // Filling parameter vector
+                                    for ( std::vector<std::string>::const_iterator it = paramNameVector.begin(); it != paramNameVector.end(); ++it )
+                                    {
+                                        std::string propName = *it;
 
+                                        // search for property of the same name
+                                        cXMLNode propertyNode = childNode.FindChildByAttribute( XMLTAG_PROPERTY, "name", propName.c_str() );
+
+                                        // Jesli znaleziono wezel
+                                        if( propertyNode.IsValid() == true )
+                                        {
+                                            codeframe::VariantValue variantValue;
+
+                                            variantValue.Name = propName;
+
+                                            const char_t* type = propertyNode.GetAttributeAsString("type");
+
+                                                 if( strcmp (type, "int")  == 0 )
+                                            {
+                                                variantValue.Type = codeframe::TYPE_INT;
+                                                variantValue.Value.Integer = int   (propertyNode.GetAttributeAsInteger("value") );
+                                            }
+                                            else if( strcmp (type, "real") == 0 )
+                                            {
+                                                variantValue.Type = codeframe::TYPE_REAL;
+                                                variantValue.Value.Real = double( propertyNode.GetAttributeAsDouble("value") );
+                                            }
+                                            else if( strcmp (type, "char") == 0 )
+                                            {
+                                                variantValue.Type = codeframe::TYPE_INT;
+                                                variantValue.Value.Integer = char( propertyNode.GetAttributeAsInteger("value") );
+                                            }
+                                            else if( strcmp (type, "text") == 0 )
+                                            {
+                                                variantValue.Type = codeframe::TYPE_TEXT;
+                                                std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
+
+                                                variantValue.ValueString = FromEscapeXml( tempText );
+                                            }
+
+                                            paramVector.push_back(variantValue );
+                                        }
+                                    }
 
                                     constructRes = smart_ptr_isValid( containerObject->Create( buildClass, buildName, paramVector ) );
                                 }

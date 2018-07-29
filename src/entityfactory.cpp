@@ -56,19 +56,19 @@ smart_ptr<codeframe::cSerializableInterface> EntityFactory::Create(
 
         for ( std::vector<codeframe::VariantValue>::const_iterator it = params.begin(); it != params.end(); ++it )
         {
-            if ( it->Type == codeframe::TYPE_INT )
+            if ( it->GetType() == codeframe::TYPE_INT )
             {
-                     if ( it->Name == "X" )
+                     if ( it->IsName( "X" ) )
                 {
-                    x = utilities::math::StrToInt( it->Value );
+                    x = it->IntegerValue();
                 }
-                else if ( it->Name == "Y" )
+                else if ( it->IsName( "Y" ) )
                 {
-                    y = utilities::math::StrToInt( it->Value );
+                    y = it->IntegerValue();
                 }
-                else if ( it->Name == "Z" )
+                else if ( it->IsName( "Z" ) )
                 {
-                    z = utilities::math::StrToInt( it->Value );
+                    z = it->IntegerValue();
                 }
             }
         }
