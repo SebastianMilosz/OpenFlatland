@@ -6,10 +6,18 @@
 
 #include "entityshell.h"
 
-class World
+#include <serializable.h>
+
+class World : public codeframe::cSerializable
 {
     public:
-                 World();
+        std::string Role()            const { return "Object"; }
+        std::string Class()           const { return "World";  }
+        std::string BuildType()       const { return "Static"; }
+        std::string ConstructPatern() const { return "";       }
+
+    public:
+                 World( std::string name, cSerializableInterface* parent );
         virtual ~World();
 
         bool AddShell( std::shared_ptr<EntityShell> shell );
