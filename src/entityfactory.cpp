@@ -7,9 +7,8 @@
   * @brief
  **
 ******************************************************************************/
-EntityFactory::EntityFactory( World& world ) :
-    cSerializableContainer( "EntityFactory", NULL ),
-    m_world( world )
+EntityFactory::EntityFactory( std::string name, cSerializableInterface* parent ) :
+    cSerializableContainer( "EntityFactory", NULL )
 {
     //ctor
 }
@@ -34,6 +33,8 @@ smart_ptr<Entity> EntityFactory::Create( int x, int y, int z )
     smart_ptr<Entity> entity = smart_ptr<Entity>( new Entity( "Unknown", x, y, z ) );
 
     InsertObject( entity );
+
+    signalEntityAdd.Emit( entity );
 
     return entity;
 }
@@ -76,6 +77,9 @@ smart_ptr<codeframe::cSerializableInterface> EntityFactory::Create(
         smart_ptr<codeframe::cSerializableInterface> obj = smart_ptr<codeframe::cSerializableInterface>( new Entity( objName, x, y, z ) );
 
         InsertObject( obj );
+
+        signalEntityAdd.Emit( obj );
+
         return obj;
     }
 

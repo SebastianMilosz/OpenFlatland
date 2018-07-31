@@ -4,6 +4,7 @@
 #include "world.h"
 #include "entity.h"
 
+#include <sigslot.h>
 #include <serializable.h>
 #include <serializablecontainer.h>
 #include <serializableinterface.h>
@@ -17,10 +18,13 @@ class EntityFactory : public codeframe::cSerializableContainer
         std::string ConstructPatern() const { return ""; }
 
     public:
-        EntityFactory( World& world );
+        EntityFactory( std::string name, cSerializableInterface* parent );
         virtual ~EntityFactory();
 
         smart_ptr<Entity> Create( int x, int y, int z );
+
+        signal1< smart_ptr<Entity> > signalEntityAdd;
+        signal1< smart_ptr<Entity> > signalEntityDel;
 
     protected:
         smart_ptr<codeframe::cSerializableInterface> Create(
@@ -30,7 +34,7 @@ class EntityFactory : public codeframe::cSerializableContainer
                                                             );
 
     private:
-        World&                               m_world;
+
 };
 
 #endif // ENTITYFACTORY_H

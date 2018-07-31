@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "version.h"
+#include "application.hpp"
 #include "world.h"
 #include "entityfactory.h"
 #include "guiwidgetslayer.h"
@@ -38,6 +39,8 @@ int main()
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Initializing" );
 
+    Application application( "Application" );
+
     const float zoomAmount{ 1.1f }; // zoom by 10%
 
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), APPLICATION_NAME );
@@ -47,10 +50,10 @@ int main()
     window.setView(view);
 
     GUIWidgetsLayer m_Widgets( window );
-    World           m_World;
-    EntityFactory   m_Factory( m_World );
+    World           m_World  ( "World",         (cSerializableInterface*)application );
+    EntityFactory   m_Factory( "EntityFactory", (cSerializableInterface*)application );
 
-    m_Factory.LoadFromFile( cfgFilePath );
+    application.LoadFromFile( cfgFilePath );
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Initialized" );
 
@@ -128,7 +131,7 @@ int main()
         window.display();
     }
 
-    m_Factory.SaveToFile( cfgFilePath );
+    application.SaveToFile( cfgFilePath );
 
     return 0;
 }
