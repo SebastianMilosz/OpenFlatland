@@ -96,9 +96,9 @@ World::~World()
   * @brief
  **
 ******************************************************************************/
-bool World::AddShell( std::shared_ptr<EntityShell> shell )
+void World::AddShell( std::shared_ptr<Entity> entity )
 {
-    EntityShell::sEntityShellDescriptor& desc = shell->GetDescriptor();
+    EntityShell::sEntityShellDescriptor& desc = entity->GetDescriptor();
 
     b2Body* body = m_World.CreateBody( &desc.BodyDef );
 
@@ -106,10 +106,7 @@ bool World::AddShell( std::shared_ptr<EntityShell> shell )
     {
         body->CreateFixture( &desc.FixtureDef );
         desc.Body = body;
-        return true;
     }
-
-    return false;
 }
 
 /*****************************************************************************/

@@ -95,7 +95,7 @@ namespace codeframe
             std::string BuildType() const { return "Static"; }
 
         public:
-            cSerializableContainer( std::string name, cSerializable* parentObject ) :  cSerializable( name, parentObject ), m_select(0), m_size( 0 )
+            cSerializableContainer( std::string name, cSerializableInterface* parentObject ) :  cSerializable( name, parentObject ), m_select(0), m_size( 0 )
             {
             }
 

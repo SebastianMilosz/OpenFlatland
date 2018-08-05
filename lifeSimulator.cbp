@@ -86,6 +86,10 @@
 			<Add directory="libraries/cpgf-master/lib" />
 		</Linker>
 		<Unit filename="include/application.hpp" />
+		<Unit filename="include/constelementline.hpp" />
+		<Unit filename="include/constelementsfactory.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/entity.h" />
 		<Unit filename="include/entityfactory.h" />
 		<Unit filename="include/entityghost.h" />
@@ -151,6 +155,9 @@
 		<Unit filename="libraries/sigslot-1.0.0/sigslot.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/application.cpp" />
+		<Unit filename="src/constelementsfactory.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="src/entity.cpp" />
 		<Unit filename="src/entityfactory.cpp" />
 		<Unit filename="src/entityghost.cpp" />

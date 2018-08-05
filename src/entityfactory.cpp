@@ -8,7 +8,7 @@
  **
 ******************************************************************************/
 EntityFactory::EntityFactory( std::string name, cSerializableInterface* parent ) :
-    cSerializableContainer( "EntityFactory", NULL )
+    cSerializableContainer( name, parent )
 {
     //ctor
 }
@@ -74,9 +74,9 @@ smart_ptr<codeframe::cSerializableInterface> EntityFactory::Create(
             }
         }
 
-        smart_ptr<codeframe::cSerializableInterface> obj = smart_ptr<codeframe::cSerializableInterface>( new Entity( objName, x, y, z ) );
+        smart_ptr<Entity> obj = smart_ptr<Entity>( new Entity( objName, x, y, z ) );
 
-        InsertObject( obj );
+        int id = InsertObject( obj );
 
         signalEntityAdd.Emit( obj );
 
