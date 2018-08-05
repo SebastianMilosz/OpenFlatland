@@ -21,7 +21,7 @@ namespace codeframe
         friend class PropertyBase;
 
         public:
-                             cSerializable( std::string const& name, cSerializable* parent = NULL );
+                             cSerializable( std::string const& name, cSerializableInterface* parent = NULL );
             virtual         ~cSerializable();
 
             void             SetName      ( std::string const& name );

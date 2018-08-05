@@ -48,7 +48,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable::cSerializable( const std::string& name, cSerializable* parent ) :
+    cSerializable::cSerializable( const std::string& name, cSerializableInterface* parent ) :
         cSerializableStorage(),
 		m_delay( 0 ),
         m_parent( NULL ),

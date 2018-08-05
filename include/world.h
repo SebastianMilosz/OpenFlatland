@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 
-#include "entityshell.h"
+#include "entity.h"
 
 #include <serializable.h>
 
@@ -20,7 +20,7 @@ class World : public codeframe::cSerializable
                  World( std::string name, cSerializableInterface* parent );
         virtual ~World();
 
-        bool AddShell( std::shared_ptr<EntityShell> shell );
+        void AddShell( std::shared_ptr<Entity> entity );
 
         bool PhysisStep();
         bool Draw( sf::RenderWindow& window );
