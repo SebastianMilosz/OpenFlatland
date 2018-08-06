@@ -31,10 +31,11 @@ class Application : public codeframe::cSerializable
 
             std::string         m_cfgFilePath;
 
-            sf::RenderWindow&   m_Window;
-            GUIWidgetsLayer     m_Widgets;
-            World               m_World;
-            EntityFactory       m_Factory;
+            sf::RenderWindow&       m_Window;
+            GUIWidgetsLayer         m_Widgets;
+            World                   m_World;
+            EntityFactory           m_EntityFactory;
+            ConstElementsFactory    m_ConstElementsFactory;
 
 };
 
