@@ -17,7 +17,8 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_Window ( window ),
     m_Widgets( m_Window ),
     m_World  ( "World", this ),
-    m_Factory( "EntityFactory", this )
+    m_EntityFactory( "EntityFactory", this ),
+    m_ConstElementsFactory( "ConstElementsFactory", this )
 {
     // Logger Setup
     std::string apiDir = utilities::file::GetExecutablePath();
@@ -34,7 +35,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     window.setView(view);
 
     // Connect Signals
-    m_Factory.signalEntityAdd.connect( &m_World, &World::AddShell );
+    m_EntityFactory.signalEntityAdd.connect( &m_World, &World::AddShell );
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Initialized" );
 
@@ -127,11 +128,16 @@ void Application::ProcesseLogic( void )
         {
             if ( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_ENTITY )
             {
-                m_Factory.Create( worldPos.x, worldPos.y, 0 );
+                m_EntityFactory.Create( worldPos.x, worldPos.y, 0 );
             }
             else if ( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_SEL_ENTITY )
             {
                 m_World.MouseDown( worldPos.x, worldPos.y );
+            }
+            else if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
+            {
+                // Create Line
+
             }
         }
     }

@@ -6,7 +6,7 @@
 #include <serializablecontainer.h>
 #include <serializableinterface.h>
 
-#include "constelementline.hpp"
+#include "constelement.hpp"
 
 class ConstElementsFactory : public codeframe::cSerializableContainer
 {
@@ -20,7 +20,7 @@ class ConstElementsFactory : public codeframe::cSerializableContainer
         ConstElementsFactory( std::string name, cSerializableInterface* parent );
         virtual ~ConstElementsFactory();
 
-        smart_ptr<ConstElement> Create( int x, int y, int z );
+        smart_ptr<ConstElement> Create( smart_ptr<ConstElement> );
 
         signal1< smart_ptr<ConstElement> > signalElementAdd;
         signal1< smart_ptr<ConstElement> > signalElementDel;

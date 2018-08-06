@@ -1,12 +1,12 @@
-#include "constelementsfactory.hpp"
+#include "constelement.hpp"
 
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-ConstElementsFactory::ConstElementsFactory( std::string name, cSerializableInterface* parent ) :
-    cSerializableContainer( name, parent )
+ConstElement::ConstElement( std::string name ) :
+    cSerializable( name, NULL )
 {
 
 }
@@ -16,7 +16,7 @@ ConstElementsFactory::ConstElementsFactory( std::string name, cSerializableInter
   * @brief
  **
 ******************************************************************************/
-ConstElementsFactory::~ConstElementsFactory()
+ConstElement::~ConstElement()
 {
 
 }
@@ -26,7 +26,8 @@ ConstElementsFactory::~ConstElementsFactory()
   * @brief
  **
 ******************************************************************************/
-smart_ptr<ConstElement> ConstElementsFactory::Create( smart_ptr<ConstElement> )
+ConstElement::ConstElement(const ConstElement& other) :
+    cSerializable( other )
 {
 
 }
@@ -36,11 +37,7 @@ smart_ptr<ConstElement> ConstElementsFactory::Create( smart_ptr<ConstElement> )
   * @brief
  **
 ******************************************************************************/
-smart_ptr<codeframe::cSerializableInterface> ConstElementsFactory::Create(
-                                                     const std::string className,
-                                                     const std::string objName,
-                                                     const std::vector<codeframe::VariantValue>& params
-                                                    )
+ConstElement& ConstElement::operator=(const ConstElement& other)
 {
 
 }

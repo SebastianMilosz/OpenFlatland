@@ -20,6 +20,7 @@ void GUIWidgetsLayer::SetMouseModeString( std::string mode )
          if ( mode == "Add Entity" ) { m_MouseMode = MOUSE_MODE_ADD_ENTITY; }
     else if ( mode == "Del Entity" ) { m_MouseMode = MOUSE_MODE_DEL_ENTITY; }
     else if ( mode == "Sel Entity" ) { m_MouseMode = MOUSE_MODE_SEL_ENTITY; }
+    else if ( mode == "Add Line"   ) { m_MouseMode = MOUSE_MODE_ADD_LINE; }
 }
 
 /*****************************************************************************/
@@ -34,6 +35,7 @@ std::string GUIWidgetsLayer::GetMouseModeString()
         case MOUSE_MODE_ADD_ENTITY: return "Add Entity";
         case MOUSE_MODE_DEL_ENTITY: return "Del Entity";
         case MOUSE_MODE_SEL_ENTITY: return "Sel Entity";
+        case MOUSE_MODE_ADD_LINE:   return "Add Line";
         default: return "unknown";
     }
 }
@@ -125,6 +127,7 @@ void GUIWidgetsLayer::Draw()
             if (ImGui::MenuItem("Sel Entity", NULL, (m_MouseMode == MOUSE_MODE_SEL_ENTITY ? true : false) )) { m_MouseMode = MOUSE_MODE_SEL_ENTITY; }
             if (ImGui::MenuItem("Del Entity", NULL, (m_MouseMode == MOUSE_MODE_DEL_ENTITY ? true : false) )) { m_MouseMode = MOUSE_MODE_DEL_ENTITY; }
             if (ImGui::MenuItem("Add Entity", NULL, (m_MouseMode == MOUSE_MODE_ADD_ENTITY ? true : false) )) { m_MouseMode = MOUSE_MODE_ADD_ENTITY; }
+            if (ImGui::MenuItem("Add Line"  , NULL, (m_MouseMode == MOUSE_MODE_ADD_LINE   ? true : false) )) { m_MouseMode = MOUSE_MODE_ADD_LINE;   }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Edit"))

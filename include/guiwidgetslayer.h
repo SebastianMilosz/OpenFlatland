@@ -8,7 +8,7 @@
 class GUIWidgetsLayer
 {
     public:
-        enum { MOUSE_MODE_SEL_ENTITY, MOUSE_MODE_DEL_ENTITY, MOUSE_MODE_ADD_ENTITY };
+        enum { MOUSE_MODE_SEL_ENTITY, MOUSE_MODE_DEL_ENTITY, MOUSE_MODE_ADD_ENTITY, MOUSE_MODE_ADD_LINE };
 
     public:
         GUIWidgetsLayer( sf::RenderWindow& window );
