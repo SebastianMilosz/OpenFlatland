@@ -18,7 +18,8 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_Widgets( m_Window ),
     m_World  ( "World", this ),
     m_EntityFactory( "EntityFactory", this ),
-    m_ConstElementsFactory( "ConstElementsFactory", this )
+    m_ConstElementsFactory( "ConstElementsFactory", this ),
+    lineCreateState(0)
 {
     // Logger Setup
     std::string apiDir = utilities::file::GetExecutablePath();
@@ -99,11 +100,28 @@ void Application::ProcesseEvents( sf::Event& event )
     else if ( event.type == sf::Event::MouseButtonReleased )
     {
         m_World.MouseUp( worldPos.x, worldPos.y );
+
+        if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
+        {
+            if( lineCreateState == 1 )
+            {
+                lineCreateState = 2;
+                startPoint = worldPos;
+            }
+        }
     }
 
     else if ( event.type == sf::Event::MouseMoved )
     {
         m_World.MouseMove( worldPos.x, worldPos.y );
+
+        if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
+        {
+            if( lineCreateState == 2 )
+            {
+                endPoint = worldPos;
+            }
+        }
     }
 
     m_Widgets.HandleEvent(event);
@@ -136,8 +154,17 @@ void Application::ProcesseLogic( void )
             }
             else if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
             {
-                // Create Line
+                if( lineCreateState == 0 )
+                {
+                    lineCreateState = 1;
+                }
+                else if( lineCreateState == 2 )
+                {
+                    lineCreateState = 0;
 
+                    // Create solid line
+                    m_ConstElementsFactory.CreateLine( codeframe::Point2D( startPoint.x, startPoint.y ), codeframe::Point2D( endPoint.x, endPoint.y ) );
+                }
             }
         }
     }
@@ -148,6 +175,20 @@ void Application::ProcesseLogic( void )
     m_Window.clear();
 
     m_World.Draw( m_Window );
+
+    if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
+    {
+        if( lineCreateState == 2 )
+        {
+            sf::Vertex line[] =
+            {
+                sf::Vertex( startPoint ),
+                sf::Vertex( endPoint )
+            };
+
+            m_Window.draw(line, 2, sf::Lines);
+        }
+    }
 
     m_Widgets.Draw();
 

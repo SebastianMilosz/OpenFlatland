@@ -1,7 +1,7 @@
 #include "constelementsfactory.hpp"
 #include "constelementline.hpp"
 
-#include <extendedtype2dpoint.hpp>
+#include <extendedtypepoint2d.hpp>
 
 /*****************************************************************************/
 /**
@@ -39,6 +39,22 @@ smart_ptr<ConstElement> ConstElementsFactory::Create( smart_ptr<ConstElement> )
   * @brief
  **
 ******************************************************************************/
+smart_ptr<ConstElement> ConstElementsFactory::CreateLine( codeframe::Point2D sPoint, codeframe::Point2D ePoint )
+{
+    smart_ptr<ConstElementLine> obj = smart_ptr<ConstElementLine>( new ConstElementLine( "line", sPoint, ePoint ) );
+
+    int id = InsertObject( obj );
+
+    signalElementAdd.Emit( obj );
+
+    return obj;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 smart_ptr<codeframe::cSerializableInterface> ConstElementsFactory::Create(
                                                      const std::string className,
                                                      const std::string objName,
@@ -54,17 +70,13 @@ smart_ptr<codeframe::cSerializableInterface> ConstElementsFactory::Create(
         {
             if ( it->GetType() == codeframe::TYPE_INT )
             {
-                     if ( it->IsName( "X" ) )
+                     if ( it->IsName( "SPoint" ) )
                 {
-                    //x = it->IntegerValue();
+                    startPoint.FromStringCallback( it->ValueString );
                 }
-                else if ( it->IsName( "Y" ) )
+                else if ( it->IsName( "EPoint" ) )
                 {
-                    //y = it->IntegerValue();
-                }
-                else if ( it->IsName( "Z" ) )
-                {
-                    //z = it->IntegerValue();
+                    endPoint.FromStringCallback( it->ValueString );
                 }
             }
         }

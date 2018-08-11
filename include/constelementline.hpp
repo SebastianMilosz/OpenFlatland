@@ -4,7 +4,7 @@
 #include "constelement.hpp"
 
 #include <serializable.h>
-#include <extendedtype2dpoint.hpp>
+#include <extendedtypepoint2d.hpp>
 
 /*****************************************************************************/
 /**
@@ -14,10 +14,10 @@
 class ConstElementLine : public ConstElement
 {
     public:
-        std::string Role()            const { return "Object";            }
-        std::string Class()           const { return "ConstElementLine";  }
-        std::string BuildType()       const { return "Dynamic";           }
-        std::string ConstructPatern() const { return "";                  }
+        std::string Role()            const { return "Object";           }
+        std::string Class()           const { return "ConstElementLine"; }
+        std::string BuildType()       const { return "Dynamic";          }
+        std::string ConstructPatern() const { return "SPoint,EPoint";    }
 
     public:
         ConstElementLine( std::string name, codeframe::Point2D& startPoint, codeframe::Point2D& endPoint );

@@ -103,10 +103,10 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/world.h" />
-		<Unit filename="libraries/codeframe-master/include/extendedtype2dpoint.hpp">
+		<Unit filename="libraries/codeframe-master/include/extendedtypeinterface.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="libraries/codeframe-master/include/extendedtypeinterface.hpp">
+		<Unit filename="libraries/codeframe-master/include/extendedtypepoint2d.hpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="libraries/codeframe-master/include/serializable.h" />
@@ -132,6 +132,7 @@
 		<Unit filename="libraries/codeframe-master/include/utilities/ThreadUtilities.h" />
 		<Unit filename="libraries/codeframe-master/src/cxml.cpp" />
 		<Unit filename="libraries/codeframe-master/src/cxmlnode.cpp" />
+		<Unit filename="libraries/codeframe-master/src/extendedtypepoint2d.cpp" />
 		<Unit filename="libraries/codeframe-master/src/instancemanager.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablechildlist.cpp" />

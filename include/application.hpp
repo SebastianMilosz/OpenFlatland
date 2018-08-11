@@ -37,6 +37,10 @@ class Application : public codeframe::cSerializable
             EntityFactory           m_EntityFactory;
             ConstElementsFactory    m_ConstElementsFactory;
 
+            // Temporary
+            int lineCreateState;
+            sf::Vector2f startPoint;
+            sf::Vector2f endPoint;
 };
 
 #endif // APPLICATION_HPP_INCLUDED
