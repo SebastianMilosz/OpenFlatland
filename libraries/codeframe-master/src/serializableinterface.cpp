@@ -14,7 +14,7 @@ namespace codeframe
         m_dummyProperty(NULL, "DUMMY", TYPE_NON, cPropertyInfo()),
         m_Id( -1 )
     {
-
+        static TypeInitializer typeInitializer;
     }
 
     /*****************************************************************************/

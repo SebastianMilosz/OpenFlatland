@@ -21,7 +21,8 @@ namespace codeframe
         KIND_DATE,
         KIND_FONT,
         KIND_COLOR,
-        KIND_IMAGE
+        KIND_IMAGE,
+        KIND_2DPOINT
     };
 
     enum eXMLMode
