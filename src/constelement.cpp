@@ -39,5 +39,5 @@ ConstElement::ConstElement(const ConstElement& other) :
 ******************************************************************************/
 ConstElement& ConstElement::operator=(const ConstElement& other)
 {
-
+    return *this;
 }

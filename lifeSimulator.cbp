@@ -103,6 +103,12 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/world.h" />
+		<Unit filename="libraries/codeframe-master/include/extendedtype2dpoint.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="libraries/codeframe-master/include/extendedtypeinterface.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="libraries/codeframe-master/include/serializable.h" />
 		<Unit filename="libraries/codeframe-master/include/serializablecontainer.h" />
 		<Unit filename="libraries/codeframe-master/include/serializableinterface.h" />
@@ -159,6 +165,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/application.cpp" />
 		<Unit filename="src/constelement.cpp" />
+		<Unit filename="src/constelementline.cpp" />
 		<Unit filename="src/constelementsfactory.cpp" />
 		<Unit filename="src/entity.cpp" />
 		<Unit filename="src/entityfactory.cpp" />

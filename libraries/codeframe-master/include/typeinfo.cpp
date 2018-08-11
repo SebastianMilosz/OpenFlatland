@@ -1,17 +1,22 @@
 #include "typeinfo.hpp"
 
+// Extended types
+#include "extendedtype2dpoint.hpp"
+
 #include <MathUtilities.h>
 
 namespace codeframe
 {
     int IntFromString( std::string value )
     {
-        return utilities::math::StrToInt( value );
+        int retVal = utilities::math::StrToInt( value );
+        return retVal;
     }
 
     unsigned int UIntFromString( std::string value )
     {
-        return utilities::math::StrToInt( value );
+        unsigned int retVal = utilities::math::StrToInt( value );
+        return retVal;
     }
 
     std::string StringFromString( std::string value )
@@ -19,32 +24,44 @@ namespace codeframe
         return value;
     }
 
-    std::string IntToString( int value )
+    Point2D Point2DFromString( std::string value )
+    {
+        Point2D retType;
+        retType.FromStringCallback( value );
+        return retType;
+    }
+
+    std::string IntToString( const int& value )
     {
         return utilities::math::IntToStr( value );
     }
 
-    std::string UIntToString( unsigned int value )
+    std::string UIntToString( const unsigned int& value )
     {
         return utilities::math::IntToStr( value );
     }
 
-    std::string StringToString( std::string value )
+    std::string StringToString( const std::string& value )
     {
         return value;
     }
 
-    IntegerType IntToInt( int value )
+    std::string Point2DToString( const Point2D& point )
+    {
+        return point.ToStringCallback();
+    }
+
+    IntegerType IntToInt( const int& value )
     {
         return value;
     }
 
-    IntegerType UIntToInt( unsigned int value )
+    IntegerType UIntToInt( const unsigned int& value )
     {
         return value;
     }
 
-    IntegerType StringToInt( std::string value )
+    IntegerType StringToInt( const std::string& value )
     {
         return utilities::math::StrToInt( value );
     }
@@ -56,42 +73,47 @@ namespace codeframe
 
     unsigned int UIntFromInt( IntegerType value )
     {
-        return value;
+        unsigned int retVal = value;
+        return retVal;
     }
 
     std::string StringFromInt( IntegerType value )
     {
-        return utilities::math::IntToStr( value );
+        std::string retVal = utilities::math::IntToStr( value );
+        return retVal;
     }
 
-    double IntToReal( int value )
+    RealType IntToReal( const int& value )
     {
         return value;
     }
 
-    double UIntToReal( unsigned int value )
+    RealType UIntToReal( const unsigned int& value )
     {
         return value;
     }
 
-    double StringToReal( std::string value )
+    RealType StringToReal( const std::string& value )
     {
         return 0;
     }
 
     int IntFromReal( double value )
     {
-        return value;
+        int retVal = value;
+        return retVal;
     }
 
     unsigned int UIntFromReal( double value )
     {
-        return value;
+        unsigned int retVal = value;
+        return retVal;
     }
 
     std::string StringFromReal( double value )
     {
-        return "0";
+        std::string retVal = std::string("0");
+        return retVal;
     }
 
     template<typename T>
@@ -136,7 +158,7 @@ namespace codeframe
     }
 
     template<typename T>
-    void TypeInfo<T>::SetToStringCallback( StringType (*toStringCallback)( T value ) )
+    void TypeInfo<T>::SetToStringCallback( StringType (*toStringCallback)( const T& value ) )
     {
         ToStringCallback = toStringCallback;
     }
@@ -168,7 +190,7 @@ namespace codeframe
     }
 
     template<typename T>
-    void TypeInfo<T>::SetToIntegerCallback( IntegerType (*toIntegerCallback)( T value ) )
+    void TypeInfo<T>::SetToIntegerCallback( IntegerType (*toIntegerCallback)( const T& value ) )
     {
         ToIntegerCallback = toIntegerCallback;
     }
@@ -200,7 +222,7 @@ namespace codeframe
     }
 
     template<typename T>
-    void TypeInfo<T>::SetToRealCallback( RealType (*toRealCallback)( T value ) )
+    void TypeInfo<T>::SetToRealCallback( RealType (*toRealCallback)( const T& value ) )
     {
         ToRealCallback = toRealCallback;
     }
@@ -216,31 +238,36 @@ namespace codeframe
     }
 
     // Fundamental types
-    REGISTER_TYPE( std::string    , "text" );
-    REGISTER_TYPE( int            , "int"  );
-    REGISTER_TYPE( unsigned int   , "int"  );
-    REGISTER_TYPE( short          , "int"  );
-    REGISTER_TYPE( unsigned short , "int"  );
-    REGISTER_TYPE( float          , "real" );
-    REGISTER_TYPE( double         , "real" );
+    REGISTER_TYPE( std::string   , "text"    );
+    REGISTER_TYPE( int           , "int"     );
+    REGISTER_TYPE( unsigned int  , "int"     );
+    REGISTER_TYPE( short         , "int"     );
+    REGISTER_TYPE( unsigned short, "int"     );
+    REGISTER_TYPE( float         , "real"    );
+    REGISTER_TYPE( double        , "real"    );
+    REGISTER_TYPE( Point2D       , "point2d" );
 
-    void CODEFRAME_TYPES_INITIALIZE( void )
+    TypeInitializer::TypeInitializer( void )
     {
-        GetTypeInfo<int         >().SetFromStringCallback( &IntFromString    );
-        GetTypeInfo<unsigned int>().SetFromStringCallback( &UIntFromString   );
-        GetTypeInfo<std::string >().SetFromStringCallback( &StringFromString );
+        GetTypeInfo<int         >().SetFromStringCallback( &IntFromString     );
+        GetTypeInfo<unsigned int>().SetFromStringCallback( &UIntFromString    );
+        GetTypeInfo<std::string >().SetFromStringCallback( &StringFromString  );
+        GetTypeInfo<Point2D     >().SetFromStringCallback( &Point2DFromString );
 
         GetTypeInfo<int         >().FromString( "" );
         GetTypeInfo<unsigned int>().FromString( "" );
         GetTypeInfo<std::string >().FromString( "" );
+        GetTypeInfo<Point2D     >().FromString( "" );
 
-        GetTypeInfo<int         >().SetToStringCallback( &IntToString    );
-        GetTypeInfo<unsigned int>().SetToStringCallback( &UIntToString   );
-        GetTypeInfo<std::string >().SetToStringCallback( &StringToString );
+        GetTypeInfo<int         >().SetToStringCallback( &IntToString     );
+        GetTypeInfo<unsigned int>().SetToStringCallback( &UIntToString    );
+        GetTypeInfo<std::string >().SetToStringCallback( &StringToString  );
+        GetTypeInfo<Point2D     >().SetToStringCallback( &Point2DToString );
 
         GetTypeInfo<int         >().ToString( 0  );
         GetTypeInfo<unsigned int>().ToString( 0  );
         GetTypeInfo<std::string >().ToString( "" );
+        GetTypeInfo<Point2D     >().ToString( Point2D() );
 
         GetTypeInfo<int         >().SetFromIntegerCallback( &IntFromInt    );
         GetTypeInfo<unsigned int>().SetFromIntegerCallback( &UIntFromInt   );
@@ -249,6 +276,7 @@ namespace codeframe
         GetTypeInfo<int         >().FromInteger( 0 );
         GetTypeInfo<unsigned int>().FromInteger( 0 );
         GetTypeInfo<std::string >().FromInteger( 0 );
+        GetTypeInfo<Point2D     >().FromInteger( 0 );
 
         GetTypeInfo<int         >().SetToIntegerCallback( &IntToInt    );
         GetTypeInfo<unsigned int>().SetToIntegerCallback( &UIntToInt   );
@@ -257,6 +285,7 @@ namespace codeframe
         GetTypeInfo<int         >().ToInteger( 0  );
         GetTypeInfo<unsigned int>().ToInteger( 0  );
         GetTypeInfo<std::string >().ToInteger( "" );
+        GetTypeInfo<Point2D     >().ToInteger( Point2D() );
 
         GetTypeInfo<int         >().SetFromRealCallback( &IntFromReal    );
         GetTypeInfo<unsigned int>().SetFromRealCallback( &UIntFromReal   );
@@ -265,6 +294,7 @@ namespace codeframe
         GetTypeInfo<int         >().FromReal( 0 );
         GetTypeInfo<unsigned int>().FromReal( 0 );
         GetTypeInfo<std::string >().FromReal( 0 );
+        GetTypeInfo<Point2D     >().FromReal( 0 );
 
         GetTypeInfo<int         >().SetToRealCallback( &IntToReal    );
         GetTypeInfo<unsigned int>().SetToRealCallback( &UIntToReal   );
@@ -273,5 +303,6 @@ namespace codeframe
         GetTypeInfo<int         >().ToReal( 0 );
         GetTypeInfo<unsigned int>().ToReal( 0 );
         GetTypeInfo<std::string >().ToReal( "" );
+        GetTypeInfo<Point2D     >().ToReal( Point2D() );
     }
 }

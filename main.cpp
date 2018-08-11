@@ -12,8 +12,6 @@
 
 int main()
 {
-    codeframe::CODEFRAME_TYPES_INITIALIZE();
-
     sf::RenderWindow window(sf::VideoMode(800, 600, 32), "" );
     Application      application( "Application", window );
 

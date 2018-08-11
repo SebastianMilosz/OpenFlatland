@@ -72,9 +72,9 @@ namespace codeframe
             void SetFromIntegerCallback( T (*fromIntegerCallback)( IntegerType value ) );
             void SetFromRealCallback   ( T (*fromRealCallback   )( RealType    value ) );
 
-            void SetToStringCallback ( StringType  (*toStringCallback )( T value ) );
-            void SetToIntegerCallback( IntegerType (*toIntegerCallback)( T value ) );
-            void SetToRealCallback   ( RealType    (*toRealCallback   )( T value ) );
+            void SetToStringCallback ( StringType  (*toStringCallback )( const T& value ) );
+            void SetToIntegerCallback( IntegerType (*toIntegerCallback)( const T& value ) );
+            void SetToRealCallback   ( RealType    (*toRealCallback   )( const T& value ) );
 
             T FromString ( StringType value  );
             T FromInteger( IntegerType value );
@@ -99,12 +99,18 @@ namespace codeframe
             const char* TypeUserName;
             const eType TypeCode;
 
-            T           ( *FromStringCallback )( StringType  value );
-            StringType  ( *ToStringCallback   )( T           value );
-            T           ( *FromIntegerCallback)( IntegerType value );
-            IntegerType ( *ToIntegerCallback  )( T           value );
-            T           ( *FromRealCallback   )( RealType    value );
-            RealType    ( *ToRealCallback     )( T           value );
+            T          ( *FromStringCallback )( StringType  value );
+            StringType ( *ToStringCallback   )( const T&    value );
+            T          ( *FromIntegerCallback)( IntegerType value );
+            IntegerType( *ToIntegerCallback  )( const T&    value );
+            T          ( *FromRealCallback   )( RealType    value );
+            RealType   ( *ToRealCallback     )( const T&    value );
+    };
+
+    class TypeInitializer
+    {
+        public:
+            TypeInitializer();
     };
 
     template<typename T>
