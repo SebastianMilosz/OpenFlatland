@@ -32,8 +32,8 @@ ConstElementLine::~ConstElementLine()
 ******************************************************************************/
 ConstElementLine::ConstElementLine(const ConstElementLine& other) :
     ConstElement( other ),
-    StartPoint( this, "StartPoint" , Point2D(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint"), this ),
-    EndPoint  ( this, "EndPoint"   , Point2D(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("EndPoint"), this)
+    StartPoint( this, "SPoint" , Point2D(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint"), this ),
+    EndPoint  ( this, "EPoint" , Point2D(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("EndPoint"), this)
 {
 
 }

@@ -5,6 +5,7 @@
 #include <serializable.h>
 #include <serializablecontainer.h>
 #include <serializableinterface.h>
+#include <extendedtypepoint2d.hpp>
 
 #include "constelement.hpp"
 
@@ -21,6 +22,7 @@ class ConstElementsFactory : public codeframe::cSerializableContainer
         virtual ~ConstElementsFactory();
 
         smart_ptr<ConstElement> Create( smart_ptr<ConstElement> );
+        smart_ptr<ConstElement> CreateLine( codeframe::Point2D sPoint, codeframe::Point2D ePoint );
 
         signal1< smart_ptr<ConstElement> > signalElementAdd;
         signal1< smart_ptr<ConstElement> > signalElementDel;

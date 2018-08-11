@@ -1,7 +1,7 @@
 #include "typeinfo.hpp"
 
 // Extended types
-#include "extendedtype2dpoint.hpp"
+#include "extendedtypepoint2d.hpp"
 
 #include <MathUtilities.h>
 
@@ -26,7 +26,7 @@ namespace codeframe
 
     Point2D Point2DFromString( std::string value )
     {
-        Point2D retType;
+        Point2D retType(0,0);
         retType.FromStringCallback( value );
         return retType;
     }
@@ -267,7 +267,7 @@ namespace codeframe
         GetTypeInfo<int         >().ToString( 0  );
         GetTypeInfo<unsigned int>().ToString( 0  );
         GetTypeInfo<std::string >().ToString( "" );
-        GetTypeInfo<Point2D     >().ToString( Point2D() );
+        GetTypeInfo<Point2D     >().ToString( Point2D(0,0) );
 
         GetTypeInfo<int         >().SetFromIntegerCallback( &IntFromInt    );
         GetTypeInfo<unsigned int>().SetFromIntegerCallback( &UIntFromInt   );
@@ -285,7 +285,7 @@ namespace codeframe
         GetTypeInfo<int         >().ToInteger( 0  );
         GetTypeInfo<unsigned int>().ToInteger( 0  );
         GetTypeInfo<std::string >().ToInteger( "" );
-        GetTypeInfo<Point2D     >().ToInteger( Point2D() );
+        GetTypeInfo<Point2D     >().ToInteger( Point2D(0,0) );
 
         GetTypeInfo<int         >().SetFromRealCallback( &IntFromReal    );
         GetTypeInfo<unsigned int>().SetFromRealCallback( &UIntFromReal   );
@@ -303,6 +303,6 @@ namespace codeframe
         GetTypeInfo<int         >().ToReal( 0 );
         GetTypeInfo<unsigned int>().ToReal( 0 );
         GetTypeInfo<std::string >().ToReal( "" );
-        GetTypeInfo<Point2D     >().ToReal( Point2D() );
+        GetTypeInfo<Point2D     >().ToReal( Point2D(0,0) );
     }
 }
