@@ -156,6 +156,7 @@ void Application::ProcesseLogic( void )
             {
                 if( lineCreateState == 0 )
                 {
+                    startPoint = worldPos;
                     lineCreateState = 1;
                 }
                 else if( lineCreateState == 2 )
@@ -165,6 +166,11 @@ void Application::ProcesseLogic( void )
                     // Create solid line
                     m_ConstElementsFactory.CreateLine( codeframe::Point2D( startPoint.x, startPoint.y ), codeframe::Point2D( endPoint.x, endPoint.y ) );
                 }
+            }
+            else
+            {
+                startPoint = worldPos;
+                endPoint = worldPos;
             }
         }
     }

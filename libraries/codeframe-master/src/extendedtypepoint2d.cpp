@@ -1,5 +1,9 @@
 #include "extendedtypepoint2d.hpp"
 
+#include <vector>
+#include <TextUtilities.h>
+#include <MathUtilities.h>
+
 using namespace codeframe;
 
 /*****************************************************************************/
@@ -31,6 +35,17 @@ Point2D::Point2D( int x, int y ) :
   * @brief
  **
 ******************************************************************************/
+Point2D::Point2D( const Point2D& other ) :
+    m_x( other.m_x ),
+    m_y( other.m_y )
+{
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 Point2D::~Point2D()
 {
 
@@ -43,7 +58,15 @@ Point2D::~Point2D()
 ******************************************************************************/
 void Point2D::FromStringCallback ( StringType value )
 {
+    // Split using ; separator
+    std::vector<std::string> pointPartsStrings;
+    utilities::text::split(value, ";", pointPartsStrings);
 
+    if( pointPartsStrings.size() == 2U )
+    {
+        m_x = utilities::math::StrToInt( pointPartsStrings[0] );
+        m_y = utilities::math::StrToInt( pointPartsStrings[1] );
+    }
 }
 
 /*****************************************************************************/
@@ -75,7 +98,12 @@ void Point2D::FromRealCallback( RealType value )
 ******************************************************************************/
 StringType Point2D::ToStringCallback() const
 {
-    return std::string("NONE");
+    std::string xString = utilities::math::IntToStr( m_x );
+    std::string yString = utilities::math::IntToStr( m_y );
+
+    std::string retVal = xString + std::string(";") + yString;
+
+    return retVal;
 }
 
 /*****************************************************************************/
@@ -96,6 +124,19 @@ IntegerType Point2D::ToIntegerCallback() const
 RealType Point2D::ToRealCallback() const
 {
     return 0.0F;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+Point2D& Point2D::operator=(const Point2D& other)
+{
+    m_x = other.m_x;
+    m_y = other.m_y;
+
+    return *this;
 }
 
 /*****************************************************************************/

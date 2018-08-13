@@ -23,7 +23,7 @@ namespace codeframe
         TYPE_INT,       ///< Fundamental integer type
         TYPE_REAL,      ///< Fundamental real type
         TYPE_TEXT,      ///< Fundamental text type
-        TYPE_EXTENDED   ///< Extended type inherit from ExtendTypeInterface
+        TYPE_IVECTOR    ///< Vector of integer values
     };
 
     /// @todo Przeprojektowac!!!!
