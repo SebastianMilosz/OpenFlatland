@@ -68,7 +68,7 @@ smart_ptr<codeframe::cSerializableInterface> ConstElementsFactory::Create(
 
         for ( std::vector<codeframe::VariantValue>::const_iterator it = params.begin(); it != params.end(); ++it )
         {
-            if ( it->GetType() == codeframe::TYPE_INT )
+            if ( it->GetType() == codeframe::TYPE_IVECTOR )
             {
                      if ( it->IsName( "SPoint" ) )
                 {

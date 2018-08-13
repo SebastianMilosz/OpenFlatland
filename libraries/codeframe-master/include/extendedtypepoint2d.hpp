@@ -11,6 +11,7 @@ namespace codeframe
         public:
                      Point2D();
                      Point2D( int x, int y );
+                     Point2D( const Point2D& other );
             virtual ~Point2D();
 
             virtual void FromStringCallback ( StringType  value );
@@ -21,6 +22,7 @@ namespace codeframe
             virtual IntegerType ToIntegerCallback() const;
             virtual RealType ToRealCallback() const;
 
+            virtual Point2D& operator=(const Point2D& other);
             virtual Point2D& operator+(const Point2D& rhs);
             virtual bool     operator==(const Point2D& sval);
             virtual bool     operator!=(const Point2D& sval);

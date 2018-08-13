@@ -452,8 +452,15 @@ namespace codeframe
 
                                                 variantValue.ValueString = FromEscapeXml( tempText );
                                             }
+                                            else if( strcmp (type, "point2d") == 0 )
+                                            {
+                                                variantValue.Type = codeframe::TYPE_IVECTOR;
+                                                std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
 
-                                            paramVector.push_back(variantValue );
+                                                variantValue.ValueString = FromEscapeXml( tempText );
+                                            }
+
+                                            paramVector.push_back( variantValue );
                                         }
                                     }
 

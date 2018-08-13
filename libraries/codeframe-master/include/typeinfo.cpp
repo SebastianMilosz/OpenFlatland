@@ -136,7 +136,7 @@ namespace codeframe
         if( typeText == "int"  ) return TYPE_INT;
         if( typeText == "real" ) return TYPE_REAL;
         if( typeText == "text" ) return TYPE_TEXT;
-        if( typeText == "ext"  ) return TYPE_EXTENDED;
+        if( typeText == "ivec" ) return TYPE_IVECTOR;
 
         return TYPE_NON;
     }
