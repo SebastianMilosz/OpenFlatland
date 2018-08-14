@@ -5,6 +5,7 @@
 #include <Box2D/Box2D.h>
 
 #include "entity.h"
+#include "constelement.hpp"
 
 #include <serializable.h>
 
@@ -20,7 +21,8 @@ class World : public codeframe::cSerializable
                  World( std::string name, cSerializableInterface* parent );
         virtual ~World();
 
-        void AddShell( std::shared_ptr<Entity> entity );
+        void AddShell( std::shared_ptr<Entity>       entity );
+        void AddConst( std::shared_ptr<ConstElement> constElement );
 
         bool PhysisStep();
         bool Draw( sf::RenderWindow& window );

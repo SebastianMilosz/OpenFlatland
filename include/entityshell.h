@@ -1,33 +1,15 @@
 #ifndef ENTITYSHELL_H
 #define ENTITYSHELL_H
 
-#include <serializable.h>
-#include <Box2D/Box2D.h>
-#include <SFML/Graphics.hpp>
+#include "physicsbody.h"
 
-class EntityShell : public codeframe::cSerializable
+class EntityShell : public PhysicsBody
 {
     public:
         std::string Role()            const { return "Object";      }
         std::string Class()           const { return "EntityShell"; }
         std::string BuildType()       const { return "Dynamic";     }
         std::string ConstructPatern() const { return "X,Y,Z"; }
-
-    public:
-        struct sEntityShellDescriptor
-        {
-            sEntityShellDescriptor() :
-                Body( NULL ),
-                Color( sf::Color::Red )
-            {
-            }
-
-            b2Body*         Body;
-            b2CircleShape   Shape;
-            b2FixtureDef    FixtureDef;
-            b2BodyDef       BodyDef;
-            sf::Color       Color;
-        };
 
     public:
                  EntityShell( std::string name, int x, int y, int z );
@@ -49,19 +31,8 @@ class EntityShell : public codeframe::cSerializable
         unsigned int GetZ();
         void SetZ(unsigned int val);
 
-        void SetColor( const sf::Color& color )
-        {
-            m_descryptor.Color = color;
-        }
-        sf::Color& GetColor()
-        {
-            return m_descryptor.Color;
-        }
-
-        sEntityShellDescriptor& GetDescriptor();
-
     private:
-        sEntityShellDescriptor m_descryptor;
+
 };
 
 #endif // ENTITYSHELL_H

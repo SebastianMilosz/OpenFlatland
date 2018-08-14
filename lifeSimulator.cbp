@@ -99,6 +99,7 @@
 		<Unit filename="include/entityshell.h" />
 		<Unit filename="include/guiwidgetslayer.h" />
 		<Unit filename="include/logwidget.h" />
+		<Unit filename="include/physicsbody.h" />
 		<Unit filename="include/version.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
@@ -174,6 +175,7 @@
 		<Unit filename="src/entityshell.cpp" />
 		<Unit filename="src/guiwidgetslayer.cpp" />
 		<Unit filename="src/logwidget.cpp" />
+		<Unit filename="src/physicsbody.cpp" />
 		<Unit filename="src/world.cpp" />
 		<Extensions>
 			<code_completion />
