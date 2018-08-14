@@ -12,22 +12,20 @@ static const float PIXELS_IN_METER = 30.f;
  **
 ******************************************************************************/
 EntityShell::EntityShell( std::string name, int x, int y, int z ) :
-    cSerializable( name, NULL ),
+    PhysicsBody( name, NULL ),
     X   ( this, "X"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), this, &EntityShell::GetX ),
     Y   ( this, "Y"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), this, &EntityShell::GetY ),
     Z   ( this, "Z"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), this, &EntityShell::GetZ ),
     Name( this, "Name", "", cPropertyInfo().Kind( KIND_TEXT ).Description("Name") )
 {
-    m_descryptor.Body = NULL;
-
-    m_descryptor.Shape.m_p.Set(0, 0);
-    m_descryptor.Shape.m_radius = 15.0f/PIXELS_IN_METER;
-    m_descryptor.BodyDef.position = b2Vec2((float)x/PIXELS_IN_METER, (float)y/PIXELS_IN_METER);
-    m_descryptor.BodyDef.type = b2_dynamicBody;
-    m_descryptor.BodyDef.userData = (void*)this;
-    m_descryptor.FixtureDef.density = 1.f;
-    m_descryptor.FixtureDef.friction = 0.7f;
-    m_descryptor.FixtureDef.shape = &m_descryptor.Shape;
+    GetDescriptor().Shape.m_p.Set(0, 0);
+    GetDescriptor().Shape.m_radius = 15.0f/PIXELS_IN_METER;
+    GetDescriptor().BodyDef.position = b2Vec2((float)x/PIXELS_IN_METER, (float)y/PIXELS_IN_METER);
+    GetDescriptor().BodyDef.type = b2_dynamicBody;
+    GetDescriptor().BodyDef.userData = (void*)this;
+    GetDescriptor().FixtureDef.density = 1.f;
+    GetDescriptor().FixtureDef.friction = 0.7f;
+    GetDescriptor().FixtureDef.shape = &GetDescriptor().Shape;
 }
 
 /*****************************************************************************/
@@ -45,28 +43,13 @@ EntityShell::~EntityShell()
   * @brief
  **
 ******************************************************************************/
-EntityShell::sEntityShellDescriptor& EntityShell::GetDescriptor()
-{
-    return m_descryptor;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 EntityShell::EntityShell(const EntityShell& other) :
-    cSerializable( other ),
+    PhysicsBody( other ),
     X   ( this, "X"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), this, &EntityShell::GetX ),
     Y   ( this, "Y"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), this, &EntityShell::GetY ),
     Z   ( this, "Z"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), this, &EntityShell::GetZ ),
     Name( this, "Name", 0, cPropertyInfo().Kind( KIND_TEXT ).Description("Name") )
 {
-    m_descryptor.Body = other.m_descryptor.Body;
-    m_descryptor.Shape = other.m_descryptor.Shape;
-    m_descryptor.FixtureDef = other.m_descryptor.FixtureDef;
-    m_descryptor.BodyDef = other.m_descryptor.BodyDef;
-    m_descryptor.Color = other.m_descryptor.Color;
 }
 
 /*****************************************************************************/
@@ -76,14 +59,8 @@ EntityShell::EntityShell(const EntityShell& other) :
 ******************************************************************************/
 EntityShell& EntityShell::operator=(const EntityShell& rhs)
 {
-    if ( this == &rhs )
-    {
-        m_descryptor.Body = rhs.m_descryptor.Body;
-        m_descryptor.Shape = rhs.m_descryptor.Shape;
-        m_descryptor.FixtureDef = rhs.m_descryptor.FixtureDef;
-        m_descryptor.BodyDef = rhs.m_descryptor.BodyDef;
-        m_descryptor.Color = rhs.m_descryptor.Color;
-    }
+    PhysicsBody::operator = (rhs);
+
     //assignment operator
     return *this;
 }
@@ -95,9 +72,9 @@ EntityShell& EntityShell::operator=(const EntityShell& rhs)
 ******************************************************************************/
 unsigned int EntityShell::GetX()
 {
-    if( m_descryptor.Body == NULL ) return 0;
+    if( GetDescriptor().Body == NULL ) return 0;
 
-    return m_descryptor.Body->GetPosition().x * PIXELS_IN_METER;
+    return GetDescriptor().Body->GetPosition().x * PIXELS_IN_METER;
 }
 
 /*****************************************************************************/
@@ -117,9 +94,9 @@ void EntityShell::SetX(unsigned int val)
 ******************************************************************************/
 unsigned int EntityShell::GetY()
 {
-    if( m_descryptor.Body == NULL ) return 0;
+    if( GetDescriptor().Body == NULL ) return 0;
 
-    return m_descryptor.Body->GetPosition().y * PIXELS_IN_METER;
+    return GetDescriptor().Body->GetPosition().y * PIXELS_IN_METER;
 }
 
 /*****************************************************************************/

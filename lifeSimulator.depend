@@ -411,10 +411,8 @@
 	<string>
 	<vector>
 
-1532784816 d:\sourcecode\lifesimulator\include\entityshell.h
-	<serializable.h>
-	<Box2D/Box2D.h>
-	<SFML/Graphics.hpp>
+1534282674 d:\sourcecode\lifesimulator\include\entityshell.h
+	"physicsbody.h"
 
 1396994772 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\box2d.h
 	<Box2D/Common/b2Settings.h>
@@ -1084,7 +1082,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1532643644 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1534285868 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.h"
 	<utilities/LoggerUtilities.h>
 
@@ -1104,17 +1102,18 @@
 1528408208 source:d:\sourcecode\lifesimulator\src\entity.cpp
 	"entity.h"
 
-1533324440 d:\sourcecode\lifesimulator\include\world.h
+1534284003 d:\sourcecode\lifesimulator\include\world.h
 	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
 	"entity.h"
+	"constelement.hpp"
 	<serializable.h>
 
 1533327223 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
 	"entityfactory.h"
 	<typeinfo.hpp>
 
-1533326442 source:d:\sourcecode\lifesimulator\src\world.cpp
+1534275468 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.h"
 	<string>
 	<sstream>
@@ -1641,7 +1640,7 @@
 	<climits>
 	<string>
 
-1534103864 source:d:\sourcecode\lifesimulator\src\application.cpp
+1534275560 source:d:\sourcecode\lifesimulator\src\application.cpp
 	"application.hpp"
 	"version.h"
 	<utilities/LoggerUtilities.h>
@@ -1697,4 +1696,12 @@
 	<vector>
 	<TextUtilities.h>
 	<MathUtilities.h>
+
+1534283641 d:\sourcecode\lifesimulator\include\physicsbody.h
+	<serializable.h>
+	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
+
+1534285920 source:d:\sourcecode\lifesimulator\src\physicsbody.cpp
+	"physicsbody.h"
 
