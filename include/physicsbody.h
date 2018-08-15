@@ -14,16 +14,19 @@ class PhysicsBody : public codeframe::cSerializable
         std::string ConstructPatern() const { return ""; }
 
     public:
-        struct sEntityShellDescriptor
+        struct sDescriptor
         {
-            sEntityShellDescriptor() :
+            static const float PIXELS_IN_METER;
+
+            sDescriptor() :
                 Body( NULL ),
+                Shape( NULL ),
                 Color( sf::Color::Red )
             {
             }
 
             b2Body*         Body;
-            b2CircleShape   Shape;
+            b2Shape*        Shape;
             b2FixtureDef    FixtureDef;
             b2BodyDef       BodyDef;
             sf::Color       Color;
@@ -37,12 +40,14 @@ class PhysicsBody : public codeframe::cSerializable
         void       SetColor( const sf::Color& color );
         sf::Color& GetColor();
 
-        sEntityShellDescriptor& GetDescriptor();
+        virtual void Draw( sf::RenderWindow& window, b2Body* body ) = 0;
+
+        sDescriptor& GetDescriptor();
 
     protected:
 
     private:
-        sEntityShellDescriptor m_descryptor;
+        sDescriptor m_descryptor;
 };
 
 #endif // PHYSICSBODY_H

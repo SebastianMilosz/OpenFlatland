@@ -6,7 +6,7 @@
  **
 ******************************************************************************/
 ConstElement::ConstElement( std::string name ) :
-    cSerializable( name, NULL )
+    PhysicsBody( name, NULL )
 {
 
 }
@@ -27,7 +27,7 @@ ConstElement::~ConstElement()
  **
 ******************************************************************************/
 ConstElement::ConstElement(const ConstElement& other) :
-    cSerializable( other )
+    PhysicsBody( other )
 {
 
 }
@@ -37,7 +37,9 @@ ConstElement::ConstElement(const ConstElement& other) :
   * @brief
  **
 ******************************************************************************/
-ConstElement& ConstElement::operator=(const ConstElement& other)
+ConstElement& ConstElement::operator=(const ConstElement& rhs)
 {
+    PhysicsBody::operator = (rhs);
+
     return *this;
 }

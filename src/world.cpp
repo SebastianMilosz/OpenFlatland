@@ -8,15 +8,6 @@
 // Box2D works with meters where 1mt = 30 pixels
 static const float SCALE = 30.f;
 
-namespace std {
-    template<typename T>
-    std::string to_string(const T &n) {
-        std::ostringstream s;
-        s << n;
-        return s.str();
-    }
-}
-
 class QueryCallback : public b2QueryCallback
 {
 public:
@@ -61,6 +52,7 @@ World::World( std::string name, cSerializableInterface* parent ) :
     m_entitySelMode( false )
 {
      // Load it from a file
+     /// @todo Przerobic font na monostate!!!
      if (!m_font.loadFromFile("arial.ttf"))
      {
          // error...
@@ -98,7 +90,7 @@ World::~World()
 ******************************************************************************/
 void World::AddShell( std::shared_ptr<Entity> entity )
 {
-    EntityShell::sEntityShellDescriptor& desc = entity->GetDescriptor();
+    PhysicsBody::sDescriptor& desc = entity->GetDescriptor();
 
     b2Body* body = m_World.CreateBody( &desc.BodyDef );
 
@@ -116,7 +108,15 @@ void World::AddShell( std::shared_ptr<Entity> entity )
 ******************************************************************************/
 void World::AddConst( std::shared_ptr<ConstElement> constElement )
 {
+    PhysicsBody::sDescriptor& desc = constElement->GetDescriptor();
 
+    b2Body* body = m_World.CreateBody( &desc.BodyDef );
+
+    if ( (b2Body*)NULL != body )
+    {
+        body->CreateFixture( &desc.FixtureDef );
+        desc.Body = body;
+    }
 }
 
 /*****************************************************************************/
@@ -139,37 +139,18 @@ bool World::Draw( sf::RenderWindow& window )
 {
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext() )
     {
-        if ( BodyIterator->GetType() == b2_dynamicBody )
+        if ( BodyIterator->GetType() == b2_dynamicBody ||
+             BodyIterator->GetType() == b2_staticBody )
         {
             void* userVoid = BodyIterator->GetUserData();
 
             if ( userVoid )
             {
-                EntityShell* entShell = static_cast<EntityShell*>(userVoid);
+                PhysicsBody* physicsBody = static_cast<PhysicsBody*>(userVoid);
 
-                if ( entShell )
+                if ( physicsBody )
                 {
-                    sf::Color& entColor = entShell->GetColor();
-
-                    float xpos = BodyIterator->GetPosition().x;
-                    float ypos = BodyIterator->GetPosition().y;
-
-                    sf::CircleShape circle;
-                    circle.setRadius(SCALE * 0.5f);
-                    circle.setOutlineColor( entColor );
-                    circle.setOutlineThickness(3);
-                    circle.setOrigin(16.f, 16.f);
-                    circle.setPosition(SCALE * xpos, SCALE * ypos);
-                    circle.setRotation(BodyIterator->GetAngle() * 180/b2_pi);
-                    window.draw(circle);
-
-                    sf::Text text;
-                    text.setString( std::string("(") + std::to_string(xpos) + std::string(", ") + std::to_string(ypos) + std::string(")") );
-                    text.setColor(sf::Color::White);
-                    text.setCharacterSize(12);
-                    text.setFont(m_font);
-                    text.setPosition(SCALE * xpos, SCALE * ypos);
-                    window.draw(text);
+                    physicsBody->Draw( window, BodyIterator );
                 }
             }
         }

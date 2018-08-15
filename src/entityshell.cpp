@@ -1,10 +1,9 @@
 #include "entityshell.h"
 
 #include <utilities/LoggerUtilities.h>
+#include <utilities/TextUtilities.h>
 
 using namespace codeframe;
-
-static const float PIXELS_IN_METER = 30.f;
 
 /*****************************************************************************/
 /**
@@ -18,14 +17,20 @@ EntityShell::EntityShell( std::string name, int x, int y, int z ) :
     Z   ( this, "Z"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), this, &EntityShell::GetZ ),
     Name( this, "Name", "", cPropertyInfo().Kind( KIND_TEXT ).Description("Name") )
 {
-    GetDescriptor().Shape.m_p.Set(0, 0);
-    GetDescriptor().Shape.m_radius = 15.0f/PIXELS_IN_METER;
-    GetDescriptor().BodyDef.position = b2Vec2((float)x/PIXELS_IN_METER, (float)y/PIXELS_IN_METER);
+    b2CircleShape* shape =  new b2CircleShape();
+    shape->m_p.Set(0, 0);
+    shape->m_radius = 15.0f/sDescriptor::PIXELS_IN_METER;
+
+    GetDescriptor().Shape = shape;
+    GetDescriptor().BodyDef.position = b2Vec2(
+                                              (float)x/sDescriptor::PIXELS_IN_METER,
+                                              (float)y/sDescriptor::PIXELS_IN_METER
+                                             );
     GetDescriptor().BodyDef.type = b2_dynamicBody;
     GetDescriptor().BodyDef.userData = (void*)this;
     GetDescriptor().FixtureDef.density = 1.f;
     GetDescriptor().FixtureDef.friction = 0.7f;
-    GetDescriptor().FixtureDef.shape = &GetDescriptor().Shape;
+    GetDescriptor().FixtureDef.shape = GetDescriptor().Shape;
 }
 
 /*****************************************************************************/
@@ -70,11 +75,45 @@ EntityShell& EntityShell::operator=(const EntityShell& rhs)
   * @brief
  **
 ******************************************************************************/
+void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
+{
+    if( (b2Body*)NULL != body )
+    {
+        sf::Color& entColor = GetColor();
+
+        float xpos = body->GetPosition().x;
+        float ypos = body->GetPosition().y;
+
+        sf::CircleShape circle;
+        circle.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
+        circle.setOutlineColor( entColor );
+        circle.setOutlineThickness(3);
+        circle.setOrigin(16.f, 16.f);
+        circle.setPosition(sDescriptor::PIXELS_IN_METER * xpos, sDescriptor::PIXELS_IN_METER * ypos);
+        circle.setRotation(body->GetAngle() * 180/b2_pi);
+        window.draw(circle);
+
+        sf::Text text;
+        text.setString( std::string("(") + std::to_string(xpos) + std::string(", ") + std::to_string(ypos) + std::string(")") );
+        text.setColor(sf::Color::White);
+        text.setCharacterSize(12);
+        /// @todo Przerobic font na monostate!!!
+        //text.setFont( m_font );
+        text.setPosition(sDescriptor::PIXELS_IN_METER * xpos, sDescriptor::PIXELS_IN_METER * ypos);
+        window.draw(text);
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 unsigned int EntityShell::GetX()
 {
     if( GetDescriptor().Body == NULL ) return 0;
 
-    return GetDescriptor().Body->GetPosition().x * PIXELS_IN_METER;
+    return GetDescriptor().Body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
 }
 
 /*****************************************************************************/
@@ -96,7 +135,7 @@ unsigned int EntityShell::GetY()
 {
     if( GetDescriptor().Body == NULL ) return 0;
 
-    return GetDescriptor().Body->GetPosition().y * PIXELS_IN_METER;
+    return GetDescriptor().Body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
 }
 
 /*****************************************************************************/

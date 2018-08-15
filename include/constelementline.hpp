@@ -25,6 +25,8 @@ class ConstElementLine : public ConstElement
         ConstElementLine(const ConstElementLine& other);
         ConstElementLine& operator=(const ConstElementLine& other);
 
+        virtual void Draw( sf::RenderWindow& window, b2Body* body );
+
         codeframe::Property<codeframe::Point2D, ConstElementLine> StartPoint;
         codeframe::Property<codeframe::Point2D, ConstElementLine> EndPoint;
 };
