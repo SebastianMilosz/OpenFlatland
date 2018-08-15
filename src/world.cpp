@@ -51,13 +51,6 @@ World::World( std::string name, cSerializableInterface* parent ) :
     m_GroundBody( NULL ),
     m_entitySelMode( false )
 {
-     // Load it from a file
-     /// @todo Przerobic font na monostate!!!
-     if (!m_font.loadFromFile("arial.ttf"))
-     {
-         // error...
-     }
-
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0, 0); // bottom-left corner
     m_GroundBody = m_World.CreateBody( &groundBodyDef );

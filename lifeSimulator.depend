@@ -411,7 +411,7 @@
 	<string>
 	<vector>
 
-1534341190 d:\sourcecode\lifesimulator\include\entityshell.h
+1534362718 d:\sourcecode\lifesimulator\include\entityshell.h
 	"physicsbody.h"
 
 1396994772 d:\sourcecode\lifesimulator\libraries\box2d-master\box2d\box2d\box2d.h
@@ -1082,8 +1082,9 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1534341286 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1534363418 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.h"
+	"fontfactory.h"
 	<utilities/LoggerUtilities.h>
 	<utilities/TextUtilities.h>
 
@@ -1103,7 +1104,7 @@
 1528408208 source:d:\sourcecode\lifesimulator\src\entity.cpp
 	"entity.h"
 
-1534284003 d:\sourcecode\lifesimulator\include\world.h
+1534361726 d:\sourcecode\lifesimulator\include\world.h
 	<SFML/Graphics.hpp>
 	<Box2D/Box2D.h>
 	"entity.h"
@@ -1114,7 +1115,7 @@
 	"entityfactory.h"
 	<typeinfo.hpp>
 
-1534340829 source:d:\sourcecode\lifesimulator\src\world.cpp
+1534361789 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.h"
 	<string>
 	<sstream>
@@ -1643,18 +1644,19 @@
 	<climits>
 	<string>
 
-1534275560 source:d:\sourcecode\lifesimulator\src\application.cpp
+1534362757 source:d:\sourcecode\lifesimulator\src\application.cpp
 	"application.hpp"
 	"version.h"
 	<utilities/LoggerUtilities.h>
 	<cpgf/gcallbacklist.h>
 	<SFML/Graphics.hpp>
 
-1534018310 d:\sourcecode\lifesimulator\include\application.hpp
+1534362729 d:\sourcecode\lifesimulator\include\application.hpp
 	<serializable.h>
 	"world.h"
 	"entityfactory.h"
 	"constelementsfactory.hpp"
+	"fontfactory.h"
 	"guiwidgetslayer.h"
 	"entity.h"
 
@@ -1689,7 +1691,7 @@
 	<serializable.h>
 	<extendedtypepoint2d.hpp>
 
-1534340233 source:d:\sourcecode\lifesimulator\src\constelementline.cpp
+1534365735 source:d:\sourcecode\lifesimulator\src\constelementline.cpp
 	"constelementline.hpp"
 
 1534335352 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtypepoint2d.hpp
@@ -1708,4 +1710,11 @@
 
 1534336912 source:d:\sourcecode\lifesimulator\src\physicsbody.cpp
 	"physicsbody.h"
+
+1534363581 d:\sourcecode\lifesimulator\include\fontfactory.h
+	<serializable.h>
+	<SFML/Graphics.hpp>
+
+1534363585 source:d:\sourcecode\lifesimulator\src\fontfactory.cpp
+	"fontfactory.h"
 

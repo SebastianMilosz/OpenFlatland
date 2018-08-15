@@ -1,4 +1,5 @@
 #include "entityshell.h"
+#include "fontfactory.h"
 
 #include <utilities/LoggerUtilities.h>
 #include <utilities/TextUtilities.h>
@@ -97,8 +98,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         text.setString( std::string("(") + std::to_string(xpos) + std::string(", ") + std::to_string(ypos) + std::string(")") );
         text.setColor(sf::Color::White);
         text.setCharacterSize(12);
-        /// @todo Przerobic font na monostate!!!
-        //text.setFont( m_font );
+        text.setFont( FontFactory::GetFont() );
         text.setPosition(sDescriptor::PIXELS_IN_METER * xpos, sDescriptor::PIXELS_IN_METER * ypos);
         window.draw(text);
     }

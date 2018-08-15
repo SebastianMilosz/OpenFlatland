@@ -41,7 +41,6 @@ class World : public codeframe::cSerializable
         b2MouseJointDef m_JointDef;
         b2Vec2          m_Gravity;
         b2World         m_World;
-        sf::Font        m_font;
 
         bool            m_entitySelMode;
 };

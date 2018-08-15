@@ -6,6 +6,7 @@
 #include "world.h"
 #include "entityfactory.h"
 #include "constelementsfactory.hpp"
+#include "fontfactory.h"
 #include "guiwidgetslayer.h"
 #include "entity.h"
 
@@ -36,6 +37,7 @@ class Application : public codeframe::cSerializable
             World                   m_World;
             EntityFactory           m_EntityFactory;
             ConstElementsFactory    m_ConstElementsFactory;
+            FontFactory             m_FontFactory;
 
             // Temporary
             int lineCreateState;

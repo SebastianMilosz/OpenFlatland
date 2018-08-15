@@ -19,6 +19,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_World  ( "World", this ),
     m_EntityFactory( "EntityFactory", this ),
     m_ConstElementsFactory( "ConstElementsFactory", this ),
+    m_FontFactory( "FontFactory", this ),
     lineCreateState(0)
 {
     // Logger Setup
