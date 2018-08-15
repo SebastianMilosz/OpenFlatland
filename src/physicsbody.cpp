@@ -2,6 +2,8 @@
 
 using namespace codeframe;
 
+const float PhysicsBody::sDescriptor::PIXELS_IN_METER = 30.f;
+
 /*****************************************************************************/
 /**
   * @brief
@@ -81,7 +83,7 @@ sf::Color& PhysicsBody::GetColor()
   * @brief
  **
 ******************************************************************************/
-PhysicsBody::sEntityShellDescriptor& PhysicsBody::GetDescriptor()
+PhysicsBody::sDescriptor& PhysicsBody::GetDescriptor()
 {
     return m_descryptor;
 }

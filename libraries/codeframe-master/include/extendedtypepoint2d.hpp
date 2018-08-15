@@ -27,6 +27,9 @@ namespace codeframe
             virtual bool     operator==(const Point2D& sval);
             virtual bool     operator!=(const Point2D& sval);
 
+            int X() { return m_x; }
+            int Y() { return m_y; }
+
         private:
             int m_x;
             int m_y;

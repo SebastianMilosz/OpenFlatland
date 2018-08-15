@@ -24,6 +24,8 @@ class EntityShell : public PhysicsBody
 
         EntityShell& operator=(const EntityShell& other);
 
+        virtual void Draw( sf::RenderWindow& window, b2Body* body );
+
         unsigned int GetX();
         void SetX(unsigned int val);
         unsigned int GetY();
