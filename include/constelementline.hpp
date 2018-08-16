@@ -4,7 +4,6 @@
 #include "constelement.hpp"
 
 #include <serializable.h>
-#include <extendedtypepoint2d.hpp>
 
 /*****************************************************************************/
 /**

@@ -27,14 +27,17 @@
 				<Option output="../bin/lifeSimulator/Release/lifeSimulator" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../bin/lifeSimulator/Release/" />
 				<Option object_output="../bin/lifeSimulator/obj/Release/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
+					<Add option="-m32" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-m32" />
 				</Linker>
 			</Target>
 		</Build>
@@ -87,11 +90,11 @@
 		</Linker>
 		<Unit filename="include/application.hpp" />
 		<Unit filename="include/constelement.hpp">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/constelementline.hpp" />
 		<Unit filename="include/constelementsfactory.hpp">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/entity.h" />
 		<Unit filename="include/entityfactory.h" />
@@ -102,31 +105,30 @@
 		<Unit filename="include/logwidget.h" />
 		<Unit filename="include/physicsbody.h" />
 		<Unit filename="include/version.h">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="include/world.h" />
-		<Unit filename="libraries/codeframe-master/include/extendedtypeinterface.hpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="libraries/codeframe-master/include/extendedtypepoint2d.hpp">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="libraries/codeframe-master/include/serializable.h" />
 		<Unit filename="libraries/codeframe-master/include/serializablecontainer.h" />
 		<Unit filename="libraries/codeframe-master/include/serializableinterface.h" />
+		<Unit filename="libraries/codeframe-master/include/serializableproperty.h" />
 		<Unit filename="libraries/codeframe-master/include/serializablepropertybase.hpp">
-			<Option target="&lt;{~None~}&gt;" />
+			<Option target="Release" />
 		</Unit>
 		<Unit filename="libraries/codeframe-master/include/serializablepropertyinfo.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablestorage.h" />
-		<Unit filename="libraries/codeframe-master/include/typeinfo.cpp" />
 		<Unit filename="libraries/codeframe-master/include/typeinfo.hpp" />
+		<Unit filename="libraries/codeframe-master/include/typeinterface.hpp">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="libraries/codeframe-master/include/utilities/DataTypesUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FileUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FilepathUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/HashUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/LoggerUtilities.h" />
-		<Unit filename="libraries/codeframe-master/include/utilities/MathUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/include/utilities/MathUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/PerformanceUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/SysUtilities.h" />
@@ -145,8 +147,10 @@
 		<Unit filename="libraries/codeframe-master/src/serializableregister.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablestorage.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableversion.cpp" />
+		<Unit filename="libraries/codeframe-master/src/typeinfo.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/FileUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/LoggerUtilities.cpp" />
+		<Unit filename="libraries/codeframe-master/src/utilities/MathUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/PerformanceUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/SysUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/ThreadUtilities.cpp" />

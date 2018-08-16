@@ -1,12 +1,11 @@
 #ifndef EXTENDEDTYPE2DPOINT_HPP_INCLUDED
 #define EXTENDEDTYPE2DPOINT_HPP_INCLUDED
 
-#include "extendedtypeinterface.hpp"
+#include "typeinterface.hpp"
 
 namespace codeframe
 {
-
-    class Point2D : public ExtTypeInterface
+    class Point2D : public TypeInterface
     {
         public:
                      Point2D();
@@ -35,6 +34,7 @@ namespace codeframe
             int m_y;
     };
 
+    typedef Point2D Point2D;
 }
 
 #endif // EXTENDEDTYPE2DPOINT_HPP_INCLUDED

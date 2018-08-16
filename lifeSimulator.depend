@@ -1444,8 +1444,9 @@
 	<MathUtilities.h>
 	<ThreadUtilities.h>
 
-1532644079 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.h
+1534448193 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.h
 	"serializablepropertybase.hpp"
+	"extendedtypepoint2d.hpp"
 	<climits>
 	<string>
 
@@ -1622,9 +1623,10 @@
 	<string>
 	<limits.h>
 
-1534173700 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
+1534456640 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
 	<MathUtilities.h>
+	"extendedtypepoint2d.hpp"
 
 1534173790 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
 	"typeinfo.hpp"
@@ -1683,19 +1685,18 @@
 1534003785 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtype2dpoint.hpp
 	"extendedtypeinterface.hpp"
 
-1534003600 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtypeinterface.hpp
-	"typeinfo.hpp"
+1534456526 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtypeinterface.hpp
+	<string>
 
-1534340240 d:\sourcecode\lifesimulator\include\constelementline.hpp
+1534448099 d:\sourcecode\lifesimulator\include\constelementline.hpp
 	"constelement.hpp"
 	<serializable.h>
-	<extendedtypepoint2d.hpp>
 
-1534365735 source:d:\sourcecode\lifesimulator\src\constelementline.cpp
+1534368567 source:d:\sourcecode\lifesimulator\src\constelementline.cpp
 	"constelementline.hpp"
 
-1534335352 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtypepoint2d.hpp
-	"extendedtypeinterface.hpp"
+1534456648 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtypepoint2d.hpp
+	"typeinterface.hpp"
 
 1534175111 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extendedtypepoint2d.cpp
 	"extendedtypepoint2d.hpp"
@@ -1717,4 +1718,16 @@
 
 1534363585 source:d:\sourcecode\lifesimulator\src\fontfactory.cpp
 	"fontfactory.h"
+
+1534452148 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
+	"typeinfo.hpp"
+	"extendedtypepoint2d.hpp"
+	<MathUtilities.h>
+
+1531259424 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\mathutilities.cpp
+	"MathUtilities.h"
+	<sstream>
+
+1534456588 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinterface.hpp
+	<string>
 

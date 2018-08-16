@@ -1,12 +1,15 @@
-#ifndef EXTENDEDTYPEINTERFACE_HPP_INCLUDED
-#define EXTENDEDTYPEINTERFACE_HPP_INCLUDED
+#ifndef TYPEINTERFACE_HPP_INCLUDED
+#define TYPEINTERFACE_HPP_INCLUDED
 
-#include "typeinfo.hpp"
+#include <string>
 
 namespace codeframe
 {
+    typedef int IntegerType;
+    typedef double RealType;
+    typedef std::string StringType;
 
-    class ExtTypeInterface
+    class TypeInterface
     {
         public:
             virtual void FromStringCallback ( StringType  value ) = 0;
@@ -17,7 +20,6 @@ namespace codeframe
             virtual IntegerType ToIntegerCallback() const = 0;
             virtual RealType    ToRealCallback   () const = 0;
     };
-
 }
 
-#endif // EXTENDEDTYPEINTERFACE_HPP_INCLUDED
+#endif // TYPEINTERFACE_HPP_INCLUDED

@@ -1,8 +1,5 @@
 #include "typeinfo.hpp"
 
-// Extended types
-#include "extendedtypepoint2d.hpp"
-
 #include <MathUtilities.h>
 
 namespace codeframe
@@ -64,6 +61,11 @@ namespace codeframe
     IntegerType StringToInt( const std::string& value )
     {
         return utilities::math::StrToInt( value );
+    }
+
+    IntegerType Point2DToInt( const Point2D& value )
+    {
+        return 0;
     }
 
     int IntFromInt( IntegerType value )
@@ -238,14 +240,14 @@ namespace codeframe
     }
 
     // Fundamental types
-    REGISTER_TYPE( std::string   , "text"    );
-    REGISTER_TYPE( int           , "int"     );
-    REGISTER_TYPE( unsigned int  , "int"     );
-    REGISTER_TYPE( short         , "int"     );
-    REGISTER_TYPE( unsigned short, "int"     );
-    REGISTER_TYPE( float         , "real"    );
-    REGISTER_TYPE( double        , "real"    );
-    REGISTER_TYPE( Point2D       , "point2d" );
+    REGISTER_TYPE( std::string   , "text" );
+    REGISTER_TYPE( int           , "int"  );
+    REGISTER_TYPE( unsigned int  , "int"  );
+    REGISTER_TYPE( short         , "int"  );
+    REGISTER_TYPE( unsigned short, "int"  );
+    REGISTER_TYPE( float         , "real" );
+    REGISTER_TYPE( double        , "real" );
+    REGISTER_TYPE( Point2D       , "ivec" );
 
     TypeInitializer::TypeInitializer( void )
     {
@@ -272,15 +274,17 @@ namespace codeframe
         GetTypeInfo<int         >().SetFromIntegerCallback( &IntFromInt    );
         GetTypeInfo<unsigned int>().SetFromIntegerCallback( &UIntFromInt   );
         GetTypeInfo<std::string >().SetFromIntegerCallback( &StringFromInt );
+        GetTypeInfo<Point2D     >().SetFromIntegerCallback( NULL );
 
         GetTypeInfo<int         >().FromInteger( 0 );
         GetTypeInfo<unsigned int>().FromInteger( 0 );
         GetTypeInfo<std::string >().FromInteger( 0 );
         GetTypeInfo<Point2D     >().FromInteger( 0 );
 
-        GetTypeInfo<int         >().SetToIntegerCallback( &IntToInt    );
-        GetTypeInfo<unsigned int>().SetToIntegerCallback( &UIntToInt   );
-        GetTypeInfo<std::string >().SetToIntegerCallback( &StringToInt );
+        GetTypeInfo<int         >().SetToIntegerCallback( &IntToInt     );
+        GetTypeInfo<unsigned int>().SetToIntegerCallback( &UIntToInt    );
+        GetTypeInfo<std::string >().SetToIntegerCallback( &StringToInt  );
+        GetTypeInfo<Point2D     >().SetToIntegerCallback( &Point2DToInt );
 
         GetTypeInfo<int         >().ToInteger( 0  );
         GetTypeInfo<unsigned int>().ToInteger( 0  );
