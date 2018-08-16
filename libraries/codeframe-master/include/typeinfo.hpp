@@ -4,6 +4,8 @@
 #include <string>
 #include <MathUtilities.h>
 
+#include "extendedtypepoint2d.hpp"
+
 namespace codeframe
 {
     template <typename T, typename B>
@@ -12,10 +14,6 @@ namespace codeframe
         public:
             virtual T operator()( B& value ) const = 0;
     };
-
-    typedef int IntegerType;
-    typedef double RealType;
-    typedef std::string StringType;
 
     enum eType
     {
