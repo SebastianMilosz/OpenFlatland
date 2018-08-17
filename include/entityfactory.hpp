@@ -1,13 +1,13 @@
-#ifndef ENTITYFACTORY_H
-#define ENTITYFACTORY_H
-
-#include "world.h"
-#include "entity.h"
+#ifndef ENTITYFACTORY_HPP
+#define ENTITYFACTORY_HPP
 
 #include <sigslot.h>
-#include <serializable.h>
-#include <serializablecontainer.h>
-#include <serializableinterface.h>
+#include <serializable.hpp>
+#include <serializablecontainer.hpp>
+#include <serializableinterface.hpp>
+
+#include "world.hpp"
+#include "entity.hpp"
 
 class EntityFactory : public codeframe::cSerializableContainer
 {
@@ -37,4 +37,4 @@ class EntityFactory : public codeframe::cSerializableContainer
 
 };
 
-#endif // ENTITYFACTORY_H
+#endif // ENTITYFACTORY_HPP

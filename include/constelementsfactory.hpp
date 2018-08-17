@@ -2,9 +2,10 @@
 #define CONSTELEMENTSFACTORY_HPP_INCLUDED
 
 #include <sigslot.h>
-#include <serializable.h>
-#include <serializablecontainer.h>
-#include <serializableinterface.h>
+
+#include <serializable.hpp>
+#include <serializablecontainer.hpp>
+#include <serializableinterface.hpp>
 #include <extendedtypepoint2d.hpp>
 
 #include "constelement.hpp"

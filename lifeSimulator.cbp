@@ -89,41 +89,35 @@
 			<Add directory="libraries/cpgf-master/lib" />
 		</Linker>
 		<Unit filename="include/application.hpp" />
-		<Unit filename="include/constelement.hpp">
-			<Option target="Release" />
-		</Unit>
+		<Unit filename="include/constelement.hpp" />
 		<Unit filename="include/constelementline.hpp" />
-		<Unit filename="include/constelementsfactory.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="include/entity.h" />
-		<Unit filename="include/entityfactory.h" />
-		<Unit filename="include/entityghost.h" />
-		<Unit filename="include/entityshell.h" />
-		<Unit filename="include/fontfactory.h" />
-		<Unit filename="include/guiwidgetslayer.h" />
-		<Unit filename="include/logwidget.h" />
-		<Unit filename="include/physicsbody.h" />
-		<Unit filename="include/version.h">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="include/world.h" />
-		<Unit filename="libraries/codeframe-master/include/extendedtypepoint2d.hpp">
-			<Option target="Release" />
-		</Unit>
-		<Unit filename="libraries/codeframe-master/include/serializable.h" />
-		<Unit filename="libraries/codeframe-master/include/serializablecontainer.h" />
-		<Unit filename="libraries/codeframe-master/include/serializableinterface.h" />
-		<Unit filename="libraries/codeframe-master/include/serializableproperty.h" />
-		<Unit filename="libraries/codeframe-master/include/serializablepropertybase.hpp">
-			<Option target="Release" />
-		</Unit>
+		<Unit filename="include/constelementsfactory.hpp" />
+		<Unit filename="include/entity.hpp" />
+		<Unit filename="include/entityfactory.hpp" />
+		<Unit filename="include/entityghost.hpp" />
+		<Unit filename="include/entityshell.hpp" />
+		<Unit filename="include/fontfactory.hpp" />
+		<Unit filename="include/guiwidgetslayer.hpp" />
+		<Unit filename="include/logwidget.hpp" />
+		<Unit filename="include/physicsbody.hpp" />
+		<Unit filename="include/version.hpp" />
+		<Unit filename="include/world.hpp" />
+		<Unit filename="libraries/codeframe-master/include/cxml.hpp" />
+		<Unit filename="libraries/codeframe-master/include/cxmlnode.hpp" />
+		<Unit filename="libraries/codeframe-master/include/extendedtypepoint2d.hpp" />
+		<Unit filename="libraries/codeframe-master/include/instancemanager.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializable.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializablechildlist.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializableconsole.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializablecontainer.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializableinterface.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializablelua.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializableproperty.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializablepropertybase.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablepropertyinfo.hpp" />
-		<Unit filename="libraries/codeframe-master/include/serializablestorage.h" />
+		<Unit filename="libraries/codeframe-master/include/serializablestorage.hpp" />
 		<Unit filename="libraries/codeframe-master/include/typeinfo.hpp" />
-		<Unit filename="libraries/codeframe-master/include/typeinterface.hpp">
-			<Option target="Release" />
-		</Unit>
+		<Unit filename="libraries/codeframe-master/include/typeinterface.hpp" />
 		<Unit filename="libraries/codeframe-master/include/utilities/DataTypesUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FileUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/FilepathUtilities.h" />
@@ -134,6 +128,7 @@
 		<Unit filename="libraries/codeframe-master/include/utilities/SysUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/TextUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/ThreadUtilities.h" />
+		<Unit filename="libraries/codeframe-master/include/xmlformatter.hpp" />
 		<Unit filename="libraries/codeframe-master/src/cxml.cpp" />
 		<Unit filename="libraries/codeframe-master/src/cxmlnode.cpp" />
 		<Unit filename="libraries/codeframe-master/src/extendedtypepoint2d.cpp" />

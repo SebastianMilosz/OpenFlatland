@@ -1,11 +1,12 @@
+#include "serializableproperty.hpp"
+
 #include <exception>
 #include <stdexcept>
 #include <sstream>
 #include <algorithm>
 
-#include "serializableproperty.h"
-#include "instancemanager.h"
-#include "serializable.h"
+#include "instancemanager.hpp"
+#include "serializable.hpp"
 
 namespace codeframe
 {

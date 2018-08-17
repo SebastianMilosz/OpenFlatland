@@ -1,8 +1,8 @@
 #ifndef CSERIALIZABLESTORAGE_H
 #define CSERIALIZABLESTORAGE_H
 
-#include "serializableinterface.h"
-#include "instancemanager.h"
+#include "serializableinterface.hpp"
+#include "instancemanager.hpp"
 
 namespace codeframe
 {

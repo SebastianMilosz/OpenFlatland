@@ -1,5 +1,5 @@
-#include "serializableinterface.h"
-#include "serializableproperty.h"
+#include "serializableinterface.hpp"
+#include "serializableproperty.hpp"
 
 #include <LoggerUtilities.h>
 

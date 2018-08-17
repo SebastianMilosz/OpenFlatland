@@ -1,10 +1,10 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <serializable.h>
+#include <serializable.hpp>
 
-#include "entityshell.h"
-#include "entityghost.h"
+#include "entityshell.hpp"
+#include "entityghost.hpp"
 
 /*****************************************************************************/
 /**

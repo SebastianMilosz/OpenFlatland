@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1534004952 source:d:\sourcecode\lifesimulator\main.cpp
+1534539599 source:d:\sourcecode\lifesimulator\main.cpp
 	<iostream>
-	"application.hpp"
-	"logwidget.h"
 	<utilities/LoggerUtilities.h>
 	<utilities/FileUtilities.h>
-	<serializable.h>
-	<cpgf/gcallbacklist.h>
+	<serializable.hpp>
 	<SFML/Graphics.hpp>
+	<cpgf/gcallbacklist.h>
 	<Box2D/Box2D.h>
+	"application.hpp"
+	"logwidget.hpp"
 
 1515503214 d:\sourcecode\lifesimulator\libraries\sfml-master\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -1082,11 +1082,11 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1534363418 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
-	"entityshell.h"
-	"fontfactory.h"
+1534539433 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+	"entityshell.hpp"
 	<utilities/LoggerUtilities.h>
 	<utilities/TextUtilities.h>
+	"fontfactory.hpp"
 
 1532983016 d:\sourcecode\lifesimulator\include\entityfactory.h
 	"world.h"
@@ -1101,8 +1101,8 @@
 	"entityshell.h"
 	"entityghost.h"
 
-1528408208 source:d:\sourcecode\lifesimulator\src\entity.cpp
-	"entity.h"
+1534539193 source:d:\sourcecode\lifesimulator\src\entity.cpp
+	"entity.hpp"
 
 1534361726 d:\sourcecode\lifesimulator\include\world.h
 	<SFML/Graphics.hpp>
@@ -1111,12 +1111,12 @@
 	"constelement.hpp"
 	<serializable.h>
 
-1533327223 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
-	"entityfactory.h"
+1534539202 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
+	"entityfactory.hpp"
 	<typeinfo.hpp>
 
-1534361789 source:d:\sourcecode\lifesimulator\src\world.cpp
-	"world.h"
+1534539546 source:d:\sourcecode\lifesimulator\src\world.cpp
+	"world.hpp"
 	<string>
 	<sstream>
 	<utilities/LoggerUtilities.h>
@@ -1125,8 +1125,8 @@
 	<SFML/Graphics.hpp>
 	"logwidget.h"
 
-1533594890 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
-	"guiwidgetslayer.h"
+1534539459 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
+	"guiwidgetslayer.hpp"
 	<chrono>
 	<ctime>
 	<imgui.h>
@@ -1388,8 +1388,8 @@
 	<sys/types.h>
 	<windows.h>
 
-1518352875 source:d:\sourcecode\lifesimulator\src\logwidget.cpp
-	"logwidget.h"
+1534539530 source:d:\sourcecode\lifesimulator\src\logwidget.cpp
+	"logwidget.hpp"
 
 1518351494 d:\sourcecode\lifesimulator\include\logwidget.h
 	<imgui.h>
@@ -1419,11 +1419,11 @@
 	<sys/types.h>
 	<time.h>
 
-1528408253 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
-	"entityghost.h"
+1534539388 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
+	"entityghost.hpp"
 
-1512916324 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\instancemanager.cpp
-	"instancemanager.h"
+1534535524 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\instancemanager.cpp
+	"instancemanager.hpp"
 
 1512916324 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\instancemanager.h
 	"serializableinterface.h"
@@ -1468,8 +1468,8 @@
 
 1512916324 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\cxmlnode.h
 
-1526506486 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxml.cpp
-	<cxml.h>
+1534535150 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxml.cpp
+	"cxml.hpp"
 	<fstream>
 	<sstream>
 	<iostream>
@@ -1487,8 +1487,8 @@
 
 1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugiconfig.hpp
 
-1531259642 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxmlnode.cpp
-	"cxmlnode.h"
+1534535162 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxmlnode.cpp
+	"cxmlnode.hpp"
 	<pugixml.hpp>
 
 1533114257 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.h
@@ -1542,26 +1542,26 @@
 	<new>
 	<stdint.h>
 
-1531086804 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
+1534536313 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
+	"serializableproperty.hpp"
 	<exception>
 	<stdexcept>
 	<sstream>
 	<algorithm>
-	"serializableproperty.h"
-	"instancemanager.h"
-	"serializable.h"
+	"instancemanager.hpp"
+	"serializable.hpp"
 
 1504816631 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
 	"serializableregister.h"
 
-1533114270 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
-	"serializable.h"
-	<TextUtilities.h>
-	<LoggerUtilities.h>
-	<xmlformatter.h>
+1534535219 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
+	"serializable.hpp"
 	<iostream>
 	<exception>
 	<stdexcept>
+	<TextUtilities.h>
+	<LoggerUtilities.h>
+	<xmlformatter.hpp>
 
 1534340888 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\textutilities.h
 	<cctype>
@@ -1569,18 +1569,18 @@
 	<string>
 	<sstream>
 
-1528576060 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablechildlist.cpp
-	"serializablechildlist.h"
-	"serializable.h"
+1534535535 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablechildlist.cpp
+	"serializablechildlist.hpp"
+	"serializable.hpp"
 	<cstdio>
 
-1534004379 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableinterface.cpp
-	"serializableinterface.h"
-	"serializableproperty.h"
+1534536124 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableinterface.cpp
+	"serializableinterface.hpp"
+	"serializableproperty.hpp"
 	<LoggerUtilities.h>
 
-1500912709 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
-	"serializablecontainer.h"
+1534535618 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
+	"serializablecontainer.hpp"
 
 1533114469 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.h
 	<serializable.h>
@@ -1597,27 +1597,27 @@
 1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\smartpointer\yasper.h
 	<exception>
 
-1529953287 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablelua.cpp
-	"serializable.h"
+1534536182 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablelua.cpp
+	"serializable.hpp"
 	<LuaBridge.h>
 	<fstream>
 
-1527193924 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablestorage.cpp
-	"serializablestorage.h"
+1534536201 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablestorage.cpp
+	"serializablestorage.hpp"
 
-1527193944 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
-	"serializableinterface.h"
+1534536190 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
+	"serializableinterface.hpp"
 
-1534173707 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
-	<MathUtilities.h>
-	<LoggerUtilities.h>
-	<TextUtilities.h>
-	<serializableinterface.h>
-	<serializablecontainer.h>
+1534537384 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+	"xmlformatter.hpp"
 	<iostream>
 	<exception>
 	<stdexcept>
-	"xmlformatter.h"
+	<MathUtilities.h>
+	<LoggerUtilities.h>
+	<TextUtilities.h>
+	"serializableinterface.hpp"
+	"serializablecontainer.hpp"
 
 1533766717 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyinfo.hpp
 	<string>
@@ -1653,26 +1653,26 @@
 	<cpgf/gcallbacklist.h>
 	<SFML/Graphics.hpp>
 
-1534362729 d:\sourcecode\lifesimulator\include\application.hpp
-	<serializable.h>
-	"world.h"
-	"entityfactory.h"
+1534537958 d:\sourcecode\lifesimulator\include\application.hpp
+	<serializable.hpp>
+	"world.hpp"
+	"entityfactory.hpp"
 	"constelementsfactory.hpp"
-	"fontfactory.h"
-	"guiwidgetslayer.h"
-	"entity.h"
+	"fontfactory.hpp"
+	"guiwidgetslayer.hpp"
+	"entity.hpp"
 
-1534020736 d:\sourcecode\lifesimulator\include\constelementsfactory.hpp
+1534539138 d:\sourcecode\lifesimulator\include\constelementsfactory.hpp
 	<sigslot.h>
-	<serializable.h>
-	<serializablecontainer.h>
-	<serializableinterface.h>
+	<serializable.hpp>
+	<serializablecontainer.hpp>
+	<serializableinterface.hpp>
 	<extendedtypepoint2d.hpp>
 	"constelement.hpp"
 
-1534334611 d:\sourcecode\lifesimulator\include\constelement.hpp
-	<serializable.h>
-	"physicsbody.h"
+1534539050 d:\sourcecode\lifesimulator\include\constelement.hpp
+	<serializable.hpp>
+	"physicsbody.hpp"
 
 1534332984 source:d:\sourcecode\lifesimulator\src\constelement.cpp
 	"constelement.hpp"
@@ -1688,9 +1688,9 @@
 1534456526 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtypeinterface.hpp
 	<string>
 
-1534448099 d:\sourcecode\lifesimulator\include\constelementline.hpp
+1534539165 d:\sourcecode\lifesimulator\include\constelementline.hpp
 	"constelement.hpp"
-	<serializable.h>
+	<serializable.hpp>
 
 1534368567 source:d:\sourcecode\lifesimulator\src\constelementline.cpp
 	"constelementline.hpp"
@@ -1709,19 +1709,18 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1534336912 source:d:\sourcecode\lifesimulator\src\physicsbody.cpp
-	"physicsbody.h"
+1534539539 source:d:\sourcecode\lifesimulator\src\physicsbody.cpp
+	"physicsbody.hpp"
 
 1534363581 d:\sourcecode\lifesimulator\include\fontfactory.h
 	<serializable.h>
 	<SFML/Graphics.hpp>
 
-1534363585 source:d:\sourcecode\lifesimulator\src\fontfactory.cpp
-	"fontfactory.h"
+1534539441 source:d:\sourcecode\lifesimulator\src\fontfactory.cpp
+	"fontfactory.hpp"
 
-1534452148 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
+1534457411 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
 	"typeinfo.hpp"
-	"extendedtypepoint2d.hpp"
 	<MathUtilities.h>
 
 1531259424 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\mathutilities.cpp
@@ -1730,4 +1729,113 @@
 
 1534456588 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinterface.hpp
 	<string>
+
+1512916324 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\cxmlnode.hpp
+
+1534535547 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\cxml.hpp
+	<string>
+	"cxmlnode.hpp"
+
+1534534239 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\instancemanager.hpp
+	"serializableinterface.hpp"
+	<vector>
+	<algorithm>
+	<ThreadUtilities.h>
+
+1534535853 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
+	<vector>
+	<string>
+	<map>
+	<typeinfo>
+	<sigslot.h>
+	<DataTypesUtilities.h>
+	<MathUtilities.h>
+	<ThreadUtilities.h>
+	"serializableproperty.hpp"
+	"serializablechildlist.hpp"
+	"xmlformatter.hpp"
+
+1534448193 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
+	"serializablepropertybase.hpp"
+	"extendedtypepoint2d.hpp"
+	<climits>
+	<string>
+
+1527890695 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablechildlist.hpp
+	<vector>
+	<MathUtilities.h>
+
+1534535890 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\xmlformatter.hpp
+	<vector>
+	<FileUtilities.h>
+	"cxml.hpp"
+
+1534535607 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
+	<sigslot.h>
+	"serializablelua.hpp"
+	"serializablestorage.hpp"
+
+1526595776 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablelua.hpp
+	<lua.h>
+	<lauxlib.h>
+	<lualib.h>
+	<string>
+
+1534535758 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablestorage.hpp
+	"serializableinterface.hpp"
+	"instancemanager.hpp"
+
+1534535686 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
+	<exception>
+	<stdexcept>
+	<vector>
+	<cstdbool>
+	<MathUtilities.h>
+	<smartpointer.h>
+	"serializable.hpp"
+
+1534539073 d:\sourcecode\lifesimulator\include\physicsbody.hpp
+	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
+	<serializable.hpp>
+
+1534539155 d:\sourcecode\lifesimulator\include\entity.hpp
+	<serializable.hpp>
+	"entityshell.hpp"
+	"entityghost.hpp"
+
+1534539185 d:\sourcecode\lifesimulator\include\entityshell.hpp
+	"physicsbody.hpp"
+
+1534539269 d:\sourcecode\lifesimulator\include\entityghost.hpp
+	"entityshell.hpp"
+
+1534539250 d:\sourcecode\lifesimulator\include\entityfactory.hpp
+	<sigslot.h>
+	<serializable.hpp>
+	<serializablecontainer.hpp>
+	<serializableinterface.hpp>
+	"world.hpp"
+	"entity.hpp"
+
+1534539112 d:\sourcecode\lifesimulator\include\world.hpp
+	<Box2D/Box2D.h>
+	<SFML/Graphics.hpp>
+	<serializable.hpp>
+	"entity.hpp"
+	"constelement.hpp"
+
+1534539379 d:\sourcecode\lifesimulator\include\fontfactory.hpp
+	<SFML/Graphics.hpp>
+	<serializable.hpp>
+
+1534539504 d:\sourcecode\lifesimulator\include\guiwidgetslayer.hpp
+	<SFML/Graphics.hpp>
+	"logwidget.hpp"
+
+1534539522 d:\sourcecode\lifesimulator\include\logwidget.hpp
+	<imgui.h>
+	<imgui-SFML.h>
+	<utilities/LoggerUtilities.h>
+	<utilities/FileUtilities.h>
 

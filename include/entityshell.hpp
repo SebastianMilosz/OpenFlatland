@@ -1,7 +1,7 @@
-#ifndef ENTITYSHELL_H
-#define ENTITYSHELL_H
+#ifndef ENTITYSHELL_HPP
+#define ENTITYSHELL_HPP
 
-#include "physicsbody.h"
+#include "physicsbody.hpp"
 
 class EntityShell : public PhysicsBody
 {
@@ -37,4 +37,4 @@ class EntityShell : public PhysicsBody
 
 };
 
-#endif // ENTITYSHELL_H
+#endif // ENTITYSHELL_HPP

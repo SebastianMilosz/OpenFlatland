@@ -1,7 +1,7 @@
-#ifndef ENTITYGHOST_H
-#define ENTITYGHOST_H
+#ifndef ENTITYGHOST_HPP
+#define ENTITYGHOST_HPP
 
-#include "entityshell.h"
+#include "entityshell.hpp"
 
 class EntityGhost : public EntityShell
 {
@@ -21,4 +21,4 @@ class EntityGhost : public EntityShell
     private:
 };
 
-#endif // ENTITYGHOST_H
+#endif // ENTITYGHOST_HPP

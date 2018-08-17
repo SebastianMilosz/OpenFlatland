@@ -1,4 +1,5 @@
-#include <cxml.h>
+#include "cxml.hpp"
+
 #include <fstream>
 #include <sstream>
 #include <iostream>

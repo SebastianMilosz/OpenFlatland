@@ -1,7 +1,7 @@
 #ifndef INSTANCEMANAGER_H_INCLUDED
 #define INSTANCEMANAGER_H_INCLUDED
 
-#include "serializableinterface.h"
+#include "serializableinterface.hpp"
 
 #include <vector>
 #include <algorithm>

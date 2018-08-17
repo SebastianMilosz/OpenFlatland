@@ -1,14 +1,14 @@
 #include <iostream>
 
-#include "application.hpp"
-#include "logwidget.h"
-
 #include <utilities/LoggerUtilities.h>
 #include <utilities/FileUtilities.h>
-#include <serializable.h>
-#include <cpgf/gcallbacklist.h>
+#include <serializable.hpp>
 #include <SFML/Graphics.hpp>
+#include <cpgf/gcallbacklist.h>
 #include <Box2D/Box2D.h>
+
+#include "application.hpp"
+#include "logwidget.hpp"
 
 int main()
 {

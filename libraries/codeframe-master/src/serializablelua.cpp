@@ -1,4 +1,4 @@
-#include "serializable.h"
+#include "serializable.hpp"
 
 #ifdef SERIALIZABLE_USE_LUA
 #include <LuaBridge.h>

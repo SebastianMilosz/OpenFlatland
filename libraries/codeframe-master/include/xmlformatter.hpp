@@ -1,9 +1,11 @@
 #ifndef XMLFORMATTER_H
 #define XMLFORMATTER_H
 
-#include <cxml.h>
 #include <vector>
+
 #include <FileUtilities.h>
+
+#include "cxml.hpp"
 
 //#define PATH_FIELD
 //#define ID_FIELD

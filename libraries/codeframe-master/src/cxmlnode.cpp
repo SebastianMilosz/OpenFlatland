@@ -1,4 +1,4 @@
-#include "cxmlnode.h"
+#include "cxmlnode.hpp"
 
 #include <pugixml.hpp>
 

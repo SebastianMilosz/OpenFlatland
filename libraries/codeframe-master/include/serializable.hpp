@@ -3,8 +3,8 @@
 
 #include <sigslot.h>
 
-#include "serializablelua.h"
-#include "serializablestorage.h"
+#include "serializablelua.hpp"
+#include "serializablestorage.hpp"
 
 namespace codeframe
 {

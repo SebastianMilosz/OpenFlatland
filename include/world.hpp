@@ -1,13 +1,12 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
+#include <SFML/Graphics.hpp>
+#include <serializable.hpp>
 
-#include "entity.h"
+#include "entity.hpp"
 #include "constelement.hpp"
-
-#include <serializable.h>
 
 class World : public codeframe::cSerializable
 {

@@ -1,14 +1,14 @@
 #ifndef APPLICATION_HPP_INCLUDED
 #define APPLICATION_HPP_INCLUDED
 
-#include <serializable.h>
+#include <serializable.hpp>
 
-#include "world.h"
-#include "entityfactory.h"
+#include "world.hpp"
+#include "entityfactory.hpp"
 #include "constelementsfactory.hpp"
-#include "fontfactory.h"
-#include "guiwidgetslayer.h"
-#include "entity.h"
+#include "fontfactory.hpp"
+#include "guiwidgetslayer.hpp"
+#include "entity.hpp"
 
 class Application : public codeframe::cSerializable
 {

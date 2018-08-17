@@ -1,8 +1,9 @@
-#include "entityshell.h"
-#include "fontfactory.h"
+#include "entityshell.hpp"
 
 #include <utilities/LoggerUtilities.h>
 #include <utilities/TextUtilities.h>
+
+#include "fontfactory.hpp"
 
 using namespace codeframe;
 
