@@ -150,29 +150,9 @@ namespace codeframe
     }
 
     template<typename T>
-    T TypeInfo<T>::FromString( StringType value )
-    {
-        if ( NULL != FromStringCallback )
-        {
-            return FromStringCallback( value );
-        }
-        return T();
-    }
-
-    template<typename T>
     void TypeInfo<T>::SetToStringCallback( StringType (*toStringCallback)( const T& value ) )
     {
         ToStringCallback = toStringCallback;
-    }
-
-    template<typename T>
-    StringType TypeInfo<T>::ToString( T value )
-    {
-        if ( NULL != ToStringCallback )
-        {
-            return ToStringCallback( value );
-        }
-        return StringType("");
     }
 
     template<typename T>
@@ -182,29 +162,9 @@ namespace codeframe
     }
 
     template<typename T>
-    T TypeInfo<T>::FromInteger( IntegerType value )
-    {
-        if ( NULL != FromIntegerCallback )
-        {
-            return FromIntegerCallback( value );
-        }
-        return T();
-    }
-
-    template<typename T>
     void TypeInfo<T>::SetToIntegerCallback( IntegerType (*toIntegerCallback)( const T& value ) )
     {
         ToIntegerCallback = toIntegerCallback;
-    }
-
-    template<typename T>
-    IntegerType TypeInfo<T>::ToInteger( T value )
-    {
-        if ( NULL != ToIntegerCallback )
-        {
-            return ToIntegerCallback( value );
-        }
-        return IntegerType();
     }
 
     template<typename T>
@@ -214,29 +174,9 @@ namespace codeframe
     }
 
     template<typename T>
-    T TypeInfo<T>::FromReal( RealType value )
-    {
-        if ( NULL != FromRealCallback )
-        {
-            return FromRealCallback( value );
-        }
-        return T();
-    }
-
-    template<typename T>
     void TypeInfo<T>::SetToRealCallback( RealType (*toRealCallback)( const T& value ) )
     {
         ToRealCallback = toRealCallback;
-    }
-
-    template<typename T>
-    RealType TypeInfo<T>::ToReal( T value )
-    {
-        if ( NULL != ToRealCallback )
-        {
-            return ToRealCallback( value );
-        }
-        return 0.0F;
     }
 
     // Fundamental types
@@ -256,57 +196,27 @@ namespace codeframe
         GetTypeInfo<std::string >().SetFromStringCallback( &StringFromString  );
         GetTypeInfo<Point2D     >().SetFromStringCallback( &Point2DFromString );
 
-        GetTypeInfo<int         >().FromString( "" );
-        GetTypeInfo<unsigned int>().FromString( "" );
-        GetTypeInfo<std::string >().FromString( "" );
-        GetTypeInfo<Point2D     >().FromString( "" );
-
         GetTypeInfo<int         >().SetToStringCallback( &IntToString     );
         GetTypeInfo<unsigned int>().SetToStringCallback( &UIntToString    );
         GetTypeInfo<std::string >().SetToStringCallback( &StringToString  );
         GetTypeInfo<Point2D     >().SetToStringCallback( &Point2DToString );
-
-        GetTypeInfo<int         >().ToString( 0  );
-        GetTypeInfo<unsigned int>().ToString( 0  );
-        GetTypeInfo<std::string >().ToString( "" );
-        GetTypeInfo<Point2D     >().ToString( Point2D(0,0) );
 
         GetTypeInfo<int         >().SetFromIntegerCallback( &IntFromInt    );
         GetTypeInfo<unsigned int>().SetFromIntegerCallback( &UIntFromInt   );
         GetTypeInfo<std::string >().SetFromIntegerCallback( &StringFromInt );
         GetTypeInfo<Point2D     >().SetFromIntegerCallback( NULL );
 
-        GetTypeInfo<int         >().FromInteger( 0 );
-        GetTypeInfo<unsigned int>().FromInteger( 0 );
-        GetTypeInfo<std::string >().FromInteger( 0 );
-        GetTypeInfo<Point2D     >().FromInteger( 0 );
-
         GetTypeInfo<int         >().SetToIntegerCallback( &IntToInt     );
         GetTypeInfo<unsigned int>().SetToIntegerCallback( &UIntToInt    );
         GetTypeInfo<std::string >().SetToIntegerCallback( &StringToInt  );
         GetTypeInfo<Point2D     >().SetToIntegerCallback( &Point2DToInt );
 
-        GetTypeInfo<int         >().ToInteger( 0  );
-        GetTypeInfo<unsigned int>().ToInteger( 0  );
-        GetTypeInfo<std::string >().ToInteger( "" );
-        GetTypeInfo<Point2D     >().ToInteger( Point2D(0,0) );
-
         GetTypeInfo<int         >().SetFromRealCallback( &IntFromReal    );
         GetTypeInfo<unsigned int>().SetFromRealCallback( &UIntFromReal   );
         GetTypeInfo<std::string >().SetFromRealCallback( &StringFromReal );
 
-        GetTypeInfo<int         >().FromReal( 0 );
-        GetTypeInfo<unsigned int>().FromReal( 0 );
-        GetTypeInfo<std::string >().FromReal( 0 );
-        GetTypeInfo<Point2D     >().FromReal( 0 );
-
         GetTypeInfo<int         >().SetToRealCallback( &IntToReal    );
         GetTypeInfo<unsigned int>().SetToRealCallback( &UIntToReal   );
         GetTypeInfo<std::string >().SetToRealCallback( &StringToReal );
-
-        GetTypeInfo<int         >().ToReal( 0 );
-        GetTypeInfo<unsigned int>().ToReal( 0 );
-        GetTypeInfo<std::string >().ToReal( "" );
-        GetTypeInfo<Point2D     >().ToReal( Point2D(0,0) );
     }
 }
