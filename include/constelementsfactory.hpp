@@ -5,7 +5,6 @@
 
 #include <serializable.hpp>
 #include <serializablecontainer.hpp>
-#include <serializableinterface.hpp>
 #include <extendedtypepoint2d.hpp>
 
 #include "constelement.hpp"

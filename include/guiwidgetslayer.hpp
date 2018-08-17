@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "logwidget.hpp"
+#include "propertyeditorwidget.hpp"
 
 class GUIWidgetsLayer
 {
@@ -39,11 +40,13 @@ class GUIWidgetsLayer
         int                 m_MouseMode;
         bool                m_mouseCapturedByGui;
         bool                m_logWidgetOpen;
+        bool                m_PropertyEditorOpen;
 
         std::vector< sf::Rect<int> > m_guiRegions;
 
         // Okienka Gui
-        LogWidget m_logWidget;
+        LogWidget            m_logWidget;
+        PropertyEditorWidget m_PropertyEditorWidget;
 };
 
 #endif // GUIWIDGETSLAYER_HPP
