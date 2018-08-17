@@ -100,6 +100,9 @@
 		<Unit filename="include/guiwidgetslayer.hpp" />
 		<Unit filename="include/logwidget.hpp" />
 		<Unit filename="include/physicsbody.hpp" />
+		<Unit filename="include/propertyeditorwidget.hpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/version.hpp" />
 		<Unit filename="include/world.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxml.hpp" />
@@ -177,6 +180,7 @@
 		<Unit filename="src/guiwidgetslayer.cpp" />
 		<Unit filename="src/logwidget.cpp" />
 		<Unit filename="src/physicsbody.cpp" />
+		<Unit filename="src/propertyeditorwidget.cpp" />
 		<Unit filename="src/world.cpp" />
 		<Extensions>
 			<code_completion />

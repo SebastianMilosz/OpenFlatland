@@ -143,14 +143,20 @@ void GUIWidgetsLayer::Draw()
         if (ImGui::BeginMenu("Window"))
         {
             if (ImGui::MenuItem("Log", NULL, m_logWidgetOpen)) { if( m_logWidgetOpen ) m_logWidgetOpen = false; else m_logWidgetOpen = true; }
+            if (ImGui::MenuItem("PropertyEditor", NULL, m_PropertyEditorOpen)) { if( m_PropertyEditorOpen ) m_PropertyEditorOpen = false; else m_PropertyEditorOpen = true; }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
     }
 
-    if( m_logWidgetOpen == true )
+    if ( m_logWidgetOpen == true )
     {
         m_logWidget.Draw( "Log", &m_logWidgetOpen );
+    }
+
+    if ( m_PropertyEditorOpen == true )
+    {
+        m_PropertyEditorWidget.Draw( "Property Editor", &m_PropertyEditorOpen );
     }
 
     ImGui::Begin("Application Info");

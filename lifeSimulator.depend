@@ -1125,7 +1125,7 @@
 	<SFML/Graphics.hpp>
 	"logwidget.h"
 
-1534539459 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
+1534543870 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
 	"guiwidgetslayer.hpp"
 	<chrono>
 	<ctime>
@@ -1662,11 +1662,10 @@
 	"guiwidgetslayer.hpp"
 	"entity.hpp"
 
-1534539138 d:\sourcecode\lifesimulator\include\constelementsfactory.hpp
+1534543184 d:\sourcecode\lifesimulator\include\constelementsfactory.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
-	<serializableinterface.hpp>
 	<extendedtypepoint2d.hpp>
 	"constelement.hpp"
 
@@ -1829,9 +1828,10 @@
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
 
-1534539504 d:\sourcecode\lifesimulator\include\guiwidgetslayer.hpp
+1534543807 d:\sourcecode\lifesimulator\include\guiwidgetslayer.hpp
 	<SFML/Graphics.hpp>
 	"logwidget.hpp"
+	"propertyeditorwidget.hpp"
 
 1534539522 d:\sourcecode\lifesimulator\include\logwidget.hpp
 	<imgui.h>
@@ -1840,4 +1840,11 @@
 	<utilities/FileUtilities.h>
 
 1518354163 d:\sourcecode\lifesimulator\include\version.hpp
+
+1534543574 d:\sourcecode\lifesimulator\include\propertyeditorwidget.hpp
+	<imgui.h>
+	<imgui-SFML.h>
+	<sigslot.h>
+	<smartpointer.h>
+	<serializable.hpp>
 
