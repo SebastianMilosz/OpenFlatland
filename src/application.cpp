@@ -1,5 +1,5 @@
 #include "application.hpp"
-#include "version.h"
+#include "version.hpp"
 
 #include <utilities/LoggerUtilities.h>
 #include <cpgf/gcallbacklist.h>

@@ -1,5 +1,5 @@
-#include "serializablechildlist.h"
-#include "serializable.h"
+#include "serializablechildlist.hpp"
+#include "serializable.hpp"
 
 #include <cstdio> // std::remove
 

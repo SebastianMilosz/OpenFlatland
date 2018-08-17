@@ -1,19 +1,19 @@
 #ifndef SERIALIZABLEBASE_H_INCLUDED
 #define SERIALIZABLEBASE_H_INCLUDED
 
-#include "serializableproperty.h"
-#include "serializablechildlist.h"
-
 #include <vector>
 #include <string>
 #include <map>
-#include <xmlformatter.h>
 #include <typeinfo>
 #include <sigslot.h>
 
 #include <DataTypesUtilities.h>
 #include <MathUtilities.h>
 #include <ThreadUtilities.h>
+
+#include "serializableproperty.hpp"
+#include "serializablechildlist.hpp"
+#include "xmlformatter.hpp"
 
 namespace codeframe
 {

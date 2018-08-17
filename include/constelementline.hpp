@@ -3,7 +3,7 @@
 
 #include "constelement.hpp"
 
-#include <serializable.h>
+#include <serializable.hpp>
 
 /*****************************************************************************/
 /**

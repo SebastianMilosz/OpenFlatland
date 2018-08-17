@@ -1,5 +1,5 @@
-#ifndef LOGWIDGET_H
-#define LOGWIDGET_H
+#ifndef LOGWIDGET_HPP
+#define LOGWIDGET_HPP
 
 #include <imgui.h>
 #include <imgui-SFML.h>
@@ -24,4 +24,4 @@ class LogWidget : public sigslot::has_slots<>
         bool                ScrollToBottom;
 };
 
-#endif // LOGWIDGET_H
+#endif // LOGWIDGET_HPP

@@ -1,4 +1,4 @@
-#include "fontfactory.h"
+#include "fontfactory.hpp"
 
 bool     FontFactory::m_initialized = false;
 sf::Font FontFactory::m_font;

@@ -1,9 +1,9 @@
 #ifndef PHYSICSBODY_H
 #define PHYSICSBODY_H
 
-#include <serializable.h>
 #include <Box2D/Box2D.h>
 #include <SFML/Graphics.hpp>
+#include <serializable.hpp>
 
 class PhysicsBody : public codeframe::cSerializable
 {

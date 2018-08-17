@@ -1,13 +1,15 @@
-#include <MathUtilities.h>
-#include <LoggerUtilities.h>
-#include <TextUtilities.h>
-#include <serializableinterface.h>
-#include <serializablecontainer.h>
+#include "xmlformatter.hpp"
+
 #include <iostream>
 #include <exception>
 #include <stdexcept>
 
-#include "xmlformatter.h"
+#include <MathUtilities.h>
+#include <LoggerUtilities.h>
+#include <TextUtilities.h>
+
+#include "serializableinterface.hpp"
+#include "serializablecontainer.hpp"
 
 namespace codeframe
 {

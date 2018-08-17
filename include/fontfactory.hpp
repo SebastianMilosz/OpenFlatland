@@ -1,8 +1,8 @@
-#ifndef FONTFACTORY_H
-#define FONTFACTORY_H
+#ifndef FONTFACTORY_HPP
+#define FONTFACTORY_HPP
 
-#include <serializable.h>
 #include <SFML/Graphics.hpp>
+#include <serializable.hpp>
 
 class FontFactory : public codeframe::cSerializable
 {
@@ -25,4 +25,4 @@ class FontFactory : public codeframe::cSerializable
         static sf::Font m_font;
 };
 
-#endif // FONTFACTORY_H
+#endif // FONTFACTORY_HPP

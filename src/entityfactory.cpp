@@ -1,4 +1,4 @@
-#include "entityfactory.h"
+#include "entityfactory.hpp"
 
 #include <typeinfo.hpp>
 

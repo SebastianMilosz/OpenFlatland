@@ -1,9 +1,9 @@
-#ifndef GUIWIDGETSLAYER_H
-#define GUIWIDGETSLAYER_H
+#ifndef GUIWIDGETSLAYER_HPP
+#define GUIWIDGETSLAYER_HPP
 
 #include <SFML/Graphics.hpp>
 
-#include "logwidget.h"
+#include "logwidget.hpp"
 
 class GUIWidgetsLayer
 {
@@ -46,4 +46,4 @@ class GUIWidgetsLayer
         LogWidget m_logWidget;
 };
 
-#endif // GUIWIDGETSLAYER_H
+#endif // GUIWIDGETSLAYER_HPP

@@ -1,11 +1,12 @@
-#include "serializable.h"
+#include "serializable.hpp"
 
-#include <TextUtilities.h>
-#include <LoggerUtilities.h>
-#include <xmlformatter.h>
 #include <iostream>
 #include <exception>
 #include <stdexcept>
+
+#include <TextUtilities.h>
+#include <LoggerUtilities.h>
+#include <xmlformatter.hpp>
 
 using namespace std;
 

@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "cxmlnode.h"
+#include "cxmlnode.hpp"
 
 namespace pugi
 {
