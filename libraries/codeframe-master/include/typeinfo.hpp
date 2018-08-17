@@ -74,13 +74,59 @@ namespace codeframe
             void SetToIntegerCallback( IntegerType (*toIntegerCallback)( const T& value ) );
             void SetToRealCallback   ( RealType    (*toRealCallback   )( const T& value ) );
 
-            T FromString ( StringType value  );
-            T FromInteger( IntegerType value );
-            T FromReal   ( RealType value    );
+            T FromString( StringType value )
+            {
+                if ( NULL != FromStringCallback )
+                {
+                    return FromStringCallback( value );
+                }
+                return T();
+            }
 
-            StringType  ToString ( T value );
-            IntegerType ToInteger( T value );
-            RealType    ToReal   ( T value );
+            T FromInteger( IntegerType value )
+            {
+                if ( NULL != FromIntegerCallback )
+                {
+                    return FromIntegerCallback( value );
+                }
+                return T();
+            }
+
+            T FromReal( RealType value )
+            {
+                if ( NULL != FromRealCallback )
+                {
+                    return FromRealCallback( value );
+                }
+                return T();
+            }
+
+            StringType ToString( T value )
+            {
+                if ( NULL != ToStringCallback )
+                {
+                    return ToStringCallback( value );
+                }
+                return StringType("");
+            }
+
+            IntegerType ToInteger( T value )
+            {
+                if ( NULL != ToIntegerCallback )
+                {
+                    return ToIntegerCallback( value );
+                }
+                return IntegerType();
+            }
+
+            RealType ToReal( T value )
+            {
+                if ( NULL != ToRealCallback )
+                {
+                    return ToRealCallback( value );
+                }
+                return 0.0F;
+            }
 
             const eType GetTypeCode() const
             {
