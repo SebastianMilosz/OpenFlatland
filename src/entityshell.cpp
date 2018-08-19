@@ -89,6 +89,16 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         sf::CircleShape circle;
         circle.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
         circle.setOutlineColor( entColor );
+
+        if( IsSelected() == true )
+        {
+            circle.setFillColor( sf::Color::Blue );
+        }
+        else
+        {
+            circle.setFillColor( sf::Color::Black );
+        }
+
         circle.setOutlineThickness(3);
         circle.setOrigin(16.f, 16.f);
         circle.setPosition(sDescriptor::PIXELS_IN_METER * xpos, sDescriptor::PIXELS_IN_METER * ypos);
