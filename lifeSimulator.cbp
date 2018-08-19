@@ -100,15 +100,14 @@
 		<Unit filename="include/guiwidgetslayer.hpp" />
 		<Unit filename="include/logwidget.hpp" />
 		<Unit filename="include/physicsbody.hpp" />
-		<Unit filename="include/propertyeditorwidget.hpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="include/propertyeditorwidget.hpp" />
 		<Unit filename="include/version.hpp" />
 		<Unit filename="include/world.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxml.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxmlnode.hpp" />
 		<Unit filename="libraries/codeframe-master/include/extendedtypepoint2d.hpp" />
 		<Unit filename="libraries/codeframe-master/include/instancemanager.hpp" />
+		<Unit filename="libraries/codeframe-master/include/propertyignorelist.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablechildlist.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializableconsole.hpp" />
@@ -118,6 +117,7 @@
 		<Unit filename="libraries/codeframe-master/include/serializableproperty.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablepropertybase.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablepropertyinfo.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializableselectable.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablestorage.hpp" />
 		<Unit filename="libraries/codeframe-master/include/typeinfo.hpp" />
 		<Unit filename="libraries/codeframe-master/include/typeinterface.hpp" />
@@ -143,6 +143,7 @@
 		<Unit filename="libraries/codeframe-master/src/serializablelua.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableproperty.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableregister.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializableselectable.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablestorage.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableversion.cpp" />
 		<Unit filename="libraries/codeframe-master/src/typeinfo.cpp" />

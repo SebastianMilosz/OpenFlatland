@@ -18,6 +18,10 @@ class PropertyEditorWidget : public sigslot::has_slots<>
         void Draw(const char* title, bool* p_open = NULL);
 
     private:
+        void ShowHelpMarker( const char* desc );
+        void ShowObject( smart_ptr<codeframe::cSerializableInterface> obj );
+
+        smart_ptr<codeframe::cSerializableInterface> m_obj;
 };
 
 #endif // PROPERTYEDITORWIDGET_HPP_INCLUDED

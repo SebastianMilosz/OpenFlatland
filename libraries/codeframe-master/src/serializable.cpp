@@ -51,6 +51,7 @@ namespace codeframe
     ******************************************************************************/
     cSerializable::cSerializable( const std::string& name, cSerializableInterface* parent ) :
         cSerializableStorage(),
+        cSerializableSelectable(),
 		m_delay( 0 ),
         m_parent( NULL ),
         m_sContainerName( name )

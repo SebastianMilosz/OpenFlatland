@@ -1115,7 +1115,7 @@
 	"entityfactory.hpp"
 	<typeinfo.hpp>
 
-1534539546 source:d:\sourcecode\lifesimulator\src\world.cpp
+1534601050 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.hpp"
 	<string>
 	<sstream>
@@ -1554,7 +1554,7 @@
 1504816631 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
 	"serializableregister.h"
 
-1534535219 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
+1534630707 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
 	"serializable.hpp"
 	<iostream>
 	<exception>
@@ -1574,12 +1574,12 @@
 	"serializable.hpp"
 	<cstdio>
 
-1534536124 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableinterface.cpp
+1534602301 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableinterface.cpp
 	"serializableinterface.hpp"
 	"serializableproperty.hpp"
 	<LoggerUtilities.h>
 
-1534535618 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
+1534676576 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
 	"serializablecontainer.hpp"
 
 1533114469 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.h
@@ -1741,12 +1741,13 @@
 	<algorithm>
 	<ThreadUtilities.h>
 
-1534535853 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
+1534609502 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
 	<vector>
 	<string>
 	<map>
 	<typeinfo>
 	<sigslot.h>
+	<smartpointer.h>
 	<DataTypesUtilities.h>
 	<MathUtilities.h>
 	<ThreadUtilities.h>
@@ -1769,10 +1770,11 @@
 	<FileUtilities.h>
 	"cxml.hpp"
 
-1534535607 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
+1534609541 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
 	<sigslot.h>
 	"serializablelua.hpp"
 	"serializablestorage.hpp"
+	"serializableselectable.hpp"
 
 1526595776 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablelua.hpp
 	<lua.h>
@@ -1784,7 +1786,7 @@
 	"serializableinterface.hpp"
 	"instancemanager.hpp"
 
-1534535686 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
+1534679523 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
 	<exception>
 	<stdexcept>
 	<vector>
@@ -1792,6 +1794,7 @@
 	<MathUtilities.h>
 	<smartpointer.h>
 	"serializable.hpp"
+	"propertyignorelist.hpp"
 
 1534539073 d:\sourcecode\lifesimulator\include\physicsbody.hpp
 	<Box2D/Box2D.h>
@@ -1817,7 +1820,7 @@
 	"world.hpp"
 	"entity.hpp"
 
-1534539112 d:\sourcecode\lifesimulator\include\world.hpp
+1534597868 d:\sourcecode\lifesimulator\include\world.hpp
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
@@ -1841,10 +1844,22 @@
 
 1518354163 d:\sourcecode\lifesimulator\include\version.hpp
 
-1534543574 d:\sourcecode\lifesimulator\include\propertyeditorwidget.hpp
+1534587781 d:\sourcecode\lifesimulator\include\propertyeditorwidget.hpp
 	<imgui.h>
 	<imgui-SFML.h>
 	<sigslot.h>
 	<smartpointer.h>
 	<serializable.hpp>
+
+1534677619 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableselectable.hpp
+	<sigslot.h>
+	<smartpointer.h>
+
+1534619035 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\propertyignorelist.hpp
+
+1534588146 source:d:\sourcecode\lifesimulator\src\propertyeditorwidget.cpp
+	"propertyeditorwidget.hpp"
+
+1534677302 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableselectable.cpp
+	"serializableselectable.hpp"
 
