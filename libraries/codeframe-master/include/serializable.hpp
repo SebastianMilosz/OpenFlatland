@@ -5,6 +5,7 @@
 
 #include "serializablelua.hpp"
 #include "serializablestorage.hpp"
+#include "serializableselectable.hpp"
 
 namespace codeframe
 {
@@ -16,7 +17,7 @@ namespace codeframe
       * @note cSetializable
      **
     ******************************************************************************/
-    class cSerializable : public cSerializableLua, public cSerializableStorage
+    class cSerializable : public cSerializableLua, public cSerializableStorage, public cSerializableSelectable
     {
         friend class PropertyBase;
 

@@ -6,6 +6,7 @@
 #include <map>
 #include <typeinfo>
 #include <sigslot.h>
+#include <smartpointer.h>
 
 #include <DataTypesUtilities.h>
 #include <MathUtilities.h>
@@ -20,10 +21,10 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Base common Interface to acces to all cSerializable objects
+      * @brief Base common Interface to access to all cSerializable objects
       * @author Sebastian Milosz
       * @version 1.0
-      * @note Base common Interface to acces to all cSerializable objects
+      * @note Base common Interface to access to all cSerializable objects
      **
     ******************************************************************************/
     class cSerializableInterface : public sigslot::has_slots<>
