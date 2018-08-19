@@ -160,7 +160,7 @@ bool cSerializableContainer::DisposeByBuildType( std::string serType, cIgnoreLis
             {
                 m_size--;
             }
-            signalSelected.Emit( sptr );
+            signalSelectionChanged.Emit( sptr );
         }
         else
         {
@@ -189,7 +189,7 @@ bool cSerializableContainer::Dispose( smart_ptr<cSerializableInterface> obj )
                 sptr->DisconectFromContainer();
                 *it = smart_ptr<cSerializable>();
                 if( m_size ) m_size--;
-                signalSelected.Emit( sptr );
+                signalSelectionChanged.Emit( sptr );
                 return true;
             }
         }
@@ -259,7 +259,7 @@ bool cSerializableContainer::Select( int pos )
     if( IsInRange( pos ) )
     {
         m_selected = Get( pos );
-        signalSelected.Emit( m_selected );
+        signalSelectionChanged.Emit( m_selected );
         return true;
     }
     return false;
@@ -389,5 +389,33 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
 ******************************************************************************/
 void cSerializableContainer::slotSelectionChanged( smart_ptr<cSerializableInterface> obj )
 {
-    LOGGER( LOG_INFO << "Object Selected: " << obj->ObjectName() );
+    cSerializable* serializableObjectNew = static_cast<cSerializable*>( smart_ptr_getRaw(obj) );
+
+    if ( (cSerializable*)NULL != serializableObjectNew )
+    {
+        std::string name = serializableObjectNew->ObjectName();
+
+        if ( serializableObjectNew->IsSelected() == true )
+        {
+            LOGGER( LOG_INFO << "Object Selected: " << name );
+
+            cSerializable* serializableObjectSel = static_cast<cSerializable*>( smart_ptr_getRaw(m_selected) );
+
+            if( serializableObjectSel != serializableObjectNew )
+            {
+                if ( (cSerializable*)NULL != serializableObjectSel )
+                {
+                    serializableObjectSel->Select( false );
+                }
+            }
+
+            m_selected = obj;
+
+            signalSelectionChanged.Emit( m_selected );
+        }
+        else
+        {
+            LOGGER( LOG_INFO << "Object Deselected: " << name );
+        }
+    }
 }

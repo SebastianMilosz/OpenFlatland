@@ -1082,7 +1082,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1534539433 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1534713095 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.hpp"
 	<utilities/LoggerUtilities.h>
 	<utilities/TextUtilities.h>
@@ -1579,8 +1579,9 @@
 	"serializableproperty.hpp"
 	<LoggerUtilities.h>
 
-1534676576 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
+1534679561 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
 	"serializablecontainer.hpp"
+	<LoggerUtilities.h>
 
 1533114469 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.h
 	<serializable.h>
@@ -1786,7 +1787,7 @@
 	"serializableinterface.hpp"
 	"instancemanager.hpp"
 
-1534679523 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
+1534711747 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
 	<exception>
 	<stdexcept>
 	<vector>

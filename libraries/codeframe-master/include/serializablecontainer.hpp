@@ -61,7 +61,7 @@ namespace codeframe
 
             int Add( smart_ptr<cSerializable> classType, int pos = -1 );
 
-            signal1< smart_ptr<cSerializableInterface> > signalSelected;
+            signal1< smart_ptr<cSerializableInterface> > signalSelectionChanged;
 
         protected:
             virtual int InsertObject( smart_ptr<cSerializable> classType, int pos = -1 );
