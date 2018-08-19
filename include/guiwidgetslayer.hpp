@@ -29,7 +29,8 @@ class GUIWidgetsLayer
 
         int GetFps();
 
-        LogWidget& GetLogWidget() { return m_logWidget; }
+        LogWidget&              GetLogWidget() { return m_logWidget; }
+        PropertyEditorWidget&   GetPropertyEditorWidget() { return m_PropertyEditorWidget; }
 
     protected:
 

@@ -38,6 +38,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     // Connect Signals
     m_EntityFactory       .signalEntityAdd .connect( &m_World, &World::AddShell );
+    m_EntityFactory       .signalContainerSelectionChanged.connect( &m_Widgets.GetPropertyEditorWidget(), &PropertyEditorWidget::SetObject );
     m_ConstElementsFactory.signalElementAdd.connect( &m_World, &World::AddConst );
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Initialized" );
