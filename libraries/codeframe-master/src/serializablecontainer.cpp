@@ -160,7 +160,7 @@ bool cSerializableContainer::DisposeByBuildType( std::string serType, cIgnoreLis
             {
                 m_size--;
             }
-            signalSelectionChanged.Emit( sptr );
+            signalContainerSelectionChanged.Emit( sptr );
         }
         else
         {
@@ -189,7 +189,7 @@ bool cSerializableContainer::Dispose( smart_ptr<cSerializableInterface> obj )
                 sptr->DisconectFromContainer();
                 *it = smart_ptr<cSerializable>();
                 if( m_size ) m_size--;
-                signalSelectionChanged.Emit( sptr );
+                signalContainerSelectionChanged.Emit( sptr );
                 return true;
             }
         }
@@ -259,7 +259,7 @@ bool cSerializableContainer::Select( int pos )
     if( IsInRange( pos ) )
     {
         m_selected = Get( pos );
-        signalSelectionChanged.Emit( m_selected );
+        signalContainerSelectionChanged.Emit( m_selected );
         return true;
     }
     return false;
@@ -411,7 +411,7 @@ void cSerializableContainer::slotSelectionChanged( smart_ptr<cSerializableInterf
 
             m_selected = obj;
 
-            signalSelectionChanged.Emit( m_selected );
+            signalContainerSelectionChanged.Emit( m_selected );
         }
         else
         {

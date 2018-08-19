@@ -105,6 +105,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         circle.setRotation(body->GetAngle() * 180/b2_pi);
         window.draw(circle);
 
+/*
         sf::Text text;
         text.setString( std::string("(") + std::to_string(xpos) + std::string(", ") + std::to_string(ypos) + std::string(")") );
         text.setColor(sf::Color::White);
@@ -112,6 +113,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         text.setFont( FontFactory::GetFont() );
         text.setPosition(sDescriptor::PIXELS_IN_METER * xpos, sDescriptor::PIXELS_IN_METER * ypos);
         window.draw(text);
+*/
     }
 }
 
