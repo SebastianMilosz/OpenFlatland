@@ -4,6 +4,12 @@
 
 namespace codeframe
 {
+    bool BoolFromString( std::string value )
+    {
+        int retVal = utilities::math::StrToInt( value );
+        return (bool)retVal;
+    }
+
     int IntFromString( std::string value )
     {
         int retVal = utilities::math::StrToInt( value );
@@ -28,6 +34,11 @@ namespace codeframe
         return retType;
     }
 
+    std::string BoolToString( const bool& value )
+    {
+        return utilities::math::IntToStr( value );
+    }
+
     std::string IntToString( const int& value )
     {
         return utilities::math::IntToStr( value );
@@ -46,6 +57,11 @@ namespace codeframe
     std::string Point2DToString( const Point2D& point )
     {
         return point.ToStringCallback();
+    }
+
+    IntegerType BoolToInt( const bool& value )
+    {
+        return value;
     }
 
     IntegerType IntToInt( const int& value )
@@ -68,6 +84,11 @@ namespace codeframe
         return 0;
     }
 
+    bool BoolFromInt( IntegerType value )
+    {
+        return value;
+    }
+
     int IntFromInt( IntegerType value )
     {
         return value;
@@ -85,6 +106,11 @@ namespace codeframe
         return retVal;
     }
 
+    RealType BoolToReal( const bool& value )
+    {
+        return value;
+    }
+
     RealType IntToReal( const int& value )
     {
         return value;
@@ -98,6 +124,12 @@ namespace codeframe
     RealType StringToReal( const std::string& value )
     {
         return 0;
+    }
+
+    bool BoolFromReal( double value )
+    {
+        int retVal = value;
+        return retVal;
     }
 
     int IntFromReal( double value )
@@ -181,6 +213,7 @@ namespace codeframe
 
     // Fundamental types
     REGISTER_TYPE( std::string   , "text" );
+    REGISTER_TYPE( bool          , "int"  );
     REGISTER_TYPE( int           , "int"  );
     REGISTER_TYPE( unsigned int  , "int"  );
     REGISTER_TYPE( short         , "int"  );
@@ -191,30 +224,36 @@ namespace codeframe
 
     TypeInitializer::TypeInitializer( void )
     {
+        GetTypeInfo<bool        >().SetFromStringCallback( &BoolFromString    );
         GetTypeInfo<int         >().SetFromStringCallback( &IntFromString     );
         GetTypeInfo<unsigned int>().SetFromStringCallback( &UIntFromString    );
         GetTypeInfo<std::string >().SetFromStringCallback( &StringFromString  );
         GetTypeInfo<Point2D     >().SetFromStringCallback( &Point2DFromString );
 
+        GetTypeInfo<bool        >().SetToStringCallback( &BoolToString    );
         GetTypeInfo<int         >().SetToStringCallback( &IntToString     );
         GetTypeInfo<unsigned int>().SetToStringCallback( &UIntToString    );
         GetTypeInfo<std::string >().SetToStringCallback( &StringToString  );
         GetTypeInfo<Point2D     >().SetToStringCallback( &Point2DToString );
 
+        GetTypeInfo<bool        >().SetFromIntegerCallback( &BoolFromInt   );
         GetTypeInfo<int         >().SetFromIntegerCallback( &IntFromInt    );
         GetTypeInfo<unsigned int>().SetFromIntegerCallback( &UIntFromInt   );
         GetTypeInfo<std::string >().SetFromIntegerCallback( &StringFromInt );
         GetTypeInfo<Point2D     >().SetFromIntegerCallback( NULL );
 
+        GetTypeInfo<bool        >().SetToIntegerCallback( &BoolToInt    );
         GetTypeInfo<int         >().SetToIntegerCallback( &IntToInt     );
         GetTypeInfo<unsigned int>().SetToIntegerCallback( &UIntToInt    );
         GetTypeInfo<std::string >().SetToIntegerCallback( &StringToInt  );
         GetTypeInfo<Point2D     >().SetToIntegerCallback( &Point2DToInt );
 
+        GetTypeInfo<bool        >().SetFromRealCallback( &BoolFromReal   );
         GetTypeInfo<int         >().SetFromRealCallback( &IntFromReal    );
         GetTypeInfo<unsigned int>().SetFromRealCallback( &UIntFromReal   );
         GetTypeInfo<std::string >().SetFromRealCallback( &StringFromReal );
 
+        GetTypeInfo<bool        >().SetToRealCallback( &BoolToReal   );
         GetTypeInfo<int         >().SetToRealCallback( &IntToReal    );
         GetTypeInfo<unsigned int>().SetToRealCallback( &UIntToReal   );
         GetTypeInfo<std::string >().SetToRealCallback( &StringToReal );
