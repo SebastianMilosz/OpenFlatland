@@ -106,7 +106,7 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterfa
 
         ImGui::NextColumn();
         ImGui::AlignTextToFramePadding();
-        ImGui::Text("my sailor is rich");
+        ImGui::Text( "Class: %s", obj->Class().c_str() );
         ImGui::NextColumn();
 
         if ( node_open == true )
@@ -126,11 +126,10 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterfa
                     ImGui::AlignTextToFramePadding();
 
                     ImGui::Bullet();
+                    ImGui::Selectable( iser->Name().c_str() );
 
                     ImGui::NextColumn();
                     ImGui::PushItemWidth(-1);
-
-                    ImGui::Selectable( iser->Name().c_str() );
 
                     // Depend on the property type
                     switch ( iser->Info().GetKind() )
@@ -142,13 +141,16 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterfa
                         }
                         case codeframe::KIND_LOGIC:
                         {
-
+                            bool check = (bool)(*iser);
+                            ImGui::Checkbox("##value", &check);
+                            (*iser) = check;
                             break;
                         }
                         case codeframe::KIND_NUMBER:
                         {
-                            int value = 1;
+                            int value = (int)(*iser);
                             ImGui::InputInt("##value", &value, 1);
+                            (*iser) = value;
                             break;
                         }
                         case codeframe::KIND_NUMBERRANGE:
@@ -158,13 +160,14 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterfa
                         }
                         case codeframe::KIND_REAL:
                         {
-                            float value = 0.7F;
+                            float value = (float)(*iser);
                             ImGui::InputFloat("##value", &value, 1.0f);
+                            (*iser) = value;
                             break;
                         }
                         case codeframe::KIND_TEXT:
                         {
-
+                            //ImGui::InputText("##value", windowTitle, 255);
                             break;
                         }
                         case codeframe::KIND_ENUM:

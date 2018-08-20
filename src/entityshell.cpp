@@ -14,10 +14,10 @@ using namespace codeframe;
 ******************************************************************************/
 EntityShell::EntityShell( std::string name, int x, int y, int z ) :
     PhysicsBody( name, NULL ),
-    X   ( this, "X"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), this, &EntityShell::GetX ),
-    Y   ( this, "Y"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), this, &EntityShell::GetY ),
-    Z   ( this, "Z"   , 0 , cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), this, &EntityShell::GetZ ),
-    Name( this, "Name", "", cPropertyInfo().Kind( KIND_TEXT ).Description("Name") )
+    X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
+    Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
+    CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays")),
+    Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") )
 {
     b2CircleShape* shape =  new b2CircleShape();
     shape->m_p.Set(0, 0);
@@ -52,10 +52,10 @@ EntityShell::~EntityShell()
 ******************************************************************************/
 EntityShell::EntityShell(const EntityShell& other) :
     PhysicsBody( other ),
-    X   ( this, "X"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Xpos"), this, &EntityShell::GetX ),
-    Y   ( this, "Y"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Ypos"), this, &EntityShell::GetY ),
-    Z   ( this, "Z"   , 0, cPropertyInfo().Kind( KIND_REAL ).Description("Zpos"), this, &EntityShell::GetZ ),
-    Name( this, "Name", 0, cPropertyInfo().Kind( KIND_TEXT ).Description("Name") )
+    X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
+    Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
+    CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays")),
+    Name    ( this, "Name"    , 0    , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") )
 {
 }
 
@@ -122,7 +122,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
   * @brief
  **
 ******************************************************************************/
-unsigned int EntityShell::GetX()
+int EntityShell::GetX()
 {
     if( GetDescriptor().Body == NULL ) return 0;
 
@@ -134,7 +134,7 @@ unsigned int EntityShell::GetX()
   * @brief
  **
 ******************************************************************************/
-void EntityShell::SetX(unsigned int val)
+void EntityShell::SetX(int val)
 {
     //m_x = val;
 }
@@ -144,7 +144,7 @@ void EntityShell::SetX(unsigned int val)
   * @brief
  **
 ******************************************************************************/
-unsigned int EntityShell::GetY()
+int EntityShell::GetY()
 {
     if( GetDescriptor().Body == NULL ) return 0;
 
@@ -156,27 +156,7 @@ unsigned int EntityShell::GetY()
   * @brief
  **
 ******************************************************************************/
-void EntityShell::SetY(unsigned int val)
+void EntityShell::SetY(int val)
 {
     //m_y = val;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-unsigned int EntityShell::GetZ()
-{
-    return 0;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityShell::SetZ(unsigned int val)
-{
-    //m_z = val;
 }
