@@ -23,7 +23,7 @@ class World : public codeframe::cSerializable
         void AddShell( std::shared_ptr<Entity>       entity );
         void AddConst( std::shared_ptr<ConstElement> constElement );
 
-        bool PhysisStep();
+        bool PhysisStep(sf::RenderWindow& window);
         bool Draw( sf::RenderWindow& window );
 
         void MouseDown( float x, float y );
@@ -33,9 +33,36 @@ class World : public codeframe::cSerializable
     protected:
 
     private:
+        class RayCastCallback : public b2RayCastCallback
+        {
+            public:
+                RayCastCallback()
+                {
+                    m_hit = false;
+                }
+
+                float32 ReportFixture( b2Fixture* fixture, const b2Vec2& point,
+                                       const b2Vec2& normal, float32 fraction )
+                {
+                    m_hit    = true;
+                    m_point  = point;
+                    m_normal = normal;
+
+                    return fraction;
+                }
+
+                bool   WasHit() { return m_hit; }
+                b2Vec2 HitPoint() { return m_point; }
+
+            private:
+                bool m_hit;
+                b2Vec2 m_point;
+                b2Vec2 m_normal;
+        };
+
         b2Body* getBodyAtMouse( float x, float y );
 
-        void CalculateRays();
+        void CalculateRays( sf::RenderWindow& window );
 
         b2Body*         m_GroundBody;
         b2MouseJoint*   m_MouseJoint;

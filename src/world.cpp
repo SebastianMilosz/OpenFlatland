@@ -117,11 +117,11 @@ void World::AddConst( std::shared_ptr<ConstElement> constElement )
   * @brief
  **
 ******************************************************************************/
-bool World::PhysisStep()
+bool World::PhysisStep(sf::RenderWindow& window)
 {
     m_World.Step(1/60.f, 8, 3);
 
-    CalculateRays();
+    CalculateRays(window);
 
     return true;
 }
@@ -271,7 +271,7 @@ b2Body* World::getBodyAtMouse( float x, float y )
   * @brief
  **
 ******************************************************************************/
-void World::CalculateRays()
+void World::CalculateRays( sf::RenderWindow& window )
 {
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext() )
     {
@@ -287,7 +287,38 @@ void World::CalculateRays()
                 {
                     if ( (bool)entity->CastRays == true )
                     {
+                        float currentRayAngle = 0;
+                        int rayCntLimit = (unsigned int)entity->RaysCnt;
+                        int rayStep = 360.0 / rayCntLimit;
 
+                        for ( int ray = 0; ray < rayCntLimit; ray++ )
+                        {
+                            //calculate points of ray
+                            float rayLength = 205; //long enough to hit the walls
+
+                            int entX = entity->GetX();
+                            int entY = entity->GetY();
+
+                            b2Vec2 p1( entX, entY ); //center of entity
+                            b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
+
+                            RayCastCallback callback;
+
+                            m_World.RayCast( &callback, p1, p2 );
+
+                            if( callback.WasHit() == true )
+                            {
+                                sf::Vertex line[2];
+                                line[0].position = sf::Vector2f(30.f * p1.x, 30.f * p1.y);
+                                line[0].color  = sf::Color::White;
+                                line[1].position = sf::Vector2f(30.f * callback.HitPoint().x, 30.f * callback.HitPoint().y);
+                                line[1].color = sf::Color::White;
+
+                                window.draw( line, 2, sf::Lines );
+                            }
+
+                            currentRayAngle += rayStep;
+                        }
                     }
                 }
             }
