@@ -2,7 +2,6 @@
 #include "version.hpp"
 
 #include <utilities/LoggerUtilities.h>
-#include <cpgf/gcallbacklist.h>
 #include <SFML/Graphics.hpp>
 
 /*****************************************************************************/

@@ -4,7 +4,6 @@
 #include <utilities/FileUtilities.h>
 #include <serializable.hpp>
 #include <SFML/Graphics.hpp>
-#include <cpgf/gcallbacklist.h>
 #include <Box2D/Box2D.h>
 
 #include "application.hpp"
