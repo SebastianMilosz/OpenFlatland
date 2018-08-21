@@ -68,8 +68,9 @@ int GUIWidgetsLayer::GetMouseModeId()
 GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_window( window ),
     m_MouseMode( MOUSE_MODE_SEL_ENTITY ),
-    m_mouseCapturedByGui(false),
-    m_logWidgetOpen(true)
+    m_mouseCapturedByGui( false ),
+    m_logWidgetOpen( true ),
+    m_PropertyEditorOpen( true )
 {
     ImGui::SFML::Init( m_window );
 }

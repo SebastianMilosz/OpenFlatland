@@ -55,7 +55,7 @@ EntityShell::EntityShell(const EntityShell& other) :
     X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
     Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
     CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays")),
-    Name    ( this, "Name"    , 0    , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") )
+    Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") )
 {
 }
 
