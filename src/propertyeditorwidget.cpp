@@ -167,12 +167,12 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterfa
                         }
                         case codeframe::KIND_TEXT:
                         {
+                            char newText[32];
+                            memset(newText, 0, 32);
                             std::string textValue = (std::string)(*iser);
-                            size_t size = textValue.length();
-                            char newText[size];
-                            strncpy(newText, textValue.c_str(), sizeof(newText));
-
-                            ImGui::InputText("##value", newText, size);
+                            strncpy(newText, textValue.c_str(), textValue.length());
+                            ImGui::InputText("##value", newText, IM_ARRAYSIZE(newText));
+                            (*iser) = std::string( newText );
                             break;
                         }
                         case codeframe::KIND_ENUM:
