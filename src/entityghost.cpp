@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-EntityGhost::EntityGhost( std::string name, int x, int y, int z ) : EntityShell( name, x, y, z )
+EntityGhost::EntityGhost( std::string name, int x, int y ) : EntityShell( name, x, y )
 {
     //ctor
 }

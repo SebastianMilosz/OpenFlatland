@@ -35,6 +35,8 @@ class World : public codeframe::cSerializable
     private:
         b2Body* getBodyAtMouse( float x, float y );
 
+        void CalculateRays();
+
         b2Body*         m_GroundBody;
         b2MouseJoint*   m_MouseJoint;
         b2MouseJointDef m_JointDef;

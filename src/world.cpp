@@ -120,6 +120,9 @@ void World::AddConst( std::shared_ptr<ConstElement> constElement )
 bool World::PhysisStep()
 {
     m_World.Step(1/60.f, 8, 3);
+
+    CalculateRays();
+
     return true;
 }
 
@@ -215,11 +218,11 @@ void World::MouseUp( float x, float y )
 {
     m_entitySelMode = false;
 
-	if ( m_MouseJoint )
-	{
-		m_World.DestroyJoint( m_MouseJoint );
-		m_MouseJoint = NULL;
-	}
+    if ( m_MouseJoint )
+    {
+        m_World.DestroyJoint( m_MouseJoint );
+        m_MouseJoint = NULL;
+    }
 }
 
 /*****************************************************************************/
@@ -229,11 +232,11 @@ void World::MouseUp( float x, float y )
 ******************************************************************************/
 void World::MouseMove( float x, float y )
 {
-	if ( m_MouseJoint )
-	{
-	    b2Vec2 locationWorld = b2Vec2(x/SCALE, y/SCALE);
-		m_MouseJoint->SetTarget( locationWorld );
-	}
+    if ( m_MouseJoint )
+    {
+        b2Vec2 locationWorld = b2Vec2(x/SCALE, y/SCALE);
+        m_MouseJoint->SetTarget( locationWorld );
+    }
 }
 
 /*****************************************************************************/
@@ -261,4 +264,33 @@ b2Body* World::getBodyAtMouse( float x, float y )
    }
 
    return NULL;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void World::CalculateRays()
+{
+    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext() )
+    {
+        if ( BodyIterator->GetType() == b2_dynamicBody )
+        {
+            void* userVoid = BodyIterator->GetUserData();
+
+            if ( userVoid )
+            {
+                Entity* entity = static_cast<Entity*>(userVoid);
+
+                if ( entity )
+                {
+                    if ( (bool)entity->CastRays == true )
+                    {
+
+                    }
+                }
+            }
+        }
+    }
 }

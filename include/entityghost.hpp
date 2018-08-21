@@ -11,7 +11,7 @@ class EntityGhost : public EntityShell
         std::string BuildType() const { return "Dynamic";     }
 
     public:
-        EntityGhost( std::string name, int x, int y, int z );
+        EntityGhost( std::string name, int x, int y );
         virtual ~EntityGhost();
         EntityGhost(const EntityGhost& other);
         EntityGhost& operator=(const EntityGhost& other);
