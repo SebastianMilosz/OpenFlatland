@@ -12,12 +12,15 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell( std::string name, int x, int y, int z ) :
+EntityShell::EntityShell( std::string name, int x, int y ) :
     PhysicsBody( name, NULL ),
     X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
     Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
-    CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays")),
-    Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") )
+    CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays") ),
+    RaysCnt ( this, "RaysCnt" , 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt") ),
+    Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") ),
+    Density ( this, "Density" , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
+    Friction( this, "Friction", 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") )
 {
     b2CircleShape* shape =  new b2CircleShape();
     shape->m_p.Set(0, 0);
@@ -29,10 +32,10 @@ EntityShell::EntityShell( std::string name, int x, int y, int z ) :
                                               (float)y/sDescriptor::PIXELS_IN_METER
                                              );
     GetDescriptor().BodyDef.type = b2_dynamicBody;
-    GetDescriptor().BodyDef.userData = (void*)this;
-    GetDescriptor().FixtureDef.density = 1.f;
-    GetDescriptor().FixtureDef.friction = 0.7f;
-    GetDescriptor().FixtureDef.shape = GetDescriptor().Shape;
+    GetDescriptor().BodyDef.userData    = (void*)this;
+    GetDescriptor().FixtureDef.density  = (float)Density;
+    GetDescriptor().FixtureDef.friction = (float)Friction;
+    GetDescriptor().FixtureDef.shape    = GetDescriptor().Shape;
 }
 
 /*****************************************************************************/
@@ -52,10 +55,13 @@ EntityShell::~EntityShell()
 ******************************************************************************/
 EntityShell::EntityShell(const EntityShell& other) :
     PhysicsBody( other ),
-    X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
-    Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
-    CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays")),
-    Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") )
+    X       ( other.X ),
+    Y       ( other.Y ),
+    CastRays( other.CastRays ),
+    RaysCnt ( other.RaysCnt ),
+    Name    ( other.Name ),
+    Density ( other.Density ),
+    Friction( other.Friction )
 {
 }
 
