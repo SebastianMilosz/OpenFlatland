@@ -177,10 +177,12 @@ void Application::ProcesseLogic( void )
         }
     }
 
-    /** Simulate the world */
-    m_World.PhysisStep();
-
     m_Window.clear();
+
+    /** Simulate the world */
+    m_World.PhysisStep( m_Window );
+
+
 
     m_World.Draw( m_Window );
 
