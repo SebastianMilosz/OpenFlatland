@@ -56,7 +56,6 @@
 			<Add directory="libraries/SFML-master/include" />
 			<Add directory="libraries/Box2D-master/Box2D" />
 			<Add directory="libraries/lua-5.3.4/src" />
-			<Add directory="libraries/cpgf-master/include" />
 			<Add directory="libraries/codeframe-master/include" />
 			<Add directory="libraries/codeframe-master/include/utilities" />
 			<Add directory="libraries/codeframe-master/thirdparty/pugixml-1.7/src" />
@@ -80,13 +79,10 @@
 			<Add library="winmm" />
 			<Add library="Box2D" />
 			<Add library="lua" />
-			<Add library="cpgf" />
-			<Add directory="libraries/TGUI-0.8-dev/build/lib" />
 			<Add directory="libraries/SFML-master/build/lib" />
 			<Add directory="libraries/SFML-master/extlibs/libs-mingw/x86" />
 			<Add directory="libraries/Box2D-master/Box2D/Build/Box2D" />
 			<Add directory="libraries/lua-5.3.4/build" />
-			<Add directory="libraries/cpgf-master/lib" />
 		</Linker>
 		<Unit filename="include/application.hpp" />
 		<Unit filename="include/constelement.hpp" />
