@@ -10,6 +10,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 
+#include "physicsbody.hpp"
+
 /*****************************************************************************/
 /**
   * @brief
@@ -174,7 +176,7 @@ void GUIWidgetsLayer::Draw()
 
     ImGui::Text( "World: (%3.2f, %3.2f)", worldPos.x, worldPos.y );
 
-    ImGui::Text( "World: (%3.2f, %3.2f)", worldPos.x/30.f, worldPos.y/30.f );
+    ImGui::Text( "World: (%3.2f, %3.2f)", worldPos.x/PhysicsBody::sDescriptor::PIXELS_IN_METER, worldPos.y/PhysicsBody::sDescriptor::PIXELS_IN_METER );
 
     ImGui::End();
 

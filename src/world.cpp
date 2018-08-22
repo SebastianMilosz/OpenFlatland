@@ -135,22 +135,17 @@ bool World::Draw( sf::RenderWindow& window )
         if ( BodyIterator->GetType() == b2_dynamicBody ||
              BodyIterator->GetType() == b2_staticBody )
         {
-            void* userVoid = BodyIterator->GetUserData();
+            PhysicsBody* physicsBody = static_cast<PhysicsBody*>( BodyIterator->GetUserData() );
 
-            if ( userVoid )
+            if ( (PhysicsBody*)NULL != physicsBody )
             {
-                PhysicsBody* physicsBody = static_cast<PhysicsBody*>(userVoid);
-
-                if ( physicsBody )
-                {
-                    physicsBody->Draw( window, BodyIterator );
-                }
+                physicsBody->Draw( window, BodyIterator );
             }
         }
         else
         {
+            /*
             sf::Sprite GroundSprite;
-            //GroundSprite.SetTexture(GroundTexture);
             GroundSprite.setOrigin(400.f, 8.f);
             GroundSprite.setPosition(
                                      BodyIterator->GetPosition().x * PhysicsBody::sDescriptor::PIXELS_IN_METER,
@@ -158,6 +153,7 @@ bool World::Draw( sf::RenderWindow& window )
                                     );
             GroundSprite.setRotation(180/b2_pi * BodyIterator->GetAngle());
             window.draw(GroundSprite);
+            */
         }
     }
 
@@ -179,31 +175,26 @@ void World::MouseDown( float x, float y )
 
         if ( body )
         {
-            void* userVoid = body->GetUserData();
+            EntityShell* entShell = static_cast<EntityShell*>( body->GetUserData() );
 
-            if ( userVoid )
+            if ( (EntityShell*)NULL != entShell )
             {
-                EntityShell* entShell = static_cast<EntityShell*>(userVoid);
-
-                if ( (EntityShell*)NULL != entShell )
+                if ( m_MouseJoint )
                 {
-                    if ( m_MouseJoint )
-                    {
-                        m_World.DestroyJoint( m_MouseJoint );
-                        m_MouseJoint = NULL;
-                    }
-
-                    b2Vec2 locationWorld = b2Vec2(x/PhysicsBody::sDescriptor::PIXELS_IN_METER, y/PhysicsBody::sDescriptor::PIXELS_IN_METER);
-
-                    m_JointDef.bodyB    = body;
-                    m_JointDef.maxForce = 1000.0f * body->GetMass();
-                    m_JointDef.target   = locationWorld;
-                    m_MouseJoint        = (b2MouseJoint*)m_World.CreateJoint( &m_JointDef );
-
-                    entShell->Select();
-
-                    body->SetAwake( true );
+                    m_World.DestroyJoint( m_MouseJoint );
+                    m_MouseJoint = NULL;
                 }
+
+                b2Vec2 locationWorld = b2Vec2(x/PhysicsBody::sDescriptor::PIXELS_IN_METER, y/PhysicsBody::sDescriptor::PIXELS_IN_METER);
+
+                m_JointDef.bodyB    = body;
+                m_JointDef.maxForce = 1000.0f * body->GetMass();
+                m_JointDef.target   = locationWorld;
+                m_MouseJoint        = (b2MouseJoint*)m_World.CreateJoint( &m_JointDef );
+
+                entShell->Select();
+
+                body->SetAwake( true );
             }
         }
     }
@@ -273,66 +264,52 @@ b2Body* World::getBodyAtMouse( float x, float y )
 ******************************************************************************/
 void World::CalculateRays( sf::RenderWindow& window )
 {
+    RayCastCallback callback;
+
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext() )
     {
         if ( BodyIterator->GetType() == b2_dynamicBody )
         {
-            void* userVoid = BodyIterator->GetUserData();
+            Entity* entity = static_cast<Entity*>( BodyIterator->GetUserData() );
 
-            if ( userVoid )
+            if ( (Entity*)NULL != entity )
             {
-                Entity* entity = static_cast<Entity*>(userVoid);
-
-                if ( entity )
+                if ( (bool)entity->CastRays == true )
                 {
-                    if ( (bool)entity->CastRays == true )
+                    unsigned int rayLength = (unsigned int)entity->RaysSize;
+                    unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
+                    float32 currentRayAngle = 0.0F;
+                    float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
+                    sf::Vertex line[2];
+                    line[0].color = sf::Color::White;
+                    line[1].color = sf::Color::White;
+
+                    //center of entity
+                    b2Vec2 p1 = entity->GetPhysicalPoint();
+                    b2Vec2 pixStartPoint = PhysicsBody::sDescriptor::Meters2Pixels( p1 );
+                    line[0].position = sf::Vector2f(pixStartPoint.x, pixStartPoint.y);
+
+                    for ( register unsigned int ray = 0; ray < rayCntLimit; ray++ )
                     {
-                        float currentRayAngle = 0;
-                        int rayCntLimit = (unsigned int)entity->RaysCnt;
-                        int rayStep = 360.0 / rayCntLimit;
+                        //calculate points of ray
+                        b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
 
-                        for ( int ray = 0; ray < rayCntLimit; ray++ )
+                        m_World.RayCast( &callback, p1, p2 );
+
+                        if( callback.WasHit() == true )
                         {
-                            //calculate points of ray
-                            float rayLength = 205; //long enough to hit the walls
-
-                            float32 entX = entity->GetPhysicalX();
-                            float32 entY = entity->GetPhysicalY();
-
-                            b2Vec2 p1( entX, entY ); //center of entity
-                            b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
-
-                            RayCastCallback callback;
-
-                            m_World.RayCast( &callback, p1, p2 );
-
-                            sf::Vertex line[2];
-
-                            if( callback.WasHit() == true )
-                            {
-                                b2Vec2 pixEndPoint   = PhysicsBody::sDescriptor::Meters2Pixels( callback.HitPoint() );
-                                b2Vec2 pixStartPoint = PhysicsBody::sDescriptor::Meters2Pixels( p1 );
-
-                                line[0].position = sf::Vector2f(pixStartPoint.x, pixStartPoint.y);
-                                line[0].color  = sf::Color::White;
-                                line[1].position = sf::Vector2f(pixEndPoint.x, pixEndPoint.y);
-                                line[1].color = sf::Color::White;
-                            }
-                            else
-                            {
-                                b2Vec2 pixEndPoint   = PhysicsBody::sDescriptor::Meters2Pixels( p2 );
-                                b2Vec2 pixStartPoint = PhysicsBody::sDescriptor::Meters2Pixels( p1 );
-
-                                line[0].position = sf::Vector2f(pixStartPoint.x, pixStartPoint.y);
-                                line[0].color  = sf::Color::White;
-                                line[1].position = sf::Vector2f(pixEndPoint.x, pixEndPoint.y);
-                                line[1].color = sf::Color::White;
-                            }
-
-                            window.draw( line, 2, sf::Lines );
-
-                            currentRayAngle += rayStep;
+                            b2Vec2 pixEndPoint = PhysicsBody::sDescriptor::Meters2Pixels( callback.HitPoint() );
+                            line[1].position = sf::Vector2f(pixEndPoint.x, pixEndPoint.y);
                         }
+                        else
+                        {
+                            b2Vec2 pixEndPoint = PhysicsBody::sDescriptor::Meters2Pixels( p2 );
+                            line[1].position = sf::Vector2f(pixEndPoint.x, pixEndPoint.y);
+                        }
+
+                        window.draw( line, 2, sf::Lines );
+
+                        currentRayAngle += rayAngleStep;
                     }
                 }
             }
