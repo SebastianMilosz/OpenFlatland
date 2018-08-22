@@ -2,7 +2,8 @@
 
 using namespace codeframe;
 
-const float PhysicsBody::sDescriptor::PIXELS_IN_METER = 30.f;
+const float PhysicsBody::sDescriptor::PIXELS_IN_METER = 25.0f;
+const float PhysicsBody::sDescriptor::METER_IN_PIXELS = 0.04f;
 
 /*****************************************************************************/
 /**

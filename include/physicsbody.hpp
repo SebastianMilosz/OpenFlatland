@@ -17,6 +17,7 @@ class PhysicsBody : public codeframe::cSerializable
         struct sDescriptor
         {
             static const float PIXELS_IN_METER;
+            static const float METER_IN_PIXELS;
 
             sDescriptor() :
                 Body( NULL ),
@@ -30,6 +31,20 @@ class PhysicsBody : public codeframe::cSerializable
             b2FixtureDef    FixtureDef;
             b2BodyDef       BodyDef;
             sf::Color       Color;
+
+            static b2Vec2 Meters2Pixels( const b2Vec2& point )
+            {
+                b2Vec2 retpoint = point;
+                retpoint *= PIXELS_IN_METER;
+                return retpoint;
+            }
+
+            static b2Vec2 Pixels2Meters( const b2Vec2& point )
+            {
+                b2Vec2 retpoint = point;
+                retpoint *= METER_IN_PIXELS;
+                return retpoint;
+            }
         };
 
         PhysicsBody( std::string name, codeframe::cSerializableInterface* parent );

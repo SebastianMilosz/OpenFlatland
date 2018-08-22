@@ -5,9 +5,6 @@
 
 #include <utilities/LoggerUtilities.h>
 
-// Box2D works with meters where 1mt = 30 pixels
-static const float SCALE = 30.f;
-
 class QueryCallback : public b2QueryCallback
 {
 public:
@@ -155,7 +152,10 @@ bool World::Draw( sf::RenderWindow& window )
             sf::Sprite GroundSprite;
             //GroundSprite.SetTexture(GroundTexture);
             GroundSprite.setOrigin(400.f, 8.f);
-            GroundSprite.setPosition(BodyIterator->GetPosition().x * SCALE, BodyIterator->GetPosition().y * SCALE);
+            GroundSprite.setPosition(
+                                     BodyIterator->GetPosition().x * PhysicsBody::sDescriptor::PIXELS_IN_METER,
+                                     BodyIterator->GetPosition().y * PhysicsBody::sDescriptor::PIXELS_IN_METER
+                                    );
             GroundSprite.setRotation(180/b2_pi * BodyIterator->GetAngle());
             window.draw(GroundSprite);
         }
@@ -175,7 +175,7 @@ void World::MouseDown( float x, float y )
     {
         m_entitySelMode = true;
 
-        b2Body* body = getBodyAtMouse( x/SCALE, y/SCALE );
+        b2Body* body = getBodyAtMouse( x/PhysicsBody::sDescriptor::PIXELS_IN_METER, y/PhysicsBody::sDescriptor::PIXELS_IN_METER );
 
         if ( body )
         {
@@ -193,7 +193,7 @@ void World::MouseDown( float x, float y )
                         m_MouseJoint = NULL;
                     }
 
-                    b2Vec2 locationWorld = b2Vec2(x/SCALE, y/SCALE);
+                    b2Vec2 locationWorld = b2Vec2(x/PhysicsBody::sDescriptor::PIXELS_IN_METER, y/PhysicsBody::sDescriptor::PIXELS_IN_METER);
 
                     m_JointDef.bodyB    = body;
                     m_JointDef.maxForce = 1000.0f * body->GetMass();
@@ -234,7 +234,7 @@ void World::MouseMove( float x, float y )
 {
     if ( m_MouseJoint )
     {
-        b2Vec2 locationWorld = b2Vec2(x/SCALE, y/SCALE);
+        b2Vec2 locationWorld = b2Vec2(x/PhysicsBody::sDescriptor::PIXELS_IN_METER, y/PhysicsBody::sDescriptor::PIXELS_IN_METER);
         m_MouseJoint->SetTarget( locationWorld );
     }
 }
@@ -296,8 +296,8 @@ void World::CalculateRays( sf::RenderWindow& window )
                             //calculate points of ray
                             float rayLength = 205; //long enough to hit the walls
 
-                            int entX = entity->GetX();
-                            int entY = entity->GetY();
+                            float32 entX = entity->GetPhysicalX();
+                            float32 entY = entity->GetPhysicalY();
 
                             b2Vec2 p1( entX, entY ); //center of entity
                             b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
@@ -306,16 +306,30 @@ void World::CalculateRays( sf::RenderWindow& window )
 
                             m_World.RayCast( &callback, p1, p2 );
 
+                            sf::Vertex line[2];
+
                             if( callback.WasHit() == true )
                             {
-                                sf::Vertex line[2];
-                                line[0].position = sf::Vector2f(30.f * p1.x, 30.f * p1.y);
-                                line[0].color  = sf::Color::White;
-                                line[1].position = sf::Vector2f(30.f * callback.HitPoint().x, 30.f * callback.HitPoint().y);
-                                line[1].color = sf::Color::White;
+                                b2Vec2 pixEndPoint   = PhysicsBody::sDescriptor::Meters2Pixels( callback.HitPoint() );
+                                b2Vec2 pixStartPoint = PhysicsBody::sDescriptor::Meters2Pixels( p1 );
 
-                                window.draw( line, 2, sf::Lines );
+                                line[0].position = sf::Vector2f(pixStartPoint.x, pixStartPoint.y);
+                                line[0].color  = sf::Color::White;
+                                line[1].position = sf::Vector2f(pixEndPoint.x, pixEndPoint.y);
+                                line[1].color = sf::Color::White;
                             }
+                            else
+                            {
+                                b2Vec2 pixEndPoint   = PhysicsBody::sDescriptor::Meters2Pixels( p2 );
+                                b2Vec2 pixStartPoint = PhysicsBody::sDescriptor::Meters2Pixels( p1 );
+
+                                line[0].position = sf::Vector2f(pixStartPoint.x, pixStartPoint.y);
+                                line[0].color  = sf::Color::White;
+                                line[1].position = sf::Vector2f(pixEndPoint.x, pixEndPoint.y);
+                                line[1].color = sf::Color::White;
+                            }
+
+                            window.draw( line, 2, sf::Lines );
 
                             currentRayAngle += rayStep;
                         }

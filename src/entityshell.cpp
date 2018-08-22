@@ -125,7 +125,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
 
 /*****************************************************************************/
 /**
-  * @brief
+  * @brief Return X coordinates in pixels
  **
 ******************************************************************************/
 int EntityShell::GetX()
@@ -133,6 +133,18 @@ int EntityShell::GetX()
     if( GetDescriptor().Body == NULL ) return 0;
 
     return GetDescriptor().Body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
+}
+
+/*****************************************************************************/
+/**
+  * @brief Return X coordinates in meters
+ **
+******************************************************************************/
+float32 EntityShell::GetPhysicalX()
+{
+    if( GetDescriptor().Body == NULL ) return 0;
+
+    return GetDescriptor().Body->GetPosition().x;
 }
 
 /*****************************************************************************/
@@ -147,7 +159,7 @@ void EntityShell::SetX(int val)
 
 /*****************************************************************************/
 /**
-  * @brief
+  * @brief Return Y coordinates in pixels
  **
 ******************************************************************************/
 int EntityShell::GetY()
@@ -155,6 +167,18 @@ int EntityShell::GetY()
     if( GetDescriptor().Body == NULL ) return 0;
 
     return GetDescriptor().Body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
+}
+
+/*****************************************************************************/
+/**
+  * @brief Return Y coordinates in meters
+ **
+******************************************************************************/
+float32 EntityShell::GetPhysicalY()
+{
+    if( GetDescriptor().Body == NULL ) return 0;
+
+    return GetDescriptor().Body->GetPosition().y;
 }
 
 /*****************************************************************************/
