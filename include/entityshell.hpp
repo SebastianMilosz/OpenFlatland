@@ -20,6 +20,7 @@ class EntityShell : public PhysicsBody
         codeframe::Property<int,          EntityShell> Y;
         codeframe::Property<bool,         EntityShell> CastRays;
         codeframe::Property<unsigned int, EntityShell> RaysCnt;
+        codeframe::Property<unsigned int, EntityShell> RaysSize;
         codeframe::Property<std::string,  EntityShell> Name;
         codeframe::Property<float,        EntityShell> Density;
         codeframe::Property<float,        EntityShell> Friction;
@@ -35,8 +36,10 @@ class EntityShell : public PhysicsBody
         float32 GetPhysicalY();
         void SetY(int val);
 
-    private:
+        const b2Vec2& GetPhysicalPoint();
 
+    private:
+        b2Vec2 m_zeroVector;
 };
 
 #endif // ENTITYSHELL_HPP

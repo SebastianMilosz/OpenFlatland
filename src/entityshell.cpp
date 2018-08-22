@@ -18,9 +18,11 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
     Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
     CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays") ),
     RaysCnt ( this, "RaysCnt" , 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt") ),
+    RaysSize( this, "RaysSize", 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
     Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") ),
     Density ( this, "Density" , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
-    Friction( this, "Friction", 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") )
+    Friction( this, "Friction", 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
+    m_zeroVector( 0.0F, 0.0F )
 {
     b2CircleShape* shape =  new b2CircleShape();
     shape->m_p.Set(0, 0);
@@ -59,6 +61,7 @@ EntityShell::EntityShell(const EntityShell& other) :
     Y       ( other.Y ),
     CastRays( other.CastRays ),
     RaysCnt ( other.RaysCnt ),
+    RaysSize( other.RaysSize ),
     Name    ( other.Name ),
     Density ( other.Density ),
     Friction( other.Friction )
@@ -87,39 +90,27 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
 {
     if( (b2Body*)NULL != body )
     {
-        sf::Color& entColor = GetColor();
-
-        float xpos = body->GetPosition().x;
-        float ypos = body->GetPosition().y;
+        float xpos = body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
+        float ypos = body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
 
         sf::CircleShape circle;
         circle.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
-        circle.setOutlineColor( entColor );
+        circle.setOutlineColor( GetColor() );
 
-        if( IsSelected() == true )
+        if ( IsSelected() == true )
         {
             circle.setFillColor( sf::Color::Blue );
         }
         else
         {
-            circle.setFillColor( sf::Color::Black );
+            circle.setFillColor( sf::Color::Transparent );
         }
 
         circle.setOutlineThickness(3);
-        circle.setOrigin(16.f, 16.f);
-        circle.setPosition(sDescriptor::PIXELS_IN_METER * xpos, sDescriptor::PIXELS_IN_METER * ypos);
-        circle.setRotation(body->GetAngle() * 180/b2_pi);
+        circle.setOrigin(12.5F, 12.5F);
+        circle.setPosition( xpos, ypos);
+        //circle.setRotation(body->GetAngle() * 180.0F/b2_pi);
         window.draw(circle);
-
-/*
-        sf::Text text;
-        text.setString( std::string("(") + std::to_string(xpos) + std::string(", ") + std::to_string(ypos) + std::string(")") );
-        text.setColor(sf::Color::White);
-        text.setCharacterSize(12);
-        text.setFont( FontFactory::GetFont() );
-        text.setPosition(sDescriptor::PIXELS_IN_METER * xpos, sDescriptor::PIXELS_IN_METER * ypos);
-        window.draw(text);
-*/
     }
 }
 
@@ -189,4 +180,16 @@ float32 EntityShell::GetPhysicalY()
 void EntityShell::SetY(int val)
 {
     //m_y = val;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+const b2Vec2& EntityShell::GetPhysicalPoint()
+{
+    if( GetDescriptor().Body == NULL ) return m_zeroVector;
+
+    return GetDescriptor().Body->GetPosition();
 }
