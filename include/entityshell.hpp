@@ -29,11 +29,11 @@ class EntityShell : public PhysicsBody
         virtual void Draw( sf::RenderWindow& window, b2Body* body );
 
         int GetX();
+        float32 GetPhysicalX();
         void SetX(int val);
         int GetY();
+        float32 GetPhysicalY();
         void SetY(int val);
-        int GetZ();
-        void SetZ(int val);
 
     private:
 
