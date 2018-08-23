@@ -18,6 +18,7 @@ class EntityShell : public PhysicsBody
 
         codeframe::Property<int,          EntityShell> X;
         codeframe::Property<int,          EntityShell> Y;
+        codeframe::Property<float,        EntityShell> Rotation;
         codeframe::Property<bool,         EntityShell> CastRays;
         codeframe::Property<unsigned int, EntityShell> RaysCnt;
         codeframe::Property<unsigned int, EntityShell> RaysSize;
@@ -35,6 +36,8 @@ class EntityShell : public PhysicsBody
         int GetY();
         float32 GetPhysicalY();
         void SetY(int val);
+
+        float32 GetRotation();
 
         const b2Vec2& GetPhysicalPoint();
 

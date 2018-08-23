@@ -22,6 +22,18 @@ namespace codeframe
         return retVal;
     }
 
+    float FloatFromString( std::string value )
+    {
+        unsigned int retVal = utilities::math::StrToFloat( value );
+        return retVal;
+    }
+
+    double DoubleFromString( std::string value )
+    {
+        unsigned int retVal = utilities::math::StrToDouble( value );
+        return retVal;
+    }
+
     std::string StringFromString( std::string value )
     {
         return value;
@@ -49,6 +61,16 @@ namespace codeframe
         return utilities::math::IntToStr( value );
     }
 
+    std::string FloatToString( const float& value )
+    {
+        return utilities::math::FloatToStr( value );
+    }
+
+    std::string DoubleToString( const double& value )
+    {
+        return utilities::math::DoubleToStr( value );
+    }
+
     std::string StringToString( const std::string& value )
     {
         return value;
@@ -70,6 +92,16 @@ namespace codeframe
     }
 
     IntegerType UIntToInt( const unsigned int& value )
+    {
+        return value;
+    }
+
+    IntegerType FloatToInt( const float& value )
+    {
+        return value;
+    }
+
+    IntegerType DoubleToInt( const double& value )
     {
         return value;
     }
@@ -100,6 +132,16 @@ namespace codeframe
         return retVal;
     }
 
+    float FloatFromInt( IntegerType value )
+    {
+        return value;
+    }
+
+    double DoubleFromInt( IntegerType value )
+    {
+        return value;
+    }
+
     std::string StringFromInt( IntegerType value )
     {
         std::string retVal = utilities::math::IntToStr( value );
@@ -117,6 +159,16 @@ namespace codeframe
     }
 
     RealType UIntToReal( const unsigned int& value )
+    {
+        return value;
+    }
+
+    RealType FloatToReal( const float& value )
+    {
+        return value;
+    }
+
+    RealType DoubleToReal( const double& value )
     {
         return value;
     }
@@ -142,6 +194,16 @@ namespace codeframe
     {
         unsigned int retVal = value;
         return retVal;
+    }
+
+    float FloatFromReal( double value )
+    {
+        return value;
+    }
+
+    double DoubleFromReal( double value )
+    {
+        return value;
     }
 
     std::string StringFromReal( double value )
@@ -227,35 +289,47 @@ namespace codeframe
         GetTypeInfo<bool        >().SetFromStringCallback( &BoolFromString    );
         GetTypeInfo<int         >().SetFromStringCallback( &IntFromString     );
         GetTypeInfo<unsigned int>().SetFromStringCallback( &UIntFromString    );
+        GetTypeInfo<float       >().SetFromStringCallback( &FloatFromString   );
+        GetTypeInfo<double      >().SetFromStringCallback( &DoubleFromString  );
         GetTypeInfo<std::string >().SetFromStringCallback( &StringFromString  );
         GetTypeInfo<Point2D     >().SetFromStringCallback( &Point2DFromString );
 
         GetTypeInfo<bool        >().SetToStringCallback( &BoolToString    );
         GetTypeInfo<int         >().SetToStringCallback( &IntToString     );
         GetTypeInfo<unsigned int>().SetToStringCallback( &UIntToString    );
+        GetTypeInfo<float       >().SetToStringCallback( &FloatToString   );
+        GetTypeInfo<double      >().SetToStringCallback( &DoubleToString  );
         GetTypeInfo<std::string >().SetToStringCallback( &StringToString  );
         GetTypeInfo<Point2D     >().SetToStringCallback( &Point2DToString );
 
         GetTypeInfo<bool        >().SetFromIntegerCallback( &BoolFromInt   );
         GetTypeInfo<int         >().SetFromIntegerCallback( &IntFromInt    );
         GetTypeInfo<unsigned int>().SetFromIntegerCallback( &UIntFromInt   );
+        GetTypeInfo<float       >().SetFromIntegerCallback( &FloatFromInt  );
+        GetTypeInfo<double      >().SetFromIntegerCallback( &DoubleFromInt );
         GetTypeInfo<std::string >().SetFromIntegerCallback( &StringFromInt );
         GetTypeInfo<Point2D     >().SetFromIntegerCallback( NULL );
 
         GetTypeInfo<bool        >().SetToIntegerCallback( &BoolToInt    );
         GetTypeInfo<int         >().SetToIntegerCallback( &IntToInt     );
         GetTypeInfo<unsigned int>().SetToIntegerCallback( &UIntToInt    );
+        GetTypeInfo<float       >().SetToIntegerCallback( &FloatToInt   );
+        GetTypeInfo<double      >().SetToIntegerCallback( &DoubleToInt  );
         GetTypeInfo<std::string >().SetToIntegerCallback( &StringToInt  );
         GetTypeInfo<Point2D     >().SetToIntegerCallback( &Point2DToInt );
 
         GetTypeInfo<bool        >().SetFromRealCallback( &BoolFromReal   );
         GetTypeInfo<int         >().SetFromRealCallback( &IntFromReal    );
         GetTypeInfo<unsigned int>().SetFromRealCallback( &UIntFromReal   );
+        GetTypeInfo<float       >().SetFromRealCallback( &FloatFromReal  );
+        GetTypeInfo<double      >().SetFromRealCallback( &DoubleFromReal );
         GetTypeInfo<std::string >().SetFromRealCallback( &StringFromReal );
 
         GetTypeInfo<bool        >().SetToRealCallback( &BoolToReal   );
         GetTypeInfo<int         >().SetToRealCallback( &IntToReal    );
         GetTypeInfo<unsigned int>().SetToRealCallback( &UIntToReal   );
+        GetTypeInfo<float       >().SetToRealCallback( &FloatToReal  );
+        GetTypeInfo<double      >().SetToRealCallback( &DoubleToReal );
         GetTypeInfo<std::string >().SetToRealCallback( &StringToReal );
     }
 }

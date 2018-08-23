@@ -1081,7 +1081,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1534973939 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1535060710 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.hpp"
 	<utilities/LoggerUtilities.h>
 	<utilities/TextUtilities.h>
@@ -1310,7 +1310,7 @@
 	<direct.h>
 	<unistd.h>
 
-1531174282 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
+1535058782 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
 	<string>
 	<stdio.h>
 	<stdlib.h>
@@ -1320,6 +1320,7 @@
 	<iomanip>
 	<stdint.h>
 	<stdlib.h>
+	<limits>
 
 1518263846 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\performanceutilities.cpp
 	"utilities/PerformanceUtilities.h"
@@ -1718,7 +1719,7 @@
 1534539441 source:d:\sourcecode\lifesimulator\src\fontfactory.cpp
 	"fontfactory.hpp"
 
-1534802363 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
+1535059974 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
 	"typeinfo.hpp"
 	<MathUtilities.h>
 
@@ -1806,7 +1807,7 @@
 	"entityshell.hpp"
 	"entityghost.hpp"
 
-1534969687 d:\sourcecode\lifesimulator\include\entityshell.hpp
+1535060582 d:\sourcecode\lifesimulator\include\entityshell.hpp
 	"physicsbody.hpp"
 
 1534876995 d:\sourcecode\lifesimulator\include\entityghost.hpp
