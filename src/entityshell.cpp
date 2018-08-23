@@ -16,6 +16,7 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
     PhysicsBody( name, NULL ),
     X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
     Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
+    Rotation( this, "R"       , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), this, &EntityShell::GetRotation ),
     CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays") ),
     RaysCnt ( this, "RaysCnt" , 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt") ),
     RaysSize( this, "RaysSize", 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
@@ -59,6 +60,7 @@ EntityShell::EntityShell(const EntityShell& other) :
     PhysicsBody( other ),
     X       ( other.X ),
     Y       ( other.Y ),
+    Rotation( other.Rotation ),
     CastRays( other.CastRays ),
     RaysCnt ( other.RaysCnt ),
     RaysSize( other.RaysSize ),
@@ -180,6 +182,18 @@ float32 EntityShell::GetPhysicalY()
 void EntityShell::SetY(int val)
 {
     //m_y = val;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+float32 EntityShell::GetRotation()
+{
+    if( GetDescriptor().Body == NULL ) return 0;
+
+    return GetDescriptor().Body->GetAngle();
 }
 
 /*****************************************************************************/

@@ -10,12 +10,13 @@
 #include <iomanip>
 #include <stdint.h>
 #include <stdlib.h>
+#include <limits>
 
 namespace utilities
 {
-	namespace math
-	{
-		std::string IntToStr(int nbr);
+    namespace math
+    {
+        std::string IntToStr(int nbr);
 
         /*****************************************************************************/
         /**
@@ -88,28 +89,41 @@ namespace utilities
             return IntToHex( (unsigned int)nbr );
         }
 
-		/*****************************************************************************/
-		/**
-		  * @brief
-		 **
-		******************************************************************************/
-		inline std::string FloatToStr(float nbr)
-		{
-		    if(nbr > 999999999) return std::string("GetStringFromInt - Overload");
-		    char buffer [12];
-		    sprintf (buffer, "%f",nbr);
-		    return std::string(buffer);
+        /*****************************************************************************/
+        /**
+        * @brief
+        **
+        ******************************************************************************/
+        inline std::string FloatToStr( float nbr )
+        {
+            if(nbr > 999999999) return std::string("GetStringFromInt - Overload");
+            char buffer [12];
+            sprintf (buffer, "%f",nbr);
+            return std::string(buffer);
         }
 
-		/*****************************************************************************/
-		/**
-		  * @brief
-		 **
-		******************************************************************************/
-		inline unsigned int HexToInt(std::string hex)
-		{
+        /*****************************************************************************/
+        /**
+        * @brief
+        **
+        ******************************************************************************/
+        inline std::string DoubleToStr( double nbr )
+        {
+            if(nbr > 999999999) return std::string("GetStringFromInt - Overload");
+            char buffer [12];
+            sprintf (buffer, "%lf",nbr);
+            return std::string(buffer);
+        }
+
+        /*****************************************************************************/
+        /**
+        * @brief
+        **
+        ******************************************************************************/
+        inline unsigned int HexToInt(std::string hex)
+        {
             return strtol(hex.c_str(), NULL, 16);
-		}
+        }
 
         /*****************************************************************************/
         /**
@@ -119,6 +133,26 @@ namespace utilities
         inline int StrToInt( std::string strnbr )
         {
             return strtol(strnbr.c_str(), NULL, 10);
+        }
+
+        /*****************************************************************************/
+        /**
+          * @brief
+         **
+        ******************************************************************************/
+        inline float StrToFloat( std::string strnbr )
+        {
+            return atof( strnbr.c_str() );
+        }
+
+        /*****************************************************************************/
+        /**
+          * @brief
+         **
+        ******************************************************************************/
+        inline double StrToDouble( std::string strnbr )
+        {
+            return atof( strnbr.c_str() );
         }
 
     }
