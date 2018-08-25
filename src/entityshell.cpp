@@ -23,6 +23,7 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
     Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") ),
     Density ( this, "Density" , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
     Friction( this, "Friction", 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
+    m_triangle( sDescriptor::PIXELS_IN_METER * 0.5f, 3 ),
     m_zeroVector( 0.0F, 0.0F )
 {
     b2CircleShape* shape =  new b2CircleShape();
@@ -39,6 +40,15 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
     GetDescriptor().FixtureDef.density  = (float)Density;
     GetDescriptor().FixtureDef.friction = (float)Friction;
     GetDescriptor().FixtureDef.shape    = GetDescriptor().Shape;
+
+    m_circle.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
+    m_circle.setOutlineThickness(2);
+    m_circle.setOrigin(12.5F, 12.5F);
+    m_circle.setPointCount(16);
+
+    m_triangle.setOutlineThickness(1);
+    m_triangle.setOrigin(12.5F, 12.5F);
+    m_triangle.setFillColor( sf::Color::Transparent );
 }
 
 /*****************************************************************************/
@@ -95,17 +105,15 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         float xpos = body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
         float ypos = body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
 
-        sf::CircleShape circle;
-        circle.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
-        circle.setOutlineColor( GetColor() );
+        m_circle.setOutlineColor( GetColor() );
 
         if ( IsSelected() == true )
         {
-            circle.setFillColor( sf::Color::Blue );
+            m_circle.setFillColor( sf::Color::Blue );
         }
         else
         {
-            circle.setFillColor( sf::Color::Transparent );
+            m_circle.setFillColor( sf::Color::Transparent );
         }
 
         // Drawing rays if configured
@@ -114,11 +122,14 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
             m_vision.Draw( window );
         }
 
-        circle.setOutlineThickness(3);
-        circle.setOrigin(12.5F, 12.5F);
-        circle.setPosition( xpos, ypos);
-        circle.setRotation(body->GetAngle() * 180.0F/b2_pi);
-        window.draw(circle);
+        m_circle.setPosition( xpos, ypos);
+        m_circle.setRotation(body->GetAngle() * 180.0F/b2_pi);
+
+        m_triangle.setPosition( xpos, ypos);
+        m_triangle.setRotation(body->GetAngle() * 180.0F/b2_pi);
+
+        window.draw( m_circle );
+        window.draw( m_triangle );
     }
 }
 

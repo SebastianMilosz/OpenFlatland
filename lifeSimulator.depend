@@ -1807,7 +1807,7 @@
 	"entityshell.hpp"
 	"entityghost.hpp"
 
-1535145559 d:\sourcecode\lifesimulator\include\entityshell.hpp
+1535213415 d:\sourcecode\lifesimulator\include\entityshell.hpp
 	"physicsbody.hpp"
 	"entityvision.hpp"
 
@@ -3037,4 +3037,7 @@
 1535209671 d:\sourcecode\lifesimulator\include\entityvision.hpp
 	<vector>
 	"physicsbody.hpp"
+
+1535209622 source:d:\sourcecode\lifesimulator\src\entityvision.cpp
+	"entityvision.hpp"
 
