@@ -84,6 +84,7 @@
 			<Add directory="libraries/Box2D-master/Box2D/Build/Box2D" />
 			<Add directory="libraries/lua-5.3.4/build" />
 		</Linker>
+		<Unit filename="include/annviewerwidget.hpp" />
 		<Unit filename="include/application.hpp" />
 		<Unit filename="include/constelement.hpp" />
 		<Unit filename="include/constelementline.hpp" />
@@ -166,6 +167,7 @@
 		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.h" />
 		<Unit filename="libraries/sigslot-1.0.0/sigslot.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/annviewerwidget.cpp" />
 		<Unit filename="src/application.cpp" />
 		<Unit filename="src/constelement.cpp" />
 		<Unit filename="src/constelementline.cpp" />

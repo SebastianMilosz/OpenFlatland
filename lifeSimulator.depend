@@ -1081,7 +1081,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1535218792 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1535224720 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.hpp"
 	<utilities/LoggerUtilities.h>
 	<utilities/TextUtilities.h>
@@ -1656,7 +1656,7 @@
 	<utilities/LoggerUtilities.h>
 	<SFML/Graphics.hpp>
 
-1534537958 d:\sourcecode\lifesimulator\include\application.hpp
+1535228195 d:\sourcecode\lifesimulator\include\application.hpp
 	<serializable.hpp>
 	"world.hpp"
 	"entityfactory.hpp"
@@ -1835,10 +1835,11 @@
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
 
-1534716297 d:\sourcecode\lifesimulator\include\guiwidgetslayer.hpp
+1535228496 d:\sourcecode\lifesimulator\include\guiwidgetslayer.hpp
 	<SFML/Graphics.hpp>
 	"logwidget.hpp"
 	"propertyeditorwidget.hpp"
+	"annviewerwidget.hpp"
 
 1534539522 d:\sourcecode\lifesimulator\include\logwidget.hpp
 	<imgui.h>
@@ -3042,4 +3043,14 @@
 
 1535209622 source:d:\sourcecode\lifesimulator\src\entityvision.cpp
 	"entityvision.hpp"
+
+1535229112 d:\sourcecode\lifesimulator\include\annviewerwidget.hpp
+	<imgui.h>
+	<imgui-SFML.h>
+	<sigslot.h>
+	<smartpointer.h>
+	<serializable.hpp>
+
+1535229297 source:d:\sourcecode\lifesimulator\src\annviewerwidget.cpp
+	"annviewerwidget.hpp"
 

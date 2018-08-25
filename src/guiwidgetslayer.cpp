@@ -72,7 +72,8 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_MouseMode( MOUSE_MODE_SEL_ENTITY ),
     m_mouseCapturedByGui( false ),
     m_logWidgetOpen( true ),
-    m_PropertyEditorOpen( true )
+    m_PropertyEditorOpen( true ),
+    m_AnnViewerWidgetOpen( true )
 {
     ImGui::SFML::Init( m_window );
 }
@@ -147,6 +148,7 @@ void GUIWidgetsLayer::Draw()
         {
             if (ImGui::MenuItem("Log", NULL, m_logWidgetOpen)) { if( m_logWidgetOpen ) m_logWidgetOpen = false; else m_logWidgetOpen = true; }
             if (ImGui::MenuItem("PropertyEditor", NULL, m_PropertyEditorOpen)) { if( m_PropertyEditorOpen ) m_PropertyEditorOpen = false; else m_PropertyEditorOpen = true; }
+            if (ImGui::MenuItem("AnnViewer", NULL, m_AnnViewerWidgetOpen)) { if( m_AnnViewerWidgetOpen ) m_AnnViewerWidgetOpen = false; else m_AnnViewerWidgetOpen = true; }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
@@ -160,6 +162,11 @@ void GUIWidgetsLayer::Draw()
     if ( m_PropertyEditorOpen == true )
     {
         m_PropertyEditorWidget.Draw( "Property Editor", &m_PropertyEditorOpen );
+    }
+
+    if ( m_AnnViewerWidgetOpen == true )
+    {
+        m_AnnViewerWidget.Draw( "Ann Viewer", &m_AnnViewerWidgetOpen );
     }
 
     ImGui::Begin("Application Info");
