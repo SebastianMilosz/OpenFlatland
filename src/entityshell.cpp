@@ -2,6 +2,7 @@
 
 #include <utilities/LoggerUtilities.h>
 #include <utilities/TextUtilities.h>
+#include <utilities/MathUtilities.h>
 
 #include "fontfactory.hpp"
 
@@ -49,6 +50,11 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
     m_triangle.setOutlineThickness(1);
     m_triangle.setOrigin(12.5F, 12.5F);
     m_triangle.setFillColor( sf::Color::Transparent );
+
+    m_circle.setOutlineColor( GetColor() );
+    m_circle.setFillColor( sf::Color::Transparent );
+
+    signalSelectionChanged.connect( this, &EntityShell::slotSelectionChanged );
 }
 
 /*****************************************************************************/
@@ -59,6 +65,23 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
 EntityShell::~EntityShell()
 {
 
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityShell::slotSelectionChanged( smart_ptr<cSerializableInterface> )
+{
+    if ( IsSelected() == true )
+    {
+        m_circle.setFillColor( sf::Color::Blue );
+    }
+    else
+    {
+        m_circle.setFillColor( sf::Color::Transparent );
+    }
 }
 
 /*****************************************************************************/
@@ -105,28 +128,17 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         float xpos = body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
         float ypos = body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
 
-        m_circle.setOutlineColor( GetColor() );
-
-        if ( IsSelected() == true )
-        {
-            m_circle.setFillColor( sf::Color::Blue );
-        }
-        else
-        {
-            m_circle.setFillColor( sf::Color::Transparent );
-        }
-
         // Drawing rays if configured
         if ( (bool)CastRays == true )
         {
             m_vision.Draw( window );
         }
 
-        m_circle.setPosition( xpos, ypos);
-        m_circle.setRotation(body->GetAngle() * 180.0F/b2_pi);
+        m_circle.setPosition( xpos, ypos );
+        m_circle.setRotation( body->GetAngle() * 180.0F/b2_pi );
 
-        m_triangle.setPosition( xpos, ypos);
-        m_triangle.setRotation(body->GetAngle() * 180.0F/b2_pi);
+        m_triangle.setPosition( xpos, ypos );
+        m_triangle.setRotation( body->GetAngle() * 180.0F/b2_pi );
 
         window.draw( m_circle );
         window.draw( m_triangle );
@@ -210,7 +222,7 @@ float32 EntityShell::GetRotation()
 {
     if( GetDescriptor().Body == NULL ) return 0;
 
-    return GetDescriptor().Body->GetAngle() * (180.0/3.141592653589793238463);
+    return utilities::math::ConstrainAngle( GetDescriptor().Body->GetAngle() * (180.0/3.141592653589793238463) );
 }
 
 /*****************************************************************************/
