@@ -1081,7 +1081,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1535060710 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1535201601 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.hpp"
 	<utilities/LoggerUtilities.h>
 	<utilities/TextUtilities.h>
@@ -1114,7 +1114,7 @@
 	"entityfactory.hpp"
 	<typeinfo.hpp>
 
-1534974545 source:d:\sourcecode\lifesimulator\src\world.cpp
+1535209206 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.hpp"
 	<string>
 	<sstream>
@@ -1797,7 +1797,7 @@
 	"serializable.hpp"
 	"propertyignorelist.hpp"
 
-1534966307 d:\sourcecode\lifesimulator\include\physicsbody.hpp
+1535207339 d:\sourcecode\lifesimulator\include\physicsbody.hpp
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
@@ -1807,8 +1807,9 @@
 	"entityshell.hpp"
 	"entityghost.hpp"
 
-1535060582 d:\sourcecode\lifesimulator\include\entityshell.hpp
+1535145559 d:\sourcecode\lifesimulator\include\entityshell.hpp
 	"physicsbody.hpp"
+	"entityvision.hpp"
 
 1534876995 d:\sourcecode\lifesimulator\include\entityghost.hpp
 	"entityshell.hpp"
@@ -1821,7 +1822,7 @@
 	"world.hpp"
 	"entity.hpp"
 
-1534891179 d:\sourcecode\lifesimulator\include\world.hpp
+1535204023 d:\sourcecode\lifesimulator\include\world.hpp
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
@@ -3032,4 +3033,8 @@
 	<string>
 	<sstream>
 	<utilities/LoggerUtilities.h>
+
+1535209671 d:\sourcecode\lifesimulator\include\entityvision.hpp
+	<vector>
+	"physicsbody.hpp"
 

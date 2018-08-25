@@ -2,6 +2,7 @@
 #define ENTITYSHELL_HPP
 
 #include "physicsbody.hpp"
+#include "entityvision.hpp"
 
 class EntityShell : public PhysicsBody
 {
@@ -41,8 +42,12 @@ class EntityShell : public PhysicsBody
 
         const b2Vec2& GetPhysicalPoint();
 
+        EntityVision& Vision() { return m_vision; }
+
     private:
         b2Vec2 m_zeroVector;
+
+        EntityVision m_vision;
 };
 
 #endif // ENTITYSHELL_HPP

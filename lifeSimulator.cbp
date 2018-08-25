@@ -92,6 +92,7 @@
 		<Unit filename="include/entityfactory.hpp" />
 		<Unit filename="include/entityghost.hpp" />
 		<Unit filename="include/entityshell.hpp" />
+		<Unit filename="include/entityvision.hpp" />
 		<Unit filename="include/fontfactory.hpp" />
 		<Unit filename="include/guiwidgetslayer.hpp" />
 		<Unit filename="include/logwidget.hpp" />
@@ -173,6 +174,7 @@
 		<Unit filename="src/entityfactory.cpp" />
 		<Unit filename="src/entityghost.cpp" />
 		<Unit filename="src/entityshell.cpp" />
+		<Unit filename="src/entityvision.cpp" />
 		<Unit filename="src/fontfactory.cpp" />
 		<Unit filename="src/guiwidgetslayer.cpp" />
 		<Unit filename="src/logwidget.cpp" />

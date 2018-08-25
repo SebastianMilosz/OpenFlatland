@@ -108,10 +108,16 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
             circle.setFillColor( sf::Color::Transparent );
         }
 
+        // Drawing rays if configured
+        if ( (bool)CastRays == true )
+        {
+            m_vision.Draw( window );
+        }
+
         circle.setOutlineThickness(3);
         circle.setOrigin(12.5F, 12.5F);
         circle.setPosition( xpos, ypos);
-        //circle.setRotation(body->GetAngle() * 180.0F/b2_pi);
+        circle.setRotation(body->GetAngle() * 180.0F/b2_pi);
         window.draw(circle);
     }
 }
@@ -193,7 +199,7 @@ float32 EntityShell::GetRotation()
 {
     if( GetDescriptor().Body == NULL ) return 0;
 
-    return GetDescriptor().Body->GetAngle();
+    return GetDescriptor().Body->GetAngle() * (180.0/3.141592653589793238463);
 }
 
 /*****************************************************************************/

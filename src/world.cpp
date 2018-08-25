@@ -118,7 +118,7 @@ bool World::PhysisStep(sf::RenderWindow& window)
 {
     m_World.Step(1/60.f, 8, 3);
 
-    CalculateRays(window);
+    CalculateRays();
 
     return true;
 }
@@ -262,7 +262,7 @@ b2Body* World::getBodyAtMouse( float x, float y )
   * @brief
  **
 ******************************************************************************/
-void World::CalculateRays( sf::RenderWindow& window )
+void World::CalculateRays( void )
 {
     RayCastCallback callback;
 
@@ -276,18 +276,17 @@ void World::CalculateRays( sf::RenderWindow& window )
             {
                 if ( (bool)entity->CastRays == true )
                 {
-                    unsigned int rayLength = (unsigned int)entity->RaysSize;
+                    unsigned int rayLength   = (unsigned int)entity->RaysSize;
                     unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
                     float32 currentRayAngle = 0.0F;
                     float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
-                    sf::Vertex line[2];
-                    line[0].color = sf::Color::White;
-                    line[1].color = sf::Color::White;
 
                     //center of entity
                     b2Vec2 p1 = entity->GetPhysicalPoint();
-                    b2Vec2 pixStartPoint = PhysicsBody::sDescriptor::Meters2Pixels( p1 );
-                    line[0].position = sf::Vector2f(pixStartPoint.x, pixStartPoint.y);
+
+                    EntityVision& vosion = entity->Vision();
+
+                    vosion.StartFrame();
 
                     for ( register unsigned int ray = 0; ray < rayCntLimit; ray++ )
                     {
@@ -298,19 +297,14 @@ void World::CalculateRays( sf::RenderWindow& window )
 
                         if( callback.WasHit() == true )
                         {
-                            b2Vec2 pixEndPoint = PhysicsBody::sDescriptor::Meters2Pixels( callback.HitPoint() );
-                            line[1].position = sf::Vector2f(pixEndPoint.x, pixEndPoint.y);
-                        }
-                        else
-                        {
-                            b2Vec2 pixEndPoint = PhysicsBody::sDescriptor::Meters2Pixels( p2 );
-                            line[1].position = sf::Vector2f(pixEndPoint.x, pixEndPoint.y);
+                            p2 = callback.HitPoint();
                         }
 
-                        window.draw( line, 2, sf::Lines );
-
+                        vosion.AddRay( EntityVision::sRay( p1, p2, 0 ) );
                         currentRayAngle += rayAngleStep;
                     }
+
+                    vosion.EndFrame();
                 }
             }
         }
