@@ -5,6 +5,7 @@
 
 #include "logwidget.hpp"
 #include "propertyeditorwidget.hpp"
+#include "annviewerwidget.hpp"
 
 class GUIWidgetsLayer
 {
@@ -31,6 +32,7 @@ class GUIWidgetsLayer
 
         LogWidget&              GetLogWidget() { return m_logWidget; }
         PropertyEditorWidget&   GetPropertyEditorWidget() { return m_PropertyEditorWidget; }
+        AnnViewerWidget&        GetAnnViewerWidget() { return m_AnnViewerWidget; }
 
     protected:
 
@@ -42,12 +44,14 @@ class GUIWidgetsLayer
         bool                m_mouseCapturedByGui;
         bool                m_logWidgetOpen;
         bool                m_PropertyEditorOpen;
+        bool                m_AnnViewerWidgetOpen;
 
         std::vector< sf::Rect<int> > m_guiRegions;
 
         // Okienka Gui
         LogWidget            m_logWidget;
         PropertyEditorWidget m_PropertyEditorWidget;
+        AnnViewerWidget      m_AnnViewerWidget;
 };
 
 #endif // GUIWIDGETSLAYER_HPP
