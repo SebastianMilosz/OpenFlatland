@@ -11,11 +11,14 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <limits>
+#include <cmath>
 
 namespace utilities
 {
     namespace math
     {
+        typedef float float32;
+
         std::string IntToStr(int nbr);
 
         /*****************************************************************************/
@@ -153,6 +156,21 @@ namespace utilities
         inline double StrToDouble( std::string strnbr )
         {
             return atof( strnbr.c_str() );
+        }
+
+        /*****************************************************************************/
+        /**
+          * @brief
+         **
+        ******************************************************************************/
+        inline float32 ConstrainAngle( float32 x )
+        {
+            x = fmod( x, 360 );
+            if ( x < 0 )
+            {
+                x += 360;
+            }
+            return x;
         }
 
     }

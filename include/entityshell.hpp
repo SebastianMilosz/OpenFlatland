@@ -45,12 +45,12 @@ class EntityShell : public PhysicsBody
         EntityVision& Vision() { return m_vision; }
 
     private:
-        b2Vec2 m_zeroVector;
-
+        b2Vec2          m_zeroVector;
         sf::CircleShape m_circle;
         sf::CircleShape m_triangle;
+        EntityVision    m_vision;
 
-        EntityVision m_vision;
+        void slotSelectionChanged( smart_ptr<cSerializableInterface> );
 };
 
 #endif // ENTITYSHELL_HPP
