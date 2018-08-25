@@ -39,6 +39,17 @@ class PhysicsBody : public codeframe::cSerializable
                 return retpoint;
             }
 
+            static sf::Vector2f Meters2SFMLPixels( const b2Vec2& point )
+            {
+                b2Vec2 retpoint = point;
+                retpoint *= PIXELS_IN_METER;
+
+                return sf::Vector2f(
+                                        retpoint.x,
+                                        retpoint.y
+                                   );
+            }
+
             static b2Vec2 Pixels2Meters( const b2Vec2& point )
             {
                 b2Vec2 retpoint = point;
