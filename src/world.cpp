@@ -2,6 +2,7 @@
 
 #include <string>
 #include <sstream>
+#include <omp.h>
 
 #include <utilities/LoggerUtilities.h>
 
@@ -264,8 +265,6 @@ b2Body* World::getBodyAtMouse( float x, float y )
 ******************************************************************************/
 void World::CalculateRays( void )
 {
-    RayCastCallback callback;
-
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext() )
     {
         if ( BodyIterator->GetType() == b2_dynamicBody )
@@ -288,20 +287,26 @@ void World::CalculateRays( void )
 
                     vosion.StartFrame();
 
-                    for ( register unsigned int ray = 0; ray < rayCntLimit; ray++ )
+                    #pragma omp parallel num_threads(8)
                     {
-                        //calculate points of ray
-                        b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
+                        RayCastCallback callback;
 
-                        m_World.RayCast( &callback, p1, p2 );
-
-                        if( callback.WasHit() == true )
+                        #pragma omp for nowait
+                        for ( unsigned int ray = 0; ray < rayCntLimit; ray++ )
                         {
-                            p2 = callback.HitPoint();
-                        }
+                            //calculate points of ray
+                            b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
 
-                        vosion.AddRay( EntityVision::sRay( p1, p2, 0 ) );
-                        currentRayAngle += rayAngleStep;
+                            m_World.RayCast( &callback, p1, p2 );
+
+                            if( callback.WasHit() == true )
+                            {
+                                p2 = callback.HitPoint();
+                            }
+
+                            vosion.AddRay( EntityVision::sRay( p1, p2, 0 ) );
+                            currentRayAngle += rayAngleStep;
+                        }
                     }
 
                     vosion.EndFrame();
