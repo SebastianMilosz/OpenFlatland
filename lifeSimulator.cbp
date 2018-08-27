@@ -118,6 +118,9 @@
 		<Unit filename="include/logwidget.hpp" />
 		<Unit filename="include/physicsbody.hpp" />
 		<Unit filename="include/propertyeditorwidget.hpp" />
+		<Unit filename="include/serializableneuron.hpp" />
+		<Unit filename="include/serializableneuronlayer.hpp" />
+		<Unit filename="include/serializableneuronlayercontainer.hpp" />
 		<Unit filename="include/version.hpp" />
 		<Unit filename="include/world.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxml.hpp" />
