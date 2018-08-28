@@ -204,6 +204,9 @@
 		<Unit filename="src/logwidget.cpp" />
 		<Unit filename="src/physicsbody.cpp" />
 		<Unit filename="src/propertyeditorwidget.cpp" />
+		<Unit filename="src/serializableneuron.cpp" />
+		<Unit filename="src/serializableneuronlayer.cpp" />
+		<Unit filename="src/serializableneuronlayercontainer.cpp" />
 		<Unit filename="src/world.cpp" />
 		<Extensions>
 			<code_completion />
