@@ -1,7 +1,7 @@
 #include "constelementsfactory.hpp"
 #include "constelementline.hpp"
 
-#include <extendedtypepoint2d.hpp>
+#include <extpoint2d.hpp>
 
 /*****************************************************************************/
 /**
@@ -56,8 +56,8 @@ smart_ptr<ConstElement> ConstElementsFactory::CreateLine( codeframe::Point2D sPo
  **
 ******************************************************************************/
 smart_ptr<codeframe::cSerializableInterface> ConstElementsFactory::Create(
-                                                     const std::string className,
-                                                     const std::string objName,
+                                                     const std::string& className,
+                                                     const std::string& objName,
                                                      const std::vector<codeframe::VariantValue>& params
                                                     )
 {

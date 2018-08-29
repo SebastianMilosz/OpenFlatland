@@ -35,8 +35,8 @@ namespace codeframe
             virtual ~cSerializableContainer();
 
             virtual smart_ptr<cSerializableInterface> Create(
-                                                             const std::string className,
-                                                             const std::string objName,
+                                                             const std::string& className,
+                                                             const std::string& objName,
                                                              const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                              ) = 0;
 

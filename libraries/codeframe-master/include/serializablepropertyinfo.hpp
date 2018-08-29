@@ -22,7 +22,8 @@ namespace codeframe
         KIND_FONT,
         KIND_COLOR,
         KIND_IMAGE,
-        KIND_2DPOINT
+        KIND_2DPOINT,
+        KIND_VECTOR,
     };
 
     enum eXMLMode

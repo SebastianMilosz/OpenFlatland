@@ -12,15 +12,16 @@ class SerializableNeuron : public codeframe::cSerializable
         std::string ConstructPatern() const { return "";        }
 
     public:
-        SerializableNeuron( std::string name, cSerializableInterface* parent );
+        SerializableNeuron(
+                            std::string name,
+                            cSerializableInterface* parent,
+                            unsigned int inputCnt
+                          );
         virtual ~SerializableNeuron();
 
-    protected:
-        smart_ptr<codeframe::cSerializableInterface> Create(
-                                                             const std::string className,
-                                                             const std::string objName,
-                                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                            );
+        codeframe::Property< unsigned int >             InputsCnt;
+        codeframe::Property< codeframe::Vector<float> > InputsWeights;
+        codeframe::Property< float >                    Output;
 };
 
 #endif // SERIALIZABLENEURON_HPP_INCLUDED

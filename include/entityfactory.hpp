@@ -28,8 +28,8 @@ class EntityFactory : public codeframe::cSerializableContainer
 
     protected:
         smart_ptr<codeframe::cSerializableInterface> Create(
-                                                             const std::string className,
-                                                             const std::string objName,
+                                                             const std::string& className,
+                                                             const std::string& objName,
                                                              const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                             );
 

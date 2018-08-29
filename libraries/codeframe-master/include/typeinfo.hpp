@@ -4,7 +4,8 @@
 #include <string>
 #include <MathUtilities.h>
 
-#include "extendedtypepoint2d.hpp"
+#include "extpoint2d.hpp"
+#include "extvector.hpp"
 
 namespace codeframe
 {

@@ -45,8 +45,8 @@ smart_ptr<Entity> EntityFactory::Create( int x, int y, int z )
  **
 ******************************************************************************/
 smart_ptr<codeframe::cSerializableInterface> EntityFactory::Create(
-                                                                   const std::string className,
-                                                                   const std::string objName,
+                                                                   const std::string& className,
+                                                                   const std::string& objName,
                                                                    const std::vector<codeframe::VariantValue>& params )
 {
     if ( className == "Entity" )

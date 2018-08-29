@@ -1111,11 +1111,11 @@
 	"constelement.hpp"
 	<serializable.h>
 
-1534876995 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
+1535574007 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
 	"entityfactory.hpp"
 	<typeinfo.hpp>
 
-1535307485 source:d:\sourcecode\lifesimulator\src\world.cpp
+1535319900 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.hpp"
 	<string>
 	<sstream>
@@ -1624,14 +1624,15 @@
 	"serializableinterface.hpp"
 	"serializablecontainer.hpp"
 
-1533766717 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyinfo.hpp
+1535577712 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyinfo.hpp
 	<string>
 	<limits.h>
 
-1534540645 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
+1535576870 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
 	<MathUtilities.h>
-	"extendedtypepoint2d.hpp"
+	"extpoint2d.hpp"
+	"extvector.hpp"
 
 1534173790 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.cpp
 	"typeinfo.hpp"
@@ -1666,11 +1667,11 @@
 	"guiwidgetslayer.hpp"
 	"entity.hpp"
 
-1534543184 d:\sourcecode\lifesimulator\include\constelementsfactory.hpp
+1535576985 d:\sourcecode\lifesimulator\include\constelementsfactory.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
-	<extendedtypepoint2d.hpp>
+	<extpoint2d.hpp>
 	"constelement.hpp"
 
 1534539050 d:\sourcecode\lifesimulator\include\constelement.hpp
@@ -1680,10 +1681,10 @@
 1534332984 source:d:\sourcecode\lifesimulator\src\constelement.cpp
 	"constelement.hpp"
 
-1534173733 source:d:\sourcecode\lifesimulator\src\constelementsfactory.cpp
+1535577025 source:d:\sourcecode\lifesimulator\src\constelementsfactory.cpp
 	"constelementsfactory.hpp"
 	"constelementline.hpp"
-	<extendedtypepoint2d.hpp>
+	<extpoint2d.hpp>
 
 1534003785 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtype2dpoint.hpp
 	"extendedtypeinterface.hpp"
@@ -1701,8 +1702,8 @@
 1534456648 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtypepoint2d.hpp
 	"typeinterface.hpp"
 
-1534175111 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extendedtypepoint2d.cpp
-	"extendedtypepoint2d.hpp"
+1535576829 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extendedtypepoint2d.cpp
+	"extpoint2d.hpp"
 	<vector>
 	<TextUtilities.h>
 	<MathUtilities.h>
@@ -1745,7 +1746,7 @@
 	<algorithm>
 	<ThreadUtilities.h>
 
-1534609502 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
+1535576932 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
 	<vector>
 	<string>
 	<map>
@@ -1759,9 +1760,10 @@
 	"serializablechildlist.hpp"
 	"xmlformatter.hpp"
 
-1534448193 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
+1535576918 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
 	"serializablepropertybase.hpp"
-	"extendedtypepoint2d.hpp"
+	"extpoint2d.hpp"
+	"extvector.hpp"
 	<climits>
 	<string>
 
@@ -1790,7 +1792,7 @@
 	"serializableinterface.hpp"
 	"instancemanager.hpp"
 
-1534716452 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
+1535572992 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
 	<exception>
 	<stdexcept>
 	<vector>
@@ -1817,7 +1819,7 @@
 1534876995 d:\sourcecode\lifesimulator\include\entityghost.hpp
 	"entityshell.hpp"
 
-1534539250 d:\sourcecode\lifesimulator\include\entityfactory.hpp
+1535573146 d:\sourcecode\lifesimulator\include\entityfactory.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
@@ -3054,4 +3056,36 @@
 
 1535229297 source:d:\sourcecode\lifesimulator\src\annviewerwidget.cpp
 	"annviewerwidget.hpp"
+
+1535570101 source:d:\sourcecode\lifesimulator\src\serializableneuron.cpp
+	"serializableneuron.hpp"
+
+1535577102 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
+	<serializable.hpp>
+
+1535574137 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
+	"serializableneuronlayer.hpp"
+
+1535574120 d:\sourcecode\lifesimulator\include\serializableneuronlayer.hpp
+	<sigslot.h>
+	<serializable.hpp>
+	<serializablecontainer.hpp>
+	<serializableinterface.hpp>
+	"serializableneuron.hpp"
+
+1534456648 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extpoint2d.hpp
+	"typeinterface.hpp"
+
+1535577807 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extvector.hpp
+	"typeinterface.hpp"
+
+1535574167 source:d:\sourcecode\lifesimulator\src\serializableneuronlayercontainer.cpp
+	"serializableneuronlayercontainer.hpp"
+
+1535574150 d:\sourcecode\lifesimulator\include\serializableneuronlayercontainer.hpp
+	<sigslot.h>
+	<serializable.hpp>
+	<serializablecontainer.hpp>
+	<serializableinterface.hpp>
+	"serializableneuron.hpp"
 

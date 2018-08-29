@@ -1,8 +1,4 @@
-#include "extendedtypepoint2d.hpp"
-
-#include <vector>
-#include <TextUtilities.h>
-#include <MathUtilities.h>
+#include "extvector.hpp"
 
 using namespace codeframe;
 
@@ -11,9 +7,8 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-Point2D::Point2D() :
-    m_x( 0 ),
-    m_y( 0 )
+Vector::Vector() :
+    m_table( NULL )
 {
 
 }
@@ -23,9 +18,8 @@ Point2D::Point2D() :
   * @brief
  **
 ******************************************************************************/
-Point2D::Point2D( int x, int y ) :
-    m_x( x ),
-    m_y( y )
+Vector::Vector( unsigned int cnt ) :
+    m_table( NULL )
 {
 
 }
@@ -35,18 +29,7 @@ Point2D::Point2D( int x, int y ) :
   * @brief
  **
 ******************************************************************************/
-Point2D::Point2D( const Point2D& other ) :
-    m_x( other.m_x ),
-    m_y( other.m_y )
-{
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-Point2D::~Point2D()
+Vector::Vector( const Vector& other )
 {
 
 }
@@ -56,17 +39,9 @@ Point2D::~Point2D()
   * @brief
  **
 ******************************************************************************/
-void Point2D::FromStringCallback ( StringType value )
+Vector::~Vector()
 {
-    // Split using ; separator
-    std::vector<std::string> pointPartsStrings;
-    utilities::text::split(value, ";", pointPartsStrings);
 
-    if( pointPartsStrings.size() == 2U )
-    {
-        m_x = utilities::math::StrToInt( pointPartsStrings[0] );
-        m_y = utilities::math::StrToInt( pointPartsStrings[1] );
-    }
 }
 
 /*****************************************************************************/
@@ -74,10 +49,9 @@ void Point2D::FromStringCallback ( StringType value )
   * @brief
  **
 ******************************************************************************/
-void Point2D::FromIntegerCallback( IntegerType value )
+void Vector::FromStringCallback ( StringType  value )
 {
-    m_x = value;
-    m_y = value;
+
 }
 
 /*****************************************************************************/
@@ -85,10 +59,9 @@ void Point2D::FromIntegerCallback( IntegerType value )
   * @brief
  **
 ******************************************************************************/
-void Point2D::FromRealCallback( RealType value )
+void Vector::FromIntegerCallback( IntegerType value )
 {
-    m_x = value;
-    m_y = value;
+
 }
 
 /*****************************************************************************/
@@ -96,14 +69,9 @@ void Point2D::FromRealCallback( RealType value )
   * @brief
  **
 ******************************************************************************/
-StringType Point2D::ToStringCallback() const
+void Vector::FromRealCallback( RealType value )
 {
-    std::string xString = utilities::math::IntToStr( m_x );
-    std::string yString = utilities::math::IntToStr( m_y );
 
-    std::string retVal = xString + std::string(";") + yString;
-
-    return retVal;
 }
 
 /*****************************************************************************/
@@ -111,9 +79,9 @@ StringType Point2D::ToStringCallback() const
   * @brief
  **
 ******************************************************************************/
-IntegerType Point2D::ToIntegerCallback() const
+StringType Vector::ToStringCallback() const
 {
-    return 0;
+
 }
 
 /*****************************************************************************/
@@ -121,9 +89,9 @@ IntegerType Point2D::ToIntegerCallback() const
   * @brief
  **
 ******************************************************************************/
-RealType Point2D::ToRealCallback() const
+IntegerType Vector::ToIntegerCallback() const
 {
-    return 0.0F;
+
 }
 
 /*****************************************************************************/
@@ -131,11 +99,18 @@ RealType Point2D::ToRealCallback() const
   * @brief
  **
 ******************************************************************************/
-Point2D& Point2D::operator=(const Point2D& other)
+RealType Vector::ToRealCallback() const
 {
-    m_x = other.m_x;
-    m_y = other.m_y;
 
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+Vector& Vector::operator=(const Vector& other)
+{
     return *this;
 }
 
@@ -144,11 +119,8 @@ Point2D& Point2D::operator=(const Point2D& other)
   * @brief
  **
 ******************************************************************************/
-Point2D& Point2D::operator+(const Point2D& rhs)
+Vector& Vector::operator+(const Vector& rhs)
 {
-    m_x = m_x + rhs.m_x;
-    m_y = m_y + rhs.m_y;
-
     return *this;
 }
 
@@ -157,12 +129,9 @@ Point2D& Point2D::operator+(const Point2D& rhs)
   * @brief
  **
 ******************************************************************************/
-bool Point2D::operator==(const Point2D& sval)
+bool Vector::operator==(const Vector& sval)
 {
-    if( (m_x == sval.m_x) && (m_y == sval.m_y) )
-    {
-        return true;
-    }
+
     return false;
 }
 
@@ -171,11 +140,8 @@ bool Point2D::operator==(const Point2D& sval)
   * @brief
  **
 ******************************************************************************/
-bool Point2D::operator!=(const Point2D& sval)
+bool Vector::operator!=(const Vector& sval)
 {
-    if( (m_x != sval.m_x) || (m_y != sval.m_y) )
-    {
-        return true;
-    }
+
     return false;
 }
