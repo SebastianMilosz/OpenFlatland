@@ -125,7 +125,8 @@
 		<Unit filename="include/world.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxml.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxmlnode.hpp" />
-		<Unit filename="libraries/codeframe-master/include/extendedtypepoint2d.hpp" />
+		<Unit filename="libraries/codeframe-master/include/extpoint2d.hpp" />
+		<Unit filename="libraries/codeframe-master/include/extvector.hpp" />
 		<Unit filename="libraries/codeframe-master/include/instancemanager.hpp" />
 		<Unit filename="libraries/codeframe-master/include/propertyignorelist.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable.hpp" />
@@ -154,7 +155,8 @@
 		<Unit filename="libraries/codeframe-master/include/xmlformatter.hpp" />
 		<Unit filename="libraries/codeframe-master/src/cxml.cpp" />
 		<Unit filename="libraries/codeframe-master/src/cxmlnode.cpp" />
-		<Unit filename="libraries/codeframe-master/src/extendedtypepoint2d.cpp" />
+		<Unit filename="libraries/codeframe-master/src/extpoint2d.cpp" />
+		<Unit filename="libraries/codeframe-master/src/extvector.cpp" />
 		<Unit filename="libraries/codeframe-master/src/instancemanager.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablechildlist.cpp" />

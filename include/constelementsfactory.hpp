@@ -5,7 +5,7 @@
 
 #include <serializable.hpp>
 #include <serializablecontainer.hpp>
-#include <extendedtypepoint2d.hpp>
+#include <extpoint2d.hpp>
 
 #include "constelement.hpp"
 
@@ -29,8 +29,8 @@ class ConstElementsFactory : public codeframe::cSerializableContainer
 
     protected:
         smart_ptr<codeframe::cSerializableInterface> Create(
-                                                             const std::string className,
-                                                             const std::string objName,
+                                                             const std::string& className,
+                                                             const std::string& objName,
                                                              const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                             );
 

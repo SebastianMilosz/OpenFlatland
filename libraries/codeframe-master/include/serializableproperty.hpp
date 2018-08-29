@@ -2,7 +2,8 @@
 #define _SERIALIZABLEPROPERTY_H
 
 #include "serializablepropertybase.hpp"
-#include "extendedtypepoint2d.hpp"
+#include "extpoint2d.hpp"
+#include "extvector.hpp"
 
 #include <climits>
 #include <string>
