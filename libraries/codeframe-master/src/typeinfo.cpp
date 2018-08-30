@@ -46,6 +46,12 @@ namespace codeframe
         return retType;
     }
 
+    std::vector<float> fVectorFromString( std::string value )
+    {
+
+        return std::vector<float>();
+    }
+
     std::string BoolToString( const bool& value )
     {
         return utilities::math::IntToStr( value );
@@ -212,6 +218,41 @@ namespace codeframe
         return retVal;
     }
 
+    bool BoolAddOperator( const bool& value1, const bool& value2 )
+    {
+        return (value1 + value2);
+    }
+
+    int IntAddOperator( const int& value1, const int& value2 )
+    {
+        return (value1 + value2);
+    }
+
+    unsigned int UIntAddOperator( const unsigned int& value1, const unsigned int& value2 )
+    {
+        return (value1 + value2);
+    }
+
+    float FloatAddOperator( const float& value1, const float& value2 )
+    {
+        return (value1 + value2);
+    }
+
+    double DoubleAddOperator( const double& value1, const double& value2 )
+    {
+        return (value1 + value2);
+    }
+
+    std::string StringAddOperator( const std::string& value1, const std::string& value2 )
+    {
+        return (value1 + value2);
+    }
+
+    Point2D Point2AddOperator( const Point2D& value1, const Point2D& value2 )
+    {
+        return value1;
+    }
+
     template<typename T>
     TypeInfo<T>::TypeInfo( const char* typeName, const char* typeUser, const eType enumType ) :
         TypeCompName( typeName ),
@@ -222,7 +263,8 @@ namespace codeframe
         FromIntegerCallback( NULL ),
         ToIntegerCallback( NULL ),
         FromRealCallback( NULL ),
-        ToRealCallback( NULL )
+        ToRealCallback( NULL ),
+        AddOperatorCallback( NULL )
     {
     }
 
@@ -273,26 +315,34 @@ namespace codeframe
         ToRealCallback = toRealCallback;
     }
 
+    template<typename T>
+    void TypeInfo<T>::SetAddOperatorCallback( T (*toAddOperatorCallback )( const T& value1, const T& value2 ) )
+    {
+        AddOperatorCallback = toAddOperatorCallback;
+    }
+
     // Fundamental types
-    REGISTER_TYPE( std::string   , "text" );
-    REGISTER_TYPE( bool          , "int"  );
-    REGISTER_TYPE( int           , "int"  );
-    REGISTER_TYPE( unsigned int  , "int"  );
-    REGISTER_TYPE( short         , "int"  );
-    REGISTER_TYPE( unsigned short, "int"  );
-    REGISTER_TYPE( float         , "real" );
-    REGISTER_TYPE( double        , "real" );
-    REGISTER_TYPE( Point2D       , "ivec" );
+    REGISTER_TYPE( std::string       , "text" );
+    REGISTER_TYPE( bool              , "int"  );
+    REGISTER_TYPE( int               , "int"  );
+    REGISTER_TYPE( unsigned int      , "int"  );
+    REGISTER_TYPE( short             , "int"  );
+    REGISTER_TYPE( unsigned short    , "int"  );
+    REGISTER_TYPE( float             , "real" );
+    REGISTER_TYPE( double            , "real" );
+    REGISTER_TYPE( Point2D           , "vec"  );
+    REGISTER_TYPE( std::vector<float>, "vec"  );
 
     TypeInitializer::TypeInitializer( void )
     {
-        GetTypeInfo<bool        >().SetFromStringCallback( &BoolFromString    );
-        GetTypeInfo<int         >().SetFromStringCallback( &IntFromString     );
-        GetTypeInfo<unsigned int>().SetFromStringCallback( &UIntFromString    );
-        GetTypeInfo<float       >().SetFromStringCallback( &FloatFromString   );
-        GetTypeInfo<double      >().SetFromStringCallback( &DoubleFromString  );
-        GetTypeInfo<std::string >().SetFromStringCallback( &StringFromString  );
-        GetTypeInfo<Point2D     >().SetFromStringCallback( &Point2DFromString );
+        GetTypeInfo<bool               >().SetFromStringCallback( &BoolFromString    );
+        GetTypeInfo<int                >().SetFromStringCallback( &IntFromString     );
+        GetTypeInfo<unsigned int       >().SetFromStringCallback( &UIntFromString    );
+        GetTypeInfo<float              >().SetFromStringCallback( &FloatFromString   );
+        GetTypeInfo<double             >().SetFromStringCallback( &DoubleFromString  );
+        GetTypeInfo<std::string        >().SetFromStringCallback( &StringFromString  );
+        GetTypeInfo<Point2D            >().SetFromStringCallback( &Point2DFromString );
+        GetTypeInfo<std::vector<float> >().SetFromStringCallback( &fVectorFromString );
 
         GetTypeInfo<bool        >().SetToStringCallback( &BoolToString    );
         GetTypeInfo<int         >().SetToStringCallback( &IntToString     );
@@ -331,5 +381,13 @@ namespace codeframe
         GetTypeInfo<float       >().SetToRealCallback( &FloatToReal  );
         GetTypeInfo<double      >().SetToRealCallback( &DoubleToReal );
         GetTypeInfo<std::string >().SetToRealCallback( &StringToReal );
+
+        GetTypeInfo<bool        >().SetAddOperatorCallback( &BoolAddOperator   );
+        GetTypeInfo<int         >().SetAddOperatorCallback( &IntAddOperator    );
+        GetTypeInfo<unsigned int>().SetAddOperatorCallback( &UIntAddOperator   );
+        GetTypeInfo<float       >().SetAddOperatorCallback( &FloatAddOperator  );
+        GetTypeInfo<double      >().SetAddOperatorCallback( &DoubleAddOperator );
+        GetTypeInfo<std::string >().SetAddOperatorCallback( &StringAddOperator );
+        GetTypeInfo<Point2D     >().SetAddOperatorCallback( &Point2AddOperator );
     }
 }
