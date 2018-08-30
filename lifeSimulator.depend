@@ -1628,8 +1628,9 @@
 	<string>
 	<limits.h>
 
-1535576870 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
+1535666244 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
+	<vector>
 	<MathUtilities.h>
 	"extpoint2d.hpp"
 	"extvector.hpp"
@@ -1723,7 +1724,7 @@
 1534539441 source:d:\sourcecode\lifesimulator\src\fontfactory.cpp
 	"fontfactory.hpp"
 
-1535059974 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
+1535666725 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
 	"typeinfo.hpp"
 	<MathUtilities.h>
 
@@ -1760,7 +1761,7 @@
 	"serializablechildlist.hpp"
 	"xmlformatter.hpp"
 
-1535576918 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
+1535666126 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
 	"serializablepropertybase.hpp"
 	"extpoint2d.hpp"
 	"extvector.hpp"
@@ -3057,10 +3058,10 @@
 1535229297 source:d:\sourcecode\lifesimulator\src\annviewerwidget.cpp
 	"annviewerwidget.hpp"
 
-1535570101 source:d:\sourcecode\lifesimulator\src\serializableneuron.cpp
+1535662243 source:d:\sourcecode\lifesimulator\src\serializableneuron.cpp
 	"serializableneuron.hpp"
 
-1535577102 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
+1535661365 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
 	<serializable.hpp>
 
 1535574137 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
@@ -3076,7 +3077,7 @@
 1534456648 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extpoint2d.hpp
 	"typeinterface.hpp"
 
-1535577807 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extvector.hpp
+1535661404 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extvector.hpp
 	"typeinterface.hpp"
 
 1535574167 source:d:\sourcecode\lifesimulator\src\serializableneuronlayercontainer.cpp
@@ -3088,4 +3089,13 @@
 	<serializablecontainer.hpp>
 	<serializableinterface.hpp>
 	"serializableneuron.hpp"
+
+1535576829 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extpoint2d.cpp
+	"extpoint2d.hpp"
+	<vector>
+	<TextUtilities.h>
+	<MathUtilities.h>
+
+1535661808 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extvector.cpp
+	"extvector.hpp"
 

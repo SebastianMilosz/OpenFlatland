@@ -19,9 +19,9 @@ class SerializableNeuron : public codeframe::cSerializable
                           );
         virtual ~SerializableNeuron();
 
-        codeframe::Property< unsigned int >             InputsCnt;
-        codeframe::Property< codeframe::Vector<float> > InputsWeights;
-        codeframe::Property< float >                    Output;
+        codeframe::Property< unsigned int >       InputsCnt;
+        codeframe::Property< std::vector<float> > InputsWeights;
+        codeframe::Property< float >              Output;
 };
 
 #endif // SERIALIZABLENEURON_HPP_INCLUDED

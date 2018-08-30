@@ -403,7 +403,7 @@ namespace codeframe
             {
                 m_Mutex.Lock();
                 m_baseValuePrew = GetValue();
-                m_baseValue = GetValue() + rhs.GetValue();
+                m_baseValue = GetTypeInfo<retT>().AddOperator( GetValue(), rhs.GetValue() );
                 m_Mutex.Unlock();
 
                 return *this;

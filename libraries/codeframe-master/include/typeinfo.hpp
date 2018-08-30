@@ -2,6 +2,7 @@
 #define TYPEINFO_HPP_INCLUDED
 
 #include <string>
+#include <vector>
 #include <MathUtilities.h>
 
 #include "extpoint2d.hpp"
@@ -75,6 +76,9 @@ namespace codeframe
             void SetToIntegerCallback( IntegerType (*toIntegerCallback)( const T& value ) );
             void SetToRealCallback   ( RealType    (*toRealCallback   )( const T& value ) );
 
+            // Operators
+            void SetAddOperatorCallback( T (*toAddOperatorCallback )( const T& value1, const T& value2 ) );
+
             T FromString( StringType value )
             {
                 if ( NULL != FromStringCallback )
@@ -129,6 +133,15 @@ namespace codeframe
                 return 0.0F;
             }
 
+            T AddOperator( const T& value1, const T& value2 )
+            {
+                if ( NULL != AddOperatorCallback )
+                {
+                    return AddOperatorCallback( value1, value2 );
+                }
+                return T( value1 );
+            }
+
             const eType GetTypeCode() const
             {
                 return TypeCode;
@@ -150,6 +163,9 @@ namespace codeframe
             IntegerType( *ToIntegerCallback  )( const T&    value );
             T          ( *FromRealCallback   )( RealType    value );
             RealType   ( *ToRealCallback     )( const T&    value );
+
+            // Operator
+            T ( *AddOperatorCallback )( const T& value1, const T& value2 );
     };
 
     class TypeInitializer

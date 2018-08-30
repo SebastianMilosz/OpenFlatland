@@ -296,7 +296,7 @@ namespace codeframe
 
                             *iser = FromEscapeXml( tempText );
                         }
-                        else if( strcmp (type, "ivec") == 0 )
+                        else if( strcmp (type, "vec") == 0 )
                         {
                             std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
                             *iser = tempText;
@@ -459,7 +459,7 @@ namespace codeframe
 
                                                 variantValue.ValueString = FromEscapeXml( tempText );
                                             }
-                                            else if( strcmp (type, "ivec") == 0 )
+                                            else if( strcmp (type, "vec") == 0 )
                                             {
                                                 variantValue.Type = codeframe::TYPE_IVECTOR;
                                                 std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
