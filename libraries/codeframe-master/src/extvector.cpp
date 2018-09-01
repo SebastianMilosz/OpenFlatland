@@ -25,9 +25,14 @@ namespace codeframe
     }
 
     template<>
-    std::string PropertyVector<float>::VectorToString( const std::vector<float>& point )
+    std::string PropertyVector<float>::VectorToString( const std::vector<float>& vectorValue )
     {
-        return "";
+        std::string retValue = "";
+        for ( std::vector<float>::const_iterator it = vectorValue.begin(); it != vectorValue.end(); ++it )
+        {
+
+        }
+        return retValue;
     }
 
 }
