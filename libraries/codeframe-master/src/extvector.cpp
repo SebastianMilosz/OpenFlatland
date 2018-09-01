@@ -3,8 +3,15 @@
 #include <MathUtilities.h>
 #include <TextUtilities.h>
 
+#include "base64.hpp"
+
 namespace codeframe
 {
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<>
     std::vector<float> PropertyVector<float>::VectorFromString( std::string value )
     {
@@ -24,6 +31,11 @@ namespace codeframe
         return retVector;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<>
     std::string PropertyVector<float>::VectorToString( const std::vector<float>& vectorValue )
     {
