@@ -13,7 +13,7 @@ namespace codeframe
     {
         public:
             static std::vector<T> VectorFromString( std::string value );
-            static std::string VectorToString( const std::vector<T>& point );
+            static std::string VectorToString( const std::vector<T>& vectorValue );
     };
 }
 
