@@ -19,15 +19,15 @@ class ConstElementLine : public ConstElement
         std::string ConstructPatern() const { return "SPoint,EPoint";    }
 
     public:
-        ConstElementLine( std::string name, codeframe::Point2D& startPoint, codeframe::Point2D& endPoint );
+        ConstElementLine( std::string name, codeframe::Point2D<int>& startPoint, codeframe::Point2D<int>& endPoint );
         virtual ~ConstElementLine();
         ConstElementLine(const ConstElementLine& other);
         ConstElementLine& operator=(const ConstElementLine& other);
 
         virtual void Draw( sf::RenderWindow& window, b2Body* body );
 
-        codeframe::Property<codeframe::Point2D, ConstElementLine> StartPoint;
-        codeframe::Property<codeframe::Point2D, ConstElementLine> EndPoint;
+        codeframe::Property<codeframe::Point2D<int>, ConstElementLine> StartPoint;
+        codeframe::Property<codeframe::Point2D<int>, ConstElementLine> EndPoint;
 };
 
 #endif // CONSTELEMENTLINE_HPP_INCLUDED

@@ -3,15 +3,33 @@
 
 #include "typeinterface.hpp"
 
+#include <SFML/Graphics.hpp>
+
 namespace codeframe
 {
+    template<typename T>
     class Point2D : public TypeInterface
     {
         public:
-                     Point2D();
-                     Point2D( int x, int y );
-                     Point2D( const Point2D& other );
-            virtual ~Point2D();
+            Point2D() : m_x( 0 ), m_y( 0 )
+            {
+            }
+
+            Point2D( T x, T y ) : m_x( x ), m_y( y )
+            {
+            }
+
+            Point2D( sf::Vector2f point ) : m_x( point.x ), m_y( point.y )
+            {
+            }
+
+            Point2D( const Point2D& other ) : m_x( other.m_x ), m_y( other.m_y )
+            {
+            }
+
+            virtual ~Point2D()
+            {
+            }
 
             virtual void FromStringCallback ( StringType  value );
             virtual void FromIntegerCallback( IntegerType value );
@@ -26,15 +44,35 @@ namespace codeframe
             virtual bool     operator==(const Point2D& sval);
             virtual bool     operator!=(const Point2D& sval);
 
-            int X() { return m_x; }
-            int Y() { return m_y; }
+            T X() { return m_x; }
+            T Y() { return m_y; }
+
+        static Point2D<T> Point2DFromString( std::string value )
+        {
+            Point2D<T> retType(0,0);
+            retType.FromStringCallback( value );
+            return retType;
+        }
+
+        static std::string Point2DToString( const Point2D<T>& point )
+        {
+            return point.ToStringCallback();
+        }
+
+        static IntegerType Point2DToInt( const Point2D<T>& value )
+        {
+            return 0;
+        }
+
+        static Point2D<T> Point2AddOperator( const Point2D<T>& value1, const Point2D<T>& value2 )
+        {
+            return value1;
+        }
 
         private:
-            int m_x;
-            int m_y;
+            T m_x;
+            T m_y;
     };
-
-    typedef Point2D Point2D;
 }
 
 #endif // EXTENDEDTYPE2DPOINT_HPP_INCLUDED
