@@ -9,9 +9,8 @@ using namespace codeframe;
 ******************************************************************************/
 SerializableNeuron::SerializableNeuron( std::string name, cSerializableInterface* parent, unsigned int inputCnt ) :
     cSerializable( name, parent ),
-    InputsCnt    ( this, "InputsCnt"    , inputCnt            , cPropertyInfo().Kind( KIND_NUMBER ).Description("InputsCnt"), this ),
-    InputsWeights( this, "InputsWeights", std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("InputsWeights"), this ),
-    Output       ( this, "Output"       , 0.0F                , cPropertyInfo().Kind( KIND_REAL   ).Description("Output"), this )
+    InputsWeights( this, "Weights", std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("Weights"), this ),
+    Output       ( this, "Output" , 0.0F                , cPropertyInfo().Kind( KIND_REAL   ).Description("Output"), this )
 {
 
 }

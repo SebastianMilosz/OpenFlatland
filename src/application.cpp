@@ -167,7 +167,7 @@ void Application::ProcesseLogic( void )
                     lineCreateState = 0;
 
                     // Create solid line
-                    m_ConstElementsFactory.CreateLine( codeframe::Point2D( startPoint.x, startPoint.y ), codeframe::Point2D( endPoint.x, endPoint.y ) );
+                    m_ConstElementsFactory.CreateLine( codeframe::Point2D<int>( startPoint ), codeframe::Point2D<int>( endPoint ) );
                 }
             }
             else

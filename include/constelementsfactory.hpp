@@ -22,7 +22,7 @@ class ConstElementsFactory : public codeframe::cSerializableContainer
         virtual ~ConstElementsFactory();
 
         smart_ptr<ConstElement> Create( smart_ptr<ConstElement> );
-        smart_ptr<ConstElement> CreateLine( codeframe::Point2D sPoint, codeframe::Point2D ePoint );
+        smart_ptr<ConstElement> CreateLine( codeframe::Point2D<int> sPoint, codeframe::Point2D<int> ePoint );
 
         signal1< smart_ptr<ConstElement> > signalElementAdd;
         signal1< smart_ptr<ConstElement> > signalElementDel;

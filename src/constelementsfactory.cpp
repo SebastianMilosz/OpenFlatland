@@ -39,7 +39,7 @@ smart_ptr<ConstElement> ConstElementsFactory::Create( smart_ptr<ConstElement> )
   * @brief
  **
 ******************************************************************************/
-smart_ptr<ConstElement> ConstElementsFactory::CreateLine( codeframe::Point2D sPoint, codeframe::Point2D ePoint )
+smart_ptr<ConstElement> ConstElementsFactory::CreateLine( codeframe::Point2D<int> sPoint, codeframe::Point2D<int> ePoint )
 {
     smart_ptr<ConstElementLine> obj = smart_ptr<ConstElementLine>( new ConstElementLine( "line", sPoint, ePoint ) );
 
@@ -63,8 +63,8 @@ smart_ptr<codeframe::cSerializableInterface> ConstElementsFactory::Create(
 {
     if ( className == "ConstElementLine" )
     {
-        codeframe::Point2D startPoint;
-        codeframe::Point2D endPoint;
+        codeframe::Point2D<int> startPoint;
+        codeframe::Point2D<int> endPoint;
 
         for ( std::vector<codeframe::VariantValue>::const_iterator it = params.begin(); it != params.end(); ++it )
         {

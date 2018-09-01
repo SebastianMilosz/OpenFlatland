@@ -4,59 +4,16 @@
 #include <TextUtilities.h>
 #include <MathUtilities.h>
 
-using namespace codeframe;
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-Point2D::Point2D() :
-    m_x( 0 ),
-    m_y( 0 )
+namespace codeframe
 {
 
-}
-
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-Point2D::Point2D( int x, int y ) :
-    m_x( x ),
-    m_y( y )
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-Point2D::Point2D( const Point2D& other ) :
-    m_x( other.m_x ),
-    m_y( other.m_y )
-{
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-Point2D::~Point2D()
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void Point2D::FromStringCallback ( StringType value )
+template<>
+void Point2D<int>::FromStringCallback ( StringType value )
 {
     // Split using ; separator
     std::vector<std::string> pointPartsStrings;
@@ -74,7 +31,8 @@ void Point2D::FromStringCallback ( StringType value )
   * @brief
  **
 ******************************************************************************/
-void Point2D::FromIntegerCallback( IntegerType value )
+template<>
+void Point2D<int>::FromIntegerCallback( IntegerType value )
 {
     m_x = value;
     m_y = value;
@@ -85,7 +43,8 @@ void Point2D::FromIntegerCallback( IntegerType value )
   * @brief
  **
 ******************************************************************************/
-void Point2D::FromRealCallback( RealType value )
+template<>
+void Point2D<int>::FromRealCallback( RealType value )
 {
     m_x = value;
     m_y = value;
@@ -96,7 +55,8 @@ void Point2D::FromRealCallback( RealType value )
   * @brief
  **
 ******************************************************************************/
-StringType Point2D::ToStringCallback() const
+template<>
+StringType Point2D<int>::ToStringCallback() const
 {
     std::string xString = utilities::math::IntToStr( m_x );
     std::string yString = utilities::math::IntToStr( m_y );
@@ -111,7 +71,8 @@ StringType Point2D::ToStringCallback() const
   * @brief
  **
 ******************************************************************************/
-IntegerType Point2D::ToIntegerCallback() const
+template<>
+IntegerType Point2D<int>::ToIntegerCallback() const
 {
     return 0;
 }
@@ -121,7 +82,8 @@ IntegerType Point2D::ToIntegerCallback() const
   * @brief
  **
 ******************************************************************************/
-RealType Point2D::ToRealCallback() const
+template<>
+RealType Point2D<int>::ToRealCallback() const
 {
     return 0.0F;
 }
@@ -131,7 +93,8 @@ RealType Point2D::ToRealCallback() const
   * @brief
  **
 ******************************************************************************/
-Point2D& Point2D::operator=(const Point2D& other)
+template<>
+Point2D<int>& Point2D<int>::operator=(const Point2D<int>& other)
 {
     m_x = other.m_x;
     m_y = other.m_y;
@@ -144,7 +107,8 @@ Point2D& Point2D::operator=(const Point2D& other)
   * @brief
  **
 ******************************************************************************/
-Point2D& Point2D::operator+(const Point2D& rhs)
+template<>
+Point2D<int>& Point2D<int>::operator+(const Point2D<int>& rhs)
 {
     m_x = m_x + rhs.m_x;
     m_y = m_y + rhs.m_y;
@@ -157,7 +121,8 @@ Point2D& Point2D::operator+(const Point2D& rhs)
   * @brief
  **
 ******************************************************************************/
-bool Point2D::operator==(const Point2D& sval)
+template<>
+bool Point2D<int>::operator==(const Point2D<int>& sval)
 {
     if( (m_x == sval.m_x) && (m_y == sval.m_y) )
     {
@@ -171,11 +136,24 @@ bool Point2D::operator==(const Point2D& sval)
   * @brief
  **
 ******************************************************************************/
-bool Point2D::operator!=(const Point2D& sval)
+template<>
+bool Point2D<int>::operator!=(const Point2D<int>& sval)
 {
     if( (m_x != sval.m_x) || (m_y != sval.m_y) )
     {
         return true;
     }
     return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void TemporaryFunction()
+{
+    Point2D<int> TempObj;
+}
+
 }
