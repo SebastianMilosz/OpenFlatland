@@ -1724,7 +1724,7 @@
 1534539441 source:d:\sourcecode\lifesimulator\src\fontfactory.cpp
 	"fontfactory.hpp"
 
-1535818068 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
+1535824999 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\typeinfo.cpp
 	"typeinfo.hpp"
 	<MathUtilities.h>
 	"extvector.hpp"
@@ -3101,10 +3101,11 @@
 	<TextUtilities.h>
 	<MathUtilities.h>
 
-1535823217 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extvector.cpp
+1535826185 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extvector.cpp
 	"extvector.hpp"
 	<MathUtilities.h>
 	<TextUtilities.h>
+	"base64.hpp"
 
 1535817648 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extfundamental.hpp
 	"typeinterface.hpp"
@@ -3119,4 +3120,11 @@
 	<b64/cencode.h>
 
 1371563376 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\libb64-1.2.1\include\b64\cencode.h
+
+1535826701 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\base64.cpp
+	"base64.hpp"
+	<ctype.h>
+
+1535826478 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\base64.hpp
+	<string>
 
