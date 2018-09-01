@@ -3101,10 +3101,22 @@
 	<TextUtilities.h>
 	<MathUtilities.h>
 
-1535661808 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extvector.cpp
+1535823217 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extvector.cpp
 	"extvector.hpp"
+	<MathUtilities.h>
+	<TextUtilities.h>
 
 1535817648 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extfundamental.hpp
 	"typeinterface.hpp"
 	<string>
+
+1371563376 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\libb64-1.2.1\src\cdecode.c
+	<b64/cdecode.h>
+
+1371563376 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\libb64-1.2.1\include\b64\cdecode.h
+
+1371563376 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\libb64-1.2.1\src\cencode.c
+	<b64/cencode.h>
+
+1371563376 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\libb64-1.2.1\include\b64\cencode.h
 

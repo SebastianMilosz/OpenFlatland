@@ -7,6 +7,11 @@
 
 namespace codeframe
 {
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     TypeInfo<T>::TypeInfo( const char* typeName, const char* typeUser, const eType enumType ) :
         TypeCompName( typeName ),
@@ -22,53 +27,93 @@ namespace codeframe
     {
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     const eType TypeInfo<T>::StringToTypeCode( std::string typeText )
     {
-        if( typeText == "int"  ) return TYPE_INT;
-        if( typeText == "real" ) return TYPE_REAL;
-        if( typeText == "text" ) return TYPE_TEXT;
-        if( typeText == "vec"  ) return TYPE_VECTOR;
+        if ( typeText == "int"  ) return TYPE_INT;
+        if ( typeText == "real" ) return TYPE_REAL;
+        if ( typeText == "text" ) return TYPE_TEXT;
+        if ( typeText == "vec"  ) return TYPE_VECTOR;
 
         return TYPE_NON;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     void TypeInfo<T>::SetFromStringCallback( T (*fromStringCallback)( StringType value ) )
     {
         FromStringCallback = fromStringCallback;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     void TypeInfo<T>::SetToStringCallback( StringType (*toStringCallback)( const T& value ) )
     {
         ToStringCallback = toStringCallback;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     void TypeInfo<T>::SetFromIntegerCallback( T (*fromIntegerCallback)( IntegerType value ) )
     {
         FromIntegerCallback = fromIntegerCallback;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     void TypeInfo<T>::SetToIntegerCallback( IntegerType (*toIntegerCallback)( const T& value ) )
     {
         ToIntegerCallback = toIntegerCallback;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     void TypeInfo<T>::SetFromRealCallback( T (*fromRealCallback)( RealType value ) )
     {
         FromRealCallback = fromRealCallback;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     void TypeInfo<T>::SetToRealCallback( RealType (*toRealCallback)( const T& value ) )
     {
         ToRealCallback = toRealCallback;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     template<typename T>
     void TypeInfo<T>::SetAddOperatorCallback( T (*toAddOperatorCallback )( const T& value1, const T& value2 ) )
     {
@@ -88,6 +133,11 @@ namespace codeframe
     REGISTER_TYPE( Point2D<float>    , "vec"  );
     REGISTER_TYPE( std::vector<float>, "vec"  );
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     TypeInitializer::TypeInitializer( void )
     {
         GetTypeInfo<bool               >().SetFromStringCallback( &FundamentalTypes<bool>::BoolFromString    );
