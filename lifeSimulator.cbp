@@ -123,6 +123,7 @@
 		<Unit filename="include/serializableneuronlayercontainer.hpp" />
 		<Unit filename="include/version.hpp" />
 		<Unit filename="include/world.hpp" />
+		<Unit filename="libraries/codeframe-master/include/base64.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxml.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxmlnode.hpp" />
 		<Unit filename="libraries/codeframe-master/include/extfundamental.hpp" />
@@ -154,6 +155,7 @@
 		<Unit filename="libraries/codeframe-master/include/utilities/TextUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/utilities/ThreadUtilities.h" />
 		<Unit filename="libraries/codeframe-master/include/xmlformatter.hpp" />
+		<Unit filename="libraries/codeframe-master/src/base64.cpp" />
 		<Unit filename="libraries/codeframe-master/src/cxml.cpp" />
 		<Unit filename="libraries/codeframe-master/src/cxmlnode.cpp" />
 		<Unit filename="libraries/codeframe-master/src/extpoint2d.cpp" />
@@ -177,16 +179,6 @@
 		<Unit filename="libraries/codeframe-master/src/utilities/SysUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/ThreadUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/xmlformatter.cpp" />
-		<Unit filename="libraries/codeframe-master/thirdparty/libb64-1.2.1/include/b64/cdecode.h" />
-		<Unit filename="libraries/codeframe-master/thirdparty/libb64-1.2.1/include/b64/cencode.h" />
-		<Unit filename="libraries/codeframe-master/thirdparty/libb64-1.2.1/include/b64/decode.h" />
-		<Unit filename="libraries/codeframe-master/thirdparty/libb64-1.2.1/include/b64/encode.h" />
-		<Unit filename="libraries/codeframe-master/thirdparty/libb64-1.2.1/src/cdecode.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="libraries/codeframe-master/thirdparty/libb64-1.2.1/src/cencode.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugiconfig.hpp" />
 		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugixml.cpp" />
 		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugixml.hpp" />
