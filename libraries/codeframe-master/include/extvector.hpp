@@ -12,16 +12,8 @@ namespace codeframe
     class PropertyVector
     {
         public:
-            static std::vector<T> VectorFromString( std::string value )
-            {
-
-                return std::vector<T>();
-            }
-
-            static std::string VectorToString( const std::vector<T>& point )
-            {
-                return "";
-            }
+            static std::vector<T> VectorFromString( std::string value );
+            static std::string VectorToString( const std::vector<T>& point );
     };
 }
 

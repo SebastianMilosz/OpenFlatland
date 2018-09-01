@@ -19,11 +19,11 @@ namespace codeframe
 
     enum eType
     {
-        TYPE_NON = 0,   ///< No type
-        TYPE_INT,       ///< Fundamental integer type
-        TYPE_REAL,      ///< Fundamental real type
-        TYPE_TEXT,      ///< Fundamental text type
-        TYPE_IVECTOR    ///< Vector of integer values
+        TYPE_NON = 0,  ///< No type
+        TYPE_INT,      ///< Fundamental integer type
+        TYPE_REAL,     ///< Fundamental real type
+        TYPE_TEXT,     ///< Fundamental text type
+        TYPE_VECTOR    ///< Vector values
     };
 
     /// @todo Przeprojektowac!!!!

@@ -461,7 +461,7 @@ namespace codeframe
                                             }
                                             else if( strcmp (type, "vec") == 0 )
                                             {
-                                                variantValue.Type = codeframe::TYPE_IVECTOR;
+                                                variantValue.Type = codeframe::TYPE_VECTOR;
                                                 std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
 
                                                 variantValue.ValueString = FromEscapeXml( tempText );

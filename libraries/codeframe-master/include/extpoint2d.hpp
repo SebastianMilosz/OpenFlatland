@@ -11,25 +11,11 @@ namespace codeframe
     class Point2D : public TypeInterface
     {
         public:
-            Point2D() : m_x( 0 ), m_y( 0 )
-            {
-            }
-
-            Point2D( T x, T y ) : m_x( x ), m_y( y )
-            {
-            }
-
-            Point2D( sf::Vector2f point ) : m_x( point.x ), m_y( point.y )
-            {
-            }
-
-            Point2D( const Point2D& other ) : m_x( other.m_x ), m_y( other.m_y )
-            {
-            }
-
-            virtual ~Point2D()
-            {
-            }
+            Point2D() : m_x( 0 ), m_y( 0 ) {}
+            Point2D( T x, T y ) : m_x( x ), m_y( y ) {}
+            Point2D( sf::Vector2f point ) : m_x( point.x ), m_y( point.y ) {}
+            Point2D( const Point2D& other ) : m_x( other.m_x ), m_y( other.m_y ) {}
+            virtual ~Point2D() {}
 
             virtual void FromStringCallback ( StringType  value );
             virtual void FromIntegerCallback( IntegerType value );
