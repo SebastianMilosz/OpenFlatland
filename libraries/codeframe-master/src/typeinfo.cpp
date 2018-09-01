@@ -3,230 +3,10 @@
 #include <MathUtilities.h>
 
 #include "extvector.hpp"
+#include "extfundamental.hpp"
 
 namespace codeframe
 {
-    bool BoolFromString( std::string value )
-    {
-        int retVal = utilities::math::StrToInt( value );
-        return (bool)retVal;
-    }
-
-    int IntFromString( std::string value )
-    {
-        int retVal = utilities::math::StrToInt( value );
-        return retVal;
-    }
-
-    unsigned int UIntFromString( std::string value )
-    {
-        unsigned int retVal = utilities::math::StrToInt( value );
-        return retVal;
-    }
-
-    float FloatFromString( std::string value )
-    {
-        unsigned int retVal = utilities::math::StrToFloat( value );
-        return retVal;
-    }
-
-    double DoubleFromString( std::string value )
-    {
-        unsigned int retVal = utilities::math::StrToDouble( value );
-        return retVal;
-    }
-
-    std::string StringFromString( std::string value )
-    {
-        return value;
-    }
-
-    std::string BoolToString( const bool& value )
-    {
-        return utilities::math::IntToStr( value );
-    }
-
-    std::string IntToString( const int& value )
-    {
-        return utilities::math::IntToStr( value );
-    }
-
-    std::string UIntToString( const unsigned int& value )
-    {
-        return utilities::math::IntToStr( value );
-    }
-
-    std::string FloatToString( const float& value )
-    {
-        return utilities::math::FloatToStr( value );
-    }
-
-    std::string DoubleToString( const double& value )
-    {
-        return utilities::math::DoubleToStr( value );
-    }
-
-    std::string StringToString( const std::string& value )
-    {
-        return value;
-    }
-
-    IntegerType BoolToInt( const bool& value )
-    {
-        return value;
-    }
-
-    IntegerType IntToInt( const int& value )
-    {
-        return value;
-    }
-
-    IntegerType UIntToInt( const unsigned int& value )
-    {
-        return value;
-    }
-
-    IntegerType FloatToInt( const float& value )
-    {
-        return value;
-    }
-
-    IntegerType DoubleToInt( const double& value )
-    {
-        return value;
-    }
-
-    IntegerType StringToInt( const std::string& value )
-    {
-        return utilities::math::StrToInt( value );
-    }
-
-    bool BoolFromInt( IntegerType value )
-    {
-        return value;
-    }
-
-    int IntFromInt( IntegerType value )
-    {
-        return value;
-    }
-
-    unsigned int UIntFromInt( IntegerType value )
-    {
-        unsigned int retVal = value;
-        return retVal;
-    }
-
-    float FloatFromInt( IntegerType value )
-    {
-        return value;
-    }
-
-    double DoubleFromInt( IntegerType value )
-    {
-        return value;
-    }
-
-    std::string StringFromInt( IntegerType value )
-    {
-        std::string retVal = utilities::math::IntToStr( value );
-        return retVal;
-    }
-
-    RealType BoolToReal( const bool& value )
-    {
-        return value;
-    }
-
-    RealType IntToReal( const int& value )
-    {
-        return value;
-    }
-
-    RealType UIntToReal( const unsigned int& value )
-    {
-        return value;
-    }
-
-    RealType FloatToReal( const float& value )
-    {
-        return value;
-    }
-
-    RealType DoubleToReal( const double& value )
-    {
-        return value;
-    }
-
-    RealType StringToReal( const std::string& value )
-    {
-        return 0;
-    }
-
-    bool BoolFromReal( double value )
-    {
-        int retVal = value;
-        return retVal;
-    }
-
-    int IntFromReal( double value )
-    {
-        int retVal = value;
-        return retVal;
-    }
-
-    unsigned int UIntFromReal( double value )
-    {
-        unsigned int retVal = value;
-        return retVal;
-    }
-
-    float FloatFromReal( double value )
-    {
-        return value;
-    }
-
-    double DoubleFromReal( double value )
-    {
-        return value;
-    }
-
-    std::string StringFromReal( double value )
-    {
-        std::string retVal = std::string("0");
-        return retVal;
-    }
-
-    bool BoolAddOperator( const bool& value1, const bool& value2 )
-    {
-        return (value1 + value2);
-    }
-
-    int IntAddOperator( const int& value1, const int& value2 )
-    {
-        return (value1 + value2);
-    }
-
-    unsigned int UIntAddOperator( const unsigned int& value1, const unsigned int& value2 )
-    {
-        return (value1 + value2);
-    }
-
-    float FloatAddOperator( const float& value1, const float& value2 )
-    {
-        return (value1 + value2);
-    }
-
-    double DoubleAddOperator( const double& value1, const double& value2 )
-    {
-        return (value1 + value2);
-    }
-
-    std::string StringAddOperator( const std::string& value1, const std::string& value2 )
-    {
-        return (value1 + value2);
-    }
-
     template<typename T>
     TypeInfo<T>::TypeInfo( const char* typeName, const char* typeUser, const eType enumType ) :
         TypeCompName( typeName ),
@@ -248,7 +28,7 @@ namespace codeframe
         if( typeText == "int"  ) return TYPE_INT;
         if( typeText == "real" ) return TYPE_REAL;
         if( typeText == "text" ) return TYPE_TEXT;
-        if( typeText == "ivec" ) return TYPE_IVECTOR;
+        if( typeText == "vec"  ) return TYPE_VECTOR;
 
         return TYPE_NON;
     }
@@ -305,64 +85,70 @@ namespace codeframe
     REGISTER_TYPE( float             , "real" );
     REGISTER_TYPE( double            , "real" );
     REGISTER_TYPE( Point2D<int>      , "vec"  );
+    REGISTER_TYPE( Point2D<float>    , "vec"  );
     REGISTER_TYPE( std::vector<float>, "vec"  );
 
     TypeInitializer::TypeInitializer( void )
     {
-        GetTypeInfo<bool               >().SetFromStringCallback( &BoolFromString    );
-        GetTypeInfo<int                >().SetFromStringCallback( &IntFromString     );
-        GetTypeInfo<unsigned int       >().SetFromStringCallback( &UIntFromString    );
-        GetTypeInfo<float              >().SetFromStringCallback( &FloatFromString   );
-        GetTypeInfo<double             >().SetFromStringCallback( &DoubleFromString  );
-        GetTypeInfo<std::string        >().SetFromStringCallback( &StringFromString  );
+        GetTypeInfo<bool               >().SetFromStringCallback( &FundamentalTypes<bool>::BoolFromString    );
+        GetTypeInfo<int                >().SetFromStringCallback( &FundamentalTypes<int>::IntFromString     );
+        GetTypeInfo<unsigned int       >().SetFromStringCallback( &FundamentalTypes<unsigned int>::UIntFromString    );
+        GetTypeInfo<float              >().SetFromStringCallback( &FundamentalTypes<float>::FloatFromString   );
+        GetTypeInfo<double             >().SetFromStringCallback( &FundamentalTypes<double>::DoubleFromString  );
+        GetTypeInfo<std::string        >().SetFromStringCallback( &FundamentalTypes<std::string>::StringFromString  );
         GetTypeInfo<Point2D<int>       >().SetFromStringCallback( &Point2D<int>::Point2DFromString );
+        GetTypeInfo<Point2D<float>     >().SetFromStringCallback( &Point2D<float>::Point2DFromString );
         GetTypeInfo<std::vector<float> >().SetFromStringCallback( &PropertyVector<float>::VectorFromString );
 
-        GetTypeInfo<bool               >().SetToStringCallback( &BoolToString    );
-        GetTypeInfo<int                >().SetToStringCallback( &IntToString     );
-        GetTypeInfo<unsigned int       >().SetToStringCallback( &UIntToString    );
-        GetTypeInfo<float              >().SetToStringCallback( &FloatToString   );
-        GetTypeInfo<double             >().SetToStringCallback( &DoubleToString  );
-        GetTypeInfo<std::string        >().SetToStringCallback( &StringToString  );
+        GetTypeInfo<bool               >().SetToStringCallback( &FundamentalTypes<bool>::BoolToString    );
+        GetTypeInfo<int                >().SetToStringCallback( &FundamentalTypes<int>::IntToString     );
+        GetTypeInfo<unsigned int       >().SetToStringCallback( &FundamentalTypes<unsigned int>::UIntToString    );
+        GetTypeInfo<float              >().SetToStringCallback( &FundamentalTypes<float>::FloatToString   );
+        GetTypeInfo<double             >().SetToStringCallback( &FundamentalTypes<double>::DoubleToString  );
+        GetTypeInfo<std::string        >().SetToStringCallback( &FundamentalTypes<std::string>::StringToString  );
         GetTypeInfo<Point2D<int>       >().SetToStringCallback( &Point2D<int>::Point2DToString );
+        GetTypeInfo<Point2D<float>     >().SetToStringCallback( &Point2D<float>::Point2DToString );
         GetTypeInfo<std::vector<float> >().SetToStringCallback( &PropertyVector<float>::VectorToString );
 
-        GetTypeInfo<bool         >().SetFromIntegerCallback( &BoolFromInt   );
-        GetTypeInfo<int          >().SetFromIntegerCallback( &IntFromInt    );
-        GetTypeInfo<unsigned int >().SetFromIntegerCallback( &UIntFromInt   );
-        GetTypeInfo<float        >().SetFromIntegerCallback( &FloatFromInt  );
-        GetTypeInfo<double       >().SetFromIntegerCallback( &DoubleFromInt );
-        GetTypeInfo<std::string  >().SetFromIntegerCallback( &StringFromInt );
-        GetTypeInfo<Point2D<int> >().SetFromIntegerCallback( NULL );
+        GetTypeInfo<bool           >().SetFromIntegerCallback( &FundamentalTypes<bool>::BoolFromInt   );
+        GetTypeInfo<int            >().SetFromIntegerCallback( &FundamentalTypes<int>::IntFromInt    );
+        GetTypeInfo<unsigned int   >().SetFromIntegerCallback( &FundamentalTypes<unsigned int>::UIntFromInt   );
+        GetTypeInfo<float          >().SetFromIntegerCallback( &FundamentalTypes<float>::FloatFromInt  );
+        GetTypeInfo<double         >().SetFromIntegerCallback( &FundamentalTypes<double>::DoubleFromInt );
+        GetTypeInfo<std::string    >().SetFromIntegerCallback( &FundamentalTypes<std::string>::StringFromInt );
+        GetTypeInfo<Point2D<int>   >().SetFromIntegerCallback( NULL );
+        GetTypeInfo<Point2D<float> >().SetFromIntegerCallback( NULL );
 
-        GetTypeInfo<bool         >().SetToIntegerCallback( &BoolToInt    );
-        GetTypeInfo<int          >().SetToIntegerCallback( &IntToInt     );
-        GetTypeInfo<unsigned int >().SetToIntegerCallback( &UIntToInt    );
-        GetTypeInfo<float        >().SetToIntegerCallback( &FloatToInt   );
-        GetTypeInfo<double       >().SetToIntegerCallback( &DoubleToInt  );
-        GetTypeInfo<std::string  >().SetToIntegerCallback( &StringToInt  );
-        GetTypeInfo<Point2D<int> >().SetToIntegerCallback( &Point2D<int>::Point2DToInt );
+        GetTypeInfo<bool           >().SetToIntegerCallback( &FundamentalTypes<bool>::BoolToInt    );
+        GetTypeInfo<int            >().SetToIntegerCallback( &FundamentalTypes<int>::IntToInt     );
+        GetTypeInfo<unsigned int   >().SetToIntegerCallback( &FundamentalTypes<unsigned int>::UIntToInt    );
+        GetTypeInfo<float          >().SetToIntegerCallback( &FundamentalTypes<float>::FloatToInt   );
+        GetTypeInfo<double         >().SetToIntegerCallback( &FundamentalTypes<double>::DoubleToInt  );
+        GetTypeInfo<std::string    >().SetToIntegerCallback( &FundamentalTypes<std::string>::StringToInt  );
+        GetTypeInfo<Point2D<int>   >().SetToIntegerCallback( &Point2D<int>::Point2DToInt );
+        GetTypeInfo<Point2D<float> >().SetToIntegerCallback( &Point2D<float>::Point2DToInt );
 
-        GetTypeInfo<bool        >().SetFromRealCallback( &BoolFromReal   );
-        GetTypeInfo<int         >().SetFromRealCallback( &IntFromReal    );
-        GetTypeInfo<unsigned int>().SetFromRealCallback( &UIntFromReal   );
-        GetTypeInfo<float       >().SetFromRealCallback( &FloatFromReal  );
-        GetTypeInfo<double      >().SetFromRealCallback( &DoubleFromReal );
-        GetTypeInfo<std::string >().SetFromRealCallback( &StringFromReal );
+        GetTypeInfo<bool        >().SetFromRealCallback( &FundamentalTypes<bool>::BoolFromReal   );
+        GetTypeInfo<int         >().SetFromRealCallback( &FundamentalTypes<int>::IntFromReal    );
+        GetTypeInfo<unsigned int>().SetFromRealCallback( &FundamentalTypes<unsigned int>::UIntFromReal   );
+        GetTypeInfo<float       >().SetFromRealCallback( &FundamentalTypes<float>::FloatFromReal  );
+        GetTypeInfo<double      >().SetFromRealCallback( &FundamentalTypes<double>::DoubleFromReal );
+        GetTypeInfo<std::string >().SetFromRealCallback( &FundamentalTypes<std::string>::StringFromReal );
 
-        GetTypeInfo<bool        >().SetToRealCallback( &BoolToReal   );
-        GetTypeInfo<int         >().SetToRealCallback( &IntToReal    );
-        GetTypeInfo<unsigned int>().SetToRealCallback( &UIntToReal   );
-        GetTypeInfo<float       >().SetToRealCallback( &FloatToReal  );
-        GetTypeInfo<double      >().SetToRealCallback( &DoubleToReal );
-        GetTypeInfo<std::string >().SetToRealCallback( &StringToReal );
+        GetTypeInfo<bool        >().SetToRealCallback( &FundamentalTypes<bool>::BoolToReal   );
+        GetTypeInfo<int         >().SetToRealCallback( &FundamentalTypes<int>::IntToReal    );
+        GetTypeInfo<unsigned int>().SetToRealCallback( &FundamentalTypes<unsigned int>::UIntToReal   );
+        GetTypeInfo<float       >().SetToRealCallback( &FundamentalTypes<float>::FloatToReal  );
+        GetTypeInfo<double      >().SetToRealCallback( &FundamentalTypes<double>::DoubleToReal );
+        GetTypeInfo<std::string >().SetToRealCallback( &FundamentalTypes<std::string>::StringToReal );
 
-        GetTypeInfo<bool         >().SetAddOperatorCallback( &BoolAddOperator   );
-        GetTypeInfo<int          >().SetAddOperatorCallback( &IntAddOperator    );
-        GetTypeInfo<unsigned int >().SetAddOperatorCallback( &UIntAddOperator   );
-        GetTypeInfo<float        >().SetAddOperatorCallback( &FloatAddOperator  );
-        GetTypeInfo<double       >().SetAddOperatorCallback( &DoubleAddOperator );
-        GetTypeInfo<std::string  >().SetAddOperatorCallback( &StringAddOperator );
-        GetTypeInfo<Point2D<int> >().SetAddOperatorCallback( &Point2D<int>::Point2AddOperator );
+        GetTypeInfo<bool           >().SetAddOperatorCallback( &FundamentalTypes<bool>::BoolAddOperator   );
+        GetTypeInfo<int            >().SetAddOperatorCallback( &FundamentalTypes<int>::IntAddOperator    );
+        GetTypeInfo<unsigned int   >().SetAddOperatorCallback( &FundamentalTypes<unsigned int>::UIntAddOperator   );
+        GetTypeInfo<float          >().SetAddOperatorCallback( &FundamentalTypes<float>::FloatAddOperator  );
+        GetTypeInfo<double         >().SetAddOperatorCallback( &FundamentalTypes<double>::DoubleAddOperator );
+        GetTypeInfo<std::string    >().SetAddOperatorCallback( &FundamentalTypes<std::string>::StringAddOperator );
+        GetTypeInfo<Point2D<int>   >().SetAddOperatorCallback( &Point2D<int>::Point2AddOperator );
+        GetTypeInfo<Point2D<float> >().SetAddOperatorCallback( &Point2D<float>::Point2AddOperator );
     }
 }

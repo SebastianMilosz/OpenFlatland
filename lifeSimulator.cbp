@@ -125,6 +125,7 @@
 		<Unit filename="include/world.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxml.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxmlnode.hpp" />
+		<Unit filename="libraries/codeframe-master/include/extfundamental.hpp" />
 		<Unit filename="libraries/codeframe-master/include/extpoint2d.hpp" />
 		<Unit filename="libraries/codeframe-master/include/extvector.hpp" />
 		<Unit filename="libraries/codeframe-master/include/instancemanager.hpp" />
