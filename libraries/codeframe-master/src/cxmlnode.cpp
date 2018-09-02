@@ -93,6 +93,16 @@ bool cXMLNode::IsValid()
   * @brief
  **
 ******************************************************************************/
+const char_t* cXMLNode::Name() const
+{
+    m_xmlNode->name();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 cXMLNode cXMLNode::FindChildByAttribute(const char_t* name, const char_t* attr_name, const char_t* attr_value) const
 {
     return cXMLNode( m_xmlNode->find_child_by_attribute( name, attr_name, attr_value ) );

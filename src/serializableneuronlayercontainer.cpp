@@ -37,7 +37,7 @@ smart_ptr<codeframe::cSerializableInterface> SerializableNeuronLayerContainer::C
 {
     if ( className == "SerializableNeuronLayer" )
     {
-        smart_ptr<SerializableNeuronLayer> obj = smart_ptr<SerializableNeuronLayer>( new SerializableNeuronLayer( objName, this ) );
+        smart_ptr<SerializableNeuronLayer> obj = smart_ptr<SerializableNeuronLayer>( new SerializableNeuronLayer( objName, NULL ) );
 
         (void)InsertObject( obj );
 
@@ -54,5 +54,5 @@ smart_ptr<codeframe::cSerializableInterface> SerializableNeuronLayerContainer::C
 ******************************************************************************/
 void SerializableNeuronLayerContainer::SetLayersCnt( unsigned int cnt )
 {
-    CreateRange( "SerializableNeuronLayer", "", cnt );
+    CreateRange( "SerializableNeuronLayer", "AnnLayer", cnt );
 }
