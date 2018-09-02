@@ -2,6 +2,7 @@
 #define ENTITYGHOST_HPP
 
 #include "entityshell.hpp"
+#include "serializableneuronlayercontainer.hpp"
 
 class EntityGhost : public EntityShell
 {
@@ -17,6 +18,7 @@ class EntityGhost : public EntityShell
         EntityGhost& operator=(const EntityGhost& other);
 
     protected:
+        SerializableNeuronLayerContainer m_NeuronLayerContainer;
 
     private:
 };

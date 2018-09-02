@@ -2,6 +2,9 @@
 
 #include <ctype.h>
 
+namespace codeframe
+{
+
 static const char* base64_charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 static const std::string base64_chars = base64_charset;
 
@@ -117,4 +120,6 @@ std::string base64_decode( std::string const& encoded_string )
     }
 
     return ret;
+}
+
 }

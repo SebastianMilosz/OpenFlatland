@@ -5,7 +5,9 @@
   * @brief
  **
 ******************************************************************************/
-EntityGhost::EntityGhost( std::string name, int x, int y ) : EntityShell( name, x, y )
+EntityGhost::EntityGhost( std::string name, int x, int y ) :
+    EntityShell( name, x, y ),
+    m_NeuronLayerContainer( "ANN", this )
 {
     //ctor
 }
@@ -26,7 +28,8 @@ EntityGhost::~EntityGhost()
  **
 ******************************************************************************/
 EntityGhost::EntityGhost(const EntityGhost& other) :
-    EntityShell( other )
+    EntityShell( other ),
+    m_NeuronLayerContainer( "ANN", this )
 {
     //copy ctor
 }

@@ -6,7 +6,7 @@
 #include <serializablecontainer.hpp>
 #include <serializableinterface.hpp>
 
-#include "serializableneuron.hpp"
+#include "serializableneuronlayer.hpp"
 
 class SerializableNeuronLayerContainer : public codeframe::cSerializableContainer
 {
@@ -20,12 +20,16 @@ class SerializableNeuronLayerContainer : public codeframe::cSerializableContaine
         SerializableNeuronLayerContainer( std::string name, cSerializableInterface* parent );
         virtual ~SerializableNeuronLayerContainer();
 
+        codeframe::Property<unsigned int, SerializableNeuronLayerContainer> LayersCnt;
+
     protected:
         smart_ptr<codeframe::cSerializableInterface> Create(
                                                              const std::string& className,
                                                              const std::string& objName,
                                                              const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                             );
+
+    void SetLayersCnt( unsigned int cnt );
 };
 
 #endif // SERIALIZABLENEURONLAYERCONTAINER_HPP_INCLUDED

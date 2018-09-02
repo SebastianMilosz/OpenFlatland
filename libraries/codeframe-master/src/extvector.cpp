@@ -39,11 +39,10 @@ namespace codeframe
     template<>
     std::string PropertyVector<float>::VectorToString( const std::vector<float>& vectorValue )
     {
-        std::string retValue = "";
-        for ( std::vector<float>::const_iterator it = vectorValue.begin(); it != vectorValue.end(); ++it )
-        {
-
-        }
+        unsigned int vectorByteSize = vectorValue.size() * sizeof(float);
+        const float* vectorValueData = &vectorValue[0];
+        const uint8_t *indata = reinterpret_cast<const uint8_t *>(vectorValueData);
+        std::string retValue = base64_encode(indata, vectorByteSize);
         return retValue;
     }
 
