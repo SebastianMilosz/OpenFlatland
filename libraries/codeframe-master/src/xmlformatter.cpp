@@ -366,7 +366,7 @@ namespace codeframe
 
             // DeSerializacja dzieci
             std::string thisRole   = std::string(rootObjNode.GetAttributeAsString("role"));
-            cXMLNode childNodeContainer = rootObjNode.FindChildByAttribute(XMLTAG_CHILD, "name", m_serializableObject->ObjectName().c_str());
+            cXMLNode childNodeContainer = rootObjNode.FindChildByAttribute(XMLTAG_CHILD, "name", m_serializableObject->ObjectName( false ).c_str());
             int childCnt = childNodeContainer.GetAttributeAsInteger("cnt");
 
             // Jesli rola tego obiektu to kontener obiektow iterujemy po wpisach i sparawdzamy czy nie trzeba
@@ -498,7 +498,7 @@ namespace codeframe
 
             if( m_shareLevel == 1 )
             {
-                int childLp  = 0;
+                unsigned int childLp  = 0;
 
                 // Po wszystkich obiektach dzieci ladujemy zawartosc
                 for( cSerializableChildList::iterator it = m_serializableObject->ChildList()->begin(); it != m_serializableObject->ChildList()->end(); ++it )
@@ -506,11 +506,25 @@ namespace codeframe
                     cSerializableInterface* iser = *it;
                     cXmlFormatter formatter( iser );
 
-                    cXMLNode childNode = childNodeContainer.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr(childLp++).c_str());
+                    cXMLNode childNode = childNodeContainer.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr(childLp).c_str());
 
-                    cXML xml( childNode );
+                    if ( childNode.IsValid() == true )
+                    {
+                        cXML xml( childNode );
 
-                    formatter.LoadFromXML( xml );
+                        formatter.LoadFromXML( xml );
+                    }
+                    else
+                    {
+                        std::string parentName = m_serializableObject->ObjectName( false );
+                        std::string childNodeContainerName = m_serializableObject->ObjectName();
+                        std::string throwString = std::string("cXmlFormatter::LoadFromXML() Cant find childNode Id: " ) +
+                                                  utilities::math::IntToStr( childLp ) +
+                                                  std::string(" for object ") + parentName +
+                                                  std::string(" inside node: ") + childNodeContainerName;
+                        throw std::runtime_error( throwString );
+                    }
+                    childLp++;
                 }
             }
         }

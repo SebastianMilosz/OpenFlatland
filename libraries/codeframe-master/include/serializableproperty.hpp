@@ -40,7 +40,7 @@ namespace codeframe
 
             retT GetValue() const
             {
-                if( (NULL != GetValueCallback) && (NULL != ContextObject) )
+                if ( (NULL != GetValueCallback) && (NULL != ContextObject) )
                 {
                     return (ContextObject->*GetValueCallback)();
                 }
@@ -49,12 +49,15 @@ namespace codeframe
 
             void SetValue( retT value )
             {
-                if( (NULL != SetValueCallback) && (NULL != ContextObject) )
+                if ( (NULL != SetValueCallback) && (NULL != ContextObject) )
                 {
                     (ContextObject->*SetValueCallback)( value );
                 }
-                m_baseValuePrew = m_baseValue;
-                m_baseValue = value;
+
+                if ( m_propertyInfo.IsEventEnable() )
+                {
+                    signalChanged.Emit( this );
+                }
             }
 
             // Copy operator
@@ -145,10 +148,8 @@ namespace codeframe
                     m_baseValuePrew = GetValue();
                     m_baseValue = valueT;
 
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
+                    // Values external
+                    SetValue( m_baseValue );
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -174,10 +175,8 @@ namespace codeframe
                     m_baseValuePrew = GetValue();
                     m_baseValue = valueT;
 
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
+                    // Values external
+                    SetValue( m_baseValue );
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -203,10 +202,8 @@ namespace codeframe
                     m_baseValuePrew = GetValue();
                     m_baseValue = valueT;
 
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
+                    // Values external
+                    SetValue( m_baseValue );
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -232,10 +229,8 @@ namespace codeframe
                     m_baseValuePrew = GetValue();
                     m_baseValue = valueT;
 
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
+                    // Values external
+                    SetValue( m_baseValue );
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -261,10 +256,8 @@ namespace codeframe
                     m_baseValuePrew = GetValue();
                     m_baseValue = valueT;
 
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
+                    // Values external
+                    SetValue( m_baseValue );
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -290,10 +283,8 @@ namespace codeframe
                     m_baseValuePrew = GetValue();
                     m_baseValue = valueT;
 
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
+                    // Values external
+                    SetValue( m_baseValue );
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -319,10 +310,8 @@ namespace codeframe
                     m_baseValuePrew = GetValue();
                     m_baseValue = valueT;
 
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
+                    // Values external
+                    SetValue( m_baseValue );
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -348,10 +337,8 @@ namespace codeframe
                     m_baseValuePrew = GetValue();
                     m_baseValue = valueT;
 
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
+                    // Values external
+                    SetValue( m_baseValue );
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -406,6 +393,9 @@ namespace codeframe
                 m_baseValue = GetTypeInfo<retT>().AddOperator( GetValue(), rhs.GetValue() );
                 m_Mutex.Unlock();
 
+                // Values external
+                SetValue( m_baseValue );
+
                 return *this;
             }
 
@@ -422,6 +412,9 @@ namespace codeframe
                 m_baseValue = valueT;
 
                 m_Mutex.Unlock();
+
+                // Values external
+                SetValue( m_baseValue );
 
                 return *this;
             }

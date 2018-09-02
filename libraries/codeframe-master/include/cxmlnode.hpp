@@ -24,6 +24,8 @@ namespace codeframe
 
         bool IsValid();
 
+        const char_t* Name() const;
+
         // Find child node by attribute name/value
         cXMLNode FindChildByAttribute(const char_t* name,      const char_t* attr_name, const char_t* attr_value) const;
         cXMLNode FindChildByAttribute(const char_t* attr_name, const char_t* attr_value) const;
