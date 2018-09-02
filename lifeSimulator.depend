@@ -1423,7 +1423,7 @@
 	<sys/types.h>
 	<time.h>
 
-1534876995 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
+1535878550 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
 	"entityghost.hpp"
 
 1534535524 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\instancemanager.cpp
@@ -1583,7 +1583,7 @@
 	"serializableproperty.hpp"
 	<LoggerUtilities.h>
 
-1534716571 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
+1535882705 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
 	"serializablecontainer.hpp"
 	<LoggerUtilities.h>
 
@@ -1795,7 +1795,7 @@
 	"serializableinterface.hpp"
 	"instancemanager.hpp"
 
-1535572992 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
+1535882719 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
 	<exception>
 	<stdexcept>
 	<vector>
@@ -1819,8 +1819,9 @@
 	"physicsbody.hpp"
 	"entityvision.hpp"
 
-1534876995 d:\sourcecode\lifesimulator\include\entityghost.hpp
+1535878522 d:\sourcecode\lifesimulator\include\entityghost.hpp
 	"entityshell.hpp"
+	"serializableneuronlayercontainer.hpp"
 
 1535573146 d:\sourcecode\lifesimulator\include\entityfactory.hpp
 	<sigslot.h>
@@ -3066,10 +3067,10 @@
 1535747392 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
 	<serializable.hpp>
 
-1535574137 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
+1535881457 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
 	"serializableneuronlayer.hpp"
 
-1535574120 d:\sourcecode\lifesimulator\include\serializableneuronlayer.hpp
+1535882056 d:\sourcecode\lifesimulator\include\serializableneuronlayer.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
@@ -3085,15 +3086,15 @@
 	<vector>
 	<string>
 
-1535574167 source:d:\sourcecode\lifesimulator\src\serializableneuronlayercontainer.cpp
+1535883975 source:d:\sourcecode\lifesimulator\src\serializableneuronlayercontainer.cpp
 	"serializableneuronlayercontainer.hpp"
 
-1535574150 d:\sourcecode\lifesimulator\include\serializableneuronlayercontainer.hpp
+1535883719 d:\sourcecode\lifesimulator\include\serializableneuronlayercontainer.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
 	<serializableinterface.hpp>
-	"serializableneuron.hpp"
+	"serializableneuronlayer.hpp"
 
 1535816262 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extpoint2d.cpp
 	"extpoint2d.hpp"
@@ -3101,7 +3102,7 @@
 	<TextUtilities.h>
 	<MathUtilities.h>
 
-1535826185 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extvector.cpp
+1535837398 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\extvector.cpp
 	"extvector.hpp"
 	<MathUtilities.h>
 	<TextUtilities.h>
@@ -3121,7 +3122,7 @@
 
 1371563376 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\libb64-1.2.1\include\b64\cencode.h
 
-1535826701 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\base64.cpp
+1535837554 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\base64.cpp
 	"base64.hpp"
 	<ctype.h>
 

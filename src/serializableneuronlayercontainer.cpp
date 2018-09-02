@@ -1,12 +1,15 @@
 #include "serializableneuronlayercontainer.hpp"
 
+using namespace codeframe;
+
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
 SerializableNeuronLayerContainer::SerializableNeuronLayerContainer( std::string name, cSerializableInterface* parent ) :
-    cSerializableContainer( name, parent )
+    cSerializableContainer( name, parent ),
+    LayersCnt( this, "LayersCnt" , 1U , cPropertyInfo().Kind( KIND_NUMBER ).Description("LayersCnt"), this, NULL, &SerializableNeuronLayerContainer::SetLayersCnt )
 {
 
 }
@@ -34,7 +37,22 @@ smart_ptr<codeframe::cSerializableInterface> SerializableNeuronLayerContainer::C
 {
     if ( className == "SerializableNeuronLayer" )
     {
+        smart_ptr<SerializableNeuronLayer> obj = smart_ptr<SerializableNeuronLayer>( new SerializableNeuronLayer( objName, this ) );
+
+        (void)InsertObject( obj );
+
+        return obj;
     }
 
     return smart_ptr<codeframe::cSerializableInterface>();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void SerializableNeuronLayerContainer::SetLayersCnt( unsigned int cnt )
+{
+    CreateRange( "SerializableNeuronLayer", "", cnt );
 }
