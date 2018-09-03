@@ -20,12 +20,16 @@ class SerializableNeuronLayer : public codeframe::cSerializableContainer
         SerializableNeuronLayer( std::string name, cSerializableInterface* parent );
         virtual ~SerializableNeuronLayer();
 
+        codeframe::Property<unsigned int, SerializableNeuronLayer> NeuronCnt;
+
     protected:
         smart_ptr<codeframe::cSerializableInterface> Create(
                                                              const std::string& className,
                                                              const std::string& objName,
                                                              const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                             );
+
+        void SetNeuronCnt( unsigned int cnt );
 };
 
 #endif // SERIALIZABLENEURONLAYER_HPP_INCLUDED

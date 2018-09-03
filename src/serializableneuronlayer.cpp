@@ -1,12 +1,15 @@
 #include "serializableneuronlayer.hpp"
 
+using namespace codeframe;
+
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
 SerializableNeuronLayer::SerializableNeuronLayer( std::string name, cSerializableInterface* parent ) :
-    cSerializableContainer( name, parent )
+    cSerializableContainer( name, parent ),
+    NeuronCnt( this, "NeuronCnt" , 10U , cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronCnt"), this, NULL, &SerializableNeuronLayer::SetNeuronCnt)
 {
 
 }
@@ -33,5 +36,28 @@ smart_ptr<codeframe::cSerializableInterface> SerializableNeuronLayer::Create(
 {
     if ( className == "SerializableNeuron" )
     {
+        smart_ptr<SerializableNeuron> obj = smart_ptr<SerializableNeuron>( new SerializableNeuron( objName, NULL, 100 ) );
+
+        (void)InsertObject( obj );
+
+        return obj;
+    }
+
+    return smart_ptr<codeframe::cSerializableInterface>();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void SerializableNeuronLayer::SetNeuronCnt( unsigned int cnt )
+{
+    unsigned int thisCnt = Count();
+    // Set Neuron cnt to be at least configured
+    if ( cnt > thisCnt )
+    {
+        unsigned int newCnt = (cnt - thisCnt);
+        CreateRange( "SerializableNeuron", "Neuron", newCnt );
     }
 }
