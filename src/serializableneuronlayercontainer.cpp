@@ -54,5 +54,11 @@ smart_ptr<codeframe::cSerializableInterface> SerializableNeuronLayerContainer::C
 ******************************************************************************/
 void SerializableNeuronLayerContainer::SetLayersCnt( unsigned int cnt )
 {
-    CreateRange( "SerializableNeuronLayer", "AnnLayer", cnt );
+    unsigned int thisCnt = Count();
+    // Set layer cnt to be at least configured
+    if ( cnt > thisCnt )
+    {
+        unsigned int newCnt = (cnt - thisCnt);
+        CreateRange( "SerializableNeuronLayer", "AnnLayer", newCnt );
+    }
 }
