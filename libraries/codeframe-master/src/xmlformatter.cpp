@@ -252,118 +252,6 @@ namespace codeframe
                 throw std::runtime_error( errormsg.c_str() );
             }
 
-            // Po wszystkich polach serializacji tego obiektu
-            for( cSerializable::iterator it = m_serializableObject->begin(); it != m_serializableObject->end(); ++it )
-            {
-                PropertyBase* iser = *it;
-
-                if( iser->Info().GetXmlMode() & XMLMODE_R )
-                {
-                    // Dozwolone sa tylko pola unikalne na danym poziomie
-                    if( m_serializableObject->IsPropertyUnique( iser->Name() ) == false )
-                    {
-                        std::string throwString = std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name();
-
-                        throw std::runtime_error( throwString );
-                    }
-
-                    cXMLNode propertyNode = rootObjNode.FindChildByAttribute(XMLTAG_PROPERTY, "name", iser->Name().c_str());
-
-                    // Jesli znaleziono wezel
-                    if( propertyNode.IsValid() == true )
-                    {
-                        // Nie wypuszczamy eventow w czasie zaczytywania
-                        bool ev = iser->Info().IsEventEnable();
-                        iser->Info().Event( false );
-
-                        const char_t* type = propertyNode.GetAttributeAsString("type");
-
-                             if( strcmp (type, "int")  == 0 )
-                        {
-                            *iser = int   (propertyNode.GetAttributeAsInteger("value") );
-                        }
-                        else if( strcmp (type, "real") == 0 )
-                        {
-                            *iser = double( propertyNode.GetAttributeAsDouble("value") );
-                        }
-                        else if( strcmp (type, "char") == 0 )
-                        {
-                            *iser = char( propertyNode.GetAttributeAsInteger("value") );
-                        }
-                        else if( strcmp (type, "text") == 0 )
-                        {
-                            std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
-
-                            *iser = FromEscapeXml( tempText );
-                        }
-                        else if( strcmp (type, "vec") == 0 )
-                        {
-                            std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
-                            *iser = tempText;
-                        }
-                        else if( strcmp (type, "image") == 0 )
-                        {
-
-                        }
-                        else
-                        {
-                            LOGGER( LOG_INFO << "cXmlFormatter::LoadFromXML() Unknown type: " << std::string( type ) );
-                        }
-
-                        // Zaczytanie enumeracji jesli istnieje
-                        const char_t* enumVal = propertyNode.GetAttributeAsString("enum");
-
-                        if( enumVal )
-                        {
-                            iser->Info().Enum( std::string( enumVal ) );
-                        }
-
-                        // Zaczytanie opisu jesli istnieje
-                        const char_t* description = propertyNode.GetAttributeAsString("desc");
-
-                        if( description )
-                        {
-                            std::string tempText = std::string( description );
-
-                            iser->Info().Description( FromEscapeXml( tempText ) );
-                        }
-
-                        // Przywracamy stan eventu dla tego propertisa
-                        iser->Info().Event( ev );
-
-                        // Sprawdzamy czy jest referencja z innym obiektem
-                        std::string href = std::string( propertyNode.GetAttributeAsString("href") );
-                        if( href.size() )
-                        {
-                            // Okreslamy obiekt root dla danego obiektu i wzgledem niego okreslamy cel
-                            cSerializableInterface* rootObj = m_serializableObject->GetRootObject();
-
-                            PropertyBase* refProperty = rootObj->GetPropertyFromPath( href );
-
-                            if( refProperty )
-                            {
-                                if( iser->ConnectReference( refProperty ) == false )
-                                {
-                                    throw std::runtime_error( "cXmlFormatter::LoadFromXML() Cant create reference" );
-                                }
-                            }
-                            else
-                            {
-                                throw std::runtime_error( "cXmlFormatter::LoadFromXML() Unresolved reference" );
-                            }
-                        }
-
-                        // Enable
-                        std::string en = std::string( propertyNode.GetAttributeAsString("enable") );
-                        if( en.size() )
-                        {
-                            bool isEnable = char( propertyNode.GetAttributeAsInteger("enable") );
-                            iser->Info().Enable( isEnable );
-                        }
-                    }
-                }
-            }
-
             // DeSerializacja dzieci
             std::string thisRole   = std::string(rootObjNode.GetAttributeAsString("role"));
             cXMLNode childNodeContainer = rootObjNode.FindChildByAttribute(XMLTAG_CHILD, "name", m_serializableObject->ObjectName( false ).c_str());
@@ -496,6 +384,118 @@ namespace codeframe
                 }
             }
 
+            // Po wszystkich polach serializacji tego obiektu
+            for( cSerializable::iterator it = m_serializableObject->begin(); it != m_serializableObject->end(); ++it )
+            {
+                PropertyBase* iser = *it;
+
+                if( iser->Info().GetXmlMode() & XMLMODE_R )
+                {
+                    // Dozwolone sa tylko pola unikalne na danym poziomie
+                    if( m_serializableObject->IsPropertyUnique( iser->Name() ) == false )
+                    {
+                        std::string throwString = std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name();
+
+                        throw std::runtime_error( throwString );
+                    }
+
+                    cXMLNode propertyNode = rootObjNode.FindChildByAttribute(XMLTAG_PROPERTY, "name", iser->Name().c_str());
+
+                    // Jesli znaleziono wezel
+                    if( propertyNode.IsValid() == true )
+                    {
+                        // Nie wypuszczamy eventow w czasie zaczytywania
+                        bool ev = iser->Info().IsEventEnable();
+                        iser->Info().Event( false );
+
+                        const char_t* type = propertyNode.GetAttributeAsString("type");
+
+                             if( strcmp (type, "int")  == 0 )
+                        {
+                            *iser = int   (propertyNode.GetAttributeAsInteger("value") );
+                        }
+                        else if( strcmp (type, "real") == 0 )
+                        {
+                            *iser = double( propertyNode.GetAttributeAsDouble("value") );
+                        }
+                        else if( strcmp (type, "char") == 0 )
+                        {
+                            *iser = char( propertyNode.GetAttributeAsInteger("value") );
+                        }
+                        else if( strcmp (type, "text") == 0 )
+                        {
+                            std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
+
+                            *iser = FromEscapeXml( tempText );
+                        }
+                        else if( strcmp (type, "vec") == 0 )
+                        {
+                            std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
+                            *iser = tempText;
+                        }
+                        else if( strcmp (type, "image") == 0 )
+                        {
+
+                        }
+                        else
+                        {
+                            LOGGER( LOG_INFO << "cXmlFormatter::LoadFromXML() Unknown type: " << std::string( type ) );
+                        }
+
+                        // Zaczytanie enumeracji jesli istnieje
+                        const char_t* enumVal = propertyNode.GetAttributeAsString("enum");
+
+                        if( enumVal )
+                        {
+                            iser->Info().Enum( std::string( enumVal ) );
+                        }
+
+                        // Zaczytanie opisu jesli istnieje
+                        const char_t* description = propertyNode.GetAttributeAsString("desc");
+
+                        if( description )
+                        {
+                            std::string tempText = std::string( description );
+
+                            iser->Info().Description( FromEscapeXml( tempText ) );
+                        }
+
+                        // Przywracamy stan eventu dla tego propertisa
+                        iser->Info().Event( ev );
+
+                        // Sprawdzamy czy jest referencja z innym obiektem
+                        std::string href = std::string( propertyNode.GetAttributeAsString("href") );
+                        if( href.size() )
+                        {
+                            // Okreslamy obiekt root dla danego obiektu i wzgledem niego okreslamy cel
+                            cSerializableInterface* rootObj = m_serializableObject->GetRootObject();
+
+                            PropertyBase* refProperty = rootObj->GetPropertyFromPath( href );
+
+                            if( refProperty )
+                            {
+                                if( iser->ConnectReference( refProperty ) == false )
+                                {
+                                    throw std::runtime_error( "cXmlFormatter::LoadFromXML() Cant create reference" );
+                                }
+                            }
+                            else
+                            {
+                                throw std::runtime_error( "cXmlFormatter::LoadFromXML() Unresolved reference" );
+                            }
+                        }
+
+                        // Enable
+                        std::string en = std::string( propertyNode.GetAttributeAsString("enable") );
+                        if( en.size() )
+                        {
+                            bool isEnable = char( propertyNode.GetAttributeAsInteger("enable") );
+                            iser->Info().Enable( isEnable );
+                        }
+                    }
+                }
+            }
+
             if( m_shareLevel == 1 )
             {
                 unsigned int childLp  = 0;
@@ -547,9 +547,11 @@ namespace codeframe
 
         if( m_serializableObject )
         {
+            std::string objName = m_serializableObject->ObjectName( false );
+
             // Serializacja pol obiektu
             cXMLNode rootNode = xmlDocument.AppendChild( XMLTAG_OBJECT );
-            rootNode.AppendAttribute( "name",      m_serializableObject->ObjectName( false ).c_str() );
+            rootNode.AppendAttribute( "name",      objName.c_str() );
             rootNode.AppendAttribute( "build",     m_serializableObject->BuildType().c_str() );
             rootNode.AppendAttribute( "role",      m_serializableObject->Role().c_str() );
             rootNode.AppendAttribute( "class",     m_serializableObject->Class().c_str() );
@@ -626,31 +628,37 @@ namespace codeframe
             }
 
             // Serializacja dzieci
-            cXMLNode childNode = rootNode.AppendChild(XMLTAG_CHILD);
-            childNode.AppendAttribute("name", m_serializableObject->ObjectName( false ).c_str());
-            childNode.AppendAttribute("cnt", utilities::math::IntToStr(m_serializableObject->ChildList()->size()).c_str());
+            int childCnt = m_serializableObject->ChildList()->size();
 
-            if( m_shareLevel == 1 )
+            if ( childCnt > 0 )
             {
-                int lp = 0;
+                cXMLNode childNode = rootNode.AppendChild(XMLTAG_CHILD);
 
-                for( cSerializableChildList::iterator it = m_serializableObject->ChildList()->begin(); it != m_serializableObject->ChildList()->end(); ++it )
+                childNode.AppendAttribute("name", m_serializableObject->ObjectName( false ).c_str());
+                childNode.AppendAttribute("cnt", utilities::math::IntToStr( childCnt ).c_str());
+
+                if ( m_shareLevel == 1 )
                 {
-                    cSerializableInterface* iser = *it;
+                    int lp = 0;
 
-                    if( iser )
+                    for ( cSerializableChildList::iterator it = m_serializableObject->ChildList()->begin(); it != m_serializableObject->ChildList()->end(); ++it )
                     {
-                        cXmlFormatter formatter( iser );
+                        cSerializableInterface* iser = *it;
 
-                        cXML childXml( formatter.SaveToXML() );
+                        if ( iser )
+                        {
+                            cXmlFormatter formatter( iser );
 
-                        cXMLNode rootObjNode = childXml.FirstChild();
-                        rootObjNode.AppendAttribute("lp", utilities::math::IntToStr(lp++).c_str());
-                        childNode.AppendCopy( rootObjNode );
-                    }
-                    else
-                    {
-                        throw std::runtime_error( "cXmlFormatter::SaveToXML() cSerializable* iser = NULL" );
+                            cXML childXml( formatter.SaveToXML() );
+
+                            cXMLNode rootObjNode = childXml.FirstChild();
+                            rootObjNode.AppendAttribute("lp", utilities::math::IntToStr(lp++).c_str());
+                            childNode.AppendCopy( rootObjNode );
+                        }
+                        else
+                        {
+                            throw std::runtime_error( "cXmlFormatter::SaveToXML() cSerializable* iser = NULL" );
+                        }
                     }
                 }
             }

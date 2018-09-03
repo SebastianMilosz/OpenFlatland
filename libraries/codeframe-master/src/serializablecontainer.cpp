@@ -45,9 +45,7 @@ void cSerializableContainer::CreateRange( std::string className, std::string obj
 {
     for(int i = 0; i < range; i++)
     {
-        std::string objNameNum = objName + utilities::math::IntToStr( i );
-
-        if( smart_ptr_isValid( Create( className, objNameNum ) ) == false )
+        if( smart_ptr_isValid( Create( className, objName ) ) == false )
         {
             throw std::runtime_error( "cSerializableContainer::Create return NULL" );
         }
