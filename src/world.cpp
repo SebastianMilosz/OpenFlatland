@@ -273,44 +273,41 @@ void World::CalculateRays( void )
 
             if ( (Entity*)NULL != entity )
             {
-                if ( (bool)entity->CastRays == true )
+                unsigned int rayLength   = (unsigned int)entity->RaysSize;
+                unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
+                float32 currentRayAngle = 0.0F;
+                float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
+
+                //center of entity
+                b2Vec2 p1 = entity->GetPhysicalPoint();
+
+                EntityVision& vosion = entity->Vision();
+
+                vosion.StartFrame();
+
+                #pragma omp parallel num_threads(8)
                 {
-                    unsigned int rayLength   = (unsigned int)entity->RaysSize;
-                    unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
-                    float32 currentRayAngle = 0.0F;
-                    float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
+                    RayCastCallback callback;
 
-                    //center of entity
-                    b2Vec2 p1 = entity->GetPhysicalPoint();
-
-                    EntityVision& vosion = entity->Vision();
-
-                    vosion.StartFrame();
-
-                    #pragma omp parallel num_threads(8)
+                    #pragma omp for nowait
+                    for ( unsigned int ray = 0; ray < rayCntLimit; ray++ )
                     {
-                        RayCastCallback callback;
+                        //calculate points of ray
+                        b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
 
-                        #pragma omp for nowait
-                        for ( unsigned int ray = 0; ray < rayCntLimit; ray++ )
+                        m_World.RayCast( &callback, p1, p2 );
+
+                        if( callback.WasHit() == true )
                         {
-                            //calculate points of ray
-                            b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
-
-                            m_World.RayCast( &callback, p1, p2 );
-
-                            if( callback.WasHit() == true )
-                            {
-                                p2 = callback.HitPoint();
-                            }
-
-                            vosion.AddRay( EntityVision::sRay( p1, p2, 0 ) );
-                            currentRayAngle += rayAngleStep;
+                            p2 = callback.HitPoint();
                         }
-                    }
 
-                    vosion.EndFrame();
+                        vosion.AddRay( EntityVision::sRay( p1, p2, 0 ) );
+                        currentRayAngle += rayAngleStep;
+                    }
                 }
+
+                vosion.EndFrame();
             }
         }
     }

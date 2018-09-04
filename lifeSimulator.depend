@@ -1115,7 +1115,7 @@
 	"entityfactory.hpp"
 	<typeinfo.hpp>
 
-1535319900 source:d:\sourcecode\lifesimulator\src\world.cpp
+1536084550 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.hpp"
 	<string>
 	<sstream>
@@ -1126,7 +1126,7 @@
 	<SFML/Graphics.hpp>
 	"logwidget.h"
 
-1535229310 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
+1536094374 source:d:\sourcecode\lifesimulator\src\guiwidgetslayer.cpp
 	"guiwidgetslayer.hpp"
 	<chrono>
 	<ctime>
@@ -1136,7 +1136,6 @@
 	<SFML/System/Clock.hpp>
 	<SFML/Window/Event.hpp>
 	<SFML/Graphics/CircleShape.hpp>
-	"physicsbody.hpp"
 
 1490452698 d:\sourcecode\lifesimulator\libraries\cpgf-master\include\cpgf\gcallbacklist.h
 	"cpgf/gcallback.h"
@@ -1491,7 +1490,7 @@
 
 1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\pugixml-1.7\src\pugiconfig.hpp
 
-1535924473 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxmlnode.cpp
+1536095942 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxmlnode.cpp
 	"cxmlnode.hpp"
 	<pugixml.hpp>
 
@@ -1583,7 +1582,7 @@
 	"serializableproperty.hpp"
 	<LoggerUtilities.h>
 
-1536009936 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
+1536095642 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablecontainer.cpp
 	"serializablecontainer.hpp"
 	<LoggerUtilities.h>
 
@@ -1613,7 +1612,7 @@
 1534536190 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
 	"serializableinterface.hpp"
 
-1536009092 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+1536096017 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
 	"xmlformatter.hpp"
 	<iostream>
 	<exception>
@@ -1653,7 +1652,7 @@
 	<climits>
 	<string>
 
-1535753445 source:d:\sourcecode\lifesimulator\src\application.cpp
+1536095332 source:d:\sourcecode\lifesimulator\src\application.cpp
 	"application.hpp"
 	"version.hpp"
 	<utilities/LoggerUtilities.h>
@@ -1774,7 +1773,7 @@
 	<vector>
 	<MathUtilities.h>
 
-1534535890 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\xmlformatter.hpp
+1536091028 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\xmlformatter.hpp
 	<vector>
 	<FileUtilities.h>
 	"cxml.hpp"
@@ -1842,11 +1841,12 @@
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
 
-1535228496 d:\sourcecode\lifesimulator\include\guiwidgetslayer.hpp
+1536094442 d:\sourcecode\lifesimulator\include\guiwidgetslayer.hpp
 	<SFML/Graphics.hpp>
 	"logwidget.hpp"
 	"propertyeditorwidget.hpp"
 	"annviewerwidget.hpp"
+	"informationwidget.hpp"
 
 1534539522 d:\sourcecode\lifesimulator\include\logwidget.hpp
 	<imgui.h>
@@ -3061,10 +3061,10 @@
 1535229297 source:d:\sourcecode\lifesimulator\src\annviewerwidget.cpp
 	"annviewerwidget.hpp"
 
-1535747868 source:d:\sourcecode\lifesimulator\src\serializableneuron.cpp
+1536082976 source:d:\sourcecode\lifesimulator\src\serializableneuron.cpp
 	"serializableneuron.hpp"
 
-1535747392 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
+1536092164 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
 	<serializable.hpp>
 
 1536011832 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
@@ -3128,4 +3128,18 @@
 
 1535826478 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\base64.hpp
 	<string>
+
+1536095116 d:\sourcecode\lifesimulator\include\informationwidget.hpp
+	<imgui.h>
+	<imgui-SFML.h>
+	<sigslot.h>
+	<smartpointer.h>
+	<serializable.hpp>
+	"entityfactory.hpp"
+
+1536095017 source:d:\sourcecode\lifesimulator\src\informationwidget.cpp
+	"informationwidget.hpp"
+	<chrono>
+	<ctime>
+	"physicsbody.hpp"
 

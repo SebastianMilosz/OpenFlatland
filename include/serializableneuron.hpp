@@ -6,10 +6,10 @@
 class SerializableNeuron : public codeframe::cSerializable
 {
     public:
-        std::string Role()            const { return "Object";  }
-        std::string Class()           const { return "Neuron";  }
-        std::string BuildType()       const { return "Dynamic"; }
-        std::string ConstructPatern() const { return "";        }
+        std::string Role()            const { return "Object";              }
+        std::string Class()           const { return "SerializableNeuron";  }
+        std::string BuildType()       const { return "Dynamic";             }
+        std::string ConstructPatern() const { return "";                    }
 
     public:
         SerializableNeuron(

@@ -6,6 +6,7 @@
 #include "logwidget.hpp"
 #include "propertyeditorwidget.hpp"
 #include "annviewerwidget.hpp"
+#include "informationwidget.hpp"
 
 class GUIWidgetsLayer
 {
@@ -28,23 +29,23 @@ class GUIWidgetsLayer
         void        SetMouseModeId( int mode );
         int         GetMouseModeId();
 
-        int GetFps();
-
         LogWidget&              GetLogWidget() { return m_logWidget; }
         PropertyEditorWidget&   GetPropertyEditorWidget() { return m_PropertyEditorWidget; }
         AnnViewerWidget&        GetAnnViewerWidget() { return m_AnnViewerWidget; }
+        InformationWidget&      GetInformationWidget() { return m_InformationWidget; }
 
     protected:
 
     private:
-        sf::RenderWindow&   m_window;
-        sf::Clock           m_deltaClock;
+        sf::RenderWindow& m_window;
+        sf::Clock         m_deltaClock;
 
         int                 m_MouseMode;
         bool                m_mouseCapturedByGui;
         bool                m_logWidgetOpen;
         bool                m_PropertyEditorOpen;
         bool                m_AnnViewerWidgetOpen;
+        bool                m_InformationWidgetOpen;
 
         std::vector< sf::Rect<int> > m_guiRegions;
 
@@ -52,6 +53,7 @@ class GUIWidgetsLayer
         LogWidget            m_logWidget;
         PropertyEditorWidget m_PropertyEditorWidget;
         AnnViewerWidget      m_AnnViewerWidget;
+        InformationWidget    m_InformationWidget;
 };
 
 #endif // GUIWIDGETSLAYER_HPP
