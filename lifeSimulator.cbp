@@ -115,6 +115,7 @@
 		<Unit filename="include/entityvision.hpp" />
 		<Unit filename="include/fontfactory.hpp" />
 		<Unit filename="include/guiwidgetslayer.hpp" />
+		<Unit filename="include/informationwidget.hpp" />
 		<Unit filename="include/logwidget.hpp" />
 		<Unit filename="include/physicsbody.hpp" />
 		<Unit filename="include/propertyeditorwidget.hpp" />
@@ -206,6 +207,7 @@
 		<Unit filename="src/entityvision.cpp" />
 		<Unit filename="src/fontfactory.cpp" />
 		<Unit filename="src/guiwidgetslayer.cpp" />
+		<Unit filename="src/informationwidget.cpp" />
 		<Unit filename="src/logwidget.cpp" />
 		<Unit filename="src/physicsbody.cpp" />
 		<Unit filename="src/propertyeditorwidget.cpp" />

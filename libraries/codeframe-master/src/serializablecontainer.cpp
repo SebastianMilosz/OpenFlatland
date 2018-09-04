@@ -395,8 +395,6 @@ void cSerializableContainer::slotSelectionChanged( smart_ptr<cSerializableInterf
 
         if ( serializableObjectNew->IsSelected() == true )
         {
-            LOGGER( LOG_INFO << "Object Selected: " << name );
-
             cSerializable* serializableObjectSel = static_cast<cSerializable*>( smart_ptr_getRaw(m_selected) );
 
             if( serializableObjectSel != serializableObjectNew )

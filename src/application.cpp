@@ -41,6 +41,8 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_EntityFactory       .signalContainerSelectionChanged.connect( &m_Widgets.GetAnnViewerWidget(), &AnnViewerWidget::SetObject );
     m_ConstElementsFactory.signalElementAdd.connect( &m_World, &World::AddConst );
 
+    m_Widgets.GetInformationWidget().SetEntityFactory(  m_EntityFactory  );
+
     LOGGER( LOG_INFO << APPLICATION_NAME << " Initialized" );
 
     LOGGERINS().OnMessage.connect(&m_Widgets.GetLogWidget(), &LogWidget::OnLogMessage);

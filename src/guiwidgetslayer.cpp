@@ -10,8 +10,6 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 
-#include "physicsbody.hpp"
-
 /*****************************************************************************/
 /**
   * @brief
@@ -73,7 +71,9 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_mouseCapturedByGui( false ),
     m_logWidgetOpen( true ),
     m_PropertyEditorOpen( true ),
-    m_AnnViewerWidgetOpen( true )
+    m_AnnViewerWidgetOpen( false ),
+    m_InformationWidgetOpen( true ),
+    m_InformationWidget( window )
 {
     ImGui::SFML::Init( m_window );
 }
@@ -149,9 +149,15 @@ void GUIWidgetsLayer::Draw()
             if (ImGui::MenuItem("Log", NULL, m_logWidgetOpen)) { if( m_logWidgetOpen ) m_logWidgetOpen = false; else m_logWidgetOpen = true; }
             if (ImGui::MenuItem("PropertyEditor", NULL, m_PropertyEditorOpen)) { if( m_PropertyEditorOpen ) m_PropertyEditorOpen = false; else m_PropertyEditorOpen = true; }
             if (ImGui::MenuItem("AnnViewer", NULL, m_AnnViewerWidgetOpen)) { if( m_AnnViewerWidgetOpen ) m_AnnViewerWidgetOpen = false; else m_AnnViewerWidgetOpen = true; }
+            if (ImGui::MenuItem("Informations", NULL, m_InformationWidgetOpen)) { if( m_InformationWidgetOpen ) m_InformationWidgetOpen = false; else m_InformationWidgetOpen = true; }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
+    }
+
+    if ( m_InformationWidgetOpen == true )
+    {
+        m_InformationWidget.Draw( "Information", &m_InformationWidgetOpen );
     }
 
     if ( m_logWidgetOpen == true )
@@ -169,24 +175,6 @@ void GUIWidgetsLayer::Draw()
         m_AnnViewerWidget.Draw( "Ann Viewer", &m_AnnViewerWidgetOpen );
     }
 
-    ImGui::Begin("Application Info");
-
-    // get the current mouse position in the window
-    sf::Vector2i pixelPos = sf::Mouse::getPosition( m_window );
-
-    // convert it to world coordinates
-    sf::Vector2f worldPos = m_window.mapPixelToCoords( pixelPos );
-
-    ImGui::Text( "FPS: %d", GetFps() );
-
-    ImGui::Text( "Screen: (%d, %d)", pixelPos.x, pixelPos.y );
-
-    ImGui::Text( "World: (%3.2f, %3.2f)", worldPos.x, worldPos.y );
-
-    ImGui::Text( "World: (%3.2f, %3.2f)", worldPos.x/PhysicsBody::sDescriptor::PIXELS_IN_METER, worldPos.y/PhysicsBody::sDescriptor::PIXELS_IN_METER );
-
-    ImGui::End();
-
     ImGui::SFML::Render( m_window );
 
     ImGuiIO& IOS = ImGui::GetIO();
@@ -203,29 +191,4 @@ void GUIWidgetsLayer::AddGuiRegion( int x, int y, int w, int h )
 {
     sf::Rect<int> rec( x, y, w, h );
     m_guiRegions.push_back( rec );
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-int GUIWidgetsLayer::GetFps()
-{
-    using namespace std::chrono;
-    static int count = 0;
-    static auto last = high_resolution_clock::now();
-    auto now = high_resolution_clock::now();
-    static int fps = 0;
-
-    count++;
-
-    if( duration_cast<milliseconds>(now - last).count() > 1000 )
-    {
-        fps = count;
-        count = 0;
-        last = now;
-    }
-
-    return fps;
 }
