@@ -17,17 +17,19 @@ namespace codeframe
     {
         std::vector<float> retVector;
 
-        // Split using ; separator
-        std::vector<std::string> vectorPartsStrings;
-        utilities::text::split(value, ";", vectorPartsStrings);
+        std::string outString = base64_decode( value );
 
-        if ( vectorPartsStrings.size() > 0 )
+        const char* byteTab = outString.c_str();
+
+        const float* floatTab = reinterpret_cast<const float*>( byteTab );
+
+        volatile unsigned int floatSize = outString.size() / sizeof( float );
+
+        for ( unsigned int n = 0; n < floatSize; n++ )
         {
-            for ( std::vector<std::string>::iterator it = vectorPartsStrings.begin(); it != vectorPartsStrings.end(); ++it )
-            {
-
-            }
+            retVector.push_back( floatTab[ n ] );
         }
+
         return retVector;
     }
 
@@ -39,7 +41,7 @@ namespace codeframe
     template<>
     std::string PropertyVector<float>::VectorToString( const std::vector<float>& vectorValue )
     {
-        unsigned int vectorByteSize = vectorValue.size() * sizeof(float);
+        unsigned int vectorByteSize = vectorValue.size() * sizeof( float );
         const float* vectorValueData = &vectorValue[0];
         const uint8_t *indata = reinterpret_cast<const uint8_t *>(vectorValueData);
         std::string retValue = base64_encode(indata, vectorByteSize);
