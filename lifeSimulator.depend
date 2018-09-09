@@ -1115,8 +1115,9 @@
 	"entityfactory.hpp"
 	<typeinfo.hpp>
 
-1536084550 source:d:\sourcecode\lifesimulator\src\world.cpp
+1536501950 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.hpp"
+	"performancelogger.hpp"
 	<string>
 	<sstream>
 	<omp.h>
@@ -1311,7 +1312,7 @@
 	<direct.h>
 	<unistd.h>
 
-1535217511 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
+1536488703 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
 	<string>
 	<stdio.h>
 	<stdlib.h>
@@ -1373,7 +1374,7 @@
 1527799540 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\loggerutilities.cpp
 	"utilities/LoggerUtilities.h"
 
-1527799560 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\loggerutilities.h
+1536499810 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\loggerutilities.h
 	<string>
 	<iostream>
 	<fstream>
@@ -1612,7 +1613,7 @@
 1534536190 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
 	"serializableinterface.hpp"
 
-1536096017 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+1536486223 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
 	"xmlformatter.hpp"
 	<iostream>
 	<exception>
@@ -1652,13 +1653,16 @@
 	<climits>
 	<string>
 
-1536095332 source:d:\sourcecode\lifesimulator\src\application.cpp
+1536501880 source:d:\sourcecode\lifesimulator\src\application.cpp
 	"application.hpp"
 	"version.hpp"
+	"mercurialinfo.hpp"
+	"performancelogger.hpp"
+	<utilities/MathUtilities.h>
 	<utilities/LoggerUtilities.h>
 	<SFML/Graphics.hpp>
 
-1535228195 d:\sourcecode\lifesimulator\include\application.hpp
+1536501873 d:\sourcecode\lifesimulator\include\application.hpp
 	<serializable.hpp>
 	"world.hpp"
 	"entityfactory.hpp"
@@ -1773,10 +1777,11 @@
 	<vector>
 	<MathUtilities.h>
 
-1536091028 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\xmlformatter.hpp
+1536486090 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\xmlformatter.hpp
 	<vector>
 	<FileUtilities.h>
 	"cxml.hpp"
+	"typeinfo.hpp"
 
 1534609541 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
 	<sigslot.h>
@@ -3067,7 +3072,7 @@
 1536092164 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
 	<serializable.hpp>
 
-1536011832 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
+1536487073 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
 	"serializableneuronlayer.hpp"
 
 1536010350 d:\sourcecode\lifesimulator\include\serializableneuronlayer.hpp
@@ -3086,7 +3091,7 @@
 	<vector>
 	<string>
 
-1536009779 source:d:\sourcecode\lifesimulator\src\serializableneuronlayercontainer.cpp
+1536487054 source:d:\sourcecode\lifesimulator\src\serializableneuronlayercontainer.cpp
 	"serializableneuronlayercontainer.hpp"
 
 1535883719 d:\sourcecode\lifesimulator\include\serializableneuronlayercontainer.hpp
@@ -3142,4 +3147,15 @@
 	<chrono>
 	<ctime>
 	"physicsbody.hpp"
+
+1536501558 d:\sourcecode\lifesimulator\include\performancelogger.hpp
+	<string>
+	<map>
+
+1536502017 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+
+1536501700 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
+	"performancelogger.hpp"
+	<utilities/MathUtilities.h>
+	<utilities/LoggerUtilities.h>
 

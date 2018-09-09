@@ -1,6 +1,9 @@
 #include "application.hpp"
 #include "version.hpp"
+#include "mercurialinfo.hpp"
+#include "performancelogger.hpp"
 
+#include <utilities/MathUtilities.h>
 #include <utilities/LoggerUtilities.h>
 #include <SFML/Graphics.hpp>
 
@@ -21,15 +24,22 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_FontFactory( "FontFactory", this ),
     lineCreateState(0)
 {
+    std::string applicationId  = std::string( MERCURIAL_AUTHOR ) +
+                                 std::string( MERCURIAL_DATE_TIME ) +
+                                 utilities::math::IntToStr( MERCURIAL_REVISION );
+
     // Logger Setup
     std::string apiDir = utilities::file::GetExecutablePath();
     std::string logFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_log.txt");
     m_cfgFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_cfg.xml");
+    m_perFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_per.csv");
     LOGGERINS().LogPath = logFilePath;
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Initializing" );
 
-    m_Window.setTitle( APPLICATION_NAME );
+    PERFORMANCE_INITIALIZE( applicationId );
+
+    m_Window.setTitle( std::string( APPLICATION_NAME ) + std::string(" Rev: ") + utilities::math::IntToStr( MERCURIAL_REVISION ) );
 
     sf::View view( window.getDefaultView() );
 
@@ -49,7 +59,15 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Processing" );
 
+    PERFORMANCE_ADD( 1, "Load Xml File" );
+    PERFORMANCE_ADD( 2, "Box2d physic symulation" );
+    PERFORMANCE_ADD( 3, "Render graphic" );
+
+    PERFORMANCE_ENTER( 1 );
+
     this->LoadFromFile( m_cfgFilePath );
+
+    PERFORMANCE_LEAVE( 1 );
 }
 
 /*****************************************************************************/
@@ -59,7 +77,6 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 ******************************************************************************/
 Application::~Application()
 {
-    this->SaveToFile( m_cfgFilePath );
 }
 
 /*****************************************************************************/
@@ -78,6 +95,8 @@ void Application::ProcesseEvents( sf::Event& event )
     // catch window close event
     if ( event.type == sf::Event::Closed )
     {
+        this->SaveToFile( m_cfgFilePath );
+        PERFORMANCE_SAVE( m_perFilePath );
         m_Window.close();
     }
 
@@ -182,12 +201,18 @@ void Application::ProcesseLogic( void )
 
     m_Window.clear();
 
+    PERFORMANCE_ENTER( 2 );
+
     /** Simulate the world */
     m_World.PhysisStep( m_Window );
 
+    PERFORMANCE_LEAVE( 2 );
 
+    PERFORMANCE_ENTER( 3 );
 
     m_World.Draw( m_Window );
+
+    PERFORMANCE_LEAVE( 3 );
 
     if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
     {

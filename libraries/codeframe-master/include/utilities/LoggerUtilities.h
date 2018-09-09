@@ -143,10 +143,10 @@ namespace utilities
 		                std::vector<sLogEntry*> logEntrys;
 		        };
 
-			    ~cLog();									// default destructor
+			    ~cLog();                                    // default destructor
 
-			    void Create();								// creates logger
-			    void Destroy();								// destroys logger
+			    void Create();                              // creates logger
+			    void Destroy();                             // destroys logger
 
 			    void SetLogPath(std::string p);
                 void SetLogDebugLevel( int debugLevel );

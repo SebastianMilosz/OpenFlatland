@@ -103,6 +103,9 @@
 			<Add directory="libraries/Box2D-master/Box2D/build/Box2D" />
 			<Add directory="libraries/lua-5.3.4/build" />
 		</Linker>
+		<ExtraCommands>
+			<Add before="UpdateMercurialInfo.bat" />
+		</ExtraCommands>
 		<Unit filename="include/annviewerwidget.hpp" />
 		<Unit filename="include/application.hpp" />
 		<Unit filename="include/constelement.hpp" />
@@ -117,6 +120,8 @@
 		<Unit filename="include/guiwidgetslayer.hpp" />
 		<Unit filename="include/informationwidget.hpp" />
 		<Unit filename="include/logwidget.hpp" />
+		<Unit filename="include/mercurialinfo.hpp" />
+		<Unit filename="include/performancelogger.hpp" />
 		<Unit filename="include/physicsbody.hpp" />
 		<Unit filename="include/propertyeditorwidget.hpp" />
 		<Unit filename="include/serializableneuron.hpp" />
@@ -209,6 +214,7 @@
 		<Unit filename="src/guiwidgetslayer.cpp" />
 		<Unit filename="src/informationwidget.cpp" />
 		<Unit filename="src/logwidget.cpp" />
+		<Unit filename="src/performancelogger.cpp" />
 		<Unit filename="src/physicsbody.cpp" />
 		<Unit filename="src/propertyeditorwidget.cpp" />
 		<Unit filename="src/serializableneuron.cpp" />

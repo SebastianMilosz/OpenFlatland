@@ -11,7 +11,7 @@ SerializableNeuronLayer::SerializableNeuronLayer( std::string name, cSerializabl
     cSerializableContainer( name, parent ),
     NeuronCnt( this, "NeuronCnt" , 10U , cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronCnt"), this, NULL, &SerializableNeuronLayer::SetNeuronCnt)
 {
-
+    SetNeuronCnt( (unsigned int)NeuronCnt );
 }
 
 /*****************************************************************************/

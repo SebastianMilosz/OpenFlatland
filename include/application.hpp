@@ -31,6 +31,7 @@ class Application : public codeframe::cSerializable
             const float         m_zoomAmount;
 
             std::string         m_cfgFilePath;
+            std::string         m_perFilePath;
 
             sf::RenderWindow&       m_Window;
             GUIWidgetsLayer         m_Widgets;
