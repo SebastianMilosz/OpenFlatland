@@ -19,7 +19,7 @@ namespace utilities
     {
         typedef float float32;
 
-        std::string IntToStr(int nbr);
+        std::string IntToStr( int nbr );
 
         /*****************************************************************************/
         /**

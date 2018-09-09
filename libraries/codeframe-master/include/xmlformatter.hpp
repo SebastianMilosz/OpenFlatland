@@ -6,6 +6,7 @@
 #include <FileUtilities.h>
 
 #include "cxml.hpp"
+#include "typeinfo.hpp"
 
 //#define PATH_FIELD
 //#define ID_FIELD
@@ -48,6 +49,8 @@ namespace codeframe
 
         void DeserializeObjectProperties( cSerializableInterface* obj, cXMLNode& node );
         void DeserializeObjectChilds( cSerializableInterface* obj, cXMLNode& node );
+
+        void FillParameterVector( std::string& buildConstruct, cXMLNode& childNode, std::vector<codeframe::VariantValue>& paramVector );
     };
 
 }
