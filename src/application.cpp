@@ -24,8 +24,8 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_FontFactory( "FontFactory", this ),
     lineCreateState(0)
 {
-    std::string applicationId  = std::string( MERCURIAL_AUTHOR ) +
-                                 std::string( MERCURIAL_DATE_TIME ) +
+    std::string applicationId  = std::string( MERCURIAL_AUTHOR ) + std::string(" ") +
+                                 std::string( MERCURIAL_DATE_TIME ) + std::string(" ") +
                                  utilities::math::IntToStr( MERCURIAL_REVISION );
 
     // Logger Setup

@@ -15,9 +15,20 @@ class PerformanceLogger
     public:
         struct PerformanceData
         {
+            PerformanceData()
+            {
+
+            }
+
+            PerformanceData( std::string& name ) :
+                Name( name )
+            {
+
+            }
+
             std::string Name;
             double      StartTime;
-            double      EndTime;
+            double      DurationTime;
         };
 
     public:
@@ -36,6 +47,7 @@ class PerformanceLogger
     private:
         PerformanceLogger();
 
+        std::string m_applicationId;
         std::map<unsigned int , PerformanceData> m_PerformanceMap;
 };
 
