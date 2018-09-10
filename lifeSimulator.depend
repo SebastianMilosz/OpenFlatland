@@ -1653,7 +1653,7 @@
 	<climits>
 	<string>
 
-1536501880 source:d:\sourcecode\lifesimulator\src\application.cpp
+1536613706 source:d:\sourcecode\lifesimulator\src\application.cpp
 	"application.hpp"
 	"version.hpp"
 	"mercurialinfo.hpp"
@@ -3148,14 +3148,17 @@
 	<ctime>
 	"physicsbody.hpp"
 
-1536501558 d:\sourcecode\lifesimulator\include\performancelogger.hpp
+1536612165 d:\sourcecode\lifesimulator\include\performancelogger.hpp
 	<string>
 	<map>
 
-1536528767 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1536614958 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
-1536501700 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
+1536614795 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"
 	<utilities/MathUtilities.h>
 	<utilities/LoggerUtilities.h>
+	<utilities/SysUtilities.h>
+	<iostream>
+	<fstream>
 
