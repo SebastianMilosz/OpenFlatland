@@ -1,4 +1,5 @@
 #include "informationwidget.hpp"
+#include "performancelogger.hpp"
 
 #include <chrono>
 #include <ctime>
@@ -62,6 +63,8 @@ void InformationWidget::Draw( const char* title, bool* p_open )
     ImGui::Text( "World Coordinates: (%3.2f, %3.2f)", worldPos.x, worldPos.y );
 
     ImGui::Text( "Box2D Coordinates: (%3.2f, %3.2f)", worldPos.x/PhysicsBody::sDescriptor::PIXELS_IN_METER, worldPos.y/PhysicsBody::sDescriptor::PIXELS_IN_METER );
+
+    ImGui::Text( PerformanceLogger::GetInstance().PointToString( 2 ).c_str() );
 
     ImGui::End();
 }

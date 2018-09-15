@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 /*****************************************************************************/
 /**
@@ -66,12 +67,24 @@ void PerformanceLogger::SaveToFile( std::string filePath )
     std::map<unsigned int , PerformanceData>::iterator it;
     for ( it = m_PerformanceMap.begin(); it != m_PerformanceMap.end(); it++ )
     {
-        performanceFile << ',' << it->second.Name << ',' << it->second.Elapsed_ns;
+        performanceFile << ", " << it->second.Name << " = " << std::fixed << std::setw(9)
+        << std::setprecision(6) << it->second.Elapsed_ns/(10e8) << "s";
     }
 
-     performanceFile << '\n';
+    performanceFile << '\n';
 
     performanceFile.close();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+std::string PerformanceLogger::PointToString( unsigned int id )
+{
+    double elapsed_ns = m_PerformanceMap[ id ].Elapsed_ns/(10e8);
+    return  m_PerformanceMap[ id ].Name + std::string(" = ") + utilities::math::DoubleToStr( elapsed_ns ) + std::string("s");
 }
 
 /*****************************************************************************/

@@ -3142,27 +3142,28 @@
 	<serializable.hpp>
 	"entityfactory.hpp"
 
-1536095017 source:d:\sourcecode\lifesimulator\src\informationwidget.cpp
+1537048521 source:d:\sourcecode\lifesimulator\src\informationwidget.cpp
 	"informationwidget.hpp"
+	"performancelogger.hpp"
 	<chrono>
 	<ctime>
 	"physicsbody.hpp"
 
-1537046388 d:\sourcecode\lifesimulator\include\performancelogger.hpp
+1537048243 d:\sourcecode\lifesimulator\include\performancelogger.hpp
 	<string>
-	<ctime>
 	<map>
 	<plf_nanotimer.h>
 
-1537046519 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1537048944 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
-1537046407 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
+1537048868 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"
 	<utilities/MathUtilities.h>
 	<utilities/LoggerUtilities.h>
 	<utilities/SysUtilities.h>
 	<iostream>
 	<fstream>
+	<iomanip>
 
 1519810234 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\plf_nanotimer-master\plf_nanotimer.h
 	<mach/clock.h>

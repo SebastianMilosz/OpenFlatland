@@ -2,7 +2,6 @@
 #define PERFORMANCELOGGER_HPP_INCLUDED
 
 #include <string>
-#include <ctime>
 #include <map>
 
 #include <plf_nanotimer.h>
@@ -43,6 +42,8 @@ class PerformanceLogger
 
         void Initialize( std::string applicationId );
         void SaveToFile( std::string filePath );
+
+        std::string PointToString( unsigned int id );
 
         void AddPerformancePoint( unsigned int id, std::string name );
 
