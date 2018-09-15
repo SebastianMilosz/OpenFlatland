@@ -2,7 +2,10 @@
 #define PERFORMANCELOGGER_HPP_INCLUDED
 
 #include <string>
+#include <ctime>
 #include <map>
+
+#include <plf_nanotimer.h>
 
 #define PERFORMANCE_INITIALIZE(p1) PerformanceLogger::GetInstance().Initialize(p1)
 #define PERFORMANCE_ADD(p1,p2) PerformanceLogger::GetInstance().AddPerformancePoint(p1,p2)
@@ -15,20 +18,22 @@ class PerformanceLogger
     public:
         struct PerformanceData
         {
-            PerformanceData()
+            PerformanceData() :
+                Name(),
+                Elapsed_ns( 0 )
             {
 
             }
 
             PerformanceData( std::string& name ) :
-                Name( name )
+                Name( name ),
+                Elapsed_ns( 0 )
             {
 
             }
 
             std::string Name;
-            double      StartTime;
-            double      DurationTime;
+            double Elapsed_ns;
         };
 
     public:
@@ -47,6 +52,7 @@ class PerformanceLogger
     private:
         PerformanceLogger();
 
+        plf::nanotimer m_timer;
         std::string m_applicationId;
         std::map<unsigned int , PerformanceData> m_PerformanceMap;
 };

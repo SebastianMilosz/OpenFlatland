@@ -79,6 +79,7 @@
 			<Add directory="libraries/codeframe-master/include/utilities" />
 			<Add directory="libraries/codeframe-master/thirdparty/pugixml-1.7/src" />
 			<Add directory="libraries/codeframe-master/thirdparty/smartpointer" />
+			<Add directory="libraries/codeframe-master/thirdparty/plf_nanotimer-master" />
 		</Compiler>
 		<Linker>
 			<Add option="-static-libstdc++" />

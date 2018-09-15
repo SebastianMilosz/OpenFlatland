@@ -1115,7 +1115,7 @@
 	"entityfactory.hpp"
 	<typeinfo.hpp>
 
-1536501950 source:d:\sourcecode\lifesimulator\src\world.cpp
+1537017642 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.hpp"
 	"performancelogger.hpp"
 	<string>
@@ -1336,7 +1336,7 @@
 	<fstream>
 	<vector>
 
-1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\sysutilities.h
+1537016334 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\sysutilities.h
 	<string>
 	<sstream>
 	<ctime>
@@ -3148,17 +3148,26 @@
 	<ctime>
 	"physicsbody.hpp"
 
-1536612165 d:\sourcecode\lifesimulator\include\performancelogger.hpp
+1537046388 d:\sourcecode\lifesimulator\include\performancelogger.hpp
 	<string>
+	<ctime>
 	<map>
+	<plf_nanotimer.h>
 
-1536614958 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1537046519 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
-1536614795 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
+1537046407 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"
 	<utilities/MathUtilities.h>
 	<utilities/LoggerUtilities.h>
 	<utilities/SysUtilities.h>
 	<iostream>
 	<fstream>
+
+1519810234 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\plf_nanotimer-master\plf_nanotimer.h
+	<mach/clock.h>
+	<mach/mach.h>
+	<time.h>
+	<sys/time.h>
+	<windows.h>
 

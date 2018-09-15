@@ -64,8 +64,8 @@ World::World( std::string name, cSerializableInterface* parent ) :
     m_JointDef.frequencyHz = 4.0f;
     m_JointDef.dampingRatio = 0.5f;
 
-    PERFORMANCE_ADD( 1, "Box2d physic" );
-    PERFORMANCE_ADD( 2, "Box2d rays" );
+    PERFORMANCE_ADD( 4, "Box2d physic" );
+    PERFORMANCE_ADD( 5, "Box2d rays" );
 }
 
 /*****************************************************************************/
@@ -121,17 +121,17 @@ void World::AddConst( std::shared_ptr<ConstElement> constElement )
 ******************************************************************************/
 bool World::PhysisStep(sf::RenderWindow& window)
 {
-    PERFORMANCE_ENTER( 1 );
+    PERFORMANCE_ENTER( 4 );
 
     m_World.Step(1/60.f, 8, 3);
 
-    PERFORMANCE_LEAVE( 1 );
+    PERFORMANCE_LEAVE( 4 );
 
-    PERFORMANCE_ENTER( 2 );
+    PERFORMANCE_ENTER( 5 );
 
     CalculateRays();
 
-    PERFORMANCE_LEAVE( 2 );
+    PERFORMANCE_LEAVE( 5 );
 
     return true;
 }
