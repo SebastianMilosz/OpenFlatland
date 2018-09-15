@@ -61,12 +61,12 @@ void PerformanceLogger::SaveToFile( std::string filePath )
     std::ofstream performanceFile;
     performanceFile.open ( filePath, std::fstream::in | std::fstream::out | std::fstream::app );
 
-    performanceFile << m_applicationId << ",";
+    performanceFile << m_applicationId;
 
     std::map<unsigned int , PerformanceData>::iterator it;
     for ( it = m_PerformanceMap.begin(); it != m_PerformanceMap.end(); it++ )
     {
-        performanceFile << ',' << it->second.Name << ',' << it->second.DurationTime;
+        performanceFile << ',' << it->second.Name << ',' << it->second.Elapsed_ns;
     }
 
      performanceFile << '\n';
@@ -91,7 +91,7 @@ void PerformanceLogger::AddPerformancePoint( unsigned int id, std::string name )
 ******************************************************************************/
 void PerformanceLogger::PerformancePointEnter( unsigned int id )
 {
-    m_PerformanceMap[ id ].StartTime = utilities::system::GetTime();
+    m_timer.start();
 }
 
 /*****************************************************************************/
@@ -101,7 +101,5 @@ void PerformanceLogger::PerformancePointEnter( unsigned int id )
 ******************************************************************************/
 void PerformanceLogger::PerformancePointLeave( unsigned int id )
 {
-    double prewDuration = m_PerformanceMap[ id ].DurationTime;
-    double newDuration  = (utilities::system::GetTime() - m_PerformanceMap[ id ].StartTime);
-    m_PerformanceMap[ id ].DurationTime = (prewDuration+newDuration)/2.0F;
+    m_PerformanceMap[ id ].Elapsed_ns = m_timer.get_elapsed_ns();
 }

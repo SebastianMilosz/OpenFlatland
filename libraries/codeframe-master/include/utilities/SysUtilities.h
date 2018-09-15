@@ -44,6 +44,16 @@ namespace utilities
             double nTime = (double) timeStamp.time*1000 + timeStamp.millitm;
             return nTime;
         }
+
+        /*****************************************************************************/
+        /**
+          * @brief
+         **
+        ******************************************************************************/
+        inline clock_t GetTimeMs( void )
+        {
+            return clock();
+        }
     }
 }
 
