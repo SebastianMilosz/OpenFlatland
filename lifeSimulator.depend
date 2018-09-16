@@ -1111,7 +1111,7 @@
 	"constelement.hpp"
 	<serializable.h>
 
-1537096700 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
+1537105268 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
 	"entityfactory.hpp"
 	<typeinfo.hpp>
 
@@ -1424,8 +1424,9 @@
 	<sys/types.h>
 	<time.h>
 
-1535878550 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
+1537105468 source:d:\sourcecode\lifesimulator\src\entityghost.cpp
 	"entityghost.hpp"
+	<LoggerUtilities.h>
 
 1534535524 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\instancemanager.cpp
 	"instancemanager.hpp"
@@ -1825,7 +1826,7 @@
 	"physicsbody.hpp"
 	"entityvision.hpp"
 
-1535878522 d:\sourcecode\lifesimulator\include\entityghost.hpp
+1537105319 d:\sourcecode\lifesimulator\include\entityghost.hpp
 	"entityshell.hpp"
 	"serializableneuronlayercontainer.hpp"
 
@@ -3144,7 +3145,7 @@
 	<serializable.hpp>
 	"entityfactory.hpp"
 
-1537101274 source:d:\sourcecode\lifesimulator\src\informationwidget.cpp
+1537102773 source:d:\sourcecode\lifesimulator\src\informationwidget.cpp
 	"informationwidget.hpp"
 	"performancelogger.hpp"
 	"performanceapplicationdef.hpp"
@@ -3158,7 +3159,7 @@
 	<map>
 	<plf_nanotimer.h>
 
-1537102776 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1537105522 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
 1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"

@@ -30,7 +30,17 @@ EntityFactory::~EntityFactory()
 ******************************************************************************/
 void EntityFactory::CalculateNeuralNetworks()
 {
+    for ( unsigned int n = 0; n < Count(); n++ )
+    {
+        smart_ptr<cSerializableInterface> serializableObj = Get( n );
 
+        Entity* entityObj = static_cast<Entity*>( smart_ptr_getRaw( serializableObj ) );
+
+        if ( (Entity*)NULL != entityObj )
+        {
+            entityObj->CalculateNeuralNetworks();
+        }
+    }
 }
 
 /*****************************************************************************/
