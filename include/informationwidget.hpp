@@ -17,6 +17,8 @@ class InformationWidget : public sigslot::has_slots<>
 
         int GetFps();
 
+        std::string FpsToString();
+
         void Clear();
         void Draw(const char* title, bool* p_open = NULL);
 
@@ -25,6 +27,10 @@ class InformationWidget : public sigslot::has_slots<>
     private:
         sf::RenderWindow& m_window;
         const EntityFactory* m_EntityFactory;
+
+        int m_curFps;
+        int m_minFps;
+        int m_maxFps;
 };
 
 #endif // INFORMATIONWIDGET_HPP_INCLUDED

@@ -28,6 +28,16 @@ EntityFactory::~EntityFactory()
   * @brief
  **
 ******************************************************************************/
+void EntityFactory::CalculateNeuralNetworks()
+{
+
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 smart_ptr<Entity> EntityFactory::Create( int x, int y, int z )
 {
     smart_ptr<Entity> entity = smart_ptr<Entity>( new Entity( "Unknown", x, y ) );

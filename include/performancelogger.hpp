@@ -41,6 +41,7 @@ class PerformanceLogger
         static PerformanceLogger& GetInstance();
 
         void Initialize( std::string applicationId );
+        void AddNote( std::string note );
         void SaveToFile( std::string filePath );
 
         std::string PointToString( unsigned int id );
@@ -55,6 +56,7 @@ class PerformanceLogger
 
         plf::nanotimer m_timer;
         std::string m_applicationId;
+        std::string m_note;
         std::map<unsigned int , PerformanceData> m_PerformanceMap;
 };
 

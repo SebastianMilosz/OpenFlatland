@@ -122,6 +122,7 @@
 		<Unit filename="include/informationwidget.hpp" />
 		<Unit filename="include/logwidget.hpp" />
 		<Unit filename="include/mercurialinfo.hpp" />
+		<Unit filename="include/performanceapplicationdef.hpp" />
 		<Unit filename="include/performancelogger.hpp" />
 		<Unit filename="include/physicsbody.hpp" />
 		<Unit filename="include/propertyeditorwidget.hpp" />

@@ -1,5 +1,6 @@
 #include "world.hpp"
 #include "performancelogger.hpp"
+#include "performanceapplicationdef.hpp"
 
 #include <string>
 #include <sstream>
@@ -64,8 +65,8 @@ World::World( std::string name, cSerializableInterface* parent ) :
     m_JointDef.frequencyHz = 4.0f;
     m_JointDef.dampingRatio = 0.5f;
 
-    PERFORMANCE_ADD( 4, "Box2d physic" );
-    PERFORMANCE_ADD( 5, "Box2d rays" );
+    PERFORMANCE_ADD( PERFORMANCE_BOX2D_ONLY_PHYSIC_SYM, "Box2d physic" );
+    PERFORMANCE_ADD( PERFORMANCE_BOX2D_RAYS_CAST,       "Box2d rays" );
 }
 
 /*****************************************************************************/
@@ -121,17 +122,17 @@ void World::AddConst( std::shared_ptr<ConstElement> constElement )
 ******************************************************************************/
 bool World::PhysisStep(sf::RenderWindow& window)
 {
-    PERFORMANCE_ENTER( 4 );
+    PERFORMANCE_ENTER( PERFORMANCE_BOX2D_ONLY_PHYSIC_SYM );
 
     m_World.Step(1/60.f, 8, 3);
 
-    PERFORMANCE_LEAVE( 4 );
+    PERFORMANCE_LEAVE( PERFORMANCE_BOX2D_ONLY_PHYSIC_SYM );
 
-    PERFORMANCE_ENTER( 5 );
+    PERFORMANCE_ENTER( PERFORMANCE_BOX2D_RAYS_CAST );
 
     CalculateRays();
 
-    PERFORMANCE_LEAVE( 5 );
+    PERFORMANCE_LEAVE( PERFORMANCE_BOX2D_RAYS_CAST );
 
     return true;
 }
