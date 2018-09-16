@@ -1,5 +1,7 @@
 #include "entityghost.hpp"
 
+#include <LoggerUtilities.h>
+
 /*****************************************************************************/
 /**
   * @brief
@@ -44,4 +46,14 @@ EntityGhost& EntityGhost::operator=(const EntityGhost& rhs)
     if (this == &rhs) return *this; // handle self assignment
     //assignment operator
     return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityGhost::CalculateNeuralNetworks()
+{
+
 }

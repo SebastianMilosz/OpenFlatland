@@ -17,6 +17,7 @@ class EntityGhost : public EntityShell
         EntityGhost(const EntityGhost& other);
         EntityGhost& operator=(const EntityGhost& other);
 
+        void CalculateNeuralNetworks();
     protected:
         SerializableNeuronLayerContainer m_NeuronLayerContainer;
 
