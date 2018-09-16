@@ -20,6 +20,8 @@ class SerializableNeuronLayer : public codeframe::cSerializableContainer
         SerializableNeuronLayer( std::string name, cSerializableInterface* parent );
         virtual ~SerializableNeuronLayer();
 
+        void Calculate();
+
         codeframe::Property<unsigned int, SerializableNeuronLayer> NeuronCnt;
 
     protected:
