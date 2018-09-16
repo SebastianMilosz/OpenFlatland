@@ -29,6 +29,26 @@ SerializableNeuronLayer::~SerializableNeuronLayer()
   * @brief
  **
 ******************************************************************************/
+void SerializableNeuronLayer::Calculate()
+{
+    for ( unsigned int n = 0; n < Count(); n++ )
+    {
+        smart_ptr<cSerializableInterface> serializableObj = Get( n );
+
+        SerializableNeuron* neuronObj = static_cast<SerializableNeuron*>( smart_ptr_getRaw( serializableObj ) );
+
+        if ( (SerializableNeuron*)NULL != neuronObj )
+        {
+            neuronObj->Calculate();
+        }
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 smart_ptr<codeframe::cSerializableInterface> SerializableNeuronLayer::Create(
                                                                    const std::string& className,
                                                                    const std::string& objName,

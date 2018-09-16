@@ -55,5 +55,5 @@ EntityGhost& EntityGhost::operator=(const EntityGhost& rhs)
 ******************************************************************************/
 void EntityGhost::CalculateNeuralNetworks()
 {
-
+    m_NeuronLayerContainer.Calculate();
 }

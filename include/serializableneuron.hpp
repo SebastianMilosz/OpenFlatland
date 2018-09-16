@@ -19,6 +19,8 @@ class SerializableNeuron : public codeframe::cSerializable
                           );
         virtual ~SerializableNeuron();
 
+        void Calculate();
+
         codeframe::Property< std::vector<float> > InputsWeights;
         codeframe::Property< float >              Output;
 };
