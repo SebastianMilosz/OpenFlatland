@@ -112,10 +112,11 @@ namespace utilities
         ******************************************************************************/
         inline std::string DoubleToStr( double nbr )
         {
-            if(nbr > 999999999) return std::string("GetStringFromInt - Overload");
-            char buffer [12];
-            sprintf (buffer, "%lf",nbr);
-            return std::string(buffer);
+            std::ostringstream ss;
+
+            ss << nbr;
+
+            return std::string( ss.str() );
         }
 
         /*****************************************************************************/

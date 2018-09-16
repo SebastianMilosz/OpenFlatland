@@ -14,7 +14,8 @@
  **
 ******************************************************************************/
 PerformanceLogger::PerformanceLogger() :
-    m_applicationId("")
+    m_applicationId(""),
+    m_note("")
 {
 
 }
@@ -57,6 +58,16 @@ void PerformanceLogger::Initialize( std::string applicationId )
   * @brief
  **
 ******************************************************************************/
+void PerformanceLogger::AddNote( std::string note )
+{
+    m_note = note;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void PerformanceLogger::SaveToFile( std::string filePath )
 {
     std::ofstream performanceFile;
@@ -71,6 +82,10 @@ void PerformanceLogger::SaveToFile( std::string filePath )
         << std::setprecision(6) << it->second.Elapsed_ns/(10e8) << "s";
     }
 
+    if( m_note.size() )
+    {
+        performanceFile << ", " << m_note;
+    }
     performanceFile << '\n';
 
     performanceFile.close();
@@ -83,8 +98,13 @@ void PerformanceLogger::SaveToFile( std::string filePath )
 ******************************************************************************/
 std::string PerformanceLogger::PointToString( unsigned int id )
 {
-    double elapsed_ns = m_PerformanceMap[ id ].Elapsed_ns/(10e8);
-    return  m_PerformanceMap[ id ].Name + std::string(" = ") + utilities::math::DoubleToStr( elapsed_ns ) + std::string("s");
+    volatile double elapsed_ns = m_PerformanceMap[ id ].Elapsed_ns/(10e8);
+
+    std::ostringstream ss;
+
+    ss << std::fixed << std::setw(9) << std::setprecision(6) << elapsed_ns;
+
+    return  m_PerformanceMap[ id ].Name + std::string(" = ") + ss.str() + std::string("s");
 }
 
 /*****************************************************************************/

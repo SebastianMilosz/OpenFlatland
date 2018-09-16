@@ -1111,13 +1111,14 @@
 	"constelement.hpp"
 	<serializable.h>
 
-1535574007 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
+1537096700 source:d:\sourcecode\lifesimulator\src\entityfactory.cpp
 	"entityfactory.hpp"
 	<typeinfo.hpp>
 
-1537017642 source:d:\sourcecode\lifesimulator\src\world.cpp
+1537096198 source:d:\sourcecode\lifesimulator\src\world.cpp
 	"world.hpp"
 	"performancelogger.hpp"
+	"performanceapplicationdef.hpp"
 	<string>
 	<sstream>
 	<omp.h>
@@ -1312,7 +1313,7 @@
 	<direct.h>
 	<unistd.h>
 
-1536488703 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
+1537102303 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\mathutilities.h
 	<string>
 	<stdio.h>
 	<stdlib.h>
@@ -1653,11 +1654,12 @@
 	<climits>
 	<string>
 
-1536613706 source:d:\sourcecode\lifesimulator\src\application.cpp
+1537100994 source:d:\sourcecode\lifesimulator\src\application.cpp
 	"application.hpp"
 	"version.hpp"
 	"mercurialinfo.hpp"
 	"performancelogger.hpp"
+	"performanceapplicationdef.hpp"
 	<utilities/MathUtilities.h>
 	<utilities/LoggerUtilities.h>
 	<SFML/Graphics.hpp>
@@ -1827,7 +1829,7 @@
 	"entityshell.hpp"
 	"serializableneuronlayercontainer.hpp"
 
-1535573146 d:\sourcecode\lifesimulator\include\entityfactory.hpp
+1537096705 d:\sourcecode\lifesimulator\include\entityfactory.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
@@ -3134,7 +3136,7 @@
 1535826478 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\base64.hpp
 	<string>
 
-1536095116 d:\sourcecode\lifesimulator\include\informationwidget.hpp
+1537099149 d:\sourcecode\lifesimulator\include\informationwidget.hpp
 	<imgui.h>
 	<imgui-SFML.h>
 	<sigslot.h>
@@ -3142,21 +3144,23 @@
 	<serializable.hpp>
 	"entityfactory.hpp"
 
-1537048521 source:d:\sourcecode\lifesimulator\src\informationwidget.cpp
+1537101274 source:d:\sourcecode\lifesimulator\src\informationwidget.cpp
 	"informationwidget.hpp"
 	"performancelogger.hpp"
+	"performanceapplicationdef.hpp"
 	<chrono>
 	<ctime>
+	<climits>
 	"physicsbody.hpp"
 
-1537048243 d:\sourcecode\lifesimulator\include\performancelogger.hpp
+1537097697 d:\sourcecode\lifesimulator\include\performancelogger.hpp
 	<string>
 	<map>
 	<plf_nanotimer.h>
 
-1537048944 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1537102776 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
-1537048868 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
+1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"
 	<utilities/MathUtilities.h>
 	<utilities/LoggerUtilities.h>
@@ -3171,4 +3175,6 @@
 	<time.h>
 	<sys/time.h>
 	<windows.h>
+
+1537097167 d:\sourcecode\lifesimulator\include\performanceapplicationdef.hpp
 

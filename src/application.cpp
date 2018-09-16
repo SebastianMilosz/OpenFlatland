@@ -2,6 +2,7 @@
 #include "version.hpp"
 #include "mercurialinfo.hpp"
 #include "performancelogger.hpp"
+#include "performanceapplicationdef.hpp"
 
 #include <utilities/MathUtilities.h>
 #include <utilities/LoggerUtilities.h>
@@ -59,15 +60,17 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Processing" );
 
-    PERFORMANCE_ADD( 1, "Load Xml File" );
-    PERFORMANCE_ADD( 2, "Box2d physic symulation" );
-    PERFORMANCE_ADD( 3, "Render graphic" );
+    PERFORMANCE_ADD( PERFORMANCE_LOAD_XML_FILE,         "Load Xml File" );
+    PERFORMANCE_ADD( PERFORMANCE_BOX2D_FULL_PHYSIC_SYM, "Box2d physic symulation" );
+    PERFORMANCE_ADD( PERFORMANCE_RENDER_GRAPHIC,        "Render graphic" );
+    PERFORMANCE_ADD( PERFORMANCE_CALCULATE_NEURONS,     "Calculate neurons" );
+    PERFORMANCE_ADD( PERFORMANCE_SAVE_XML_FILE,         "Save Xml File" );
 
-    PERFORMANCE_ENTER( 1 );
+    PERFORMANCE_ENTER( PERFORMANCE_LOAD_XML_FILE );
 
     this->LoadFromFile( m_cfgFilePath );
 
-    PERFORMANCE_LEAVE( 1 );
+    PERFORMANCE_LEAVE( PERFORMANCE_LOAD_XML_FILE );
 }
 
 /*****************************************************************************/
@@ -95,7 +98,15 @@ void Application::ProcesseEvents( sf::Event& event )
     // catch window close event
     if ( event.type == sf::Event::Closed )
     {
+        // Add fps note to performance log
+        std::string note  = std::string("FPS="  ) + m_Widgets.GetInformationWidget().FpsToString();
+                    note += std::string(", CNT=") + utilities::math::IntToStr( m_EntityFactory.Count() );
+        PerformanceLogger::GetInstance().AddNote( note );
+
+        PERFORMANCE_ENTER( PERFORMANCE_SAVE_XML_FILE );
         this->SaveToFile( m_cfgFilePath );
+        PERFORMANCE_LEAVE( PERFORMANCE_SAVE_XML_FILE );
+
         PERFORMANCE_SAVE( m_perFilePath );
         m_Window.close();
     }
@@ -201,18 +212,22 @@ void Application::ProcesseLogic( void )
 
     m_Window.clear();
 
-    PERFORMANCE_ENTER( 2 );
+    PERFORMANCE_ENTER( PERFORMANCE_BOX2D_FULL_PHYSIC_SYM );
 
     /** Simulate the world */
     m_World.PhysisStep( m_Window );
 
-    PERFORMANCE_LEAVE( 2 );
+    PERFORMANCE_LEAVE( PERFORMANCE_BOX2D_FULL_PHYSIC_SYM );
 
-    PERFORMANCE_ENTER( 3 );
+    PERFORMANCE_ENTER( PERFORMANCE_CALCULATE_NEURONS );
+
+    m_EntityFactory.CalculateNeuralNetworks();
+
+    PERFORMANCE_LEAVE( PERFORMANCE_CALCULATE_NEURONS );
+
+    PERFORMANCE_ENTER( PERFORMANCE_RENDER_GRAPHIC );
 
     m_World.Draw( m_Window );
-
-    PERFORMANCE_LEAVE( 3 );
 
     if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
     {
@@ -231,6 +246,8 @@ void Application::ProcesseLogic( void )
     m_Widgets.Draw();
 
     m_Window.display();
+
+    PERFORMANCE_LEAVE( PERFORMANCE_RENDER_GRAPHIC );
 }
 
 /*****************************************************************************/

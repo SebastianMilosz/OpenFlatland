@@ -26,6 +26,8 @@ class EntityFactory : public codeframe::cSerializableContainer
         signal1< smart_ptr<Entity> > signalEntityAdd;
         signal1< smart_ptr<Entity> > signalEntityDel;
 
+        void CalculateNeuralNetworks();
+
     protected:
         smart_ptr<codeframe::cSerializableInterface> Create(
                                                              const std::string& className,
