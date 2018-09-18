@@ -26,7 +26,7 @@
 namespace codeframe
 {
     std::string base64_encode( const uint8_t *indata, size_t size );
-    std::string base64_decode( std::string const& encoded_string );
+    std::string base64_decode( const std::string& encoded_string );
 }
 
 #endif // BASE64_HPP_INCLUDED

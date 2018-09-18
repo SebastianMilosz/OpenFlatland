@@ -1294,12 +1294,12 @@
 	<stddef.h>
 	<stdint.h>
 
-1518263766 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\fileutilities.cpp
+1537300388 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\fileutilities.cpp
 	"utilities/FileUtilities.h"
 	"utilities/MathUtilities.h"
 	<algorithm>
 
-1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\fileutilities.h
+1537299733 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\fileutilities.h
 	<iostream>
 	<fstream>
 	<string>
@@ -1474,7 +1474,7 @@
 
 1512916324 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\cxmlnode.h
 
-1534535150 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxml.cpp
+1537300031 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\cxml.cpp
 	"cxml.hpp"
 	<fstream>
 	<sstream>
@@ -1548,7 +1548,7 @@
 	<new>
 	<stdint.h>
 
-1534536313 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
+1537300745 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
 	"serializableproperty.hpp"
 	<exception>
 	<stdexcept>
@@ -1560,7 +1560,7 @@
 1504816631 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
 	"serializableregister.h"
 
-1534630707 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
+1537300582 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
 	"serializable.hpp"
 	<iostream>
 	<exception>
@@ -1646,7 +1646,7 @@
 	"MathUtilities.h"
 	<sstream>
 
-1532557345 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertybase.hpp
+1537301135 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertybase.hpp
 	"serializableregister.h"
 	"serializablepropertyinfo.hpp"
 	"typeinfo.hpp"
@@ -1745,7 +1745,7 @@
 
 1535924488 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\cxmlnode.hpp
 
-1534535547 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\cxml.hpp
+1537300453 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\cxml.hpp
 	<string>
 	"cxmlnode.hpp"
 
@@ -1755,7 +1755,7 @@
 	<algorithm>
 	<ThreadUtilities.h>
 
-1535576932 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
+1537282296 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
 	<vector>
 	<string>
 	<map>
@@ -1769,7 +1769,7 @@
 	"serializablechildlist.hpp"
 	"xmlformatter.hpp"
 
-1535886184 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
+1537279065 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
 	"serializablepropertybase.hpp"
 	"extpoint2d.hpp"
 	"extvector.hpp"
@@ -1786,7 +1786,7 @@
 	"cxml.hpp"
 	"typeinfo.hpp"
 
-1534609541 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
+1537283803 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
 	<sigslot.h>
 	"serializablelua.hpp"
 	"serializablestorage.hpp"
@@ -3075,10 +3075,10 @@
 1537135904 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
 	<serializable.hpp>
 
-1537135862 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
+1537178302 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
 	"serializableneuronlayer.hpp"
 
-1537135788 d:\sourcecode\lifesimulator\include\serializableneuronlayer.hpp
+1537175782 d:\sourcecode\lifesimulator\include\serializableneuronlayer.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
@@ -3130,11 +3130,11 @@
 
 1371563376 d:\sourcecode\lifesimulator\libraries\codeframe-master\thirdparty\libb64-1.2.1\include\b64\cencode.h
 
-1535837554 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\base64.cpp
+1537299763 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\base64.cpp
 	"base64.hpp"
 	<ctype.h>
 
-1535826478 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\base64.hpp
+1537282357 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\base64.hpp
 	<string>
 
 1537099149 d:\sourcecode\lifesimulator\include\informationwidget.hpp
@@ -3159,7 +3159,7 @@
 	<map>
 	<plf_nanotimer.h>
 
-1537136275 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1537301244 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
 1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"

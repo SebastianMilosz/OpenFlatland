@@ -18,7 +18,7 @@ namespace codeframe
       * @brief Zamienia napis na liczbe 32b
      **
     ******************************************************************************/
-    uint32_t PropertyBase::GetHashId( std::string str, uint16_t mod )
+    uint32_t PropertyBase::GetHashId( const std::string& str, uint16_t mod )
     {
         uint32_t hash, i;
         for(hash = i = 0; i < str.size(); ++i)
@@ -81,7 +81,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(PropertyBase val)
+    PropertyBase& PropertyBase::operator=( const PropertyBase& val )
     {
         m_Mutex.Lock();
         val.m_Mutex.Lock();
@@ -193,7 +193,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(std::string val)
+    PropertyBase& PropertyBase::operator=( const std::string& val )
     {
         return *this;
     }
@@ -223,7 +223,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator+=(const PropertyBase& rhs)
+    PropertyBase& PropertyBase::operator+=( const PropertyBase& rhs )
     {
         return *this;
     }
@@ -233,7 +233,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator-=(const PropertyBase& rhs)
+    PropertyBase& PropertyBase::operator-=( const PropertyBase& rhs )
     {
         return *this;
     }
@@ -253,7 +253,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase PropertyBase::operator-(const PropertyBase& rhs)
+    PropertyBase PropertyBase::operator-( const PropertyBase& rhs )
     {
         return *this;
     }
@@ -263,7 +263,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator+=(const int rhs)
+    PropertyBase& PropertyBase::operator+=( const int rhs )
     {
         return *this;
     }
@@ -273,7 +273,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator-=(const int rhs)
+    PropertyBase& PropertyBase::operator-=( const int rhs )
     {
         return *this;
     }
@@ -293,7 +293,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyBase::NameIs( std::string name ) const
+    bool PropertyBase::NameIs( const std::string& name ) const
     {
         if( name == m_name ) return true;
         return false;
@@ -374,7 +374,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string PropertyBase::Path(bool addName) const
+    std::string PropertyBase::Path( bool addName ) const
     {
         std::string propPath;
 
@@ -564,7 +564,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void PropertyBase::SetString( std::string val )
+    void PropertyBase::SetString( const std::string& val )
     {
         if ( Info().GetEnable() == false )
         {
@@ -625,7 +625,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    int PropertyBase::ToEnumPosition( std::string enumStringValue )
+    int PropertyBase::ToEnumPosition( const std::string& enumStringValue )
     {
         if ( Info().GetKind() != KIND_ENUM )
         {

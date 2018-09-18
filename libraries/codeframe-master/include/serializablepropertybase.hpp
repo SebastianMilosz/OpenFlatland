@@ -23,7 +23,7 @@ namespace codeframe
 
         public:
 
-            PropertyBase( cSerializable* parentpc, std::string name, eType type, cPropertyInfo info ) :
+            PropertyBase( cSerializable* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
                 m_reference(NULL),
                 m_referenceParent(NULL),
                 m_type(type),
@@ -72,15 +72,15 @@ namespace codeframe
             virtual bool operator!=(const int& sval);
 
             // Operatory przypisania
-            virtual PropertyBase& operator=(PropertyBase  val);
-            virtual PropertyBase& operator=(bool          val);
-            virtual PropertyBase& operator=(char          val);
-            virtual PropertyBase& operator=(unsigned char val);
-            virtual PropertyBase& operator=(int           val);
-            virtual PropertyBase& operator=(unsigned int  val);
-            virtual PropertyBase& operator=(float         val);
-            virtual PropertyBase& operator=(double        val);
-            virtual PropertyBase& operator=(std::string   val);
+            virtual PropertyBase& operator=(const PropertyBase& val);
+            virtual PropertyBase& operator=(const bool          val);
+            virtual PropertyBase& operator=(const char          val);
+            virtual PropertyBase& operator=(const unsigned char val);
+            virtual PropertyBase& operator=(const int           val);
+            virtual PropertyBase& operator=(const unsigned int  val);
+            virtual PropertyBase& operator=(const float         val);
+            virtual PropertyBase& operator=(const double        val);
+            virtual PropertyBase& operator=(const std::string&  val);
             virtual PropertyBase& operator++();
             virtual PropertyBase& operator--();
             virtual PropertyBase& operator+=(const PropertyBase& rhs);
@@ -104,35 +104,35 @@ namespace codeframe
             bool                    IsReference() const;
             int                     ToInt() const { return (int)(*this); }
             std::string             ToString();
-            int                     ToEnumPosition( std::string enumStringValue );
+            int                     ToEnumPosition( const std::string& enumStringValue );
             cPropertyInfo&          Info() { return m_propertyInfo; }
-            virtual void        	WaitForUpdatePulse();
-            virtual void         	WaitForUpdate(int time = 100);
-            virtual std::string  	Name() const;
-            virtual bool  	        NameIs( std::string name ) const;
-            virtual uint32_t     	Id() const;
-            virtual eType        	Type() const;
-            virtual std::string  	Path(bool addName = true) const;
-            virtual cSerializable* 	Parent() { return m_parentpc; }
+            virtual void            WaitForUpdatePulse();
+            virtual void            WaitForUpdate( int time = 100 );
+            virtual std::string     Name() const;
+            virtual bool            NameIs( const std::string& name ) const;
+            virtual uint32_t        Id() const;
+            virtual eType           Type() const;
+            virtual std::string     Path(bool addName = true) const;
+            virtual cSerializable*  Parent() { return m_parentpc; }
             virtual PropertyBase*   Reference() { return m_reference; }
-            virtual bool         	ConnectReference( PropertyBase* refProp );
-            virtual std::string  	TypeString() const;
+            virtual bool            ConnectReference( PropertyBase* refProp );
+            virtual std::string     TypeString() const;
 
-            virtual std::string  	PreviousValueString() const;
-            virtual std::string  	CurentValueString() const;
+            virtual std::string     PreviousValueString() const;
+            virtual std::string     CurentValueString() const;
             virtual int             PreviousValueInteger() const;
             virtual int             CurentValueInteger() const;
 
-            void                 	PulseChanged();
+            void                    PulseChanged();
             void                    CommitChanges();
             bool                    IsChanged() const;
             PropertyBase&           WatchdogGetValue( int time = 1000 );
 
-            void         	        SetNumber( int val );
+            void                    SetNumber( int val );
             int                     GetNumber() const;
-            void         	        SetReal( double val );
+            void                    SetReal( double val );
             double                  GetReal() const;
-            void         	        SetString( std::string  val );
+            void                    SetString( const std::string&  val );
             std::string             GetString() const;
 
         protected:
@@ -151,10 +151,10 @@ namespace codeframe
             bool            m_temporary;
 
             void     RegisterProperty();
-            void	 UnRegisterProperty();
+            void     UnRegisterProperty();
             void     ValueUpdate();
 
-            static uint32_t GetHashId(std::string str, uint16_t mod = 0 );
+            static uint32_t GetHashId( const std::string& str, uint16_t mod = 0 );
     };
 }
 

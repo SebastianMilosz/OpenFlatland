@@ -63,7 +63,7 @@ std::string base64_encode( const uint8_t *indata, size_t size )
   * @brief
  **
 ******************************************************************************/
-std::string base64_decode( std::string const& encoded_string )
+std::string base64_decode( const std::string& encoded_string )
 {
     int in_len = encoded_string.size();
     int i = 0;

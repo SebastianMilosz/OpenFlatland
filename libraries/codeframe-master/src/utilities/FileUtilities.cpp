@@ -21,7 +21,7 @@ struct MatchPathSeparator
   * @brief Zwraca nazwe pliku
  **
 ******************************************************************************/
-std::string utilities::file::GetFileName( std::string const& pathname )
+std::string utilities::file::GetFileName( const std::string& pathname )
 {
     return std::string( std::find_if( pathname.rbegin(), pathname.rend(), MatchPathSeparator() ).base(), pathname.end() );
 }
@@ -57,7 +57,7 @@ std::string utilities::url::cIP::ToString()
   * @brief
  **
 ******************************************************************************/
-utilities::url::cIP& utilities::url::cIP::FromString( std::string str )
+utilities::url::cIP& utilities::url::cIP::FromString( const std::string& str )
 {
     if( str == "localhost" ) return *this;
 

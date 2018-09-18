@@ -22,31 +22,31 @@ namespace codeframe
         friend class PropertyBase;
 
         public:
-                             cSerializable( std::string const& name, cSerializableInterface* parent = NULL );
+                             cSerializable( const std::string& name, cSerializableInterface* parent = NULL );
             virtual         ~cSerializable();
 
-            void             SetName      ( std::string const& name );
+            void             SetName      ( const std::string& name );
             cSerializable*   ShareLevel   ( eShareLevel level = ShareFull );
-            cSerializable*   LoadFromFile ( std::string const& filePath, std::string const& container = "", bool createIfNotExist = false );
-            cSerializable*   LoadFromXML  ( cXML xml, std::string const& container = "" );
-            cSerializable*   SaveToFile   ( std::string const& filePath, std::string const& container = "" );
-            cXML             SaveToXML    ( std::string const& container = "", int mode = 0 );
+            cSerializable*   LoadFromFile ( const std::string& filePath, const std::string& container = "", bool createIfNotExist = false );
+            cSerializable*   LoadFromXML  ( cXML xml, const std::string& container = "" );
+            cSerializable*   SaveToFile   ( const std::string& filePath, const std::string& container = "" );
+            cXML             SaveToXML    ( const std::string& container = "", int mode = 0 );
 
-            bool                    IsPropertyUnique( std::string const& name ) const;
-            bool                    IsNameUnique    ( std::string const& name, bool checkParent = false ) const;
+            bool                    IsPropertyUnique( const std::string& name ) const;
+            bool                    IsNameUnique    ( const std::string& name, bool checkParent = false ) const;
             std::string             Path() const;
             std::string             ObjectName( bool idSuffix = true ) const;
             std::string             SizeString() const;
             cSerializableInterface* Parent()     const;
             cSerializableInterface* GetRootObject      (                  );
-            cSerializableInterface* GetObjectFromPath  ( std::string const& path );
-            cSerializableInterface* GetChildByName     ( std::string const& name );
+            cSerializableInterface* GetObjectFromPath  ( const std::string& path );
+            cSerializableInterface* GetChildByName     ( const std::string& name );
             void                    RegisterProperty   ( PropertyBase*   prop );
             void                    UnRegisterProperty ( PropertyBase*   prop );
             void                    ClearPropertyList  (                  );
-            PropertyBase*           GetPropertyByName  ( std::string const& name );
+            PropertyBase*           GetPropertyByName  ( const std::string& name );
             PropertyBase*           GetPropertyById    ( uint32_t    id   );
-            PropertyBase*           GetPropertyFromPath( std::string const& path );
+            PropertyBase*           GetPropertyFromPath( const std::string& path );
             std::string             GetNameById        ( uint32_t    id   ) const;
             void                    PulseChanged       ( bool fullTree = false );
             void                    CommitChanges      (                  );

@@ -40,7 +40,7 @@ cXML::cXML() :
   * @brief
  **
 ******************************************************************************/
-cXML::cXML( std::string filePath ) :
+cXML::cXML( const std::string& filePath ) :
     m_valid(false),
     m_xmlDocument(NULL)
 {
@@ -132,7 +132,7 @@ cXML::~cXML()
   * @brief
  **
 ******************************************************************************/
-cXML& cXML::PointToNode(std::string const& name )
+cXML& cXML::PointToNode( const std::string& name )
 {
     (void)name;
 
@@ -155,7 +155,7 @@ cXML& cXML::PointToRoot()
   * @brief
  **
 ******************************************************************************/
-cXML& cXML::Add( cXML xml )
+cXML& cXML::Add( cXML& xml )
 {
     m_xmlDocument->reset( *xml.m_xmlDocument );
 
@@ -180,7 +180,7 @@ std::string cXML::ToString()
   * @brief
  **
 ******************************************************************************/
-void cXML::ToFile(std::string const& filePath )
+void cXML::ToFile( const std::string& filePath )
 {
     CreateXMLDeclaration();
     std::ofstream filestream( filePath.c_str(), std::fstream::in | std::fstream::out | std::fstream::trunc );
@@ -194,7 +194,7 @@ void cXML::ToFile(std::string const& filePath )
   * @brief
  **
 ******************************************************************************/
-void cXML::FromFile(std::string const& filePath )
+void cXML::FromFile( const std::string& filePath )
 {
     std::filebuf fb;
     if( fb.open(filePath.c_str(), std::ios::in) )
@@ -217,7 +217,7 @@ void cXML::FromFile(std::string const& filePath )
   * @brief
  **
 ******************************************************************************/
-void cXML::FromString( std::string xmlString )
+void cXML::FromString( const std::string& xmlString )
 {
     std::stringbuf sbuf( xmlString );
     std::istream stream( &sbuf );
@@ -255,7 +255,7 @@ void cXML::Dispose()
   * @brief
  **
 ******************************************************************************/
-cXML& cXML::operator=(cXML arg) // copy/move constructor is called to construct arg
+cXML& cXML::operator=( cXML& arg ) // copy/move constructor is called to construct arg
 {
     m_xmlDocument->reset( *arg.m_xmlDocument );
     m_valid = arg.m_valid;
@@ -277,7 +277,7 @@ bool cXML::IsValid() const
   * @brief
  **
 ******************************************************************************/
-cXMLNode cXML::GetChild( std::string name ) const
+cXMLNode cXML::GetChild( const std::string& name ) const
 {
     return cXMLNode( m_xmlDocument->child( name.c_str() ) );
 }
@@ -307,7 +307,7 @@ cXMLNode cXML::Root()
   * @brief
  **
 ******************************************************************************/
-cXMLNode cXML::AppendChild(const char_t* name)
+cXMLNode cXML::AppendChild( const char_t* name )
 {
     return cXMLNode( m_xmlDocument->append_child( name ) );
 }
