@@ -105,7 +105,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::SetName( std::string const& name )
+    void cSerializable::SetName( const std::string& name )
     {
         m_sContainerName = name;
     }
@@ -115,7 +115,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cSerializable::GetPropertyByName( std::string const& name )
+    PropertyBase* cSerializable::GetPropertyByName( const std::string& name )
     {
         // Po wszystkich zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
@@ -251,7 +251,7 @@ namespace codeframe
       * @todo napisac implementacje
      **
     ******************************************************************************/
-    cSerializable* cSerializable::ShareLevel(eShareLevel level )
+    cSerializable* cSerializable::ShareLevel( eShareLevel level )
     {
        m_shareLevel = level;
        return this;
@@ -262,7 +262,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::LoadFromFile( std::string const& filePath, std::string const& container, bool createIfNotExist )
+    cSerializable* cSerializable::LoadFromFile( const std::string& filePath, const std::string& container, bool createIfNotExist )
     {
         try
         {
@@ -303,7 +303,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::SaveToFile( std::string const& filePath, std::string const& container )
+    cSerializable* cSerializable::SaveToFile( const std::string& filePath, const std::string& container )
     {
         try
         {
@@ -312,7 +312,9 @@ namespace codeframe
             cXML          xml;
             cXmlFormatter formatter( this, m_shareLevel );
 
-            xml.PointToNode( container ).Add( formatter.SaveToXML() ).ToFile( filePath );
+            cXML formXml = formatter.SaveToXML();
+
+            xml.PointToNode( container ).Add( formXml ).ToFile( filePath );
         }
         catch(exception &exc)
         {
@@ -331,7 +333,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable* cSerializable::LoadFromXML( cXML xml, std::string const& container )
+    cSerializable* cSerializable::LoadFromXML( cXML xml, const std::string& container )
     {
         try
         {
@@ -358,7 +360,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cXML cSerializable::SaveToXML( std::string const& container, int mode __attribute__((unused)) )
+    cXML cSerializable::SaveToXML( const std::string& container, int mode __attribute__((unused)) )
     {
         try
         {
@@ -385,7 +387,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cSerializable::IsPropertyUnique( std::string const& name ) const
+    bool cSerializable::IsPropertyUnique( const std::string& name ) const
     {
         int octcnt = 0;
 
@@ -409,7 +411,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cSerializable::IsNameUnique( std::string const& name, bool checkParent ) const
+    bool cSerializable::IsNameUnique( const std::string& name, bool checkParent ) const
     {
         int octcnt = 0;
 
@@ -518,7 +520,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface* cSerializable::GetChildByName( std::string const& name )
+    cSerializableInterface* cSerializable::GetChildByName( const std::string& name )
     {
         for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
         {
@@ -545,7 +547,7 @@ namespace codeframe
       * @brief Return serializable object from string path
      **
     ******************************************************************************/
-    cSerializableInterface* cSerializable::GetObjectFromPath( std::string const& path )
+    cSerializableInterface* cSerializable::GetObjectFromPath( const std::string& path )
     {
         // Rozdzelamy stringa na kawalki
         vector<std::string>     tokens;
@@ -587,7 +589,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cSerializable::GetPropertyFromPath( std::string const& path )
+    PropertyBase* cSerializable::GetPropertyFromPath( const std::string& path )
     {
         // Wydzielamy sciezke od nazwy propertisa
         std::string::size_type found = path.find_last_of(".");

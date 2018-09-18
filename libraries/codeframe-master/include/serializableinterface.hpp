@@ -74,16 +74,16 @@ namespace codeframe
             virtual std::string             BuildType()  const = 0;         ///< Sposob budowania obiektu (statycznym, dynamiczny)
             virtual std::string             ConstructPatern() const = 0;    ///< Parametry konstruktora
 
-            virtual void                    SetName( std::string const& name ) = 0;
-            virtual bool                    IsPropertyUnique( std::string const& name ) const = 0;
-            virtual bool                    IsNameUnique    ( std::string const& name, bool checkParent = false ) const = 0;
+            virtual void                    SetName( const std::string& name ) = 0;
+            virtual bool                    IsPropertyUnique( const std::string& name ) const = 0;
+            virtual bool                    IsNameUnique    ( const std::string& name, bool checkParent = false ) const = 0;
             virtual std::string             Path() const = 0;
             virtual cSerializableInterface* Parent() const = 0;
             virtual cSerializableInterface* GetRootObject() = 0;
-            virtual PropertyBase*           GetPropertyByName  ( std::string const& name ) = 0;
+            virtual PropertyBase*           GetPropertyByName  ( const std::string& name ) = 0;
             virtual PropertyBase*           GetPropertyById    ( uint32_t    id   ) = 0;
-            virtual PropertyBase*           GetPropertyFromPath( std::string const& path ) = 0;
-            virtual cSerializableInterface* GetChildByName     ( std::string const& name ) = 0;
+            virtual PropertyBase*           GetPropertyFromPath( const std::string& path ) = 0;
+            virtual cSerializableInterface* GetChildByName     ( const std::string& name ) = 0;
             virtual void                    PulseChanged       ( bool fullTree = false ) = 0;
             virtual void                    CommitChanges      () = 0;
             virtual void                    Enable             ( bool val ) = 0;

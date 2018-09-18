@@ -22,7 +22,9 @@ class SerializableNeuronLayer : public codeframe::cSerializableContainer
 
         void Calculate();
 
-        codeframe::Property<unsigned int, SerializableNeuronLayer> NeuronCnt;
+        codeframe::Property< unsigned int, SerializableNeuronLayer > NeuronCnt;
+        codeframe::Property< std::vector<float> > Input;
+        codeframe::Property< std::vector<float> > Output;
 
     protected:
         smart_ptr<codeframe::cSerializableInterface> Create(

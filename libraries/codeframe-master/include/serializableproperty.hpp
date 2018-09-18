@@ -18,7 +18,7 @@ namespace codeframe
     {
         public:
             Property( cSerializable* parentpc,
-                      std::string name,
+                      const std::string& name,
                       retT val,
                       cPropertyInfo info,
                       classT* contextObject = NULL,
@@ -327,7 +327,7 @@ namespace codeframe
             }
 
             // From extended type std::string
-            virtual Property& operator=( std::string val )
+            virtual Property& operator=( std::string& val )
             {
                 if ( Info().GetEnable() == true )
                 {

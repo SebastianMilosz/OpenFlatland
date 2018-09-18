@@ -23,14 +23,14 @@ namespace utilities
 {
 	namespace file
 	{
-	    std::string GetFileName( std::string const& pathname );
+	    std::string GetFileName( const std::string& pathname );
 
 		/*****************************************************************************/
 		/**
 		  * @brief Zwraca rozszerzenie pliku
 		 **
 		******************************************************************************/
-		inline std::string GetFileExtension( std::string filePath )
+		inline std::string GetFileExtension( const std::string& filePath )
 		{
 		    std::string ext = filePath.c_str();
 		    size_t dotPos = ext.rfind(".");
@@ -47,7 +47,7 @@ namespace utilities
 		  * @brief
 		 **
 		******************************************************************************/
-		inline std::string ChangeFileExtension( std::string filePath, std::string newExt )
+		inline std::string ChangeFileExtension( const std::string& filePath, const std::string& newExt )
 		{
 		    std::string retPath = filePath;
 		    size_t dotPos = retPath.rfind(".");
@@ -66,7 +66,7 @@ namespace utilities
 		  * @brief Zwraca prawde jesli plik istnieje w przeciwntm razie falsz
 		 **
 		******************************************************************************/
-		inline bool IsFileExist( std::string filePath )
+		inline bool IsFileExist( const std::string& filePath )
 		{
 		    FILE* ftestexist;
 		    bool ret = true;
@@ -138,7 +138,7 @@ namespace utilities
             public:
                 cIP( void );
 
-                cIP& FromString ( std::string str );
+                cIP& FromString ( const std::string& str );
                 cIP& FromInteger( uint8_t v1, uint8_t v2, uint8_t v3, uint8_t v4 );
 
                 uint32_t    ToIntAdr() const;
