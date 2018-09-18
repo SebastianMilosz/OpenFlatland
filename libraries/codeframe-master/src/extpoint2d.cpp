@@ -13,7 +13,7 @@ namespace codeframe
  **
 ******************************************************************************/
 template<>
-void Point2D<int>::FromStringCallback ( StringType value )
+void Point2D<int>::FromStringCallback ( const StringType& value )
 {
     // Split using ; separator
     std::vector<std::string> pointPartsStrings;
@@ -32,7 +32,7 @@ void Point2D<int>::FromStringCallback ( StringType value )
  **
 ******************************************************************************/
 template<>
-void Point2D<float>::FromStringCallback ( StringType value )
+void Point2D<float>::FromStringCallback ( const StringType& value )
 {
     // Split using ; separator
     std::vector<std::string> pointPartsStrings;
@@ -51,7 +51,7 @@ void Point2D<float>::FromStringCallback ( StringType value )
  **
 ******************************************************************************/
 template<>
-void Point2D<int>::FromIntegerCallback( IntegerType value )
+void Point2D<int>::FromIntegerCallback( const IntegerType& value )
 {
     m_x = value;
     m_y = value;
@@ -63,7 +63,7 @@ void Point2D<int>::FromIntegerCallback( IntegerType value )
  **
 ******************************************************************************/
 template<>
-void Point2D<float>::FromIntegerCallback( IntegerType value )
+void Point2D<float>::FromIntegerCallback( const IntegerType& value )
 {
     m_x = value;
     m_y = value;
@@ -75,7 +75,7 @@ void Point2D<float>::FromIntegerCallback( IntegerType value )
  **
 ******************************************************************************/
 template<>
-void Point2D<int>::FromRealCallback( RealType value )
+void Point2D<int>::FromRealCallback( const RealType& value )
 {
     m_x = value;
     m_y = value;
@@ -87,7 +87,7 @@ void Point2D<int>::FromRealCallback( RealType value )
  **
 ******************************************************************************/
 template<>
-void Point2D<float>::FromRealCallback( RealType value )
+void Point2D<float>::FromRealCallback( const RealType& value )
 {
     m_x = value;
     m_y = value;

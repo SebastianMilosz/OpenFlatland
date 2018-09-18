@@ -47,7 +47,7 @@ namespace codeframe
                 return m_baseValue;
             }
 
-            void SetValue( retT value )
+            void SetValue( const retT& value )
             {
                 if ( (NULL != SetValueCallback) && (NULL != ContextObject) )
                 {
@@ -123,9 +123,9 @@ namespace codeframe
             }
 
             // Copy operator
-            virtual Property& operator=(Property val)
+            virtual Property& operator=( const Property& val )
             {
-                this->PropertyBase::operator=(val);
+                this->PropertyBase::operator=( val );
 
                 // Values
                 SetValue( val.GetValue() );

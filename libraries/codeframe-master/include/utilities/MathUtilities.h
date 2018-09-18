@@ -26,7 +26,7 @@ namespace utilities
           * @brief
          **
         ******************************************************************************/
-        inline std::string IntToHex(unsigned int nbr, std::string prefix = "", std::string separator = ":", char trim = 0)
+        inline std::string IntToHex(unsigned int nbr, const std::string& prefix = "", const std::string& separator = ":", char trim = 0)
         {
             unsigned char* buf = (unsigned char*)(&nbr);
 
@@ -87,7 +87,7 @@ namespace utilities
           * @brief
          **
         ******************************************************************************/
-        inline std::string LongToHex(long nbr)
+        inline std::string LongToHex( long nbr )
         {
             return IntToHex( (unsigned int)nbr );
         }
@@ -124,7 +124,7 @@ namespace utilities
         * @brief
         **
         ******************************************************************************/
-        inline unsigned int HexToInt(std::string hex)
+        inline unsigned int HexToInt( const std::string& hex)
         {
             return strtol(hex.c_str(), NULL, 16);
         }
@@ -134,7 +134,7 @@ namespace utilities
           * @brief
          **
         ******************************************************************************/
-        inline int StrToInt( std::string strnbr )
+        inline int StrToInt( const std::string& strnbr )
         {
             return strtol(strnbr.c_str(), NULL, 10);
         }
@@ -144,7 +144,7 @@ namespace utilities
           * @brief
          **
         ******************************************************************************/
-        inline float StrToFloat( std::string strnbr )
+        inline float StrToFloat( const std::string& strnbr )
         {
             return atof( strnbr.c_str() );
         }
@@ -154,7 +154,7 @@ namespace utilities
           * @brief
          **
         ******************************************************************************/
-        inline double StrToDouble( std::string strnbr )
+        inline double StrToDouble( const std::string& strnbr )
         {
             return atof( strnbr.c_str() );
         }

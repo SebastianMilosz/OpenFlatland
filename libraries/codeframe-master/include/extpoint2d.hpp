@@ -17,9 +17,9 @@ namespace codeframe
             Point2D( const Point2D& other ) : m_x( other.m_x ), m_y( other.m_y ) {}
             virtual ~Point2D() {}
 
-            virtual void FromStringCallback ( StringType  value );
-            virtual void FromIntegerCallback( IntegerType value );
-            virtual void FromRealCallback( RealType value );
+            virtual void FromStringCallback ( const StringType&  value );
+            virtual void FromIntegerCallback( const IntegerType& value );
+            virtual void FromRealCallback   ( const RealType& value );
 
             virtual StringType ToStringCallback() const;
             virtual IntegerType ToIntegerCallback() const;
@@ -33,7 +33,7 @@ namespace codeframe
             T X() { return m_x; }
             T Y() { return m_y; }
 
-        static Point2D<T> Point2DFromString( std::string value )
+        static Point2D<T> Point2DFromString( const std::string& value )
         {
             Point2D<T> retType(0,0);
             retType.FromStringCallback( value );

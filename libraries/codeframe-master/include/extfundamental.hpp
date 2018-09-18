@@ -11,37 +11,37 @@ namespace codeframe
     class FundamentalTypes
     {
         public:
-            static bool BoolFromString( std::string value )
+            static bool BoolFromString( const std::string& value )
             {
                 int retVal = utilities::math::StrToInt( value );
                 return (bool)retVal;
             }
 
-            static int IntFromString( std::string value )
+            static int IntFromString( const std::string& value )
             {
                 int retVal = utilities::math::StrToInt( value );
                 return retVal;
             }
 
-            static unsigned int UIntFromString( std::string value )
+            static unsigned int UIntFromString( const std::string& value )
             {
                 unsigned int retVal = utilities::math::StrToInt( value );
                 return retVal;
             }
 
-            static float FloatFromString( std::string value )
+            static float FloatFromString( const std::string& value )
             {
                 unsigned int retVal = utilities::math::StrToFloat( value );
                 return retVal;
             }
 
-            static double DoubleFromString( std::string value )
+            static double DoubleFromString( const std::string& value )
             {
                 unsigned int retVal = utilities::math::StrToDouble( value );
                 return retVal;
             }
 
-            static std::string StringFromString( std::string value )
+            static std::string StringFromString( const std::string& value )
             {
                 return value;
             }
@@ -106,33 +106,33 @@ namespace codeframe
                 return utilities::math::StrToInt( value );
             }
 
-            static bool BoolFromInt( IntegerType value )
+            static bool BoolFromInt( const IntegerType& value )
             {
                 return value;
             }
 
-            static int IntFromInt( IntegerType value )
+            static int IntFromInt( const IntegerType& value )
             {
                 return value;
             }
 
-            static unsigned int UIntFromInt( IntegerType value )
+            static unsigned int UIntFromInt( const IntegerType& value )
             {
                 unsigned int retVal = value;
                 return retVal;
             }
 
-            static float FloatFromInt( IntegerType value )
+            static float FloatFromInt( const IntegerType& value )
             {
                 return value;
             }
 
-            static double DoubleFromInt( IntegerType value )
+            static double DoubleFromInt( const IntegerType& value )
             {
                 return value;
             }
 
-            static std::string StringFromInt( IntegerType value )
+            static std::string StringFromInt( const IntegerType& value )
             {
                 std::string retVal = utilities::math::IntToStr( value );
                 return retVal;
@@ -168,35 +168,35 @@ namespace codeframe
                 return 0;
             }
 
-            static bool BoolFromReal( double value )
+            static bool BoolFromReal( const double& value )
             {
                 int retVal = value;
                 return retVal;
             }
 
-            static int IntFromReal( double value )
+            static int IntFromReal( const double& value )
             {
                 int retVal = value;
                 return retVal;
             }
 
-            static unsigned int UIntFromReal( double value )
+            static unsigned int UIntFromReal( const double& value )
             {
                 unsigned int retVal = value;
                 return retVal;
             }
 
-            static float FloatFromReal( double value )
+            static float FloatFromReal( const double& value )
             {
                 return value;
             }
 
-            static double DoubleFromReal( double value )
+            static double DoubleFromReal( const double& value )
             {
                 return value;
             }
 
-            static std::string StringFromReal( double value )
+            static std::string StringFromReal( const double& value )
             {
                 std::string retVal = std::string("0");
                 return retVal;
