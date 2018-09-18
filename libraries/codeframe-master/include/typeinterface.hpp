@@ -12,9 +12,9 @@ namespace codeframe
     class TypeInterface
     {
         public:
-            virtual void FromStringCallback ( StringType  value ) = 0;
-            virtual void FromIntegerCallback( IntegerType value ) = 0;
-            virtual void FromRealCallback   ( RealType    value ) = 0;
+            virtual void FromStringCallback ( const StringType&  value ) = 0;
+            virtual void FromIntegerCallback( const IntegerType& value ) = 0;
+            virtual void FromRealCallback   ( const RealType&    value ) = 0;
 
             virtual StringType  ToStringCallback () const = 0;
             virtual IntegerType ToIntegerCallback() const = 0;

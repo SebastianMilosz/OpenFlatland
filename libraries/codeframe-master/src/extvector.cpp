@@ -13,7 +13,7 @@ namespace codeframe
      **
     ******************************************************************************/
     template<>
-    std::vector<float> PropertyVector<float>::VectorFromString( std::string value )
+    std::vector<float> PropertyVector<float>::VectorFromString( const std::string& value )
     {
         std::vector<float> retVector;
 

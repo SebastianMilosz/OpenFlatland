@@ -29,7 +29,7 @@ namespace codeframe
     /// @todo Przeprojektowac!!!!
     struct VariantValue
     {
-        bool IsName( std::string name ) const
+        bool IsName( const std::string& name ) const
         {
             if (name == Name)
             {
@@ -66,11 +66,11 @@ namespace codeframe
         public:
             TypeInfo( const char* typeName, const char* typeUser, const eType enumType );
 
-            static const eType StringToTypeCode( std::string typeText );
+            static const eType StringToTypeCode( const std::string& typeText );
 
-            void SetFromStringCallback ( T (*fromStringCallback )( StringType  value ) );
-            void SetFromIntegerCallback( T (*fromIntegerCallback)( IntegerType value ) );
-            void SetFromRealCallback   ( T (*fromRealCallback   )( RealType    value ) );
+            void SetFromStringCallback ( T (*fromStringCallback )( const StringType&  value ) );
+            void SetFromIntegerCallback( T (*fromIntegerCallback)( const IntegerType& value ) );
+            void SetFromRealCallback   ( T (*fromRealCallback   )( const RealType&    value ) );
 
             void SetToStringCallback ( StringType  (*toStringCallback )( const T& value ) );
             void SetToIntegerCallback( IntegerType (*toIntegerCallback)( const T& value ) );
@@ -79,7 +79,7 @@ namespace codeframe
             // Operators
             void SetAddOperatorCallback( T (*toAddOperatorCallback )( const T& value1, const T& value2 ) );
 
-            T FromString( StringType value )
+            T FromString( const StringType& value )
             {
                 if ( NULL != FromStringCallback )
                 {
@@ -88,7 +88,7 @@ namespace codeframe
                 return T();
             }
 
-            T FromInteger( IntegerType value )
+            T FromInteger( const IntegerType& value )
             {
                 if ( NULL != FromIntegerCallback )
                 {
@@ -97,7 +97,7 @@ namespace codeframe
                 return T();
             }
 
-            T FromReal( RealType value )
+            T FromReal( const RealType& value )
             {
                 if ( NULL != FromRealCallback )
                 {
@@ -157,11 +157,11 @@ namespace codeframe
             const char* TypeUserName;
             const eType TypeCode;
 
-            T          ( *FromStringCallback )( StringType  value );
+            T          ( *FromStringCallback )( const StringType& value );
             StringType ( *ToStringCallback   )( const T&    value );
-            T          ( *FromIntegerCallback)( IntegerType value );
+            T          ( *FromIntegerCallback)( const IntegerType& value );
             IntegerType( *ToIntegerCallback  )( const T&    value );
-            T          ( *FromRealCallback   )( RealType    value );
+            T          ( *FromRealCallback   )( const RealType& value );
             RealType   ( *ToRealCallback     )( const T&    value );
 
             // Operator

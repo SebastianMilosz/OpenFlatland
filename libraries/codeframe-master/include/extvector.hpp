@@ -12,7 +12,7 @@ namespace codeframe
     class PropertyVector
     {
         public:
-            static std::vector<T> VectorFromString( std::string value );
+            static std::vector<T> VectorFromString( const std::string& value );
             static std::string VectorToString( const std::vector<T>& vectorValue );
     };
 }

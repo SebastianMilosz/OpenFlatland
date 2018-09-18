@@ -33,7 +33,7 @@ namespace codeframe
      **
     ******************************************************************************/
     template<typename T>
-    const eType TypeInfo<T>::StringToTypeCode( std::string typeText )
+    const eType TypeInfo<T>::StringToTypeCode( const std::string& typeText )
     {
         if ( typeText == "int"  ) return TYPE_INT;
         if ( typeText == "real" ) return TYPE_REAL;
@@ -49,7 +49,7 @@ namespace codeframe
      **
     ******************************************************************************/
     template<typename T>
-    void TypeInfo<T>::SetFromStringCallback( T (*fromStringCallback)( StringType value ) )
+    void TypeInfo<T>::SetFromStringCallback( T (*fromStringCallback)( const StringType& value ) )
     {
         FromStringCallback = fromStringCallback;
     }
@@ -71,7 +71,7 @@ namespace codeframe
      **
     ******************************************************************************/
     template<typename T>
-    void TypeInfo<T>::SetFromIntegerCallback( T (*fromIntegerCallback)( IntegerType value ) )
+    void TypeInfo<T>::SetFromIntegerCallback( T (*fromIntegerCallback)( const IntegerType& value ) )
     {
         FromIntegerCallback = fromIntegerCallback;
     }
@@ -93,7 +93,7 @@ namespace codeframe
      **
     ******************************************************************************/
     template<typename T>
-    void TypeInfo<T>::SetFromRealCallback( T (*fromRealCallback)( RealType value ) )
+    void TypeInfo<T>::SetFromRealCallback( T (*fromRealCallback)( const RealType& value ) )
     {
         FromRealCallback = fromRealCallback;
     }
