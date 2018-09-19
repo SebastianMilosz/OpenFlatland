@@ -17,7 +17,7 @@ class World : public codeframe::cSerializable
         std::string ConstructPatern() const { return "";       }
 
     public:
-                 World( std::string name, cSerializableInterface* parent );
+                 World( const std::string& name, cSerializableInterface* parent );
         virtual ~World();
 
         void AddShell( std::shared_ptr<Entity>       entity );

@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-Entity::Entity( std::string name, int x, int y ) : EntityGhost( name, x, y )
+Entity::Entity( const std::string& name, int x, int y ) : EntityGhost( name, x, y )
 {
     //ctor
 }

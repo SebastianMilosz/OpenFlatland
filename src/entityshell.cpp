@@ -89,7 +89,7 @@ void EntityShell::slotSelectionChanged( smart_ptr<cSerializableInterface> )
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell(const EntityShell& other) :
+EntityShell::EntityShell( const EntityShell& other ) :
     PhysicsBody( other ),
     X       ( other.X ),
     Y       ( other.Y ),
@@ -108,7 +108,7 @@ EntityShell::EntityShell(const EntityShell& other) :
   * @brief
  **
 ******************************************************************************/
-EntityShell& EntityShell::operator=(const EntityShell& rhs)
+EntityShell& EntityShell::operator=( const EntityShell& rhs )
 {
     PhysicsBody::operator = (rhs);
 
@@ -127,6 +127,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
     {
         float xpos = body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
         float ypos = body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
+        float rot  = body->GetAngle() * 180.0F/b2_pi;
 
         // Drawing rays if configured
         if ( (bool)CastRays == true )
@@ -135,10 +136,10 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         }
 
         m_circle.setPosition( xpos, ypos );
-        m_circle.setRotation( body->GetAngle() * 180.0F/b2_pi );
+        m_circle.setRotation( rot );
 
         m_triangle.setPosition( xpos, ypos );
-        m_triangle.setRotation( body->GetAngle() * 180.0F/b2_pi );
+        m_triangle.setRotation( rot );
 
         window.draw( m_circle );
         window.draw( m_triangle );

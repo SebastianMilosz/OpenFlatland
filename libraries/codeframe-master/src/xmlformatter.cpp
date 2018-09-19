@@ -55,7 +55,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string cXmlFormatter::FromEscapeXml(std::string str)
+    std::string cXmlFormatter::FromEscapeXml( std::string& str )
     {
         ReplaceAll(str, std::string("&amp;" ), std::string("&"));
         ReplaceAll(str, std::string("&apos;"), std::string("'"));
@@ -630,7 +630,7 @@ namespace codeframe
             unsigned int childLp  = 0;
 
             // Po wszystkich obiektach dzieci ladujemy zawartosc
-            for( cSerializableChildList::iterator it = obj->ChildList()->begin(); it != obj->ChildList()->end(); ++it )
+            for ( cSerializableChildList::iterator it = obj->ChildList()->begin(); it != obj->ChildList()->end(); ++it )
             {
                 cSerializableInterface* iser = *it;
                 cXmlFormatter formatter( iser );
@@ -663,7 +663,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cXmlFormatter::FillParameterVector( std::string& buildConstruct, cXMLNode& childNode, std::vector<codeframe::VariantValue>& paramVector )
+    void cXmlFormatter::FillParameterVector( const std::string& buildConstruct, cXMLNode& childNode, std::vector<codeframe::VariantValue>& paramVector )
     {
         std::vector<std::string> paramNameVector;
         utilities::text::split( buildConstruct, ",", paramNameVector);

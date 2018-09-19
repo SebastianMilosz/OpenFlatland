@@ -111,7 +111,7 @@ void cLog::SetLogDebugLevel( int debugLevel )
   * @brief
  **
 ******************************************************************************/
-void cLog::SetLogPath(std::string p)
+void cLog::SetLogPath( const std::string& p )
 {
     m_AutoFlushMode = 1;
 
@@ -139,8 +139,16 @@ void cLog::SetLogPath(std::string p)
   * @brief
  **
 ******************************************************************************/
-cLog::cLogEntryContainer::sLogEntry::sLogEntry(int loglevel, std::string text, std::string datePoint, std::string timePoint,
-                                                std::string filePoint, std::string methodPoint, int linePoint, std::string mac, std::string iP, std::string port)
+cLog::cLogEntryContainer::sLogEntry::sLogEntry(int loglevel,
+                                               const std::string& text,
+                                               const std::string& datePoint,
+                                               const std::string& timePoint,
+                                               const std::string& filePoint,
+                                               const std::string& methodPoint,
+                                               int linePoint,
+                                               const std::string& mac,
+                                               const std::string& iP,
+                                               const std::string& port)
 {
     LogLevel    = loglevel;
     Text        = text;
@@ -169,9 +177,16 @@ void cLog::cLogEntryContainer::AddEntry( sLogEntry* le )
   * @brief
  **
 ******************************************************************************/
-void cLog::cLogEntryContainer::AddEntry( int level, std::string text, std::string datePoint, std::string timePoint,
-                                         std::string filePoint, std::string methodPoint, int linePoint,
-                                         std::string mac, std::string iP, std::string port )
+void cLog::cLogEntryContainer::AddEntry( int level,
+                                        const std::string& text,
+                                        const std::string& datePoint,
+                                        const std::string& timePoint,
+                                        const std::string& filePoint,
+                                        const std::string& methodPoint,
+                                        int linePoint,
+                                        const std::string& mac,
+                                        const std::string& iP,
+                                        const std::string& port )
 {
     AddEntry( new cLogEntryContainer::sLogEntry( level, text, datePoint, timePoint, filePoint, methodPoint, linePoint, mac, iP, port ) );
 }
@@ -181,7 +196,7 @@ void cLog::cLogEntryContainer::AddEntry( int level, std::string text, std::strin
   * @brief Zapisuje zawartosc loga do pliku csv (kolumny odzielone przecinkami)
  **
 ******************************************************************************/
-void cLog::cLogEntryContainer::SaveAsCSV( std::string path )
+void cLog::cLogEntryContainer::SaveAsCSV( const std::string& path )
 {
     FILE *fp;
     fp = fopen( path.c_str(), "a" );
@@ -209,18 +224,19 @@ void cLog::cLogEntryContainer::SaveAsCSV( std::string path )
   * @brief
  **
 ******************************************************************************/
-void cLog::cLogEntryContainer::SaveAsHTML( std::string path )
+void cLog::cLogEntryContainer::SaveAsHTML( const std::string& path )
 {
     FILE *fp;
-    std::string fileLine = "";
+    std::string fileLine("");
+    std::string fileExt("html");
 
     // Zmieniamy rozszerzenie na .html bo moglo zostac przekazane jakies inne
-    path = ChangeFileExtension( path, "html" );
+    std::string newPath = ChangeFileExtension( path, fileExt );
 
     // Teraz sprawdzamy czy istnieje jesli nie to musimy na poczatku dodac definicje stylow
-    bool newFile = !IsFileExist( path );
+    bool newFile = !IsFileExist( newPath );
 
-    fp = fopen( path.c_str(), "a" );
+    fp = fopen( newPath.c_str(), "a" );
 
     if ( fp != NULL )
     {
@@ -246,7 +262,7 @@ void cLog::cLogEntryContainer::SaveAsHTML( std::string path )
 
         for( unsigned int n = 0; n < logEntrys.size(); n++ )
         {
-            std::string lineStyle = "";
+            std::string lineStyle("");
 
             fileLine += "<tr>";
 
@@ -272,7 +288,7 @@ void cLog::cLogEntryContainer::SaveAsHTML( std::string path )
 
         fputs ( fileLine.c_str() , fp );
 
-		fclose(fp);
+        fclose(fp);
     }
 }
 
@@ -301,7 +317,7 @@ cLog::~cLog()
   * @brief
  **
 ******************************************************************************/
-void cLog::Message( std::string title, std::string msg, int type, int debugLevel )
+void cLog::Message( const std::string& title, const std::string& msg, int type, int debugLevel )
 {
     (void)debugLevel;
 
@@ -327,7 +343,7 @@ void cLog::Message( std::string title, std::string msg, int type, int debugLevel
   * @brief
  **
 ******************************************************************************/
-void cLog::Flush( std::string path, int mode )
+void cLog::Flush( const std::string& path, int mode )
 {
     if(cLog::m_AutoFlushMode == 0)
     {
@@ -373,10 +389,10 @@ void cLog::Destroy()
   * @brief logger is singleton so it returns instance
  **
 ******************************************************************************/
-cLog& cLog::GetInstance( std::string date,
-                         std::string time,
-                         std::string file,
-                         std::string method,
+cLog& cLog::GetInstance( const std::string& date,
+                         const std::string& time,
+                         const std::string& file,
+                         const std::string& method,
                          int line )
 {
     static cLog Instance;
@@ -421,7 +437,7 @@ cLog& cLog::operator << ( const char *s )
   * @brief
  **
 ******************************************************************************/
-cLog& cLog::operator << ( std::string s )
+cLog& cLog::operator << ( const std::string& s )
 {
     m_mutex.Lock();
          if(m_activeCmd == cLog::LC_IP)   { m_IP   = s; }

@@ -18,9 +18,9 @@ private:
     std::vector<double>         m_counterValue;
     std::vector<double>         m_counterTempValue;
 public:
-    cPerformanceCounter( std::string name );
+    cPerformanceCounter( const std::string& name );
 
-    void RegisterCounter   ( int id, std::string cntname );
+    void RegisterCounter   ( int id, const std::string& cntname );
     void UpdateCounterStart( int id );
     void UpdateCounterEnd  ( int id );
 };

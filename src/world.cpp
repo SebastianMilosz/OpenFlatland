@@ -11,19 +11,18 @@
 class QueryCallback : public b2QueryCallback
 {
 public:
-   QueryCallback(const b2Vec2& point)
+   QueryCallback( const b2Vec2& point )
    {
       m_point = point;
       m_fixture = NULL;
    }
 
-   bool ReportFixture(b2Fixture* fixture)
+   bool ReportFixture( b2Fixture* fixture )
    {
       b2Body* body = fixture->GetBody();
       if (body->GetType() == b2_dynamicBody)
       {
-         bool inside = fixture->TestPoint(m_point);
-         if (inside)
+         if ( fixture->TestPoint(m_point) )
          {
             m_fixture = fixture;
 
@@ -43,7 +42,7 @@ public:
   * @brief
  **
 ******************************************************************************/
-World::World( std::string name, cSerializableInterface* parent ) :
+World::World( const std::string& name, cSerializableInterface* parent ) :
     cSerializable( name, parent ),
     m_Gravity( 0.f, 0.f ),
     m_World( m_Gravity ),
@@ -144,30 +143,13 @@ bool World::PhysisStep(sf::RenderWindow& window)
 ******************************************************************************/
 bool World::Draw( sf::RenderWindow& window )
 {
-    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext() )
+    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext() )
     {
-        if ( BodyIterator->GetType() == b2_dynamicBody ||
-             BodyIterator->GetType() == b2_staticBody )
-        {
-            PhysicsBody* physicsBody = static_cast<PhysicsBody*>( BodyIterator->GetUserData() );
+        PhysicsBody* physicsBody = static_cast<PhysicsBody*>( BodyIterator->GetUserData() );
 
-            if ( (PhysicsBody*)NULL != physicsBody )
-            {
-                physicsBody->Draw( window, BodyIterator );
-            }
-        }
-        else
+        if ( (PhysicsBody*)NULL != physicsBody )
         {
-            /*
-            sf::Sprite GroundSprite;
-            GroundSprite.setOrigin(400.f, 8.f);
-            GroundSprite.setPosition(
-                                     BodyIterator->GetPosition().x * PhysicsBody::sDescriptor::PIXELS_IN_METER,
-                                     BodyIterator->GetPosition().y * PhysicsBody::sDescriptor::PIXELS_IN_METER
-                                    );
-            GroundSprite.setRotation(180/b2_pi * BodyIterator->GetAngle());
-            window.draw(GroundSprite);
-            */
+            physicsBody->Draw( window, BodyIterator );
         }
     }
 

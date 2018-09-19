@@ -19,7 +19,7 @@ class Entity : public EntityGhost
         std::string BuildType() const { return "Dynamic"; }
 
     public:
-        Entity( std::string name, int x, int y );
+        Entity( const std::string& name, int x, int y );
         virtual ~Entity();
         Entity(const Entity& other);
         Entity& operator=(const Entity& other);
