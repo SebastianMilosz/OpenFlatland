@@ -10,7 +10,7 @@ const float PhysicsBody::sDescriptor::METER_IN_PIXELS = 0.04f;
   * @brief
  **
 ******************************************************************************/
-PhysicsBody::PhysicsBody( std::string name, codeframe::cSerializableInterface* parent ) :
+PhysicsBody::PhysicsBody( const std::string& name, codeframe::cSerializableInterface* parent ) :
     cSerializable( name, parent )
 {
     m_descryptor.Body = NULL;
@@ -31,7 +31,7 @@ PhysicsBody::~PhysicsBody()
   * @brief
  **
 ******************************************************************************/
-PhysicsBody::PhysicsBody(const PhysicsBody& other) :
+PhysicsBody::PhysicsBody( const PhysicsBody& other ) :
     cSerializable( other )
 {
     m_descryptor.Body = other.m_descryptor.Body;
@@ -46,7 +46,7 @@ PhysicsBody::PhysicsBody(const PhysicsBody& other) :
   * @brief
  **
 ******************************************************************************/
-PhysicsBody& PhysicsBody::operator=(const PhysicsBody& rhs)
+PhysicsBody& PhysicsBody::operator=( const PhysicsBody& rhs )
 {
     if ( this == &rhs )
     {

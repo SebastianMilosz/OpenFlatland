@@ -45,12 +45,12 @@ namespace codeframe
         cXMLNode FindFirstByAttribute( const cXMLNode& xmlTop, const char_t* name_, const char_t* attr_name, const char_t* attr_value);
 
         void        ReplaceAll(std::string& str, const std::string& old, const std::string& repl);
-        std::string FromEscapeXml( std::string str );
+        std::string FromEscapeXml( std::string& str );
 
         void DeserializeObjectProperties( cSerializableInterface* obj, cXMLNode& node );
         void DeserializeObjectChilds( cSerializableInterface* obj, cXMLNode& node );
 
-        void FillParameterVector( std::string& buildConstruct, cXMLNode& childNode, std::vector<codeframe::VariantValue>& paramVector );
+        void FillParameterVector( const std::string& buildConstruct, cXMLNode& childNode, std::vector<codeframe::VariantValue>& paramVector );
     };
 
 }

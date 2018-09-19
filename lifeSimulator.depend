@@ -1081,7 +1081,7 @@
 1515903374 d:\sourcecode\lifesimulator\libraries\tgui-0.8-dev\include\tgui\signalimpl.hpp
 	<TGUI/Signal.hpp>
 
-1535224720 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
+1537347524 source:d:\sourcecode\lifesimulator\src\entityshell.cpp
 	"entityshell.hpp"
 	<utilities/LoggerUtilities.h>
 	<utilities/TextUtilities.h>
@@ -1101,7 +1101,7 @@
 	"entityshell.h"
 	"entityghost.h"
 
-1534876995 source:d:\sourcecode\lifesimulator\src\entity.cpp
+1537348602 source:d:\sourcecode\lifesimulator\src\entity.cpp
 	"entity.hpp"
 
 1534361726 d:\sourcecode\lifesimulator\include\world.h
@@ -1326,12 +1326,12 @@
 	<limits>
 	<cmath>
 
-1518263846 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\performanceutilities.cpp
+1537345516 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\performanceutilities.cpp
 	"utilities/PerformanceUtilities.h"
 	"utilities/SysUtilities.h"
 	<sys/time.h>
 
-1505675926 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\performanceutilities.h
+1537345500 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\performanceutilities.h
 	<string>
 	<iostream>
 	<fstream>
@@ -1372,10 +1372,10 @@
 	<cstdlib>
 	<inttypes.h>
 
-1527799540 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\loggerutilities.cpp
+1537345441 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\loggerutilities.cpp
 	"utilities/LoggerUtilities.h"
 
-1536499810 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\loggerutilities.h
+1537344607 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\loggerutilities.h
 	<string>
 	<iostream>
 	<fstream>
@@ -1615,7 +1615,7 @@
 1534536190 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
 	"serializableinterface.hpp"
 
-1536486223 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+1537345988 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
 	"xmlformatter.hpp"
 	<iostream>
 	<exception>
@@ -1720,7 +1720,7 @@
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 
-1534965745 source:d:\sourcecode\lifesimulator\src\physicsbody.cpp
+1537347462 source:d:\sourcecode\lifesimulator\src\physicsbody.cpp
 	"physicsbody.hpp"
 
 1534363581 d:\sourcecode\lifesimulator\include\fontfactory.h
@@ -1780,7 +1780,7 @@
 	<vector>
 	<MathUtilities.h>
 
-1536486090 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\xmlformatter.hpp
+1537345750 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\xmlformatter.hpp
 	<vector>
 	<FileUtilities.h>
 	"cxml.hpp"
@@ -1812,12 +1812,12 @@
 	"serializable.hpp"
 	"propertyignorelist.hpp"
 
-1535207339 d:\sourcecode\lifesimulator\include\physicsbody.hpp
+1537347381 d:\sourcecode\lifesimulator\include\physicsbody.hpp
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
 
-1534876995 d:\sourcecode\lifesimulator\include\entity.hpp
+1537348588 d:\sourcecode\lifesimulator\include\entity.hpp
 	<serializable.hpp>
 	"entityshell.hpp"
 	"entityghost.hpp"
@@ -1838,7 +1838,7 @@
 	"world.hpp"
 	"entity.hpp"
 
-1535204023 d:\sourcecode\lifesimulator\include\world.hpp
+1537348777 d:\sourcecode\lifesimulator\include\world.hpp
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
@@ -3159,7 +3159,7 @@
 	<map>
 	<plf_nanotimer.h>
 
-1537307847 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1537349479 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
 1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"

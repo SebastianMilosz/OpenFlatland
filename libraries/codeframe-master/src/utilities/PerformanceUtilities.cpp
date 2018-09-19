@@ -7,7 +7,7 @@
   * @brief
  **
 ******************************************************************************/
-cPerformanceCounter::cPerformanceCounter( std::string name ) :
+cPerformanceCounter::cPerformanceCounter( const std::string& name ) :
     m_name(name)
 {
 
@@ -18,7 +18,7 @@ cPerformanceCounter::cPerformanceCounter( std::string name ) :
   * @brief
  **
 ******************************************************************************/
-void cPerformanceCounter::RegisterCounter( int id, std::string cntname )
+void cPerformanceCounter::RegisterCounter( int id, const std::string& cntname )
 {
     m_counterName[id] = cntname;
 }
