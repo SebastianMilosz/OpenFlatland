@@ -9,7 +9,8 @@ using namespace codeframe;
 ******************************************************************************/
 EntityVision::EntityVision( codeframe::cSerializableInterface* parent ) :
     cSerializable( "Vision", parent ),
-    VisionVector( this, "VisionVector", std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("VisionVector"), this, &EntityVision::GetRay )
+    VisionVector ( this, "VisionVector" , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("VisionVector"), this, &EntityVision::GetDistanceVector ),
+    FixtureVector( this, "FixtureVector", std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("FixtureVector"), this, &EntityVision::GetFixtureVector )
 {
     m_rayLine[0].color = sf::Color::White;
     m_rayLine[1].color = sf::Color::White;
@@ -62,6 +63,8 @@ void EntityVision::Draw( sf::RenderWindow& window )
 void EntityVision::StartFrame()
 {
     m_visionVector.clear();
+    m_distanceVisionVector.clear();
+    m_fixtureVisionVector.clear();
 }
 
 /*****************************************************************************/
@@ -72,6 +75,8 @@ void EntityVision::StartFrame()
 void EntityVision::AddRay( EntityVision::sRay ray )
 {
     m_visionVector.push_back( ray );
+    m_distanceVisionVector.push_back( (ray.P2-ray.P1).Length() );
+    m_fixtureVisionVector.push_back( ray.Fixture );
 }
 
 /*****************************************************************************/
@@ -89,7 +94,17 @@ void EntityVision::EndFrame()
   * @brief
  **
 ******************************************************************************/
-const std::vector<float>& EntityVision::GetRay()
+const std::vector<float>& EntityVision::GetDistanceVector()
 {
     return m_distanceVisionVector;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+const std::vector<float>& EntityVision::GetFixtureVector()
+{
+    return m_fixtureVisionVector;
 }

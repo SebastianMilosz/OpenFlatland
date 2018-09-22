@@ -19,6 +19,7 @@ class EntityVision : public codeframe::cSerializable
         ~EntityVision();
 
         codeframe::Property< std::vector<float>, EntityVision > VisionVector;
+        codeframe::Property< std::vector<float>, EntityVision > FixtureVector;
 
         struct sRay
         {
@@ -34,7 +35,8 @@ class EntityVision : public codeframe::cSerializable
         void AddRay( EntityVision::sRay ray );
         void EndFrame();
 
-        const std::vector<float>& GetRay();
+        const std::vector<float>& GetDistanceVector();
+        const std::vector<float>& GetFixtureVector();
 
     private:
         std::vector<EntityVision::sRay> m_visionVector;
