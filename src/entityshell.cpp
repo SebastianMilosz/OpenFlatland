@@ -162,7 +162,7 @@ const int& EntityShell::GetX()
     {
         m_curX = GetDescriptor().Body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
     }
-    return m_curY;
+    return m_curX;
 }
 
 /*****************************************************************************/
