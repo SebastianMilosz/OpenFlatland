@@ -31,14 +31,14 @@ class EntityShell : public PhysicsBody
 
         virtual void Draw( sf::RenderWindow& window, b2Body* body );
 
-        int GetX();
+        const int& GetX();
         float32 GetPhysicalX();
         void SetX(int val);
-        int GetY();
+        const int& GetY();
         float32 GetPhysicalY();
         void SetY(int val);
 
-        float32 GetRotation();
+        const float32& GetRotation();
 
         const b2Vec2& GetPhysicalPoint();
 
@@ -49,6 +49,10 @@ class EntityShell : public PhysicsBody
         sf::CircleShape m_circle;
         sf::CircleShape m_triangle;
         EntityVision    m_vision;
+
+        int     m_curX;
+        int     m_curY;
+        float32 m_curR;
 
         void slotSelectionChanged( smart_ptr<cSerializableInterface> );
 };

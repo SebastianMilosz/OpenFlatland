@@ -152,7 +152,6 @@ namespace codeframe
 
             void     RegisterProperty();
             void     UnRegisterProperty();
-            void     ValueUpdate();
 
             static uint32_t GetHashId( const std::string& str, uint16_t mod = 0 );
     };

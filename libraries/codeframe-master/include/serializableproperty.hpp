@@ -22,8 +22,8 @@ namespace codeframe
                       retT val,
                       cPropertyInfo info,
                       classT* contextObject = NULL,
-                      retT (classT::*getValue)() = NULL,
-                      void (classT::*setValue)(retT) = NULL
+                      const retT& (classT::*getValue)() = NULL,
+                      void        (classT::*setValue)(retT) = NULL
                      ) : PropertyBase( parentpc, name, GetTypeInfo<retT>().GetTypeCode(), info )
             {
                 ContextObject    = contextObject;
@@ -142,24 +142,20 @@ namespace codeframe
             {
                 if ( Info().GetEnable() == true )
                 {
-                    retT valueT = GetTypeInfo<retT>().FromInteger( val );
-
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = valueT;
+                    m_baseValue = GetTypeInfo<retT>().FromInteger( val );
 
                     // Values external
                     SetValue( m_baseValue );
+
+                    m_Mutex.Unlock();
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
                     {
                         *m_reference = val;
                     }
-
-                    ValueUpdate();
-
-                    m_Mutex.Unlock();
                 }
                 return *this;
             }
@@ -169,24 +165,20 @@ namespace codeframe
             {
                 if ( Info().GetEnable() == true )
                 {
-                    retT valueT = GetTypeInfo<retT>().FromInteger( val );
-
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = valueT;
+                    m_baseValue = GetTypeInfo<retT>().FromInteger( val );
 
                     // Values external
                     SetValue( m_baseValue );
+
+                    m_Mutex.Unlock();
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
                     {
                         *m_reference = val;
                     }
-
-                    ValueUpdate();
-
-                    m_Mutex.Unlock();
                 }
                 return *this;
             }
@@ -196,24 +188,20 @@ namespace codeframe
             {
                 if ( Info().GetEnable() == true )
                 {
-                    retT valueT = GetTypeInfo<retT>().FromInteger( val );
-
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = valueT;
+                    m_baseValue = GetTypeInfo<retT>().FromInteger( val );
 
                     // Values external
                     SetValue( m_baseValue );
+
+                    m_Mutex.Unlock();
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
                     {
                         *m_reference = val;
                     }
-
-                    ValueUpdate();
-
-                    m_Mutex.Unlock();
                 }
                 return *this;
             }
@@ -223,24 +211,20 @@ namespace codeframe
             {
                 if ( Info().GetEnable() == true )
                 {
-                    retT valueT = GetTypeInfo<retT>().FromInteger( val );
-
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = valueT;
+                    m_baseValue = GetTypeInfo<retT>().FromInteger( val );
 
                     // Values external
                     SetValue( m_baseValue );
+
+                    m_Mutex.Unlock();
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
                     {
                         *m_reference = val;
                     }
-
-                    ValueUpdate();
-
-                    m_Mutex.Unlock();
                 }
                 return *this;
             }
@@ -250,24 +234,20 @@ namespace codeframe
             {
                 if ( Info().GetEnable() == true )
                 {
-                    retT valueT = GetTypeInfo<retT>().FromInteger( val );
-
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = valueT;
+                    m_baseValue = GetTypeInfo<retT>().FromInteger( val );
 
                     // Values external
                     SetValue( m_baseValue );
+
+                    m_Mutex.Unlock();
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
                     {
                         *m_reference = val;
                     }
-
-                    ValueUpdate();
-
-                    m_Mutex.Unlock();
                 }
                 return *this;
             }
@@ -277,24 +257,20 @@ namespace codeframe
             {
                 if ( Info().GetEnable() == true )
                 {
-                    retT valueT = GetTypeInfo<retT>().FromReal( val );
-
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = valueT;
+                    m_baseValue = GetTypeInfo<retT>().FromReal( val );
 
                     // Values external
                     SetValue( m_baseValue );
+
+                    m_Mutex.Unlock();
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
                     {
                         *m_reference = val;
                     }
-
-                    ValueUpdate();
-
-                    m_Mutex.Unlock();
                 }
                 return *this;
             }
@@ -304,24 +280,20 @@ namespace codeframe
             {
                 if ( Info().GetEnable() == true )
                 {
-                    retT valueT = GetTypeInfo<retT>().FromReal( val );
-
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = valueT;
+                    m_baseValue = GetTypeInfo<retT>().FromReal( val );
 
                     // Values external
                     SetValue( m_baseValue );
+
+                    m_Mutex.Unlock();
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
                     {
                         *m_reference = val;
                     }
-
-                    ValueUpdate();
-
-                    m_Mutex.Unlock();
                 }
                 return *this;
             }
@@ -331,24 +303,20 @@ namespace codeframe
             {
                 if ( Info().GetEnable() == true )
                 {
-                    retT valueT = GetTypeInfo<retT>().FromString( val );
-
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = valueT;
+                    m_baseValue = GetTypeInfo<retT>().FromString( val );
 
                     // Values external
                     SetValue( m_baseValue );
+
+                    m_Mutex.Unlock();
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
                     {
                         *m_reference = val;
                     }
-
-                    ValueUpdate();
-
-                    m_Mutex.Unlock();
                 }
                 return *this;
             }
@@ -661,8 +629,8 @@ namespace codeframe
             retT m_baseValuePrew;
 
             classT* ContextObject;
-            retT (classT::*GetValueCallback)();
-            void (classT::*SetValueCallback)(retT);
+            const retT& (classT::*GetValueCallback)();
+            void        (classT::*SetValueCallback)(retT);
     };
 }
 
