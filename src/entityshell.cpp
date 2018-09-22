@@ -25,7 +25,11 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
     Density ( this, "Density" , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
     Friction( this, "Friction", 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
     m_triangle( sDescriptor::PIXELS_IN_METER * 0.5f, 3 ),
-    m_zeroVector( 0.0F, 0.0F )
+    m_zeroVector( 0.0F, 0.0F ),
+    m_vision( this ),
+    m_curX(0),
+    m_curY(0),
+    m_curR(0.0F)
 {
     b2CircleShape* shape =  new b2CircleShape();
     shape->m_p.Set(0, 0);
@@ -99,7 +103,8 @@ EntityShell::EntityShell( const EntityShell& other ) :
     RaysSize( other.RaysSize ),
     Name    ( other.Name ),
     Density ( other.Density ),
-    Friction( other.Friction )
+    Friction( other.Friction ),
+    m_vision( other.m_vision )
 {
 }
 
@@ -151,11 +156,13 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
   * @brief Return X coordinates in pixels
  **
 ******************************************************************************/
-int EntityShell::GetX()
+const int& EntityShell::GetX()
 {
-    if( GetDescriptor().Body == NULL ) return 0;
-
-    return GetDescriptor().Body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
+    if( GetDescriptor().Body != NULL )
+    {
+        m_curX = GetDescriptor().Body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
+    }
+    return m_curY;
 }
 
 /*****************************************************************************/
@@ -185,11 +192,13 @@ void EntityShell::SetX(int val)
   * @brief Return Y coordinates in pixels
  **
 ******************************************************************************/
-int EntityShell::GetY()
+const int& EntityShell::GetY()
 {
-    if( GetDescriptor().Body == NULL ) return 0;
-
-    return GetDescriptor().Body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
+    if( GetDescriptor().Body != NULL )
+    {
+        m_curY = GetDescriptor().Body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
+    }
+    return m_curY;
 }
 
 /*****************************************************************************/
@@ -219,11 +228,13 @@ void EntityShell::SetY(int val)
   * @brief
  **
 ******************************************************************************/
-float32 EntityShell::GetRotation()
+const float32& EntityShell::GetRotation()
 {
-    if( GetDescriptor().Body == NULL ) return 0;
-
-    return utilities::math::ConstrainAngle( GetDescriptor().Body->GetAngle() * (180.0/3.141592653589793238463) );
+    if( GetDescriptor().Body != NULL )
+    {
+        m_curR = utilities::math::ConstrainAngle( GetDescriptor().Body->GetAngle() * (180.0/3.141592653589793238463) );
+    }
+    return m_curR;
 }
 
 /*****************************************************************************/

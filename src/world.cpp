@@ -8,6 +8,8 @@
 
 #include <utilities/LoggerUtilities.h>
 
+#include <ctpl_stl.h>
+
 class QueryCallback : public b2QueryCallback
 {
 public:
@@ -245,7 +247,7 @@ b2Body* World::getBodyAtMouse( float x, float y )
    QueryCallback callback(mouseV2);
    m_World.QueryAABB(&callback, aabb);
 
-   if (callback.m_fixture)
+   if ( callback.m_fixture )
    {
         return callback.m_fixture->GetBody();
    }
@@ -260,7 +262,7 @@ b2Body* World::getBodyAtMouse( float x, float y )
 ******************************************************************************/
 void World::CalculateRays( void )
 {
-    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != 0; BodyIterator = BodyIterator->GetNext() )
+    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext() )
     {
         if ( BodyIterator->GetType() == b2_dynamicBody )
         {
@@ -268,11 +270,6 @@ void World::CalculateRays( void )
 
             if ( (Entity*)NULL != entity )
             {
-                unsigned int rayLength   = (unsigned int)entity->RaysSize;
-                unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
-                float32 currentRayAngle = 0.0F;
-                float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
-
                 //center of entity
                 b2Vec2 p1 = entity->GetPhysicalPoint();
 
@@ -282,13 +279,19 @@ void World::CalculateRays( void )
 
                 #pragma omp parallel num_threads(8)
                 {
+                    register unsigned int rayLength   = (unsigned int)entity->RaysSize;
+                    register unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
+                    register unsigned int ray = 0U;
+                    float32 currentRayAngle = 0.0F;
+                    float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
                     RayCastCallback callback;
+                    b2Vec2 p2;
 
                     #pragma omp for nowait
-                    for ( unsigned int ray = 0; ray < rayCntLimit; ray++ )
+                    for ( ; ray < rayCntLimit; ray++ )
                     {
                         //calculate points of ray
-                        b2Vec2 p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
+                        p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
 
                         m_World.RayCast( &callback, p1, p2 );
 

@@ -1,11 +1,15 @@
 #include "entityvision.hpp"
 
+using namespace codeframe;
+
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-EntityVision::EntityVision()
+EntityVision::EntityVision( codeframe::cSerializableInterface* parent ) :
+    cSerializable( "Vision", parent ),
+    VisionVector( this, "VisionVector", std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("VisionVector"), this, &EntityVision::GetRay )
 {
     m_rayLine[0].color = sf::Color::White;
     m_rayLine[1].color = sf::Color::White;
@@ -78,4 +82,14 @@ void EntityVision::AddRay( EntityVision::sRay ray )
 void EntityVision::EndFrame()
 {
 
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+const std::vector<float>& EntityVision::GetRay()
+{
+    return m_distanceVisionVector;
 }

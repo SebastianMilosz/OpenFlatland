@@ -2,14 +2,23 @@
 #define ENTITYVISION_HPP_INCLUDED
 
 #include <vector>
+#include <serializable.hpp>
 
 #include "physicsbody.hpp"
 
-class EntityVision
+class EntityVision : public codeframe::cSerializable
 {
     public:
-        EntityVision();
+        std::string Role()            const { return "Object";       }
+        std::string Class()           const { return "EntityVision"; }
+        std::string BuildType()       const { return "Static";       }
+        std::string ConstructPatern() const { return ""; }
+
+    public:
+        EntityVision( codeframe::cSerializableInterface* parent );
         ~EntityVision();
+
+        codeframe::Property< std::vector<float>, EntityVision > VisionVector;
 
         struct sRay
         {
@@ -25,9 +34,14 @@ class EntityVision
         void AddRay( EntityVision::sRay ray );
         void EndFrame();
 
+        const std::vector<float>& GetRay();
+
     private:
         std::vector<EntityVision::sRay> m_visionVector;
-        sf::Vertex                      m_rayLine[2];
+
+        std::vector<float> m_distanceVisionVector;
+        std::vector<float> m_fixtureVisionVector;
+        sf::Vertex         m_rayLine[2];
 };
 
 #endif // ENTITYVISION_HPP_INCLUDED
