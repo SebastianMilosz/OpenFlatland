@@ -402,9 +402,9 @@ namespace codeframe
                     descr.AppendAttribute("enable", utilities::math::IntToStr( iser->Info().GetEnable() ).c_str());
 
                     // Doklejamy link do sprzezonego pola jesli takie istnieje
-                    if( iser->Reference() != NULL )
+                    if( iser->Info().GetReferencePath() != "" )
                     {
-                        descr.AppendAttribute("href", iser->Reference()->Path().c_str());
+                        descr.AppendAttribute("href", iser->Info().GetReferencePath().c_str());
                     }
 
                     // Zapis danych Rejestru
@@ -484,7 +484,8 @@ namespace codeframe
     {
         try
         {
-            return LoadFromXML_v1( xml );
+            LoadFromXML_v1( xml );
+            return *this;
         }
         catch( const std::runtime_error& re )
         {
@@ -584,27 +585,7 @@ namespace codeframe
                     // Przywracamy stan eventu dla tego propertisa
                     iser->Info().Event( ev );
 
-                    // Sprawdzamy czy jest referencja z innym obiektem
-                    std::string href = std::string( propertyNode.GetAttributeAsString("href") );
-                    if( href.size() )
-                    {
-                        // Okreslamy obiekt root dla danego obiektu i wzgledem niego okreslamy cel
-                        cSerializableInterface* rootObj = obj->GetRootObject();
-
-                        PropertyBase* refProperty = rootObj->GetPropertyFromPath( href );
-
-                        if( refProperty )
-                        {
-                            if( iser->ConnectReference( refProperty ) == false )
-                            {
-                                throw std::runtime_error( "cXmlFormatter::LoadFromXML() Cant create reference" );
-                            }
-                        }
-                        else
-                        {
-                            throw std::runtime_error( "cXmlFormatter::LoadFromXML() Unresolved reference" );
-                        }
-                    }
+                    iser->Info().ReferencePath( std::string( propertyNode.GetAttributeAsString("href") ) );
 
                     // Enable
                     std::string en = std::string( propertyNode.GetAttributeAsString("enable") );
@@ -656,6 +637,38 @@ namespace codeframe
                 childLp++;
             }
         }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void cXmlFormatter::ResolveReferences()
+    {
+        /*
+                    // Sprawdzamy czy jest referencja z innym obiektem
+                    std::string href = std::string( propertyNode.GetAttributeAsString("href") );
+                    if( href.size() )
+                    {
+                        // Okreslamy obiekt root dla danego obiektu i wzgledem niego okreslamy cel
+                        cSerializableInterface* rootObj = obj->GetRootObject();
+
+                        PropertyBase* refProperty = rootObj->GetPropertyFromPath( href );
+
+                        if( refProperty )
+                        {
+                            if( iser->ConnectReference( refProperty ) == false )
+                            {
+                                throw std::runtime_error( "cXmlFormatter::LoadFromXML() Cant create reference" );
+                            }
+                        }
+                        else
+                        {
+                            throw std::runtime_error( "cXmlFormatter::LoadFromXML() Unresolved reference" );
+                        }
+                    }
+         */
     }
 
     /*****************************************************************************/

@@ -9,8 +9,8 @@ using namespace codeframe;
 ******************************************************************************/
 EntityVision::EntityVision( codeframe::cSerializableInterface* parent ) :
     cSerializable( "Vision", parent ),
-    VisionVector ( this, "VisionVector" , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("VisionVector"), this, &EntityVision::GetDistanceVector ),
-    FixtureVector( this, "FixtureVector", std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("FixtureVector"), this, &EntityVision::GetFixtureVector )
+    VisionVector ( this, "VisionVector" , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0]").Description("VisionVector"), this, &EntityVision::GetDistanceVector ),
+    FixtureVector( this, "FixtureVector", std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[1]").Description("FixtureVector"), this, &EntityVision::GetFixtureVector )
 {
     m_rayLine[0].color = sf::Color::White;
     m_rayLine[1].color = sf::Color::White;
