@@ -49,6 +49,7 @@ namespace codeframe
 
         void DeserializeObjectProperties( cSerializableInterface* obj, cXMLNode& node );
         void DeserializeObjectChilds( cSerializableInterface* obj, cXMLNode& node );
+        void ResolveReferences();
 
         void FillParameterVector( const std::string& buildConstruct, cXMLNode& childNode, std::vector<codeframe::VariantValue>& paramVector );
     };
