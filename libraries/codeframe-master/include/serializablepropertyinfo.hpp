@@ -1,8 +1,11 @@
 #ifndef SERIALIZABLEPROPERTYINFO_HPP_INCLUDED
 #define SERIALIZABLEPROPERTYINFO_HPP_INCLUDED
 
+#include <map>
 #include <string>
 #include <limits.h>
+
+#include <referencemanager.hpp>
 
 namespace codeframe
 {
@@ -44,24 +47,22 @@ namespace codeframe
         friend class PropertyBase;
 
         private:
-            std::string m_description;
-            eKind       m_kind;
-            std::string m_enumArray;
-            std::string m_referencePath;
-            bool        m_eventEnable;
-            int         m_min;
-            int         m_max;
-            bool        m_enable;
-            cRegister   m_register;
-            eXMLMode    m_xmlmode;
+            std::string        m_description;
+            eKind              m_kind;
+            std::string        m_enumArray;
+            bool               m_eventEnable;
+            int                m_min;
+            int                m_max;
+            bool               m_enable;
+            cRegister          m_register;
+            eXMLMode           m_xmlmode;
+            ReferenceManager   m_refmgr;
 
             void Init()
             {
                 m_description   = "";
                 m_kind          = KIND_NON;
                 m_xmlmode       = XMLMODE_RW;
-                m_enumArray     = "";
-                m_referencePath = "";
                 m_eventEnable   = true;
                 m_min           = INT_MIN;
                 m_max           = INT_MAX;
@@ -69,18 +70,18 @@ namespace codeframe
             }
 
         public:
-            cPropertyInfo() { Init(); }
+            cPropertyInfo() : m_refmgr() { Init(); }
             cPropertyInfo(const cPropertyInfo& sval) :
             m_description(sval.m_description),
             m_kind(sval.m_kind),
             m_enumArray(sval.m_enumArray),
-            m_referencePath(sval.m_referencePath),
             m_eventEnable(sval.m_eventEnable),
             m_min(sval.m_min),
             m_max(sval.m_max),
             m_enable(sval.m_enable) ,
             m_register(sval.m_register),
-            m_xmlmode(sval.m_xmlmode)
+            m_xmlmode(sval.m_xmlmode),
+            m_refmgr(sval.m_refmgr)
             {
 
             }
@@ -91,10 +92,10 @@ namespace codeframe
                                         uint16_t  cellSize = 1,
                                         uint16_t  bitMask = 0xFFFF
                                       ) { m_register.Set( mod, reg, regSize, cellOffset, cellSize, bitMask);  return *this; }
-            cPropertyInfo& Description  ( std::string desc          ) { m_description = desc;     return *this; }
-            cPropertyInfo& Kind         ( eKind       kind          ) { m_kind        = kind;     return *this; }
-            cPropertyInfo& Enum         ( std::string enuma         ) { m_enumArray   = enuma;    return *this; }
-            cPropertyInfo& ReferencePath( std::string referencePath ) { m_referencePath = referencePath; return *this; }
+            cPropertyInfo& Description  ( const std::string& desc ) { m_description = desc; return *this; }
+            cPropertyInfo& Kind         ( eKind kind ) { m_kind = kind; return *this; }
+            cPropertyInfo& Enum         ( const std::string& enuma ) { m_enumArray   = enuma; return *this; }
+            cPropertyInfo& ReferencePath( const std::string& referencePath ) { m_refmgr.Set( referencePath ); return *this; }
             cPropertyInfo& Event        ( int         e             ) { m_eventEnable = e;        return *this; }
             cPropertyInfo& Min          ( int         min           ) { m_min = min;              return *this; }
             cPropertyInfo& Max          ( int         max           ) { m_max = max;              return *this; }
@@ -106,9 +107,9 @@ namespace codeframe
             inline cRegister&  GetRegister()            { return m_register;    }
             inline eKind       GetKind()          const { return m_kind;        }
             inline eXMLMode    GetXmlMode()       const { return m_xmlmode;     }
-            inline std::string GetDescription()   const { return m_description; }
-            inline std::string GetEnum()          const { return m_enumArray;   }
-            inline std::string GetReferencePath() const { return m_referencePath; }
+            inline const std::string& GetDescription()   const { return m_description; }
+            inline const std::string& GetEnum()          const { return m_enumArray;   }
+            inline const std::string& GetReferencePath() const { return m_refmgr.Get(); }
             inline bool        IsEventEnable()    const { return m_eventEnable; }
             inline int         GetMin()           const { return m_min;         }
             inline int         GetMax()           const { return m_max;         }
@@ -121,12 +122,12 @@ namespace codeframe
                 m_kind          = val.m_kind;
                 m_xmlmode       = val.m_xmlmode;
                 m_enumArray	    = val.m_enumArray;
-                m_referencePath = val.m_referencePath;
                 m_register      = val.m_register;
                 m_eventEnable   = val.m_eventEnable;
                 m_min           = val.m_min;
                 m_max           = val.m_max;
                 m_enable        = val.m_enable;
+                m_refmgr        = val.m_refmgr;
                 return *this;
             }
     };
