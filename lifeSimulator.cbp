@@ -122,6 +122,7 @@
 		<Unit filename="libraries/codeframe-master/include/extvector.hpp" />
 		<Unit filename="libraries/codeframe-master/include/instancemanager.hpp" />
 		<Unit filename="libraries/codeframe-master/include/propertyignorelist.hpp" />
+		<Unit filename="libraries/codeframe-master/include/referencemanager.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablechildlist.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializableconsole.hpp" />
@@ -152,6 +153,7 @@
 		<Unit filename="libraries/codeframe-master/src/extpoint2d.cpp" />
 		<Unit filename="libraries/codeframe-master/src/extvector.cpp" />
 		<Unit filename="libraries/codeframe-master/src/instancemanager.cpp" />
+		<Unit filename="libraries/codeframe-master/src/referencemanager.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablechildlist.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablecontainer.cpp" />
