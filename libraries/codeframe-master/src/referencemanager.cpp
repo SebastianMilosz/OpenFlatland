@@ -3,6 +3,8 @@
 namespace codeframe
 {
 
+std::list<std::string> ReferenceManager::m_referencePathList;
+
 /*****************************************************************************/
 /**
   * @brief
@@ -32,6 +34,8 @@ ReferenceManager::~ReferenceManager()
 void ReferenceManager::Set( const std::string& refPath )
 {
     m_referencePath = refPath;
+    m_referencePathList.push_back( refPath );
+    m_referencePathList.unique();
 }
 
 /*****************************************************************************/
