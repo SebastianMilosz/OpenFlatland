@@ -1,9 +1,12 @@
 #include "referencemanager.hpp"
 
+#include <serializable.hpp>
+#include <utilities/LoggerUtilities.h>
+
 namespace codeframe
 {
 
-std::list<std::string> ReferenceManager::m_referencePathList;
+std::map<std::string, cSerializableInterface*> ReferenceManager::m_referencePathMap;
 
 /*****************************************************************************/
 /**
@@ -31,11 +34,10 @@ ReferenceManager::~ReferenceManager()
   * @brief
  **
 ******************************************************************************/
-void ReferenceManager::Set( const std::string& refPath )
+void ReferenceManager::Set( const std::string& refPath, cSerializableInterface* obj )
 {
     m_referencePath = refPath;
-    m_referencePathList.push_back( refPath );
-    m_referencePathList.unique();
+    m_referencePathMap.insert( std::pair<std::string, cSerializableInterface*>(m_referencePath,obj) );
 }
 
 /*****************************************************************************/
@@ -46,6 +48,26 @@ void ReferenceManager::Set( const std::string& refPath )
 const std::string& ReferenceManager::Get() const
 {
     return m_referencePath;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ReferenceManager::LogUnresolvedReferences()
+{
+    std::map<std::string, cSerializableInterface*>::iterator it;
+
+    for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++ )
+    {
+        cSerializableInterface* obj = it->second;
+        if ( (cSerializableInterface*)NULL != obj )
+        {
+            std::string refPath = it->first;
+            LOGGER( LOG_INFO << "Unresolved reference to: " << refPath << " from object: " << obj->ObjectName() );
+        }
+    }
 }
 
 }

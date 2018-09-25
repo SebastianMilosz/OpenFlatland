@@ -1,7 +1,7 @@
 #ifndef REFERENCEMANAGER_HPP_INCLUDED
 #define REFERENCEMANAGER_HPP_INCLUDED
 
-#include <list>
+#include <map>
 #include <string>
 
 namespace codeframe
@@ -14,11 +14,13 @@ namespace codeframe
             ReferenceManager();
             ~ReferenceManager();
 
-            void Set( const std::string& refPath );
+            void Set( const std::string& refPath, cSerializableInterface* obj );
             const std::string& Get() const;
+
+            static void LogUnresolvedReferences();
         private:
             std::string m_referencePath;
-            static std::list<std::string> m_referencePathList;
+            static std::map<std::string, cSerializableInterface*> m_referencePathMap;
     };
 }
 

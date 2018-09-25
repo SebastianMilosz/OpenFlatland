@@ -29,6 +29,8 @@ namespace codeframe
     ******************************************************************************/
     class cSerializableInterface : public sigslot::has_slots<>
     {
+        friend class PropertyBase;
+
         public:
             class iterator : public std::iterator<std::input_iterator_tag, PropertyBase*>
             {
@@ -114,6 +116,8 @@ namespace codeframe
 
             PropertyBase* GetObjectFieldValue( int cnt );     ///< Zwraca wartosc pola do serializacji
             int           GetObjectFieldCnt() const;          ///< Zwraca ilosc skladowych do serializacji
+
+            virtual bool IsPulseState() const = 0;
 
             std::vector<PropertyBase*>  m_vMainPropertyList;  ///< Kontenet zawierajacy wskazniki do parametrow
             PropertyBase                m_dummyProperty;

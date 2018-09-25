@@ -117,7 +117,7 @@ namespace codeframe
             cPropertyInfo& Description  ( const std::string& desc ) { m_description = desc; return *this; }
             cPropertyInfo& Kind         ( eKind kind ) { m_kind = kind; return *this; }
             cPropertyInfo& Enum         ( const std::string& enuma ) { m_enumArray   = enuma; return *this; }
-            cPropertyInfo& ReferencePath( const std::string& referencePath ) { m_refmgr.Set( referencePath ); return *this; }
+            cPropertyInfo& ReferencePath( const std::string& referencePath ) { m_refmgr.Set( referencePath, m_serializableParent); return *this; }
             cPropertyInfo& Event        ( int         e             ) { m_eventEnable = e;        return *this; }
             cPropertyInfo& Min          ( int         min           ) { m_min = min;              return *this; }
             cPropertyInfo& Max          ( int         max           ) { m_max = max;              return *this; }
