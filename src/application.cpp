@@ -4,6 +4,7 @@
 #include "performancelogger.hpp"
 #include "performanceapplicationdef.hpp"
 
+#include <referencemanager.hpp>
 #include <utilities/MathUtilities.h>
 #include <utilities/LoggerUtilities.h>
 #include <SFML/Graphics.hpp>
@@ -98,6 +99,8 @@ void Application::ProcesseEvents( sf::Event& event )
     // catch window close event
     if ( event.type == sf::Event::Closed )
     {
+        codeframe::ReferenceManager::LogUnresolvedReferences();
+
         // Add fps note to performance log
         std::string note  = std::string("FPS="  ) + m_Widgets.GetInformationWidget().FpsToString();
                     note += std::string(", CNT=") + utilities::math::IntToStr( m_EntityFactory.Count() );
