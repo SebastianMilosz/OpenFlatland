@@ -47,16 +47,17 @@ namespace codeframe
         friend class PropertyBase;
 
         private:
-            std::string        m_description;
-            eKind              m_kind;
-            std::string        m_enumArray;
-            bool               m_eventEnable;
-            int                m_min;
-            int                m_max;
-            bool               m_enable;
-            cRegister          m_register;
-            eXMLMode           m_xmlmode;
-            ReferenceManager   m_refmgr;
+            std::string             m_description;
+            eKind                   m_kind;
+            std::string             m_enumArray;
+            bool                    m_eventEnable;
+            int                     m_min;
+            int                     m_max;
+            bool                    m_enable;
+            cRegister               m_register;
+            eXMLMode                m_xmlmode;
+            ReferenceManager        m_refmgr;
+            cSerializableInterface* m_serializableParent;
 
             void Init()
             {
@@ -70,7 +71,12 @@ namespace codeframe
             }
 
         public:
-            cPropertyInfo() : m_refmgr() { Init(); }
+            cPropertyInfo() :
+                m_refmgr(),
+                m_serializableParent(NULL)
+            {
+                Init();
+            }
             cPropertyInfo(const cPropertyInfo& sval) :
             m_description(sval.m_description),
             m_kind(sval.m_kind),
@@ -81,7 +87,23 @@ namespace codeframe
             m_enable(sval.m_enable) ,
             m_register(sval.m_register),
             m_xmlmode(sval.m_xmlmode),
-            m_refmgr(sval.m_refmgr)
+            m_refmgr(sval.m_refmgr),
+            m_serializableParent(sval.m_serializableParent)
+            {
+
+            }
+            cPropertyInfo(const cPropertyInfo& sval, cSerializableInterface* serializableParent ) :
+            m_description(sval.m_description),
+            m_kind(sval.m_kind),
+            m_enumArray(sval.m_enumArray),
+            m_eventEnable(sval.m_eventEnable),
+            m_min(sval.m_min),
+            m_max(sval.m_max),
+            m_enable(sval.m_enable) ,
+            m_register(sval.m_register),
+            m_xmlmode(sval.m_xmlmode),
+            m_refmgr(sval.m_refmgr),
+            m_serializableParent( serializableParent )
             {
 
             }
@@ -118,16 +140,17 @@ namespace codeframe
             // Operators
             cPropertyInfo& operator=(cPropertyInfo val)
             {
-                m_description   = val.m_description;
-                m_kind          = val.m_kind;
-                m_xmlmode       = val.m_xmlmode;
-                m_enumArray	    = val.m_enumArray;
-                m_register      = val.m_register;
-                m_eventEnable   = val.m_eventEnable;
-                m_min           = val.m_min;
-                m_max           = val.m_max;
-                m_enable        = val.m_enable;
-                m_refmgr        = val.m_refmgr;
+                m_description        = val.m_description;
+                m_kind               = val.m_kind;
+                m_xmlmode            = val.m_xmlmode;
+                m_enumArray	         = val.m_enumArray;
+                m_register           = val.m_register;
+                m_eventEnable        = val.m_eventEnable;
+                m_min                = val.m_min;
+                m_max                = val.m_max;
+                m_enable             = val.m_enable;
+                m_refmgr             = val.m_refmgr;
+                m_serializableParent = val.m_serializableParent;
                 return *this;
             }
     };

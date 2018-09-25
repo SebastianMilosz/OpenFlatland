@@ -1,7 +1,8 @@
 #ifndef REFERENCEMANAGER_HPP_INCLUDED
 #define REFERENCEMANAGER_HPP_INCLUDED
 
-#include <map>
+#include <list>
+#include <string>
 
 namespace codeframe
 {
@@ -17,7 +18,7 @@ namespace codeframe
             const std::string& Get() const;
         private:
             std::string m_referencePath;
-            static std::map<std::string, cSerializableInterface*> m_referencePathMap;
+            static std::list<std::string> m_referencePathList;
     };
 }
 

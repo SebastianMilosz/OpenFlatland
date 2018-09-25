@@ -23,16 +23,16 @@ namespace codeframe
 
         public:
 
-            PropertyBase( cSerializable* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
+            PropertyBase( cSerializableInterface* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
                 m_reference(NULL),
                 m_referenceParent(NULL),
                 m_type(type),
-                m_parentpc(parentpc),
+                m_parentpc( parentpc ),
                 m_name(name),
                 m_id(0),
-                m_isWaitForUpdate(false),
+                m_isWaitForUpdate( false ),
                 m_waitForUpdateCnt(0),
-                m_propertyInfo( info ),
+                m_propertyInfo( info, parentpc ),
                 m_pulseAbort( false ),
                 m_temporary( false )
                 {
@@ -113,7 +113,7 @@ namespace codeframe
             virtual uint32_t        Id() const;
             virtual eType           Type() const;
             virtual std::string     Path(bool addName = true) const;
-            virtual cSerializable*  Parent() { return m_parentpc; }
+            virtual cSerializableInterface*  Parent() { return m_parentpc; }
             virtual PropertyBase*   Reference() { return m_reference; }
             virtual bool            ConnectReference( PropertyBase* refProp );
             virtual std::string     TypeString() const;
@@ -138,9 +138,9 @@ namespace codeframe
         protected:
             static int      s_globalParConCnt;
             PropertyBase*   m_reference;             ///< Wskaznik na sprzezone z tym polem pole
-            cSerializable*  m_referenceParent;
+            cSerializableInterface*  m_referenceParent;
             eType           m_type;
-            cSerializable*  m_parentpc;
+            cSerializableInterface*  m_parentpc;
             std::string     m_name;
             uint32_t        m_id;
             mutable WrMutex m_Mutex;

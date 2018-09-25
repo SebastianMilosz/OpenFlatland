@@ -84,6 +84,8 @@ namespace codeframe
             virtual PropertyBase*           GetPropertyById    ( uint32_t    id   ) = 0;
             virtual PropertyBase*           GetPropertyFromPath( const std::string& path ) = 0;
             virtual cSerializableInterface* GetChildByName     ( const std::string& name ) = 0;
+            virtual void                    RegisterProperty   ( PropertyBase* prop ) = 0;
+            virtual void                    UnRegisterProperty ( PropertyBase* prop ) = 0;
             virtual void                    PulseChanged       ( bool fullTree = false ) = 0;
             virtual void                    CommitChanges      () = 0;
             virtual void                    Enable             ( bool val ) = 0;
