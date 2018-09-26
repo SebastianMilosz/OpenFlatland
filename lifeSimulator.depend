@@ -1373,7 +1373,7 @@
 	<cstdlib>
 	<inttypes.h>
 
-1537345441 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\loggerutilities.cpp
+1537991999 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\loggerutilities.cpp
 	"utilities/LoggerUtilities.h"
 
 1537344607 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\loggerutilities.h
@@ -1558,10 +1558,10 @@
 	"instancemanager.hpp"
 	"serializable.hpp"
 
-1504816631 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
-	"serializableregister.h"
+1537994657 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
+	"serializableregister.hpp"
 
-1537300582 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
+1537993913 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
 	"serializable.hpp"
 	<iostream>
 	<exception>
@@ -1627,11 +1627,12 @@
 	"serializableinterface.hpp"
 	"serializablecontainer.hpp"
 
-1537906125 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyinfo.hpp
+1537994629 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyinfo.hpp
 	<map>
 	<string>
 	<limits.h>
-	<referencemanager.hpp>
+	"referencemanager.hpp"
+	"serializableregister.hpp"
 
 1537306169 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\typeinfo.hpp
 	<string>
@@ -1649,8 +1650,8 @@
 	"MathUtilities.h"
 	<sstream>
 
-1537881062 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertybase.hpp
-	"serializableregister.h"
+1537994617 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertybase.hpp
+	"serializableregister.hpp"
 	"serializablepropertyinfo.hpp"
 	"typeinfo.hpp"
 	"ThreadUtilities.h"
@@ -3061,7 +3062,7 @@
 	<serializable.hpp>
 	"physicsbody.hpp"
 
-1537646222 source:d:\sourcecode\lifesimulator\src\entityvision.cpp
+1537993554 source:d:\sourcecode\lifesimulator\src\entityvision.cpp
 	"entityvision.hpp"
 
 1535229112 d:\sourcecode\lifesimulator\include\annviewerwidget.hpp
@@ -3164,7 +3165,7 @@
 	<map>
 	<plf_nanotimer.h>
 
-1537910118 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1537996592 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
 1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"
@@ -3204,12 +3205,18 @@
 	<unistd.h>
 	<ostream>
 
-1537908512 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\referencemanager.hpp
+1537994293 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\referencemanager.hpp
 	<map>
 	<string>
 
-1537910013 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\referencemanager.cpp
+1537994386 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\referencemanager.cpp
 	"referencemanager.hpp"
 	<serializable.hpp>
 	<utilities/LoggerUtilities.h>
+
+1504816663 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableregister.hpp
+	<stdint.h>
+
+1537993849 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertyinfo.cpp
+	"serializablepropertyinfo.hpp"
 

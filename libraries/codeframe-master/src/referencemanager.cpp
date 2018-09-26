@@ -14,7 +14,8 @@ std::map<std::string, cSerializableInterface*> ReferenceManager::m_referencePath
  **
 ******************************************************************************/
 ReferenceManager::ReferenceManager() :
-    m_referencePath("")
+    m_referencePath(""),
+    m_parent( NULL )
 {
 
 }
@@ -34,10 +35,32 @@ ReferenceManager::~ReferenceManager()
   * @brief
  **
 ******************************************************************************/
-void ReferenceManager::Set( const std::string& refPath, cSerializableInterface* obj )
+void ReferenceManager::SetReference( const std::string& refPath, cSerializableInterface* obj )
 {
     m_referencePath = refPath;
-    m_referencePathMap.insert( std::pair<std::string, cSerializableInterface*>(m_referencePath,obj) );
+    m_parent = obj;
+
+    if ( m_referencePath.size() != 0 )
+    {
+        if ( NULL != m_parent )
+        {
+            m_referencePathMap.insert( std::pair<std::string, cSerializableInterface*>(m_referencePath,m_parent) );
+        }
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ReferenceManager::SetParent( cSerializableInterface* obj )
+{
+    if ( (m_referencePath.size() != 0) && (NULL != obj) && (NULL == m_parent) )
+    {
+        m_parent = obj;
+        m_referencePathMap.insert( std::pair<std::string, cSerializableInterface*>(m_referencePath,m_parent) );
+    }
 }
 
 /*****************************************************************************/
@@ -64,8 +87,11 @@ void ReferenceManager::LogUnresolvedReferences()
         cSerializableInterface* obj = it->second;
         if ( (cSerializableInterface*)NULL != obj )
         {
-            std::string refPath = it->first;
-            LOGGER( LOG_INFO << "Unresolved reference to: " << refPath << " from object: " << obj->ObjectName() );
+            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << obj->ObjectName() );
+        }
+        else
+        {
+            LOGGER( LOG_ERROR << "Unresolved reference to: " << it->first << " from object: NULL" );
         }
     }
 }

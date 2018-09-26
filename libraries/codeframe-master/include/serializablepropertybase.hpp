@@ -1,7 +1,7 @@
 #ifndef SERIALIZABLEPROPERTYBASE_HPP_INCLUDED
 #define SERIALIZABLEPROPERTYBASE_HPP_INCLUDED
 
-#include "serializableregister.h"
+#include "serializableregister.hpp"
 #include "serializablepropertyinfo.hpp"
 #include "typeinfo.hpp"
 #include "ThreadUtilities.h"
