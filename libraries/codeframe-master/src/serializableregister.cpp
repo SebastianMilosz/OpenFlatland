@@ -1,4 +1,4 @@
-#include "serializableregister.h"
+#include "serializableregister.hpp"
 
 namespace codeframe
 {

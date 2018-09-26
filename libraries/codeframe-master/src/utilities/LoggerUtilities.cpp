@@ -330,7 +330,7 @@ void cLog::Message( const std::string& title, const std::string& msg, int type, 
         f.open( LogPath.c_str(), std::ios::out|std::ios::app );
         if( !f.fail() )
         {
-            f << timeStamp << " : " << title << " : " << msg << "\r\n";
+            f << timeStamp << " : " << title << " : " << msg << "\n";
             f.close();
         }
     }
@@ -429,7 +429,7 @@ cLog& cLog::operator << ( const char *s )
     }
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -449,7 +449,7 @@ cLog& cLog::operator << ( const std::string& s )
     }
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -464,7 +464,7 @@ cLog& cLog::operator << ( bool b )
     else m_line += " false ";
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -478,7 +478,7 @@ cLog& cLog::operator << ( char c )
     m_line += std::string(" ") + std::string( 1, c );
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -492,7 +492,7 @@ cLog& cLog::operator << ( unsigned char c )
     m_line += std::string(" ") + std::string( 1, c );
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -506,7 +506,7 @@ cLog& cLog::operator << ( unsigned short n )
     m_line += " " + IntToStr( n );
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -520,7 +520,7 @@ cLog& cLog::operator << ( short n )
     m_line += " " + IntToStr( n );
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -534,7 +534,7 @@ cLog& cLog::operator << ( unsigned int n )
     m_line += " " + IntToStr( n );
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -552,7 +552,7 @@ cLog& cLog::operator << ( int n )
     }
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -570,7 +570,7 @@ cLog& cLog::operator << ( unsigned long n )
     }
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -588,7 +588,7 @@ cLog& cLog::operator << ( long n )
     }
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -602,7 +602,7 @@ cLog& cLog::operator << ( float f )
     m_line += " " + FloatToStr( f );
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -616,7 +616,7 @@ cLog& cLog::operator << ( double d )
     m_line += " " + FloatToStr( d );
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -630,7 +630,7 @@ cLog& cLog::operator << ( long double d )
     m_line += " " + FloatToStr( d );
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -644,7 +644,7 @@ cLog& cLog::operator << ( ELog_Type type )
     m_type = type;
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -658,7 +658,7 @@ cLog& cLog::operator << ( ELog_Mode mode )
     m_mode = mode;
     m_activeCmd = cLog::LC_NO;
     m_mutex.Unlock();
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/
@@ -754,7 +754,7 @@ cLog& cLog::operator << ( ELog_Cmd cmd )
 
     m_mutex.Unlock();
 
-	return *this;
+    return *this;
 }
 
 /*****************************************************************************/

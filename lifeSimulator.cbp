@@ -132,6 +132,7 @@
 		<Unit filename="libraries/codeframe-master/include/serializableproperty.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablepropertybase.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablepropertyinfo.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializableregister.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializableselectable.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablestorage.hpp" />
 		<Unit filename="libraries/codeframe-master/include/typeinfo.hpp" />
@@ -160,6 +161,7 @@
 		<Unit filename="libraries/codeframe-master/src/serializableinterface.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablelua.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableproperty.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializablepropertyinfo.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableregister.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableselectable.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablestorage.cpp" />
