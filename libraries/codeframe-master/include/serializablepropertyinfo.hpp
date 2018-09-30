@@ -60,12 +60,12 @@ namespace codeframe
             cRegister               m_register;
             eXMLMode                m_xmlmode;
             ReferenceManager        m_refmgr;
-            cSerializableInterface* m_serializableParent;
+            PropertyBase*           m_serializableProperty;
 
         public:
             cPropertyInfo();
             cPropertyInfo(const cPropertyInfo& sval);
-            cPropertyInfo(const cPropertyInfo& sval, cSerializableInterface* serializableParent );
+            cPropertyInfo(const cPropertyInfo& sval, PropertyBase* serializableProperty );
             cPropertyInfo& Register   ( eREG_MODE mod,
                                         uint16_t  reg,
                                         uint16_t  regSize = 1,

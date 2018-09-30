@@ -6,7 +6,7 @@
 namespace codeframe
 {
 
-std::map<std::string, cSerializableInterface*> ReferenceManager::m_referencePathMap;
+std::map<std::string, PropertyBase*> ReferenceManager::m_referencePathMap;
 
 /*****************************************************************************/
 /**
@@ -15,7 +15,7 @@ std::map<std::string, cSerializableInterface*> ReferenceManager::m_referencePath
 ******************************************************************************/
 ReferenceManager::ReferenceManager() :
     m_referencePath(""),
-    m_parent( NULL )
+    m_property( NULL )
 {
 
 }
@@ -35,16 +35,16 @@ ReferenceManager::~ReferenceManager()
   * @brief
  **
 ******************************************************************************/
-void ReferenceManager::SetReference( const std::string& refPath, cSerializableInterface* obj )
+void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop )
 {
     m_referencePath = refPath;
-    m_parent = obj;
+    m_property = prop;
 
     if ( m_referencePath.size() != 0 )
     {
-        if ( NULL != m_parent )
+        if ( NULL != m_property )
         {
-            m_referencePathMap.insert( std::pair<std::string, cSerializableInterface*>(m_referencePath,m_parent) );
+            m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
         }
     }
 }
@@ -54,12 +54,12 @@ void ReferenceManager::SetReference( const std::string& refPath, cSerializableIn
   * @brief
  **
 ******************************************************************************/
-void ReferenceManager::SetParent( cSerializableInterface* obj )
+void ReferenceManager::SetParent( PropertyBase* prop )
 {
-    if ( (m_referencePath.size() != 0) && (NULL != obj) && (NULL == m_parent) )
+    if ( (m_referencePath.size() != 0) && (NULL != prop) && (NULL == m_property) )
     {
-        m_parent = obj;
-        m_referencePathMap.insert( std::pair<std::string, cSerializableInterface*>(m_referencePath,m_parent) );
+        m_property = prop;
+        m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
     }
 }
 
@@ -80,14 +80,14 @@ const std::string& ReferenceManager::Get() const
 ******************************************************************************/
 void ReferenceManager::LogUnresolvedReferences()
 {
-    std::map<std::string, cSerializableInterface*>::iterator it;
+    std::map<std::string, PropertyBase*>::iterator it;
 
     for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++ )
     {
-        cSerializableInterface* obj = it->second;
-        if ( (cSerializableInterface*)NULL != obj )
+        PropertyBase* prop = it->second;
+        if ( (PropertyBase*)NULL != prop )
         {
-            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << obj->ObjectName() );
+            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << prop->Name() );
         }
         else
         {

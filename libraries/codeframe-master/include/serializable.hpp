@@ -3,6 +3,7 @@
 
 #include <sigslot.h>
 
+#include "serializablepropertybase.hpp"
 #include "serializablelua.hpp"
 #include "serializablestorage.hpp"
 #include "serializableselectable.hpp"
