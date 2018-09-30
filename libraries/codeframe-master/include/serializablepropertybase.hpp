@@ -12,7 +12,7 @@
 
 namespace codeframe
 {
-    class cSerializable;
+    class cSerializableInterface;
 
     /*****************************************************************************
      * @class PropertyBase
@@ -32,7 +32,7 @@ namespace codeframe
                 m_id(0),
                 m_isWaitForUpdate( false ),
                 m_waitForUpdateCnt(0),
-                m_propertyInfo( info, parentpc ),
+                m_propertyInfo( info, this ),
                 m_pulseAbort( false ),
                 m_temporary( false )
                 {

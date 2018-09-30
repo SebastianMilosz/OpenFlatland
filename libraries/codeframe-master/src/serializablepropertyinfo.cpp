@@ -46,7 +46,7 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval) :
     m_register(sval.m_register),
     m_xmlmode(sval.m_xmlmode),
     m_refmgr(sval.m_refmgr),
-    m_serializableParent(sval.m_serializableParent)
+    m_serializableProperty(sval.m_serializableProperty)
 {
 
 }
@@ -56,7 +56,7 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval) :
   * @brief
  **
 ******************************************************************************/
-cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval, cSerializableInterface* serializableParent ) :
+cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval, PropertyBase* serializableProperty ) :
     m_description(sval.m_description),
     m_kind(sval.m_kind),
     m_enumArray(sval.m_enumArray),
@@ -67,9 +67,9 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval, cSerializableInterface* 
     m_register(sval.m_register),
     m_xmlmode(sval.m_xmlmode),
     m_refmgr(sval.m_refmgr),
-    m_serializableParent( serializableParent )
+    m_serializableProperty( serializableProperty )
 {
-    m_refmgr.SetParent( m_serializableParent );
+    m_refmgr.SetProperty( m_serializableProperty );
 }
 
 /*****************************************************************************/
@@ -129,7 +129,7 @@ cPropertyInfo& cPropertyInfo::Enum( const std::string& enuma )
 ******************************************************************************/
 cPropertyInfo& cPropertyInfo::ReferencePath( const std::string& referencePath )
 {
-    m_refmgr.SetReference( referencePath, m_serializableParent );
+    m_refmgr.SetReference( referencePath, m_serializableProperty );
     return *this;
 }
 
@@ -195,17 +195,17 @@ cPropertyInfo& cPropertyInfo::XMLMode( eXMLMode mode )
 ******************************************************************************/
 cPropertyInfo& cPropertyInfo::operator=(cPropertyInfo val)
 {
-    m_description        = val.m_description;
-    m_kind               = val.m_kind;
-    m_xmlmode            = val.m_xmlmode;
-    m_enumArray	         = val.m_enumArray;
-    m_register           = val.m_register;
-    m_eventEnable        = val.m_eventEnable;
-    m_min                = val.m_min;
-    m_max                = val.m_max;
-    m_enable             = val.m_enable;
-    m_refmgr             = val.m_refmgr;
-    m_serializableParent = val.m_serializableParent;
+    m_description           = val.m_description;
+    m_kind                  = val.m_kind;
+    m_xmlmode               = val.m_xmlmode;
+    m_enumArray	            = val.m_enumArray;
+    m_register              = val.m_register;
+    m_eventEnable           = val.m_eventEnable;
+    m_min                   = val.m_min;
+    m_max                   = val.m_max;
+    m_enable                = val.m_enable;
+    m_refmgr                = val.m_refmgr;
+    m_serializableProperty  = val.m_serializableProperty;
     return *this;
 }
 

@@ -6,7 +6,7 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class PropertyBase;
 
     class ReferenceManager
     {
@@ -14,15 +14,15 @@ namespace codeframe
             ReferenceManager();
             ~ReferenceManager();
 
-            void SetReference( const std::string& refPath, cSerializableInterface* obj = NULL );
-            void SetParent( cSerializableInterface* obj );
+            void SetReference( const std::string& refPath, PropertyBase* prop = NULL );
+            void SetProperty( PropertyBase* prop );
             const std::string& Get() const;
 
             static void LogUnresolvedReferences();
         private:
             std::string m_referencePath;
-            cSerializableInterface* m_parent;
-            static std::map<std::string, cSerializableInterface*> m_referencePathMap;
+            PropertyBase* m_property;
+            static std::map<std::string, PropertyBase*> m_referencePathMap;
     };
 }
 
