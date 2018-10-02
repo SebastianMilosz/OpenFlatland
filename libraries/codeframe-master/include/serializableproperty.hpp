@@ -1,7 +1,6 @@
 #ifndef _SERIALIZABLEPROPERTY_H
 #define _SERIALIZABLEPROPERTY_H
 
-#include "serializable.hpp"
 #include "serializablepropertybase.hpp"
 #include "extpoint2d.hpp"
 #include "extvector.hpp"
@@ -11,6 +10,8 @@
 
 namespace codeframe
 {
+    class cSerializable;
+
     /*****************************************************************************
      * @class Property
      *****************************************************************************/
