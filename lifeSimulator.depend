@@ -1627,7 +1627,7 @@
 	"serializableinterface.hpp"
 	"serializablecontainer.hpp"
 
-1538000196 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyinfo.hpp
+1538514324 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyinfo.hpp
 	<map>
 	<string>
 	<limits.h>
@@ -1650,7 +1650,7 @@
 	"MathUtilities.h"
 	<sstream>
 
-1537994617 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertybase.hpp
+1538514324 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertybase.hpp
 	"serializableregister.hpp"
 	"serializablepropertyinfo.hpp"
 	"typeinfo.hpp"
@@ -1774,7 +1774,7 @@
 	"serializablechildlist.hpp"
 	"xmlformatter.hpp"
 
-1537608722 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
+1538514391 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableproperty.hpp
 	"serializablepropertybase.hpp"
 	"extpoint2d.hpp"
 	"extvector.hpp"
@@ -1791,8 +1791,9 @@
 	"cxml.hpp"
 	"typeinfo.hpp"
 
-1537283803 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
+1538514324 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
 	<sigslot.h>
+	"serializablepropertybase.hpp"
 	"serializablelua.hpp"
 	"serializablestorage.hpp"
 	"serializableselectable.hpp"
@@ -3165,7 +3166,7 @@
 	<map>
 	<plf_nanotimer.h>
 
-1538000300 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1538516834 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
 1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"
@@ -3205,11 +3206,11 @@
 	<unistd.h>
 	<ostream>
 
-1537994293 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\referencemanager.hpp
+1538514324 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\referencemanager.hpp
 	<map>
 	<string>
 
-1537996974 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\referencemanager.cpp
+1538514637 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\referencemanager.cpp
 	"referencemanager.hpp"
 	<serializable.hpp>
 	<utilities/LoggerUtilities.h>
@@ -3217,6 +3218,6 @@
 1504816663 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableregister.hpp
 	<stdint.h>
 
-1538000231 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertyinfo.cpp
+1538515639 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertyinfo.cpp
 	"serializablepropertyinfo.hpp"
 

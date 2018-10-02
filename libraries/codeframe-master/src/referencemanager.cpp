@@ -54,7 +54,7 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
   * @brief
  **
 ******************************************************************************/
-void ReferenceManager::SetParent( PropertyBase* prop )
+void ReferenceManager::SetProperty( PropertyBase* prop )
 {
     if ( (m_referencePath.size() != 0) && (NULL != prop) && (NULL == m_property) )
     {
@@ -87,7 +87,15 @@ void ReferenceManager::LogUnresolvedReferences()
         PropertyBase* prop = it->second;
         if ( (PropertyBase*)NULL != prop )
         {
-            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << prop->Name() );
+            cSerializableInterface* propertyParent = prop->Parent();
+            std::string propertyParentPath = "NULL";
+
+            if ( NULL != propertyParent )
+            {
+                propertyParentPath = propertyParent->Path();
+            }
+
+            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << propertyParentPath << "." << prop->Name() );
         }
         else
         {

@@ -25,7 +25,7 @@ void cPropertyInfo::Init()
 ******************************************************************************/
 cPropertyInfo::cPropertyInfo() :
     m_refmgr(),
-    m_serializableParent(NULL)
+    m_serializableProperty(NULL)
 {
     Init();
 }
