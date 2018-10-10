@@ -1,8 +1,6 @@
 #ifndef INSTANCEMANAGER_H_INCLUDED
 #define INSTANCEMANAGER_H_INCLUDED
 
-#include "serializableinterface.hpp"
-
 #include <vector>
 #include <algorithm>
 #include <ThreadUtilities.h>
@@ -17,7 +15,7 @@ namespace codeframe
       * @version 1.0
      **
     ******************************************************************************/
-    class cInstanceManager : public cSerializableInterface
+    class cInstanceManager
     {
         public:
                  cInstanceManager();

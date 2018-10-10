@@ -13,12 +13,14 @@
 #include <ThreadUtilities.h>
 
 #include "serializableproperty.hpp"
+#include "serializablepropertyiterator.hpp"
 #include "serializablechildlist.hpp"
+#include "serializablepath.hpp"
+#include "serializablestorage.hpp"
 #include "xmlformatter.hpp"
 
 namespace codeframe
 {
-
     /*****************************************************************************/
     /**
       * @brief Base common Interface to access to all cSerializable objects
@@ -30,44 +32,7 @@ namespace codeframe
     class cSerializableInterface : public sigslot::has_slots<>
     {
         friend class PropertyBase;
-
-        public:
-            class iterator : public std::iterator<std::input_iterator_tag, PropertyBase*>
-            {
-                friend class PropertyBase;
-                friend class cSerializableInterface;
-
-            public:
-                // Konstruktor kopiujacy
-                iterator(const iterator& n) : m_base(n.m_base), m_param(n.m_param), m_curId(n.m_curId) {}
-
-                // Operator wskaznikowy wyodrebnienia wskazywanej wartosci
-                PropertyBase* operator *()
-                {
-                    m_param = m_base->GetObjectFieldValue( m_curId );
-                    return m_param;
-                }
-
-                // Operator inkrementacji (przejscia na kolejne pole)
-                iterator& operator ++(){ if(m_curId < m_base->GetObjectFieldCnt()) ++m_curId; return *this; }
-
-                // Operatory porownania
-                bool operator< (const iterator& n) { return   n.m_curId <  m_curId;  }
-                bool operator> (const iterator& n) { return   n.m_curId >  m_curId;  }
-                bool operator<=(const iterator& n) { return !(n.m_curId >  m_curId); }
-                bool operator>=(const iterator& n) { return !(n.m_curId <  m_curId); }
-                bool operator==(const iterator& n) { return   n.m_curId == m_curId;  }
-                bool operator!=(const iterator& n) { return !(n.m_curId == m_curId); }
-
-            private:
-                // Konstruktor bazowy prywatny bo tylko cSerializable moze tworzyc swoje iteratory
-                iterator(cSerializableInterface* b, int n) : m_base(b), m_curId(n) {}
-
-            private:
-                   cSerializableInterface* m_base;
-                   PropertyBase*           m_param;
-                   int                     m_curId;
-            };
+        friend class PropertyIterator;
 
         public:
             virtual std::string             ObjectName( bool idSuffix = true ) const = 0;   ///< Nazwa serializowanego objektu
@@ -79,7 +44,8 @@ namespace codeframe
             virtual void                    SetName( const std::string& name ) = 0;
             virtual bool                    IsPropertyUnique( const std::string& name ) const = 0;
             virtual bool                    IsNameUnique    ( const std::string& name, bool checkParent = false ) const = 0;
-            virtual std::string             Path() const = 0;
+            virtual cSerializablePath&      Path() = 0;
+            virtual cSerializableStorage&   Storage() = 0;
             virtual cSerializableInterface* Parent() const = 0;
             virtual cSerializableInterface* GetRootObject() = 0;
             virtual PropertyBase*           GetPropertyByName  ( const std::string& name ) = 0;
@@ -106,9 +72,9 @@ namespace codeframe
             static std::string LibraryVersionString();
 
             // Iterator
-            iterator begin() throw();
-            iterator end()   throw();
-            int      size()  const;
+            PropertyIterator begin() throw();
+            PropertyIterator end()   throw();
+            int              size()  const;
 
         protected:
                      cSerializableInterface();

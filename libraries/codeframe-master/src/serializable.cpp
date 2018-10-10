@@ -50,8 +50,9 @@ namespace codeframe
      **
     ******************************************************************************/
     cSerializable::cSerializable( const std::string& name, cSerializableInterface* parent ) :
-        cSerializableStorage(),
         cSerializableSelectable(),
+        m_SerializablePath( *this ),
+        m_SerializableStorage( *this ),
         m_delay( 0 ),
         m_parent( NULL ),
         m_sContainerName( name )
@@ -248,143 +249,6 @@ namespace codeframe
     /*****************************************************************************/
     /**
       * @brief
-      * @todo napisac implementacje
-     **
-    ******************************************************************************/
-    cSerializable* cSerializable::ShareLevel( eShareLevel level )
-    {
-       m_shareLevel = level;
-       return this;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    cSerializable* cSerializable::LoadFromFile( const std::string& filePath, const std::string& container, bool createIfNotExist )
-    {
-        try
-        {
-            LOGGER( LOG_INFO  << ObjectName() << "-> LoadFromFile(" << filePath << ")" );
-
-            if( createIfNotExist )
-            {
-                if( !utilities::file::IsFileExist( filePath ) )
-                {
-                    LOGGER( LOG_WARNING << "cSerializable::LoadFromFile: file: " << filePath << " does not exist."  );
-                    SaveToFile( filePath, container );
-                }
-            }
-
-            cXML          xml      ( filePath );
-            cXmlFormatter formatter( dynamic_cast<cSerializableInterface*>(this), m_shareLevel );
-
-            if( xml.Protocol() == "1.0" )
-            {
-                LOGGER( LOG_INFO  << "LoadFromFile v1.0" );
-                formatter.LoadFromXML( xml.PointToNode( container ) );
-            }
-        }
-        catch(exception &exc)
-        {
-            LOGGER( LOG_ERROR << ObjectName() <<  "-> LoadFromFile() exception: Type:" << typeid( exc ).name( ) << exc.what() );
-        }
-        catch (...)
-        {
-            LOGGER( LOG_ERROR << ObjectName() <<  "-> LoadFromFile() exception unknown");
-        }
-
-        return this;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    cSerializable* cSerializable::SaveToFile( const std::string& filePath, const std::string& container )
-    {
-        try
-        {
-            LOGGER( LOG_INFO  << ObjectName() << "-> SaveToFile(" << filePath << ")" );
-
-            cXML          xml;
-            cXmlFormatter formatter( this, m_shareLevel );
-
-            cXML formXml = formatter.SaveToXML();
-
-            xml.PointToNode( container ).Add( formXml ).ToFile( filePath );
-        }
-        catch(exception &exc)
-        {
-            LOGGER( LOG_ERROR << ObjectName() << "-> SaveToFile() exception: Type:" << typeid( exc ).name( ) << exc.what() );
-        }
-        catch (...)
-        {
-            LOGGER( LOG_ERROR << ObjectName() << "-> SaveToFile() exception unknown" );
-        }
-
-        return this;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    cSerializable* cSerializable::LoadFromXML( cXML xml, const std::string& container )
-    {
-        try
-        {
-            LOGGER( LOG_INFO  << ObjectName() << " -> LoadFromXML()" );
-
-            cXmlFormatter formatter( this );
-
-            formatter.LoadFromXML( xml.PointToNode( container ) );
-        }
-        catch(exception &exc)
-        {
-            LOGGER( LOG_ERROR << ObjectName() << "-> LoadFromXML() exception: Type:" << typeid( exc ).name( ) << exc.what() );
-        }
-        catch (...)
-        {
-            LOGGER( LOG_ERROR << ObjectName() << "-> LoadFromXML() exception unknown" );
-        }
-
-        return this;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    cXML cSerializable::SaveToXML( const std::string& container, int mode __attribute__((unused)) )
-    {
-        try
-        {
-            LOGGER( LOG_INFO << ObjectName() << "-> SaveToXML()" );
-
-            cXmlFormatter formatter( this );
-
-            return formatter.SaveToXML().PointToNode( container );
-        }
-        catch(exception &exc)
-        {
-            LOGGER( LOG_ERROR << ObjectName() << "-> SaveToXML() exception: Type:" << typeid( exc ).name( ) << exc.what() );
-        }
-        catch (...)
-        {
-            LOGGER( LOG_ERROR << ObjectName() << "-> SaveToXML() exception unknown" );
-        }
-
-        return cXML();
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
      **
     ******************************************************************************/
     bool cSerializable::IsPropertyUnique( const std::string& name ) const
@@ -458,23 +322,22 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Return full object path
+      * @brief
      **
     ******************************************************************************/
-    std::string cSerializable::Path() const
+    cSerializablePath& cSerializable::Path()
     {
-        std::string path;
+        return m_SerializablePath;
+    }
 
-        cSerializableInterface* parent = Parent();
-
-        if( parent )
-        {
-           path = parent->Path() + "/" + path;
-        }
-
-        path += ObjectName();
-
-        return path ;
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    cSerializableStorage& cSerializable::Storage()
+    {
+        return m_SerializableStorage;
     }
 
     /*****************************************************************************/
