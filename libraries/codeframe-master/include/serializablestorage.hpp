@@ -1,11 +1,12 @@
 #ifndef CSERIALIZABLESTORAGE_H
 #define CSERIALIZABLESTORAGE_H
 
-#include "serializableinterface.hpp"
-#include "instancemanager.hpp"
+#include "cxml.hpp"
 
 namespace codeframe
 {
+    class cSerializableInterface;
+
     /*****************************************************************************/
     /**
       * @brief This class add storage functionality to cInstanceManager
@@ -14,16 +15,28 @@ namespace codeframe
       * @note cSetializable
      **
     ******************************************************************************/
-    class cSerializableStorage : public cInstanceManager
+    class cSerializableStorage
     {
         public:
-                     cSerializableStorage();
+            enum eShareLevel
+            {
+                ShareThis = 0,
+                ShareFull
+            };
+
+                     cSerializableStorage( cSerializableInterface& sint );
             virtual ~cSerializableStorage();
 
-            enum eShareLevel { ShareThis = 0, ShareFull };
+            cSerializableInterface& ShareLevel  ( eShareLevel level = ShareFull );
+            cSerializableInterface& LoadFromFile( const std::string& filePath, const std::string& container = "", bool createIfNotExist = false );
+            cSerializableInterface& LoadFromXML ( cXML xml, const std::string& container = "" );
+            cSerializableInterface& SaveToFile  ( const std::string& filePath, const std::string& container = "" );
+            cXML                    SaveToXML   ( const std::string& container = "", int mode = 0 );
 
         protected:
             eShareLevel m_shareLevel;
+
+            cSerializableInterface& m_sint;
     };
 
 }

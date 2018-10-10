@@ -29,14 +29,14 @@ namespace codeframe
     class cXmlFormatter
     {
     public:
-        cXmlFormatter( cSerializableInterface* serializableObject, int shareLevel = 1 ); ///< Tworzymy formater z obiektu, domyslnie pelna rekurencyjna serializacja
+        cXmlFormatter( cSerializableInterface& serializableObject, int shareLevel = 1 ); ///< Tworzymy formater z obiektu, domyslnie pelna rekurencyjna serializacja
        ~cXmlFormatter();
 
         cXML           SaveToXML  ();               ///< Zwraca xml z powiazanego obiektu
         cXmlFormatter& LoadFromXML( cXML& xml );    ///< Przypisuje xml z kontenera o nazwie name do powiazanego obiektu
 
     private:
-        cSerializableInterface* m_serializableObject;
+        cSerializableInterface& m_serializableObject;
         int                     m_shareLevel;
 
         cXmlFormatter& LoadFromXML_v0( cXML& xml );

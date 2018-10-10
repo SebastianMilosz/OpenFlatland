@@ -380,7 +380,7 @@ namespace codeframe
 
         if ( m_parentpc )
         {
-            propPath = m_parentpc->Path();
+            propPath = m_parentpc->Path().PathString();
             if ( addName )
             {
                 propPath += "." + Name();

@@ -60,9 +60,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface::iterator cSerializableInterface::begin() throw()
+    PropertyIterator cSerializableInterface::begin() throw()
     {
-        return cSerializableInterface::iterator(this, 0);
+        return PropertyIterator(this, 0);
     }
 
     /*****************************************************************************/
@@ -70,9 +70,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface::iterator cSerializableInterface::end() throw()
+    PropertyIterator cSerializableInterface::end() throw()
     {
-        return cSerializableInterface::iterator(this, GetObjectFieldCnt());
+        return PropertyIterator(this, GetObjectFieldCnt());
     }
 
     /*****************************************************************************/

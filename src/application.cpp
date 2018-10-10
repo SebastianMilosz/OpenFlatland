@@ -69,7 +69,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     PERFORMANCE_ENTER( PERFORMANCE_LOAD_XML_FILE );
 
-    this->LoadFromFile( m_cfgFilePath );
+    this->Storage().LoadFromFile( m_cfgFilePath );
 
     PERFORMANCE_LEAVE( PERFORMANCE_LOAD_XML_FILE );
 }
@@ -107,7 +107,7 @@ void Application::ProcesseEvents( sf::Event& event )
         PerformanceLogger::GetInstance().AddNote( note );
 
         PERFORMANCE_ENTER( PERFORMANCE_SAVE_XML_FILE );
-        this->SaveToFile( m_cfgFilePath );
+        this->Storage().SaveToFile( m_cfgFilePath );
         PERFORMANCE_LEAVE( PERFORMANCE_SAVE_XML_FILE );
 
         PERFORMANCE_SAVE( m_perFilePath );

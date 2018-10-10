@@ -92,7 +92,7 @@ void ReferenceManager::LogUnresolvedReferences()
 
             if ( NULL != propertyParent )
             {
-                propertyParentPath = propertyParent->Path();
+                propertyParentPath = propertyParent->Path().PathString();
             }
 
             LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << propertyParentPath << "." << prop->Name() );
@@ -102,6 +102,23 @@ void ReferenceManager::LogUnresolvedReferences()
             LOGGER( LOG_ERROR << "Unresolved reference to: " << it->first << " from object: NULL" );
         }
     }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase* prop )
+{
+    const cSerializableInterface* propertyParent = prop->Parent();
+
+    if ( NULL != propertyParent )
+    {
+
+    }
+
+    return std::string( path );
 }
 
 }

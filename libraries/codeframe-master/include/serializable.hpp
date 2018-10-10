@@ -3,10 +3,12 @@
 
 #include <sigslot.h>
 
+#include "serializableinterface.hpp"
 #include "serializablepropertybase.hpp"
 #include "serializablelua.hpp"
 #include "serializablestorage.hpp"
 #include "serializableselectable.hpp"
+#include "instancemanager.hpp"
 
 namespace codeframe
 {
@@ -18,7 +20,11 @@ namespace codeframe
       * @note cSetializable
      **
     ******************************************************************************/
-    class cSerializable : public cSerializableLua, public cSerializableStorage, public cSerializableSelectable
+    class cSerializable :
+        public cInstanceManager,
+        public cSerializableLua,
+        public cSerializableSelectable,
+        public cSerializableInterface
     {
         friend class PropertyBase;
 
@@ -27,15 +33,11 @@ namespace codeframe
             virtual         ~cSerializable();
 
             void             SetName      ( const std::string& name );
-            cSerializable*   ShareLevel   ( eShareLevel level = ShareFull );
-            cSerializable*   LoadFromFile ( const std::string& filePath, const std::string& container = "", bool createIfNotExist = false );
-            cSerializable*   LoadFromXML  ( cXML xml, const std::string& container = "" );
-            cSerializable*   SaveToFile   ( const std::string& filePath, const std::string& container = "" );
-            cXML             SaveToXML    ( const std::string& container = "", int mode = 0 );
 
             bool                    IsPropertyUnique( const std::string& name ) const;
             bool                    IsNameUnique    ( const std::string& name, bool checkParent = false ) const;
-            std::string             Path() const;
+            cSerializablePath&      Path();
+            cSerializableStorage&   Storage();
             std::string             ObjectName( bool idSuffix = true ) const;
             std::string             SizeString() const;
             cSerializableInterface* Parent()     const;
@@ -68,6 +70,9 @@ namespace codeframe
 
         private:
             virtual void slotPropertyChanged( PropertyBase* prop );   ///<
+
+            cSerializablePath       m_SerializablePath;
+            cSerializableStorage    m_SerializableStorage;
 
             int                     m_delay;
             cSerializableInterface* m_parent;
