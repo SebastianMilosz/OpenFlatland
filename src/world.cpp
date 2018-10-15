@@ -190,7 +190,7 @@ void World::MouseDown( float x, float y )
                 m_JointDef.target   = locationWorld;
                 m_MouseJoint        = (b2MouseJoint*)m_World.CreateJoint( &m_JointDef );
 
-                entShell->Select();
+                entShell->Selection().Select();
 
                 body->SetAwake( true );
             }

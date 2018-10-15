@@ -17,6 +17,9 @@
 #include "serializablechildlist.hpp"
 #include "serializablepath.hpp"
 #include "serializablestorage.hpp"
+#include "serializableselectable.hpp"
+#include "serializablepropertymanager.hpp"
+#include "serializablelua.hpp"
 #include "xmlformatter.hpp"
 
 namespace codeframe
@@ -41,24 +44,29 @@ namespace codeframe
             virtual std::string             BuildType()  const = 0;         ///< Sposob budowania obiektu (statycznym, dynamiczny)
             virtual std::string             ConstructPatern() const = 0;    ///< Parametry konstruktora
 
-            virtual void                    SetName( const std::string& name ) = 0;
-            virtual bool                    IsPropertyUnique( const std::string& name ) const = 0;
-            virtual bool                    IsNameUnique    ( const std::string& name, bool checkParent = false ) const = 0;
-            virtual cSerializablePath&      Path() = 0;
-            virtual cSerializableStorage&   Storage() = 0;
-            virtual cSerializableInterface* Parent() const = 0;
-            virtual cSerializableInterface* GetRootObject() = 0;
-            virtual PropertyBase*           GetPropertyByName  ( const std::string& name ) = 0;
-            virtual PropertyBase*           GetPropertyById    ( uint32_t    id   ) = 0;
-            virtual PropertyBase*           GetPropertyFromPath( const std::string& path ) = 0;
-            virtual cSerializableInterface* GetChildByName     ( const std::string& name ) = 0;
-            virtual void                    RegisterProperty   ( PropertyBase* prop ) = 0;
-            virtual void                    UnRegisterProperty ( PropertyBase* prop ) = 0;
-            virtual void                    PulseChanged       ( bool fullTree = false ) = 0;
-            virtual void                    CommitChanges      () = 0;
-            virtual void                    Enable             ( bool val ) = 0;
-            virtual void                    ParentUnbound      () = 0;
-            virtual void                    ParentBound        ( cSerializableInterface* obj ) = 0;
+            virtual void                     SetName( const std::string& name ) = 0;
+            virtual bool                     IsPropertyUnique( const std::string& name ) const = 0;
+            virtual bool                     IsNameUnique    ( const std::string& name, bool checkParent = false ) const = 0;
+
+            virtual cSerializablePath&       Path() = 0;
+            virtual cSerializableStorage&    Storage() = 0;
+            virtual cSerializableSelectable& Selection() = 0;
+            virtual cSerializableLua&        Script() = 0;
+            virtual cPropertyManager&        PropertyManager() = 0;
+
+            virtual cSerializableInterface*  Parent() const = 0;
+            virtual cSerializableInterface*  GetRootObject() = 0;
+            virtual PropertyBase*            GetPropertyByName  ( const std::string& name ) = 0;
+            virtual PropertyBase*            GetPropertyById    ( uint32_t    id   ) = 0;
+            virtual PropertyBase*            GetPropertyFromPath( const std::string& path ) = 0;
+            virtual cSerializableInterface*  GetChildByName     ( const std::string& name ) = 0;
+            virtual void                     RegisterProperty   ( PropertyBase* prop ) = 0;
+            virtual void                     UnRegisterProperty ( PropertyBase* prop ) = 0;
+            virtual void                     PulseChanged       ( bool fullTree = false ) = 0;
+            virtual void                     CommitChanges      () = 0;
+            virtual void                     Enable             ( bool val ) = 0;
+            virtual void                     ParentUnbound      () = 0;
+            virtual void                     ParentBound        ( cSerializableInterface* obj ) = 0;
 
             cSerializableChildList* ChildList()       { return &m_childList;}
             void                    Lock     () const { m_Mutex.Lock();     }
@@ -85,7 +93,6 @@ namespace codeframe
 
             virtual bool IsPulseState() const = 0;
 
-            std::vector<PropertyBase*>  m_vMainPropertyList;  ///< Kontenet zawierajacy wskazniki do parametrow
             PropertyBase                m_dummyProperty;
             mutable WrMutex             m_Mutex;
             cSerializableChildList      m_childList;

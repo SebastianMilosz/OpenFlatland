@@ -14,7 +14,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableLua::cSerializableLua() : m_luastate( NULL )
+    cSerializableLua::cSerializableLua( cSerializableInterface& sint ) : m_luastate( NULL )
     {
 
     }

@@ -6,6 +6,7 @@
 namespace codeframe
 {
     class cSerializableInterface;
+    class PropertyBase;
 
     class cSerializablePath
     {
@@ -14,9 +15,17 @@ namespace codeframe
             ~cSerializablePath();
 
             std::string PathString() const;
+            void ParentBound( cSerializableInterface* parent );
+            void ParentUnbound();
+
+            cSerializableInterface*  Parent()     const;
+            cSerializableInterface*  GetRootObject      (                  );
+            cSerializableInterface*  GetObjectFromPath  ( const std::string& path );
+            cSerializableInterface*  GetChildByName     ( const std::string& name );
 
         private:
             cSerializableInterface& m_sint;
+            cSerializableInterface* m_parent;
     };
 
 }

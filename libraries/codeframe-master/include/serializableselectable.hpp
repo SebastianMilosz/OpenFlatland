@@ -24,7 +24,7 @@ namespace codeframe
         friend class cSerializableContainer;
 
         public:
-                     cSerializableSelectable();
+                     cSerializableSelectable( cSerializableInterface& sint );
             virtual ~cSerializableSelectable();
 
             virtual void Select( bool state = true );
