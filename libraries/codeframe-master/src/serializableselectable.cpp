@@ -8,7 +8,7 @@ namespace codeframe
   * @brief
  **
 ******************************************************************************/
-cSerializableSelectable::cSerializableSelectable() :
+cSerializableSelectable::cSerializableSelectable( cSerializableInterface& sint ) :
     m_selected( false ),
     m_smartThis( smart_ptr<cSerializableInterface>(NULL) )
 {

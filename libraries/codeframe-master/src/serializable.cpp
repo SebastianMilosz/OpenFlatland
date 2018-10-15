@@ -17,44 +17,12 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::ParentUnbound()
-    {
-        m_parent->ChildList()->UnRegister( this );
-        m_parent = NULL;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void cSerializable::ParentBound( cSerializableInterface* obj )
-    {
-        m_parent = obj;
-
-        // Rejestrujemy sie u rodzica
-        if( m_parent )
-        {
-            m_parent->ChildList()->Register( this );
-        }
-
-        if( m_delay )
-        {
-            //Start();
-        }
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     cSerializable::cSerializable( const std::string& name, cSerializableInterface* parent ) :
-        cSerializableSelectable(),
         m_SerializablePath( *this ),
         m_SerializableStorage( *this ),
-        m_delay( 0 ),
-        m_parent( NULL ),
+        m_SerializableSelectable( *this ),
+        m_SerializableLua( *this ),
+        m_PropertyManager( *this ),
         m_sContainerName( name )
 
     {
@@ -70,15 +38,7 @@ namespace codeframe
     {
         EnterPulseState();
 
-        // Emitujemy sygnaly zmiany wszystkich propertisow
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
-        {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp )
-            {
-                temp->PulseChanged();
-            }
-        }
+        PropertyManager().PulseChanged();
 
         LeavePulseState();
 
@@ -116,84 +76,10 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cSerializable::GetPropertyByName( const std::string& name )
-    {
-        // Po wszystkich zarejestrowanych parametrach
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
-        {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp && temp->Name() == name )
-            {
-                return temp;
-            }
-        }
-
-        LOGGER( LOG_FATAL << "cSerializable::GetPropertyByName(" << name << "): Out of range" );
-
-        return &m_dummyProperty;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    PropertyBase* cSerializable::GetPropertyById( uint32_t id )
-    {
-        //m_Mutex.Lock();
-        // Po wszystkic1h zarejestrowanych parametrach
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
-        {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp && temp->Id() == id )
-            {
-                return temp;
-            }
-        }
-        //m_Mutex.Unlock();
-
-        throw std::out_of_range( "cSerializable::GetPropertyById(" + utilities::math::IntToStr(id) + "): Out of range" );
-
-        return NULL;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    std::string cSerializable::GetNameById( uint32_t id ) const
-    {
-        std::string retName = "";
-
-        Lock();
-        // Po wszystkic1h zarejestrowanych parametrach
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
-        {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp && temp->Id() == id )
-            {
-                retName = temp->Name();
-            }
-        }
-        Unlock();
-
-        return retName;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     cSerializable::~cSerializable()
     {
         // Wyrejestrowywujemy sie u rodzica
-        if( m_parent )
-        {
-            m_parent->ChildList()->UnRegister( this );
-        }
-
+        Path().ParentUnbound();
         ClearPropertyList();
     }
 
@@ -345,6 +231,36 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    cSerializableSelectable& cSerializable::Selection()
+    {
+        return m_SerializableSelectable;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    cSerializableLua& cSerializable::Script()
+    {
+        return m_SerializableLua;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    cPropertyManager& cSerializable::PropertyManager()
+    {
+        return m_PropertyManager;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     std::string cSerializable::ObjectName( bool idSuffix ) const
     {
         if( (GetId() >= 0) && (idSuffix == true) )
@@ -366,108 +282,6 @@ namespace codeframe
     std::string cSerializable::SizeString() const
     {
         return utilities::math::IntToStr(size());
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    cSerializableInterface* cSerializable::Parent() const
-    {
-        return m_parent;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    cSerializableInterface* cSerializable::GetChildByName( const std::string& name )
-    {
-        for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
-        {
-            cSerializableInterface* iser = *it;
-            if( iser->ObjectName() == name ) return iser;
-        }
-        return NULL;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    cSerializableInterface* cSerializable::GetRootObject()
-    {
-        if( Parent() ) return Parent()->GetRootObject();
-
-        return this;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief Return serializable object from string path
-     **
-    ******************************************************************************/
-    cSerializableInterface* cSerializable::GetObjectFromPath( const std::string& path )
-    {
-        // Rozdzelamy stringa na kawalki
-        vector<std::string>     tokens;
-        std::string             delimiters = "/";
-        cSerializableInterface* curObject = this;
-
-        utilities::text::split( path, delimiters, tokens);
-
-        // Sprawdzamy czy root sie zgadza
-        if(tokens.size() == 0)
-        {
-            if( curObject->ObjectName() != path )
-            {
-                return NULL;
-            }
-        }
-        else
-        {
-            std::string tempStr = tokens.at(0);
-            if( curObject->ObjectName() != tempStr )
-            {
-                return NULL;
-            }
-        }
-
-        // Po wszystkich skladnikach sciezki
-        for( unsigned i = 1; i < tokens.size(); i++ )
-        {
-            std::string levelName = tokens.at(i);
-            curObject = curObject->GetChildByName( levelName );
-            if(curObject == NULL) break;
-        }
-
-        return curObject;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    PropertyBase* cSerializable::GetPropertyFromPath( const std::string& path )
-    {
-        // Wydzielamy sciezke od nazwy propertisa
-        std::string::size_type found = path.find_last_of(".");
-        std::string objPath      = path.substr( 0, found );
-        std::string propertyName = path.substr( found+1  );
-
-        cSerializableInterface* object = GetObjectFromPath( objPath );
-
-        if( object )
-        {
-            PropertyBase* prop = object->GetPropertyByName( propertyName );
-            return prop;
-        }
-
-        return NULL;
     }
 
     /*****************************************************************************/

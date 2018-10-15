@@ -58,7 +58,7 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
     m_circle.setOutlineColor( GetColor() );
     m_circle.setFillColor( sf::Color::Transparent );
 
-    signalSelectionChanged.connect( this, &EntityShell::slotSelectionChanged );
+    Selection().signalSelectionChanged.connect( this, &EntityShell::slotSelectionChanged );
 }
 
 /*****************************************************************************/
@@ -78,7 +78,7 @@ EntityShell::~EntityShell()
 ******************************************************************************/
 void EntityShell::slotSelectionChanged( smart_ptr<cSerializableInterface> )
 {
-    if ( IsSelected() == true )
+    if ( Selection().IsSelected() == true )
     {
         m_circle.setFillColor( sf::Color::Blue );
     }

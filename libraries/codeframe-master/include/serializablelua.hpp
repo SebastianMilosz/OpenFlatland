@@ -34,7 +34,7 @@ namespace codeframe
             void        ThisToLua( lua_State* l, bool classDeclaration = true );
 
         public:
-                     cSerializableLua();
+                     cSerializableLua( cSerializableInterface& sint );
             virtual ~cSerializableLua();
 
             void LuaRunString( std::string luaScriptString );

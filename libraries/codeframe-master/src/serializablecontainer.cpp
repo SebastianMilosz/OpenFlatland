@@ -113,7 +113,7 @@ bool cSerializableContainer::Dispose( unsigned int id )
 
     if ( smart_ptr_isValid( obj ) == true )
     {
-        m_containerVector[ id ]->DisconectFromContainer();
+        m_containerVector[ id ]->Selection().DisconectFromContainer();
         m_containerVector[ id ] = smart_ptr<cSerializable>(NULL);
 
         if ( m_size )
@@ -151,7 +151,7 @@ bool cSerializableContainer::DisposeByBuildType( std::string serType, cIgnoreLis
 
         if ( smart_ptr_isValid( sptr ) && sptr->BuildType() == serType && ignore.IsIgnored( smart_ptr_getRaw( sptr ) ) == false )
         {
-            sptr->DisconectFromContainer();
+            sptr->Selection().DisconectFromContainer();
             *it = smart_ptr<cSerializable>(NULL);
 
             if ( m_size )
@@ -184,7 +184,7 @@ bool cSerializableContainer::Dispose( smart_ptr<cSerializableInterface> obj )
         {
             if( sptr->ObjectName() == obj->ObjectName() )
             {
-                sptr->DisconectFromContainer();
+                sptr->Selection().DisconectFromContainer();
                 *it = smart_ptr<cSerializable>();
                 if( m_size ) m_size--;
                 signalContainerSelectionChanged.Emit( sptr );
@@ -212,7 +212,7 @@ bool cSerializableContainer::Dispose()
         // Usuwamy tylko jesli nikt inny nie korzysta z obiektu
         if( smart_ptr_getCount( obj ) <= 2 )
         {
-            obj->DisconectFromContainer();
+            obj->Selection().DisconectFromContainer();
             obj = smart_ptr<cSerializable>(NULL);
         }
         else // Nie mozna usunac obiektu
@@ -372,7 +372,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
         classType->ParentBound( serPar );
     }
 
-    classType->ConectToContainer<cSerializableContainer>( this, classType );
+    classType->Selection().ConectToContainer<cSerializableContainer>( this, classType );
     classType->SetId( retPos );
 
     m_size++;
@@ -393,7 +393,7 @@ void cSerializableContainer::slotSelectionChanged( smart_ptr<cSerializableInterf
     {
         std::string name = serializableObjectNew->ObjectName();
 
-        if ( serializableObjectNew->IsSelected() == true )
+        if ( serializableObjectNew->Selection().IsSelected() == true )
         {
             cSerializable* serializableObjectSel = static_cast<cSerializable*>( smart_ptr_getRaw(m_selected) );
 
@@ -401,7 +401,7 @@ void cSerializableContainer::slotSelectionChanged( smart_ptr<cSerializableInterf
             {
                 if ( (cSerializable*)NULL != serializableObjectSel )
                 {
-                    serializableObjectSel->Select( false );
+                    serializableObjectSel->Selection().Select( false );
                 }
             }
 

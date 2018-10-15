@@ -5,9 +5,7 @@
 
 #include "serializableinterface.hpp"
 #include "serializablepropertybase.hpp"
-#include "serializablelua.hpp"
 #include "serializablestorage.hpp"
-#include "serializableselectable.hpp"
 #include "instancemanager.hpp"
 
 namespace codeframe
@@ -22,8 +20,6 @@ namespace codeframe
     ******************************************************************************/
     class cSerializable :
         public cInstanceManager,
-        public cSerializableLua,
-        public cSerializableSelectable,
         public cSerializableInterface
     {
         friend class PropertyBase;
@@ -34,28 +30,23 @@ namespace codeframe
 
             void             SetName      ( const std::string& name );
 
-            bool                    IsPropertyUnique( const std::string& name ) const;
-            bool                    IsNameUnique    ( const std::string& name, bool checkParent = false ) const;
-            cSerializablePath&      Path();
-            cSerializableStorage&   Storage();
-            std::string             ObjectName( bool idSuffix = true ) const;
-            std::string             SizeString() const;
-            cSerializableInterface* Parent()     const;
-            cSerializableInterface* GetRootObject      (                  );
-            cSerializableInterface* GetObjectFromPath  ( const std::string& path );
-            cSerializableInterface* GetChildByName     ( const std::string& name );
-            void                    RegisterProperty   ( PropertyBase*   prop );
-            void                    UnRegisterProperty ( PropertyBase*   prop );
-            void                    ClearPropertyList  (                  );
-            PropertyBase*           GetPropertyByName  ( const std::string& name );
-            PropertyBase*           GetPropertyById    ( uint32_t    id   );
-            PropertyBase*           GetPropertyFromPath( const std::string& path );
-            std::string             GetNameById        ( uint32_t    id   ) const;
-            void                    PulseChanged       ( bool fullTree = false );
-            void                    CommitChanges      (                  );
-            void                    Enable             ( bool val         );
-            void                    ParentUnbound      ();
-            void                    ParentBound        ( cSerializableInterface* obj );
+            bool                     IsPropertyUnique( const std::string& name ) const;
+            bool                     IsNameUnique    ( const std::string& name, bool checkParent = false ) const;
+
+            cSerializablePath&       Path();
+            cSerializableStorage&    Storage();
+            cSerializableSelectable& Selection();
+            cSerializableLua&        Script();
+            cPropertyManager&        PropertyManager();
+
+            std::string              ObjectName( bool idSuffix = true ) const;
+            std::string              SizeString() const;
+            void                     RegisterProperty   ( PropertyBase*   prop );
+            void                     UnRegisterProperty ( PropertyBase*   prop );
+            void                     ClearPropertyList  (                  );
+            void                     PulseChanged       ( bool fullTree = false );
+            void                     CommitChanges      (                  );
+            void                     Enable             ( bool val         );
 
         public: // @todo move to Property Sygnaly
             signal1<PropertyBase*> signalPropertyChanged;                   ///< Emitowany gdy propertis został zmieniony razem z wskaznikiem na niego
@@ -73,9 +64,10 @@ namespace codeframe
 
             cSerializablePath       m_SerializablePath;
             cSerializableStorage    m_SerializableStorage;
+            cSerializableSelectable m_SerializableSelectable;
+            cSerializableLua        m_SerializableLua;
+            cPropertyManager        m_PropertyManager;
 
-            int                     m_delay;
-            cSerializableInterface* m_parent;
             std::string             m_sContainerName;
             bool                    m_pulseState;
     };
