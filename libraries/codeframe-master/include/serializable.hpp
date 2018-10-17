@@ -33,17 +33,14 @@ namespace codeframe
             bool                     IsPropertyUnique( const std::string& name ) const;
             bool                     IsNameUnique    ( const std::string& name, bool checkParent = false ) const;
 
-            cSerializablePath&       Path();
-            cSerializableStorage&    Storage();
-            cSerializableSelectable& Selection();
-            cSerializableLua&        Script();
-            cPropertyManager&        PropertyManager();
+            cSerializablePath&       Path() const;
+            cSerializableStorage&    Storage() const;
+            cSerializableSelectable& Selection() const;
+            cSerializableLua&        Script() const;
+            cPropertyManager&        PropertyManager() const;
 
             std::string              ObjectName( bool idSuffix = true ) const;
             std::string              SizeString() const;
-            void                     RegisterProperty   ( PropertyBase*   prop );
-            void                     UnRegisterProperty ( PropertyBase*   prop );
-            void                     ClearPropertyList  (                  );
             void                     PulseChanged       ( bool fullTree = false );
             void                     CommitChanges      (                  );
             void                     Enable             ( bool val         );

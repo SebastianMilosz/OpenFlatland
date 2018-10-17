@@ -80,80 +80,7 @@ namespace codeframe
     {
         // Wyrejestrowywujemy sie u rodzica
         Path().ParentUnbound();
-        ClearPropertyList();
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void cSerializable::RegisterProperty( PropertyBase* prop )
-    {
-        Lock();
-        m_vMainPropertyList.push_back( prop );
-        prop->signalChanged.connect(this, &cSerializable::slotPropertyChanged       );
-        prop->signalChanged.connect(this, &cSerializable::slotPropertyChangedGlobal );
-        Unlock();
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void cSerializable::UnRegisterProperty( PropertyBase* prop )
-    {
-        Lock();
-        // Po wszystkic1h zarejestrowanych parametrach
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
-        {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp && temp->Name() == prop->Name() )
-            {
-                // Wywalamy z listy
-                temp->signalChanged.disconnect( this );
-                m_vMainPropertyList.erase(m_vMainPropertyList.begin() + n);
-                break;
-            }
-        }
-        Unlock();
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void cSerializable::ClearPropertyList()
-    {
-        Lock();
-        m_vMainPropertyList.clear();
-        Unlock();
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    bool cSerializable::IsPropertyUnique( const std::string& name ) const
-    {
-        int octcnt = 0;
-
-        Lock();
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
-        {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp && temp->Name() == name )
-            {
-                octcnt++;
-            }
-        }
-        Unlock();
-
-        if(octcnt == 1 ) return true;
-        else return false;
+        PropertyManager().ClearPropertyList();
     }
 
     /*****************************************************************************/
@@ -211,7 +138,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializablePath& cSerializable::Path()
+    cSerializablePath& cSerializable::Path() const
     {
         return m_SerializablePath;
     }
@@ -221,7 +148,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableStorage& cSerializable::Storage()
+    cSerializableStorage& cSerializable::Storage() const
     {
         return m_SerializableStorage;
     }
@@ -231,7 +158,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableSelectable& cSerializable::Selection()
+    cSerializableSelectable& cSerializable::Selection() const
     {
         return m_SerializableSelectable;
     }
@@ -241,7 +168,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableLua& cSerializable::Script()
+    cSerializableLua& cSerializable::Script() const
     {
         return m_SerializableLua;
     }
@@ -251,7 +178,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cPropertyManager& cSerializable::PropertyManager()
+    cPropertyManager& cSerializable::PropertyManager() const
     {
         return m_PropertyManager;
     }
@@ -281,7 +208,7 @@ namespace codeframe
     ******************************************************************************/
     std::string cSerializable::SizeString() const
     {
-        return utilities::math::IntToStr(size());
+        return utilities::math::IntToStr( PropertyManager().size() );
     }
 
     /*****************************************************************************/
@@ -291,16 +218,9 @@ namespace codeframe
     ******************************************************************************/
     void cSerializable::CommitChanges()
     {
-        Lock();
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
-        {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp )
-            {
-                temp->CommitChanges();
-            }
-        }
+        PropertyManager().CommitChanges();
 
+        Lock();
         for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
         {
             cSerializableInterface* iser = *it;
@@ -309,7 +229,6 @@ namespace codeframe
                 iser->CommitChanges();
             }
         }
-
         Unlock();
     }
 
@@ -342,17 +261,9 @@ namespace codeframe
     ******************************************************************************/
     void cSerializable::Enable( bool val )
     {
-        // Po wszystkich propertisach ustawiamy nowy stan
-        Lock();
+        PropertyManager().Enable( val );
 
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
-        {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp )
-            {
-                temp->Info().Enable( val );
-            }
-        }
+        Lock();
 
         for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
         {
