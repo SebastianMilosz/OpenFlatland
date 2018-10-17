@@ -48,11 +48,11 @@ namespace codeframe
             virtual bool                     IsPropertyUnique( const std::string& name ) const = 0;
             virtual bool                     IsNameUnique    ( const std::string& name, bool checkParent = false ) const = 0;
 
-            virtual cSerializablePath&       Path() = 0;
-            virtual cSerializableStorage&    Storage() = 0;
-            virtual cSerializableSelectable& Selection() = 0;
-            virtual cSerializableLua&        Script() = 0;
-            virtual cPropertyManager&        PropertyManager() = 0;
+            virtual cSerializablePath&       Path() const = 0;
+            virtual cSerializableStorage&    Storage() const = 0;
+            virtual cSerializableSelectable& Selection() const = 0;
+            virtual cSerializableLua&        Script() const = 0;
+            virtual cPropertyManager&        PropertyManager() const = 0;
 
             virtual cSerializableInterface*  Parent() const = 0;
             virtual cSerializableInterface*  GetRootObject() = 0;
@@ -79,17 +79,9 @@ namespace codeframe
             static float       LibraryVersion();
             static std::string LibraryVersionString();
 
-            // Iterator
-            PropertyIterator begin() throw();
-            PropertyIterator end()   throw();
-            int              size()  const;
-
         protected:
                      cSerializableInterface();
             virtual ~cSerializableInterface();
-
-            PropertyBase* GetObjectFieldValue( int cnt );     ///< Zwraca wartosc pola do serializacji
-            int           GetObjectFieldCnt() const;          ///< Zwraca ilosc skladowych do serializacji
 
             virtual bool IsPulseState() const = 0;
 
