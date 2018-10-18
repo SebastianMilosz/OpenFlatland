@@ -1,6 +1,6 @@
 #include "serializablepropertyiterator.hpp"
 
-#include "serializableinterface.hpp"
+#include "serializablepropertymanager.hpp"
 
 namespace codeframe
 {
@@ -10,7 +10,7 @@ namespace codeframe
      **
     ******************************************************************************/
     PropertyIterator::PropertyIterator(const PropertyIterator& n) :
-        m_base(n.m_base),
+        m_PropertyManager(n.m_PropertyManager),
         m_param(n.m_param),
         m_curId(n.m_curId)
     {
@@ -24,7 +24,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase* PropertyIterator::operator *()
     {
-        m_param = m_base->GetObjectFieldValue( m_curId );
+        m_param = m_PropertyManager.GetObjectFieldValue( m_curId );
         return m_param;
     }
 
@@ -35,7 +35,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyIterator& PropertyIterator::operator ++()
     {
-        if(m_curId < m_base->GetObjectFieldCnt())
+        if( m_curId < m_PropertyManager.GetObjectFieldCnt() )
         {
             ++m_curId;
         }
@@ -107,7 +107,9 @@ namespace codeframe
       * @brief Konstruktor bazowy prywatny bo tylko cSerializable moze tworzyc swoje iteratory
      **
     ******************************************************************************/
-    PropertyIterator::PropertyIterator(cSerializableInterface* b, int n) : m_base(b), m_curId(n)
+    PropertyIterator::PropertyIterator( cPropertyManager& pm, int n ) :
+        m_PropertyManager( pm ),
+        m_curId( n )
     {
 
     }

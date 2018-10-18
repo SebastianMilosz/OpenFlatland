@@ -1,7 +1,33 @@
 #include "serializablepropertymanager.hpp"
 
+#include <LoggerUtilities.h>
+
+#include "serializableinterface.hpp"
+
 namespace codeframe
 {
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    cPropertyManager::cPropertyManager( cSerializableInterface& sint ) :
+        m_sint( sint ),
+        m_dummyProperty(NULL, "DUMMY", TYPE_NON, cPropertyInfo())
+    {
+
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    cPropertyManager::~cPropertyManager()
+    {
+
+    }
+
     /*****************************************************************************/
     /**
       * @brief
@@ -53,11 +79,34 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    PropertyBase* cPropertyManager::GetPropertyFromPath( const std::string& path )
+    {
+        // Wydzielamy sciezke od nazwy propertisa
+        std::string::size_type found = path.find_last_of(".");
+        std::string objPath      = path.substr( 0, found );
+        std::string propertyName = path.substr( found+1  );
+
+        cSerializableInterface* object = m_sint.Path().GetObjectFromPath( objPath );
+
+        if( object )
+        {
+            PropertyBase* prop = object->GetPropertyByName( propertyName );
+            return prop;
+        }
+
+        return NULL;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     std::string cPropertyManager::GetNameById( uint32_t id ) const
     {
         std::string retName = "";
 
-        Lock();
+        m_sint.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
@@ -67,7 +116,7 @@ namespace codeframe
                 retName = temp->Name();
             }
         }
-        Unlock();
+        m_sint.Unlock();
 
         return retName;
     }
@@ -97,7 +146,7 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyManager::CommitChanges()
     {
-        Lock();
+        m_sint.Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
@@ -106,7 +155,7 @@ namespace codeframe
                 temp->CommitChanges();
             }
         }
-        Unlock();
+        m_sint.Unlock();
     }
 
     /*****************************************************************************/
@@ -117,8 +166,7 @@ namespace codeframe
     void cPropertyManager::Enable( bool val )
     {
         // Po wszystkich propertisach ustawiamy nowy stan
-        Lock();
-
+        m_sint.Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
@@ -127,8 +175,7 @@ namespace codeframe
                 temp->Info().Enable( val );
             }
         }
-
-        Unlock();
+        m_sint.Unlock();
     }
 
     /*****************************************************************************/
@@ -138,11 +185,11 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyManager::RegisterProperty( PropertyBase* prop )
     {
-        Lock();
+        m_sint.Lock();
         m_vMainPropertyList.push_back( prop );
-        prop->signalChanged.connect(this, &cSerializable::slotPropertyChanged       );
-        prop->signalChanged.connect(this, &cSerializable::slotPropertyChangedGlobal );
-        Unlock();
+        prop->signalChanged.connect(this, &cPropertyManager::slotPropertyChanged       );
+        prop->signalChanged.connect(this, &cPropertyManager::slotPropertyChangedGlobal );
+        m_sint.Unlock();
     }
 
     /*****************************************************************************/
@@ -152,7 +199,7 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyManager::UnRegisterProperty( PropertyBase* prop )
     {
-        Lock();
+        m_sint.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
@@ -165,7 +212,7 @@ namespace codeframe
                 break;
             }
         }
-        Unlock();
+        m_sint.Unlock();
     }
 
     /*****************************************************************************/
@@ -175,9 +222,9 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyManager::ClearPropertyList()
     {
-        Lock();
+        m_sint.Lock();
         m_vMainPropertyList.clear();
-        Unlock();
+        m_sint.Unlock();
     }
 
     /*****************************************************************************/
@@ -189,7 +236,7 @@ namespace codeframe
     {
         int octcnt = 0;
 
-        Lock();
+        m_sint.Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
@@ -198,7 +245,7 @@ namespace codeframe
                 octcnt++;
             }
         }
-        Unlock();
+        m_sint.Unlock();
 
         if(octcnt == 1 ) return true;
         else return false;
@@ -211,9 +258,9 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase* cPropertyManager::GetObjectFieldValue( int cnt )
     {
-        m_Mutex.Lock();
+        m_sint.Lock();
         PropertyBase* retParameter = m_vMainPropertyList.at( cnt );
-        m_Mutex.Unlock();
+        m_sint.Unlock();
 
         return retParameter;
     }
@@ -225,9 +272,9 @@ namespace codeframe
     ******************************************************************************/
     int cPropertyManager::GetObjectFieldCnt() const
     {
-        m_Mutex.Lock();
+        m_sint.Lock();
         int retSize = m_vMainPropertyList.size();
-        m_Mutex.Unlock();
+        m_sint.Unlock();
 
         return retSize;
     }
@@ -239,7 +286,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyIterator cPropertyManager::begin() throw()
     {
-        return PropertyIterator(this, 0);
+        return PropertyIterator( *this, 0 );
     }
 
     /*****************************************************************************/
@@ -249,7 +296,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyIterator cPropertyManager::end() throw()
     {
-        return PropertyIterator(this, GetObjectFieldCnt());
+        return PropertyIterator( *this, GetObjectFieldCnt() );
     }
 
     /*****************************************************************************/
@@ -260,5 +307,27 @@ namespace codeframe
     int cPropertyManager::size() const
     {
         return GetObjectFieldCnt();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void cPropertyManager::slotPropertyChangedGlobal( PropertyBase* prop )
+    {
+        signalPropertyChanged.Emit( prop );
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void cPropertyManager::slotPropertyChanged( PropertyBase* prop )
+    {
+        #ifdef SERIALIZABLE_USE_WXWIDGETS
+        wxUpdatePropertyValue( prop );
+        #endif
     }
 }

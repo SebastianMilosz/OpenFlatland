@@ -5,15 +5,14 @@
 #include <string>
 #include <map>
 #include <typeinfo>
-#include <sigslot.h>
 #include <smartpointer.h>
+#include <sigslot.h>
 
 #include <DataTypesUtilities.h>
 #include <MathUtilities.h>
 #include <ThreadUtilities.h>
 
 #include "serializableproperty.hpp"
-#include "serializablepropertyiterator.hpp"
 #include "serializablechildlist.hpp"
 #include "serializablepath.hpp"
 #include "serializablestorage.hpp"
@@ -35,7 +34,6 @@ namespace codeframe
     class cSerializableInterface : public sigslot::has_slots<>
     {
         friend class PropertyBase;
-        friend class PropertyIterator;
 
         public:
             virtual std::string             ObjectName( bool idSuffix = true ) const = 0;   ///< Nazwa serializowanego objektu
@@ -45,14 +43,13 @@ namespace codeframe
             virtual std::string             ConstructPatern() const = 0;    ///< Parametry konstruktora
 
             virtual void                     SetName( const std::string& name ) = 0;
-            virtual bool                     IsPropertyUnique( const std::string& name ) const = 0;
             virtual bool                     IsNameUnique    ( const std::string& name, bool checkParent = false ) const = 0;
 
-            virtual cSerializablePath&       Path() const = 0;
-            virtual cSerializableStorage&    Storage() const = 0;
-            virtual cSerializableSelectable& Selection() const = 0;
-            virtual cSerializableLua&        Script() const = 0;
-            virtual cPropertyManager&        PropertyManager() const = 0;
+            virtual cSerializablePath&       Path() = 0;
+            virtual cSerializableStorage&    Storage() = 0;
+            virtual cSerializableSelectable& Selection() = 0;
+            virtual cSerializableLua&        Script() = 0;
+            virtual cPropertyManager&        PropertyManager() = 0;
 
             virtual cSerializableInterface*  Parent() const = 0;
             virtual cSerializableInterface*  GetRootObject() = 0;
@@ -85,7 +82,6 @@ namespace codeframe
 
             virtual bool IsPulseState() const = 0;
 
-            PropertyBase                m_dummyProperty;
             mutable WrMutex             m_Mutex;
             cSerializableChildList      m_childList;
             int                         m_Id;

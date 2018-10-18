@@ -138,7 +138,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializablePath& cSerializable::Path() const
+    cSerializablePath& cSerializable::Path()
     {
         return m_SerializablePath;
     }
@@ -148,7 +148,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableStorage& cSerializable::Storage() const
+    cSerializableStorage& cSerializable::Storage()
     {
         return m_SerializableStorage;
     }
@@ -158,7 +158,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableSelectable& cSerializable::Selection() const
+    cSerializableSelectable& cSerializable::Selection()
     {
         return m_SerializableSelectable;
     }
@@ -168,7 +168,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableLua& cSerializable::Script() const
+    cSerializableLua& cSerializable::Script()
     {
         return m_SerializableLua;
     }
@@ -178,7 +178,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cPropertyManager& cSerializable::PropertyManager() const
+    cPropertyManager& cSerializable::PropertyManager()
     {
         return m_PropertyManager;
     }
@@ -208,7 +208,7 @@ namespace codeframe
     ******************************************************************************/
     std::string cSerializable::SizeString() const
     {
-        return utilities::math::IntToStr( PropertyManager().size() );
+        return utilities::math::IntToStr( m_PropertyManager.size() );
     }
 
     /*****************************************************************************/
@@ -230,28 +230,6 @@ namespace codeframe
             }
         }
         Unlock();
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void cSerializable::slotPropertyChangedGlobal( PropertyBase* prop )
-    {
-        signalPropertyChanged.Emit( prop );
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void cSerializable::slotPropertyChanged( PropertyBase* prop __attribute__((unused)) )
-    {
-        #ifdef SERIALIZABLE_USE_WXWIDGETS
-        wxUpdatePropertyValue( prop );
-        #endif
     }
 
     /*****************************************************************************/

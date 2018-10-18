@@ -6,12 +6,11 @@
 namespace codeframe
 {
     class PropertyBase;
-    class cSerializableInterface;
+    class cPropertyManager;
 
     class PropertyIterator : public std::iterator<std::input_iterator_tag, PropertyBase*>
     {
-        friend class PropertyBase;
-        friend class cSerializableInterface;
+        friend class cPropertyManager;
 
     public:
         PropertyIterator(const PropertyIterator& n);
@@ -28,11 +27,11 @@ namespace codeframe
         bool operator!=(const PropertyIterator& n);
 
     private:
-        PropertyIterator(cSerializableInterface* b, int n);
+        PropertyIterator( cPropertyManager& pm, int n );
 
-        cSerializableInterface* m_base;
-        PropertyBase*           m_param;
-        int                     m_curId;
+        cPropertyManager& m_PropertyManager;
+        PropertyBase*     m_param;
+        int               m_curId;
     };
 }
 
