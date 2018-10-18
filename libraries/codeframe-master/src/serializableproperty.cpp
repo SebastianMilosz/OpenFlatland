@@ -47,7 +47,7 @@ namespace codeframe
 
         m_Mutex.Lock();
 
-        int size = m_parentpc->GetObjectFieldCnt();
+        int size = m_parentpc->PropertyManager().GetObjectFieldCnt();
 
         m_id = GetHashId( Name(), 255 * s_globalParConCnt + size );
 

@@ -158,27 +158,4 @@ namespace codeframe
 
         return curObject;
     }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    PropertyBase* cSerializablePath::GetPropertyFromPath( const std::string& path )
-    {
-        // Wydzielamy sciezke od nazwy propertisa
-        std::string::size_type found = path.find_last_of(".");
-        std::string objPath      = path.substr( 0, found );
-        std::string propertyName = path.substr( found+1  );
-
-        cSerializableInterface* object = GetObjectFromPath( objPath );
-
-        if( object )
-        {
-            PropertyBase* prop = object->GetPropertyByName( propertyName );
-            return prop;
-        }
-
-        return NULL;
-    }
 }
