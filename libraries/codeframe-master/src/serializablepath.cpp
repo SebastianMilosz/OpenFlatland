@@ -39,7 +39,7 @@ namespace codeframe
     {
         std::string path;
 
-        cSerializableInterface* parent = m_sint.Parent();
+        cSerializableInterface* parent = m_sint.Path().Parent();
 
         if( (cSerializableInterface*)NULL != parent )
         {
@@ -112,7 +112,7 @@ namespace codeframe
     ******************************************************************************/
     cSerializableInterface* cSerializablePath::GetRootObject()
     {
-        if( Parent() ) return Parent()->GetRootObject();
+        if( Parent() ) return Parent()->Path().GetRootObject();
 
         return &m_sint;
     }
@@ -152,7 +152,7 @@ namespace codeframe
         for( unsigned i = 1; i < tokens.size(); i++ )
         {
             std::string levelName = tokens.at(i);
-            curObject = curObject->GetChildByName( levelName );
+            curObject = curObject->Path().GetChildByName( levelName );
             if(curObject == NULL) break;
         }
 

@@ -51,7 +51,7 @@ namespace codeframe
 
         m_id = GetHashId( Name(), 255 * s_globalParConCnt + size );
 
-        m_parentpc->RegisterProperty( this );
+        m_parentpc->PropertyManager().RegisterProperty( this );
 
         s_globalParConCnt++;
 
@@ -69,7 +69,7 @@ namespace codeframe
 
         m_Mutex.Lock();
 
-        m_parentpc->UnRegisterProperty( this );
+        m_parentpc->PropertyManager().UnRegisterProperty( this );
 
         s_globalParConCnt--;
 

@@ -26,7 +26,7 @@ namespace codeframe
         m_sContainerName( name )
 
     {
-        ParentBound( parent );
+        m_SerializablePath.ParentBound( parent );
     }
 
     /*****************************************************************************/

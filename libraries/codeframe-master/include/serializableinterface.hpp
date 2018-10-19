@@ -51,13 +51,9 @@ namespace codeframe
             virtual cSerializableLua&        Script() = 0;
             virtual cPropertyManager&        PropertyManager() = 0;
 
-            virtual void                     RegisterProperty   ( PropertyBase* prop ) = 0;
-            virtual void                     UnRegisterProperty ( PropertyBase* prop ) = 0;
             virtual void                     PulseChanged       ( bool fullTree = false ) = 0;
             virtual void                     CommitChanges      () = 0;
             virtual void                     Enable             ( bool val ) = 0;
-            virtual void                     ParentUnbound      () = 0;
-            virtual void                     ParentBound        ( cSerializableInterface* obj ) = 0;
 
             cSerializableChildList* ChildList()       { return &m_childList;}
             void                    Lock     () const { m_Mutex.Lock();     }
