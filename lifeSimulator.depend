@@ -1549,7 +1549,7 @@
 	<new>
 	<stdint.h>
 
-1539207082 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
+1539894062 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableproperty.cpp
 	"serializableproperty.hpp"
 	<exception>
 	<stdexcept>
@@ -1561,7 +1561,7 @@
 1537994657 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
 	"serializableregister.hpp"
 
-1539294881 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
+1539896765 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
 	"serializable.hpp"
 	<iostream>
 	<exception>
@@ -1581,7 +1581,7 @@
 	"serializable.hpp"
 	<cstdio>
 
-1538822565 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableinterface.cpp
+1539894502 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableinterface.cpp
 	"serializableinterface.hpp"
 	"serializableproperty.hpp"
 	<LoggerUtilities.h>
@@ -1764,22 +1764,22 @@
 	<algorithm>
 	<ThreadUtilities.h>
 
-1539294793 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
+1539898716 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
 	<vector>
 	<string>
 	<map>
 	<typeinfo>
-	<sigslot.h>
 	<smartpointer.h>
+	<sigslot.h>
 	<DataTypesUtilities.h>
 	<MathUtilities.h>
 	<ThreadUtilities.h>
 	"serializableproperty.hpp"
-	"serializablepropertyiterator.hpp"
 	"serializablechildlist.hpp"
 	"serializablepath.hpp"
 	"serializablestorage.hpp"
 	"serializableselectable.hpp"
+	"serializablepropertymanager.hpp"
 	"serializablelua.hpp"
 	"xmlformatter.hpp"
 
@@ -1800,8 +1800,7 @@
 	"cxml.hpp"
 	"typeinfo.hpp"
 
-1539374882 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
-	<sigslot.h>
+1539897662 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
 	"serializableinterface.hpp"
 	"serializablepropertybase.hpp"
 	"serializablestorage.hpp"
@@ -3229,17 +3228,32 @@
 1538515639 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertyinfo.cpp
 	"serializablepropertyinfo.hpp"
 
-1538822764 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyiterator.hpp
+1539899028 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertyiterator.hpp
 	<iterator>
 
-1538822927 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertyiterator.cpp
+1539898598 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertyiterator.cpp
 	"serializablepropertyiterator.hpp"
-	"serializableinterface.hpp"
+	"serializablepropertymanager.hpp"
 
-1539374820 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepath.hpp
+1539640674 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepath.hpp
 	<string>
 
-1539207056 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepath.cpp
+1539892418 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepath.cpp
 	"serializablepath.hpp"
+	<vector>
+	<TextUtilities.h>
+	<LoggerUtilities.h>
+	"serializableinterface.hpp"
+
+1539898731 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertymanager.hpp
+	<sigslot.h>
+	<string>
+	<vector>
+	"serializablepropertyiterator.hpp"
+	"serializablepropertybase.hpp"
+
+1539898656 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertymanager.cpp
+	"serializablepropertymanager.hpp"
+	<LoggerUtilities.h>
 	"serializableinterface.hpp"
 

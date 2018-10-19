@@ -93,7 +93,7 @@ namespace codeframe
         int octcnt = 0;
 
         // Jesli niema rodzica to jestesmy rootem wiec na tym poziomie jestesmy wyjatkowi
-        if( this->Parent() == NULL )
+        if( this->m_SerializablePath.Parent() == NULL )
         {
             return true;
         }
@@ -102,7 +102,7 @@ namespace codeframe
         if( checkParent )
         {
             // Sprawdzamy czy rodzic jest wyjątkowy
-            bool isParentUnique = this->Parent()->IsNameUnique( this->Parent()->ObjectName() );
+            bool isParentUnique = this->m_SerializablePath.Parent()->IsNameUnique( this->m_SerializablePath.Parent()->ObjectName() );
 
             // Jesli rodzic nie jest wyjatkowy to dzieci tez nie są wiec niesprawdzamy dalej
             if( isParentUnique == false )
@@ -112,7 +112,7 @@ namespace codeframe
         }
 
         // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
-        for( cSerializableChildList::iterator it = this->Parent()->ChildList()->begin(); it != this->Parent()->ChildList()->end(); ++it )
+        for( cSerializableChildList::iterator it = this->m_SerializablePath.Parent()->ChildList()->begin(); it != this->m_SerializablePath.Parent()->ChildList()->end(); ++it )
         {
             cSerializableInterface* iser = *it;
 

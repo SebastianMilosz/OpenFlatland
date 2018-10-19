@@ -366,7 +366,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
     }
 
     // If there is no parent we become one
-    if( NULL == classType->Parent() )
+    if( NULL == classType->Path().Parent() )
     {
         cSerializableInterface* serPar = static_cast<cSerializableInterface*>( this );
         classType->ParentBound( serPar );
