@@ -369,7 +369,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
     if( NULL == classType->Path().Parent() )
     {
         cSerializableInterface* serPar = static_cast<cSerializableInterface*>( this );
-        classType->ParentBound( serPar );
+        classType->Path().ParentBound( serPar );
     }
 
     classType->Selection().ConectToContainer<cSerializableContainer>( this, classType );
