@@ -90,7 +90,7 @@ namespace codeframe
 
         if( object )
         {
-            PropertyBase* prop = object->GetPropertyByName( propertyName );
+            PropertyBase* prop = object->PropertyManager().GetPropertyByName( propertyName );
             return prop;
         }
 

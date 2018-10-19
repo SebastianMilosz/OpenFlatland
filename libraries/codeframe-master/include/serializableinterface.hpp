@@ -51,12 +51,6 @@ namespace codeframe
             virtual cSerializableLua&        Script() = 0;
             virtual cPropertyManager&        PropertyManager() = 0;
 
-            virtual cSerializableInterface*  Parent() const = 0;
-            virtual cSerializableInterface*  GetRootObject() = 0;
-            virtual PropertyBase*            GetPropertyByName  ( const std::string& name ) = 0;
-            virtual PropertyBase*            GetPropertyById    ( uint32_t    id   ) = 0;
-            virtual PropertyBase*            GetPropertyFromPath( const std::string& path ) = 0;
-            virtual cSerializableInterface*  GetChildByName     ( const std::string& name ) = 0;
             virtual void                     RegisterProperty   ( PropertyBase* prop ) = 0;
             virtual void                     UnRegisterProperty ( PropertyBase* prop ) = 0;
             virtual void                     PulseChanged       ( bool fullTree = false ) = 0;

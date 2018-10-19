@@ -75,8 +75,8 @@ namespace codeframe
     {
         cXMLNode mio1node = xml.GetChild( std::string("MIO1") );
 
-        // Po wszystkich polach serializacji tego obiektu
-        for( PropertyIterator it = m_serializableObject.begin(); it != m_serializableObject.end(); ++it )
+        // Loop over all property's inside this object
+        for( PropertyIterator it = m_serializableObject.PropertyManager().begin(); it != m_serializableObject.PropertyManager().end(); ++it )
         {
             PropertyBase* iser = *it;
 
@@ -129,7 +129,7 @@ namespace codeframe
                         cSerializableInterface* iserc = *itc;
 
                         // Po wszystkich polach serializacji tego obiektu
-                        for( PropertyIterator itcp = iserc->begin(); itcp != iserc->end(); ++itcp )
+                        for( PropertyIterator itcp = iserc->PropertyManager().begin(); itcp != iserc->PropertyManager().end(); ++itcp )
                         {
                             PropertyBase* isercp = *itcp;
 
@@ -353,7 +353,7 @@ namespace codeframe
 #endif
 
         // Po wszystkich polach serializacji
-        for( PropertyIterator it = m_serializableObject.begin(); it != m_serializableObject.end(); ++it )
+        for( PropertyIterator it = m_serializableObject.PropertyManager().begin(); it != m_serializableObject.PropertyManager().end(); ++it )
         {
             PropertyBase* iser = *it;
 
@@ -490,14 +490,14 @@ namespace codeframe
     void cXmlFormatter::DeserializeObjectProperties( cSerializableInterface* obj, cXMLNode& node )
     {
         // Po wszystkich polach serializacji tego obiektu
-        for ( PropertyIterator it = obj->begin(); it != obj->end(); ++it )
+        for ( PropertyIterator it = obj->PropertyManager().begin(); it != obj->PropertyManager().end(); ++it )
         {
             PropertyBase* iser = *it;
 
             if ( iser->Info().GetXmlMode() & XMLMODE_R )
             {
                 // Dozwolone sa tylko pola unikalne na danym poziomie
-                if ( obj->IsPropertyUnique( iser->Name() ) == false )
+                if ( obj->PropertyManager().IsPropertyUnique( iser->Name() ) == false )
                 {
                     std::string throwString = std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name();
 
