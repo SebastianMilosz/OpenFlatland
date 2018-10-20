@@ -29,7 +29,7 @@ namespace codeframe
         {
             if( serObj )
             {
-                m_vectorIgnoreEntry.push_back( sIgnoreEntry( serObj->ObjectName(), serObj->Class(), serObj->BuildType(), ignore ) );
+                m_vectorIgnoreEntry.push_back( sIgnoreEntry( serObj->Identity().ObjectName(), serObj->Class(), serObj->BuildType(), ignore ) );
             }
         }
 
@@ -47,7 +47,7 @@ namespace codeframe
                     sIgnoreEntry entry = *it;
 
                     /* std::cout << *it; ... */
-                    if( entry.Name == serObj->ObjectName() && entry.BuildType == serObj->BuildType() && entry.Ignore )
+                    if( entry.Name == serObj->Identity().ObjectName() && entry.BuildType == serObj->BuildType() && entry.Ignore )
                     {
                         return true;
                     }

@@ -10,8 +10,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface::cSerializableInterface() :
-        m_Id( -1 )
+    cSerializableInterface::cSerializableInterface()
     {
         static TypeInitializer typeInitializer;
     }

@@ -46,7 +46,7 @@ namespace codeframe
            path = parent->Path().PathString() + "/" + path;
         }
 
-        path += m_sint.ObjectName();
+        path += m_sint.Identity().ObjectName();
 
         return path ;
     }
@@ -62,7 +62,7 @@ namespace codeframe
         if( parent )
         {
             m_parent = parent;
-            m_parent->ChildList()->Register( &m_sint );
+            m_parent->ChildList().Register( &m_sint );
         }
     }
 
@@ -75,7 +75,7 @@ namespace codeframe
     {
         if( m_parent )
         {
-            m_parent->ChildList()->UnRegister( &m_sint );
+            m_parent->ChildList().UnRegister( &m_sint );
             m_parent = NULL;
         }
     }
@@ -97,10 +97,13 @@ namespace codeframe
     ******************************************************************************/
     cSerializableInterface* cSerializablePath::GetChildByName( const std::string& name )
     {
-        for( cSerializableChildList::iterator it = m_sint.ChildList()->begin(); it != m_sint.ChildList()->end(); ++it )
+        for ( cSerializableChildList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
         {
             cSerializableInterface* iser = *it;
-            if( iser->ObjectName() == name ) return iser;
+            if ( iser->Identity().ObjectName() == name )
+            {
+                return iser;
+            }
         }
         return NULL;
     }
@@ -134,7 +137,7 @@ namespace codeframe
         // Sprawdzamy czy root sie zgadza
         if(tokens.size() == 0)
         {
-            if( curObject->ObjectName() != path )
+            if( curObject->Identity().ObjectName() != path )
             {
                 return NULL;
             }
@@ -142,7 +145,7 @@ namespace codeframe
         else
         {
             std::string tempStr = tokens.at(0);
-            if( curObject->ObjectName() != tempStr )
+            if( curObject->Identity().ObjectName() != tempStr )
             {
                 return NULL;
             }

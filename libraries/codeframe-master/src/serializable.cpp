@@ -23,8 +23,7 @@ namespace codeframe
         m_SerializableSelectable( *this ),
         m_SerializableLua( *this ),
         m_PropertyManager( *this ),
-        m_sContainerName( name )
-
+        m_Identity( name )
     {
         m_SerializablePath.ParentBound( parent );
     }
@@ -36,16 +35,16 @@ namespace codeframe
     ******************************************************************************/
     void cSerializable::PulseChanged( bool fullTree )
     {
-        EnterPulseState();
+        m_Identity.EnterPulseState();
 
-        PropertyManager().PulseChanged();
+        m_PropertyManager.PulseChanged();
 
-        LeavePulseState();
+        m_Identity.LeavePulseState();
 
         if( fullTree )
         {
             // Zmuszamy dzieci do aktualizacji
-            for( cSerializableChildList::iterator it = this->ChildList()->begin(); it != this->ChildList()->end(); ++it )
+            for( cSerializableChildList::iterator it = this->ChildList().begin(); it != this->ChildList().end(); ++it )
             {
                 cSerializableInterface* iser = *it;
 
@@ -59,16 +58,6 @@ namespace codeframe
                 }
             }
         }
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void cSerializable::SetName( const std::string& name )
-    {
-        m_sContainerName = name;
     }
 
     /*****************************************************************************/
@@ -102,7 +91,7 @@ namespace codeframe
         if( checkParent )
         {
             // Sprawdzamy czy rodzic jest wyjątkowy
-            bool isParentUnique = this->m_SerializablePath.Parent()->IsNameUnique( this->m_SerializablePath.Parent()->ObjectName() );
+            bool isParentUnique = this->m_SerializablePath.Parent()->IsNameUnique( this->m_SerializablePath.Parent()->Identity().ObjectName() );
 
             // Jesli rodzic nie jest wyjatkowy to dzieci tez nie są wiec niesprawdzamy dalej
             if( isParentUnique == false )
@@ -112,13 +101,13 @@ namespace codeframe
         }
 
         // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
-        for( cSerializableChildList::iterator it = this->m_SerializablePath.Parent()->ChildList()->begin(); it != this->m_SerializablePath.Parent()->ChildList()->end(); ++it )
+        for( cSerializableChildList::iterator it = this->m_SerializablePath.Parent()->ChildList().begin(); it != this->m_SerializablePath.Parent()->ChildList().end(); ++it )
         {
             cSerializableInterface* iser = *it;
 
             if( iser )
             {
-                if( iser->ObjectName() == name )
+                if( iser->Identity().ObjectName() == name )
                 {
                     octcnt++;
                 }
@@ -188,17 +177,19 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string cSerializable::ObjectName( bool idSuffix ) const
+    cSerializableChildList& cSerializable::ChildList()
     {
-        if( (GetId() >= 0) && (idSuffix == true) )
-        {
-            std::string cntName;
+        return m_childList;
+    }
 
-            cntName = m_sContainerName + utilities::math::IntToStr( GetId() );
-
-            return cntName;
-        }
-        return m_sContainerName;
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    cSerializableIdentity& cSerializable::Identity()
+    {
+        return m_Identity;
     }
 
     /*****************************************************************************/
@@ -221,7 +212,7 @@ namespace codeframe
         PropertyManager().CommitChanges();
 
         Lock();
-        for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
+        for( cSerializableChildList::iterator it = ChildList().begin(); it != ChildList().end(); ++it )
         {
             cSerializableInterface* iser = *it;
             if( iser )
@@ -243,7 +234,7 @@ namespace codeframe
 
         Lock();
 
-        for( cSerializableChildList::iterator it = ChildList()->begin(); it != ChildList()->end(); ++it )
+        for( cSerializableChildList::iterator it = ChildList().begin(); it != ChildList().end(); ++it )
         {
             cSerializableInterface* iser = *it;
             if( iser )

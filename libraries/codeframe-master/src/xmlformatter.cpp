@@ -111,7 +111,7 @@ namespace codeframe
         int childLp  = 0;
 
         // Po wszystkich obiektach dzieci ladujemy zawartosc
-        for( cSerializableChildList::iterator it = m_serializableObject.ChildList()->begin(); it != m_serializableObject.ChildList()->end(); ++it )
+        for( cSerializableChildList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
         {
             cSerializableInterface* iser = *it;
 
@@ -119,7 +119,7 @@ namespace codeframe
             if( iser->Role() == "Container" )
             {
                 // Po wszystkich obiektach dzieci ladujemy zawartosc
-                for( cSerializableChildList::iterator itc = iser->ChildList()->begin(); itc != iser->ChildList()->end(); ++itc )
+                for( cSerializableChildList::iterator itc = iser->ChildList().begin(); itc != iser->ChildList().end(); ++itc )
                 {
                     cXMLNode childNodeElement = childNodeContainer.FindChildByAttribute("element", "id", utilities::math::IntToStr(childLp++).c_str());
                     cXMLNode childNodeObject  = childNodeElement.Child("cSocket");
@@ -200,13 +200,13 @@ namespace codeframe
     ******************************************************************************/
     cXmlFormatter& cXmlFormatter::LoadFromXML_v1( cXML& xml )
     {
-        std::string serializableObjectName = m_serializableObject.ObjectName( false ); // No sufix only name
-        int serializableObjectId           = m_serializableObject.GetId();             // container iterator
+        std::string serializableObjectName = m_serializableObject.Identity().ObjectName( false ); // No sufix only name
+        int serializableObjectId           = m_serializableObject.Identity().GetId();             // container iterator
 
         // Dozwolone sa tylko nazwy unikalne na danym poziomie
-        if ( m_serializableObject.IsNameUnique( m_serializableObject.ObjectName() ) == false ) // Test Unique with Id number
+        if ( m_serializableObject.IsNameUnique( m_serializableObject.Identity().ObjectName() ) == false ) // Test Unique with Id number
         {
-            std::string throwString = std::string("cXmlFormatter::LoadFromXML() Name is not Unique: ") + m_serializableObject.ObjectName();
+            std::string throwString = std::string("cXmlFormatter::LoadFromXML() Name is not Unique: ") + m_serializableObject.Identity().ObjectName();
 
             throw std::runtime_error( throwString );
         }
@@ -249,7 +249,7 @@ namespace codeframe
 
         // DeSerializacja dzieci
         std::string thisRole   = std::string(rootObjNode.GetAttributeAsString("role"));
-        cXMLNode childNodeContainer = rootObjNode.FindChildByAttribute(XMLTAG_CHILD, "name", m_serializableObject.ObjectName( false ).c_str());
+        cXMLNode childNodeContainer = rootObjNode.FindChildByAttribute(XMLTAG_CHILD, "name", m_serializableObject.Identity().ObjectName( false ).c_str());
         int childCnt = childNodeContainer.GetAttributeAsInteger("cnt");
 
         // Jesli rola tego obiektu to kontener obiektow iterujemy po wpisach i sparawdzamy czy nie trzeba
@@ -323,9 +323,9 @@ namespace codeframe
             }
         }
 
-        DeserializeObjectProperties( &m_serializableObject, rootObjNode );
+        DeserializeObjectProperties( m_serializableObject, rootObjNode );
 
-        DeserializeObjectChilds( &m_serializableObject, childNodeContainer );
+        DeserializeObjectChilds( m_serializableObject, childNodeContainer );
 
         return *this;
     }
@@ -339,7 +339,7 @@ namespace codeframe
     {
         cXML xmlDocument;
 
-        std::string objName = m_serializableObject.ObjectName( false );
+        std::string objName = m_serializableObject.Identity().ObjectName( false );
 
         // Serializacja pol obiektu
         cXMLNode rootNode = xmlDocument.AppendChild( XMLTAG_OBJECT );
@@ -420,20 +420,20 @@ namespace codeframe
         }
 
         // Serializacja dzieci
-        int childCnt = m_serializableObject.ChildList()->size();
+        int childCnt = m_serializableObject.ChildList().size();
 
         if ( childCnt > 0 )
         {
             cXMLNode childNode = rootNode.AppendChild(XMLTAG_CHILD);
 
-            childNode.AppendAttribute("name", m_serializableObject.ObjectName( false ).c_str());
+            childNode.AppendAttribute("name", m_serializableObject.Identity().ObjectName( false ).c_str());
             childNode.AppendAttribute("cnt", utilities::math::IntToStr( childCnt ).c_str());
 
             if ( m_shareLevel == 1 )
             {
                 int lp = 0;
 
-                for ( cSerializableChildList::iterator it = m_serializableObject.ChildList()->begin(); it != m_serializableObject.ChildList()->end(); ++it )
+                for ( cSerializableChildList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
                 {
                     cSerializableInterface* iser = *it;
 
@@ -487,17 +487,17 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cXmlFormatter::DeserializeObjectProperties( cSerializableInterface* obj, cXMLNode& node )
+    void cXmlFormatter::DeserializeObjectProperties( cSerializableInterface& obj, cXMLNode& node )
     {
         // Po wszystkich polach serializacji tego obiektu
-        for ( PropertyIterator it = obj->PropertyManager().begin(); it != obj->PropertyManager().end(); ++it )
+        for ( PropertyIterator it = obj.PropertyManager().begin(); it != obj.PropertyManager().end(); ++it )
         {
             PropertyBase* iser = *it;
 
             if ( iser->Info().GetXmlMode() & XMLMODE_R )
             {
                 // Dozwolone sa tylko pola unikalne na danym poziomie
-                if ( obj->PropertyManager().IsPropertyUnique( iser->Name() ) == false )
+                if ( obj.PropertyManager().IsPropertyUnique( iser->Name() ) == false )
                 {
                     std::string throwString = std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name();
 
@@ -587,14 +587,14 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cXmlFormatter::DeserializeObjectChilds( cSerializableInterface* obj, cXMLNode& node )
+    void cXmlFormatter::DeserializeObjectChilds( cSerializableInterface& obj, cXMLNode& node )
     {
         if( m_shareLevel == 1 )
         {
             unsigned int childLp  = 0;
 
             // Po wszystkich obiektach dzieci ladujemy zawartosc
-            for ( cSerializableChildList::iterator it = obj->ChildList()->begin(); it != obj->ChildList()->end(); ++it )
+            for ( cSerializableChildList::iterator it = obj.ChildList().begin(); it != obj.ChildList().end(); ++it )
             {
                 cSerializableInterface* iser = *it;
                 cXmlFormatter formatter( *iser );
@@ -609,7 +609,7 @@ namespace codeframe
                 }
                 else
                 {
-                    std::string parentName = obj->ObjectName( false );
+                    std::string parentName = obj.ObjectName( false );
                     std::string childNodeContainerName = std::string( node.Name() );
                     std::string throwString = std::string("cXmlFormatter::LoadFromXML() Cant find childNode Id: " ) +
                                               utilities::math::IntToStr( childLp ) +
