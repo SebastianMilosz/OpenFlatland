@@ -47,8 +47,8 @@ namespace codeframe
         void        ReplaceAll(std::string& str, const std::string& old, const std::string& repl);
         std::string FromEscapeXml( std::string& str );
 
-        void DeserializeObjectProperties( cSerializableInterface* obj, cXMLNode& node );
-        void DeserializeObjectChilds( cSerializableInterface* obj, cXMLNode& node );
+        void DeserializeObjectProperties( cSerializableInterface& obj, cXMLNode& node );
+        void DeserializeObjectChilds( cSerializableInterface& obj, cXMLNode& node );
         void ResolveReferences();
 
         void FillParameterVector( const std::string& buildConstruct, cXMLNode& childNode, std::vector<codeframe::VariantValue>& paramVector );

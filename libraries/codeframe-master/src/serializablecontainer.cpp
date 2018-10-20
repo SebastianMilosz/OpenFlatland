@@ -65,7 +65,7 @@ bool cSerializableContainer::IsName( std::string& name )
 
         if( smart_ptr_isValid( sptr ) == true )
         {
-            std::string inContainerName = sptr->ObjectName();
+            std::string inContainerName = sptr->Identity().ObjectName();
 
             if( name == inContainerName )
             {
@@ -182,7 +182,7 @@ bool cSerializableContainer::Dispose( smart_ptr<cSerializableInterface> obj )
 
         if( smart_ptr_isValid( sptr ) && smart_ptr_isValid( obj ) )
         {
-            if( sptr->ObjectName() == obj->ObjectName() )
+            if( sptr->Identity().ObjectName() == obj->Identity().ObjectName() )
             {
                 sptr->Selection().DisconectFromContainer();
                 *it = smart_ptr<cSerializable>();
@@ -373,7 +373,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
     }
 
     classType->Selection().ConectToContainer<cSerializableContainer>( this, classType );
-    classType->SetId( retPos );
+    classType->Identity().SetId( retPos );
 
     m_size++;
 
@@ -391,7 +391,7 @@ void cSerializableContainer::slotSelectionChanged( smart_ptr<cSerializableInterf
 
     if ( (cSerializable*)NULL != serializableObjectNew )
     {
-        std::string name = serializableObjectNew->ObjectName();
+        std::string name = serializableObjectNew->Identity().ObjectName();
 
         if ( serializableObjectNew->Selection().IsSelected() == true )
         {

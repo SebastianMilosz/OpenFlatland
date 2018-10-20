@@ -51,7 +51,7 @@ cSerializableInterface& cSerializableStorage::LoadFromFile( const std::string& f
 {
     try
     {
-        LOGGER( LOG_INFO  << m_sint.ObjectName() << "-> LoadFromFile(" << filePath << ")" );
+        LOGGER( LOG_INFO  << m_sint.Identity().ObjectName() << "-> LoadFromFile(" << filePath << ")" );
 
         if ( createIfNotExist )
         {
@@ -73,11 +73,11 @@ cSerializableInterface& cSerializableStorage::LoadFromFile( const std::string& f
     }
     catch ( std::exception& exc )
     {
-        LOGGER( LOG_ERROR << m_sint.ObjectName() <<  "-> LoadFromFile() exception: Type:" << typeid( exc ).name( ) << exc.what() );
+        LOGGER( LOG_ERROR << m_sint.Identity().ObjectName() <<  "-> LoadFromFile() exception: Type:" << typeid( exc ).name( ) << exc.what() );
     }
     catch (...)
     {
-        LOGGER( LOG_ERROR << m_sint.ObjectName() <<  "-> LoadFromFile() exception unknown");
+        LOGGER( LOG_ERROR << m_sint.Identity().ObjectName() <<  "-> LoadFromFile() exception unknown");
     }
 
     return m_sint;
@@ -92,7 +92,7 @@ cSerializableInterface& cSerializableStorage::SaveToFile( const std::string& fil
 {
     try
     {
-        LOGGER( LOG_INFO  << m_sint.ObjectName() << "-> SaveToFile(" << filePath << ")" );
+        LOGGER( LOG_INFO  << m_sint.Identity().ObjectName() << "-> SaveToFile(" << filePath << ")" );
 
         cXML          xml;
         cXmlFormatter formatter( m_sint, m_shareLevel );
@@ -103,11 +103,11 @@ cSerializableInterface& cSerializableStorage::SaveToFile( const std::string& fil
     }
     catch ( std::exception& exc )
     {
-        LOGGER( LOG_ERROR << m_sint.ObjectName() << "-> SaveToFile() exception: Type:" << typeid( exc ).name( ) << exc.what() );
+        LOGGER( LOG_ERROR << m_sint.Identity().ObjectName() << "-> SaveToFile() exception: Type:" << typeid( exc ).name( ) << exc.what() );
     }
     catch (...)
     {
-        LOGGER( LOG_ERROR << m_sint.ObjectName() << "-> SaveToFile() exception unknown" );
+        LOGGER( LOG_ERROR << m_sint.Identity().ObjectName() << "-> SaveToFile() exception unknown" );
     }
 
     return m_sint;
@@ -122,7 +122,7 @@ cSerializableInterface& cSerializableStorage::LoadFromXML( cXML xml, const std::
 {
     try
     {
-        LOGGER( LOG_INFO  << m_sint.ObjectName() << " -> LoadFromXML()" );
+        LOGGER( LOG_INFO  << m_sint.Identity().ObjectName() << " -> LoadFromXML()" );
 
         cXmlFormatter formatter( m_sint );
 
@@ -130,11 +130,11 @@ cSerializableInterface& cSerializableStorage::LoadFromXML( cXML xml, const std::
     }
     catch ( std::exception& exc )
     {
-        LOGGER( LOG_ERROR << m_sint.ObjectName() << "-> LoadFromXML() exception: Type:" << typeid( exc ).name( ) << exc.what() );
+        LOGGER( LOG_ERROR << m_sint.Identity().ObjectName() << "-> LoadFromXML() exception: Type:" << typeid( exc ).name( ) << exc.what() );
     }
     catch (...)
     {
-        LOGGER( LOG_ERROR << m_sint.ObjectName() << "-> LoadFromXML() exception unknown" );
+        LOGGER( LOG_ERROR << m_sint.Identity().ObjectName() << "-> LoadFromXML() exception unknown" );
     }
 
     return m_sint;
@@ -149,7 +149,7 @@ cXML cSerializableStorage::SaveToXML( const std::string& container, int mode __a
 {
     try
     {
-        LOGGER( LOG_INFO << m_sint.ObjectName() << "-> SaveToXML()" );
+        LOGGER( LOG_INFO << m_sint.Identity().ObjectName() << "-> SaveToXML()" );
 
         cXmlFormatter formatter( m_sint );
 
@@ -157,11 +157,11 @@ cXML cSerializableStorage::SaveToXML( const std::string& container, int mode __a
     }
     catch ( std::exception& exc )
     {
-        LOGGER( LOG_ERROR << m_sint.ObjectName() << "-> SaveToXML() exception: Type:" << typeid( exc ).name( ) << exc.what() );
+        LOGGER( LOG_ERROR << m_sint.Identity().ObjectName() << "-> SaveToXML() exception: Type:" << typeid( exc ).name( ) << exc.what() );
     }
     catch (...)
     {
-        LOGGER( LOG_ERROR << m_sint.ObjectName() << "-> SaveToXML() exception unknown" );
+        LOGGER( LOG_ERROR << m_sint.Identity().ObjectName() << "-> SaveToXML() exception unknown" );
     }
 
     return cXML();

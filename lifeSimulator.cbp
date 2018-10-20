@@ -127,6 +127,7 @@
 		<Unit filename="libraries/codeframe-master/include/serializablechildlist.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializableconsole.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablecontainer.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializableidentity.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializableinterface.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablelua.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablepath.hpp" />
@@ -161,6 +162,7 @@
 		<Unit filename="libraries/codeframe-master/src/serializable.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablechildlist.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablecontainer.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializableidentity.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableinterface.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablelua.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablepath.cpp" />
