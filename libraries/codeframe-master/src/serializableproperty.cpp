@@ -452,7 +452,7 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::CommitChanges()
     {
-        if ( (NULL != m_parentpc) &&  (m_parentpc->IsPulseState() == true) )
+        if ( (NULL != m_parentpc) &&  (m_parentpc->Identity().IsPulseState() == true) )
         {
             m_pulseAbort = true;
         }
@@ -475,7 +475,7 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::PulseChanged()
     {
-        if ( (m_pulseAbort == true) && (m_parentpc != NULL) &&  (m_parentpc->IsPulseState() == true) )
+        if ( (m_pulseAbort == true) && (m_parentpc != NULL) &&  (m_parentpc->Identity().IsPulseState() == true) )
         {
             return;
         }

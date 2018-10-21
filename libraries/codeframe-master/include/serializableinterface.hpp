@@ -59,8 +59,6 @@ namespace codeframe
             // Library version nr. and string
             static float       LibraryVersion();
             static std::string LibraryVersionString();
-
-            virtual bool IsPulseState() const = 0;
         protected:
                      cSerializableInterface();
             virtual ~cSerializableInterface();

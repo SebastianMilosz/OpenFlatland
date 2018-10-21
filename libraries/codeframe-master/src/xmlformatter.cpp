@@ -609,7 +609,7 @@ namespace codeframe
                 }
                 else
                 {
-                    std::string parentName = obj.ObjectName( false );
+                    std::string parentName = obj.Identity().ObjectName( false );
                     std::string childNodeContainerName = std::string( node.Name() );
                     std::string throwString = std::string("cXmlFormatter::LoadFromXML() Cant find childNode Id: " ) +
                                               utilities::math::IntToStr( childLp ) +
