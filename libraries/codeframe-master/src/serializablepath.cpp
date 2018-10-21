@@ -85,6 +85,56 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    bool cSerializablePath::IsNameUnique( const std::string& name, bool checkParent ) const
+    {
+        int octcnt = 0;
+
+        // Jesli niema rodzica to jestesmy rootem wiec na tym poziomie jestesmy wyjatkowi
+        if( m_parent == NULL )
+        {
+            return true;
+        }
+
+        // Rodzica sprawdzamy tylko na wyrazne zyczenie
+        if( checkParent )
+        {
+            // Sprawdzamy czy rodzic jest wyj¹tkowy
+            bool isParentUnique = m_parent->Path().IsNameUnique( m_parent->Identity().ObjectName() );
+
+            // Jesli rodzic nie jest wyjatkowy to dzieci tez nie s¹ wiec niesprawdzamy dalej
+            if( isParentUnique == false )
+            {
+                return false;
+            }
+        }
+
+        // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
+        for( cSerializableChildList::iterator it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
+        {
+            cSerializableInterface* iser = *it;
+
+            if( iser )
+            {
+                if( iser->Identity().ObjectName() == name )
+                {
+                    octcnt++;
+                }
+            }
+            else
+            {
+                throw std::runtime_error( "cSerializablePath::IsNameUnique() cSerializable* iser = NULL" );
+            }
+        }
+
+        if(octcnt == 1 ) return true;
+        else return false;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     cSerializableInterface* cSerializablePath::Parent() const
     {
         return m_parent;

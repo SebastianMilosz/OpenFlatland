@@ -30,14 +30,14 @@ class WrMutex
        ~WrMutex();
         WrMutex(const WrMutex& copy);
 
-        bool Lock();
-        bool Unlock();
-        bool TryLock();
-        bool TryLock(unsigned long ms);
+        bool Lock() const;
+        bool Unlock() const;
+        bool TryLock() const;
+        bool TryLock(unsigned long ms) const;
 
     private:
-        pthread_mutex_t      *m_pmutex;
-        bool                  m_isOwner;
+        mutable pthread_mutex_t *m_pmutex;
+        bool                     m_isOwner;
 };
 
 /*****************************************************************************/

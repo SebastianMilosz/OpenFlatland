@@ -106,7 +106,7 @@ namespace codeframe
     {
         std::string retName = "";
 
-        m_sint.Lock();
+        m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
@@ -116,7 +116,7 @@ namespace codeframe
                 retName = temp->Name();
             }
         }
-        m_sint.Unlock();
+        m_Mutex.Unlock();
 
         return retName;
     }
@@ -146,7 +146,7 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyManager::CommitChanges()
     {
-        m_sint.Lock();
+        m_Mutex.Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
@@ -155,7 +155,7 @@ namespace codeframe
                 temp->CommitChanges();
             }
         }
-        m_sint.Unlock();
+        m_Mutex.Unlock();
     }
 
     /*****************************************************************************/
@@ -166,7 +166,7 @@ namespace codeframe
     void cPropertyManager::Enable( bool val )
     {
         // Po wszystkich propertisach ustawiamy nowy stan
-        m_sint.Lock();
+        m_Mutex.Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
@@ -175,7 +175,7 @@ namespace codeframe
                 temp->Info().Enable( val );
             }
         }
-        m_sint.Unlock();
+        m_Mutex.Unlock();
     }
 
     /*****************************************************************************/
@@ -185,11 +185,11 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyManager::RegisterProperty( PropertyBase* prop )
     {
-        m_sint.Lock();
+        m_Mutex.Lock();
         m_vMainPropertyList.push_back( prop );
         prop->signalChanged.connect(this, &cPropertyManager::slotPropertyChanged       );
         prop->signalChanged.connect(this, &cPropertyManager::slotPropertyChangedGlobal );
-        m_sint.Unlock();
+        m_Mutex.Unlock();
     }
 
     /*****************************************************************************/
@@ -199,7 +199,7 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyManager::UnRegisterProperty( PropertyBase* prop )
     {
-        m_sint.Lock();
+        m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
@@ -212,7 +212,7 @@ namespace codeframe
                 break;
             }
         }
-        m_sint.Unlock();
+        m_Mutex.Unlock();
     }
 
     /*****************************************************************************/
@@ -222,9 +222,9 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyManager::ClearPropertyList()
     {
-        m_sint.Lock();
+        m_Mutex.Lock();
         m_vMainPropertyList.clear();
-        m_sint.Unlock();
+        m_Mutex.Unlock();
     }
 
     /*****************************************************************************/
@@ -236,7 +236,7 @@ namespace codeframe
     {
         int octcnt = 0;
 
-        m_sint.Lock();
+        m_Mutex.Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
@@ -245,7 +245,7 @@ namespace codeframe
                 octcnt++;
             }
         }
-        m_sint.Unlock();
+        m_Mutex.Unlock();
 
         if(octcnt == 1 ) return true;
         else return false;
@@ -258,9 +258,9 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase* cPropertyManager::GetObjectFieldValue( int cnt )
     {
-        m_sint.Lock();
+        m_Mutex.Lock();
         PropertyBase* retParameter = m_vMainPropertyList.at( cnt );
-        m_sint.Unlock();
+        m_Mutex.Unlock();
 
         return retParameter;
     }
@@ -272,9 +272,9 @@ namespace codeframe
     ******************************************************************************/
     int cPropertyManager::GetObjectFieldCnt() const
     {
-        m_sint.Lock();
+        m_Mutex.Lock();
         int retSize = m_vMainPropertyList.size();
-        m_sint.Unlock();
+        m_Mutex.Unlock();
 
         return retSize;
     }

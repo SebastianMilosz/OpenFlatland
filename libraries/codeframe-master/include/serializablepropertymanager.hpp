@@ -59,6 +59,9 @@ namespace codeframe
 
             ///
             PropertyBase m_dummyProperty;
+
+            ///
+            WrMutex m_Mutex;
     };
 }
 

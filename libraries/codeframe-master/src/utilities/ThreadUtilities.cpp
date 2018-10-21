@@ -289,7 +289,7 @@ WrMutex::WrMutex( const WrMutex& copy )
   * @brief
  **
 ******************************************************************************/
-bool WrMutex::Lock()
+bool WrMutex::Lock() const
 {
     if ( pthread_mutex_lock( m_pmutex ) == 0U )
     {
@@ -303,7 +303,7 @@ bool WrMutex::Lock()
   * @brief
  **
 ******************************************************************************/
-bool WrMutex::Unlock()
+bool WrMutex::Unlock() const
 {
     if ( pthread_mutex_unlock( m_pmutex ) == 0 )
     {
@@ -317,7 +317,7 @@ bool WrMutex::Unlock()
   * @brief
  **
 ******************************************************************************/
-bool WrMutex::TryLock()
+bool WrMutex::TryLock() const
 {
     if ( pthread_mutex_trylock( m_pmutex ) == 0U )
     {
@@ -331,7 +331,7 @@ bool WrMutex::TryLock()
   * @brief
  **
 ******************************************************************************/
-bool WrMutex::TryLock( unsigned long ms )
+bool WrMutex::TryLock( unsigned long ms ) const
 {
     time_t sec = (time_t)(ms/1000U);
 

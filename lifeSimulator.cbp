@@ -173,7 +173,6 @@
 		<Unit filename="libraries/codeframe-master/src/serializableregister.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableselectable.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablestorage.cpp" />
-		<Unit filename="libraries/codeframe-master/src/serializableversion.cpp" />
 		<Unit filename="libraries/codeframe-master/src/typeinfo.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/FileUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/LoggerUtilities.cpp" />

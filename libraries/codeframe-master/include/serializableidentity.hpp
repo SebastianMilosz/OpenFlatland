@@ -21,6 +21,9 @@ namespace codeframe
             void    LeavePulseState()    { m_pulseState = false; }
             bool    IsPulseState() const { return  m_pulseState; }
 
+            // Library version nr. and string
+            static float       LibraryVersion();
+            static std::string LibraryVersionString();
         private:
             int m_Id;
             std::string m_sContainerName;

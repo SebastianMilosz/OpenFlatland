@@ -54,4 +54,24 @@ namespace codeframe
         }
         return m_sContainerName;
     }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    float cSerializableIdentity::LibraryVersion()
+    {
+        return 0.2;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string cSerializableIdentity::LibraryVersionString()
+    {
+        return std::string( "Serializable library version 0.2" );
+    }
 }

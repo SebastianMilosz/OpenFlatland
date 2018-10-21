@@ -18,6 +18,8 @@ namespace codeframe
             void ParentBound( cSerializableInterface* parent );
             void ParentUnbound();
 
+            bool IsNameUnique( const std::string& name, bool checkParent = false ) const;
+
             cSerializableInterface*  Parent()     const;
             cSerializableInterface*  GetRootObject      (                  );
             cSerializableInterface*  GetObjectFromPath  ( const std::string& path );

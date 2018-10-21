@@ -77,56 +77,6 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cSerializable::IsNameUnique( const std::string& name, bool checkParent ) const
-    {
-        int octcnt = 0;
-
-        // Jesli niema rodzica to jestesmy rootem wiec na tym poziomie jestesmy wyjatkowi
-        if( this->m_SerializablePath.Parent() == NULL )
-        {
-            return true;
-        }
-
-        // Rodzica sprawdzamy tylko na wyrazne zyczenie
-        if( checkParent )
-        {
-            // Sprawdzamy czy rodzic jest wyjątkowy
-            bool isParentUnique = this->m_SerializablePath.Parent()->IsNameUnique( this->m_SerializablePath.Parent()->Identity().ObjectName() );
-
-            // Jesli rodzic nie jest wyjatkowy to dzieci tez nie są wiec niesprawdzamy dalej
-            if( isParentUnique == false )
-            {
-                return false;
-            }
-        }
-
-        // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
-        for( cSerializableChildList::iterator it = this->m_SerializablePath.Parent()->ChildList().begin(); it != this->m_SerializablePath.Parent()->ChildList().end(); ++it )
-        {
-            cSerializableInterface* iser = *it;
-
-            if( iser )
-            {
-                if( iser->Identity().ObjectName() == name )
-                {
-                    octcnt++;
-                }
-            }
-            else
-            {
-                throw std::runtime_error( "cSerializable::IsNameUnique() cSerializable* iser = NULL" );
-            }
-        }
-
-        if(octcnt == 1 ) return true;
-        else return false;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     cSerializablePath& cSerializable::Path()
     {
         return m_SerializablePath;
@@ -211,7 +161,7 @@ namespace codeframe
     {
         PropertyManager().CommitChanges();
 
-        Lock();
+        //Mutex().Lock();
         for( cSerializableChildList::iterator it = ChildList().begin(); it != ChildList().end(); ++it )
         {
             cSerializableInterface* iser = *it;
@@ -220,7 +170,7 @@ namespace codeframe
                 iser->CommitChanges();
             }
         }
-        Unlock();
+        //Mutex().Unlock();
     }
 
     /*****************************************************************************/
@@ -232,8 +182,7 @@ namespace codeframe
     {
         PropertyManager().Enable( val );
 
-        Lock();
-
+        //Mutex().Lock();
         for( cSerializableChildList::iterator it = ChildList().begin(); it != ChildList().end(); ++it )
         {
             cSerializableInterface* iser = *it;
@@ -242,8 +191,7 @@ namespace codeframe
                 iser->Enable( val );
             }
         }
-
-        Unlock();
+        //Mutex().Unlock();
     }
 
 }
