@@ -102,7 +102,7 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterfa
         // Take object pointer as unique id
         ImGui::PushID( uid );
         ImGui::AlignTextToFramePadding();
-        bool node_open = ImGui::TreeNode( "Object", "%s", obj->ObjectName().c_str() );
+        bool node_open = ImGui::TreeNode( "Object", "%s", obj->Identity().ObjectName().c_str() );
 
         ImGui::NextColumn();
         ImGui::AlignTextToFramePadding();
