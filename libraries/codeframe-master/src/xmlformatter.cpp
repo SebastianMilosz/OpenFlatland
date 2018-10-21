@@ -204,7 +204,7 @@ namespace codeframe
         int serializableObjectId           = m_serializableObject.Identity().GetId();             // container iterator
 
         // Dozwolone sa tylko nazwy unikalne na danym poziomie
-        if ( m_serializableObject.IsNameUnique( m_serializableObject.Identity().ObjectName() ) == false ) // Test Unique with Id number
+        if ( m_serializableObject.Path().IsNameUnique( m_serializableObject.Identity().ObjectName() ) == false ) // Test Unique with Id number
         {
             std::string throwString = std::string("cXmlFormatter::LoadFromXML() Name is not Unique: ") + m_serializableObject.Identity().ObjectName();
 

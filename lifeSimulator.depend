@@ -1346,7 +1346,7 @@
 	<stdlib.h>
 	<sys/timeb.h>
 
-1523715898 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\threadutilities.cpp
+1540156931 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\utilities\threadutilities.cpp
 	<iostream>
 	<sys/types.h>
 	<sys/stat.h>
@@ -1355,7 +1355,7 @@
 	<utilities/DataTypesUtilities.h>
 	<windows.h>
 
-1527798583 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\threadutilities.h
+1540156917 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\utilities\threadutilities.h
 	<pthread.h>
 	<unistd.h>
 	<errno.h>
@@ -1561,7 +1561,7 @@
 1537994657 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
 	"serializableregister.hpp"
 
-1540075998 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
+1540157269 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
 	"serializable.hpp"
 	<iostream>
 	<exception>
@@ -1621,7 +1621,7 @@
 1534536190 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
 	"serializableinterface.hpp"
 
-1540117111 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+1540156750 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
 	"xmlformatter.hpp"
 	<iostream>
 	<exception>
@@ -1764,7 +1764,7 @@
 	<algorithm>
 	<ThreadUtilities.h>
 
-1540117152 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
+1540157932 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
 	<vector>
 	<string>
 	<map>
@@ -1801,7 +1801,7 @@
 	"cxml.hpp"
 	"typeinfo.hpp"
 
-1540075145 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
+1540157821 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
 	"serializableinterface.hpp"
 	"serializablepropertybase.hpp"
 	"serializablestorage.hpp"
@@ -1891,7 +1891,7 @@
 
 1540076024 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\propertyignorelist.hpp
 
-1540067246 source:d:\sourcecode\lifesimulator\src\propertyeditorwidget.cpp
+1540117226 source:d:\sourcecode\lifesimulator\src\propertyeditorwidget.cpp
 	"propertyeditorwidget.hpp"
 
 1539289839 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableselectable.cpp
@@ -3174,7 +3174,7 @@
 	<map>
 	<plf_nanotimer.h>
 
-1540117229 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1540157509 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
 1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"
@@ -3236,17 +3236,17 @@
 	"serializablepropertyiterator.hpp"
 	"serializablepropertymanager.hpp"
 
-1539640674 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepath.hpp
+1540156419 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepath.hpp
 	<string>
 
-1540076169 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepath.cpp
+1540156663 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepath.cpp
 	"serializablepath.hpp"
 	<vector>
 	<TextUtilities.h>
 	<LoggerUtilities.h>
 	"serializableinterface.hpp"
 
-1539898731 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertymanager.hpp
+1540157801 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertymanager.hpp
 	<sigslot.h>
 	<string>
 	<vector>
@@ -3258,10 +3258,10 @@
 	<LoggerUtilities.h>
 	"serializableinterface.hpp"
 
-1540075159 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableidentity.hpp
+1540125015 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableidentity.hpp
 	<string>
 
-1540075373 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableidentity.cpp
+1540125117 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableidentity.cpp
 	"serializableidentity.hpp"
 	<TextUtilities.h>
 	<LoggerUtilities.h>

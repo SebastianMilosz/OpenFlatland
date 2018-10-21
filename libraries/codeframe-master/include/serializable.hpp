@@ -24,8 +24,6 @@ namespace codeframe
                      cSerializable( const std::string& name, cSerializableInterface* parent = NULL );
             virtual ~cSerializable();
 
-            bool IsNameUnique( const std::string& name, bool checkParent = false ) const;
-
             cSerializablePath&       Path();
             cSerializableStorage&    Storage();
             cSerializableSelectable& Selection();
@@ -47,6 +45,7 @@ namespace codeframe
             cPropertyManager        m_PropertyManager;
             cSerializableChildList  m_childList;
             cSerializableIdentity   m_Identity;
+            WrMutex                 m_Mutex;
     };
 }
 
