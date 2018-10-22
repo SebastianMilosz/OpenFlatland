@@ -1,6 +1,7 @@
 #ifndef SERIALIZABLEPROPERTYMANAGER_HPP_INCLUDED
 #define SERIALIZABLEPROPERTYMANAGER_HPP_INCLUDED
 
+#include <ThreadUtilities.h>
 #include <sigslot.h>
 #include <string>
 #include <vector>

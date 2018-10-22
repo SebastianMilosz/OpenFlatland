@@ -4,7 +4,6 @@
 #include "serializableinterface.hpp"
 #include "serializablepropertybase.hpp"
 #include "serializablestorage.hpp"
-#include "instancemanager.hpp"
 
 namespace codeframe
 {
@@ -16,9 +15,7 @@ namespace codeframe
       * @note cSetializable
      **
     ******************************************************************************/
-    class cSerializable :
-        public cInstanceManager,
-        public cSerializableInterface
+    class cSerializable : public cSerializableInterface
     {
         public:
                      cSerializable( const std::string& name, cSerializableInterface* parent = NULL );
@@ -32,10 +29,10 @@ namespace codeframe
             cSerializableChildList&  ChildList();
             cSerializableIdentity&   Identity();
 
-            std::string              SizeString() const;
-            void                     PulseChanged( bool fullTree = false );
-            void                     CommitChanges();
-            void                     Enable( bool val );
+            std::string SizeString() const;
+            void        PulseChanged( bool fullTree = false );
+            void        CommitChanges();
+            void        Enable( bool val );
 
         private:
             cSerializablePath       m_SerializablePath;

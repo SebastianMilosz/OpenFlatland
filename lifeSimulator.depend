@@ -1561,7 +1561,7 @@
 1537994657 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
 	"serializableregister.hpp"
 
-1540157269 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
+1540242048 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
 	"serializable.hpp"
 	<iostream>
 	<exception>
@@ -1576,7 +1576,7 @@
 	<string>
 	<sstream>
 
-1534535535 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablechildlist.cpp
+1540243258 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablechildlist.cpp
 	"serializablechildlist.hpp"
 	"serializable.hpp"
 	<cstdio>
@@ -1764,7 +1764,7 @@
 	<algorithm>
 	<ThreadUtilities.h>
 
-1540157932 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
+1540158083 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
 	<vector>
 	<string>
 	<map>
@@ -1791,9 +1791,10 @@
 	<climits>
 	<string>
 
-1527890695 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablechildlist.hpp
+1540243304 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablechildlist.hpp
 	<vector>
 	<MathUtilities.h>
+	<ThreadUtilities.h>
 
 1540071678 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\xmlformatter.hpp
 	<vector>
@@ -1801,11 +1802,10 @@
 	"cxml.hpp"
 	"typeinfo.hpp"
 
-1540157821 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
+1540244027 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
 	"serializableinterface.hpp"
 	"serializablepropertybase.hpp"
 	"serializablestorage.hpp"
-	"instancemanager.hpp"
 
 1539294514 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablelua.hpp
 	<lua.h>
@@ -3174,7 +3174,7 @@
 	<map>
 	<plf_nanotimer.h>
 
-1540157509 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1540244030 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
 1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"
@@ -3246,14 +3246,15 @@
 	<LoggerUtilities.h>
 	"serializableinterface.hpp"
 
-1540157801 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertymanager.hpp
+1540243315 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablepropertymanager.hpp
+	<ThreadUtilities.h>
 	<sigslot.h>
 	<string>
 	<vector>
 	"serializablepropertyiterator.hpp"
 	"serializablepropertybase.hpp"
 
-1539986000 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertymanager.cpp
+1540157788 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializablepropertymanager.cpp
 	"serializablepropertymanager.hpp"
 	<LoggerUtilities.h>
 	"serializableinterface.hpp"

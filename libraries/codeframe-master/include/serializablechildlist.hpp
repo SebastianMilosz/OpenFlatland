@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <MathUtilities.h>
+#include <ThreadUtilities.h>
 
 namespace codeframe
 {
@@ -16,6 +17,8 @@ namespace codeframe
             int                                  m_childCnt;
             std::vector<cSerializableInterface*> m_childVector;
 
+            ///
+            WrMutex m_Mutex;
         public:
             class iterator : public std::iterator<std::input_iterator_tag, cSerializableInterface*>
             {
@@ -55,6 +58,9 @@ namespace codeframe
             cSerializableChildList();
             void Register  ( cSerializableInterface* child );
             void UnRegister( cSerializableInterface* child );
+            void PulseChanged( bool fullTree = false );
+            void CommitChanges();
+            void Enable( bool val );
 
             // Iterator
             iterator begin() throw()      { return iterator(this, 0);                    }
