@@ -36,27 +36,12 @@ namespace codeframe
     void cSerializable::PulseChanged( bool fullTree )
     {
         m_Identity.EnterPulseState();
-
         m_PropertyManager.PulseChanged();
-
         m_Identity.LeavePulseState();
 
-        if( fullTree )
+        if ( fullTree )
         {
-            // Zmuszamy dzieci do aktualizacji
-            for( cSerializableChildList::iterator it = this->ChildList().begin(); it != this->ChildList().end(); ++it )
-            {
-                cSerializableInterface* iser = *it;
-
-                if( iser )
-                {
-                    iser->PulseChanged( fullTree );
-                }
-                else
-                {
-                    throw std::runtime_error( "cSerializable::PulseChanged() cSerializable* iser = NULL" );
-                }
-            }
+            m_childList.PulseChanged( fullTree );
         }
     }
 
@@ -68,8 +53,8 @@ namespace codeframe
     cSerializable::~cSerializable()
     {
         // Wyrejestrowywujemy sie u rodzica
-        Path().ParentUnbound();
-        PropertyManager().ClearPropertyList();
+        m_SerializablePath.ParentUnbound();
+        m_PropertyManager.ClearPropertyList();
     }
 
     /*****************************************************************************/
@@ -159,18 +144,8 @@ namespace codeframe
     ******************************************************************************/
     void cSerializable::CommitChanges()
     {
-        PropertyManager().CommitChanges();
-
-        //Mutex().Lock();
-        for( cSerializableChildList::iterator it = ChildList().begin(); it != ChildList().end(); ++it )
-        {
-            cSerializableInterface* iser = *it;
-            if( iser )
-            {
-                iser->CommitChanges();
-            }
-        }
-        //Mutex().Unlock();
+        m_PropertyManager.CommitChanges();
+        m_childList.CommitChanges();
     }
 
     /*****************************************************************************/
@@ -180,18 +155,8 @@ namespace codeframe
     ******************************************************************************/
     void cSerializable::Enable( bool val )
     {
-        PropertyManager().Enable( val );
-
-        //Mutex().Lock();
-        for( cSerializableChildList::iterator it = ChildList().begin(); it != ChildList().end(); ++it )
-        {
-            cSerializableInterface* iser = *it;
-            if( iser )
-            {
-                iser->Enable( val );
-            }
-        }
-        //Mutex().Unlock();
+        m_PropertyManager.Enable( val );
+        m_childList.Enable( val );
     }
 
 }
