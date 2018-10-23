@@ -24,6 +24,18 @@
 
 namespace codeframe
 {
+    enum eBuildType
+    {
+        BUILD_TYPE_STATIC,
+        BUILD_TYPE_DYNAMIC
+    };
+
+    enum eBuildRole
+    {
+        BUILD_ROLE_OBJECT,
+        BUILD_ROLE_CONTAINER
+    };
+
     /*****************************************************************************/
     /**
       * @brief Base common Interface to access to all cSerializable objects
@@ -35,10 +47,10 @@ namespace codeframe
     class cSerializableInterface : public sigslot::has_slots<>
     {
         public:
-            virtual std::string Class()      const = 0;         ///< Nazwa serializowanej klasy
-            virtual std::string Role()       const = 0;         ///< Rola serializowanego obiektu
-            virtual std::string BuildType()  const = 0;         ///< Sposob budowania obiektu (statycznym, dynamiczny)
-            virtual std::string ConstructPatern() const = 0;    ///< Parametry konstruktora
+            virtual std::string Class()             const = 0;    ///< Class name meta data
+            virtual std::string ConstructPatern()   const = 0;    ///< Constructor parameters patern
+            virtual eBuildRole  Role()              const = 0;    ///< Class role meta data
+            virtual eBuildType  BuildType()         const = 0;    ///< Class build type meta data
 
             virtual cSerializablePath&       Path() = 0;
             virtual cSerializableStorage&    Storage() = 0;

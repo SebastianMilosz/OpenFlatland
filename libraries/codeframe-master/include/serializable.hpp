@@ -29,7 +29,6 @@ namespace codeframe
             cSerializableChildList&  ChildList();
             cSerializableIdentity&   Identity();
 
-            std::string SizeString() const;
             void        PulseChanged( bool fullTree = false );
             void        CommitChanges();
             void        Enable( bool val );

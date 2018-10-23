@@ -26,9 +26,9 @@ namespace codeframe
         friend class cSerializableSelectable;
 
         public:
-            std::string Role()      const { return "Container"; }
             std::string Class()     const { return "cSerializableContainer"; }
-            std::string BuildType() const { return "Static"; }
+            eBuildRole  Role()      const { return BUILD_ROLE_CONTAINER; }
+            eBuildType  BuildType() const { return BUILD_TYPE_STATIC; }
 
         public:
                      cSerializableContainer( std::string name, cSerializableInterface* parentObject );
@@ -46,7 +46,7 @@ namespace codeframe
             virtual bool Dispose( unsigned int id );
             virtual bool Dispose( std::string objName );
             virtual bool Dispose( smart_ptr<cSerializableInterface> obj );
-            virtual bool DisposeByBuildType( std::string serType, cIgnoreList ignore = cIgnoreList() );
+            virtual bool DisposeByBuildType( eBuildType serType, cIgnoreList ignore = cIgnoreList() );
             virtual bool Dispose();
 
             int         Count() const;

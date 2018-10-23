@@ -126,6 +126,16 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    std::string cPropertyManager::SizeString() const
+    {
+        return utilities::math::IntToStr( size() );
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     void cPropertyManager::PulseChanged()
     {
         // Emitujemy sygnaly zmiany wszystkich propertisow
