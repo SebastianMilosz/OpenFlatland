@@ -143,7 +143,7 @@ bool cSerializableContainer::Dispose( std::string objName )
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::DisposeByBuildType( std::string serType, cIgnoreList ignore )
+bool cSerializableContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore )
 {
     for ( typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); )
     {

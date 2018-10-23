@@ -116,7 +116,7 @@ namespace codeframe
             cSerializableInterface* iser = *it;
 
             // Jesli jest to kontener to po jego dzieciach czyli obiektach
-            if( iser->Role() == "Container" )
+            if( iser->Role() == BUILD_ROLE_CONTAINER )
             {
                 // Po wszystkich obiektach dzieci ladujemy zawartosc
                 for( cSerializableChildList::iterator itc = iser->ChildList().begin(); itc != iser->ChildList().end(); ++itc )

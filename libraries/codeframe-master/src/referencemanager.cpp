@@ -44,6 +44,7 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
     {
         if ( NULL != m_property )
         {
+            m_referencePath = PreparePath( m_referencePath, m_property );
             m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
         }
     }
@@ -59,6 +60,7 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
     if ( (m_referencePath.size() != 0) && (NULL != prop) && (NULL == m_property) )
     {
         m_property = prop;
+        m_referencePath = PreparePath( m_referencePath, m_property );
         m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
     }
 }
@@ -115,7 +117,11 @@ std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase
 
     if ( NULL != propertyParent )
     {
-
+        // We have to make path absolute
+        if ( strncmp(path.c_str(), "..", strlen("..")) == 0 )
+        {
+            LOGGER( LOG_INFO << "Relative path detected: " << path );
+        }
     }
 
     return std::string( path );

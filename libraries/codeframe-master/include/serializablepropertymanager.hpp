@@ -26,6 +26,7 @@ namespace codeframe
             PropertyBase* GetPropertyById    ( uint32_t    id   );
             PropertyBase* GetPropertyFromPath( const std::string& path );
             std::string   GetNameById        ( uint32_t    id   ) const;
+            std::string   SizeString() const;
 
             void PulseChanged();
             void CommitChanges();
