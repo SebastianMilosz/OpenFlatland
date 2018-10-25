@@ -12,11 +12,10 @@
 ******************************************************************************/
 class ConstElementLine : public ConstElement
 {
-    public:
-        std::string Role()            const { return "Object";           }
-        std::string Class()           const { return "ConstElementLine"; }
-        std::string BuildType()       const { return "Dynamic";          }
-        std::string ConstructPatern() const { return "SPoint,EPoint";    }
+        CODEFRAME_META_CLASS_NAME( "ConstElementLine" );
+        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
+        CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
+        CODEFRAME_META_CONSTRUCT_PATERN( "SPoint,EPoint" );
 
     public:
         ConstElementLine( std::string name, codeframe::Point2D<int>& startPoint, codeframe::Point2D<int>& endPoint );

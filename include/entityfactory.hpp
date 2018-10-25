@@ -11,11 +11,9 @@
 
 class EntityFactory : public codeframe::cSerializableContainer
 {
-    public:
-        std::string Role()            const { return "Container";     }
-        std::string Class()           const { return "EntityFactory"; }
-        std::string BuildType()       const { return "Static";        }
-        std::string ConstructPatern() const { return ""; }
+        CODEFRAME_META_CLASS_NAME( "EntityFactory" );
+        CODEFRAME_META_BUILD_ROLE( codeframe::CONTAINER );
+        CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
         EntityFactory( std::string name, cSerializableInterface* parent );

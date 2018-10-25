@@ -13,10 +13,9 @@
 ******************************************************************************/
 class Entity : public EntityGhost
 {
-    public:
-        std::string Role()      const { return "Object";  }
-        std::string Class()     const { return "Entity";  }
-        std::string BuildType() const { return "Dynamic"; }
+        CODEFRAME_META_CLASS_NAME( "Entity" );
+        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
+        CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:
         Entity( const std::string& name, int x, int y );

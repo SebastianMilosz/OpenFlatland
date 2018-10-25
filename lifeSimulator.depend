@@ -1561,7 +1561,7 @@
 1537994657 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableregister.cpp
 	"serializableregister.hpp"
 
-1540327872 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
+1540502360 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializable.cpp
 	"serializable.hpp"
 	<iostream>
 	<exception>
@@ -1621,7 +1621,7 @@
 1534536190 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\serializableversion.cpp
 	"serializableinterface.hpp"
 
-1540156750 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
+1540501885 source:d:\sourcecode\lifesimulator\libraries\codeframe-master\src\xmlformatter.cpp
 	"xmlformatter.hpp"
 	<iostream>
 	<exception>
@@ -1675,7 +1675,7 @@
 	<utilities/LoggerUtilities.h>
 	<SFML/Graphics.hpp>
 
-1536501873 d:\sourcecode\lifesimulator\include\application.hpp
+1540502982 d:\sourcecode\lifesimulator\include\application.hpp
 	<serializable.hpp>
 	"world.hpp"
 	"entityfactory.hpp"
@@ -1684,14 +1684,14 @@
 	"guiwidgetslayer.hpp"
 	"entity.hpp"
 
-1535753115 d:\sourcecode\lifesimulator\include\constelementsfactory.hpp
+1540502201 d:\sourcecode\lifesimulator\include\constelementsfactory.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
 	<extpoint2d.hpp>
 	"constelement.hpp"
 
-1534539050 d:\sourcecode\lifesimulator\include\constelement.hpp
+1540502048 d:\sourcecode\lifesimulator\include\constelement.hpp
 	<serializable.hpp>
 	"physicsbody.hpp"
 
@@ -1709,7 +1709,7 @@
 1534456526 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\extendedtypeinterface.hpp
 	<string>
 
-1535753238 d:\sourcecode\lifesimulator\include\constelementline.hpp
+1540502134 d:\sourcecode\lifesimulator\include\constelementline.hpp
 	"constelement.hpp"
 	<serializable.hpp>
 
@@ -1764,7 +1764,7 @@
 	<algorithm>
 	<ThreadUtilities.h>
 
-1540330467 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
+1540501096 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializableinterface.hpp
 	<vector>
 	<string>
 	<map>
@@ -1802,7 +1802,7 @@
 	"cxml.hpp"
 	"typeinfo.hpp"
 
-1540327833 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
+1540502314 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializable.hpp
 	"serializableinterface.hpp"
 	"serializablepropertybase.hpp"
 	"serializablestorage.hpp"
@@ -1816,7 +1816,7 @@
 1539208764 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablestorage.hpp
 	"cxml.hpp"
 
-1540330769 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
+1540501455 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\serializablecontainer.hpp
 	<exception>
 	<stdexcept>
 	<vector>
@@ -1826,25 +1826,25 @@
 	"serializable.hpp"
 	"propertyignorelist.hpp"
 
-1537347381 d:\sourcecode\lifesimulator\include\physicsbody.hpp
+1540501110 d:\sourcecode\lifesimulator\include\physicsbody.hpp
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
 
-1537348588 d:\sourcecode\lifesimulator\include\entity.hpp
+1540502762 d:\sourcecode\lifesimulator\include\entity.hpp
 	<serializable.hpp>
 	"entityshell.hpp"
 	"entityghost.hpp"
 
-1537608659 d:\sourcecode\lifesimulator\include\entityshell.hpp
+1540502257 d:\sourcecode\lifesimulator\include\entityshell.hpp
 	"physicsbody.hpp"
 	"entityvision.hpp"
 
-1537105319 d:\sourcecode\lifesimulator\include\entityghost.hpp
+1540502721 d:\sourcecode\lifesimulator\include\entityghost.hpp
 	"entityshell.hpp"
 	"serializableneuronlayercontainer.hpp"
 
-1537096705 d:\sourcecode\lifesimulator\include\entityfactory.hpp
+1540502870 d:\sourcecode\lifesimulator\include\entityfactory.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
@@ -1852,14 +1852,14 @@
 	"world.hpp"
 	"entity.hpp"
 
-1537348777 d:\sourcecode\lifesimulator\include\world.hpp
+1540502811 d:\sourcecode\lifesimulator\include\world.hpp
 	<Box2D/Box2D.h>
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
 	"entity.hpp"
 	"constelement.hpp"
 
-1534539379 d:\sourcecode\lifesimulator\include\fontfactory.hpp
+1540502935 d:\sourcecode\lifesimulator\include\fontfactory.hpp
 	<SFML/Graphics.hpp>
 	<serializable.hpp>
 
@@ -1889,7 +1889,7 @@
 	<sigslot.h>
 	<smartpointer.h>
 
-1540330535 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\propertyignorelist.hpp
+1540501303 d:\sourcecode\lifesimulator\libraries\codeframe-master\include\propertyignorelist.hpp
 	"serializableinterface.hpp"
 
 1540117226 source:d:\sourcecode\lifesimulator\src\propertyeditorwidget.cpp
@@ -3067,7 +3067,7 @@
 	<sstream>
 	<utilities/LoggerUtilities.h>
 
-1537621206 d:\sourcecode\lifesimulator\include\entityvision.hpp
+1540501968 d:\sourcecode\lifesimulator\include\entityvision.hpp
 	<vector>
 	<serializable.hpp>
 	"physicsbody.hpp"
@@ -3088,13 +3088,13 @@
 1537135930 source:d:\sourcecode\lifesimulator\src\serializableneuron.cpp
 	"serializableneuron.hpp"
 
-1537135904 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
+1540502536 d:\sourcecode\lifesimulator\include\serializableneuron.hpp
 	<serializable.hpp>
 
 1537557917 source:d:\sourcecode\lifesimulator\src\serializableneuronlayer.cpp
 	"serializableneuronlayer.hpp"
 
-1537175782 d:\sourcecode\lifesimulator\include\serializableneuronlayer.hpp
+1540502591 d:\sourcecode\lifesimulator\include\serializableneuronlayer.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
@@ -3113,7 +3113,7 @@
 1537135740 source:d:\sourcecode\lifesimulator\src\serializableneuronlayercontainer.cpp
 	"serializableneuronlayercontainer.hpp"
 
-1537135321 d:\sourcecode\lifesimulator\include\serializableneuronlayercontainer.hpp
+1540502665 d:\sourcecode\lifesimulator\include\serializableneuronlayercontainer.hpp
 	<sigslot.h>
 	<serializable.hpp>
 	<serializablecontainer.hpp>
@@ -3175,7 +3175,7 @@
 	<map>
 	<plf_nanotimer.h>
 
-1540327965 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
+1540503136 d:\sourcecode\lifesimulator\include\mercurialinfo.hpp
 
 1537102422 source:d:\sourcecode\lifesimulator\src\performancelogger.cpp
 	"performancelogger.hpp"

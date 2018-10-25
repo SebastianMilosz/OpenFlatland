@@ -6,11 +6,10 @@
 
 class EntityShell : public PhysicsBody
 {
-    public:
-        std::string Role()            const { return "Object";      }
-        std::string Class()           const { return "EntityShell"; }
-        std::string BuildType()       const { return "Dynamic";     }
-        std::string ConstructPatern() const { return "X,Y"; }
+        CODEFRAME_META_CLASS_NAME( "EntityShell" );
+        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
+        CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
+        CODEFRAME_META_CONSTRUCT_PATERN( "X,Y" );
 
     public:
                  EntityShell( std::string name, int x, int y );
