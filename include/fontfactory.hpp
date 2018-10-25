@@ -6,11 +6,9 @@
 
 class FontFactory : public codeframe::cSerializable
 {
-    public:
-        std::string Role()            const { return "Object";      }
-        std::string Class()           const { return "FontFactory"; }
-        std::string BuildType()       const { return "Static";      }
-        std::string ConstructPatern() const { return "";            }
+        CODEFRAME_META_CLASS_NAME( "FontFactory" );
+        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
+        CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
         FontFactory( std::string name, cSerializableInterface* parent );

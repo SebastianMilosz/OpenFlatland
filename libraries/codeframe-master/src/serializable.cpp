@@ -17,6 +17,16 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    std::string cSerializable::ConstructPatern() const
+    {
+        return "";
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     cSerializable::cSerializable( const std::string& name, cSerializableInterface* parent ) :
         m_SerializablePath( *this ),
         m_SerializableStorage( *this ),

@@ -7,11 +7,9 @@
 
 class PhysicsBody : public codeframe::cSerializable
 {
-    public:
-        std::string Role()            const { return "Object";      }
-        std::string Class()           const { return "PhysicsBody"; }
-        std::string BuildType()       const { return "Dynamic";     }
-        std::string ConstructPatern() const { return ""; }
+    CODEFRAME_META_CLASS_NAME( "PhysicsBody" );
+    CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT  );
+    CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:
         struct sDescriptor

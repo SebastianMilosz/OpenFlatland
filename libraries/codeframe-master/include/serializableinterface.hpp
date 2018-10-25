@@ -26,14 +26,14 @@ namespace codeframe
 {
     enum eBuildType
     {
-        BUILD_TYPE_STATIC,
-        BUILD_TYPE_DYNAMIC
+        STATIC,
+        DYNAMIC
     };
 
     enum eBuildRole
     {
-        BUILD_ROLE_OBJECT,
-        BUILD_ROLE_CONTAINER
+        OBJECT,
+        CONTAINER
     };
 
     /*****************************************************************************/

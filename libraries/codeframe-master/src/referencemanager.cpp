@@ -120,7 +120,7 @@ std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase
         // We have to make path absolute
         if ( strncmp(path.c_str(), "..", strlen("..")) == 0 )
         {
-            LOGGER( LOG_INFO << "Relative path detected: " << path );
+            //LOGGER( LOG_INFO << "Relative path detected: " << path );
         }
     }
 

@@ -17,8 +17,8 @@ namespace codeframe
 
         struct sIgnoreEntry
         {
-            sIgnoreEntry() : Name(""), ClassName(""), BuildType(BUILD_TYPE_STATIC), Ignore(false) {}
-            sIgnoreEntry(std::string name, std::string className = "", eBuildType buildType = BUILD_TYPE_STATIC, bool ignore = true) :
+            sIgnoreEntry() : Name(""), ClassName(""), BuildType(STATIC), Ignore(false) {}
+            sIgnoreEntry(std::string name, std::string className = "", eBuildType buildType = STATIC, bool ignore = true) :
                 Name(name), ClassName(className), BuildType(buildType), Ignore(ignore) {}
 
             std::string Name;
@@ -35,7 +35,7 @@ namespace codeframe
             }
         }
 
-        void AddToList( std::string name = "", std::string className = "", eBuildType buildType = BUILD_TYPE_STATIC, bool ignore = true )
+        void AddToList( std::string name = "", std::string className = "", eBuildType buildType = STATIC, bool ignore = true )
         {
             m_vectorIgnoreEntry.push_back( sIgnoreEntry( name, className, buildType, ignore ) );
         }

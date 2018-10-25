@@ -25,10 +25,9 @@ namespace codeframe
     {
         friend class cSerializableSelectable;
 
-        public:
-            std::string Class()     const { return "cSerializableContainer"; }
-            eBuildRole  Role()      const { return BUILD_ROLE_CONTAINER; }
-            eBuildType  BuildType() const { return BUILD_TYPE_STATIC; }
+        CODEFRAME_META_CLASS_NAME( "cSerializableContainer" );
+        CODEFRAME_META_BUILD_ROLE( codeframe::CONTAINER  );
+        CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
                      cSerializableContainer( std::string name, cSerializableInterface* parentObject );

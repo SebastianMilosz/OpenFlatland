@@ -5,6 +5,11 @@
 #include "serializablepropertybase.hpp"
 #include "serializablestorage.hpp"
 
+#define CODEFRAME_META_CLASS_NAME(p) public: std::string Class() const { return p; }
+#define CODEFRAME_META_CONSTRUCT_PATERN(p) public: std::string ConstructPatern() const { return p; }
+#define CODEFRAME_META_BUILD_ROLE(p) public: codeframe::eBuildRole Role() const { return p; }
+#define CODEFRAME_META_BUILD_TYPE(p) public: codeframe::eBuildType BuildType() const { return p; }
+
 namespace codeframe
 {
     /*****************************************************************************/
@@ -18,6 +23,8 @@ namespace codeframe
     class cSerializable : public cSerializableInterface
     {
         public:
+            std::string ConstructPatern() const;
+
                      cSerializable( const std::string& name, cSerializableInterface* parent = NULL );
             virtual ~cSerializable();
 

@@ -116,7 +116,7 @@ namespace codeframe
             cSerializableInterface* iser = *it;
 
             // Jesli jest to kontener to po jego dzieciach czyli obiektach
-            if( iser->Role() == BUILD_ROLE_CONTAINER )
+            if( iser->Role() == CONTAINER )
             {
                 // Po wszystkich obiektach dzieci ladujemy zawartosc
                 for( cSerializableChildList::iterator itc = iser->ChildList().begin(); itc != iser->ChildList().end(); ++itc )
@@ -273,11 +273,18 @@ namespace codeframe
                     std::string buildClass = std::string( childNode.GetAttributeAsString("class") );
                     std::string buildName  = std::string( childNode.GetAttributeAsString("name") );
 
-                    ignore.AddToList( buildName, buildClass, buildType );
+                    eBuildType buildTypeEnum = STATIC;
+
+                    if ( buildType == "Dynamic" )
+                    {
+                        buildTypeEnum = DYNAMIC;
+                    }
+
+                    ignore.AddToList( buildName, buildClass, buildTypeEnum );
                 }
 
                 // Pozostawiamy tylko objekty ktore istnieja w nowej konfiguracji kontenera
-                containerObject->DisposeByBuildType( "Dynamic", ignore );
+                containerObject->DisposeByBuildType( DYNAMIC, ignore );
 
                 // Po wszystkich zadeklarowanych dzieciach dla nowej konfigurscji
                 for ( int objectLp = 0; objectLp < childCnt; objectLp++ )
@@ -341,11 +348,24 @@ namespace codeframe
 
         std::string objName = m_serializableObject.Identity().ObjectName( false );
 
+        std::string BuildTypeString = "Static";
+        std::string RoleString = "Object";
+
+        if ( m_serializableObject.BuildType() == DYNAMIC )
+        {
+            BuildTypeString = "Dynamic";
+        }
+
+        if ( m_serializableObject.Role() == CONTAINER )
+        {
+            RoleString = "Container";
+        }
+
         // Serializacja pol obiektu
         cXMLNode rootNode = xmlDocument.AppendChild( XMLTAG_OBJECT );
         rootNode.AppendAttribute( "name",      objName.c_str() );
-        rootNode.AppendAttribute( "build",     m_serializableObject.BuildType().c_str() );
-        rootNode.AppendAttribute( "role",      m_serializableObject.Role().c_str() );
+        rootNode.AppendAttribute( "build",     BuildTypeString.c_str() );
+        rootNode.AppendAttribute( "role",      RoleString.c_str() );
         rootNode.AppendAttribute( "class",     m_serializableObject.Class().c_str() );
         rootNode.AppendAttribute( "construct", m_serializableObject.ConstructPatern().c_str() );
 #ifdef PATH_FIELD
