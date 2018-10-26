@@ -14,7 +14,6 @@
 class Entity : public EntityGhost
 {
         CODEFRAME_META_CLASS_NAME( "Entity" );
-        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:

@@ -22,6 +22,8 @@ namespace codeframe
     ******************************************************************************/
     class cSerializable : public cSerializableInterface
     {
+        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
+
         public:
             std::string ConstructPatern() const;
 

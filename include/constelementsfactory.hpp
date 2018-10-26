@@ -12,7 +12,6 @@
 class ConstElementsFactory : public codeframe::cSerializableContainer
 {
         CODEFRAME_META_CLASS_NAME( "ConstElementsFactory" );
-        CODEFRAME_META_BUILD_ROLE( codeframe::CONTAINER );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:

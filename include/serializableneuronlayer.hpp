@@ -11,7 +11,6 @@
 class SerializableNeuronLayer : public codeframe::cSerializableContainer
 {
         CODEFRAME_META_CLASS_NAME( "SerializableNeuronLayer" );
-        CODEFRAME_META_BUILD_ROLE( codeframe::CONTAINER );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:
