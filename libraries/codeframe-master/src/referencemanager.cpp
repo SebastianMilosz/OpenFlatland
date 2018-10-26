@@ -44,8 +44,8 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
     {
         if ( NULL != m_property )
         {
-            m_referencePath = PreparePath( m_referencePath, m_property );
-            m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
+            std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
+            m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(referenceAbsolutePath,m_property) );
         }
     }
 }
@@ -60,8 +60,8 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
     if ( (m_referencePath.size() != 0) && (NULL != prop) && (NULL == m_property) )
     {
         m_property = prop;
-        m_referencePath = PreparePath( m_referencePath, m_property );
-        m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
+        std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
+        m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(referenceAbsolutePath,m_property) );
     }
 }
 
@@ -113,18 +113,29 @@ void ReferenceManager::LogUnresolvedReferences()
 ******************************************************************************/
 std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase* prop )
 {
-    const cSerializableInterface* propertyParent = prop->Parent();
+    cSerializableInterface* propertyParent = prop->Parent();
+
+    std::string retString = std::string( path );
 
     if ( NULL != propertyParent )
     {
+        bool isDownHierarchy = (strncmp(retString.c_str(), "..", strlen("..")) == 0);
+        bool isRelative = (strncmp(retString.c_str(), "/", strlen("/")) == 0);
+
         // We have to make path absolute
-        if ( strncmp(path.c_str(), "..", strlen("..")) == 0 )
+        if ( isDownHierarchy )
         {
-            //LOGGER( LOG_INFO << "Relative path detected: " << path );
+            retString.erase(0, retString.find("/"));
+        }
+
+        if ( isRelative || isDownHierarchy )
+        {
+            std::string propertyPath = propertyParent->Path().PathString();
+            retString = propertyPath + retString;
         }
     }
 
-    return std::string( path );
+    return retString;
 }
 
 }
