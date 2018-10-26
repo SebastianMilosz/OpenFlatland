@@ -13,7 +13,6 @@
 class Application : public codeframe::cSerializable
 {
         CODEFRAME_META_CLASS_NAME( "Application" );
-        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:

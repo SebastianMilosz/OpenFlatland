@@ -13,7 +13,6 @@
 class ConstElement : public PhysicsBody
 {
         CODEFRAME_META_CLASS_NAME( "ConstElement" );
-        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:

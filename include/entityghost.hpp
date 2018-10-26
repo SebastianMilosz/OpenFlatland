@@ -7,7 +7,6 @@
 class EntityGhost : public EntityShell
 {
         CODEFRAME_META_CLASS_NAME( "EntityGhost" );
-        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:

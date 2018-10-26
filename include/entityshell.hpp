@@ -7,7 +7,6 @@
 class EntityShell : public PhysicsBody
 {
         CODEFRAME_META_CLASS_NAME( "EntityShell" );
-        CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
         CODEFRAME_META_CONSTRUCT_PATERN( "X,Y" );
 
