@@ -48,7 +48,7 @@ namespace codeframe
         {
             std::string cntName;
 
-            cntName = m_sContainerName + utilities::math::IntToStr( GetId() );
+            cntName = m_sContainerName + std::string("[") + utilities::math::IntToStr( GetId() ) + std::string("]");
 
             return cntName;
         }

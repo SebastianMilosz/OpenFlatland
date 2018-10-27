@@ -30,7 +30,7 @@ namespace codeframe
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-                     cSerializableContainer( std::string name, cSerializableInterface* parentObject );
+                     cSerializableContainer( const std::string& name, cSerializableInterface* parentObject );
             virtual ~cSerializableContainer();
 
             virtual smart_ptr<cSerializableInterface> Create(
@@ -41,16 +41,16 @@ namespace codeframe
 
             smart_ptr<cSerializableInterface> operator[]( int i );
 
-            virtual void CreateRange( std::string className, std::string objName, int range );
+            virtual void CreateRange( const std::string& className, const std::string& objName, int range );
             virtual bool Dispose( unsigned int id );
-            virtual bool Dispose( std::string objName );
+            virtual bool Dispose( const std::string& objName );
             virtual bool Dispose( smart_ptr<cSerializableInterface> obj );
             virtual bool DisposeByBuildType( eBuildType serType, cIgnoreList ignore = cIgnoreList() );
             virtual bool Dispose();
 
             int         Count() const;
-            bool        IsName( std::string& name );
-            std::string CreateUniqueName( std::string nameBase );
+            bool        IsName( const std::string& name );
+            std::string CreateUniqueName( const std::string& nameBase );
             bool        IsInRange( unsigned int cnt ) const;
             bool        Select( int pos );
             bool        IsSelected();
