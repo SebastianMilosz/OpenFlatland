@@ -9,7 +9,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-cSerializableContainer::cSerializableContainer( std::string name, cSerializableInterface* parentObject ) :
+cSerializableContainer::cSerializableContainer( const std::string& name, cSerializableInterface* parentObject ) :
     cSerializable( name, parentObject ),
     m_selected( smart_ptr<cSerializable>(NULL) ),
     m_size( 0 )
@@ -41,7 +41,7 @@ int cSerializableContainer::Count() const
   * @brief
  **
 ******************************************************************************/
-void cSerializableContainer::CreateRange( std::string className, std::string objName, int range )
+void cSerializableContainer::CreateRange( const std::string& className, const std::string& objName, int range )
 {
     for(int i = 0; i < range; i++)
     {
@@ -57,7 +57,7 @@ void cSerializableContainer::CreateRange( std::string className, std::string obj
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::IsName( std::string& name )
+bool cSerializableContainer::IsName( const std::string& name )
 {
     for(typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
     {
@@ -82,7 +82,7 @@ bool cSerializableContainer::IsName( std::string& name )
   * @brief
  **
 ******************************************************************************/
-std::string cSerializableContainer::CreateUniqueName( std::string nameBase )
+std::string cSerializableContainer::CreateUniqueName( const std::string& nameBase )
 {
     std::string uniqueName  = nameBase;
 
@@ -131,10 +131,9 @@ bool cSerializableContainer::Dispose( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::Dispose( std::string objName )
+bool cSerializableContainer::Dispose( const std::string& objName )
 {
     // Unimplemented
-    objName = "";
     return false;
 }
 

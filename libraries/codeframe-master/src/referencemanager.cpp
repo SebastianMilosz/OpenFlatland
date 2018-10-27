@@ -97,7 +97,9 @@ void ReferenceManager::LogUnresolvedReferences()
                 propertyParentPath = propertyParent->Path().PathString();
             }
 
-            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << propertyParentPath << "." << prop->Name() );
+            propertyParentPath += std::string(".") + prop->Name();
+
+            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << propertyParentPath );
         }
         else
         {
@@ -122,16 +124,22 @@ std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase
         bool isDownHierarchy = (strncmp(retString.c_str(), "..", strlen("..")) == 0);
         bool isRelative = (strncmp(retString.c_str(), "/", strlen("/")) == 0);
 
-        // We have to make path absolute
-        if ( isDownHierarchy )
-        {
-            retString.erase(0, retString.find("/"));
-        }
-
         if ( isRelative || isDownHierarchy )
         {
             std::string propertyPath = propertyParent->Path().PathString();
-            retString = propertyPath + retString;
+
+            retString.erase(0, retString.find("/")+1);
+
+            // We have to make path absolute
+            if ( isDownHierarchy )
+            {
+                if ( propertyPath.rfind("/") )
+                {
+                    propertyPath.erase(propertyPath.rfind("/"), propertyPath.size());
+                }
+            }
+
+            retString = propertyPath + std::string("/") + retString;
         }
     }
 
