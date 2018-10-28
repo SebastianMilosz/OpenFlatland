@@ -80,6 +80,33 @@ const std::string& ReferenceManager::Get() const
   * @brief
  **
 ******************************************************************************/
+void ReferenceManager::ResolveReferences( cSerializableInterface& root )
+{
+    std::map<std::string, PropertyBase*>::iterator it;
+
+    for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++ )
+    {
+        PropertyBase* prop = it->second;
+        std::string path = it->first;
+
+        if ( (PropertyBase*)NULL != prop )
+        {
+            PropertyBase* targetProp = root.PropertyManager().GetPropertyFromPath( path );
+
+            if ( (PropertyBase*)NULL != targetProp )
+            {
+                targetProp->ConnectReference( prop );
+                //m_referencePathMap.erase( it );
+            }
+        }
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void ReferenceManager::LogUnresolvedReferences()
 {
     std::map<std::string, PropertyBase*>::iterator it;

@@ -6,6 +6,7 @@
 #include <LoggerUtilities.h>
 
 #include "serializableinterface.hpp"
+#include "referencemanager.hpp"
 
 namespace codeframe
 {
@@ -69,6 +70,7 @@ cSerializableInterface& cSerializableStorage::LoadFromFile( const std::string& f
         {
             LOGGER( LOG_INFO  << "LoadFromFile v1.0" );
             formatter.LoadFromXML( xml.PointToNode( container ) );
+            ReferenceManager::ResolveReferences( m_sint );
         }
     }
     catch ( std::exception& exc )
@@ -127,6 +129,8 @@ cSerializableInterface& cSerializableStorage::LoadFromXML( cXML xml, const std::
         cXmlFormatter formatter( m_sint );
 
         formatter.LoadFromXML( xml.PointToNode( container ) );
+
+        ReferenceManager::ResolveReferences( m_sint );
     }
     catch ( std::exception& exc )
     {
