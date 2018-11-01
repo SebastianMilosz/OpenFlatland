@@ -68,6 +68,12 @@ World::World( const std::string& name, cSerializableInterface* parent ) :
 
     PERFORMANCE_ADD( PERFORMANCE_BOX2D_ONLY_PHYSIC_SYM, "Box2d physic" );
     PERFORMANCE_ADD( PERFORMANCE_BOX2D_RAYS_CAST,       "Box2d rays" );
+
+#if defined(_OPENMP)
+    LOGGER( LOG_INFO << "OpenMP Enabled Version:" << _OPENMP );
+#else
+    LOGGER( LOG_INFO << "OpenMP Disabled:" );
+#endif
 }
 
 /*****************************************************************************/
@@ -281,14 +287,13 @@ void World::CalculateRays( void )
                 {
                     register unsigned int rayLength   = (unsigned int)entity->RaysSize;
                     register unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
-                    register unsigned int ray = 0U;
                     float32 currentRayAngle = 0.0F;
                     float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
                     RayCastCallback callback;
                     b2Vec2 p2;
 
                     #pragma omp for nowait
-                    for ( ; ray < rayCntLimit; ray++ )
+                    for ( unsigned int ray = 0U; ray < rayCntLimit; ray++ )
                     {
                         //calculate points of ray
                         p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );

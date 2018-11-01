@@ -40,6 +40,28 @@
 					<Add option="-m32" />
 				</Linker>
 			</Target>
+			<Target title="ReleaseMP">
+				<Option output="../bin/lifeSimulator/ReleaseMP/lifeSimulator" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/lifeSimulator/ReleaseMP/" />
+				<Option object_output="../bin/lifeSimulator/obj/ReleaseMP/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c++11" />
+					<Add option="-m32" />
+					<Add option="-fopenmp" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m32" />
+					<Add option="-gomp" />
+					<Add option="-pthread" />
+					<Add library="libpthread.a" />
+					<Add library="libgomp.a" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
