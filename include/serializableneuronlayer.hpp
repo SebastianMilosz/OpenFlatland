@@ -6,9 +6,7 @@
 #include <serializablecontainer.hpp>
 #include <serializableinterface.hpp>
 
-#include "serializableneuron.hpp"
-
-class SerializableNeuronLayer : public codeframe::cSerializableContainer
+class SerializableNeuronLayer : public codeframe::cSerializable
 {
         CODEFRAME_META_CLASS_NAME( "SerializableNeuronLayer" );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
@@ -24,12 +22,6 @@ class SerializableNeuronLayer : public codeframe::cSerializableContainer
         codeframe::Property< std::vector<float> > Output;
 
     protected:
-        smart_ptr<codeframe::cSerializableInterface> Create(
-                                                             const std::string& className,
-                                                             const std::string& objName,
-                                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                            );
-
         void SetNeuronCnt( unsigned int cnt );
 };
 

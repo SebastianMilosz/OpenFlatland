@@ -72,6 +72,12 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     this->Storage().LoadFromFile( m_cfgFilePath );
 
     PERFORMANCE_LEAVE( PERFORMANCE_LOAD_XML_FILE );
+
+#if defined(_OPENMP)
+    LOGGER( LOG_INFO << "OpenMP Enabled Version:" << _OPENMP );
+#else
+    LOGGER( LOG_INFO << "OpenMP Disabled" );
+#endif
 }
 
 /*****************************************************************************/

@@ -40,7 +40,7 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
     m_referencePath = refPath;
     m_property = prop;
 
-    if ( m_referencePath.size() != 0 )
+    if ( m_referencePath != "" )
     {
         if ( NULL != m_property )
         {
@@ -57,7 +57,7 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
 ******************************************************************************/
 void ReferenceManager::SetProperty( PropertyBase* prop )
 {
-    if ( (m_referencePath.size() != 0) && (NULL != prop) && (NULL == m_property) )
+    if ( (m_referencePath != "") && (NULL != prop) && (NULL == m_property) )
     {
         m_property = prop;
         std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
@@ -84,7 +84,7 @@ void ReferenceManager::ResolveReferences( cSerializableInterface& root )
 {
     std::map<std::string, PropertyBase*>::iterator it;
 
-    for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++ )
+    for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end();  )
     {
         PropertyBase* prop = it->second;
         std::string path = it->first;
@@ -96,7 +96,11 @@ void ReferenceManager::ResolveReferences( cSerializableInterface& root )
             if ( (PropertyBase*)NULL != targetProp )
             {
                 targetProp->ConnectReference( prop );
-                //m_referencePathMap.erase( it );
+                it = m_referencePathMap.erase( it );
+            }
+            else
+            {
+                it++;
             }
         }
     }
