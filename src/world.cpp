@@ -68,12 +68,6 @@ World::World( const std::string& name, cSerializableInterface* parent ) :
 
     PERFORMANCE_ADD( PERFORMANCE_BOX2D_ONLY_PHYSIC_SYM, "Box2d physic" );
     PERFORMANCE_ADD( PERFORMANCE_BOX2D_RAYS_CAST,       "Box2d rays" );
-
-#if defined(_OPENMP)
-    LOGGER( LOG_INFO << "OpenMP Enabled Version:" << _OPENMP );
-#else
-    LOGGER( LOG_INFO << "OpenMP Disabled:" );
-#endif
 }
 
 /*****************************************************************************/
@@ -283,22 +277,24 @@ void World::CalculateRays( void )
 
                 vosion.StartFrame();
 
-                #pragma omp parallel num_threads(8)
-                {
-                    register unsigned int rayLength   = (unsigned int)entity->RaysSize;
-                    register unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
-                    float32 currentRayAngle = 0.0F;
-                    float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
-                    RayCastCallback callback;
-                    b2Vec2 p2;
+                register unsigned int rayLength   = (unsigned int)entity->RaysSize;
+                register unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
+                float32 currentRayAngle = 0.0F;
+                float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
+                RayCastCallback callback;
+                b2Vec2 p2;
+                unsigned int ray;
+                b2World* pWorld = &m_World;
 
+                //#pragma omp parallel for shared(vosion, pWorld, rayLength, rayCntLimit, currentRayAngle, rayAngleStep, callback, p1, p2) private(ray)
+                //{
                     #pragma omp for nowait
-                    for ( unsigned int ray = 0U; ray < rayCntLimit; ray++ )
+                    for ( ray = 0U; ray < rayCntLimit; ray++ )
                     {
                         //calculate points of ray
                         p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
 
-                        m_World.RayCast( &callback, p1, p2 );
+                        pWorld->RayCast( &callback, p1, p2 );
 
                         if( callback.WasHit() == true )
                         {
@@ -308,7 +304,7 @@ void World::CalculateRays( void )
                         vosion.AddRay( EntityVision::sRay( p1, p2, 0 ) );
                         currentRayAngle += rayAngleStep;
                     }
-                }
+                //}
 
                 vosion.EndFrame();
             }

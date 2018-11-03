@@ -46,7 +46,7 @@ namespace codeframe
            path = parent->Path().PathString() + "/" + path;
         }
 
-        path += m_sint.Identity().ObjectName();
+        path += m_sint.Identity().ObjectName( true );
 
         return path ;
     }
@@ -150,7 +150,9 @@ namespace codeframe
         for ( cSerializableChildList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
         {
             cSerializableInterface* iser = *it;
-            if ( iser->Identity().ObjectName() == name )
+            std::string objectName = iser->Identity().ObjectName( true );
+
+            if ( objectName == name )
             {
                 return iser;
             }
@@ -165,7 +167,10 @@ namespace codeframe
     ******************************************************************************/
     cSerializableInterface* cSerializablePath::GetRootObject()
     {
-        if( Parent() ) return Parent()->Path().GetRootObject();
+        if ( Parent() )
+        {
+            return Parent()->Path().GetRootObject();
+        }
 
         return &m_sint;
     }
@@ -185,9 +190,9 @@ namespace codeframe
         utilities::text::split( path, delimiters, tokens);
 
         // Sprawdzamy czy root sie zgadza
-        if(tokens.size() == 0)
+        if ( tokens.size() == 0 )
         {
-            if( curObject->Identity().ObjectName() != path )
+            if ( curObject->Identity().ObjectName() != path )
             {
                 return NULL;
             }
@@ -202,7 +207,7 @@ namespace codeframe
         }
 
         // Po wszystkich skladnikach sciezki
-        for( unsigned i = 1; i < tokens.size(); i++ )
+        for ( unsigned i = 1; i < tokens.size(); i++ )
         {
             std::string levelName = tokens.at(i);
             curObject = curObject->Path().GetChildByName( levelName );
