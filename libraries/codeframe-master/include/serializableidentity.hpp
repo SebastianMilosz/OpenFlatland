@@ -5,10 +5,24 @@
 
 namespace codeframe
 {
+    class cSerializableInterface;
+
+    enum eBuildType
+    {
+        STATIC,
+        DYNAMIC
+    };
+
+    enum eBuildRole
+    {
+        OBJECT,
+        CONTAINER
+    };
+
     class cSerializableIdentity
     {
         public:
-             cSerializableIdentity( const std::string& name );
+             cSerializableIdentity( const std::string& name, cSerializableInterface& sint );
             ~cSerializableIdentity();
 
             void SetName ( const std::string& name );
@@ -26,6 +40,7 @@ namespace codeframe
             static std::string LibraryVersionString();
         private:
             int m_Id;
+            cSerializableInterface& m_sint;
             std::string m_sContainerName;
             bool m_pulseState;
     };

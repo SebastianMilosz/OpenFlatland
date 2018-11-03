@@ -33,7 +33,7 @@ namespace codeframe
         m_SerializableSelectable( *this ),
         m_SerializableLua( *this ),
         m_PropertyManager( *this ),
-        m_Identity( name )
+        m_Identity( name, *this )
     {
         m_SerializablePath.ParentBound( parent );
     }
