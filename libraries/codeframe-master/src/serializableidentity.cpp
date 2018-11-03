@@ -1,4 +1,5 @@
 #include "serializableidentity.hpp"
+#include "serializableinterface.hpp"
 
 #include <TextUtilities.h>
 #include <LoggerUtilities.h>
@@ -10,8 +11,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableIdentity::cSerializableIdentity( const std::string& name ) :
+    cSerializableIdentity::cSerializableIdentity( const std::string& name, cSerializableInterface& sint ) :
         m_Id( -1 ),
+        m_sint( sint ),
         m_sContainerName( name )
     {
 
@@ -44,12 +46,10 @@ namespace codeframe
     ******************************************************************************/
     std::string cSerializableIdentity::ObjectName( bool idSuffix ) const
     {
-        if( (GetId() >= 0) && (idSuffix == true) )
+        if ( (GetId() >= 0) && (idSuffix == true) )
         {
             std::string cntName;
-
             cntName = m_sContainerName + std::string("[") + utilities::math::IntToStr( GetId() ) + std::string("]");
-
             return cntName;
         }
         return m_sContainerName;

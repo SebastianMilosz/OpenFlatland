@@ -24,18 +24,6 @@
 
 namespace codeframe
 {
-    enum eBuildType
-    {
-        STATIC,
-        DYNAMIC
-    };
-
-    enum eBuildRole
-    {
-        OBJECT,
-        CONTAINER
-    };
-
     /*****************************************************************************/
     /**
       * @brief Base common Interface to access to all cSerializable objects
