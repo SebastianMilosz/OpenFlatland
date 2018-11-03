@@ -44,8 +44,8 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
     {
         if ( NULL != m_property )
         {
-            std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
-            m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(referenceAbsolutePath,m_property) );
+            //std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
+            m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
         }
     }
 }
@@ -60,8 +60,8 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
     if ( (m_referencePath != "") && (NULL != prop) && (NULL == m_property) )
     {
         m_property = prop;
-        std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
-        m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(referenceAbsolutePath,m_property) );
+        //std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
+        m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
     }
 }
 
@@ -89,9 +89,11 @@ void ReferenceManager::ResolveReferences( cSerializableInterface& root )
         PropertyBase* prop = it->second;
         std::string path = it->first;
 
+        std::string referenceAbsolutePath = PreparePath( path, prop );
+
         if ( (PropertyBase*)NULL != prop )
         {
-            PropertyBase* targetProp = root.PropertyManager().GetPropertyFromPath( path );
+            PropertyBase* targetProp = root.PropertyManager().GetPropertyFromPath( referenceAbsolutePath );
 
             if ( (PropertyBase*)NULL != targetProp )
             {
