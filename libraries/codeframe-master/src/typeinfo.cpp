@@ -121,17 +121,18 @@ namespace codeframe
     }
 
     // Fundamental types
-    REGISTER_TYPE( std::string       , "text" );
-    REGISTER_TYPE( bool              , "int"  );
-    REGISTER_TYPE( int               , "int"  );
-    REGISTER_TYPE( unsigned int      , "int"  );
-    REGISTER_TYPE( short             , "int"  );
-    REGISTER_TYPE( unsigned short    , "int"  );
-    REGISTER_TYPE( float             , "real" );
-    REGISTER_TYPE( double            , "real" );
-    REGISTER_TYPE( Point2D<int>      , "vec"  );
-    REGISTER_TYPE( Point2D<float>    , "vec"  );
-    REGISTER_TYPE( std::vector<float>, "vec"  );
+    REGISTER_TYPE( std::string              , "text" );
+    REGISTER_TYPE( bool                     , "int"  );
+    REGISTER_TYPE( int                      , "int"  );
+    REGISTER_TYPE( unsigned int             , "int"  );
+    REGISTER_TYPE( short                    , "int"  );
+    REGISTER_TYPE( unsigned short           , "int"  );
+    REGISTER_TYPE( float                    , "real" );
+    REGISTER_TYPE( double                   , "real" );
+    REGISTER_TYPE( Point2D<int>             , "vec"  );
+    REGISTER_TYPE( Point2D<float>           , "vec"  );
+    REGISTER_TYPE( std::vector<float>       , "vec"  );
+    REGISTER_TYPE( std::vector<unsigned int>, "vec"  );
 
     /*****************************************************************************/
     /**
@@ -149,6 +150,7 @@ namespace codeframe
         GetTypeInfo<Point2D<int>       >().SetFromStringCallback( &Point2D<int>::Point2DFromString );
         GetTypeInfo<Point2D<float>     >().SetFromStringCallback( &Point2D<float>::Point2DFromString );
         GetTypeInfo<std::vector<float> >().SetFromStringCallback( &PropertyVector<float>::VectorFromString );
+        GetTypeInfo<std::vector<unsigned int> >().SetFromStringCallback( &PropertyVector<unsigned int>::VectorFromString );
 
         GetTypeInfo<bool               >().SetToStringCallback( &FundamentalTypes<bool>::BoolToString    );
         GetTypeInfo<int                >().SetToStringCallback( &FundamentalTypes<int>::IntToString     );
@@ -159,6 +161,7 @@ namespace codeframe
         GetTypeInfo<Point2D<int>       >().SetToStringCallback( &Point2D<int>::Point2DToString );
         GetTypeInfo<Point2D<float>     >().SetToStringCallback( &Point2D<float>::Point2DToString );
         GetTypeInfo<std::vector<float> >().SetToStringCallback( &PropertyVector<float>::VectorToString );
+        GetTypeInfo<std::vector<unsigned int> >().SetToStringCallback( &PropertyVector<unsigned int>::VectorToString );
 
         GetTypeInfo<bool           >().SetFromIntegerCallback( &FundamentalTypes<bool>::BoolFromInt   );
         GetTypeInfo<int            >().SetFromIntegerCallback( &FundamentalTypes<int>::IntFromInt    );
