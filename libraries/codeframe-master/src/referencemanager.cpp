@@ -6,7 +6,7 @@
 namespace codeframe
 {
 
-std::map<std::string, PropertyBase*> ReferenceManager::m_referencePathMap;
+std::map<std::string, ReferenceManager::sReferenceData> ReferenceManager::m_referencePathMap;
 
 /*****************************************************************************/
 /**
@@ -44,8 +44,11 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
     {
         if ( NULL != m_property )
         {
-            //std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
-            m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
+            std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
+            sReferenceData refData;
+            refData.Property = m_property;
+            refData.RefPath = m_referencePath;
+            m_referencePathMap.insert( std::pair<std::string, sReferenceData>(referenceAbsolutePath, refData) );
         }
     }
 }
@@ -60,8 +63,11 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
     if ( (m_referencePath != "") && (NULL != prop) && (NULL == m_property) )
     {
         m_property = prop;
-        //std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
-        m_referencePathMap.insert( std::pair<std::string, PropertyBase*>(m_referencePath,m_property) );
+        std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
+        sReferenceData refData;
+        refData.Property = m_property;
+        refData.RefPath = m_referencePath;
+        m_referencePathMap.insert( std::pair<std::string, sReferenceData>(referenceAbsolutePath, refData) );
     }
 }
 
@@ -82,22 +88,22 @@ const std::string& ReferenceManager::Get() const
 ******************************************************************************/
 void ReferenceManager::ResolveReferences( cSerializableInterface& root )
 {
-    std::map<std::string, PropertyBase*>::iterator it;
+    std::map<std::string, sReferenceData>::iterator it;
 
     for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end();  )
     {
-        PropertyBase* prop = it->second;
+        sReferenceData refData = it->second;
         std::string path = it->first;
 
-        std::string referenceAbsolutePath = PreparePath( path, prop );
+        std::string referenceAbsolutePath = PreparePath( refData.RefPath, refData.Property );
 
-        if ( (PropertyBase*)NULL != prop )
+        if ( (PropertyBase*)NULL != refData.Property )
         {
             PropertyBase* targetProp = root.PropertyManager().GetPropertyFromPath( referenceAbsolutePath );
 
             if ( (PropertyBase*)NULL != targetProp )
             {
-                targetProp->ConnectReference( prop );
+                targetProp->ConnectReference( refData.Property );
                 it = m_referencePathMap.erase( it );
             }
             else
@@ -115,14 +121,15 @@ void ReferenceManager::ResolveReferences( cSerializableInterface& root )
 ******************************************************************************/
 void ReferenceManager::LogUnresolvedReferences()
 {
-    std::map<std::string, PropertyBase*>::iterator it;
+    std::map<std::string, sReferenceData>::iterator it;
 
     for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++ )
     {
-        PropertyBase* prop = it->second;
-        if ( (PropertyBase*)NULL != prop )
+        sReferenceData refData = it->second;
+
+        if ( (PropertyBase*)NULL != refData.Property )
         {
-            cSerializableInterface* propertyParent = prop->Parent();
+            cSerializableInterface* propertyParent = refData.Property->Parent();
             std::string propertyParentPath = "NULL";
 
             if ( NULL != propertyParent )
@@ -130,7 +137,7 @@ void ReferenceManager::LogUnresolvedReferences()
                 propertyParentPath = propertyParent->Path().PathString();
             }
 
-            propertyParentPath += std::string(".") + prop->Name();
+            propertyParentPath += std::string(".") + refData.Property->Name();
 
             LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << propertyParentPath );
         }

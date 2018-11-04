@@ -23,11 +23,17 @@ namespace codeframe
 
             static void LogUnresolvedReferences();
         private:
+            struct sReferenceData
+            {
+                PropertyBase* Property;
+                std::string   RefPath;
+            };
+
             static std::string PreparePath( const std::string& path, PropertyBase* prop );
 
             std::string m_referencePath;
             PropertyBase* m_property;
-            static std::map<std::string, PropertyBase*> m_referencePathMap;
+            static std::map<std::string, sReferenceData> m_referencePathMap;
     };
 }
 
