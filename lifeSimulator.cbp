@@ -114,6 +114,7 @@
 		</ExtraCommands>
 		<Unit filename="include/annviewerwidget.hpp" />
 		<Unit filename="include/application.hpp" />
+		<Unit filename="include/colorizerealnbr.hpp" />
 		<Unit filename="include/constelement.hpp" />
 		<Unit filename="include/constelementline.hpp" />
 		<Unit filename="include/constelementsfactory.hpp" />
@@ -219,6 +220,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/annviewerwidget.cpp" />
 		<Unit filename="src/application.cpp" />
+		<Unit filename="src/colorizerealnbr.cpp" />
 		<Unit filename="src/constelement.cpp" />
 		<Unit filename="src/constelementline.cpp" />
 		<Unit filename="src/constelementsfactory.cpp" />
