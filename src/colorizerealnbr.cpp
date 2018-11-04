@@ -5,6 +5,16 @@
   * @brief
  **
 ******************************************************************************/
+void ColorizeRealNumbers::Colorize( eColorizeMode mode, const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
+{
+
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void ColorizeRealNumbers::Colorize_IronBow( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
