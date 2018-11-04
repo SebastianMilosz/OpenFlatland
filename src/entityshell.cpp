@@ -5,6 +5,7 @@
 #include <utilities/MathUtilities.h>
 
 #include "fontfactory.hpp"
+#include "colorizerealnbr.hpp"
 
 using namespace codeframe;
 
