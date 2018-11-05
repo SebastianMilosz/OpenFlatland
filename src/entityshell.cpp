@@ -47,6 +47,9 @@ EntityShell::EntityShell( std::string name, int x, int y ) :
     GetDescriptor().FixtureDef.friction = (float)Friction;
     GetDescriptor().FixtureDef.shape    = GetDescriptor().Shape;
 
+    //center.x + radius * cos(angle)
+    //center.y + radius * sin(angle)
+
     m_circle.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
     m_circle.setOutlineThickness(2);
     m_circle.setOrigin(12.5F, 12.5F);
