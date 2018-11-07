@@ -3,6 +3,7 @@
 
 #include "physicsbody.hpp"
 #include "entityvision.hpp"
+#include "colorizecircleshape.hpp"
 
 class EntityShell : public PhysicsBody
 {
@@ -43,10 +44,10 @@ class EntityShell : public PhysicsBody
         EntityVision& Vision() { return m_vision; }
 
     private:
-        b2Vec2          m_zeroVector;
-        sf::CircleShape m_circle;
-        sf::CircleShape m_triangle;
-        EntityVision    m_vision;
+        b2Vec2                  m_zeroVector;
+        sf::ColorizeCircleShape m_circle;
+        sf::CircleShape         m_triangle;
+        EntityVision            m_vision;
 
         int     m_curX;
         int     m_curY;
