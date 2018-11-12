@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize( eColorizeMode mode, const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize( eColorizeMode mode, const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
 
 }
@@ -15,7 +15,7 @@ void ColorizeRealNumbers::Colorize( eColorizeMode mode, const uint16_t* dataIn, 
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_IronBow( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize_IronBow( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -47,7 +47,7 @@ void ColorizeRealNumbers::Colorize_IronBow( const uint16_t* dataIn, sf::Color* d
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_RedYellow( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize_RedYellow( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r;
     uint16_t g;
@@ -73,7 +73,7 @@ void ColorizeRealNumbers::Colorize_RedYellow( const uint16_t* dataIn, sf::Color*
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_BlueRed( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize_BlueRed( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -123,7 +123,7 @@ void ColorizeRealNumbers::Colorize_BlueRed( const uint16_t* dataIn, sf::Color* d
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_BlackRed( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize_BlackRed( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -174,7 +174,7 @@ void ColorizeRealNumbers::Colorize_BlackRed( const uint16_t* dataIn, sf::Color* 
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_BlueRedBin( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize_BlueRedBin( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -200,7 +200,7 @@ void ColorizeRealNumbers::Colorize_BlueRedBin( const uint16_t* dataIn, sf::Color
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_BlueGreenRed( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize_BlueGreenRed( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -249,7 +249,7 @@ void ColorizeRealNumbers::Colorize_BlueGreenRed( const uint16_t* dataIn, sf::Col
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_Grayscale( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize_Grayscale( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
 
@@ -270,7 +270,7 @@ void ColorizeRealNumbers::Colorize_Grayscale( const uint16_t* dataIn, sf::Color*
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_ShiftGray( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift )
+void ColorizeRealNumbers::Colorize_ShiftGray( const float* dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift )
 {
     uint16_t r = 0;
 

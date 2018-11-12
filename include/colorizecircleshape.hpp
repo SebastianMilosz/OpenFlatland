@@ -25,6 +25,7 @@ public:
     void setTextureRect(const IntRect& rect);
     void setFillColor(const Color& color);
     void setOutlineColor(const Color& color);
+    void setOutlineColor(const std::vector<float>& floatVevtor);
     void setOutlineThickness(float thickness);
     const Texture* getTexture() const;
     const IntRect& getTextureRect() const;
@@ -43,8 +44,6 @@ public:
     virtual std::size_t getPointCount() const;
     virtual Vector2f getPoint(std::size_t index) const;
 
-    void updateOutline();
-
 protected:
     void update();
 
@@ -53,6 +52,7 @@ private:
     void updateFillColors();
     void updateTexCoords();
     void updateOutlineColors();
+    void updateOutline();
 
 private:
     const Texture* m_texture;          ///< Texture of the shape
