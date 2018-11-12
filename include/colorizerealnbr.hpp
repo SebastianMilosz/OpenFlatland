@@ -5,6 +5,7 @@
 
 class ColorizeRealNumbers
 {
+    public:
     enum eColorizeMode
     {
         IronBow = 0,
@@ -17,17 +18,17 @@ class ColorizeRealNumbers
         ShiftGray
     };
 
-    void Colorize( eColorizeMode mode, const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize );
+    void Colorize( eColorizeMode mode, const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
 
     private:
-        void Colorize_IronBow     ( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_RedYellow   ( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_BlueRed     ( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_BlackRed    ( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_BlueRedBin  ( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_BlueGreenRed( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_Grayscale   ( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_ShiftGray   ( const uint16_t* dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift );
+        void Colorize_IronBow     ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_RedYellow   ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_BlueRed     ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_BlackRed    ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_BlueRedBin  ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_BlueGreenRed( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_Grayscale   ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_ShiftGray   ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift );
 };
 
 #endif // COLORIZEREALNBR_HPP_INCLUDED

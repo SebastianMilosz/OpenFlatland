@@ -5,7 +5,6 @@
 #include <utilities/MathUtilities.h>
 
 #include "fontfactory.hpp"
-#include "colorizerealnbr.hpp"
 
 using namespace codeframe;
 
@@ -141,8 +140,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
             m_vision.Draw( window );
         }
 
-        sf::Color* colorsTable = m_circle.getOutlineColors();
-        std::size_t colorsTableSize = m_circle.getOutlineColorsCount();
+        m_circle.setOutlineColor( (std::vector<float>)m_vision.VisionVector );
 
         m_circle.setPosition( xpos, ypos );
         m_circle.setRotation( rot );

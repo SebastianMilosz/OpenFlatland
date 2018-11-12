@@ -6,6 +6,8 @@
 #include <SFML/System/Err.hpp>
 #include <cmath>
 
+#include "colorizerealnbr.hpp"
+
 namespace
 {
     /*****************************************************************************/
@@ -131,6 +133,23 @@ namespace sf
             m_colorData[i] = color;
         }
         updateOutlineColors();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void ColorizeCircleShape::setOutlineColor( const std::vector<float>& floatVevtor )
+    {
+        if ( getPointCount() != floatVevtor.size() )
+        {
+            setPointCount( floatVevtor.size() );
+        }
+
+        ColorizeRealNumbers cl;
+        cl.Colorize(ColorizeRealNumbers::IronBow, &floatVevtor[0], m_colorData, getPointCount() );
+        //updateOutlineColors();
     }
 
     /*****************************************************************************/
