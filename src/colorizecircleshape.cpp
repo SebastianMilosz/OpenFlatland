@@ -42,6 +42,11 @@ namespace sf
     ******************************************************************************/
     ColorizeCircleShape::~ColorizeCircleShape()
     {
+        if ( NULL != m_colorData )
+        {
+            delete[] m_colorData;
+            m_colorData = NULL;
+        }
     }
 
     /*****************************************************************************/
@@ -121,18 +126,11 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::setOutlineColor(const Color& color)
     {
-        m_outlineColor = color;
+        for (std::size_t i = 0; i < m_pointCount; ++i)
+        {
+            m_colorData[i] = color;
+        }
         updateOutlineColors();
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    const Color& ColorizeCircleShape::getOutlineColor() const
-    {
-        return m_outlineColor;
     }
 
     /*****************************************************************************/
@@ -185,14 +183,14 @@ namespace sf
     m_texture         (NULL),
     m_textureRect     (),
     m_fillColor       (255, 255, 255),
-    m_outlineColor    (255, 255, 255),
     m_outlineThickness(0),
     m_vertices        (TriangleFan),
     m_outlineVertices (TriangleStrip),
     m_insideBounds    (),
     m_bounds          (),
     m_radius          (radius),
-    m_pointCount      (pointCount)
+    m_pointCount      (pointCount),
+    m_colorData       (NULL)
     {
 
     }
@@ -296,6 +294,15 @@ namespace sf
         std::size_t count = m_vertices.getVertexCount() - 2;
         m_outlineVertices.resize((count + 1) * 2);
 
+        // Recreate color table
+        if ( NULL != m_colorData )
+        {
+            delete[] m_colorData;
+            m_colorData = NULL;
+        }
+
+        m_colorData = new Color[ m_pointCount ];
+
         for (std::size_t i = 0; i < count; ++i)
         {
             std::size_t index = i + 1;
@@ -343,8 +350,18 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutlineColors()
     {
-        for (std::size_t i = 0; i < m_outlineVertices.getVertexCount(); ++i)
-            m_outlineVertices[i].color = m_outlineColor;
+        std::size_t count = m_vertices.getVertexCount() - 2;
+        unsigned int n = 0;
+        Color cl;
+        for (std::size_t i = 0; i < count; ++i)
+        {
+            cl = m_colorData[i];
+            m_outlineVertices[n + 0].color = cl;
+            m_outlineVertices[n + 1].color = cl;
+            m_outlineVertices[n + 2].color = cl;
+            m_outlineVertices[n + 3].color = cl;
+            n += 2;
+        }
     }
 
     /*****************************************************************************/
@@ -377,6 +394,26 @@ namespace sf
     {
         m_pointCount = count;
         update();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    Color* ColorizeCircleShape::getOutlineColors()
+    {
+        return m_colorData;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::size_t ColorizeCircleShape::getOutlineColorsCount() const
+    {
+        return m_pointCount;
     }
 
     /*****************************************************************************/

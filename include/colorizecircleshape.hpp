@@ -29,7 +29,6 @@ public:
     const Texture* getTexture() const;
     const IntRect& getTextureRect() const;
     const Color& getFillColor() const;
-    const Color& getOutlineColor() const;
     float getOutlineThickness() const;
     FloatRect getLocalBounds() const;
     FloatRect getGlobalBounds() const;
@@ -38,8 +37,13 @@ public:
     float getRadius() const;
     void setPointCount(std::size_t count);
 
+    Color* getOutlineColors();
+    std::size_t getOutlineColorsCount() const;
+
     virtual std::size_t getPointCount() const;
     virtual Vector2f getPoint(std::size_t index) const;
+
+    void updateOutline();
 
 protected:
     void update();
@@ -48,14 +52,12 @@ private:
     virtual void draw(RenderTarget& target, RenderStates states) const;
     void updateFillColors();
     void updateTexCoords();
-    void updateOutline();
     void updateOutlineColors();
 
 private:
     const Texture* m_texture;          ///< Texture of the shape
     IntRect        m_textureRect;      ///< Rectangle defining the area of the source texture to display
     Color          m_fillColor;        ///< Fill color
-    Color          m_outlineColor;     ///< Outline color
     float          m_outlineThickness; ///< Thickness of the shape's outline
     VertexArray    m_vertices;         ///< Vertex array containing the fill geometry
     VertexArray    m_outlineVertices;  ///< Vertex array containing the outline geometry
@@ -63,6 +65,7 @@ private:
     FloatRect      m_bounds;           ///< Bounding rectangle of the whole shape (outline + fill)
     float          m_radius;           ///< Radius of the circle
     std::size_t    m_pointCount;       ///< Number of points composing the circle
+    Color*         m_colorData;        ///<
 };
 
 } // namespace sf
