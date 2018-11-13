@@ -148,8 +148,8 @@ namespace sf
         }
 
         ColorizeRealNumbers cl;
-        cl.Colorize(ColorizeRealNumbers::IronBow, &floatVevtor[0], m_colorData, getPointCount() );
-        //updateOutlineColors();
+        cl.Colorize_IronBow( &floatVevtor[0], m_colorData, getPointCount() );
+        updateOutlineColors();
     }
 
     /*****************************************************************************/

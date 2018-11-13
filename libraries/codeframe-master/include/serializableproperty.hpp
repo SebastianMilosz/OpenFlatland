@@ -49,6 +49,11 @@ namespace codeframe
                 return m_baseValue;
             }
 
+            retT& GetBaseValue()
+            {
+                return m_baseValue;
+            }
+
             void SetValue( const retT& value )
             {
                 if ( (NULL != SetValueCallback) && (NULL != ContextObject) )

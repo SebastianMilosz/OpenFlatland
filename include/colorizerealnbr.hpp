@@ -20,7 +20,7 @@ class ColorizeRealNumbers
 
     void Colorize( eColorizeMode mode, const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
 
-    private:
+    public:
         void Colorize_IronBow     ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
         void Colorize_RedYellow   ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
         void Colorize_BlueRed     ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
