@@ -7,7 +7,17 @@
 ******************************************************************************/
 void ColorizeRealNumbers::Colorize( eColorizeMode mode, const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
-
+    switch ( mode )
+    {
+        case IronBow: break;
+        case RedYellow: break;
+        case BlueRed: break;
+        case BlackRed: break;
+        case BlueRedBin: break;
+        case BlueGreenRed: break;
+        case Grayscale: break;
+        case ShiftGray: break;
+    }
 }
 
 /*****************************************************************************/
@@ -23,7 +33,7 @@ void ColorizeRealNumbers::Colorize_IronBow( const float* dataIn, sf::Color* data
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-            uint16_t data = dataIn[ n ];
+            uint16_t data = dataIn[ n ]*1000;
 
             r = data >> 6;
             if ( r > 255       ) r = 255;
