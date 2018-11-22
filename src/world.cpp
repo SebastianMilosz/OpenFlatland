@@ -4,6 +4,7 @@
 
 #include <string>
 #include <sstream>
+#include <math.h>
 #include <omp.h>
 
 #include <utilities/LoggerUtilities.h>
@@ -262,6 +263,8 @@ b2Body* World::getBodyAtMouse( float x, float y )
 ******************************************************************************/
 void World::CalculateRays( void )
 {
+    static const float pi = 3.141592654f;
+
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext() )
     {
         if ( BodyIterator->GetType() == b2_dynamicBody )
@@ -279,8 +282,10 @@ void World::CalculateRays( void )
 
                 register unsigned int rayLength   = (unsigned int)entity->RaysSize;
                 register unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
-                float32 currentRayAngle = 0.0F;
-                float32 rayAngleStep = 360.0 / (float32)rayCntLimit;
+                register float32      rotation    = entity->GetRotation();
+
+                float32 currentRayAngle = -(rotation)*pi/180.0F;
+                float32 rayAngleStep = 360.0F / (float32)rayCntLimit;
                 RayCastCallback callback;
                 b2Vec2 p2;
                 unsigned int ray;
@@ -292,7 +297,7 @@ void World::CalculateRays( void )
                     for ( ray = 0U; ray < rayCntLimit; ray++ )
                     {
                         //calculate points of ray
-                        p2 = p1 + rayLength * b2Vec2( sinf(currentRayAngle), cosf(currentRayAngle) );
+                        p2 = p1 + rayLength * b2Vec2( std::sin(currentRayAngle), std::cos(currentRayAngle) );
 
                         pWorld->RayCast( &callback, p1, p2 );
 
