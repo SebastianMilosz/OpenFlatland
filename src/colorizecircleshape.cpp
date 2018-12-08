@@ -377,10 +377,11 @@ namespace sf
             cl = m_colorData[i];
             m_outlineVertices[n + 0].color = cl;
             m_outlineVertices[n + 1].color = cl;
-            m_outlineVertices[n + 2].color = cl;
-            m_outlineVertices[n + 3].color = cl;
             n += 2;
         }
+
+        m_outlineVertices[count * 2 + 0].color = cl;
+        m_outlineVertices[count * 2 + 1].color = cl;
     }
 
     /*****************************************************************************/
