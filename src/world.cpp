@@ -285,7 +285,7 @@ void World::CalculateRays( void )
                 register float32      rotation    = entity->GetRotation();
 
                 float32 currentRayAngle = -(rotation)*pi/180.0F;
-                float32 rayAngleStep = 360.0F / (float32)rayCntLimit;
+                float32 rayAngleStep = (360.0F / (float32)rayCntLimit)*pi/180.0F;
                 RayCastCallback callback;
                 b2Vec2 p2;
                 unsigned int ray;
