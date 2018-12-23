@@ -453,11 +453,11 @@ namespace sf
     ******************************************************************************/
     Vector2f ColorizeCircleShape::getPoint(std::size_t index) const
     {
-        static const float pi = 3.141592654f;
+        static const float pi = 3.141592654F;
 
-        float angle = index * 2 * pi / m_pointCount - pi / 2;
-        float x = std::cos(angle) * m_radius;
-        float y = std::sin(angle) * m_radius;
+        float angle = -((index * 2.0F * pi / m_pointCount) + (pi / 2.0F));
+        float x = std::cos( angle ) * m_radius;
+        float y = std::sin( angle ) * m_radius;
 
         return Vector2f(m_radius + x, m_radius + y);
     }

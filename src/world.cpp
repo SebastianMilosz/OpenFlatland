@@ -284,12 +284,11 @@ void World::CalculateRays( void )
                 register unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
                 register float32      rotation    = entity->GetRotation();
 
-                float32 currentRayAngle = -(rotation)*pi/180.0F;
-                float32 rayAngleStep = (360.0F / (float32)rayCntLimit)*pi/180.0F;
+                float32 currentRayAngle = -(rotation+180.0F) * (pi/180.0F);
+                float32 rayAngleStep = (360.0F / (float32)rayCntLimit) * (pi/180.0F);
                 RayCastCallback callback;
                 b2Vec2 p2;
                 unsigned int ray;
-                b2World* pWorld = &m_World;
 
                 //#pragma omp parallel for shared(vosion, pWorld, rayLength, rayCntLimit, currentRayAngle, rayAngleStep, callback, p1, p2) private(ray)
                 //{
@@ -299,7 +298,7 @@ void World::CalculateRays( void )
                         //calculate points of ray
                         p2 = p1 + rayLength * b2Vec2( std::sin(currentRayAngle), std::cos(currentRayAngle) );
 
-                        pWorld->RayCast( &callback, p1, p2 );
+                        m_World.RayCast( &callback, p1, p2 );
 
                         if( callback.WasHit() == true )
                         {
