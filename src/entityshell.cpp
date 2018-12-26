@@ -13,11 +13,11 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell( std::string name, int x, int y ) :
+EntityShell::EntityShell( const std::string& name, int x, int y ) :
     PhysicsBody( name, NULL ),
     X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
     Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
-    Rotation( this, "R"       , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), this, &EntityShell::GetRotation ),
+    Rotation( this, "R"       , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), this, &EntityShell::GetRotation, &EntityShell::SetRotation ),
     CastRays( this, "CastRays", false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays") ),
     RaysCnt ( this, "RaysCnt" , 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt") ),
     RaysSize( this, "RaysSize", 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
@@ -234,9 +234,30 @@ const float32& EntityShell::GetRotation()
 {
     if( GetDescriptor().Body != NULL )
     {
-        m_curR = utilities::math::ConstrainAngle( GetDescriptor().Body->GetAngle() * (180.0/3.141592653589793238463) );
+        static const float pi = 3.141592654F;
+
+        m_curR = utilities::math::ConstrainAngle( GetDescriptor().Body->GetAngle() * (180.0/pi) );
     }
     return m_curR;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityShell::SetRotation( float rotation )
+{
+    b2Body* body = GetDescriptor().Body;
+
+    if( (b2Body*)NULL != body )
+    {
+        static const float pi = 3.141592654F;
+
+        float angleToSet = rotation / (180.0/pi) ;
+
+        body->SetTransform( body->GetPosition(), angleToSet );
+    }
 }
 
 /*****************************************************************************/

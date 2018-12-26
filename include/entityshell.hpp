@@ -12,7 +12,7 @@ class EntityShell : public PhysicsBody
         CODEFRAME_META_CONSTRUCT_PATERN( "X,Y" );
 
     public:
-                 EntityShell( std::string name, int x, int y );
+                 EntityShell( const std::string& name, int x, int y );
                  EntityShell( const EntityShell& other );
         virtual ~EntityShell();
 
@@ -38,6 +38,8 @@ class EntityShell : public PhysicsBody
         void SetY(int val);
 
         const float32& GetRotation();
+
+        void SetRotation( float rotation );
 
         const b2Vec2& GetPhysicalPoint();
 

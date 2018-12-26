@@ -72,6 +72,7 @@
 			<Add option="-DGLEW_STATIC" />
 			<Add option="-DWIN32" />
 			<Add option="-D__GNUWIN32__" />
+			<Add option="-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP" />
 			<Add directory="libraries/imgui-sfml-master" />
 			<Add directory="libraries/imgui-master" />
 			<Add directory="libraries/SFML-master/include" />
@@ -85,6 +86,7 @@
 			<Add directory="libraries/codeframe-master/thirdparty/pugixml-1.7/src" />
 			<Add directory="libraries/codeframe-master/thirdparty/smartpointer" />
 			<Add directory="libraries/codeframe-master/thirdparty/plf_nanotimer-master" />
+			<Add directory="libraries/thrust-1.8.1" />
 		</Compiler>
 		<Linker>
 			<Add option="-static-libstdc++" />
