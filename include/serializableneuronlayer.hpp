@@ -6,6 +6,11 @@
 #include <serializablecontainer.hpp>
 #include <serializableinterface.hpp>
 
+#include <thrust/device_vector.h>
+#include <thrust/random.h>
+#include <thrust/generate.h>
+#include <thrust/sort.h>
+
 class SerializableNeuronLayer : public codeframe::cSerializable
 {
         CODEFRAME_META_CLASS_NAME( "SerializableNeuronLayer" );
@@ -25,6 +30,8 @@ class SerializableNeuronLayer : public codeframe::cSerializable
 
     protected:
         void SetNeuronCnt( std::vector<unsigned int> cntVec );
+
+        thrust::host_vector<float> W;
 };
 
 #endif // SERIALIZABLENEURONLAYER_HPP_INCLUDED
