@@ -9,11 +9,11 @@ using namespace codeframe;
 ******************************************************************************/
 SerializableNeuronLayer::SerializableNeuronLayer( std::string name, cSerializableInterface* parent ) :
     cSerializable( name, parent ),
-    Activation      ( this, "Activation"      , 0                           , cPropertyInfo().Kind( KIND_ENUM   ).Enum("Identity,Binary step,Logistic").Description("Activation Function")),
-    WeightDimensions( this, "WeightDimensions", std::vector<unsigned int>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightDimensions"), this, NULL, &SerializableNeuronLayer::SetNeuronCnt),
-    WeightMatrix    ( this, "WeightMatrix"    , std::vector<float>(0)       , cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightMatrix") ),
-    Input           ( this, "Input"           , std::vector<float>(0)       , cPropertyInfo().Kind( KIND_VECTOR ).Description("Input") ),
-    Output          ( this, "Output"          , std::vector<float>(0)       , cPropertyInfo().Kind( KIND_VECTOR ).Description("Output") )
+    Activation      ( this, "Activation"      , 0                            , cPropertyInfo().Kind( KIND_ENUM   ).Enum("Identity,Binary step,Logistic").Description("Activation Function")),
+    WeightDimensions( this, "WeightDimensions", std::vector<unsigned int>(0) , cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightDimensions"), this, NULL, &SerializableNeuronLayer::SetNeuronCnt),
+    WeightMatrix    ( this, "WeightMatrix"    , thrust::host_vector<float>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightMatrix") ),
+    Input           ( this, "Input"           , thrust::host_vector<float>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("Input") ),
+    Output          ( this, "Output"          , thrust::host_vector<float>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("Output") )
 {
 
 }

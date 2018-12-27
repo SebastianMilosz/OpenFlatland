@@ -24,14 +24,12 @@ class SerializableNeuronLayer : public codeframe::cSerializable
 
         codeframe::Property< unsigned int > Activation;
         codeframe::Property< std::vector<unsigned int>, SerializableNeuronLayer > WeightDimensions;
-        codeframe::Property< std::vector<float> > WeightMatrix;
-        codeframe::Property< std::vector<float> > Input;
-        codeframe::Property< std::vector<float> > Output;
+        codeframe::Property< thrust::host_vector<float> > WeightMatrix;
+        codeframe::Property< thrust::host_vector<float> > Input;
+        codeframe::Property< thrust::host_vector<float> > Output;
 
     protected:
         void SetNeuronCnt( std::vector<unsigned int> cntVec );
-
-        thrust::host_vector<float> W;
 };
 
 #endif // SERIALIZABLENEURONLAYER_HPP_INCLUDED
