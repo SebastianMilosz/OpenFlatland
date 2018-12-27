@@ -144,6 +144,7 @@
 		<Unit filename="libraries/codeframe-master/include/cxmlnode.hpp" />
 		<Unit filename="libraries/codeframe-master/include/extfundamental.hpp" />
 		<Unit filename="libraries/codeframe-master/include/extpoint2d.hpp" />
+		<Unit filename="libraries/codeframe-master/include/extthrust.hpp" />
 		<Unit filename="libraries/codeframe-master/include/extvector.hpp" />
 		<Unit filename="libraries/codeframe-master/include/instancemanager.hpp" />
 		<Unit filename="libraries/codeframe-master/include/propertyignorelist.hpp" />
@@ -181,6 +182,7 @@
 		<Unit filename="libraries/codeframe-master/src/cxml.cpp" />
 		<Unit filename="libraries/codeframe-master/src/cxmlnode.cpp" />
 		<Unit filename="libraries/codeframe-master/src/extpoint2d.cpp" />
+		<Unit filename="libraries/codeframe-master/src/extthrust.cpp" />
 		<Unit filename="libraries/codeframe-master/src/extvector.cpp" />
 		<Unit filename="libraries/codeframe-master/src/instancemanager.cpp" />
 		<Unit filename="libraries/codeframe-master/src/referencemanager.cpp" />
