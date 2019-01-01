@@ -10,10 +10,14 @@ using namespace codeframe;
 SerializableNeuronLayer::SerializableNeuronLayer( std::string name, cSerializableInterface* parent ) :
     cSerializable( name, parent ),
     Activation      ( this, "Activation"      , 0                            , cPropertyInfo().Kind( KIND_ENUM   ).Enum("Identity,Binary step,Logistic").Description("Activation Function")),
-    WeightDimensions( this, "WeightDimensions", std::vector<unsigned int>(0) , cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightDimensions"), this, NULL, &SerializableNeuronLayer::SetNeuronCnt),
+    WeightDimensions( this, "WeightDimensions", std::vector<unsigned int>(0) , cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightDimensions") ),
     WeightMatrix    ( this, "WeightMatrix"    , thrust::host_vector<float>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightMatrix") ),
     Input           ( this, "Input"           , thrust::host_vector<float>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("Input") ),
-    Output          ( this, "Output"          , thrust::host_vector<float>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("Output") )
+    Output          ( this, "Output"          , thrust::host_vector<float>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("Output") ),
+    WeightDimensionsCnt( 0U ),
+    WeightMatrixCnt( 0U ),
+    InputCnt( 0U ),
+    OutputCnt( 0U )
 {
 
 }
@@ -35,6 +39,12 @@ SerializableNeuronLayer::~SerializableNeuronLayer()
 ******************************************************************************/
 void SerializableNeuronLayer::Calculate()
 {
+    // Preprocessing if needed, prepare data matrix
+    if ( true == NeedRecreateInternalState() )
+    {
+        RecreateInternalState();
+    }
+
 
 }
 
@@ -43,7 +53,21 @@ void SerializableNeuronLayer::Calculate()
   * @brief
  **
 ******************************************************************************/
-void SerializableNeuronLayer::SetNeuronCnt( std::vector<unsigned int> cntVec )
+bool SerializableNeuronLayer::NeedRecreateInternalState()
+{
+    if ( WeightDimensionsCnt != WeightDimensions.GetBaseValue().size() ) { return true; }
+    if ( WeightMatrixCnt     != WeightMatrix.GetBaseValue().size() ) { return true; }
+    if ( InputCnt            != Input.GetBaseValue().size() ) { return true; }
+    if ( OutputCnt           != Output.GetBaseValue().size() ) { return true; }
+    return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void SerializableNeuronLayer::RecreateInternalState()
 {
 
 }
