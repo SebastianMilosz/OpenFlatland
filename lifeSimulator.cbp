@@ -219,6 +219,7 @@
 		<Unit filename="libraries/imgui-master/imgui_demo.cpp" />
 		<Unit filename="libraries/imgui-master/imgui_draw.cpp" />
 		<Unit filename="libraries/imgui-master/imgui_internal.h" />
+		<Unit filename="libraries/imgui-master/imgui_widgets.cpp" />
 		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.cpp" />
 		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.h" />
 		<Unit filename="libraries/sigslot-1.0.0/sigslot.h" />

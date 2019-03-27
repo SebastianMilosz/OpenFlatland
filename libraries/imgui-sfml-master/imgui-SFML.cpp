@@ -141,7 +141,12 @@ namespace SFML
 
 void Init(sf::RenderTarget& target, bool loadDefaultFont)
 {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
+
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
     // init keyboard mapping
     io.KeyMap[ImGuiKey_Tab] = sf::Keyboard::Tab;
@@ -316,7 +321,7 @@ void Shutdown()
         s_fontTexture = NULL;
     }
 
-    ImGui::Shutdown(); // need to specify namespace here, otherwise ImGui::SFML::Shutdown would be called
+    ImGui::DestroyContext(); // need to specify namespace here, otherwise ImGui::SFML::Shutdown would be called
 }
 
 void UpdateFontTexture()
