@@ -20,6 +20,16 @@
 #include <limits>
 #include <limits.h>
 
+#ifndef LLONG_MAX
+#define LLONG_MAX 9223372036854775807LL
+#endif
+#ifndef LLONG_MIN
+#define LLONG_MIN (-LLONG_MAX - 1)
+#endif
+#ifndef ULLONG_MAX
+#define ULLONG_MAX (2ULL * LLONG_MAX + 1)
+#endif
+
 namespace thrust
 {
 
