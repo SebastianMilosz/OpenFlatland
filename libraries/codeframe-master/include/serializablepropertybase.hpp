@@ -65,11 +65,11 @@ namespace codeframe
             }
 
             // Operator porownania
-            virtual bool operator==(const PropertyBase& sval);
-            virtual bool operator!=(const PropertyBase& sval);
+            virtual bool operator==(const PropertyBase& sval) const;
+            virtual bool operator!=(const PropertyBase& sval) const;
 
-            virtual bool operator==(const int& sval);
-            virtual bool operator!=(const int& sval);
+            virtual bool operator==(const int& sval) const;
+            virtual bool operator!=(const int& sval) const;
 
             // Operatory przypisania
             virtual PropertyBase& operator=(const PropertyBase& val);

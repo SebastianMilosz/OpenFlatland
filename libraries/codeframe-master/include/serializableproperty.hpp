@@ -40,7 +40,7 @@ namespace codeframe
 
             }
 
-            retT GetValue() const
+            const retT& GetValue() const
             {
                 if ( (NULL != GetValueCallback) && (NULL != ContextObject) )
                 {
@@ -80,7 +80,7 @@ namespace codeframe
             }
 
             // Comparison operators
-            virtual bool operator==(const Property& sval)
+            virtual bool operator==(const Property& sval) const
             {
                 m_Mutex.Lock();
                 bool retVal = false;
@@ -94,7 +94,7 @@ namespace codeframe
             }
 
             // Comparison operators
-            virtual bool operator!=(const Property& sval)
+            virtual bool operator!=(const Property& sval) const
             {
                 m_Mutex.Lock();
                 bool retVal = false;

@@ -98,22 +98,22 @@ namespace codeframe
         return *this;
     }
 
-    bool PropertyBase::operator==(const PropertyBase& sval)
+    bool PropertyBase::operator==(const PropertyBase& sval) const
     {
         return false;
     }
 
-    bool PropertyBase::operator!=(const PropertyBase& sval)
+    bool PropertyBase::operator!=(const PropertyBase& sval) const
     {
         return false;
     }
 
-    bool PropertyBase::operator==(const int& sval)
+    bool PropertyBase::operator==(const int& sval) const
     {
         return false;
     }
 
-    bool PropertyBase::operator!=(const int& sval)
+    bool PropertyBase::operator!=(const int& sval) const
     {
         return false;
     }
