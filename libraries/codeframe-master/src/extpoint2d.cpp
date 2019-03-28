@@ -232,7 +232,7 @@ Point2D<float>& Point2D<float>::operator+(const Point2D<float>& rhs)
  **
 ******************************************************************************/
 template<>
-bool Point2D<int>::operator==(const Point2D<int>& sval)
+bool Point2D<int>::operator==(const Point2D<int>& sval) const
 {
     if( (m_x == sval.m_x) && (m_y == sval.m_y) )
     {
@@ -247,7 +247,7 @@ bool Point2D<int>::operator==(const Point2D<int>& sval)
  **
 ******************************************************************************/
 template<>
-bool Point2D<float>::operator==(const Point2D<float>& sval)
+bool Point2D<float>::operator==(const Point2D<float>& sval) const
 {
     if( (m_x == sval.m_x) && (m_y == sval.m_y) )
     {
@@ -262,7 +262,7 @@ bool Point2D<float>::operator==(const Point2D<float>& sval)
  **
 ******************************************************************************/
 template<>
-bool Point2D<int>::operator!=(const Point2D<int>& sval)
+bool Point2D<int>::operator!=(const Point2D<int>& sval) const
 {
     if( (m_x != sval.m_x) || (m_y != sval.m_y) )
     {
@@ -277,7 +277,7 @@ bool Point2D<int>::operator!=(const Point2D<int>& sval)
  **
 ******************************************************************************/
 template<>
-bool Point2D<float>::operator!=(const Point2D<float>& sval)
+bool Point2D<float>::operator!=(const Point2D<float>& sval) const
 {
     if( (m_x != sval.m_x) || (m_y != sval.m_y) )
     {

@@ -27,11 +27,11 @@ namespace codeframe
 
             virtual Point2D& operator=(const Point2D& other);
             virtual Point2D& operator+(const Point2D& rhs);
-            virtual bool     operator==(const Point2D& sval);
-            virtual bool     operator!=(const Point2D& sval);
+            virtual bool     operator==(const Point2D& sval) const;
+            virtual bool     operator!=(const Point2D& sval) const;
 
-            T X() { return m_x; }
-            T Y() { return m_y; }
+            T X() const { return m_x; }
+            T Y() const { return m_y; }
 
         static Point2D<T> Point2DFromString( const std::string& value )
         {
