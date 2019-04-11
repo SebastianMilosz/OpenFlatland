@@ -7,7 +7,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-ConstElementLine::ConstElementLine( std::string name, codeframe::Point2D<int>& startPoint, codeframe::Point2D<int>& endPoint ) :
+ConstElementLine::ConstElementLine( const std::string& name, codeframe::Point2D<int>& startPoint, codeframe::Point2D<int>& endPoint ) :
     ConstElement( name ),
     StartPoint( this, "SPoint" , Point2D<int>( startPoint ), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint"), this ),
     EndPoint  ( this, "EPoint" , Point2D<int>( endPoint   ), cPropertyInfo().Kind( KIND_2DPOINT ).Description("EndPoint"), this)

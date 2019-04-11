@@ -17,7 +17,7 @@ class ConstElementLine : public ConstElement
         CODEFRAME_META_CONSTRUCT_PATERN( "SPoint,EPoint" );
 
     public:
-        ConstElementLine( std::string name, codeframe::Point2D<int>& startPoint, codeframe::Point2D<int>& endPoint );
+        ConstElementLine( const std::string& name, codeframe::Point2D<int>& startPoint, codeframe::Point2D<int>& endPoint );
         virtual ~ConstElementLine();
         ConstElementLine(const ConstElementLine& other);
         ConstElementLine& operator=(const ConstElementLine& other);

@@ -7,7 +7,7 @@
   * @brief
  **
 ******************************************************************************/
-EntityGhost::EntityGhost( std::string name, int x, int y ) :
+EntityGhost::EntityGhost( const std::string& name, int x, int y ) :
     EntityShell( name, x, y ),
     m_NeuronLayerContainer( "ANN", this )
 {

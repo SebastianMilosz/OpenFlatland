@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-ConstElement::ConstElement( std::string name ) :
+ConstElement::ConstElement( const std::string& name ) :
     PhysicsBody( name, NULL )
 {
 

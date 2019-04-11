@@ -15,7 +15,7 @@ class EntityFactory : public codeframe::cSerializableContainer
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-        EntityFactory( std::string name, cSerializableInterface* parent );
+        EntityFactory( const std::string& name, cSerializableInterface* parent );
         virtual ~EntityFactory();
 
         smart_ptr<Entity> Create( int x, int y, int z );

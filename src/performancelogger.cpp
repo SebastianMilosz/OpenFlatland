@@ -47,7 +47,7 @@ PerformanceLogger& PerformanceLogger::GetInstance()
   * @brief
  **
 ******************************************************************************/
-void PerformanceLogger::Initialize( std::string applicationId )
+void PerformanceLogger::Initialize( const std::string& applicationId )
 {
     m_applicationId = applicationId;
     LOGGER( LOG_INFO << "Performance Logger created for build: " << applicationId );
@@ -58,7 +58,7 @@ void PerformanceLogger::Initialize( std::string applicationId )
   * @brief
  **
 ******************************************************************************/
-void PerformanceLogger::AddNote( std::string note )
+void PerformanceLogger::AddNote( const std::string& note )
 {
     m_note = note;
 }
@@ -68,7 +68,7 @@ void PerformanceLogger::AddNote( std::string note )
   * @brief
  **
 ******************************************************************************/
-void PerformanceLogger::SaveToFile( std::string filePath )
+void PerformanceLogger::SaveToFile( const std::string& filePath )
 {
     std::ofstream performanceFile;
     performanceFile.open ( filePath, std::fstream::in | std::fstream::out | std::fstream::app );
@@ -112,7 +112,7 @@ std::string PerformanceLogger::PointToString( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-void PerformanceLogger::AddPerformancePoint( unsigned int id, std::string name )
+void PerformanceLogger::AddPerformancePoint( unsigned int id, const std::string& name )
 {
     m_PerformanceMap[ id ].Name = name;
 }

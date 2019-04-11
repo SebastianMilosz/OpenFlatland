@@ -7,7 +7,7 @@
   * @brief
  **
 ******************************************************************************/
-EntityFactory::EntityFactory( std::string name, cSerializableInterface* parent ) :
+EntityFactory::EntityFactory( const std::string& name, cSerializableInterface* parent ) :
     cSerializableContainer( name, parent )
 {
     //ctor
