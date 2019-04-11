@@ -7,7 +7,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-SerializableNeuronLayerContainer::SerializableNeuronLayerContainer( std::string name, cSerializableInterface* parent ) :
+SerializableNeuronLayerContainer::SerializableNeuronLayerContainer( const std::string& name, cSerializableInterface* parent ) :
     cSerializableContainer( name, parent ),
     LayersCnt( this, "LayersCnt" , 2U , cPropertyInfo().Kind( KIND_NUMBER ).Description("LayersCnt"), this, NULL, &SerializableNeuronLayerContainer::SetLayersCnt )
 {

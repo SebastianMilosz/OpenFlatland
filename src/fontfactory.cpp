@@ -8,7 +8,7 @@ sf::Font FontFactory::m_font;
   * @brief
  **
 ******************************************************************************/
-FontFactory::FontFactory( std::string name, cSerializableInterface* parent ) :
+FontFactory::FontFactory( const std::string& name, cSerializableInterface* parent ) :
     cSerializable( name, parent )
 {
     if( m_initialized == false )

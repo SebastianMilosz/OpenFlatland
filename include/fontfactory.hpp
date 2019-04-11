@@ -10,7 +10,7 @@ class FontFactory : public codeframe::cSerializable
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-        FontFactory( std::string name, cSerializableInterface* parent );
+        FontFactory( const std::string& name, cSerializableInterface* parent );
         virtual ~FontFactory();
 
         static sf::Font& GetFont();

@@ -15,7 +15,7 @@ class ConstElementsFactory : public codeframe::cSerializableContainer
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-        ConstElementsFactory( std::string name, cSerializableInterface* parent );
+        ConstElementsFactory( const std::string& name, cSerializableInterface* parent );
         virtual ~ConstElementsFactory();
 
         smart_ptr<ConstElement> Create( smart_ptr<ConstElement> );

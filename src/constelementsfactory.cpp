@@ -8,7 +8,7 @@
   * @brief
  **
 ******************************************************************************/
-ConstElementsFactory::ConstElementsFactory( std::string name, cSerializableInterface* parent ) :
+ConstElementsFactory::ConstElementsFactory( const std::string& name, cSerializableInterface* parent ) :
     cSerializableContainer( name, parent )
 {
 

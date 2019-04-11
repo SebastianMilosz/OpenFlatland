@@ -25,7 +25,7 @@ LogWidget::~LogWidget()
   * @brief
  **
 ******************************************************************************/
-void LogWidget::OnLogMessage(std::string timestamp, std::string title, std::string msg, int type)
+void LogWidget::OnLogMessage(const std::string& timestamp, const std::string& title, const std::string& msg, int type)
 {
     AddLog( "[%s] : [%s] : [%d] : %s\n", timestamp.c_str(), title.c_str(), type, msg.c_str() );
 }

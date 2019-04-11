@@ -10,7 +10,7 @@ class EntityGhost : public EntityShell
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:
-        EntityGhost( std::string name, int x, int y );
+        EntityGhost( const std::string& name, int x, int y );
         virtual ~EntityGhost();
         EntityGhost(const EntityGhost& other);
         EntityGhost& operator=(const EntityGhost& other);

@@ -7,7 +7,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-SerializableNeuronLayer::SerializableNeuronLayer( std::string name, cSerializableInterface* parent ) :
+SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, cSerializableInterface* parent ) :
     cSerializable( name, parent ),
     Activation      ( this, "Activation"      , 0                            , cPropertyInfo().Kind( KIND_ENUM   ).Enum("Identity,Binary step,Logistic").Description("Activation Function")),
     WeightDimensions( this, "WeightDimensions", std::vector<unsigned int>(0) , cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightDimensions") ),
@@ -55,10 +55,8 @@ void SerializableNeuronLayer::Calculate()
 ******************************************************************************/
 bool SerializableNeuronLayer::NeedRecreateInternalState()
 {
-    if ( WeightDimensionsCnt != WeightDimensions.GetBaseValue().size() ) { return true; }
-    if ( WeightMatrixCnt     != WeightMatrix.GetBaseValue().size() ) { return true; }
-    if ( InputCnt            != Input.GetBaseValue().size() ) { return true; }
-    if ( OutputCnt           != Output.GetBaseValue().size() ) { return true; }
+    if ( InputCnt  != Input.GetBaseValue().size() ) { return true; }
+    if ( OutputCnt != Output.GetBaseValue().size() ) { return true; }
     return false;
 }
 

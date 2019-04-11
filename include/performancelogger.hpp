@@ -24,7 +24,7 @@ class PerformanceLogger
 
             }
 
-            PerformanceData( std::string& name ) :
+            PerformanceData( const std::string& name ) :
                 Name( name ),
                 Elapsed_ns( 0 )
             {
@@ -40,13 +40,13 @@ class PerformanceLogger
 
         static PerformanceLogger& GetInstance();
 
-        void Initialize( std::string applicationId );
-        void AddNote( std::string note );
-        void SaveToFile( std::string filePath );
+        void Initialize( const std::string& applicationId );
+        void AddNote( const std::string& note );
+        void SaveToFile( const std::string& filePath );
 
         std::string PointToString( unsigned int id );
 
-        void AddPerformancePoint( unsigned int id, std::string name );
+        void AddPerformancePoint( unsigned int id, const std::string& name );
 
         void PerformancePointEnter( unsigned int id );
         void PerformancePointLeave( unsigned int id );

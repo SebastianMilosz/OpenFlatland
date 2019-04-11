@@ -16,7 +16,7 @@ class ConstElement : public PhysicsBody
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:
-        ConstElement( std::string name );
+        ConstElement( const std::string& name );
         virtual ~ConstElement();
         ConstElement(const ConstElement& other);
         ConstElement& operator=(const ConstElement& rhs);
