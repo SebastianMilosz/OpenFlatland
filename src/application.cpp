@@ -70,6 +70,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     PERFORMANCE_ENTER( PERFORMANCE_LOAD_XML_FILE );
 
     this->Storage().LoadFromFile( m_cfgFilePath );
+    this->PulseChanged( true );
 
     PERFORMANCE_LEAVE( PERFORMANCE_LOAD_XML_FILE );
 

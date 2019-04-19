@@ -14,7 +14,7 @@
 
 #define LOGGERINS() utilities::debug::cLog::GetInstance()
 #define LOGGER(p) utilities::debug::cLog::GetInstance( __DATE__, __TIME__, __FILE__, __FUNCTION__, __LINE__ ) << p << utilities::debug::cLog::LC_END         ///< Zawsze dolanczany do wynikowego kodu
-#define LOGGERFX(p) utilities::debug::cLog::GetInstance( __DATE__, __TIME__, __FILE__, __FUNCTION__, __LINE__ ) << p << utilities::debug::cLog::LC_END       ///< Wycinany calkowicie z kodu releace
+#define LOGGER_DEBUG(p) utilities::debug::cLog::GetInstance( __DATE__, __TIME__, __FILE__, __FUNCTION__, __LINE__ ) << p << utilities::debug::cLog::LC_END       ///< Wycinany calkowicie z kodu releace
 #define FLUSH(p) utilities::debug::cLog::Flush( p, 1 );
 #define LOG_FATAL utilities::debug::cLog::LT_FATAL
 #define LOG_ERROR utilities::debug::cLog::LT_ERROR

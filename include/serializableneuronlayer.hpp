@@ -29,15 +29,13 @@ class SerializableNeuronLayer : public codeframe::cSerializable
         codeframe::Property< thrust::host_vector<float> > Output;
 
     protected:
-        bool NeedRecreateInternalState();
-        void RecreateInternalState();
+        bool InitializeNetwork();
 
     private:
-        // counters used to detect vector size change, and recreate all data
-        unsigned int WeightDimensionsCnt;
-        unsigned int WeightMatrixCnt;
-        unsigned int InputCnt;
-        unsigned int OutputCnt;
+        void OnWeightDimensionsVectorChanged( codeframe::PropertyBase* prop );
+        const std::vector<unsigned int>& GetWeightDimensionsVector();
+
+        std::vector<unsigned int> m_WeightDimensions;
 };
 
 #endif // SERIALIZABLENEURONLAYER_HPP_INCLUDED
