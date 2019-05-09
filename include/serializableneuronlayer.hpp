@@ -36,6 +36,12 @@ class SerializableNeuronLayer : public codeframe::cSerializable
         const std::vector<unsigned int>& GetWeightDimensionsVector();
 
         std::vector<unsigned int> m_WeightDimensions;
+
+        // Calculation internal vectors
+        thrust::host_vector<float> m_WeightVector;
+        thrust::host_vector<float> m_MovingInputLayerVector;
+        thrust::host_vector<float> m_MovingOutputLayerVector;
+
 };
 
 #endif // SERIALIZABLENEURONLAYER_HPP_INCLUDED
