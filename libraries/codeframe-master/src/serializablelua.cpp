@@ -1,10 +1,12 @@
 #include "serializable.hpp"
 
 #ifdef SERIALIZABLE_USE_LUA
-#include <LuaBridge.h>
+#include <LuaBridge/LuaBridge.h>
 using namespace luabridge;
 #endif
 #include <fstream>          // std::ifstream
+
+#include <LoggerUtilities.h>
 
 namespace codeframe
 {
@@ -14,7 +16,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableLua::cSerializableLua( cSerializableInterface& sint ) : m_luastate( NULL )
+    cSerializableLua::cSerializableLua( cSerializableInterface& sint ) :
+        m_sint( sint ),
+        m_luastate( NULL )
     {
 
     }
@@ -53,7 +57,7 @@ namespace codeframe
         }
 
         // Po wszystkich propertisach dodajemy do lua
-        for( iterator it = this->begin(); it != this->end(); ++it )
+        for( PropertyIterator it = m_sint.PropertyManager().begin(); it != m_sint.PropertyManager().end(); ++it )
         {
             PropertyBase* iser = *it;
 
@@ -74,10 +78,13 @@ namespace codeframe
         }
 
         // Po wszystkich obiektach dzieci dodajemy do lua
-        for( cChildList::iterator it = this->ChildList()->begin(); it != this->ChildList()->end(); ++it )
+        for ( cSerializableChildList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
         {
-            cSerializableLua* iser = *it;
-            if(iser) { iser->ThisToLua( l, false ); }
+            cSerializableInterface* iser = *it;
+            if ( iser )
+            {
+                iser->Script().ThisToLua( l, false );
+            }
         }
 
         #else
