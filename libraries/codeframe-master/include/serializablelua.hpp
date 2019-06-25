@@ -29,6 +29,7 @@ namespace codeframe
     {
         private:
             lua_State* m_luastate;
+            cSerializableInterface& m_sint;
 
         protected:
             void        ThisToLua( lua_State* l, bool classDeclaration = true );
