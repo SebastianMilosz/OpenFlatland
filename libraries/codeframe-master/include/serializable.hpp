@@ -33,7 +33,7 @@ namespace codeframe
             cSerializablePath&       Path();
             cSerializableStorage&    Storage();
             cSerializableSelectable& Selection();
-            cSerializableLua&        Script();
+            cSerializableScript&     Script();
             cPropertyManager&        PropertyManager();
             cSerializableChildList&  ChildList();
             cSerializableIdentity&   Identity();
@@ -46,7 +46,7 @@ namespace codeframe
             cSerializablePath       m_SerializablePath;
             cSerializableStorage    m_SerializableStorage;
             cSerializableSelectable m_SerializableSelectable;
-            cSerializableLua        m_SerializableLua;
+            cSerializableScript     m_SerializableScript;
             cPropertyManager        m_PropertyManager;
             cSerializableChildList  m_childList;
             cSerializableIdentity   m_Identity;

@@ -43,7 +43,7 @@ namespace codeframe
             virtual cSerializablePath&       Path() = 0;
             virtual cSerializableStorage&    Storage() = 0;
             virtual cSerializableSelectable& Selection() = 0;
-            virtual cSerializableLua&        Script() = 0;
+            virtual cSerializableScript&     Script() = 0;
             virtual cPropertyManager&        PropertyManager() = 0;
             virtual cSerializableChildList&  ChildList() = 0;
             virtual cSerializableIdentity&   Identity() = 0;

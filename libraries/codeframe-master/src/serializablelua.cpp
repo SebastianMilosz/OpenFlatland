@@ -16,7 +16,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableLua::cSerializableLua( cSerializableInterface& sint ) :
+    cSerializableScript::cSerializableScript( cSerializableInterface& sint ) :
         m_sint( sint ),
         m_luastate( NULL )
     {
@@ -28,7 +28,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableLua::~cSerializableLua()
+    cSerializableScript::~cSerializableScript()
     {
         #ifdef SERIALIZABLE_USE_LUA
         if( m_luastate ) { lua_close( m_luastate ); }
@@ -40,7 +40,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableLua::ThisToLua( lua_State* l, bool classDeclaration )
+    void cSerializableScript::ThisToLua( lua_State* l, bool classDeclaration )
     {
         #ifdef SERIALIZABLE_USE_LUA
 
@@ -54,6 +54,9 @@ namespace codeframe
                     .addProperty( "Real"  , &PropertyBase::GetReal,   &PropertyBase::SetReal   )
                 .endClass()
             .endNamespace();
+
+            // Add accessors function
+            //setGlobal( l, m_sint, "mc" );
         }
 
         // Po wszystkich propertisach dodajemy do lua
@@ -66,15 +69,9 @@ namespace codeframe
 
             // Ze skryptu lua propertisy widoczne sa w przestrzeniach nazw odpowiadajacych
             // ich sciezce, mozliwa jest tylko i wylacznie zmiana wartosci dla ulatwienia sprawy
-            push( l, iser );
-            lua_setglobal( l, namespaceLUAName.c_str() );
+            //namespaceLUAName.c_str()
 
-            /*
-            getGlobalNamespace( l )
-            .beginNamespace( namespaceLUAName.c_str() )
-                .addVariable( objectLUAName.c_str() , (Property*)iser)
-            .endNamespace();
-            */
+            setGlobal( l, iser, "mc" );
         }
 
         // Po wszystkich obiektach dzieci dodajemy do lua
@@ -96,11 +93,11 @@ namespace codeframe
     /*****************************************************************************/
     /**
       * @brief
-      * @param s - lua script to run
+      * @param scriptString script to run
       * @param thread - if true script is executed in new thread
      **
     ******************************************************************************/
-    void cSerializableLua::LuaRunString( std::string luaScriptString )
+    void cSerializableScript::RunString( std::string scriptString )
     {
         #ifdef SERIALIZABLE_USE_LUA
 
@@ -114,7 +111,7 @@ namespace codeframe
 
             ThisToLua( m_luastate );
 
-            if( luaL_loadstring( m_luastate, luaScriptString.c_str() ) != 0 )
+            if( luaL_loadstring( m_luastate, scriptString.c_str() ) != 0 )
             {
                 // compile-time error
                 LOGGER( LOG_ERROR << "LUA script compile-time error: " << lua_tostring( m_luastate, -1 ) );
@@ -139,7 +136,7 @@ namespace codeframe
         }
 
         #else
-        (void)luaScriptString;
+        (void)scriptString;
         #endif
     }
 
@@ -148,18 +145,18 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableLua::LuaRunFile( std::string luaScriptFile )
+    void cSerializableScript::RunFile( std::string scriptFile )
     {
         #ifdef SERIALIZABLE_USE_LUA
 
-        std::ifstream t( luaScriptFile.c_str() );
+        std::ifstream t( scriptFile.c_str() );
         std::stringstream buffer;
         buffer << t.rdbuf();
 
-        LuaRunString( buffer.str() );
+        RunString( buffer.str() );
 
         #else
-        (void)luaScriptFile;
+        (void)scriptFile;
         #endif
     }
 
