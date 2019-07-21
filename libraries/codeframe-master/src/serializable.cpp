@@ -31,7 +31,7 @@ namespace codeframe
         m_SerializablePath( *this ),
         m_SerializableStorage( *this ),
         m_SerializableSelectable( *this ),
-        m_SerializableLua( *this ),
+        m_SerializableScript( *this ),
         m_PropertyManager( *this ),
         m_Identity( name, *this )
     {
@@ -102,9 +102,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableLua& cSerializable::Script()
+    cSerializableScript& cSerializable::Script()
     {
-        return m_SerializableLua;
+        return m_SerializableScript;
     }
 
     /*****************************************************************************/

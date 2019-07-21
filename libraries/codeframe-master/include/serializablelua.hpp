@@ -25,21 +25,23 @@ namespace codeframe
       * @note cSerializableLua
      **
     ******************************************************************************/
-    class cSerializableLua
+    class cSerializableScript
     {
         private:
             lua_State* m_luastate;
             cSerializableInterface& m_sint;
 
         protected:
-            void        ThisToLua( lua_State* l, bool classDeclaration = true );
+            void ThisToLua( lua_State* l, bool classDeclaration = true );
+
+            PropertyBase& GetProperty( std::string path );
 
         public:
-                     cSerializableLua( cSerializableInterface& sint );
-            virtual ~cSerializableLua();
+                     cSerializableScript( cSerializableInterface& sint );
+            virtual ~cSerializableScript();
 
-            void LuaRunString( std::string luaScriptString );
-            void LuaRunFile  ( std::string luaScriptFile   );
+            void RunString( std::string scriptString );
+            void RunFile  ( std::string scriptFile   );
     };
 
 }
