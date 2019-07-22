@@ -32,9 +32,9 @@ namespace codeframe
             cSerializableInterface& m_sint;
 
         protected:
-            void ThisToLua( lua_State* l, bool classDeclaration = true );
+            void ThisToLua( lua_State* l );
 
-            PropertyBase& GetProperty( std::string path );
+            PropertyBase* GetProperty( std::string path );
 
         public:
                      cSerializableScript( cSerializableInterface& sint );

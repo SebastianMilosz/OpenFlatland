@@ -40,54 +40,39 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableScript::ThisToLua( lua_State* l, bool classDeclaration )
+    void cSerializableScript::ThisToLua( lua_State* l )
     {
         #ifdef SERIALIZABLE_USE_LUA
 
-        if( classDeclaration )
-        {
-            getGlobalNamespace( l )
-            .beginNamespace( "CLASS" )
-                .beginClass<PropertyBase>( "PropertyBase" )
-                    .addProperty( "Number", &PropertyBase::GetNumber, &PropertyBase::SetNumber )
-                    .addProperty( "String", &PropertyBase::GetString, &PropertyBase::SetString )
-                    .addProperty( "Real"  , &PropertyBase::GetReal,   &PropertyBase::SetReal   )
-                .endClass()
-            .endNamespace();
+        getGlobalNamespace( l )
+        .beginNamespace( "CLASS" )
+            .beginClass<PropertyBase>( "PropertyBase" )
+                .addProperty( "Number", &PropertyBase::GetNumber, &PropertyBase::SetNumber )
+                .addProperty( "String", &PropertyBase::GetString, &PropertyBase::SetString )
+                .addProperty( "Real"  , &PropertyBase::GetReal,   &PropertyBase::SetReal   )
+            .endClass()
+            .beginClass<cSerializableScript>( "Script" )
+            .addFunction("GetProperty", &cSerializableScript::GetProperty)
+            .endClass()
+        .endNamespace();
 
-            // Add accessors function
-            //setGlobal( l, m_sint, "mc" );
-        }
-
-        // Po wszystkich propertisach dodajemy do lua
-        for( PropertyIterator it = m_sint.PropertyManager().begin(); it != m_sint.PropertyManager().end(); ++it )
-        {
-            PropertyBase* iser = *it;
-
-            std::string namespaceLUAName = iser->Path();
-            std::string objectLUAName    = iser->Name();
-
-            // Ze skryptu lua propertisy widoczne sa w przestrzeniach nazw odpowiadajacych
-            // ich sciezce, mozliwa jest tylko i wylacznie zmiana wartosci dla ulatwienia sprawy
-            //namespaceLUAName.c_str()
-
-            setGlobal( l, iser, "mc" );
-        }
-
-        // Po wszystkich obiektach dzieci dodajemy do lua
-        for ( cSerializableChildList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
-        {
-            cSerializableInterface* iser = *it;
-            if ( iser )
-            {
-                iser->Script().ThisToLua( l, false );
-            }
-        }
+        // Add accessors function
+        setGlobal( l, this, "CF" );
 
         #else
         (void)l;
         (void)classDeclaration;
         #endif
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase* cSerializableScript::GetProperty( std::string path )
+    {
+        return m_sint.PropertyManager().GetPropertyFromPath( path );
     }
 
     /*****************************************************************************/
