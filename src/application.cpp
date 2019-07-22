@@ -75,7 +75,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     PERFORMANCE_LEAVE( PERFORMANCE_LOAD_XML_FILE );
 
     // @todo Lua test
-    this->Script().RunString("mc.Number = 55");
+    this->Script().RunString("CF.GetProperty('test').Number = 55");
 
 #if defined(_OPENMP)
     LOGGER( LOG_INFO << "OpenMP Enabled Version:" << _OPENMP );
