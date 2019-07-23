@@ -31,7 +31,10 @@ namespace codeframe
     cSerializableScript::~cSerializableScript()
     {
         #ifdef SERIALIZABLE_USE_LUA
-        if( m_luastate ) { lua_close( m_luastate ); }
+        if ( m_luastate )
+        {
+            lua_close( m_luastate );
+        }
         #endif
     }
 
@@ -46,17 +49,17 @@ namespace codeframe
 
         getGlobalNamespace( l )
         .beginNamespace( "CLASS" )
-            .beginClass<PropertyBase>( "PropertyBase" )
+            .beginClass<PropertyBase>( "Property" )
                 .addProperty( "Number", &PropertyBase::GetNumber, &PropertyBase::SetNumber )
                 .addProperty( "String", &PropertyBase::GetString, &PropertyBase::SetString )
                 .addProperty( "Real"  , &PropertyBase::GetReal,   &PropertyBase::SetReal   )
             .endClass()
             .beginClass<cSerializableScript>( "Script" )
-            .addFunction("GetProperty", &cSerializableScript::GetProperty)
+                .addFunction("GetProperty", &cSerializableScript::GetProperty)
             .endClass()
         .endNamespace();
 
-        // Add accessors function
+        // Add CodeFrame object to lua global scope
         setGlobal( l, this, "CF" );
 
         #else
@@ -70,7 +73,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cSerializableScript::GetProperty( std::string path )
+    PropertyBase* cSerializableScript::GetProperty( const std::string& path )
     {
         return m_sint.PropertyManager().GetPropertyFromPath( path );
     }
@@ -82,7 +85,7 @@ namespace codeframe
       * @param thread - if true script is executed in new thread
      **
     ******************************************************************************/
-    void cSerializableScript::RunString( std::string scriptString )
+    void cSerializableScript::RunString( const std::string& scriptString )
     {
         #ifdef SERIALIZABLE_USE_LUA
 
@@ -130,7 +133,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableScript::RunFile( std::string scriptFile )
+    void cSerializableScript::RunFile( const std::string& scriptFile )
     {
         #ifdef SERIALIZABLE_USE_LUA
 

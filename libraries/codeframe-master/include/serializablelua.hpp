@@ -22,26 +22,26 @@ namespace codeframe
       * @brief Scripting functionality
       * @author Sebastian Milosz
       * @version 1.0
-      * @note cSerializableLua
+      * @note cSerializableScript
      **
     ******************************************************************************/
     class cSerializableScript
     {
-        private:
-            lua_State* m_luastate;
-            cSerializableInterface& m_sint;
-
-        protected:
-            void ThisToLua( lua_State* l );
-
-            PropertyBase* GetProperty( std::string path );
-
         public:
                      cSerializableScript( cSerializableInterface& sint );
             virtual ~cSerializableScript();
 
-            void RunString( std::string scriptString );
-            void RunFile  ( std::string scriptFile   );
+            void RunString( const std::string& scriptString );
+            void RunFile  ( const std::string& scriptFile   );
+
+        protected:
+            void ThisToLua( lua_State* l );
+
+        private:
+            PropertyBase* GetProperty( const std::string& path );
+
+            lua_State* m_luastate;
+            cSerializableInterface& m_sint;
     };
 
 }
