@@ -57,7 +57,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Initialized" );
 
-    LOGGERINS().OnMessage.connect(&m_Widgets.GetLogWidget(), &LogWidget::OnLogMessage);
+    LOGGERINS().OnMessage.connect(&m_Widgets.GetConsoleWidget(), &ConsoleWidget::OnLogMessage);
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Processing" );
 

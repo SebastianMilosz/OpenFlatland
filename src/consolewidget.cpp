@@ -1,13 +1,13 @@
-#include "logwidget.hpp"
+#include "consolewidget.hpp"
 
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-LogWidget::LogWidget()
+ConsoleWidget::ConsoleWidget()
 {
-    //ctor
+    memset(m_InputBuf, 0, sizeof(m_InputBuf));
 }
 
 /*****************************************************************************/
@@ -15,7 +15,7 @@ LogWidget::LogWidget()
   * @brief
  **
 ******************************************************************************/
-LogWidget::~LogWidget()
+ConsoleWidget::~ConsoleWidget()
 {
     //dtor
 }
@@ -25,7 +25,7 @@ LogWidget::~LogWidget()
   * @brief
  **
 ******************************************************************************/
-void LogWidget::OnLogMessage(const std::string& timestamp, const std::string& title, const std::string& msg, int type)
+void ConsoleWidget::OnLogMessage(const std::string& timestamp, const std::string& title, const std::string& msg, int type)
 {
     AddLog( "[%s] : [%s] : [%d] : %s\n", timestamp.c_str(), title.c_str(), type, msg.c_str() );
 }
@@ -35,7 +35,7 @@ void LogWidget::OnLogMessage(const std::string& timestamp, const std::string& ti
   * @brief
  **
 ******************************************************************************/
-void LogWidget::Draw( const char* title, bool* p_open )
+void ConsoleWidget::Draw( const char* title, bool* p_open )
 {
     ImGui::SetNextWindowSize(ImVec2(500,400), ImGuiCond_FirstUseEver);
     ImGui::Begin(title, p_open);
@@ -43,31 +43,52 @@ void LogWidget::Draw( const char* title, bool* p_open )
     ImGui::SameLine();
     bool copy = ImGui::Button("Copy");
     ImGui::SameLine();
-    Filter.Draw("Filter", -100.0f);
+    m_Filter.Draw("Filter", -100.0f);
     ImGui::Separator();
     ImGui::BeginChild("scrolling", ImVec2(0,0), false, ImGuiWindowFlags_HorizontalScrollbar);
-    if (copy) ImGui::LogToClipboard();
-
-    if (Filter.IsActive())
+    if (copy)
     {
-        const char* buf_begin = Buf.begin();
+        ImGui::LogToClipboard();
+    }
+
+    if (m_Filter.IsActive())
+    {
+        const char* buf_begin = m_Buf.begin();
         const char* line = buf_begin;
         for (int line_no = 0; line != NULL; line_no++)
         {
-            const char* line_end = (line_no < LineOffsets.Size) ? buf_begin + LineOffsets[line_no] : NULL;
-            if (Filter.PassFilter(line, line_end))
+            const char* line_end = (line_no < m_LineOffsets.Size) ? buf_begin + m_LineOffsets[line_no] : NULL;
+            if (m_Filter.PassFilter(line, line_end))
                 ImGui::TextUnformatted(line, line_end);
             line = line_end && line_end[1] ? line_end + 1 : NULL;
         }
     }
     else
     {
-        ImGui::TextUnformatted(Buf.begin());
+        ImGui::TextUnformatted(m_Buf.begin());
     }
 
-    if (ScrollToBottom)
+    ImGui::Separator();
+
+    // Command-line
+    bool reclaim_focus = false;
+    if (ImGui::InputText("Input", m_InputBuf, IM_ARRAYSIZE(m_InputBuf), ImGuiInputTextFlags_EnterReturnsTrue|ImGuiInputTextFlags_CallbackCompletion|ImGuiInputTextFlags_CallbackHistory, &TextEditCallbackStub, (void*)this))
+    {
+        char* s = m_InputBuf;
+        Strtrim(s);
+        if (s[0])
+        {
+
+        }
+        strcpy(s, "");
+        reclaim_focus = true;
+    }
+
+    if (m_ScrollToBottom)
+    {
         ImGui::SetScrollHere(1.0f);
-    ScrollToBottom = false;
+    }
+    m_ScrollToBottom = false;
     ImGui::EndChild();
     ImGui::End();
 }
@@ -77,10 +98,10 @@ void LogWidget::Draw( const char* title, bool* p_open )
   * @brief
  **
 ******************************************************************************/
-void LogWidget::Clear()
+void ConsoleWidget::Clear()
 {
-    Buf.clear();
-    LineOffsets.clear();
+    m_Buf.clear();
+    m_LineOffsets.clear();
 }
 
 /*****************************************************************************/
@@ -88,15 +109,15 @@ void LogWidget::Clear()
   * @brief
  **
 ******************************************************************************/
-void LogWidget::AddLog(const char* fmt, ...)
+void ConsoleWidget::AddLog(const char* fmt, ...)
 {
-    int old_size = Buf.size();
+    int old_size = m_Buf.size();
     va_list args;
     va_start(args, fmt);
-    Buf.appendfv(fmt, args);
+    m_Buf.appendfv(fmt, args);
     va_end(args);
-    for (int new_size = Buf.size(); old_size < new_size; old_size++)
-        if (Buf[old_size] == '\n')
-            LineOffsets.push_back(old_size);
-    ScrollToBottom = true;
+    for (int new_size = m_Buf.size(); old_size < new_size; old_size++)
+        if (m_Buf[old_size] == '\n')
+            m_LineOffsets.push_back(old_size);
+    m_ScrollToBottom = true;
 }

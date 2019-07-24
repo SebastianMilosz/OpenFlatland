@@ -1,8 +1,8 @@
 #ifndef MercurialRevisionH
 #define MercurialRevisionH
 
-#define MERCURIAL_REVISION 163
-#define MERCURIAL_DATE_TIME "Mon Jul 22 23:23:19 2019 +0200"
-#define MERCURIAL_AUTHOR "G580"
+#define MERCURIAL_REVISION 164
+#define MERCURIAL_DATE_TIME "Tue Jul 23 11:21:39 2019 +0200"
+#define MERCURIAL_AUTHOR "G580 <semilosz@interia.pl>"
 
 #endif

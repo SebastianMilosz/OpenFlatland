@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "logwidget.hpp"
+#include "consolewidget.hpp"
 #include "propertyeditorwidget.hpp"
 #include "annviewerwidget.hpp"
 #include "informationwidget.hpp"
@@ -29,7 +29,7 @@ class GUIWidgetsLayer
         void        SetMouseModeId( int mode );
         int         GetMouseModeId();
 
-        LogWidget&              GetLogWidget() { return m_logWidget; }
+        ConsoleWidget&          GetConsoleWidget() { return m_ConsoleWidget; }
         PropertyEditorWidget&   GetPropertyEditorWidget() { return m_PropertyEditorWidget; }
         AnnViewerWidget&        GetAnnViewerWidget() { return m_AnnViewerWidget; }
         InformationWidget&      GetInformationWidget() { return m_InformationWidget; }
@@ -42,7 +42,7 @@ class GUIWidgetsLayer
 
         int                 m_MouseMode;
         bool                m_mouseCapturedByGui;
-        bool                m_logWidgetOpen;
+        bool                m_ConsoleWidgetOpen;
         bool                m_PropertyEditorOpen;
         bool                m_AnnViewerWidgetOpen;
         bool                m_InformationWidgetOpen;
@@ -50,7 +50,7 @@ class GUIWidgetsLayer
         std::vector< sf::Rect<int> > m_guiRegions;
 
         // Okienka Gui
-        LogWidget            m_logWidget;
+        ConsoleWidget        m_ConsoleWidget;
         PropertyEditorWidget m_PropertyEditorWidget;
         AnnViewerWidget      m_AnnViewerWidget;
         InformationWidget    m_InformationWidget;
