@@ -69,7 +69,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_window( window ),
     m_MouseMode( MOUSE_MODE_SEL_ENTITY ),
     m_mouseCapturedByGui( false ),
-    m_logWidgetOpen( true ),
+    m_ConsoleWidgetOpen( true ),
     m_PropertyEditorOpen( true ),
     m_AnnViewerWidgetOpen( false ),
     m_InformationWidgetOpen( true ),
@@ -146,7 +146,7 @@ void GUIWidgetsLayer::Draw()
         }
         if (ImGui::BeginMenu("Window"))
         {
-            if (ImGui::MenuItem("Log", NULL, m_logWidgetOpen)) { if( m_logWidgetOpen ) m_logWidgetOpen = false; else m_logWidgetOpen = true; }
+            if (ImGui::MenuItem("Console", NULL, m_ConsoleWidgetOpen)) { if( m_ConsoleWidgetOpen ) m_ConsoleWidgetOpen = false; else m_ConsoleWidgetOpen = true; }
             if (ImGui::MenuItem("PropertyEditor", NULL, m_PropertyEditorOpen)) { if( m_PropertyEditorOpen ) m_PropertyEditorOpen = false; else m_PropertyEditorOpen = true; }
             if (ImGui::MenuItem("AnnViewer", NULL, m_AnnViewerWidgetOpen)) { if( m_AnnViewerWidgetOpen ) m_AnnViewerWidgetOpen = false; else m_AnnViewerWidgetOpen = true; }
             if (ImGui::MenuItem("Informations", NULL, m_InformationWidgetOpen)) { if( m_InformationWidgetOpen ) m_InformationWidgetOpen = false; else m_InformationWidgetOpen = true; }
@@ -160,9 +160,9 @@ void GUIWidgetsLayer::Draw()
         m_InformationWidget.Draw( "Information", &m_InformationWidgetOpen );
     }
 
-    if ( m_logWidgetOpen == true )
+    if ( m_ConsoleWidgetOpen == true )
     {
-        m_logWidget.Draw( "Log", &m_logWidgetOpen );
+        m_ConsoleWidget.Draw( "Console", &m_ConsoleWidgetOpen );
     }
 
     if ( m_PropertyEditorOpen == true )

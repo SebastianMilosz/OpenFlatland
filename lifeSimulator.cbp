@@ -120,6 +120,7 @@
 		<Unit filename="include/application.hpp" />
 		<Unit filename="include/colorizecircleshape.hpp" />
 		<Unit filename="include/colorizerealnbr.hpp" />
+		<Unit filename="include/consolewidget.hpp" />
 		<Unit filename="include/constelement.hpp" />
 		<Unit filename="include/constelementline.hpp" />
 		<Unit filename="include/constelementsfactory.hpp" />
@@ -131,7 +132,6 @@
 		<Unit filename="include/fontfactory.hpp" />
 		<Unit filename="include/guiwidgetslayer.hpp" />
 		<Unit filename="include/informationwidget.hpp" />
-		<Unit filename="include/logwidget.hpp" />
 		<Unit filename="include/mercurialinfo.hpp" />
 		<Unit filename="include/performanceapplicationdef.hpp" />
 		<Unit filename="include/performancelogger.hpp" />
@@ -230,6 +230,7 @@
 		<Unit filename="src/application.cpp" />
 		<Unit filename="src/colorizecircleshape.cpp" />
 		<Unit filename="src/colorizerealnbr.cpp" />
+		<Unit filename="src/consolewidget.cpp" />
 		<Unit filename="src/constelement.cpp" />
 		<Unit filename="src/constelementline.cpp" />
 		<Unit filename="src/constelementsfactory.cpp" />
@@ -241,7 +242,6 @@
 		<Unit filename="src/fontfactory.cpp" />
 		<Unit filename="src/guiwidgetslayer.cpp" />
 		<Unit filename="src/informationwidget.cpp" />
-		<Unit filename="src/logwidget.cpp" />
 		<Unit filename="src/performancelogger.cpp" />
 		<Unit filename="src/physicsbody.cpp" />
 		<Unit filename="src/propertyeditorwidget.cpp" />
