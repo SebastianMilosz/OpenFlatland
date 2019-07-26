@@ -19,7 +19,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_zoomAmount( 1.1F ), // zoom by 10%
     m_cfgFilePath(""),
     m_Window ( window ),
-    m_Widgets( m_Window ),
+    m_Widgets( m_Window, *this ),
     m_World  ( "World", this ),
     m_EntityFactory( "EntityFactory", this ),
     m_ConstElementsFactory( "ConstElementsFactory", this ),

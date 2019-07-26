@@ -65,7 +65,7 @@ int GUIWidgetsLayer::GetMouseModeId()
   * @brief
  **
 ******************************************************************************/
-GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
+GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterface& parent ) :
     m_window( window ),
     m_MouseMode( MOUSE_MODE_SEL_ENTITY ),
     m_mouseCapturedByGui( false ),
@@ -73,6 +73,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window ) :
     m_PropertyEditorOpen( true ),
     m_AnnViewerWidgetOpen( false ),
     m_InformationWidgetOpen( true ),
+    m_ConsoleWidget( parent ),
     m_InformationWidget( window )
 {
     ImGui::SFML::Init( m_window );

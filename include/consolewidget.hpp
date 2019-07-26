@@ -3,13 +3,16 @@
 
 #include <imgui.h>
 #include <imgui-SFML.h>
+#include <serializable.hpp>
 #include <utilities/LoggerUtilities.h>
 #include <utilities/FileUtilities.h>
+
+using namespace codeframe;
 
 class ConsoleWidget : public sigslot::has_slots<>
 {
     public:
-        ConsoleWidget();
+        ConsoleWidget( cSerializableInterface& parent );
        ~ConsoleWidget();
 
         void Clear();
@@ -130,6 +133,7 @@ class ConsoleWidget : public sigslot::has_slots<>
             return 0;
         }
 
+        cSerializableInterface& m_parent;
         ImGuiTextBuffer         m_Buf;
         ImGuiTextFilter         m_Filter;
         ImVector<int>           m_LineOffsets;        // Index to lines offset
