@@ -12,6 +12,7 @@
 enum eOPR { SET = 0, GET = 1, CHANGE, INCREASE, DECREAS, DEFAULT };
 
 // Typy Danych
+typedef int8_t   bool_t;
 typedef int8_t   s8_t;
 typedef uint8_t  u8_t;
 typedef int16_t  s16_t;
@@ -31,6 +32,139 @@ namespace utilities
 {
     namespace data
     {
+        template<uint32_t S, typename T>
+        class ConstStack
+        {
+            public:
+                ConstStack() :
+                    m_count( 0U )
+                {
+
+                }
+
+                T Peek( size_t id )
+                {
+                    if ( id < m_count )
+                    {
+                        return m_dataTable[ id ];
+                    }
+                }
+
+                bool_t Push( T value )
+                {
+                    if ( !IsFull() )
+                    {
+                        m_dataTable[ m_count++ ] = value;
+                    }
+                }
+
+                T Pop()
+                {
+                    if ( !IsEmpty() )
+                    {
+                        return  m_dataTable[ m_count-- ];
+                    }
+                    return m_dummyValue;
+                }
+
+                size_t Size() const
+                {
+                    return m_count;
+                }
+
+                bool_t IsEmpty()
+                {
+                    return (Size() == 0U);
+                }
+
+                bool_t IsFull() const
+                {
+                    return (Size() == S);
+                }
+            private:
+                T m_dataTable[ S ];
+                size_t m_count;
+                T m_dummyValue;
+        };
+
+        template<uint32_t S, typename T>
+        class CircularBuffer
+        {
+            public:
+                CircularBuffer() :
+                    m_head( S - 1U ),
+                    m_tail( 0U ),
+                    m_count( 0U ),
+                    m_peekPos( 0U )
+                {
+
+                }
+
+                T PeekNext()
+                {
+                    m_peekPos = (m_peekPos + 1U) % m_count;
+                    size_t headtmp = (m_head + m_peekPos) % S;
+                    return m_dataTable[ headtmp ];
+                }
+
+                T PeekPrew()
+                {
+                    m_peekPos = (m_peekPos - 1) % m_count;
+                    size_t headtmp = (m_head + m_peekPos) % S;
+                    return m_dataTable[ headtmp ];
+                }
+
+                void PeekReset()
+                {
+                    m_peekPos = 0U;
+                }
+
+                bool_t Push( T value )
+                {
+                    m_head = (m_head + 1U) % S;
+                    m_dataTable[ m_head ] = value;
+                    m_count++;
+                }
+
+                T Pop()
+                {
+                    if ( !IsEmpty() )
+                    {
+                        m_tail = (m_tail + 1U) % S;
+                        m_count--;
+                        return  m_dataTable[ m_tail ];
+                    }
+                    return m_dummyValue;
+                }
+
+                size_t Size() const
+                {
+                    return m_count;
+                }
+
+                bool_t IsEmpty()
+                {
+                    if ( m_count == 0U )
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+
+                bool_t IsFull() const
+                {
+                    return (Size() == S);
+                }
+            private:
+                T m_dataTable[ S ];
+                size_t m_head;
+                size_t m_tail;
+                size_t m_count;
+                size_t m_peekPos;
+                T m_dummyValue;
+        };
+
         enum ESpecialColor { CL_NONE = -1 };
 
         /*****************************************************************************/

@@ -1,5 +1,9 @@
 #include "consolewidget.hpp"
 
+#include <cstring>
+
+#include <TextUtilities.h>
+
 /*****************************************************************************/
 /**
   * @brief
@@ -89,21 +93,12 @@ void ConsoleWidget::Draw( const char* title, bool* p_open )
     if (ImGui::InputText("Input", m_InputBuf, IM_ARRAYSIZE(m_InputBuf), ImGuiInputTextFlags_EnterReturnsTrue|ImGuiInputTextFlags_CallbackCompletion|ImGuiInputTextFlags_CallbackHistory, &TextEditCallbackStub, (void*)this))
     {
         char* s = m_InputBuf;
-        Strtrim(s);
+        utilities::text::trim(s);
         if (s[0])
         {
-            m_parent.Script().RunString( std::string( s ) );
-
-            // Insert into history. First find match and delete it so it can be pushed to the back. This isn't trying to be smart or optimal.
-            m_HistoryPos = -1;
-            for (int i = m_History.Size-1; i >= 0; i--)
-                if (Stricmp(m_History[i], s) == 0)
-                {
-                    free(m_History[i]);
-                    m_History.erase(m_History.begin() + i);
-                    break;
-                }
-            m_History.push_back(Strdup(s));
+            std::string cmdString( s );
+            m_parent.Script().RunString( cmdString );
+            m_History.Push( cmdString );
         }
         strcpy(s, "");
         reclaim_focus = true;
@@ -141,6 +136,7 @@ int ConsoleWidget::TextEditCallback(ImGuiInputTextCallbackData* data)
     {
     case ImGuiInputTextFlags_CallbackCompletion:
         {
+            /*
             // Locate beginning of current word
             const char* word_end = data->Buf + data->CursorPos;
             const char* word_start = word_end;
@@ -199,33 +195,26 @@ int ConsoleWidget::TextEditCallback(ImGuiInputTextCallbackData* data)
                 for (int i = 0; i < candidates.Size; i++)
                     AddLog("- %s\n", candidates[i]);
             }
-
+            */
             break;
         }
-    case ImGuiInputTextFlags_CallbackHistory:
+        case ImGuiInputTextFlags_CallbackHistory:
         {
-            // Example of HISTORY
-            const int prev_history_pos = m_HistoryPos;
+            std::string historyEntry("");
+
             if (data->EventKey == ImGuiKey_UpArrow)
             {
-                if (m_HistoryPos == -1)
-                    m_HistoryPos = m_History.Size - 1;
-                else if (m_HistoryPos > 0)
-                    m_HistoryPos--;
+                historyEntry = m_History.PeekNext();
             }
             else if (data->EventKey == ImGuiKey_DownArrow)
             {
-                if (m_HistoryPos != -1)
-                    if (++m_HistoryPos >= m_History.Size)
-                        m_HistoryPos = -1;
+                historyEntry = m_History.PeekPrew();
             }
 
-            // A better implementation would preserve the data on the current input line along with cursor position.
-            if (prev_history_pos != m_HistoryPos)
+            if ( !historyEntry.empty() )
             {
-                const char* history_str = (m_HistoryPos >= 0) ? m_History[m_HistoryPos] : "";
-                data->DeleteChars(0, data->BufTextLen);
-                data->InsertChars(0, history_str);
+                data->DeleteChars( 0, data->BufTextLen );
+                data->InsertChars( 0, historyEntry.c_str() );
             }
         }
     }
