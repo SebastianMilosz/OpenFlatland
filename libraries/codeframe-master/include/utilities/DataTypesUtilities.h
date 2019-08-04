@@ -103,14 +103,14 @@ namespace utilities
                 T PeekNext()
                 {
                     m_peekPos = (m_peekPos + 1U) % m_count;
-                    size_t headtmp = (m_head + m_peekPos) % S;
+                    size_t headtmp = (m_head - m_peekPos) % S;
                     return m_dataTable[ headtmp ];
                 }
 
                 T PeekPrew()
                 {
-                    m_peekPos = (m_peekPos - 1) % m_count;
-                    size_t headtmp = (m_head + m_peekPos) % S;
+                    m_peekPos = (m_peekPos - 1U) % m_count;
+                    size_t headtmp = (m_head - m_peekPos) % S;
                     return m_dataTable[ headtmp ];
                 }
 
