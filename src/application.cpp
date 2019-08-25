@@ -17,9 +17,14 @@
 Application::Application( std::string name, sf::RenderWindow& window ) :
     cSerializable( name, NULL ),
     m_zoomAmount( 1.1F ), // zoom by 10%
-    m_cfgFilePath(""),
+    m_apiDir( utilities::file::GetExecutablePath() ),
+    m_cfgFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_cfg.xml") ),
+    m_perFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_per.csv") ),
+    m_logFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_log.txt") ),
+    m_guiFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_gui.ini") ),
+    m_AplicationDataStorage( m_guiFilePath ),
     m_Window ( window ),
-    m_Widgets( m_Window, *this ),
+    m_Widgets( m_Window, *this, m_AplicationDataStorage ),
     m_World  ( "World", this ),
     m_EntityFactory( "EntityFactory", this ),
     m_ConstElementsFactory( "ConstElementsFactory", this ),
@@ -31,11 +36,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
                                  utilities::math::IntToStr( MERCURIAL_REVISION );
 
     // Logger Setup
-    std::string apiDir = utilities::file::GetExecutablePath();
-    std::string logFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_log.txt");
-    m_cfgFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_cfg.xml");
-    m_perFilePath = apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_per.csv");
-    LOGGERINS().LogPath = logFilePath;
+    LOGGERINS().LogPath = m_logFilePath;
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Initializing" );
 
