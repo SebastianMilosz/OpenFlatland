@@ -13,7 +13,7 @@ using namespace codeframe;
 class ConsoleWidget : public sigslot::has_slots<>
 {
     public:
-        ConsoleWidget( cSerializableInterface& parent );
+        ConsoleWidget( cSerializableInterface& parent, utilities::data::DataStorage& ds );
        ~ConsoleWidget();
 
         void Clear();
@@ -31,6 +31,7 @@ class ConsoleWidget : public sigslot::has_slots<>
         static int TextEditCallbackStub( ImGuiInputTextCallbackData* data );
         int TextEditCallback( ImGuiInputTextCallbackData* data );
 
+        utilities::data::DataStorage&                   m_ds;
         cSerializableInterface&                         m_parent;
         ImGuiTextBuffer                                 m_Buf;
         ImGuiTextFilter                                 m_Filter;

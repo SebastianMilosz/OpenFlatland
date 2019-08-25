@@ -14,7 +14,7 @@ class GUIWidgetsLayer
         enum { MOUSE_MODE_SEL_ENTITY, MOUSE_MODE_DEL_ENTITY, MOUSE_MODE_ADD_ENTITY, MOUSE_MODE_ADD_LINE };
 
     public:
-        GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterface& parent );
+        GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterface& parent, utilities::data::DataStorage& ds );
         virtual ~GUIWidgetsLayer();
 
         void AddGuiRegion( int x, int y, int w, int h );

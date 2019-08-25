@@ -9,11 +9,13 @@
   * @brief
  **
 ******************************************************************************/
-ConsoleWidget::ConsoleWidget( cSerializableInterface& parent ) :
+ConsoleWidget::ConsoleWidget( cSerializableInterface& parent, utilities::data::DataStorage& ds ) :
+    m_ds( ds ),
     m_parent( parent ),
     m_ScrollToBottom( false )
 {
     memset(m_InputBuf, 0, sizeof(m_InputBuf));
+    m_History.Load( m_ds );
 }
 
 /*****************************************************************************/
@@ -23,7 +25,7 @@ ConsoleWidget::ConsoleWidget( cSerializableInterface& parent ) :
 ******************************************************************************/
 ConsoleWidget::~ConsoleWidget()
 {
-    //dtor
+    m_History.Save( m_ds );
 }
 
 /*****************************************************************************/
@@ -204,11 +206,11 @@ int ConsoleWidget::TextEditCallback(ImGuiInputTextCallbackData* data)
 
             if (data->EventKey == ImGuiKey_UpArrow)
             {
-                historyEntry = m_History.PeekNext();
+                historyEntry = m_History.PeekPrew();
             }
             else if (data->EventKey == ImGuiKey_DownArrow)
             {
-                historyEntry = m_History.PeekPrew();
+                historyEntry = m_History.PeekNext();
             }
 
             if ( !historyEntry.empty() )

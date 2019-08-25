@@ -9,6 +9,8 @@
 #include <cstdlib>
 #include <inttypes.h>
 
+#include "MathUtilities.h"
+
 enum eOPR { SET = 0, GET = 1, CHANGE, INCREASE, DECREAS, DEFAULT };
 
 // Typy Danych
@@ -32,6 +34,13 @@ namespace utilities
 {
     namespace data
     {
+        class DataStorage
+        {
+            public:
+               virtual void Add( const std::string& key, const std::string& value ) = 0;
+               virtual void Get( const std::string& key, std::string&       value ) = 0;
+        };
+
         template<uint32_t S, typename T>
         class ConstStack
         {
@@ -102,15 +111,33 @@ namespace utilities
 
                 T PeekNext()
                 {
-                    m_peekPos = (m_peekPos + 1U) % m_count;
                     size_t headtmp = (m_head - m_peekPos) % S;
+
+                    if ( m_peekPos == (m_count - 1U) )
+                    {
+                        m_peekPos = 0U;
+                    }
+                    else
+                    {
+                        m_peekPos++;
+                    }
+
                     return m_dataTable[ headtmp ];
                 }
 
                 T PeekPrew()
                 {
-                    m_peekPos = (m_peekPos - 1U) % m_count;
                     size_t headtmp = (m_head - m_peekPos) % S;
+
+                    if ( m_peekPos > 0U )
+                    {
+                        m_peekPos--;
+                    }
+                    else
+                    {
+                        m_peekPos = m_count - 1U;
+                    }
+
                     return m_dataTable[ headtmp ];
                 }
 
@@ -122,6 +149,7 @@ namespace utilities
                 bool_t Push( T value )
                 {
                     m_head = (m_head + 1U) % S;
+
                     m_dataTable[ m_head ] = value;
                     m_count++;
                 }
@@ -156,6 +184,22 @@ namespace utilities
                 {
                     return (Size() == S);
                 }
+
+                void Save( DataStorage& ds )
+                {
+                    for ( uint32_t n = 0U; n < m_count; n++ )
+                    {
+                        ds.Add( "Data", m_dataTable[ m_tail + n ] );
+                    }
+
+                    ds.Add( "DataCount", utilities::math::IntToStr( m_count ) );
+                }
+
+                void Load( DataStorage& ds )
+                {
+
+                }
+
             private:
                 T m_dataTable[ S ];
                 size_t m_head;
