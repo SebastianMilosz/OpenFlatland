@@ -40,6 +40,10 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Initializing" );
 
+    // Change imgui config file
+    ImGuiIO& IOS = ImGui::GetIO();
+    IOS.IniFilename = m_guiFilePath.c_str();
+
     PERFORMANCE_INITIALIZE( applicationId );
 
     m_Window.setTitle( std::string( APPLICATION_NAME ) + std::string(" Rev: ") + utilities::math::IntToStr( MERCURIAL_REVISION ) );
