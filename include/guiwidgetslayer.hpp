@@ -1,6 +1,8 @@
 #ifndef GUIWIDGETSLAYER_HPP
 #define GUIWIDGETSLAYER_HPP
 
+#include <map>
+
 #include <SFML/Graphics.hpp>
 
 #include "consolewidget.hpp"
@@ -29,18 +31,18 @@ class GUIWidgetsLayer
                     {
                         // Add .ini handle for persistent docking data
                         ImGuiSettingsHandler ini_handler;
-                        ini_handler.TypeName = "Application";
-                        ini_handler.TypeHash = ImHashStr("Application", 0, 0);
-                        ini_handler.ReadOpenFn = &GuiDataStorage::ApplicationSettingsHandler_ReadOpen;
-                        ini_handler.ReadLineFn = &GuiDataStorage::ApplicationSettingsHandler_ReadLine;
-                        ini_handler.WriteAllFn = &GuiDataStorage::ApplicationSettingsHandler_WriteAll;
+                        ini_handler.TypeName = "WidgetsData";
+                        ini_handler.TypeHash = ImHashStr("WidgetsData", 0, 0);
+                        ini_handler.ReadOpenFn = &GuiDataStorage::GuiSettingsHandler_ReadOpen;
+                        ini_handler.ReadLineFn = &GuiDataStorage::GuiSettingsHandler_ReadLine;
+                        ini_handler.WriteAllFn = &GuiDataStorage::GuiSettingsHandler_WriteAll;
                         context->SettingsHandlers.push_back(ini_handler);
                     }
                 }
 
                 virtual void Add( const std::string& key, const std::string& value )
                 {
-
+                    m_DataMap[ key ] = value;
                 }
 
                 virtual void Get( const std::string& key, std::string& value )
@@ -48,24 +50,29 @@ class GUIWidgetsLayer
 
                 }
             private:
-                static void* ApplicationSettingsHandler_ReadOpen(ImGuiContext*, ImGuiSettingsHandler*, const char* name)
+                static void* GuiSettingsHandler_ReadOpen(ImGuiContext*, ImGuiSettingsHandler*, const char* name)
                 {
-                    if (strcmp(name, "Application") != 0)
+                    if (strcmp(name, "WidgetsData") != 0)
                     {
                         return NULL;
                     }
                     return (void*)1;
                 }
 
-                static void  ApplicationSettingsHandler_ReadLine(ImGuiContext*, ImGuiSettingsHandler*, void* entry, const char* line)
+                static void  GuiSettingsHandler_ReadLine(ImGuiContext*, ImGuiSettingsHandler*, void* entry, const char* line)
                 {
 
                 }
 
-                static void  ApplicationSettingsHandler_WriteAll(ImGuiContext* imgui_ctx, ImGuiSettingsHandler* handler, ImGuiTextBuffer* buf)
+                static void  GuiSettingsHandler_WriteAll(ImGuiContext* imgui_ctx, ImGuiSettingsHandler* handler, ImGuiTextBuffer* buf)
                 {
+                    // Write to text buffer
+                    buf->appendf("[%s][Data]\n", handler->TypeName);
 
+                    buf->appendf("\n");
                 }
+
+                std::map<std::string, std::string> m_DataMap;
         };
 
         GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterface& parent, const std::string& configFile );
