@@ -23,28 +23,6 @@ class Application : public codeframe::cSerializable
         void ProcesseLogic( void );
 
     private:
-            class AplicationDataStorage : public utilities::data::DataStorage
-            {
-                public:
-                    AplicationDataStorage( const std::string& filePath ) :
-                        m_filePath( filePath )
-                    {
-
-                    }
-
-                   virtual void Add( const std::string& key, const std::string& value )
-                   {
-
-                   }
-
-                   virtual void Get( const std::string& key, std::string& value )
-                   {
-
-                   }
-                private:
-                    std::string m_filePath;
-            };
-
             void ZoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, float zoom );
 
             const float         m_zoomAmount;
@@ -54,8 +32,6 @@ class Application : public codeframe::cSerializable
             std::string         m_perFilePath;
             std::string         m_logFilePath;
             std::string         m_guiFilePath;
-
-            AplicationDataStorage   m_AplicationDataStorage;
 
             sf::RenderWindow&       m_Window;
             GUIWidgetsLayer         m_Widgets;

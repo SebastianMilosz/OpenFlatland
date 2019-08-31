@@ -22,9 +22,8 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_perFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_per.csv") ),
     m_logFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_log.txt") ),
     m_guiFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_gui.ini") ),
-    m_AplicationDataStorage( m_guiFilePath ),
     m_Window ( window ),
-    m_Widgets( m_Window, *this, m_AplicationDataStorage ),
+    m_Widgets( m_Window, *this, m_guiFilePath ),
     m_World  ( "World", this ),
     m_EntityFactory( "EntityFactory", this ),
     m_ConstElementsFactory( "ConstElementsFactory", this ),
@@ -39,10 +38,6 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     LOGGERINS().LogPath = m_logFilePath;
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Initializing" );
-
-    // Change imgui config file
-    ImGuiIO& IOS = ImGui::GetIO();
-    IOS.IniFilename = m_guiFilePath.c_str();
 
     PERFORMANCE_INITIALIZE( applicationId );
 

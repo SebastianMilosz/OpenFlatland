@@ -64,7 +64,9 @@ namespace utilities
                     if ( !IsFull() )
                     {
                         m_dataTable[ m_count++ ] = value;
+                        return true;
                     }
+                    return false;
                 }
 
                 T Pop()
