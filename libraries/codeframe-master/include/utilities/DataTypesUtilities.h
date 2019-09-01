@@ -154,6 +154,7 @@ namespace utilities
 
                     m_dataTable[ m_head ] = value;
                     m_count++;
+                    return true;
                 }
 
                 T Pop()
