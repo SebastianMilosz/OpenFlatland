@@ -82,10 +82,10 @@ class GUIWidgetsLayer
                         {
                             std::map<std::string, std::string>::iterator it;
 
-                            buf->appendf("[%s][Data]\n", handler->TypeName);
+                            buf->appendf("[%s][Data-%s]\n", handler->TypeName, datStore->m_name.c_str());
                             for ( it = datStore->m_DataMap.begin(); it != datStore->m_DataMap.end(); it++ )
                             {
-                                buf->appendf(" %s=%s", it->first, it->second );
+                                buf->appendf(" %s=%s", it->first.c_str(), it->second.c_str() );
                                 buf->appendf("\n");
                             }
 
@@ -125,7 +125,7 @@ class GUIWidgetsLayer
         sf::RenderWindow& m_window;
         sf::Clock         m_deltaClock;
 
-        GuiDataStorage m_GuiDataStorage;
+        GuiDataStorage m_GuiConsoleDataStorage;
         int            m_MouseMode;
         bool           m_mouseCapturedByGui;
         bool           m_ConsoleWidgetOpen;
