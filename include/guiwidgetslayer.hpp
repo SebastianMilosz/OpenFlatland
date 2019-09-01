@@ -21,8 +21,16 @@ class GUIWidgetsLayer
         class GuiDataStorage : public utilities::data::DataStorage
         {
             public:
-                GuiDataStorage()
+                GuiDataStorage( const std::string& name ) :
+                    m_name( name )
                 {
+                    s_InstanceHandlerVector.push_back( this );
+                }
+
+                virtual ~GuiDataStorage()
+                {
+                    // @todo Remove handlers on destruct
+
                 }
 
                 static void Init( ImGuiContext* context )
@@ -66,13 +74,29 @@ class GUIWidgetsLayer
 
                 static void  GuiSettingsHandler_WriteAll(ImGuiContext* imgui_ctx, ImGuiSettingsHandler* handler, ImGuiTextBuffer* buf)
                 {
-                    // Write to text buffer
-                    buf->appendf("[%s][Data]\n", handler->TypeName);
+                    std::vector<GuiDataStorage*>::iterator vit;
+                    for ( vit = s_InstanceHandlerVector.begin(); vit != s_InstanceHandlerVector.end(); ++vit )
+                    {
+                        GuiDataStorage* datStore = *vit;
+                        if ( (GuiDataStorage*)NULL != datStore )
+                        {
+                            std::map<std::string, std::string>::iterator it;
 
-                    buf->appendf("\n");
+                            buf->appendf("[%s][Data]\n", handler->TypeName);
+                            for ( it = datStore->m_DataMap.begin(); it != datStore->m_DataMap.end(); it++ )
+                            {
+                                buf->appendf(" %s=%s", it->first, it->second );
+                                buf->appendf("\n");
+                            }
+
+                            buf->appendf("\n");
+                        }
+                    }
                 }
 
-                std::map<std::string, std::string> m_DataMap;
+                static std::vector<GuiDataStorage*> s_InstanceHandlerVector;
+                std::string m_name;
+                std::map<std::string, std::string>  m_DataMap;
         };
 
         GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterface& parent, const std::string& configFile );

@@ -38,7 +38,7 @@ namespace utilities
         {
             public:
                virtual void Add( const std::string& key, const std::string& value ) = 0;
-               virtual void Get( const std::string& key, std::string&       value ) = 0;
+               virtual void Get( const std::string& key, std::string& value ) = 0;
         };
 
         template<uint32_t S, typename T>
@@ -191,10 +191,10 @@ namespace utilities
                 {
                     for ( uint32_t n = 0U; n < m_count; n++ )
                     {
-                        ds.Add( "Data", m_dataTable[ m_tail + n ] );
+                        ds.Add( "ConsoleHistoryData", m_dataTable[ m_tail + n ] + utilities::math::IntToStr( n ) );
                     }
 
-                    ds.Add( "DataCount", utilities::math::IntToStr( m_count ) );
+                    ds.Add( "ConsoleHistoryDataCount", utilities::math::IntToStr( m_count ) );
                 }
 
                 void Load( DataStorage& ds )

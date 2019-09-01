@@ -10,6 +10,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 
+std::vector<GUIWidgetsLayer::GuiDataStorage*> GUIWidgetsLayer::GuiDataStorage::s_InstanceHandlerVector;
+
 /*****************************************************************************/
 /**
   * @brief
@@ -67,7 +69,7 @@ int GUIWidgetsLayer::GetMouseModeId()
 ******************************************************************************/
 GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterface& parent, const std::string& configFile ) :
     m_window( window ),
-    m_GuiDataStorage(),
+    m_GuiDataStorage( "gui" ),
     m_MouseMode( MOUSE_MODE_SEL_ENTITY ),
     m_mouseCapturedByGui( false ),
     m_ConsoleWidgetOpen( true ),
