@@ -76,7 +76,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterfa
     m_PropertyEditorOpen( true ),
     m_AnnViewerWidgetOpen( false ),
     m_InformationWidgetOpen( true ),
-    m_ConsoleWidget( parent, m_GuiConsoleDataStorage ),
+    m_ConsoleWidget( parent ),
     m_InformationWidget( window )
 {
     ImGui::SFML::Init( m_window );
@@ -85,6 +85,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterfa
     // Change imgui config file
     ImGuiIO& IOS = ImGui::GetIO();
     IOS.IniFilename = configFile.c_str();
+    m_ConsoleWidget.Load( m_GuiConsoleDataStorage );
 }
 
 /*****************************************************************************/
@@ -94,6 +95,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterfa
 ******************************************************************************/
 GUIWidgetsLayer::~GUIWidgetsLayer()
 {
+    m_ConsoleWidget.Save( m_GuiConsoleDataStorage );
     ImGui::SFML::Shutdown();
 }
 
