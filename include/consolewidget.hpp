@@ -13,12 +13,14 @@ using namespace codeframe;
 class ConsoleWidget : public sigslot::has_slots<>
 {
     public:
-        ConsoleWidget( cSerializableInterface& parent, utilities::data::DataStorage& ds );
+        ConsoleWidget( cSerializableInterface& parent );
        ~ConsoleWidget();
 
         void Clear();
         void Draw(const char* title, bool* p_open = NULL);
         void OnLogMessage(const std::string& timestamp, const std::string& title, const std::string& msg, int type);
+        void Save( utilities::data::DataStorage& ds );
+        void Load( utilities::data::DataStorage& ds );
 
     private:
         // Portable helpers
@@ -31,7 +33,6 @@ class ConsoleWidget : public sigslot::has_slots<>
         static int TextEditCallbackStub( ImGuiInputTextCallbackData* data );
         int TextEditCallback( ImGuiInputTextCallbackData* data );
 
-        utilities::data::DataStorage&                   m_ds;
         cSerializableInterface&                         m_parent;
         ImGuiTextBuffer                                 m_Buf;
         ImGuiTextFilter                                 m_Filter;

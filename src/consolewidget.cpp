@@ -9,13 +9,11 @@
   * @brief
  **
 ******************************************************************************/
-ConsoleWidget::ConsoleWidget( cSerializableInterface& parent, utilities::data::DataStorage& ds ) :
-    m_ds( ds ),
+ConsoleWidget::ConsoleWidget( cSerializableInterface& parent ) :
     m_parent( parent ),
     m_ScrollToBottom( false )
 {
     memset(m_InputBuf, 0, sizeof(m_InputBuf));
-    m_History.Load( m_ds );
 }
 
 /*****************************************************************************/
@@ -25,7 +23,6 @@ ConsoleWidget::ConsoleWidget( cSerializableInterface& parent, utilities::data::D
 ******************************************************************************/
 ConsoleWidget::~ConsoleWidget()
 {
-    m_History.Save( m_ds );
 }
 
 /*****************************************************************************/
@@ -36,6 +33,26 @@ ConsoleWidget::~ConsoleWidget()
 void ConsoleWidget::OnLogMessage(const std::string& timestamp, const std::string& title, const std::string& msg, int type)
 {
     AddLog( "[%s] : [%s] : [%d] : %s\n", timestamp.c_str(), title.c_str(), type, msg.c_str() );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ConsoleWidget::Save( utilities::data::DataStorage& ds )
+{
+    m_History.Save( ds );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ConsoleWidget::Load( utilities::data::DataStorage& ds )
+{
+    m_History.Load( ds );
 }
 
 /*****************************************************************************/
