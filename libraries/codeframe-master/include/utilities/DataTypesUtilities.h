@@ -192,7 +192,7 @@ namespace utilities
                 {
                     for ( uint32_t n = 0U; n < m_count; n++ )
                     {
-                        ds.Add( "ConsoleHistoryData", m_dataTable[ m_tail + n ] + utilities::math::IntToStr( n ) );
+                        ds.Add( std::string("ConsoleHistoryData") + utilities::math::IntToStr( n ), m_dataTable[ m_tail + n ] );
                     }
 
                     ds.Add( "ConsoleHistoryDataCount", utilities::math::IntToStr( m_count ) );
@@ -200,7 +200,15 @@ namespace utilities
 
                 void Load( DataStorage& ds )
                 {
-
+                    std::string cntStr("");
+                    ds.Get( "ConsoleHistoryDataCount", cntStr );
+                    int cnt = utilities::math::StrToInt( cntStr );
+                    for ( uint32_t n = 0U; n < cnt; n++ )
+                    {
+                        std::string valueStr("");
+                        ds.Get( std::string("ConsoleHistoryData") + utilities::math::IntToStr( n ), valueStr );
+                        Push( (T)valueStr );
+                    }
                 }
 
             private:

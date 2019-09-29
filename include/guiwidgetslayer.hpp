@@ -55,21 +55,57 @@ class GUIWidgetsLayer
 
                 virtual void Get( const std::string& key, std::string& value )
                 {
-
+                    std::map<std::string, std::string>::iterator it = m_DataMap.find( key );
+                    if ( it != m_DataMap.end() )
+                    {
+                        value = it->second;
+                    }
                 }
             private:
-                static void* GuiSettingsHandler_ReadOpen(ImGuiContext*, ImGuiSettingsHandler*, const char* name)
+                static void* GuiSettingsHandler_ReadOpen(ImGuiContext*, ImGuiSettingsHandler* handler, const char* name)
                 {
-                    if (strcmp(name, "WidgetsData") != 0)
+                    std::vector<GuiDataStorage*>::iterator vit;
+                    for ( vit = s_InstanceHandlerVector.begin(); vit != s_InstanceHandlerVector.end(); ++vit )
                     {
-                        return NULL;
+                        GuiDataStorage* datStore = *vit;
+
+                        if ( (GuiDataStorage*)NULL != datStore )
+                        {
+                            std::string dataName = std::string("Data-") + datStore->m_name;
+                            if (strcmp( name, dataName.c_str() ) != 0)
+                            {
+                                return NULL;
+                            }
+                            return (void*)1;
+                        }
                     }
-                    return (void*)1;
+                    return NULL;
                 }
 
-                static void  GuiSettingsHandler_ReadLine(ImGuiContext*, ImGuiSettingsHandler*, void* entry, const char* line)
+                static void  GuiSettingsHandler_ReadLine(ImGuiContext*, ImGuiSettingsHandler* handler, void* entry, const char* line)
                 {
+                    std::vector<GuiDataStorage*>::iterator vit;
+                    for ( vit = s_InstanceHandlerVector.begin(); vit != s_InstanceHandlerVector.end(); ++vit )
+                    {
+                        GuiDataStorage* datStore = *vit;
 
+                        if ( (GuiDataStorage*)NULL != datStore )
+                        {
+                            line = ImStrSkipBlank(line);
+
+                            std::string lineString(line);
+
+                            std::size_t found = lineString.find_first_of("=");
+
+                            if ( found != std::string::npos )
+                            {
+                                std::string key   = lineString.substr(0, found );
+                                std::string value = lineString.substr( found+1U );
+                                datStore->m_DataMap[ key ] = value;
+                            }
+
+                        }
+                    }
                 }
 
                 static void  GuiSettingsHandler_WriteAll(ImGuiContext* imgui_ctx, ImGuiSettingsHandler* handler, ImGuiTextBuffer* buf)
