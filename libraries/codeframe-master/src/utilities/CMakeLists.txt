@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 2.8.11)
 
-project (codeframeutilitieslib)
+project (CODEFRAME_LIBSRC)
 
-add_library(codeframeutilitieslib
-			utilities.cpp
+add_library(CODEFRAME_LIBSRC
+            utilities.cpp
             FileUtilities.cpp
             LoggerUtilities.cpp
             PerformanceUtilities.cpp
             SysUtilities.cpp
             ThreadUtilities.cpp
-			utilities.h
+            utilities.h
             crc.h
             HashUtilities.h
             MathUtilities.h
@@ -21,4 +21,4 @@ add_library(codeframeutilitieslib
             SysUtilities.h
             TextUtilities.h
             ThreadUtilities.h
-	)
+)

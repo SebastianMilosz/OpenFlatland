@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project (LIFESIM)
 
-set ( CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.1.0\\Tools\\mingw48_32\\bin" )
-set ( CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.0.1\\5.0.1\\mingw48_32" )
-
 set(LIFESIM_MAJOR_VERSION 0)
 set(LIFESIM_MINOR_VERSION 1)
 set(LIFESIM_PATCH_VERSION 0)
@@ -17,5 +14,5 @@ set(INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header fi
 
 # Add sub-directories
 add_subdirectory(libraries\\Box2D-master\\Box2D)
-#add_subdirectory(libraries\\codeframe-master)
+add_subdirectory(libraries\\codeframe-master)
 add_subdirectory(libraries\\SFML-master)
