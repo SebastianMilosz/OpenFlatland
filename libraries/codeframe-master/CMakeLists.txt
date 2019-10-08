@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project (CODEFRAME_LIB)
 
+SET(CMAKE_CXX_FLAGS "-std=c++0x")
+
 set(CODEFRAME_LIB_HDRS
 
 )
@@ -49,11 +51,18 @@ add_library(CODEFRAME_LIB STATIC
     ${CODEFRAME_LIB_UTILITIES_SRC}
 )
 
+# Some external dependencies
 include_directories( include )
+include_directories( include/utilities )
 include_directories( thirdparty/pugixml-1.7/src )
-include_directories( ../../libraries/SFML-master/src )
+include_directories( thirdparty/sigslot-1.0.0 )
+include_directories( thirdparty/smartpointer )
+include_directories( ../SFML-master/include )
+include_directories( ../thrust-1.8.1 )
 
 add_library(codeframe ALIAS ${PROJECT_NAME})
+
+add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
 
 # Add sub-directories
 add_subdirectory(thirdparty)
