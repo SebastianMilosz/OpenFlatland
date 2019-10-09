@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project (LIFESIM)
 
+SET(CMAKE_CXX_FLAGS "-std=c++0x")
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(LIFESIM_AppSRC
@@ -36,11 +38,18 @@ source_group("src" FILES ${LIFESIM_AppSRC})
 source_group("" FILES main.cpp)
 
 include_directories( include )
-include_directories( libraries/SFML-master/src )
+include_directories( libraries/CTPL-master )
+include_directories( libraries/TinyThread++-1.0/source )
+include_directories( libraries/SFML-master/include )
+include_directories( libraries/imgui-sfml-master )
+include_directories( libraries/imgui-master )
+include_directories( libraries/Box2D-master/Box2D )
+include_directories( libraries/thrust-1.8.1 )
 
 add_definitions(-DSFML_STATIC)
 add_definitions(-DGLEW_STATIC)
 add_definitions(-DSERIALIZABLE_USE_LUA)
+add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
 
 # Add sub-directories
 add_subdirectory(libraries/codeframe-master libraries/codeframe-master )

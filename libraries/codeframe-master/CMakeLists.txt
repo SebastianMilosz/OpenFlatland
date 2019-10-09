@@ -57,10 +57,17 @@ include_directories( include/utilities )
 include_directories( thirdparty/pugixml-1.7/src )
 include_directories( thirdparty/sigslot-1.0.0 )
 include_directories( thirdparty/smartpointer )
+include_directories( thirdparty/plf_nanotimer-master )
 include_directories( thirdparty/lua-5.3.5/src )
 include_directories( thirdparty/luabridge-master/Source )
 include_directories( ../SFML-master/include )
 include_directories( ../thrust-1.8.1 )
+
+target_include_directories( CODEFRAME_LIB PUBLIC include/utilities )
+target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/plf_nanotimer-master )
+target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/lua-5.3.5/src )
+target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/smartpointer )
+target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/sigslot-1.0.0 )
 
 add_library(codeframe ALIAS ${PROJECT_NAME})
 
