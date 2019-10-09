@@ -1,5 +1,6 @@
 #include "xmlformatter.hpp"
 
+#include <cstring>
 #include <iostream>
 #include <exception>
 #include <stdexcept>

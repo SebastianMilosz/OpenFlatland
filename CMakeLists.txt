@@ -38,6 +38,10 @@ source_group("" FILES main.cpp)
 include_directories( include )
 include_directories( libraries/SFML-master/src )
 
+add_definitions(-DSFML_STATIC)
+add_definitions(-DGLEW_STATIC)
+add_definitions(-DSERIALIZABLE_USE_LUA)
+
 # Add sub-directories
 add_subdirectory(libraries/codeframe-master libraries/codeframe-master )
 add_subdirectory(libraries/Box2D-master/Box2D libraries/Box2D-master/Box2D )
