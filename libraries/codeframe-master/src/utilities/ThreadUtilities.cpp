@@ -6,7 +6,7 @@
 #include <utilities/ThreadUtilities.h>
 #include <utilities/DataTypesUtilities.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
 #endif
 
@@ -18,7 +18,7 @@
 ******************************************************************************/
 uint8_t WrThread::NCPU()
 {
-#ifdef WIN32
+#ifdef _WIN32
     SYSTEM_INFO sysinfo;
     GetSystemInfo(&sysinfo);
     return sysinfo.dwNumberOfProcessors;;
@@ -231,7 +231,7 @@ void WrThread::Join()
 ******************************************************************************/
 void WrThread::Sleep(unsigned long msec)
 {
-#ifdef WIN32
+#ifdef _WIN32
     ::Sleep(msec);
 #else // _WIN32
     sleep(msec);

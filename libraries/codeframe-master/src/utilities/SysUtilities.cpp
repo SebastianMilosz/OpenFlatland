@@ -4,7 +4,7 @@
 #include <sys/timeb.h>
 #include <sys/types.h>  // pid_t
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <windows.h>
 #endif // WIN32
 

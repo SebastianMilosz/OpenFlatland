@@ -31,8 +31,8 @@ set(CODEFRAME_LIB_SRC
     src/serializableregister.cpp
     src/serializableselectable.cpp
     src/serializablestorage.cpp
-    src/serializablestream.cpp
-    src/serializablestreammanager.cpp
+    #src/serializablestream.cpp
+    #src/serializablestreammanager.cpp
     src/typeinfo.cpp
     src/xmlformatter.cpp
 )
@@ -57,6 +57,8 @@ include_directories( include/utilities )
 include_directories( thirdparty/pugixml-1.7/src )
 include_directories( thirdparty/sigslot-1.0.0 )
 include_directories( thirdparty/smartpointer )
+include_directories( thirdparty/lua-5.3.5/src )
+include_directories( thirdparty/luabridge-master/Source )
 include_directories( ../SFML-master/include )
 include_directories( ../thrust-1.8.1 )
 

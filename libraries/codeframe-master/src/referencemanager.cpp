@@ -1,5 +1,7 @@
 #include "referencemanager.hpp"
 
+#include <cstring>      // std::strlen
+
 #include <serializable.hpp>
 #include <utilities/LoggerUtilities.h>
 
@@ -161,8 +163,8 @@ std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase
 
     if ( NULL != propertyParent )
     {
-        bool isDownHierarchy = (strncmp(retString.c_str(), "..", strlen("..")) == 0);
-        bool isRelative = (strncmp(retString.c_str(), "/", strlen("/")) == 0);
+        bool isDownHierarchy = (strncmp(retString.c_str(), "..", std::strlen("..")) == 0);
+        bool isRelative = (strncmp(retString.c_str(), "/", std::strlen("/")) == 0);
 
         if ( isRelative || isDownHierarchy )
         {
