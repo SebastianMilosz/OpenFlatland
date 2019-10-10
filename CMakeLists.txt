@@ -51,6 +51,13 @@ add_definitions(-DGLEW_STATIC)
 add_definitions(-DSERIALIZABLE_USE_LUA)
 add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
 
+set(BOX2D_BUILD_EXAMPLES OFF  CACHE BOOL "BOX2D build examples")
+set(BOX2D_BUILD_STATIC ON  CACHE BOOL "BOX2D static build")
+set(BOX2D_BUILD_SHARED OFF CACHE BOOL "BOX2D shared build")
+set(SFML_USE_STATIC_STD_LIBS ON CACHE BOOL "SFML use static std libs")
+set(SFML_BUILD_AUDIO OFF CACHE BOOL "SFML build audio")
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libs")
+
 # Add sub-directories
 add_subdirectory(libraries/codeframe-master libraries/codeframe-master )
 add_subdirectory(libraries/Box2D-master/Box2D libraries/Box2D-master/Box2D )
@@ -72,5 +79,5 @@ target_include_directories( LIFESIM_App
     PUBLIC ${PROJECT_SOURCE_DIR}/libraries/codeframe-master/include )
 
 target_link_libraries(LIFESIM_App
-    codeframe
+    codeframe sfml-system Box2D
 )
