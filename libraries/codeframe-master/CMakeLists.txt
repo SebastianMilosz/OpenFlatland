@@ -42,13 +42,27 @@ set(CODEFRAME_LIB_UTILITIES_SRC
     src/utilities/LoggerUtilities.cpp
     src/utilities/PerformanceUtilities.cpp
     src/utilities/SysUtilities.cpp
+    src/utilities/MathUtilities.cpp
     src/utilities/ThreadUtilities.cpp
+)
+
+set(CODEFRAME_THIRD_PARTY_HDRS
+    thirdparty/pugixml-1.7/src/pugiconfig.hpp
+    thirdparty/pugixml-1.7/src/pugixml.hpp
+    thirdparty/sigslot-1.0.0/sigslot.h
+    thirdparty/smartpointer/smartpointer.h
+)
+
+set(CODEFRAME_THIRD_PARTY_SRC
+    thirdparty/pugixml-1.7/src/pugixml.cpp
 )
 
 add_library(CODEFRAME_LIB STATIC
     ${CODEFRAME_LIB_HDRS}
     ${CODEFRAME_LIB_SRC}
     ${CODEFRAME_LIB_UTILITIES_SRC}
+    ${CODEFRAME_THIRD_PARTY_HDRS}
+    ${CODEFRAME_THIRD_PARTY_SRC}
 )
 
 # Some external dependencies
@@ -72,10 +86,6 @@ target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/sigslot-1.0.0 )
 add_library(codeframe ALIAS ${PROJECT_NAME})
 
 add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
-
-# Add sub-directories
-add_subdirectory(thirdparty)
-add_subdirectory(tests)
 
 option (USE_QT "Use QT" OFF)  
 

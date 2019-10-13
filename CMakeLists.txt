@@ -4,7 +4,9 @@ project (LIFESIM)
 
 SET(CMAKE_CXX_FLAGS "-std=c++0x")
 
+# enable project folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 set(LIFESIM_AppSRC
     src/application.cpp
@@ -31,8 +33,23 @@ set(LIFESIM_AppSRC
     src/world.cpp
 )
 
+set(LIFESIM_ImGuiSRC
+    libraries/imgui-master/imgui.cpp
+    libraries/imgui-master/imgui_demo.cpp
+    libraries/imgui-master/imgui_draw.cpp
+    libraries/imgui-master/imgui_widgets.cpp
+    libraries/imgui-sfml-master/imgui-SFML.cpp
+)
+
+add_definitions(-DSFML_STATIC)
+add_definitions(-DGLEW_STATIC)
+add_definitions(-DSERIALIZABLE_USE_LUA)
+add_definitions(-D__MSVCRT__)
+add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
+
 # These are used to create visual studio folders.
 source_group("src" FILES ${LIFESIM_AppSRC})
+source_group("src/imgui" FILES ${LIFESIM_ImGuiSRC})
 
 # These are used to create visual studio folders.
 source_group("" FILES main.cpp)
@@ -46,11 +63,6 @@ include_directories( libraries/imgui-master )
 include_directories( libraries/Box2D-master/Box2D )
 include_directories( libraries/thrust-1.8.1 )
 
-add_definitions(-DSFML_STATIC)
-add_definitions(-DGLEW_STATIC)
-add_definitions(-DSERIALIZABLE_USE_LUA)
-add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
-
 set(BOX2D_BUILD_EXAMPLES OFF  CACHE BOOL "BOX2D build examples")
 set(BOX2D_BUILD_STATIC ON  CACHE BOOL "BOX2D static build")
 set(BOX2D_BUILD_SHARED OFF CACHE BOOL "BOX2D shared build")
@@ -59,12 +71,15 @@ set(SFML_BUILD_AUDIO OFF CACHE BOOL "SFML build audio")
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libs")
 
 # Add sub-directories
-add_subdirectory(libraries/codeframe-master libraries/codeframe-master )
-add_subdirectory(libraries/Box2D-master/Box2D libraries/Box2D-master/Box2D )
-add_subdirectory(libraries/SFML-master libraries/SFML-master )
+add_subdirectory(libraries/codeframe-master )
+add_subdirectory(libraries/codeframe-master/thirdparty/lua-5.3.5/src )
+add_subdirectory(libraries/codeframe-master/thirdparty/luabridge-master )
+add_subdirectory(libraries/Box2D-master/Box2D )
+add_subdirectory(libraries/SFML-master )
 
 add_executable(LIFESIM_App
     ${LIFESIM_AppSRC}
+    ${LIFESIM_ImGuiSRC}
 )
 
 set_target_properties(LIFESIM_App PROPERTIES
@@ -77,7 +92,7 @@ target_include_directories( LIFESIM_App
     
 target_include_directories( LIFESIM_App
     PUBLIC ${PROJECT_SOURCE_DIR}/libraries/codeframe-master/include )
-
+   
 target_link_libraries(LIFESIM_App
-    codeframe sfml-system Box2D
+    codeframe sfml-main sfml-graphics sfml-network sfml-window sfml-system Box2D lualib
 )
