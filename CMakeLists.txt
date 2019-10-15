@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project (LIFESIM)
 
-SET(CMAKE_CXX_FLAGS "-std=c++0x")
-
 # enable project folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
@@ -44,7 +42,6 @@ set(LIFESIM_ImGuiSRC
 add_definitions(-DSFML_STATIC)
 add_definitions(-DGLEW_STATIC)
 add_definitions(-DSERIALIZABLE_USE_LUA)
-add_definitions(-D__MSVCRT__)
 add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
 
 # These are used to create visual studio folders.
@@ -76,6 +73,8 @@ add_subdirectory(libraries/codeframe-master/thirdparty/lua-5.3.5/src )
 add_subdirectory(libraries/codeframe-master/thirdparty/luabridge-master )
 add_subdirectory(libraries/Box2D-master/Box2D )
 add_subdirectory(libraries/SFML-master )
+
+SET(CMAKE_CXX_FLAGS "-std=c++0x")
 
 add_executable(LIFESIM_App
     ${LIFESIM_AppSRC}
