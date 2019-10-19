@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.7.1)
 
 project (LIFESIM)
 
@@ -74,14 +74,14 @@ add_executable(LIFESIM_App
 )
 
 set_target_properties(LIFESIM_App PROPERTIES
-    CXX_STANDARD 11
-    CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO
+    OUTPUT_NAME "LIFESIM"
+    CLEAN_DIRECT_OUTPUT 1
 )
 
 set_target_properties(LIFESIM_App PROPERTIES
-    OUTPUT_NAME "LIFESIM"
-    CLEAN_DIRECT_OUTPUT 1
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
 )
 
 target_include_directories( LIFESIM_App
@@ -96,3 +96,4 @@ target_link_libraries(LIFESIM_App
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/arial.ttf
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+        

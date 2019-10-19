@@ -1,11 +1,32 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.7.1)
 
 project (CODEFRAME_LIB)
 
-SET(CMAKE_CXX_FLAGS "-std=c++0x")
-
 set(CODEFRAME_LIB_HDRS
-
+    include/base64.hpp
+    include/cxml.hpp
+    include/cxmlnode.hpp
+    include/extpoint2d.hpp
+    include/extthrust.hpp
+    include/extvector.hpp
+    include/instancemanager.hpp
+    include/referencemanager.hpp
+    include/serializable.hpp
+    include/serializablechildlist.hpp
+    include/serializablecontainer.hpp
+    include/serializableidentity.hpp
+    include/serializableinterface.hpp
+    include/serializablelua.hpp
+    include/serializablepath.hpp
+    include/serializableproperty.hpp
+    include/serializablepropertyinfo.hpp
+    include/serializablepropertyiterator.hpp
+    include/serializablepropertymanager.hpp
+    include/serializableregister.hpp
+    include/serializableselectable.hpp
+    include/serializablestorage.hpp
+    include/typeinfo.hpp
+    include/xmlformatter.hpp
 )
 
 set(CODEFRAME_LIB_SRC
@@ -31,8 +52,6 @@ set(CODEFRAME_LIB_SRC
     src/serializableregister.cpp
     src/serializableselectable.cpp
     src/serializablestorage.cpp
-    #src/serializablestream.cpp
-    #src/serializablestreammanager.cpp
     src/typeinfo.cpp
     src/xmlformatter.cpp
 )
@@ -65,6 +84,17 @@ add_library(CODEFRAME_LIB STATIC
     ${CODEFRAME_THIRD_PARTY_SRC}
 )
 
+set_target_properties(CODEFRAME_LIB PROPERTIES
+    OUTPUT_NAME "CODEFRAME"
+    CLEAN_DIRECT_OUTPUT 1
+)
+
+set_target_properties(CODEFRAME_LIB PROPERTIES
+    CXX_STANDARD 11
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+)
+
 # Some external dependencies
 include_directories( include )
 include_directories( include/utilities )
@@ -74,6 +104,8 @@ include_directories( thirdparty/smartpointer )
 include_directories( thirdparty/plf_nanotimer-master )
 include_directories( thirdparty/lua-5.3.5/src )
 include_directories( thirdparty/luabridge-master/Source )
+
+# SFML and thrust related datatypes
 include_directories( ../SFML-master/include )
 include_directories( ../thrust-1.8.1 )
 
@@ -82,8 +114,6 @@ target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/plf_nanotimer-master
 target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/lua-5.3.5/src )
 target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/smartpointer )
 target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/sigslot-1.0.0 )
-
-add_library(codeframe ALIAS ${PROJECT_NAME})
 
 add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
 
@@ -94,3 +124,5 @@ set ( CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.1.0\\Tools\\mingw48_32\\bin" )
 set ( CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.0.1\\5.0.1\\mingw48_32" )
 add_subdirectory(qtexample)
 endif (USE_QT)
+
+add_library(codeframe ALIAS ${PROJECT_NAME})

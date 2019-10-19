@@ -16,3 +16,4 @@ lifeSimulator.depend
 libraries/codeframe-master/thirdparty/luabridge-master/build/*
 libraries/codeframe-master/thirdparty/lua-5.3.5/build/
 libraries/codeframe-master/thirdparty/luabridge-master/Tests/
+build/*
