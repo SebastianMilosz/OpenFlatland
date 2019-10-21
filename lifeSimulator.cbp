@@ -62,6 +62,13 @@
 					<Add library="libgomp.a" />
 				</Linker>
 			</Target>
+			<Target title="Test CodeFrame">
+				<Option output="../bin/lifeSimulator/test/test_codeframe" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/lifeSimulator/test/" />
+				<Option object_output="../bin/lifeSimulator/obj/test/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -116,31 +123,131 @@
 		<ExtraCommands>
 			<Add before="UpdateMercurialInfo.bat" />
 		</ExtraCommands>
-		<Unit filename="include/annviewerwidget.hpp" />
-		<Unit filename="include/application.hpp" />
-		<Unit filename="include/colorizecircleshape.hpp" />
-		<Unit filename="include/colorizerealnbr.hpp" />
-		<Unit filename="include/consolewidget.hpp" />
-		<Unit filename="include/constelement.hpp" />
-		<Unit filename="include/constelementline.hpp" />
-		<Unit filename="include/constelementsfactory.hpp" />
-		<Unit filename="include/entity.hpp" />
-		<Unit filename="include/entityfactory.hpp" />
-		<Unit filename="include/entityghost.hpp" />
-		<Unit filename="include/entityshell.hpp" />
-		<Unit filename="include/entityvision.hpp" />
-		<Unit filename="include/fontfactory.hpp" />
-		<Unit filename="include/guiwidgetslayer.hpp" />
-		<Unit filename="include/informationwidget.hpp" />
-		<Unit filename="include/mercurialinfo.hpp" />
-		<Unit filename="include/performanceapplicationdef.hpp" />
-		<Unit filename="include/performancelogger.hpp" />
-		<Unit filename="include/physicsbody.hpp" />
-		<Unit filename="include/propertyeditorwidget.hpp" />
-		<Unit filename="include/serializableneuronlayer.hpp" />
-		<Unit filename="include/serializableneuronlayercontainer.hpp" />
-		<Unit filename="include/version.hpp" />
-		<Unit filename="include/world.hpp" />
+		<Unit filename="include/annviewerwidget.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/application.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/colorizecircleshape.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/colorizerealnbr.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/consolewidget.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/constelement.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/constelementline.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/constelementsfactory.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entity.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entityfactory.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entityghost.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entityshell.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entityvision.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/fontfactory.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/guiwidgetslayer.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/informationwidget.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/mercurialinfo.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/performanceapplicationdef.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/performancelogger.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/physicsbody.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/propertyeditorwidget.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/serializableneuronlayer.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/serializableneuronlayercontainer.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/version.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/world.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="libraries/codeframe-master/include/base64.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxml.hpp" />
 		<Unit filename="libraries/codeframe-master/include/cxmlnode.hpp" />
@@ -210,44 +317,185 @@
 		<Unit filename="libraries/codeframe-master/src/utilities/SysUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/utilities/ThreadUtilities.cpp" />
 		<Unit filename="libraries/codeframe-master/src/xmlformatter.cpp" />
+		<Unit filename="libraries/codeframe-master/tests/catch.hpp">
+			<Option target="Test CodeFrame" />
+		</Unit>
+		<Unit filename="libraries/codeframe-master/tests/test_serializable.cpp">
+			<Option target="Test CodeFrame" />
+		</Unit>
+		<Unit filename="libraries/codeframe-master/tests/test_serializablelibmain.cpp">
+			<Option target="Test CodeFrame" />
+		</Unit>
 		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugiconfig.hpp" />
 		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugixml.cpp" />
 		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugixml.hpp" />
 		<Unit filename="libraries/codeframe-master/thirdparty/smartpointer/smartpointer.h" />
 		<Unit filename="libraries/codeframe-master/thirdparty/smartpointer/yasper.h" />
-		<Unit filename="libraries/imgui-master/imconfig.h" />
-		<Unit filename="libraries/imgui-master/imgui.cpp" />
-		<Unit filename="libraries/imgui-master/imgui.h" />
-		<Unit filename="libraries/imgui-master/imgui_demo.cpp" />
-		<Unit filename="libraries/imgui-master/imgui_draw.cpp" />
-		<Unit filename="libraries/imgui-master/imgui_internal.h" />
-		<Unit filename="libraries/imgui-master/imgui_widgets.cpp" />
-		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.cpp" />
-		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.h" />
-		<Unit filename="libraries/sigslot-1.0.0/sigslot.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="src/annviewerwidget.cpp" />
-		<Unit filename="src/application.cpp" />
-		<Unit filename="src/colorizecircleshape.cpp" />
-		<Unit filename="src/colorizerealnbr.cpp" />
-		<Unit filename="src/consolewidget.cpp" />
-		<Unit filename="src/constelement.cpp" />
-		<Unit filename="src/constelementline.cpp" />
-		<Unit filename="src/constelementsfactory.cpp" />
-		<Unit filename="src/entity.cpp" />
-		<Unit filename="src/entityfactory.cpp" />
-		<Unit filename="src/entityghost.cpp" />
-		<Unit filename="src/entityshell.cpp" />
-		<Unit filename="src/entityvision.cpp" />
-		<Unit filename="src/fontfactory.cpp" />
-		<Unit filename="src/guiwidgetslayer.cpp" />
-		<Unit filename="src/informationwidget.cpp" />
-		<Unit filename="src/performancelogger.cpp" />
-		<Unit filename="src/physicsbody.cpp" />
-		<Unit filename="src/propertyeditorwidget.cpp" />
-		<Unit filename="src/serializableneuronlayer.cpp" />
-		<Unit filename="src/serializableneuronlayercontainer.cpp" />
-		<Unit filename="src/world.cpp" />
+		<Unit filename="libraries/imgui-master/imconfig.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/imgui-master/imgui.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/imgui-master/imgui.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/imgui-master/imgui_demo.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/imgui-master/imgui_draw.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/imgui-master/imgui_internal.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/imgui-master/imgui_widgets.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="libraries/sigslot-1.0.0/sigslot.h">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="main.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/annviewerwidget.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/application.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/colorizecircleshape.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/colorizerealnbr.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/consolewidget.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/constelement.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/constelementline.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/constelementsfactory.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entity.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entityfactory.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entityghost.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entityshell.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entityvision.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/fontfactory.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/guiwidgetslayer.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/informationwidget.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/performancelogger.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/physicsbody.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/propertyeditorwidget.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/serializableneuronlayer.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/serializableneuronlayercontainer.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/world.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />
