@@ -1,18 +1,17 @@
 #include "catch.hpp"
 
-#include "serializable.h"
+#include <serializable.hpp>
 
 TEST_CASE( "Serializable library construction and destruction", "[serializable]" )
 {
     class classTestSerializable : public codeframe::cSerializable
     {
         public:
-        std::string Role()      { return "Object";                }
-        std::string Class()     { return "classTestSerializable"; }
-        std::string BuildType() { return "Static";                }
+            CODEFRAME_META_CLASS_NAME( "classTestSerializable" );
+            CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-            classTestSerializable( std::string name, cSerializable* parent ) : cSerializable( name, parent )
+            classTestSerializable( const std::string& name, cSerializableInterface* parent ) : cSerializable( name, parent )
             {
 
             }
@@ -22,6 +21,6 @@ TEST_CASE( "Serializable library construction and destruction", "[serializable]"
 
     SECTION( "resizing bigger changes size and capacity" )
     {
-        REQUIRE( testSerializable.ObjectName() == "testName" );
+        REQUIRE( testSerializable.Identity().ObjectName() == "testName" );
     }
 }
