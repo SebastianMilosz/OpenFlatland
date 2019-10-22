@@ -323,6 +323,9 @@
 		<Unit filename="libraries/codeframe-master/tests/test_serializable.cpp">
 			<Option target="Test CodeFrame" />
 		</Unit>
+		<Unit filename="libraries/codeframe-master/tests/test_serializable_utilities.cpp">
+			<Option target="Test CodeFrame" />
+		</Unit>
 		<Unit filename="libraries/codeframe-master/tests/test_serializablelibmain.cpp">
 			<Option target="Test CodeFrame" />
 		</Unit>
