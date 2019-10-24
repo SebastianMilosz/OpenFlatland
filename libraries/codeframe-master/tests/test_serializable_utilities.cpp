@@ -29,7 +29,9 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
 
     TestDataStorage ds;
 
-    utilities::data::CircularBuffer<32, std::string> g_CircularBuffer_w;
+    utilities::data::CircularBuffer<8, std::string> g_CircularBuffer_w;
+
+     REQUIRE( g_CircularBuffer_w.IsEmpty() == true );
 
     g_CircularBuffer_w.Push( "Test/String/1" );
     g_CircularBuffer_w.Push( "Test/String/2" );
@@ -41,7 +43,7 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
 
     g_CircularBuffer_w.Save( ds );
 
-    utilities::data::CircularBuffer<32, std::string> g_CircularBuffer_r;
+    utilities::data::CircularBuffer<8, std::string> g_CircularBuffer_r;
 
     g_CircularBuffer_r.Load( ds );
 
@@ -49,6 +51,27 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
     {
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/6" );
-        REQUIRE( g_CircularBuffer_w.PeekNext() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/5" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/4" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/3" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/2" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/1" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_w.PeekNext() == "Test/String/1" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/2" );
+    }
+
+    SECTION( "Test PeekPrew and PeekNext functionality before load" )
+    {
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/6" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/5" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/4" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/3" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/2" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/1" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_r.PeekNext() == "Test/String/1" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/2" );
     }
 }
