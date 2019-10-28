@@ -11,6 +11,8 @@
 
 #include "MathUtilities.h"
 
+#include "LoggerUtilities.h"
+
 enum eOPR { SET = 0, GET = 1, CHANGE, INCREASE, DECREAS, DEFAULT };
 
 // Typy Danych
@@ -103,26 +105,23 @@ namespace utilities
         {
             public:
                 CircularBuffer() :
-                    m_head( S - 1U ),
+                    m_head( 0U ),
                     m_tail( 0U ),
                     m_count( 0U ),
                     m_peekPos( 0U )
                 {
-
+                    LOGGER( LOG_INFO << "Constructor - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos);
                 }
 
                 T PeekNext()
                 {
-                    size_t headtmp = (m_head - m_peekPos) % S;
+                    m_peekPos = (m_peekPos - 1U) % m_count;
 
-                    if ( m_peekPos == (m_count - 1U) )
-                    {
-                        m_peekPos = 0U;
-                    }
-                    else
-                    {
-                        m_peekPos++;
-                    }
+                    size_t headtmp = (m_head - m_peekPos + 1) % S;
+
+
+
+                    LOGGER( LOG_INFO << "PeekNext - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos << " headtmp: " << headtmp << " value: " << m_dataTable[ headtmp ]);
 
                     return m_dataTable[ headtmp ];
                 }
@@ -131,14 +130,9 @@ namespace utilities
                 {
                     size_t headtmp = (m_head - m_peekPos) % S;
 
-                    if ( m_peekPos > 0U )
-                    {
-                        m_peekPos--;
-                    }
-                    else
-                    {
-                        m_peekPos = m_count - 1U;
-                    }
+                    m_peekPos = (m_peekPos + 1U) % m_count;
+
+                    LOGGER( LOG_INFO << "PeekPrew - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos << " headtmp: " << headtmp << " value: " << m_dataTable[ headtmp ]);
 
                     return m_dataTable[ headtmp ];
                 }
@@ -148,23 +142,29 @@ namespace utilities
                     m_peekPos = 0U;
                 }
 
-                bool_t Push( T value )
+                void Push( const T value )
                 {
                     m_head = (m_head + 1U) % S;
 
                     m_dataTable[ m_head ] = value;
                     m_count++;
-                    return true;
+
+                    LOGGER( LOG_INFO << "Push - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos << " value: " << value );
                 }
 
                 T Pop()
                 {
-                    if ( !IsEmpty() )
+                    if ( m_count != 0U )
                     {
                         m_tail = (m_tail + 1U) % S;
                         m_count--;
+
+                        LOGGER( LOG_INFO << "Pop - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos);
+
                         return  m_dataTable[ m_tail ];
                     }
+
+                    LOGGER( LOG_INFO << "Pop - m_dummyValue");
                     return m_dummyValue;
                 }
 
@@ -173,7 +173,7 @@ namespace utilities
                     return m_count;
                 }
 
-                bool_t IsEmpty()
+                bool_t IsEmpty() const
                 {
                     if ( m_count == 0U )
                     {
@@ -188,11 +188,12 @@ namespace utilities
                     return (Size() == S);
                 }
 
-                void Save( DataStorage& ds )
+                void Save( DataStorage& ds ) const
                 {
-                    for ( uint32_t n = 0U; n < m_count; n++ )
+                    LOGGER( LOG_INFO << "Save" );
+                    for ( size_t n = 0U; n < m_count; n++ )
                     {
-                        ds.Add( std::string("ConsoleHistoryData") + utilities::math::IntToStr( n ), m_dataTable[ m_tail + n ] );
+                        ds.Add( std::string("ConsoleHistoryData") + utilities::math::IntToStr( n ), m_dataTable[ m_tail + n + 1U ] );
                     }
 
                     ds.Add( "ConsoleHistoryDataCount", utilities::math::IntToStr( m_count ) );
@@ -200,10 +201,12 @@ namespace utilities
 
                 void Load( DataStorage& ds )
                 {
+                    LOGGER( LOG_INFO << "Load" );
+
                     std::string cntStr("");
                     ds.Get( "ConsoleHistoryDataCount", cntStr );
-                    int cnt = utilities::math::StrToInt( cntStr );
-                    for ( uint32_t n = 0U; n < cnt; n++ )
+                    size_t cnt = utilities::math::StrToInt( cntStr );
+                    for ( size_t n = 0U; n < cnt; n++ )
                     {
                         std::string valueStr("");
                         ds.Get( std::string("ConsoleHistoryData") + utilities::math::IntToStr( n ), valueStr );

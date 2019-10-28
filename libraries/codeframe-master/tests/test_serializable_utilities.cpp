@@ -5,13 +5,21 @@
 
 #include <utilities/DataTypesUtilities.h>
 
+#include <utilities/LoggerUtilities.h>
+
 TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataTypesUtilities:CircularBuffer]" )
 {
+    std::string apiDir( utilities::file::GetExecutablePath() );
+    std::string m_logFilePath = std::string ( apiDir + std::string("\\") + std::string("CircularBuffer_log.txt") );
+
+    LOGGERINS().LogPath = m_logFilePath;
+
     class TestDataStorage : public utilities::data::DataStorage
     {
         public:
            virtual void Add( const std::string& key, const std::string& value )
            {
+                LOGGER( LOG_INFO << "Add key: " << key << "value: " << value );
                 m_DataMap[ key ] = value;
            }
 
@@ -21,6 +29,7 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
                 if ( it != m_DataMap.end() )
                 {
                     value = it->second;
+                    LOGGER( LOG_INFO << "Get key: " << key << "value: " << value );
                 }
            }
         private:
@@ -30,6 +39,7 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
     TestDataStorage ds;
 
     utilities::data::CircularBuffer<8, std::string> g_CircularBuffer_w;
+    utilities::data::CircularBuffer<8, std::string> g_CircularBuffer_r;
 
      REQUIRE( g_CircularBuffer_w.IsEmpty() == true );
 
@@ -42,13 +52,12 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
     g_CircularBuffer_w.Push( "Test/String/7" );
 
     g_CircularBuffer_w.Save( ds );
-
-    utilities::data::CircularBuffer<8, std::string> g_CircularBuffer_r;
-
     g_CircularBuffer_r.Load( ds );
 
     SECTION( "Test PeekPrew and PeekNext functionality before load" )
     {
+        LOGGER( LOG_INFO << "Test CircularBuffer Constructor" );
+
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/6" );
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/5" );
@@ -57,12 +66,15 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/2" );
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/1" );
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
-        REQUIRE( g_CircularBuffer_w.PeekNext() == "Test/String/1" );
-        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/2" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/6" );
+        REQUIRE( g_CircularBuffer_w.PeekNext() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/6" );
     }
 
     SECTION( "Test PeekPrew and PeekNext functionality before load" )
     {
+        LOGGER( LOG_INFO << "Test CircularBuffer Constructor 2!!!!!!!!!" );
+
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/6" );
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/5" );
@@ -72,6 +84,6 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/1" );
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
         REQUIRE( g_CircularBuffer_r.PeekNext() == "Test/String/1" );
-        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/2" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
     }
 }

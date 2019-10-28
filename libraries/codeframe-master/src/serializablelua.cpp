@@ -17,8 +17,8 @@ namespace codeframe
      **
     ******************************************************************************/
     cSerializableScript::cSerializableScript( cSerializableInterface& sint ) :
-        m_sint( sint ),
-        m_luastate( NULL )
+        m_luastate( NULL ),
+        m_sint( sint )
     {
 
     }
