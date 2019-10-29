@@ -115,24 +115,26 @@ namespace utilities
 
                 T PeekNext()
                 {
+                    LOGGER( LOG_INFO << "PeekNext_prew - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos);
+
                     m_peekPos = (m_peekPos - 1U) % m_count;
 
-                    size_t headtmp = (m_head - m_peekPos + 1) % S;
+                    size_t headtmp = (m_head - m_peekPos) % S;
 
-
-
-                    LOGGER( LOG_INFO << "PeekNext - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos << " headtmp: " << headtmp << " value: " << m_dataTable[ headtmp ]);
+                    LOGGER( LOG_INFO << "PeekNext      - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos << " headtmp: " << headtmp << " value: " << m_dataTable[ headtmp ]);
 
                     return m_dataTable[ headtmp ];
                 }
 
                 T PeekPrew()
                 {
-                    size_t headtmp = (m_head - m_peekPos) % S;
+                    LOGGER( LOG_INFO << "PeekPrew_prew - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos);
 
-                    m_peekPos = (m_peekPos + 1U) % m_count;
+                    m_peekPos = (m_peekPos + 1U) % (m_count+1);
 
-                    LOGGER( LOG_INFO << "PeekPrew - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos << " headtmp: " << headtmp << " value: " << m_dataTable[ headtmp ]);
+                    size_t headtmp = (m_head - (m_peekPos-1)) % S;
+
+                    LOGGER( LOG_INFO << "PeekPrew      - m_head:" << m_head << "m_tail:" << m_tail << "m_count:" << m_count << "m_peekPos:" << m_peekPos << " headtmp: " << headtmp << " value: " << m_dataTable[ headtmp ]);
 
                     return m_dataTable[ headtmp ];
                 }

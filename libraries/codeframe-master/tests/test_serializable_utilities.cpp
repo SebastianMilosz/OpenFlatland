@@ -68,7 +68,8 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/6" );
         REQUIRE( g_CircularBuffer_w.PeekNext() == "Test/String/7" );
-        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/6" );
+        REQUIRE( g_CircularBuffer_w.PeekNext() == "Test/String/1" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
     }
 
     SECTION( "Test PeekPrew and PeekNext functionality before load" )
@@ -83,7 +84,8 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/2" );
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/1" );
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
-        REQUIRE( g_CircularBuffer_r.PeekNext() == "Test/String/1" );
-        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/6" );
+        REQUIRE( g_CircularBuffer_r.PeekNext() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/6" );
     }
 }
