@@ -24,9 +24,9 @@ pipelines:
           - apt-get update -qq
           - apt-get install cmake -y --force-yes
           # Install the development librairies and headers for freeglut3
-          - apt-get install freeglut3-dev -y
+          - apt-get install freeglut3-dev -y --force-yes
           # Install the Xrandr used by SFML to set the size, orientation and/or reflection of the outputs for a screen. It can also set the screen size.
-          - apt-get install x11-xserver-utils
+          - apt-get install x11-xserver-utils --force-yes
           # Print the CMake version.
           - cmake --version  
           - mkdir build

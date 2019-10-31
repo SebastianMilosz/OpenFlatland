@@ -85,6 +85,12 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterfa
     // Change imgui config file
     ImGuiIO& IOS = ImGui::GetIO();
     IOS.IniFilename = configFile.c_str();
+
+    if (IOS.IniFilename)
+    {
+        ImGui::LoadIniSettingsFromDisk( IOS.IniFilename );
+    }
+
     m_ConsoleWidget.Load( m_GuiConsoleDataStorage );
 }
 

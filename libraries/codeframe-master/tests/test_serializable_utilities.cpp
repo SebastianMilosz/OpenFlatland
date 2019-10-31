@@ -76,4 +76,30 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
         REQUIRE( g_CircularBuffer_r.PeekNext() == "Test/String/1" );
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
     }
+
+    g_CircularBuffer_w.Push( "Test/String/A" );
+    g_CircularBuffer_w.Push( "Test/String/B" );
+    g_CircularBuffer_w.Push( "Test/String/C" );
+    g_CircularBuffer_w.Push( "Test/String/D" );
+    g_CircularBuffer_w.Push( "Test/String/E" );
+    g_CircularBuffer_w.Push( "Test/String/F" );
+    g_CircularBuffer_w.Push( "Test/String/G" );
+
+    SECTION( "Test buffer overload" )
+    {
+        g_CircularBuffer_w.PeekReset();
+
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/G" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/F" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/E" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/D" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/C" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/B" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/A" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/G" );
+        REQUIRE( g_CircularBuffer_w.PeekNext() == "Test/String/7" );
+        REQUIRE( g_CircularBuffer_w.PeekNext() == "Test/String/A" );
+        REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
+    }
 }
