@@ -85,8 +85,8 @@ namespace codeframe
             virtual PropertyBase& operator--();
             virtual PropertyBase& operator+=(const PropertyBase& rhs);
             virtual PropertyBase& operator-=(const PropertyBase& rhs);
-            virtual PropertyBase  operator+(const PropertyBase& rhs);
-            virtual PropertyBase  operator-(const PropertyBase& rhs);
+            virtual PropertyBase  operator+ (const PropertyBase& rhs);
+            virtual PropertyBase  operator- (const PropertyBase& rhs);
             virtual PropertyBase& operator+=(const int rhs);
             virtual PropertyBase& operator-=(const int rhs);
 

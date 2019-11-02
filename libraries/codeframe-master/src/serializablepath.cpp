@@ -85,7 +85,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cSerializablePath::IsNameUnique( const std::string& name, bool checkParent ) const
+    bool cSerializablePath::IsNameUnique( const std::string& name, const bool checkParent ) const
     {
         int octcnt = 0;
 
