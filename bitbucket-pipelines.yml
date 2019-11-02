@@ -29,6 +29,8 @@ pipelines:
           - apt-get install libxrandr-dev -y --force-yes
           - apt-get install libxinerama-dev -y --force-yes
           - apt-get install libxcursor-dev -y --force-yes
+          # Install the UDev library used by SFML
+          - apt-get install libudev-dev -y --force-yes
           # Print the CMake version.
           - cmake --version  
           - mkdir build
