@@ -84,5 +84,26 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
     SECTION( "Basic serializable objects tests" )
     {
         REQUIRE( staticSerializableObject.Identity().ObjectName() == "testNameStatic" );
+        REQUIRE( staticContainerObject.Identity().ObjectName() == "testNameContainerStatic" );
+
+        REQUIRE( staticContainerObject.Count() == 5 );
+
+        REQUIRE( (int)(*static_cast<classTest_Dynamic*>(smart_ptr_getRaw(staticContainerObject[0]))).Property1 == 100 );
+
+        // Direct property access
+        PropertyBase* prop = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );
+        REQUIRE( prop != NULL );
+        REQUIRE( (int)(*prop) == 100 );
+
+        *prop = 101;
+
+        REQUIRE( (int)(*prop) == 101 );
+
+        // Property access by selection
+        prop = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[*].Property1" );
+
+        REQUIRE( prop != NULL );
+
+        //*prop = 777;
     }
 }
