@@ -54,11 +54,11 @@ include_directories( libraries/imgui-master )
 include_directories( libraries/Box2D-master/Box2D )
 include_directories( libraries/thrust-1.8.1 )
 
-set(BOX2D_BUILD_EXAMPLES     ON  CACHE BOOL "BOX2D build examples")
+set(BOX2D_BUILD_EXAMPLES     OFF CACHE BOOL "BOX2D build examples")
 set(BOX2D_BUILD_STATIC       ON  CACHE BOOL "BOX2D static build")
 set(BOX2D_BUILD_SHARED       OFF CACHE BOOL "BOX2D shared build")
 set(SFML_USE_STATIC_STD_LIBS ON  CACHE BOOL "SFML use static std libs")
-set(SFML_BUILD_AUDIO         ON  CACHE BOOL "SFML build audio")
+set(SFML_BUILD_AUDIO         OFF CACHE BOOL "SFML build audio")
 set(BUILD_SHARED_LIBS        OFF CACHE BOOL "Build shared libs")
 
 # Add sub-directories

@@ -104,6 +104,8 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
 
         REQUIRE( prop != NULL );
 
+        INFO ( "The selection property name: " << prop->Name() );
+
         //*prop = 777;
     }
 }
