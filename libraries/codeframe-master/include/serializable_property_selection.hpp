@@ -13,6 +13,10 @@ namespace codeframe
      *****************************************************************************/
     class PropertySelection : public PropertyBase
     {
+        public:
+            //PropertySelection( PropertyBase* prop );
+            //~PropertySelection();
+
             virtual std::string     Name() const;
             virtual bool            NameIs( const std::string& name ) const;
 

@@ -7,32 +7,74 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    /*
+    PropertySelection::PropertySelection( PropertyBase* prop ) :
+        PropertyBase( cSerializableInterface* parentpc, const std::string& name, eType type, cPropertyInfo info )
+    {
+        if ( prop != nullptr )
+        {
+            m_selectionVector.push_back( prop );
+        }
+    }
+    */
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    /*
+    PropertySelection::~PropertySelection()
+    {
+
+    }
+    */
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     PropertyBase& PropertySelection::operator=( const PropertySelection& val )
     {
-        m_Mutex.Lock();
-        val.m_Mutex.Lock();
-
-        m_Mutex.Unlock();
-        val.m_Mutex.Unlock();
-
         return *this;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     bool PropertySelection::operator==(const PropertySelection& sval) const
     {
         return false;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     bool PropertySelection::operator!=(const PropertySelection& sval) const
     {
         return false;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     bool PropertySelection::operator==(const int& sval) const
     {
         return false;
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     bool PropertySelection::operator!=(const int& sval) const
     {
         return false;
@@ -205,7 +247,17 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::Name() const
     {
-        return m_name;
+        std::string name;
+
+        for (auto* propSelection : m_selectionVector)
+        {
+            if ( propSelection != nullptr )
+            {
+                name += propSelection->Name();
+            }
+        }
+
+        return name;
     }
 
     /*****************************************************************************/
@@ -215,7 +267,6 @@ namespace codeframe
     ******************************************************************************/
     bool PropertySelection::NameIs( const std::string& name ) const
     {
-        if( name == m_name ) return true;
         return false;
     }
 }
