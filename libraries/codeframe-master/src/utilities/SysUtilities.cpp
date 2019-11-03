@@ -1,12 +1,6 @@
 #include "utilities/SysUtilities.h"
 
-#include <stdint.h>
-#include <sys/timeb.h>
-#include <sys/types.h>  // pid_t
-
-#ifdef _WIN32
-#include <windows.h>
-#endif // WIN32
+#include <iostream>
 
 /*****************************************************************************/
 /**
@@ -17,23 +11,12 @@
 ******************************************************************************/
 std::string utilities::system::GetNowPrecise()
 {
-    #ifdef _WIN32
-        std::string retDateTime = GetNow();
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
 
-        SYSTEMTIME st;
-        GetSystemTime(&st);
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
 
-        std::stringstream milisecondsString;
-        milisecondsString << ".";
-        milisecondsString.fill('0');
-        milisecondsString.width(2);
-        milisecondsString << st.wMilliseconds;
-
-        uint8_t secPos = retDateTime.find_last_of(' ');
-        retDateTime.insert(secPos, milisecondsString.str());
-
-        return retDateTime;
-    #else // _WIN32
-        #error "NOT SUPPORTED PLATFORM"
-    #endif
+    return buf;
 }
