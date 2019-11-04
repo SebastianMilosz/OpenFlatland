@@ -500,7 +500,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void PropertyBase::SetNumber( int val )
+    void PropertyBase::SetNumber( const int val )
     {
         if ( Info().GetEnable() == false )
         {
@@ -526,7 +526,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void PropertyBase::SetReal( double val )
+    void PropertyBase::SetReal( const double val )
     {
         if ( Info().GetEnable() == false )
         {

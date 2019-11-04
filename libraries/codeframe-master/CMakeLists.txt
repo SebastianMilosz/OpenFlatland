@@ -23,6 +23,7 @@ set(CODEFRAME_LIB_HDRS
     include/serializablepropertyiterator.hpp
     include/serializablepropertymanager.hpp
     include/serializable_property_selection.hpp
+    include/serializable_property_node.hpp
     include/serializableregister.hpp
     include/serializableselectable.hpp
     include/serializablestorage.hpp
@@ -44,6 +45,7 @@ set(CODEFRAME_LIB_SRC
     src/serializablecontainer.cpp
     src/serializableidentity.cpp
     src/serializableinterface.cpp
+    src/serializablepropertybase.cpp
     src/serializablelua.cpp
     src/serializablepath.cpp
     src/serializableproperty.cpp

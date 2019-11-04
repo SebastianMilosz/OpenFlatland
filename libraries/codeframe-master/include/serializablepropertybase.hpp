@@ -3,6 +3,7 @@
 
 #include "serializableregister.hpp"
 #include "serializablepropertyinfo.hpp"
+#include "serializable_property_node.hpp"
 #include "typeinfo.hpp"
 #include "ThreadUtilities.h"
 
@@ -17,7 +18,7 @@ namespace codeframe
     /*****************************************************************************
      * @class PropertyBase
      *****************************************************************************/
-    class PropertyBase
+    class PropertyBase : public PropertyNode
     {
         friend class cPropertyInfo;
 
@@ -103,7 +104,7 @@ namespace codeframe
 
             bool                    IsReference() const;
             int                     ToInt() const { return (int)(*this); }
-            std::string             ToString();
+            virtual std::string     ToString();
             int                     ToEnumPosition( const std::string& enumStringValue );
             cPropertyInfo&          Info() { return m_propertyInfo; }
             virtual void            WaitForUpdatePulse();
@@ -128,12 +129,12 @@ namespace codeframe
             bool                    IsChanged() const;
             PropertyBase&           WatchdogGetValue( int time = 1000 );
 
-            void                    SetNumber( int val );
-            int                     GetNumber() const;
-            void                    SetReal( double val );
-            double                  GetReal() const;
-            void                    SetString( const std::string&  val );
-            std::string             GetString() const;
+            virtual void            SetNumber( const int val );
+            virtual int             GetNumber() const;
+            virtual void            SetReal( const double val );
+            virtual double          GetReal() const;
+            virtual void            SetString( const std::string&  val );
+            virtual std::string     GetString() const;
 
         protected:
             static int      s_globalParConCnt;
