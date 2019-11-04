@@ -4,6 +4,9 @@
 #include <string>
 #include <sstream>
 #include <ctime>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/timeb.h>
 
 namespace utilities
 {
