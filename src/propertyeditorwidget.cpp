@@ -97,7 +97,7 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterfa
 {
     if ( smart_ptr_isValid( obj ) == true )
     {
-        uint32_t uid = reinterpret_cast<uint32_t>( smart_ptr_getRaw( obj ) );
+        uint32_t uid = obj->Identity().GetUId();
 
         // Take object pointer as unique id
         ImGui::PushID( uid );

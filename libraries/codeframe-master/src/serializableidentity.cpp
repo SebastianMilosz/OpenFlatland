@@ -6,17 +6,19 @@
 
 namespace codeframe
 {
+    uint32_t cSerializableIdentity::g_uid = 0U;
+
     /*****************************************************************************/
     /**
       * @brief
      **
     ******************************************************************************/
     cSerializableIdentity::cSerializableIdentity( const std::string& name, cSerializableInterface& sint ) :
-        m_Id( -1 ),
+        m_id( -1 ),
+        m_uid( g_uid++ ),
         m_sint( sint ),
         m_sContainerName( name )
     {
-
     }
 
     /*****************************************************************************/

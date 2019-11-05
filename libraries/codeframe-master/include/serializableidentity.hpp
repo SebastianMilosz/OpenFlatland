@@ -28,8 +28,9 @@ namespace codeframe
             void SetName ( const std::string& name );
             std::string ObjectName( bool idSuffix = true ) const;
 
-            int  GetId() const { return m_Id; }
-            void SetId( int id ) { m_Id = id; }
+            uint32_t GetUId() const { return m_uid; }
+            int32_t  GetId()  const { return m_id; }
+            void SetId( const int32_t id ) { m_id = id; }
 
             void    EnterPulseState()    { m_pulseState = true;  }
             void    LeavePulseState()    { m_pulseState = false; }
@@ -39,7 +40,9 @@ namespace codeframe
             static float       LibraryVersion();
             static std::string LibraryVersionString();
         private:
-            int m_Id;
+             int32_t m_id;
+            uint32_t m_uid;
+            static uint32_t g_uid;
             cSerializableInterface& m_sint;
             std::string m_sContainerName;
             bool m_pulseState;
