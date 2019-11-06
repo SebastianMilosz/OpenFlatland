@@ -1,6 +1,8 @@
 #ifndef _SERIALIZABLE_PROPERTY_NODE_H
 #define _SERIALIZABLE_PROPERTY_NODE_H
 
+#include <string>
+
 namespace codeframe
 {
     /*****************************************************************************
@@ -9,16 +11,16 @@ namespace codeframe
     class PropertyNode
     {
         public:
-            virtual PropertyBase& operator=(const bool          val) = 0;
-            virtual PropertyBase& operator=(const char          val) = 0;
-            virtual PropertyBase& operator=(const unsigned char val) = 0;
-            virtual PropertyBase& operator=(const int           val) = 0;
-            virtual PropertyBase& operator=(const unsigned int  val) = 0;
-            virtual PropertyBase& operator=(const float         val) = 0;
-            virtual PropertyBase& operator=(const double        val) = 0;
-            virtual PropertyBase& operator=(const std::string&  val) = 0;
-            virtual PropertyBase& operator++() = 0;
-            virtual PropertyBase& operator--() = 0;
+            virtual PropertyNode& operator=(const bool          val) = 0;
+            virtual PropertyNode& operator=(const char          val) = 0;
+            virtual PropertyNode& operator=(const unsigned char val) = 0;
+            virtual PropertyNode& operator=(const int           val) = 0;
+            virtual PropertyNode& operator=(const unsigned int  val) = 0;
+            virtual PropertyNode& operator=(const float         val) = 0;
+            virtual PropertyNode& operator=(const double        val) = 0;
+            virtual PropertyNode& operator=(const std::string&  val) = 0;
+            virtual PropertyNode& operator++() = 0;
+            virtual PropertyNode& operator--() = 0;
 
             virtual operator bool() const = 0;
             virtual operator char() const = 0;

@@ -7,35 +7,30 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    /*
-    PropertySelection::PropertySelection( PropertyBase* prop ) :
-        PropertyBase( cSerializableInterface* parentpc, const std::string& name, eType type, cPropertyInfo info )
+    PropertySelection::PropertySelection( PropertyNode* prop )
     {
         if ( prop != nullptr )
         {
             m_selectionVector.push_back( prop );
         }
     }
-    */
 
     /*****************************************************************************/
     /**
       * @brief
      **
     ******************************************************************************/
-    /*
     PropertySelection::~PropertySelection()
     {
 
     }
-    */
 
     /*****************************************************************************/
     /**
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=( const PropertySelection& val )
+    PropertyNode& PropertySelection::operator=( const PropertySelection& val )
     {
         return *this;
     }
@@ -85,7 +80,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=(bool val)
+    PropertyNode& PropertySelection::operator=(bool val)
     {
         return *this;
     }
@@ -95,7 +90,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=(char val)
+    PropertyNode& PropertySelection::operator=(char val)
     {
         return *this;
     }
@@ -105,7 +100,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=(unsigned char val)
+    PropertyNode& PropertySelection::operator=(unsigned char val)
     {
         return *this;
     }
@@ -115,7 +110,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=(int val)
+    PropertyNode& PropertySelection::operator=(int val)
     {
         return *this;
     }
@@ -125,7 +120,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=(unsigned int val)
+    PropertyNode& PropertySelection::operator=(unsigned int val)
     {
         return *this;
     }
@@ -135,7 +130,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=(float val)
+    PropertyNode& PropertySelection::operator=(float val)
     {
         return *this;
     }
@@ -145,7 +140,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=(double val)
+    PropertyNode& PropertySelection::operator=(double val)
     {
         return *this;
     }
@@ -155,7 +150,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator=( const std::string& val )
+    PropertyNode& PropertySelection::operator=( const std::string& val )
     {
         return *this;
     }
@@ -165,7 +160,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator++()
+    PropertyNode& PropertySelection::operator++()
     {
         return *this;
     }
@@ -175,7 +170,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator--()
+    PropertyNode& PropertySelection::operator--()
     {
         return *this;
     }
@@ -185,7 +180,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator+=( const PropertySelection& rhs )
+    PropertyNode& PropertySelection::operator+=( const PropertySelection& rhs )
     {
         return *this;
     }
@@ -195,7 +190,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator-=( const PropertySelection& rhs )
+    PropertyNode& PropertySelection::operator-=( const PropertySelection& rhs )
     {
         return *this;
     }
@@ -205,7 +200,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase PropertySelection::operator+(const PropertySelection& rhs)
+    PropertyNode& PropertySelection::operator+(const PropertySelection& rhs)
     {
         return *this;
     }
@@ -215,7 +210,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase PropertySelection::operator-( const PropertySelection& rhs )
+    PropertyNode& PropertySelection::operator-( const PropertySelection& rhs )
     {
         return *this;
     }
@@ -225,7 +220,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator+=( const int rhs )
+    PropertyNode& PropertySelection::operator+=( const int rhs )
     {
         return *this;
     }
@@ -235,7 +230,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertySelection::operator-=( const int rhs )
+    PropertyNode& PropertySelection::operator-=( const int rhs )
     {
         return *this;
     }
