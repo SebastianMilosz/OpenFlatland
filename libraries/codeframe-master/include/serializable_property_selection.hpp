@@ -1,7 +1,7 @@
 #ifndef SERIALIZABLE_PROPERTY_SELECTION_HPP_INCLUDED
 #define SERIALIZABLE_PROPERTY_SELECTION_HPP_INCLUDED
 
-#include "serializablepropertybase.hpp"
+#include "serializable_property_node.hpp"
 
 #include <string>
 #include <vector>
@@ -11,11 +11,11 @@ namespace codeframe
      /*****************************************************************************
      * @class This class stores Property's from selection
      *****************************************************************************/
-    class PropertySelection : public PropertyBase
+    class PropertySelection : public PropertyNode
     {
         public:
-            //PropertySelection( PropertyBase* prop );
-            //~PropertySelection();
+            PropertySelection( PropertyNode* prop );
+           ~PropertySelection();
 
             virtual std::string     Name() const;
             virtual bool            NameIs( const std::string& name ) const;
@@ -28,26 +28,26 @@ namespace codeframe
             virtual bool operator!=(const int& sval) const;
 
             //
-            virtual PropertyBase& operator=(const PropertySelection& val);
-            virtual PropertyBase& operator=(const bool          val);
-            virtual PropertyBase& operator=(const char          val);
-            virtual PropertyBase& operator=(const unsigned char val);
-            virtual PropertyBase& operator=(const int           val);
-            virtual PropertyBase& operator=(const unsigned int  val);
-            virtual PropertyBase& operator=(const float         val);
-            virtual PropertyBase& operator=(const double        val);
-            virtual PropertyBase& operator=(const std::string&  val);
-            virtual PropertyBase& operator++();
-            virtual PropertyBase& operator--();
-            virtual PropertyBase& operator+=(const PropertySelection& rhs);
-            virtual PropertyBase& operator-=(const PropertySelection& rhs);
-            virtual PropertyBase  operator+ (const PropertySelection& rhs);
-            virtual PropertyBase  operator- (const PropertySelection& rhs);
-            virtual PropertyBase& operator+=(const int rhs);
-            virtual PropertyBase& operator-=(const int rhs);
+            virtual PropertyNode& operator=(const PropertySelection& val);
+            virtual PropertyNode& operator=(const bool          val);
+            virtual PropertyNode& operator=(const char          val);
+            virtual PropertyNode& operator=(const unsigned char val);
+            virtual PropertyNode& operator=(const int           val);
+            virtual PropertyNode& operator=(const unsigned int  val);
+            virtual PropertyNode& operator=(const float         val);
+            virtual PropertyNode& operator=(const double        val);
+            virtual PropertyNode& operator=(const std::string&  val);
+            virtual PropertyNode& operator++();
+            virtual PropertyNode& operator--();
+            virtual PropertyNode& operator+=(const PropertySelection& rhs);
+            virtual PropertyNode& operator-=(const PropertySelection& rhs);
+            virtual PropertyNode& operator+ (const PropertySelection& rhs);
+            virtual PropertyNode& operator- (const PropertySelection& rhs);
+            virtual PropertyNode& operator+=(const int rhs);
+            virtual PropertyNode& operator-=(const int rhs);
 
         private:
-            std::vector<PropertyBase*> m_selectionVector;
+            std::vector<PropertyNode*> m_selectionVector;
     };
 }
 

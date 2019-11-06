@@ -118,7 +118,7 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterfa
 
                 if ( (codeframe::PropertyBase*)NULL != iser )
                 {
-                    uint32_t upropid = reinterpret_cast<uint32_t>( iser );
+                    uint32_t upropid = iser->Id();
 
                     // Use property pointer as identifier.
                     ImGui::PushID( upropid );
