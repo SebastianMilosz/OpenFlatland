@@ -429,14 +429,14 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyBase::ConnectReference( PropertyBase* refProp )
+    bool PropertyBase::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
         // Sprawdzamy czy zgadza sie typ
-        if ( (refProp != NULL) && (this->Type() == refProp->Type()) )
+        if ( smart_ptr_isValid( refNode ) && (this->Type() == refNode->Type()) )
         {
             m_Mutex.Lock();
-            m_referenceParent = refProp->m_parentpc;
-            m_reference       = refProp;
+            m_referenceParent = refNode->m_parentpc;
+            m_reference       = refNode;
             m_Mutex.Unlock();
             return true;
         }

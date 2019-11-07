@@ -116,7 +116,7 @@ namespace codeframe
             virtual std::string     Path(bool addName = true) const;
             virtual cSerializableInterface*  Parent() { return m_parentpc; }
             virtual PropertyBase*   Reference() { return m_reference; }
-            virtual bool            ConnectReference( PropertyBase* refProp );
+            virtual bool            ConnectReference( smart_ptr<PropertyNode> refNode );
             virtual std::string     TypeString() const;
 
             virtual std::string     PreviousValueString() const;
