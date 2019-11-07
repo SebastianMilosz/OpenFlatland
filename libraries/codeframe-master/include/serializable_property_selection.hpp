@@ -17,17 +17,19 @@ namespace codeframe
             PropertySelection( PropertyNode* prop );
            ~PropertySelection();
 
-            virtual std::string     Name() const;
-            virtual bool            NameIs( const std::string& name ) const;
+            void Add( PropertyNode* prop );
 
-            //
+            virtual std::string Name() const;
+            virtual bool        NameIs( const std::string& name ) const;
+
+            virtual bool ConnectReference( smart_ptr<PropertyNode> refNode );
+
             virtual bool operator==(const PropertySelection& sval) const;
             virtual bool operator!=(const PropertySelection& sval) const;
 
             virtual bool operator==(const int& sval) const;
             virtual bool operator!=(const int& sval) const;
 
-            //
             virtual PropertyNode& operator=(const PropertySelection& val);
             virtual PropertyNode& operator=(const bool          val);
             virtual PropertyNode& operator=(const char          val);
@@ -43,8 +45,6 @@ namespace codeframe
             virtual PropertyNode& operator-=(const PropertySelection& rhs);
             virtual PropertyNode& operator+ (const PropertySelection& rhs);
             virtual PropertyNode& operator- (const PropertySelection& rhs);
-            virtual PropertyNode& operator+=(const int rhs);
-            virtual PropertyNode& operator-=(const int rhs);
 
         private:
             std::vector<PropertyNode*> m_selectionVector;

@@ -101,9 +101,9 @@ void ReferenceManager::ResolveReferences( cSerializableInterface& root )
 
         if ( (PropertyBase*)NULL != refData.Property )
         {
-            PropertyBase* targetProp = root.PropertyManager().GetPropertyFromPath( referenceAbsolutePath );
+            smart_ptr<PropertyNode> targetProp = root.PropertyManager().GetPropertyFromPath( referenceAbsolutePath );
 
-            if ( (PropertyBase*)NULL != targetProp )
+            if ( smart_ptr_isValid( targetProp ) )
             {
                 targetProp->ConnectReference( refData.Property );
                 it = m_referencePathMap.erase( it );

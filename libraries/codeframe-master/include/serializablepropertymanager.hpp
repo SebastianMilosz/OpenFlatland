@@ -8,6 +8,7 @@
 
 #include "serializablepropertyiterator.hpp"
 #include "serializablepropertybase.hpp"
+#include "serializable_property_selection.hpp"
 
 namespace codeframe
 {
@@ -22,10 +23,11 @@ namespace codeframe
              cPropertyManager( cSerializableInterface& sint );
             ~cPropertyManager();
 
-            PropertyBase* GetPropertyByName  ( const std::string& name );
-            PropertyBase* GetPropertyById    ( uint32_t    id   );
-            PropertyBase* GetPropertyFromPath( const std::string& path );
-            std::string   GetNameById        ( uint32_t    id   ) const;
+            smart_ptr<PropertyNode> GetPropertyByName  ( const std::string& name );
+            smart_ptr<PropertyNode> GetPropertyById    ( uint32_t    id   );
+            smart_ptr<PropertyNode> GetPropertyFromPath( const std::string& path );
+
+            std::string   GetNameById( uint32_t id ) const;
             std::string   SizeString() const;
 
             void PulseChanged();
