@@ -11,7 +11,7 @@ namespace codeframe
     {
         if ( prop != nullptr )
         {
-            m_selectionVector.push_back( prop );
+            m_selection = prop;
         }
     }
 
@@ -23,19 +23,6 @@ namespace codeframe
     PropertySelection::~PropertySelection()
     {
 
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void PropertySelection::Add( PropertyNode* prop )
-    {
-        if ( prop != nullptr )
-        {
-            m_selectionVector.push_back( prop );
-        }
     }
 
     /*****************************************************************************/
@@ -95,11 +82,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(bool val)
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            *propSelection = val;
-        }
-
+        *m_selection = val;
         return *this;
     }
 
@@ -110,11 +93,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(char val)
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            *propSelection = val;
-        }
-
+        *m_selection = val;
         return *this;
     }
 
@@ -125,11 +104,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(unsigned char val)
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            *propSelection = val;
-        }
-
+        *m_selection = val;
         return *this;
     }
 
@@ -140,11 +115,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(int val)
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            *propSelection = val;
-        }
-
+        *m_selection = val;
         return *this;
     }
 
@@ -155,11 +126,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(unsigned int val)
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            *propSelection = val;
-        }
-
+        *m_selection = val;
         return *this;
     }
 
@@ -170,11 +137,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(float val)
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            *propSelection = val;
-        }
-
+        *m_selection = val;
         return *this;
     }
 
@@ -185,11 +148,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(double val)
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            *propSelection = val;
-        }
-
+        *m_selection = val;
         return *this;
     }
 
@@ -200,11 +159,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=( const std::string& val )
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            *propSelection = val;
-        }
-
+        *m_selection = val;
         return *this;
     }
 
@@ -215,11 +170,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator++()
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            ++(*propSelection);
-        }
-
+        ++(*m_selection);
         return *this;
     }
 
@@ -230,11 +181,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator--()
     {
-        for (auto* propSelection : m_selectionVector)
-        {
-            --(*propSelection);
-        }
-
+        --(*m_selection);
         return *this;
     }
 
@@ -285,14 +232,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::Name() const
     {
-        std::string name;
-
-        for (auto* propSelection : m_selectionVector)
-        {
-            name += propSelection->Name();
-        }
-
-        return name;
+        return m_selection->Name();
     }
 
     /*****************************************************************************/
@@ -315,8 +255,168 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    std::string PropertySelection::ToString()
+    {
+        return m_selection->ToString();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     bool PropertySelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
 
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator bool() const
+    {
+        return (bool)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator char() const
+    {
+        return (char)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator unsigned char() const
+    {
+        return (unsigned char)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator int() const
+    {
+        return (int)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator unsigned int() const
+    {
+        return (unsigned int)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator unsigned short() const
+    {
+        return (unsigned short)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator double() const
+    {
+        return (double)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator float() const
+    {
+        return (float)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator std::string() const
+    {
+        return (std::string)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetNumber( const int val )
+    {
+        m_selection->SetNumber( val );
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    int PropertySelection::GetNumber() const
+    {
+        return m_selection->GetNumber();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetReal( const double val )
+    {
+        m_selection->SetReal( val );
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    double PropertySelection::GetReal() const
+    {
+        return m_selection->GetReal();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetString( const std::string&  val )
+    {
+        m_selection->SetString( val );
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertySelection::GetString() const
+    {
+        return m_selection->GetString();
     }
 }

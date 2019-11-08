@@ -267,6 +267,7 @@
 		<Unit filename="libraries/codeframe-master/include/propertyignorelist.hpp" />
 		<Unit filename="libraries/codeframe-master/include/referencemanager.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializable_property_multiple_selection.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_property_node.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_property_selection.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablechildlist.hpp" />
@@ -306,6 +307,7 @@
 		<Unit filename="libraries/codeframe-master/src/instancemanager.cpp" />
 		<Unit filename="libraries/codeframe-master/src/referencemanager.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializable_property_multiple_selection.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_property_selection.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablechildlist.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablecontainer.cpp" />

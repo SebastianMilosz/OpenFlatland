@@ -49,10 +49,10 @@ namespace codeframe
 
         getGlobalNamespace( l )
         .beginNamespace( "CLASS" )
-            .beginClass<PropertyBase>( "Property" )
-                .addProperty( "Number", &PropertyBase::GetNumber, &PropertyBase::SetNumber )
-                .addProperty( "String", &PropertyBase::GetString, &PropertyBase::SetString )
-                .addProperty( "Real"  , &PropertyBase::GetReal,   &PropertyBase::SetReal   )
+            .beginClass<PropertyNode>( "Property" )
+                .addProperty( "Number", &PropertyNode::GetNumber, &PropertyNode::SetNumber )
+                .addProperty( "String", &PropertyNode::GetString, &PropertyNode::SetString )
+                .addProperty( "Real"  , &PropertyNode::GetReal,   &PropertyNode::SetReal   )
             .endClass()
             .beginClass<cSerializableScript>( "Script" )
                 .addFunction("GetProperty", &cSerializableScript::GetProperty)
@@ -73,9 +73,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cSerializableScript::GetProperty( const std::string& path )
+    PropertyNode* cSerializableScript::GetProperty( const std::string& path )
     {
-        return m_sint.PropertyManager().GetPropertyFromPath( path );
+        return smart_ptr_getRaw( m_sint.PropertyManager().GetPropertyFromPath( path ) );
     }
 
     /*****************************************************************************/
