@@ -11,25 +11,26 @@ namespace codeframe
      /*****************************************************************************
      * @class This class stores Property's from selection
      *****************************************************************************/
-    class PropertySelection : public PropertyNode
+    class PropertyMultipleSelection : public PropertyNode
     {
         public:
-            PropertySelection( PropertyNode* prop );
-           ~PropertySelection();
+            PropertyMultipleSelection( PropertyNode* prop );
+           ~PropertyMultipleSelection();
+
+            void Add( PropertyNode* prop );
 
             virtual std::string Name() const;
             virtual bool        NameIs( const std::string& name ) const;
-            virtual std::string ToString();
 
             virtual bool ConnectReference( smart_ptr<PropertyNode> refNode );
 
-            virtual bool operator==(const PropertySelection& sval) const;
-            virtual bool operator!=(const PropertySelection& sval) const;
+            virtual bool operator==(const PropertyMultipleSelection& sval) const;
+            virtual bool operator!=(const PropertyMultipleSelection& sval) const;
 
             virtual bool operator==(const int& sval) const;
             virtual bool operator!=(const int& sval) const;
 
-            virtual PropertyNode& operator=(const PropertySelection& val);
+            virtual PropertyNode& operator=(const PropertyMultipleSelection& val);
             virtual PropertyNode& operator=(const bool          val);
             virtual PropertyNode& operator=(const char          val);
             virtual PropertyNode& operator=(const unsigned char val);
@@ -40,30 +41,13 @@ namespace codeframe
             virtual PropertyNode& operator=(const std::string&  val);
             virtual PropertyNode& operator++();
             virtual PropertyNode& operator--();
-            virtual PropertyNode& operator+=(const PropertySelection& rhs);
-            virtual PropertyNode& operator-=(const PropertySelection& rhs);
-            virtual PropertyNode& operator+ (const PropertySelection& rhs);
-            virtual PropertyNode& operator- (const PropertySelection& rhs);
-
-            virtual operator bool() const;
-            virtual operator char() const;
-            virtual operator unsigned char() const;
-            virtual operator int() const;
-            virtual operator unsigned int() const;
-            virtual operator unsigned short() const;
-            virtual operator double() const;
-            virtual operator float() const;
-            virtual operator std::string() const;
-
-            virtual void        SetNumber( const int val );
-            virtual int         GetNumber() const;
-            virtual void        SetReal( const double val );
-            virtual double      GetReal() const;
-            virtual void        SetString( const std::string&  val );
-            virtual std::string GetString() const;
+            virtual PropertyNode& operator+=(const PropertyMultipleSelection& rhs);
+            virtual PropertyNode& operator-=(const PropertyMultipleSelection& rhs);
+            virtual PropertyNode& operator+ (const PropertyMultipleSelection& rhs);
+            virtual PropertyNode& operator- (const PropertyMultipleSelection& rhs);
 
         private:
-            PropertyNode* m_selection;
+            std::vector<PropertyNode*> m_selectionVector;
     };
 }
 

@@ -105,7 +105,7 @@ void ReferenceManager::ResolveReferences( cSerializableInterface& root )
 
             if ( smart_ptr_isValid( targetProp ) )
             {
-                targetProp->ConnectReference( refData.Property );
+                targetProp->ConnectReference( smart_ptr<PropertyNode>( new PropertySelection( refData.Property ) ) );
                 it = m_referencePathMap.erase( it );
             }
             else
