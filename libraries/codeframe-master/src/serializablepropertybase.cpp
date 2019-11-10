@@ -80,19 +80,19 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=( const PropertyBase& val )
+    PropertyNode& PropertyBase::operator=( const PropertyNode& val )
     {
         m_Mutex.Lock();
-        val.m_Mutex.Lock();
+        val.Lock();
 
-        m_reference       = val.m_reference;
-        m_name            = val.m_name;
-        m_id              = val.m_id;
-        m_type            = val.m_type;
-        m_parentpc        = val.m_parentpc;
+        m_reference = val.Reference();
+        m_name      = val.Name();
+        m_id        = val.Id();
+        m_type      = val.Type();
+        m_parentpc  = val.Parent();
 
         m_Mutex.Unlock();
-        val.m_Mutex.Unlock();
+        val.Unlock();
 
         return *this;
     }
@@ -122,7 +122,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(bool val)
+    PropertyNode& PropertyBase::operator=(bool val)
     {
         return *this;
     }
@@ -132,7 +132,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(char val)
+    PropertyNode& PropertyBase::operator=(char val)
     {
         return *this;
     }
@@ -142,7 +142,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(unsigned char val)
+    PropertyNode& PropertyBase::operator=(unsigned char val)
     {
         return *this;
     }
@@ -152,7 +152,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(int val)
+    PropertyNode& PropertyBase::operator=(int val)
     {
         return *this;
     }
@@ -162,7 +162,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(unsigned int val)
+    PropertyNode& PropertyBase::operator=(unsigned int val)
     {
         return *this;
     }
@@ -172,7 +172,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(float val)
+    PropertyNode& PropertyBase::operator=(float val)
     {
         return *this;
     }
@@ -182,7 +182,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=(double val)
+    PropertyNode& PropertyBase::operator=(double val)
     {
         return *this;
     }
@@ -192,7 +192,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator=( const std::string& val )
+    PropertyNode& PropertyBase::operator=( const std::string& val )
     {
         return *this;
     }
@@ -202,7 +202,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator++()
+    PropertyNode& PropertyBase::operator++()
     {
         return *this;
     }
@@ -212,7 +212,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator--()
+    PropertyNode& PropertyBase::operator--()
     {
         return *this;
     }
@@ -222,7 +222,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator+=( const PropertyBase& rhs )
+    PropertyNode& PropertyBase::operator+=( const PropertyNode& rhs )
     {
         return *this;
     }
@@ -232,7 +232,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator-=( const PropertyBase& rhs )
+    PropertyNode& PropertyBase::operator-=( const PropertyNode& rhs )
     {
         return *this;
     }
@@ -242,7 +242,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase PropertyBase::operator+(const PropertyBase& rhs)
+    PropertyNode& PropertyBase::operator+(const PropertyNode& rhs)
     {
         return *this;
     }
@@ -252,7 +252,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase PropertyBase::operator-( const PropertyBase& rhs )
+    PropertyNode& PropertyBase::operator-( const PropertyNode& rhs )
     {
         return *this;
     }
@@ -262,7 +262,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator+=( const int rhs )
+    PropertyNode& PropertyBase::operator+=( const int rhs )
     {
         return *this;
     }
@@ -272,7 +272,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::operator-=( const int rhs )
+    PropertyNode& PropertyBase::operator-=( const int rhs )
     {
         return *this;
     }
@@ -435,8 +435,8 @@ namespace codeframe
         if ( smart_ptr_isValid( refNode ) && (this->Type() == refNode->Type()) )
         {
             m_Mutex.Lock();
-            m_referenceParent = refNode->m_parentpc;
-            m_reference       = refNode;
+            m_referenceParent = refNode->Parent();
+            m_reference       = smart_ptr_getRaw( refNode );
             m_Mutex.Unlock();
             return true;
         }
@@ -489,7 +489,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase& PropertyBase::WatchdogGetValue( int time )
+    PropertyNode& PropertyBase::WatchdogGetValue( int time )
     {
         WaitForUpdate( time );
         return *this;

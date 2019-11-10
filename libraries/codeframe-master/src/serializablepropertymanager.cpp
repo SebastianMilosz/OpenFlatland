@@ -33,7 +33,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cPropertyManager::GetPropertyByName( const std::string& name )
+    smart_ptr<PropertyNode> cPropertyManager::GetPropertyByName( const std::string& name )
     {
         // Po wszystkich zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
@@ -41,13 +41,13 @@ namespace codeframe
             PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Name() == name )
             {
-                return temp;
+                return smart_ptr<PropertyNode>( new PropertySelection(temp) );
             }
         }
 
         LOGGER( LOG_FATAL << "cSerializable::GetPropertyByName(" << name << "): Out of range" );
 
-        return &m_dummyProperty;
+        return smart_ptr<PropertyNode>( new PropertySelection( &m_dummyProperty ) );
     }
 
     /*****************************************************************************/
@@ -55,7 +55,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cPropertyManager::GetPropertyById( uint32_t id )
+    smart_ptr<PropertyNode> cPropertyManager::GetPropertyById( uint32_t id )
     {
         //m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
@@ -64,14 +64,14 @@ namespace codeframe
             PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Id() == id )
             {
-                return temp;
+                return smart_ptr<PropertyNode>( new PropertySelection( temp ) );
             }
         }
         //m_Mutex.Unlock();
 
         throw std::out_of_range( "cSerializable::GetPropertyById(" + utilities::math::IntToStr(id) + "): Out of range" );
 
-        return NULL;
+        return smart_ptr<PropertyNode>( NULL );
     }
 
     /*****************************************************************************/
@@ -79,7 +79,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cPropertyManager::GetPropertyFromPath( const std::string& path )
+    smart_ptr<PropertyNode> cPropertyManager::GetPropertyFromPath( const std::string& path )
     {
         // Wydzielamy sciezke od nazwy propertisa
         std::string::size_type found = path.find_last_of(".");
@@ -90,11 +90,11 @@ namespace codeframe
 
         if( object )
         {
-            PropertyBase* prop = object->PropertyManager().GetPropertyByName( propertyName );
-            return prop;
+            smart_ptr<PropertyNode> propNode = object->PropertyManager().GetPropertyByName( propertyName );
+            return propNode;
         }
 
-        return NULL;
+        return smart_ptr<PropertyNode>( NULL );
     }
 
     /*****************************************************************************/

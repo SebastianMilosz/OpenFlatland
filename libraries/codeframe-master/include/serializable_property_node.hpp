@@ -1,11 +1,15 @@
 #ifndef _SERIALIZABLE_PROPERTY_NODE_H
 #define _SERIALIZABLE_PROPERTY_NODE_H
 
+#include "typeinfo.hpp"
+
 #include <string>
 #include <smartpointer.h>
 
 namespace codeframe
 {
+    class cSerializableInterface;
+
     /*****************************************************************************
      * @class Interface for all properties classes
      *****************************************************************************/
@@ -36,6 +40,11 @@ namespace codeframe
             virtual std::string ToString() = 0;
             virtual std::string Name() const = 0;
             virtual bool        NameIs( const std::string& name ) const = 0;
+            virtual eType       Type() const = 0;
+            virtual PropertyNode* Reference() const = 0;
+            virtual uint32_t      Id() const = 0;
+
+            virtual cSerializableInterface* Parent() const = 0;
 
             virtual bool        ConnectReference( smart_ptr<PropertyNode> refNode ) = 0;
 
@@ -45,6 +54,9 @@ namespace codeframe
             virtual double      GetReal() const = 0;
             virtual void        SetString( const std::string&  val ) = 0;
             virtual std::string GetString() const = 0;
+
+            virtual Lock() const = 0;
+            virtual Unlock() const = 0;
     };
 }
 

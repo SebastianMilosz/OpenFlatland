@@ -73,23 +73,23 @@ namespace codeframe
             virtual bool operator!=(const int& sval) const;
 
             // Operatory przypisania
-            virtual PropertyBase& operator=(const PropertyBase& val);
-            virtual PropertyBase& operator=(const bool          val);
-            virtual PropertyBase& operator=(const char          val);
-            virtual PropertyBase& operator=(const unsigned char val);
-            virtual PropertyBase& operator=(const int           val);
-            virtual PropertyBase& operator=(const unsigned int  val);
-            virtual PropertyBase& operator=(const float         val);
-            virtual PropertyBase& operator=(const double        val);
-            virtual PropertyBase& operator=(const std::string&  val);
-            virtual PropertyBase& operator++();
-            virtual PropertyBase& operator--();
-            virtual PropertyBase& operator+=(const PropertyBase& rhs);
-            virtual PropertyBase& operator-=(const PropertyBase& rhs);
-            virtual PropertyBase  operator+ (const PropertyBase& rhs);
-            virtual PropertyBase  operator- (const PropertyBase& rhs);
-            virtual PropertyBase& operator+=(const int rhs);
-            virtual PropertyBase& operator-=(const int rhs);
+            virtual PropertyNode& operator=(const PropertyNode& val);
+            virtual PropertyNode& operator=(const bool          val);
+            virtual PropertyNode& operator=(const char          val);
+            virtual PropertyNode& operator=(const unsigned char val);
+            virtual PropertyNode& operator=(const int           val);
+            virtual PropertyNode& operator=(const unsigned int  val);
+            virtual PropertyNode& operator=(const float         val);
+            virtual PropertyNode& operator=(const double        val);
+            virtual PropertyNode& operator=(const std::string&  val);
+            virtual PropertyNode& operator++();
+            virtual PropertyNode& operator--();
+            virtual PropertyNode& operator+=(const PropertyNode& rhs);
+            virtual PropertyNode& operator-=(const PropertyNode& rhs);
+            virtual PropertyNode& operator+ (const PropertyNode& rhs);
+            virtual PropertyNode& operator- (const PropertyNode& rhs);
+            virtual PropertyNode& operator+=(const int rhs);
+            virtual PropertyNode& operator-=(const int rhs);
 
             // Operatory rzutowania
             virtual operator bool() const;
@@ -114,8 +114,8 @@ namespace codeframe
             virtual uint32_t        Id() const;
             virtual eType           Type() const;
             virtual std::string     Path(bool addName = true) const;
-            virtual cSerializableInterface*  Parent() { return m_parentpc; }
-            virtual PropertyBase*   Reference() { return m_reference; }
+            virtual cSerializableInterface*  Parent() const { return m_parentpc; }
+            virtual PropertyNode*   Reference() const { return m_reference; }
             virtual bool            ConnectReference( smart_ptr<PropertyNode> refNode );
             virtual std::string     TypeString() const;
 
@@ -127,7 +127,7 @@ namespace codeframe
             void                    PulseChanged();
             void                    CommitChanges();
             bool                    IsChanged() const;
-            PropertyBase&           WatchdogGetValue( int time = 1000 );
+            PropertyNode&           WatchdogGetValue( int time = 1000 );
 
             virtual void            SetNumber( const int val );
             virtual int             GetNumber() const;
@@ -136,9 +136,19 @@ namespace codeframe
             virtual void            SetString( const std::string&  val );
             virtual std::string     GetString() const;
 
+            virtual Lock() const
+            {
+                m_Mutex.Lock();
+            }
+
+            virtual Unlock() const
+            {
+                m_Mutex.Unlock();
+            }
+
         protected:
             static int      s_globalParConCnt;
-            PropertyBase*   m_reference;             ///< Wskaznik na sprzezone z tym polem pole
+            PropertyNode*   m_reference;             ///< Wskaznik na sprzezone z tym polem pole
             cSerializableInterface*  m_referenceParent;
             eType           m_type;
             cSerializableInterface*  m_parentpc;
