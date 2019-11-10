@@ -20,7 +20,11 @@ namespace codeframe
             virtual std::string Name() const;
             virtual bool        NameIs( const std::string& name ) const;
             virtual std::string ToString();
+            virtual eType       Type() const;
+            virtual PropertyNode* Reference() const;
+            virtual uint32_t      Id() const;
 
+            virtual cSerializableInterface* Parent() const;
             virtual bool ConnectReference( smart_ptr<PropertyNode> refNode );
 
             virtual bool operator==(const PropertySelection& sval) const;
@@ -61,6 +65,9 @@ namespace codeframe
             virtual double      GetReal() const;
             virtual void        SetString( const std::string&  val );
             virtual std::string GetString() const;
+
+            virtual Lock() const;
+            virtual Unlock() const;
 
         private:
             PropertyNode* m_selection;

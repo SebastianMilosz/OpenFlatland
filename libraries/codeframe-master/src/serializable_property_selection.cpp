@@ -265,6 +265,41 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    eType PropertySelection::Type() const
+    {
+        return m_selection->Type();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyNode* PropertySelection::Reference() const
+    {
+        return m_selection->Reference();
+    }
+
+    uint32_t PropertySelection::Id() const
+    {
+        return m_selection->Id();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    cSerializableInterface* PropertySelection::Parent() const
+    {
+        return m_selection->Parent();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     bool PropertySelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
 
@@ -418,5 +453,25 @@ namespace codeframe
     std::string PropertySelection::GetString() const
     {
         return m_selection->GetString();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::Lock() const
+    {
+        m_selection->Lock();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::Unlock() const
+    {
+        m_selection->Unlock();
     }
 }

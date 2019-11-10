@@ -91,21 +91,21 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
         REQUIRE( (int)(*static_cast<classTest_Dynamic*>(smart_ptr_getRaw(staticContainerObject[0]))).Property1 == 100 );
 
         // Direct property access
-        PropertyBase* prop = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );
-        REQUIRE( prop != NULL );
-        REQUIRE( (int)(*prop) == 100 );
+        smart_ptr<PropertyNode> propNode = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );
+        REQUIRE( smart_ptr_isValid( propNode ) );
+        REQUIRE( (int)(*propNode) == 100 );
 
-        *prop = 101;
+        *propNode = 101;
 
-        REQUIRE( (int)(*prop) == 101 );
+        REQUIRE( (int)(*propNode) == 101 );
 
         // Property access by selection
-        prop = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[*].Property1" );
+        propNode = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[*].Property1" );
 
-        REQUIRE( prop != NULL );
+        REQUIRE( smart_ptr_isValid( propNode ) );
 
-        INFO ( "The selection property name: " << prop->Name() );
+        INFO ( "The selection property name: " << propNode->Name() );
 
-        //*prop = 777;
+        //*propNode = 777;
     }
 }
