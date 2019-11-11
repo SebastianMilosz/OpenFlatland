@@ -38,7 +38,7 @@ namespace codeframe
             void ThisToLua( lua_State* l );
 
         private:
-            PropertyNode* GetProperty( const std::string& path );
+            smart_ptr<PropertyNode> GetProperty( const std::string& path );
 
             lua_State* m_luastate;
             cSerializableInterface& m_sint;

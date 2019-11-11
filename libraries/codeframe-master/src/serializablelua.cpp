@@ -3,6 +3,20 @@
 #ifdef SERIALIZABLE_USE_LUA
 #include <LuaBridge/LuaBridge.h>
 using namespace luabridge;
+
+namespace luabridge
+{
+    template <class T>
+    struct ContainerTraits < smart_ptr <T> >
+    {
+        typedef T Type;
+        static T* get (smart_ptr <T> const& c)
+        {
+            return smart_ptr_getRaw( c );
+        }
+    };
+}
+
 #endif
 #include <fstream>          // std::ifstream
 
@@ -54,6 +68,16 @@ namespace codeframe
                 .addProperty( "String", &PropertyNode::GetString, &PropertyNode::SetString )
                 .addProperty( "Real"  , &PropertyNode::GetReal,   &PropertyNode::SetReal   )
             .endClass()
+            .deriveClass <PropertyBase, PropertyNode> ("PropertyBase")
+                .addProperty( "Number", &PropertyBase::GetNumber, &PropertyBase::SetNumber )
+                .addProperty( "String", &PropertyBase::GetString, &PropertyBase::SetString )
+                .addProperty( "Real"  , &PropertyBase::GetReal,   &PropertyBase::SetReal   )
+            .endClass ()
+            .deriveClass <PropertySelection, PropertyNode> ("PropertySelection")
+                .addProperty( "Number", &PropertySelection::GetNumber, &PropertySelection::SetNumber )
+                .addProperty( "String", &PropertySelection::GetString, &PropertySelection::SetString )
+                .addProperty( "Real"  , &PropertySelection::GetReal,   &PropertySelection::SetReal   )
+            .endClass ()
             .beginClass<cSerializableScript>( "Script" )
                 .addFunction("GetProperty", &cSerializableScript::GetProperty)
             .endClass()
@@ -73,9 +97,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode* cSerializableScript::GetProperty( const std::string& path )
+    smart_ptr<PropertyNode> cSerializableScript::GetProperty( const std::string& path )
     {
-        return smart_ptr_getRaw( m_sint.PropertyManager().GetPropertyFromPath( path ) );
+        return m_sint.PropertyManager().GetPropertyFromPath( path );
     }
 
     /*****************************************************************************/
