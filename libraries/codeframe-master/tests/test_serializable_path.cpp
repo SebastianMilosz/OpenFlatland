@@ -112,9 +112,9 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
         // Property access by selection
         propNode = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[*].Property1" );
 
-        //REQUIRE( smart_ptr_isValid( propNode ) );
+        REQUIRE( smart_ptr_isValid( propNode ) );
 
-        //INFO ( "The selection property name: " << propNode->Name() );
+        INFO ( "The selection property name: " << propNode->Name() );
 
         //*propNode = 777;
     }
