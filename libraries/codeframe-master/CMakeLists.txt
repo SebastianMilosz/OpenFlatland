@@ -15,7 +15,7 @@ set(CODEFRAME_LIB_HDRS
     include/serializablechildlist.hpp
     include/serializablecontainer.hpp
     include/serializableidentity.hpp
-    include/serializableinterface.hpp
+    include/serializable_object_node.hpp
     include/serializablelua.hpp
     include/serializablepath.hpp
     include/serializableproperty.hpp
@@ -44,7 +44,7 @@ set(CODEFRAME_LIB_SRC
     src/serializablechildlist.cpp
     src/serializablecontainer.cpp
     src/serializableidentity.cpp
-    src/serializableinterface.cpp
+    src/serializable_object_node.cpp
     src/serializablepropertybase.cpp
     src/serializablelua.cpp
     src/serializablepath.cpp

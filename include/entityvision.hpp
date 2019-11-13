@@ -12,7 +12,7 @@ class EntityVision : public codeframe::cSerializable
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-        EntityVision( codeframe::cSerializableInterface* parent );
+        EntityVision( codeframe::ObjectNode* parent );
         ~EntityVision();
 
         codeframe::Property< std::vector<float>, EntityVision > VisionVector;

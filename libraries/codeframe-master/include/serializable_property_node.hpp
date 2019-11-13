@@ -8,7 +8,7 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class ObjectNode;
 
     /*****************************************************************************
      * @class Interface for all properties classes
@@ -44,7 +44,7 @@ namespace codeframe
             virtual PropertyNode* Reference() const = 0;
             virtual uint32_t      Id() const = 0;
 
-            virtual cSerializableInterface* Parent() const = 0;
+            virtual ObjectNode* Parent() const = 0;
 
             virtual bool        ConnectReference( smart_ptr<PropertyNode> refNode ) = 0;
 

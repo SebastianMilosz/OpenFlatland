@@ -2,7 +2,7 @@
 
 #include <LoggerUtilities.h>
 
-#include "serializableinterface.hpp"
+#include "serializable_object_node.hpp"
 
 namespace codeframe
 {
@@ -11,7 +11,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cPropertyManager::cPropertyManager( cSerializableInterface& sint ) :
+    cPropertyManager::cPropertyManager( ObjectNode& sint ) :
         m_sint( sint ),
         m_dummyProperty(NULL, "DUMMY", TYPE_NON, cPropertyInfo())
     {
@@ -86,7 +86,7 @@ namespace codeframe
         std::string objPath      = path.substr( 0, found );
         std::string propertyName = path.substr( found+1  );
 
-        cSerializableInterface* object = m_sint.Path().GetObjectFromPath( objPath );
+        ObjectNode* object = m_sint.Path().GetObjectFromPath( objPath );
 
         if( object )
         {

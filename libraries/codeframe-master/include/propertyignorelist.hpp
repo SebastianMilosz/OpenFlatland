@@ -1,7 +1,7 @@
 #ifndef PROPERTYIGNORELIST_HPP_INCLUDED
 #define PROPERTYIGNORELIST_HPP_INCLUDED
 
-#include "serializableinterface.hpp"
+#include "serializable_object_node.hpp"
 
 namespace codeframe
 {
@@ -27,7 +27,7 @@ namespace codeframe
             bool Ignore;
         };
 
-        void AddToList( cSerializableInterface* serObj, bool ignore = true )
+        void AddToList( ObjectNode* serObj, bool ignore = true )
         {
             if( serObj )
             {
@@ -40,7 +40,7 @@ namespace codeframe
             m_vectorIgnoreEntry.push_back( sIgnoreEntry( name, className, buildType, ignore ) );
         }
 
-        bool IsIgnored( cSerializableInterface* serObj )
+        bool IsIgnored( ObjectNode* serObj )
         {
             if( m_vectorIgnoreEntry.empty() == false && serObj )
             {

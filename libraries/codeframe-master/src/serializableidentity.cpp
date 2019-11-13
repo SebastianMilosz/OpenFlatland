@@ -1,5 +1,5 @@
 #include "serializableidentity.hpp"
-#include "serializableinterface.hpp"
+#include "serializable_object_node.hpp"
 
 #include <TextUtilities.h>
 #include <LoggerUtilities.h>
@@ -13,7 +13,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableIdentity::cSerializableIdentity( const std::string& name, cSerializableInterface& sint ) :
+    cSerializableIdentity::cSerializableIdentity( const std::string& name, ObjectNode& sint ) :
         m_id( -1 ),
         m_uid( g_uid++ ),
         m_sint( sint ),

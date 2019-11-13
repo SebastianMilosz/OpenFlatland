@@ -15,7 +15,7 @@ class ConstElementsFactory : public codeframe::cSerializableContainer
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-        ConstElementsFactory( const std::string& name, cSerializableInterface* parent );
+        ConstElementsFactory( const std::string& name, ObjectNode* parent );
         virtual ~ConstElementsFactory();
 
         smart_ptr<ConstElement> Create( smart_ptr<ConstElement> );
@@ -25,11 +25,11 @@ class ConstElementsFactory : public codeframe::cSerializableContainer
         signal1< smart_ptr<ConstElement> > signalElementDel;
 
     protected:
-        smart_ptr<codeframe::cSerializableInterface> Create(
-                                                             const std::string& className,
-                                                             const std::string& objName,
-                                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                            );
+        smart_ptr<codeframe::ObjectNode> Create(
+                                                 const std::string& className,
+                                                 const std::string& objName,
+                                                 const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                               );
 
     private:
 

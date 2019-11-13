@@ -14,7 +14,7 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
             CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-            classTest_Static( const std::string& name, cSerializableInterface* parent ) : cSerializable( name, parent )
+            classTest_Static( const std::string& name, ObjectNode* parent ) : cSerializable( name, parent )
             {
             }
     };
@@ -31,7 +31,7 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
         codeframe::Property<int> Property4;
 
         public:
-            classTest_Dynamic( const std::string& name, cSerializableInterface* parent ) :
+            classTest_Dynamic( const std::string& name, ObjectNode* parent ) :
                 cSerializable( name, parent ),
                 Property1( this, "Property1", 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property1_desc") ),
                 Property2( this, "Property2", 200U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property2_desc") ),
@@ -47,7 +47,7 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
             CODEFRAME_META_CLASS_NAME( "classTest_Container" );
             CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
-            virtual smart_ptr<cSerializableInterface> Create(
+            virtual smart_ptr<ObjectNode> Create(
                                                              const std::string& className,
                                                              const std::string& objName,
                                                              const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
@@ -62,11 +62,11 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
                     return obj;
                 }
 
-                return smart_ptr<codeframe::cSerializableInterface>();
+                return smart_ptr<codeframe::ObjectNode>();
             }
 
         public:
-            classTest_Container( const std::string& name, cSerializableInterface* parent ) : cSerializableContainer( name, parent )
+            classTest_Container( const std::string& name, ObjectNode* parent ) : cSerializableContainer( name, parent )
             {
             }
     };

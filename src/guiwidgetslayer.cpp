@@ -67,7 +67,7 @@ int GUIWidgetsLayer::GetMouseModeId()
   * @brief
  **
 ******************************************************************************/
-GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterface& parent, const std::string& configFile ) :
+GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, ObjectNode& parent, const std::string& configFile ) :
     m_window( window ),
     m_GuiConsoleDataStorage( "console" ),
     m_MouseMode( MOUSE_MODE_SEL_ENTITY ),

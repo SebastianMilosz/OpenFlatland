@@ -5,29 +5,29 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class ObjectNode;
     class PropertyBase;
 
     class cSerializablePath
     {
         public:
-             cSerializablePath( cSerializableInterface& sint );
+             cSerializablePath( ObjectNode& sint );
             ~cSerializablePath();
 
             std::string PathString() const;
-            void ParentBound( cSerializableInterface* parent );
+            void ParentBound( ObjectNode* parent );
             void ParentUnbound();
 
             bool IsNameUnique( const std::string& name, const bool checkParent = false ) const;
 
-            cSerializableInterface*  Parent()     const;
-            cSerializableInterface*  GetRootObject      (                  );
-            cSerializableInterface*  GetObjectFromPath  ( const std::string& path );
-            cSerializableInterface*  GetChildByName     ( const std::string& name );
+            ObjectNode*  Parent()     const;
+            ObjectNode*  GetRootObject      (                  );
+            ObjectNode*  GetObjectFromPath  ( const std::string& path );
+            ObjectNode*  GetChildByName     ( const std::string& name );
 
         private:
-            cSerializableInterface& m_sint;
-            cSerializableInterface* m_parent;
+            ObjectNode& m_sint;
+            ObjectNode* m_parent;
     };
 
 }

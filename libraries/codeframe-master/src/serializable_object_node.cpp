@@ -1,4 +1,4 @@
-#include "serializableinterface.hpp"
+#include "serializable_object_node.hpp"
 #include "serializableproperty.hpp"
 
 #include <LoggerUtilities.h>
@@ -10,7 +10,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface::cSerializableInterface()
+    ObjectNode::ObjectNode()
     {
         static TypeInitializer typeInitializer;
     }
@@ -20,7 +20,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface::~cSerializableInterface()
+    ObjectNode::~ObjectNode()
     {
 
     }

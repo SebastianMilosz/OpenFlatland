@@ -24,7 +24,7 @@ namespace codeframe
             virtual PropertyNode* Reference() const;
             virtual uint32_t      Id() const;
 
-            virtual cSerializableInterface* Parent() const;
+            virtual ObjectNode* Parent() const;
             virtual bool ConnectReference( smart_ptr<PropertyNode> refNode );
 
             virtual bool operator==(const PropertySelection& sval) const;

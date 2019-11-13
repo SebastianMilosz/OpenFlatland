@@ -17,7 +17,7 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class ObjectNode;
 
     /*****************************************************************************/
     /**
@@ -29,14 +29,14 @@ namespace codeframe
     class cXmlFormatter
     {
     public:
-        cXmlFormatter( cSerializableInterface& serializableObject, int shareLevel = 1 ); ///< Tworzymy formater z obiektu, domyslnie pelna rekurencyjna serializacja
+        cXmlFormatter( ObjectNode& serializableObject, int shareLevel = 1 ); ///< Tworzymy formater z obiektu, domyslnie pelna rekurencyjna serializacja
        ~cXmlFormatter();
 
         cXML           SaveToXML  ();               ///< Zwraca xml z powiazanego obiektu
         cXmlFormatter& LoadFromXML( cXML& xml );    ///< Przypisuje xml z kontenera o nazwie name do powiazanego obiektu
 
     private:
-        cSerializableInterface& m_serializableObject;
+        ObjectNode& m_serializableObject;
         int                     m_shareLevel;
 
         cXmlFormatter& LoadFromXML_v0( cXML& xml );
@@ -47,8 +47,8 @@ namespace codeframe
         void        ReplaceAll(std::string& str, const std::string& old, const std::string& repl);
         std::string FromEscapeXml( std::string& str );
 
-        void DeserializeObjectProperties( cSerializableInterface& obj, cXMLNode& node );
-        void DeserializeObjectChilds( cSerializableInterface& obj, cXMLNode& node );
+        void DeserializeObjectProperties( ObjectNode& obj, cXMLNode& node );
+        void DeserializeObjectChilds( ObjectNode& obj, cXMLNode& node );
         void ResolveReferences();
 
         void FillParameterVector( const std::string& buildConstruct, cXMLNode& childNode, std::vector<codeframe::VariantValue>& paramVector );

@@ -14,7 +14,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, cSerializableInterface* parent ) :
+SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, ObjectNode* parent ) :
     cSerializable( name, parent ),
     Activation      ( this, "Activation"      , 0                            , cPropertyInfo().Kind( KIND_ENUM   ).Enum("Identity,Binary step,Logistic").Description("Activation Function")),
     WeightDimensions( this, "WeightDimensions", std::vector<unsigned int>(0) , cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightDimensions"), this, &SerializableNeuronLayer::GetWeightDimensionsVector ),

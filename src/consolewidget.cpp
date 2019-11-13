@@ -9,7 +9,7 @@
   * @brief
  **
 ******************************************************************************/
-ConsoleWidget::ConsoleWidget( cSerializableInterface& parent ) :
+ConsoleWidget::ConsoleWidget( ObjectNode& parent ) :
     m_parent( parent ),
     m_ScrollToBottom( false )
 {

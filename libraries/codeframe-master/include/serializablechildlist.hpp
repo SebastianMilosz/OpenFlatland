@@ -7,7 +7,7 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class ObjectNode;
 
     class cSerializableChildList
     {
@@ -15,25 +15,25 @@ namespace codeframe
 
         private:
             int                                  m_childCnt;
-            std::vector<cSerializableInterface*> m_childVector;
+            std::vector<ObjectNode*> m_childVector;
 
             ///
             WrMutex m_Mutex;
         public:
-            class iterator : public std::iterator<std::input_iterator_tag, cSerializableInterface*>
+            class iterator : public std::iterator<std::input_iterator_tag, ObjectNode*>
             {
                 friend class cSerializableChildList;
 
                 private:
                     int                     m_childCnt;
                     cSerializableChildList* m_childList;
-                    cSerializableInterface* m_serializable;
+                    ObjectNode* m_serializable;
 
                 public:
                     iterator(const iterator& n) : m_childCnt(n.m_childCnt), m_childList(n.m_childList), m_serializable(n.m_serializable) {}
 
                     // Operator wskaznikowy wyodrebnienia wskazywanej wartosci
-                    cSerializableInterface* operator *()
+                    ObjectNode* operator *()
                     {
                         m_serializable = m_childList->m_childVector.at( m_childCnt );
                         return m_serializable;
@@ -56,8 +56,8 @@ namespace codeframe
 
         public:
             cSerializableChildList();
-            void Register  ( cSerializableInterface* child );
-            void UnRegister( cSerializableInterface* child );
+            void Register  ( ObjectNode* child );
+            void UnRegister( ObjectNode* child );
             void PulseChanged( bool fullTree = false );
             void CommitChanges();
             void Enable( bool val );

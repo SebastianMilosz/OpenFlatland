@@ -88,7 +88,7 @@ const std::string& ReferenceManager::Get() const
   * @brief
  **
 ******************************************************************************/
-void ReferenceManager::ResolveReferences( cSerializableInterface& root )
+void ReferenceManager::ResolveReferences( ObjectNode& root )
 {
     std::map<std::string, sReferenceData>::iterator it;
 
@@ -131,7 +131,7 @@ void ReferenceManager::LogUnresolvedReferences()
 
         if ( (PropertyBase*)NULL != refData.Property )
         {
-            cSerializableInterface* propertyParent = refData.Property->Parent();
+            ObjectNode* propertyParent = refData.Property->Parent();
             std::string propertyParentPath = "NULL";
 
             if ( NULL != propertyParent )
@@ -157,7 +157,7 @@ void ReferenceManager::LogUnresolvedReferences()
 ******************************************************************************/
 std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase* prop )
 {
-    cSerializableInterface* propertyParent = prop->Parent();
+    ObjectNode* propertyParent = prop->Parent();
 
     std::string retString = std::string( path );
 

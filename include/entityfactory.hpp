@@ -4,7 +4,7 @@
 #include <sigslot.h>
 #include <serializable.hpp>
 #include <serializablecontainer.hpp>
-#include <serializableinterface.hpp>
+#include <serializable_object_node.hpp>
 
 #include "world.hpp"
 #include "entity.hpp"
@@ -15,7 +15,7 @@ class EntityFactory : public codeframe::cSerializableContainer
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-        EntityFactory( const std::string& name, cSerializableInterface* parent );
+        EntityFactory( const std::string& name, ObjectNode* parent );
         virtual ~EntityFactory();
 
         smart_ptr<Entity> Create( int x, int y, int z );
@@ -26,7 +26,7 @@ class EntityFactory : public codeframe::cSerializableContainer
         void CalculateNeuralNetworks();
 
     protected:
-        smart_ptr<codeframe::cSerializableInterface> Create(
+        smart_ptr<codeframe::ObjectNode> Create(
                                                              const std::string& className,
                                                              const std::string& objName,
                                                              const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()

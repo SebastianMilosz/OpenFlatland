@@ -4,7 +4,7 @@
 #include <TextUtilities.h>
 #include <LoggerUtilities.h>
 
-#include "serializableinterface.hpp"
+#include "serializable_object_node.hpp"
 
 namespace codeframe
 {
@@ -13,7 +13,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializablePath::cSerializablePath( cSerializableInterface& sint ) :
+    cSerializablePath::cSerializablePath( ObjectNode& sint ) :
         m_sint( sint ),
         m_parent( NULL )
     {
@@ -39,9 +39,9 @@ namespace codeframe
     {
         std::string path;
 
-        cSerializableInterface* parent = m_sint.Path().Parent();
+        ObjectNode* parent = m_sint.Path().Parent();
 
-        if( (cSerializableInterface*)NULL != parent )
+        if( (ObjectNode*)NULL != parent )
         {
            path = parent->Path().PathString() + "/" + path;
         }
@@ -56,7 +56,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializablePath::ParentBound( cSerializableInterface* parent )
+    void cSerializablePath::ParentBound( ObjectNode* parent )
     {
         // Rejestrujemy sie u rodzica
         if( parent )
@@ -111,7 +111,7 @@ namespace codeframe
         // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
         for( cSerializableChildList::iterator it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
         {
-            cSerializableInterface* iser = *it;
+            ObjectNode* iser = *it;
 
             if( iser )
             {
@@ -135,7 +135,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface* cSerializablePath::Parent() const
+    ObjectNode* cSerializablePath::Parent() const
     {
         return m_parent;
     }
@@ -145,11 +145,11 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface* cSerializablePath::GetChildByName( const std::string& name )
+    ObjectNode* cSerializablePath::GetChildByName( const std::string& name )
     {
         for ( cSerializableChildList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
         {
-            cSerializableInterface* iser = *it;
+            ObjectNode* iser = *it;
             std::string objectName = iser->Identity().ObjectName( true );
 
             if ( objectName == name )
@@ -165,7 +165,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface* cSerializablePath::GetRootObject()
+    ObjectNode* cSerializablePath::GetRootObject()
     {
         if ( Parent() )
         {
@@ -180,12 +180,12 @@ namespace codeframe
       * @brief Return serializable object from string path
      **
     ******************************************************************************/
-    cSerializableInterface* cSerializablePath::GetObjectFromPath( const std::string& path )
+    ObjectNode* cSerializablePath::GetObjectFromPath( const std::string& path )
     {
         // Rozdzelamy stringa na kawalki
         std::vector<std::string> tokens;
         std::string              delimiters = "/";
-        cSerializableInterface*  curObject = &m_sint;
+        ObjectNode*  curObject = &m_sint;
 
         utilities::text::split( path, delimiters, tokens);
 

@@ -30,7 +30,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableScript::cSerializableScript( cSerializableInterface& sint ) :
+    cSerializableScript::cSerializableScript( ObjectNode& sint ) :
         m_luastate( NULL ),
         m_sint( sint )
     {

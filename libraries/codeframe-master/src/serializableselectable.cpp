@@ -8,9 +8,9 @@ namespace codeframe
   * @brief
  **
 ******************************************************************************/
-cSerializableSelectable::cSerializableSelectable( cSerializableInterface& sint ) :
+cSerializableSelectable::cSerializableSelectable( ObjectNode& sint ) :
     m_selected( false ),
-    m_smartThis( smart_ptr<cSerializableInterface>(NULL) )
+    m_smartThis( smart_ptr<ObjectNode>(NULL) )
 {
 
 }
@@ -57,7 +57,7 @@ bool cSerializableSelectable::IsSelected()
 ******************************************************************************/
 void cSerializableSelectable::DisconectFromContainer()
 {
-    m_smartThis = smart_ptr<cSerializableInterface>( NULL );
+    m_smartThis = smart_ptr<ObjectNode>( NULL );
     signalSelectionChanged.disconnect_all();
 }
 

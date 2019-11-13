@@ -5,7 +5,7 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class ObjectNode;
 
     /*****************************************************************************/
     /**
@@ -24,19 +24,19 @@ namespace codeframe
                 ShareFull
             };
 
-                     cSerializableStorage( cSerializableInterface& sint );
+                     cSerializableStorage( ObjectNode& sint );
             virtual ~cSerializableStorage();
 
-            cSerializableInterface& ShareLevel  ( eShareLevel level = ShareFull );
-            cSerializableInterface& LoadFromFile( const std::string& filePath, const std::string& container = "", bool createIfNotExist = false );
-            cSerializableInterface& LoadFromXML ( cXML xml, const std::string& container = "" );
-            cSerializableInterface& SaveToFile  ( const std::string& filePath, const std::string& container = "" );
+            ObjectNode& ShareLevel  ( eShareLevel level = ShareFull );
+            ObjectNode& LoadFromFile( const std::string& filePath, const std::string& container = "", bool createIfNotExist = false );
+            ObjectNode& LoadFromXML ( cXML xml, const std::string& container = "" );
+            ObjectNode& SaveToFile  ( const std::string& filePath, const std::string& container = "" );
             cXML                    SaveToXML   ( const std::string& container = "", int mode = 0 );
 
         protected:
             eShareLevel m_shareLevel;
 
-            cSerializableInterface& m_sint;
+            ObjectNode& m_sint;
     };
 
 }

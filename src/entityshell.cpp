@@ -76,7 +76,7 @@ EntityShell::~EntityShell()
   * @brief
  **
 ******************************************************************************/
-void EntityShell::slotSelectionChanged( smart_ptr<cSerializableInterface> )
+void EntityShell::slotSelectionChanged( smart_ptr<ObjectNode> )
 {
     if ( Selection().IsSelected() == true )
     {

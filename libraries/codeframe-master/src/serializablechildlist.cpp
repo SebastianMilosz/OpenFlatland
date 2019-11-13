@@ -20,7 +20,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableChildList::Register( cSerializableInterface* child )
+    void cSerializableChildList::Register( ObjectNode* child )
     {
         if( child )
         {
@@ -36,7 +36,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableChildList::UnRegister( cSerializableInterface* child )
+    void cSerializableChildList::UnRegister( ObjectNode* child )
     {
         if( child )
         {
@@ -58,7 +58,7 @@ namespace codeframe
         // Zmuszamy dzieci do aktualizacji
         for ( cSerializableChildList::iterator it = begin(); it != end(); ++it )
         {
-            cSerializableInterface* iser = *it;
+            ObjectNode* iser = *it;
 
             if ( iser )
             {
@@ -78,7 +78,7 @@ namespace codeframe
         m_Mutex.Lock();
         for( cSerializableChildList::iterator it = begin(); it != end(); ++it )
         {
-            cSerializableInterface* iser = *it;
+            ObjectNode* iser = *it;
             if( iser )
             {
                 iser->CommitChanges();
@@ -97,7 +97,7 @@ namespace codeframe
         m_Mutex.Lock();
         for( cSerializableChildList::iterator it = begin(); it != end(); ++it )
         {
-            cSerializableInterface* iser = *it;
+            ObjectNode* iser = *it;
             if( iser )
             {
                 iser->Enable( val );

@@ -10,7 +10,7 @@ const float PhysicsBody::sDescriptor::METER_IN_PIXELS = 0.04f;
   * @brief
  **
 ******************************************************************************/
-PhysicsBody::PhysicsBody( const std::string& name, codeframe::cSerializableInterface* parent ) :
+PhysicsBody::PhysicsBody( const std::string& name, codeframe::ObjectNode* parent ) :
     cSerializable( name, parent )
 {
     m_descryptor.Body = NULL;

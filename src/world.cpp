@@ -45,7 +45,7 @@ public:
   * @brief
  **
 ******************************************************************************/
-World::World( const std::string& name, cSerializableInterface* parent ) :
+World::World( const std::string& name, ObjectNode* parent ) :
     cSerializable( name, parent ),
     m_Gravity( 0.f, 0.f ),
     m_World( m_Gravity ),

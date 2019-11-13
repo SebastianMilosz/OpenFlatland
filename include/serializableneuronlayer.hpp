@@ -4,7 +4,7 @@
 #include <sigslot.h>
 #include <serializable.hpp>
 #include <serializablecontainer.hpp>
-#include <serializableinterface.hpp>
+#include <serializable_object_node.hpp>
 
 #include <thrust/device_vector.h>
 #include <thrust/random.h>
@@ -17,7 +17,7 @@ class SerializableNeuronLayer : public codeframe::cSerializable
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:
-        SerializableNeuronLayer( const std::string& name, cSerializableInterface* parent );
+        SerializableNeuronLayer( const std::string& name, ObjectNode* parent );
         virtual ~SerializableNeuronLayer();
 
         void Calculate();

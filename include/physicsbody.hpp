@@ -55,7 +55,7 @@ class PhysicsBody : public codeframe::cSerializable
             }
         };
 
-        PhysicsBody( const std::string& name, codeframe::cSerializableInterface* parent );
+        PhysicsBody( const std::string& name, codeframe::ObjectNode* parent );
         virtual ~PhysicsBody();
         PhysicsBody(const PhysicsBody& other);
         PhysicsBody& operator=(const PhysicsBody& other);
