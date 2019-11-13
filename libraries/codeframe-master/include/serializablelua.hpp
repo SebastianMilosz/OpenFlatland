@@ -28,7 +28,7 @@ namespace codeframe
     class cSerializableScript
     {
         public:
-                     cSerializableScript( cSerializableInterface& sint );
+                     cSerializableScript( ObjectNode& sint );
             virtual ~cSerializableScript();
 
             void RunString( const std::string& scriptString );
@@ -41,7 +41,7 @@ namespace codeframe
             smart_ptr<PropertyNode> GetProperty( const std::string& path );
 
             lua_State* m_luastate;
-            cSerializableInterface& m_sint;
+            ObjectNode& m_sint;
     };
 
 }

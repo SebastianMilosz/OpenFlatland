@@ -290,7 +290,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableInterface* PropertySelection::Parent() const
+    ObjectNode* PropertySelection::Parent() const
     {
         return m_selection->Parent();
     }

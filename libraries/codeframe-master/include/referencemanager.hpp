@@ -7,7 +7,7 @@
 namespace codeframe
 {
     class PropertyBase;
-    class cSerializableInterface;
+    class ObjectNode;
 
     class ReferenceManager
     {
@@ -19,7 +19,7 @@ namespace codeframe
             void SetProperty( PropertyBase* prop );
             const std::string& Get() const;
 
-            static void ResolveReferences( cSerializableInterface& root );
+            static void ResolveReferences( ObjectNode& root );
 
             static void LogUnresolvedReferences();
         private:

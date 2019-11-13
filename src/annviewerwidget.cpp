@@ -25,7 +25,7 @@ AnnViewerWidget::~AnnViewerWidget()
   * @brief
  **
 ******************************************************************************/
-void AnnViewerWidget::SetObject( smart_ptr<codeframe::cSerializableInterface> obj )
+void AnnViewerWidget::SetObject( smart_ptr<codeframe::ObjectNode> obj )
 {
     m_obj = obj;
 }

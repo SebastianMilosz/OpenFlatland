@@ -1,5 +1,5 @@
-#ifndef SERIALIZABLEBASE_H_INCLUDED
-#define SERIALIZABLEBASE_H_INCLUDED
+#ifndef OBJECT_NODE_H_INCLUDED
+#define OBJECT_NODE_H_INCLUDED
 
 #include <vector>
 #include <string>
@@ -26,13 +26,12 @@ namespace codeframe
 {
     /*****************************************************************************/
     /**
-      * @brief Base common Interface to access to all cSerializable objects
-      * @author Sebastian Milosz
+      * @brief Base common Interface to access to all codeframe Objects
       * @version 1.0
-      * @note Base common Interface to access to all cSerializable objects
+      * @note Base common Interface to access to all codeframe Objects
      **
     ******************************************************************************/
-    class cSerializableInterface : public sigslot::has_slots<>
+    class ObjectNode : public sigslot::has_slots<>
     {
         public:
             virtual std::string Class()             const = 0;    ///< Class name meta data
@@ -53,10 +52,10 @@ namespace codeframe
             virtual void Enable( bool val ) = 0;
 
         protected:
-                     cSerializableInterface();
-            virtual ~cSerializableInterface();
+                     ObjectNode();
+            virtual ~ObjectNode();
     };
 
 }
 
-#endif // SERIALIZABLEBASE_H_INCLUDED
+#endif // OBJECT_NODE_H_INCLUDED

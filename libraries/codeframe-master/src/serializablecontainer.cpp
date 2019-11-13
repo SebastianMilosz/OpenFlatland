@@ -9,7 +9,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-cSerializableContainer::cSerializableContainer( const std::string& name, cSerializableInterface* parentObject ) :
+cSerializableContainer::cSerializableContainer( const std::string& name, ObjectNode* parentObject ) :
     cSerializable( name, parentObject ),
     m_selected( smart_ptr<cSerializable>(NULL) ),
     m_size( 0 )
@@ -173,7 +173,7 @@ bool cSerializableContainer::DisposeByBuildType( eBuildType serType, cIgnoreList
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::Dispose( smart_ptr<cSerializableInterface> obj )
+bool cSerializableContainer::Dispose( smart_ptr<ObjectNode> obj )
 {
     for(typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
     {
@@ -241,7 +241,7 @@ bool cSerializableContainer::IsInRange( unsigned int cnt ) const
   * @brief
  **
 ******************************************************************************/
-smart_ptr<cSerializableInterface> cSerializableContainer::operator[]( int i )
+smart_ptr<ObjectNode> cSerializableContainer::operator[]( int i )
 {
     return Get( i );
 }
@@ -277,7 +277,7 @@ bool cSerializableContainer::IsSelected()
   * @brief
  **
 ******************************************************************************/
-smart_ptr<cSerializableInterface> cSerializableContainer::GetSelected()
+smart_ptr<ObjectNode> cSerializableContainer::GetSelected()
 {
     return m_selected;
 }
@@ -287,11 +287,11 @@ smart_ptr<cSerializableInterface> cSerializableContainer::GetSelected()
   * @brief
  **
 ******************************************************************************/
-smart_ptr<cSerializableInterface> cSerializableContainer::Get( int id )
+smart_ptr<ObjectNode> cSerializableContainer::Get( int id )
 {
     if( IsInRange( id ) )
     {
-        smart_ptr<cSerializableInterface> obj = m_containerVector.at( id );
+        smart_ptr<ObjectNode> obj = m_containerVector.at( id );
 
         if( smart_ptr_isValid( obj ) == true )
         {
@@ -299,7 +299,7 @@ smart_ptr<cSerializableInterface> cSerializableContainer::Get( int id )
         }
     }
 
-    return smart_ptr<cSerializableInterface>( NULL );
+    return smart_ptr<ObjectNode>( NULL );
 }
 
 /*****************************************************************************/
@@ -343,7 +343,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
             // Po calym wektorze szukamy pustych miejsc
             for(typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
             {
-                smart_ptr<cSerializableInterface> obj = *it;
+                smart_ptr<ObjectNode> obj = *it;
 
                 if( smart_ptr_isValid( obj ) == false )
                 {
@@ -367,7 +367,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
     // If there is no parent we become one
     if( NULL == classType->Path().Parent() )
     {
-        cSerializableInterface* serPar = static_cast<cSerializableInterface*>( this );
+        ObjectNode* serPar = static_cast<ObjectNode*>( this );
         classType->Path().ParentBound( serPar );
     }
 
@@ -384,7 +384,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
   * @brief
  **
 ******************************************************************************/
-void cSerializableContainer::slotSelectionChanged( smart_ptr<cSerializableInterface> obj )
+void cSerializableContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
 {
     cSerializable* serializableObjectNew = static_cast<cSerializable*>( smart_ptr_getRaw(obj) );
 

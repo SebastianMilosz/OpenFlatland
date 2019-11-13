@@ -37,7 +37,7 @@ void PropertyEditorWidget::Clear()
   * @brief
  **
 ******************************************************************************/
-void PropertyEditorWidget::SetObject( smart_ptr<cSerializableInterface> obj )
+void PropertyEditorWidget::SetObject( smart_ptr<ObjectNode> obj )
 {
     m_obj = obj;
 }
@@ -93,7 +93,7 @@ void PropertyEditorWidget::Draw( const char* title, bool* p_open )
   * @brief
  **
 ******************************************************************************/
-void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::cSerializableInterface> obj )
+void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
 {
     if ( smart_ptr_isValid( obj ) == true )
     {

@@ -1,7 +1,7 @@
 #ifndef _CSERIALIZABLE_H
 #define _CSERIALIZABLE_H
 
-#include "serializableinterface.hpp"
+#include "serializable_object_node.hpp"
 #include "serializablepropertybase.hpp"
 #include "serializablestorage.hpp"
 
@@ -20,14 +20,14 @@ namespace codeframe
       * @note cSetializable
      **
     ******************************************************************************/
-    class cSerializable : public cSerializableInterface
+    class cSerializable : public ObjectNode
     {
         CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
 
         public:
             std::string ConstructPatern() const;
 
-                     cSerializable( const std::string& name, cSerializableInterface* parent = NULL );
+                     cSerializable( const std::string& name, ObjectNode* parent = NULL );
             virtual ~cSerializable();
 
             cSerializablePath&       Path();

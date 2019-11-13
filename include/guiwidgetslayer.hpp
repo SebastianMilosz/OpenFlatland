@@ -135,7 +135,7 @@ class GUIWidgetsLayer
                 std::map<std::string, std::string>  m_DataMap;
         };
 
-        GUIWidgetsLayer( sf::RenderWindow& window, cSerializableInterface& parent, const std::string& configFile );
+        GUIWidgetsLayer( sf::RenderWindow& window, ObjectNode& parent, const std::string& configFile );
         virtual ~GUIWidgetsLayer();
 
         void AddGuiRegion( int x, int y, int w, int h );

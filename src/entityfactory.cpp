@@ -7,7 +7,7 @@
   * @brief
  **
 ******************************************************************************/
-EntityFactory::EntityFactory( const std::string& name, cSerializableInterface* parent ) :
+EntityFactory::EntityFactory( const std::string& name, ObjectNode* parent ) :
     cSerializableContainer( name, parent )
 {
     //ctor
@@ -32,7 +32,7 @@ void EntityFactory::CalculateNeuralNetworks()
 {
     for ( unsigned int n = 0; n < Count(); n++ )
     {
-        smart_ptr<cSerializableInterface> serializableObj = Get( n );
+        smart_ptr<ObjectNode> serializableObj = Get( n );
 
         Entity* entityObj = static_cast<Entity*>( smart_ptr_getRaw( serializableObj ) );
 
@@ -64,10 +64,10 @@ smart_ptr<Entity> EntityFactory::Create( int x, int y, int z )
   * @brief
  **
 ******************************************************************************/
-smart_ptr<codeframe::cSerializableInterface> EntityFactory::Create(
-                                                                   const std::string& className,
-                                                                   const std::string& objName,
-                                                                   const std::vector<codeframe::VariantValue>& params )
+smart_ptr<codeframe::ObjectNode> EntityFactory::Create(
+                                                        const std::string& className,
+                                                        const std::string& objName,
+                                                        const std::vector<codeframe::VariantValue>& params )
 {
     if ( className == "Entity" )
     {
@@ -98,5 +98,5 @@ smart_ptr<codeframe::cSerializableInterface> EntityFactory::Create(
         return obj;
     }
 
-    return smart_ptr<codeframe::cSerializableInterface>();
+    return smart_ptr<codeframe::ObjectNode>();
 }

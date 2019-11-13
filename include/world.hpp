@@ -14,7 +14,7 @@ class World : public codeframe::cSerializable
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-                 World( const std::string& name, cSerializableInterface* parent );
+                 World( const std::string& name, ObjectNode* parent );
         virtual ~World();
 
         void AddShell( std::shared_ptr<Entity>       entity );

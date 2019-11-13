@@ -55,7 +55,7 @@ class EntityShell : public PhysicsBody
         int     m_curY;
         float32 m_curR;
 
-        void slotSelectionChanged( smart_ptr<cSerializableInterface> );
+        void slotSelectionChanged( smart_ptr<ObjectNode> );
 };
 
 #endif // ENTITYSHELL_HPP

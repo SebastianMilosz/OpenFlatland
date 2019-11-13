@@ -27,7 +27,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable::cSerializable( const std::string& name, cSerializableInterface* parent ) :
+    cSerializable::cSerializable( const std::string& name, ObjectNode* parent ) :
         m_SerializablePath( *this ),
         m_SerializableStorage( *this ),
         m_SerializableSelectable( *this ),

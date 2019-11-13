@@ -9,7 +9,7 @@ using namespace sigslot;
 namespace codeframe
 {
     class cSerializableContainer;
-    class cSerializableInterface;
+    class ObjectNode;
 
     /*****************************************************************************/
     /**
@@ -24,17 +24,17 @@ namespace codeframe
         friend class cSerializableContainer;
 
         public:
-                     cSerializableSelectable( cSerializableInterface& sint );
+                     cSerializableSelectable( ObjectNode& sint );
             virtual ~cSerializableSelectable();
 
             virtual void Select( bool state = true );
             virtual bool IsSelected();
 
-            signal1< smart_ptr<cSerializableInterface> > signalSelectionChanged;
+            signal1< smart_ptr<ObjectNode> > signalSelectionChanged;
 
         protected:
             template<class containerClass>
-            void ConectToContainer( containerClass* containerObject, smart_ptr<cSerializableInterface> sthis )
+            void ConectToContainer( containerClass* containerObject, smart_ptr<ObjectNode> sthis )
             {
                 m_smartThis = sthis;
                 signalSelectionChanged.connect( containerObject, &containerClass::slotSelectionChanged );
@@ -44,7 +44,7 @@ namespace codeframe
 
         private:
             bool m_selected;
-            smart_ptr<cSerializableInterface> m_smartThis;
+            smart_ptr<ObjectNode> m_smartThis;
     };
 }
 

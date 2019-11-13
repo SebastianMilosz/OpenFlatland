@@ -12,7 +12,7 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class ObjectNode;
     class PropertyBase;
 
     class cPropertyManager : public sigslot::has_slots<>
@@ -20,7 +20,7 @@ namespace codeframe
         friend class PropertyIterator;
 
         public:
-             cPropertyManager( cSerializableInterface& sint );
+             cPropertyManager( ObjectNode& sint );
             ~cPropertyManager();
 
             smart_ptr<PropertyNode> GetPropertyByName  ( const std::string& name );
@@ -56,7 +56,7 @@ namespace codeframe
             void slotPropertyChangedGlobal( PropertyBase* prop );
             void slotPropertyChanged( PropertyBase* prop );
 
-            cSerializableInterface& m_sint;
+            ObjectNode& m_sint;
 
             /// Kontenet zawierajacy wskazniki do parametrow
             std::vector<PropertyBase*>  m_vMainPropertyList;

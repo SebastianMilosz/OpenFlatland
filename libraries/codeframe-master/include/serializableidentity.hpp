@@ -5,7 +5,7 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class ObjectNode;
 
     enum eBuildType
     {
@@ -22,7 +22,7 @@ namespace codeframe
     class cSerializableIdentity
     {
         public:
-             cSerializableIdentity( const std::string& name, cSerializableInterface& sint );
+             cSerializableIdentity( const std::string& name, ObjectNode& sint );
             ~cSerializableIdentity();
 
             void SetName ( const std::string& name );
@@ -43,7 +43,7 @@ namespace codeframe
              int32_t m_id;
             uint32_t m_uid;
             static uint32_t g_uid;
-            cSerializableInterface& m_sint;
+            ObjectNode& m_sint;
             std::string m_sContainerName;
             bool m_pulseState;
     };

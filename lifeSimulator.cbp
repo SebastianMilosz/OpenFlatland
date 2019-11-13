@@ -267,6 +267,7 @@
 		<Unit filename="libraries/codeframe-master/include/propertyignorelist.hpp" />
 		<Unit filename="libraries/codeframe-master/include/referencemanager.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializable_object_node.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_property_multiple_selection.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_property_node.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_property_selection.hpp" />
@@ -274,7 +275,6 @@
 		<Unit filename="libraries/codeframe-master/include/serializableconsole.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablecontainer.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializableidentity.hpp" />
-		<Unit filename="libraries/codeframe-master/include/serializableinterface.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablelua.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializablepath.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializableproperty.hpp" />
@@ -307,12 +307,12 @@
 		<Unit filename="libraries/codeframe-master/src/instancemanager.cpp" />
 		<Unit filename="libraries/codeframe-master/src/referencemanager.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializable_object_node.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_property_multiple_selection.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_property_selection.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablechildlist.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablecontainer.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableidentity.cpp" />
-		<Unit filename="libraries/codeframe-master/src/serializableinterface.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablelua.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializablepath.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializableproperty.cpp" />

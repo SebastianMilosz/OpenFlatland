@@ -9,7 +9,7 @@
 #include <LoggerUtilities.h>
 #include <TextUtilities.h>
 
-#include "serializableinterface.hpp"
+#include "serializable_object_node.hpp"
 #include "serializablecontainer.hpp"
 
 namespace codeframe
@@ -20,7 +20,7 @@ namespace codeframe
       * @param filePath
      **
     ******************************************************************************/
-    cXmlFormatter::cXmlFormatter( cSerializableInterface& serializableObject, int shareLevel ) :
+    cXmlFormatter::cXmlFormatter( ObjectNode& serializableObject, int shareLevel ) :
         m_serializableObject( serializableObject ),
         m_shareLevel( shareLevel )
     {
@@ -114,7 +114,7 @@ namespace codeframe
         // Po wszystkich obiektach dzieci ladujemy zawartosc
         for( cSerializableChildList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
         {
-            cSerializableInterface* iser = *it;
+            ObjectNode* iser = *it;
 
             // Jesli jest to kontener to po jego dzieciach czyli obiektach
             if( iser->Role() == CONTAINER )
@@ -127,7 +127,7 @@ namespace codeframe
 
                     if( childNodeObject.IsValid() == true )
                     {
-                        cSerializableInterface* iserc = *itc;
+                        ObjectNode* iserc = *itc;
 
                         // Po wszystkich polach serializacji tego obiektu
                         for( PropertyIterator itcp = iserc->PropertyManager().begin(); itcp != iserc->PropertyManager().end(); ++itcp )
@@ -456,7 +456,7 @@ namespace codeframe
 
                 for ( cSerializableChildList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
                 {
-                    cSerializableInterface* iser = *it;
+                    ObjectNode* iser = *it;
 
                     if ( iser )
                     {
@@ -508,7 +508,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cXmlFormatter::DeserializeObjectProperties( cSerializableInterface& obj, cXMLNode& node )
+    void cXmlFormatter::DeserializeObjectProperties( ObjectNode& obj, cXMLNode& node )
     {
         // Po wszystkich polach serializacji tego obiektu
         for ( PropertyIterator it = obj.PropertyManager().begin(); it != obj.PropertyManager().end(); ++it )
@@ -608,7 +608,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cXmlFormatter::DeserializeObjectChilds( cSerializableInterface& obj, cXMLNode& node )
+    void cXmlFormatter::DeserializeObjectChilds( ObjectNode& obj, cXMLNode& node )
     {
         if( m_shareLevel == 1 )
         {
@@ -617,7 +617,7 @@ namespace codeframe
             // Po wszystkich obiektach dzieci ladujemy zawartosc
             for ( cSerializableChildList::iterator it = obj.ChildList().begin(); it != obj.ChildList().end(); ++it )
             {
-                cSerializableInterface* iser = *it;
+                ObjectNode* iser = *it;
                 cXmlFormatter formatter( *iser );
 
                 cXMLNode childNode = node.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr(childLp).c_str());

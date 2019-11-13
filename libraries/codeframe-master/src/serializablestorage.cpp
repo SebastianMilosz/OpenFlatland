@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <LoggerUtilities.h>
 
-#include "serializableinterface.hpp"
+#include "serializable_object_node.hpp"
 #include "referencemanager.hpp"
 
 namespace codeframe
@@ -16,7 +16,7 @@ namespace codeframe
   * @brief
  **
 ******************************************************************************/
-cSerializableStorage::cSerializableStorage( cSerializableInterface& sint ) :
+cSerializableStorage::cSerializableStorage( ObjectNode& sint ) :
     m_shareLevel( ShareFull ),
     m_sint( sint )
 {
@@ -37,7 +37,7 @@ cSerializableStorage::~cSerializableStorage()
   * @brief
  **
 ******************************************************************************/
-cSerializableInterface& cSerializableStorage::ShareLevel( eShareLevel level )
+ObjectNode& cSerializableStorage::ShareLevel( eShareLevel level )
 {
    m_shareLevel = level;
    return m_sint;
@@ -48,7 +48,7 @@ cSerializableInterface& cSerializableStorage::ShareLevel( eShareLevel level )
   * @brief
  **
 ******************************************************************************/
-cSerializableInterface& cSerializableStorage::LoadFromFile( const std::string& filePath, const std::string& container, bool createIfNotExist )
+ObjectNode& cSerializableStorage::LoadFromFile( const std::string& filePath, const std::string& container, bool createIfNotExist )
 {
     try
     {
@@ -90,7 +90,7 @@ cSerializableInterface& cSerializableStorage::LoadFromFile( const std::string& f
   * @brief
  **
 ******************************************************************************/
-cSerializableInterface& cSerializableStorage::SaveToFile( const std::string& filePath, const std::string& container )
+ObjectNode& cSerializableStorage::SaveToFile( const std::string& filePath, const std::string& container )
 {
     try
     {
@@ -120,7 +120,7 @@ cSerializableInterface& cSerializableStorage::SaveToFile( const std::string& fil
   * @brief
  **
 ******************************************************************************/
-cSerializableInterface& cSerializableStorage::LoadFromXML( cXML xml, const std::string& container )
+ObjectNode& cSerializableStorage::LoadFromXML( cXML xml, const std::string& container )
 {
     try
     {

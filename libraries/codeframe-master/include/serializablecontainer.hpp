@@ -30,21 +30,21 @@ namespace codeframe
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-                     cSerializableContainer( const std::string& name, cSerializableInterface* parentObject );
+                     cSerializableContainer( const std::string& name, ObjectNode* parentObject );
             virtual ~cSerializableContainer();
 
-            virtual smart_ptr<cSerializableInterface> Create(
+            virtual smart_ptr<ObjectNode> Create(
                                                              const std::string& className,
                                                              const std::string& objName,
                                                              const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                              ) = 0;
 
-            smart_ptr<cSerializableInterface> operator[]( int i );
+            smart_ptr<ObjectNode> operator[]( int i );
 
             virtual void CreateRange( const std::string& className, const std::string& objName, int range );
             virtual bool Dispose( unsigned int id );
             virtual bool Dispose( const std::string& objName );
-            virtual bool Dispose( smart_ptr<cSerializableInterface> obj );
+            virtual bool Dispose( smart_ptr<ObjectNode> obj );
             virtual bool DisposeByBuildType( eBuildType serType, cIgnoreList ignore = cIgnoreList() );
             virtual bool Dispose();
 
@@ -55,21 +55,21 @@ namespace codeframe
             bool        Select( int pos );
             bool        IsSelected();
 
-            smart_ptr<cSerializableInterface> GetSelected();
-            smart_ptr<cSerializableInterface> Get( int id );
+            smart_ptr<ObjectNode> GetSelected();
+            smart_ptr<ObjectNode> Get( int id );
 
             int Add( smart_ptr<cSerializable> classType, int pos = -1 );
 
-            signal1< smart_ptr<cSerializableInterface> > signalContainerSelectionChanged;
+            signal1< smart_ptr<ObjectNode> > signalContainerSelectionChanged;
 
         protected:
             virtual int InsertObject( smart_ptr<cSerializable> classType, int pos = -1 );
 
         private:
-            void slotSelectionChanged( smart_ptr<cSerializableInterface> obj );
+            void slotSelectionChanged( smart_ptr<ObjectNode> obj );
 
             std::vector< smart_ptr<cSerializable> > m_containerVector;
-            smart_ptr<cSerializableInterface> m_selected;
+            smart_ptr<ObjectNode> m_selected;
 
             unsigned int m_size;
     };

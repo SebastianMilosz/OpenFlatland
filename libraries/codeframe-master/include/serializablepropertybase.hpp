@@ -13,7 +13,7 @@
 
 namespace codeframe
 {
-    class cSerializableInterface;
+    class ObjectNode;
 
     /*****************************************************************************
      * @class PropertyBase
@@ -24,7 +24,7 @@ namespace codeframe
 
         public:
 
-            PropertyBase( cSerializableInterface* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
+            PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
                 m_reference(NULL),
                 m_referenceParent(NULL),
                 m_type(type),
@@ -114,7 +114,7 @@ namespace codeframe
             virtual uint32_t        Id() const;
             virtual eType           Type() const;
             virtual std::string     Path(bool addName = true) const;
-            virtual cSerializableInterface*  Parent() const { return m_parentpc; }
+            virtual ObjectNode*     Parent() const { return m_parentpc; }
             virtual PropertyNode*   Reference() const { return m_reference; }
             virtual bool            ConnectReference( smart_ptr<PropertyNode> refNode );
             virtual std::string     TypeString() const;
@@ -149,9 +149,9 @@ namespace codeframe
         protected:
             static int      s_globalParConCnt;
             PropertyNode*   m_reference;             ///< Wskaznik na sprzezone z tym polem pole
-            cSerializableInterface*  m_referenceParent;
+            ObjectNode*     m_referenceParent;
             eType           m_type;
-            cSerializableInterface*  m_parentpc;
+            ObjectNode*     m_parentpc;
             std::string     m_name;
             uint32_t        m_id;
             mutable WrMutex m_Mutex;

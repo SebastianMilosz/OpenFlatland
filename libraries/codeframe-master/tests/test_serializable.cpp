@@ -11,7 +11,7 @@ TEST_CASE( "Serializable library construction and destruction", "[serializable]"
             CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-            classTestSerializable( const std::string& name, cSerializableInterface* parent ) : cSerializable( name, parent )
+            classTestSerializable( const std::string& name, ObjectNode* parent ) : cSerializable( name, parent )
             {
 
             }
