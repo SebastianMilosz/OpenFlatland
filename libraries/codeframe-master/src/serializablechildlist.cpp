@@ -1,5 +1,5 @@
 #include "serializablechildlist.hpp"
-#include "serializable.hpp"
+#include "serializable_object.hpp"
 
 #include <cstdio> // std::remove
 

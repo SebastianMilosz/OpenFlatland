@@ -2,7 +2,7 @@
 
 #include <utilities/LoggerUtilities.h>
 #include <utilities/FileUtilities.h>
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 

@@ -5,7 +5,7 @@
 #include <imgui-SFML.h>
 #include <sigslot.h>
 #include <smartpointer.h>
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
 class AnnViewerWidget : public sigslot::has_slots<>
 {

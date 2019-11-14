@@ -11,7 +11,7 @@ set(CODEFRAME_LIB_HDRS
     include/extvector.hpp
     include/instancemanager.hpp
     include/referencemanager.hpp
-    include/serializable.hpp
+    include/serializable_object.hpp
     include/serializablechildlist.hpp
     include/serializablecontainer.hpp
     include/serializableidentity.hpp
@@ -40,7 +40,7 @@ set(CODEFRAME_LIB_SRC
     src/extvector.cpp
     src/instancemanager.cpp
     src/referencemanager.cpp
-    src/serializable.cpp
+    src/serializable_object.cpp
     src/serializablechildlist.cpp
     src/serializablecontainer.cpp
     src/serializableidentity.cpp

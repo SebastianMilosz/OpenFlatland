@@ -2,11 +2,11 @@
 #define ENTITYVISION_HPP_INCLUDED
 
 #include <vector>
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
 #include "physicsbody.hpp"
 
-class EntityVision : public codeframe::cSerializable
+class EntityVision : public codeframe::Object
 {
         CODEFRAME_META_CLASS_NAME( "EntityVision" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );

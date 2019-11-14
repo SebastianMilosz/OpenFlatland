@@ -1,25 +1,25 @@
 #include "catch.hpp"
 
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 #include <serializablecontainer.hpp>
 
 using namespace codeframe;
 
 TEST_CASE( "Serializable library path", "[serializable.Path]" )
 {
-    class classTest_Static : public codeframe::cSerializable
+    class classTest_Static : public codeframe::Object
     {
         public:
             CODEFRAME_META_CLASS_NAME( "classTest_Static" );
             CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-            classTest_Static( const std::string& name, ObjectNode* parent ) : cSerializable( name, parent )
+            classTest_Static( const std::string& name, ObjectNode* parent ) : Object( name, parent )
             {
             }
     };
 
-    class classTest_Dynamic : public codeframe::cSerializable
+    class classTest_Dynamic : public codeframe::Object
     {
         public:
             CODEFRAME_META_CLASS_NAME( "classTest_Dynamic" );
@@ -32,7 +32,7 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
 
         public:
             classTest_Dynamic( const std::string& name, ObjectNode* parent ) :
-                cSerializable( name, parent ),
+                Object( name, parent ),
                 Property1( this, "Property1", 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property1_desc") ),
                 Property2( this, "Property2", 200U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property2_desc") ),
                 Property3( this, "Property3", 300U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property3_desc") ),

@@ -3,12 +3,12 @@
 
 #include <Box2D/Box2D.h>
 #include <SFML/Graphics.hpp>
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
 #include "entity.hpp"
 #include "constelement.hpp"
 
-class World : public codeframe::cSerializable
+class World : public codeframe::Object
 {
         CODEFRAME_META_CLASS_NAME( "World" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );

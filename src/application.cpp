@@ -15,7 +15,7 @@
  **
 ******************************************************************************/
 Application::Application( std::string name, sf::RenderWindow& window ) :
-    cSerializable( name, NULL ),
+    Object( name, NULL ),
     m_zoomAmount( 1.1F ), // zoom by 10%
     m_apiDir( utilities::file::GetExecutablePath() ),
     m_cfgFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_cfg.xml") ),

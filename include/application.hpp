@@ -1,7 +1,7 @@
 #ifndef APPLICATION_HPP_INCLUDED
 #define APPLICATION_HPP_INCLUDED
 
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
 #include "world.hpp"
 #include "entityfactory.hpp"
@@ -10,7 +10,7 @@
 #include "guiwidgetslayer.hpp"
 #include "entity.hpp"
 
-class Application : public codeframe::cSerializable
+class Application : public codeframe::Object
 {
         CODEFRAME_META_CLASS_NAME( "Application" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );

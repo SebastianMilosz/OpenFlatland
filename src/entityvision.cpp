@@ -8,7 +8,7 @@ using namespace codeframe;
  **
 ******************************************************************************/
 EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
-    cSerializable( "Vision", parent ),
+    Object( "Vision", parent ),
     VisionVector ( this, "VisionVector" , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0].Input").Description("VisionVector"), this, &EntityVision::GetDistanceVector ),
     FixtureVector( this, "FixtureVector", std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[1].Input").Description("FixtureVector"), this, &EntityVision::GetFixtureVector )
 {

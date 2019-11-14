@@ -2,16 +2,16 @@
 #define SERIALIZABLENEURONLAYER_HPP_INCLUDED
 
 #include <sigslot.h>
-#include <serializable.hpp>
-#include <serializablecontainer.hpp>
 #include <serializable_object_node.hpp>
+#include <serializable_object.hpp>
+#include <serializablecontainer.hpp>
 
 #include <thrust/device_vector.h>
 #include <thrust/random.h>
 #include <thrust/generate.h>
 #include <thrust/sort.h>
 
-class SerializableNeuronLayer : public codeframe::cSerializable
+class SerializableNeuronLayer : public codeframe::Object
 {
         CODEFRAME_META_CLASS_NAME( "SerializableNeuronLayer" );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );

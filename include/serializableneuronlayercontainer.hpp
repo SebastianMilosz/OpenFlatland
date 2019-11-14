@@ -2,9 +2,9 @@
 #define SERIALIZABLENEURONLAYERCONTAINER_HPP_INCLUDED
 
 #include <sigslot.h>
-#include <serializable.hpp>
-#include <serializablecontainer.hpp>
 #include <serializable_object_node.hpp>
+#include <serializable_object.hpp>
+#include <serializablecontainer.hpp>
 
 #include "serializableneuronlayer.hpp"
 

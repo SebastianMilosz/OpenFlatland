@@ -9,7 +9,7 @@
 #include <MathUtilities.h>
 #include <smartpointer.h>
 
-#include "serializable.hpp"
+#include "serializable_object.hpp"
 #include "propertyignorelist.hpp"
 
 #define MAXID 100
@@ -21,7 +21,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    class cSerializableContainer : public cSerializable
+    class cSerializableContainer : public Object
     {
         friend class cSerializableSelectable;
 
@@ -58,17 +58,17 @@ namespace codeframe
             smart_ptr<ObjectNode> GetSelected();
             smart_ptr<ObjectNode> Get( int id );
 
-            int Add( smart_ptr<cSerializable> classType, int pos = -1 );
+            int Add( smart_ptr<Object> classType, int pos = -1 );
 
             signal1< smart_ptr<ObjectNode> > signalContainerSelectionChanged;
 
         protected:
-            virtual int InsertObject( smart_ptr<cSerializable> classType, int pos = -1 );
+            virtual int InsertObject( smart_ptr<Object> classType, int pos = -1 );
 
         private:
             void slotSelectionChanged( smart_ptr<ObjectNode> obj );
 
-            std::vector< smart_ptr<cSerializable> > m_containerVector;
+            std::vector< smart_ptr<Object> > m_containerVector;
             smart_ptr<ObjectNode> m_selected;
 
             unsigned int m_size;

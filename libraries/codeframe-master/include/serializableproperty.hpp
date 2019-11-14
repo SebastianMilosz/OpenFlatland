@@ -10,16 +10,16 @@
 
 namespace codeframe
 {
-    class cSerializable;
+    class Object;
 
     /*****************************************************************************
      * @class Property
      *****************************************************************************/
-    template <typename internalType, typename classT = cSerializable >
+    template <typename internalType, typename classT = Object >
     class Property : public PropertyBase
     {
         public:
-            Property( cSerializable* parentpc,
+            Property( Object* parentpc,
                       const std::string& name,
                       internalType val,
                       cPropertyInfo info,
