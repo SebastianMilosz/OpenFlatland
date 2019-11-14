@@ -302,7 +302,7 @@ namespace codeframe
     ******************************************************************************/
     bool PropertySelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
-
+        return false;
     }
 
     /*****************************************************************************/
@@ -460,7 +460,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertySelection::Lock() const
+    void PropertySelection::Lock() const
     {
         m_selection->Lock();
     }
@@ -470,7 +470,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertySelection::Unlock() const
+    void PropertySelection::Unlock() const
     {
         m_selection->Unlock();
     }

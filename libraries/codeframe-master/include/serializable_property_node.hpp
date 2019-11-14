@@ -55,8 +55,8 @@ namespace codeframe
             virtual void        SetString( const std::string&  val ) = 0;
             virtual std::string GetString() const = 0;
 
-            virtual Lock() const = 0;
-            virtual Unlock() const = 0;
+            virtual void Lock() const = 0;
+            virtual void Unlock() const = 0;
     };
 }
 

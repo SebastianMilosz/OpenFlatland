@@ -317,6 +317,6 @@ namespace codeframe
     ******************************************************************************/
     bool PropertyMultipleSelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
-
+        return false;
     }
 }

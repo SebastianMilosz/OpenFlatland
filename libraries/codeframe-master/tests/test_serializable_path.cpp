@@ -41,7 +41,7 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
             }
     };
 
-    class classTest_Container : public codeframe::cSerializableContainer
+    class classTest_Container : public codeframe::ObjectContainer
     {
         public:
             CODEFRAME_META_CLASS_NAME( "classTest_Container" );
@@ -66,7 +66,7 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
             }
 
         public:
-            classTest_Container( const std::string& name, ObjectNode* parent ) : cSerializableContainer( name, parent )
+            classTest_Container( const std::string& name, ObjectNode* parent ) : ObjectContainer( name, parent )
             {
             }
     };

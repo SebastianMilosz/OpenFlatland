@@ -136,12 +136,12 @@ namespace codeframe
             virtual void            SetString( const std::string&  val );
             virtual std::string     GetString() const;
 
-            virtual Lock() const
+            virtual void Lock() const
             {
                 m_Mutex.Lock();
             }
 
-            virtual Unlock() const
+            virtual void Unlock() const
             {
                 m_Mutex.Unlock();
             }
