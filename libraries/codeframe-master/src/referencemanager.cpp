@@ -2,7 +2,7 @@
 
 #include <cstring>      // std::strlen
 
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 #include <utilities/LoggerUtilities.h>
 
 namespace codeframe

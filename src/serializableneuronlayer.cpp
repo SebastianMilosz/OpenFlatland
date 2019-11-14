@@ -15,7 +15,7 @@ using namespace codeframe;
  **
 ******************************************************************************/
 SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, ObjectNode* parent ) :
-    cSerializable( name, parent ),
+    Object( name, parent ),
     Activation      ( this, "Activation"      , 0                            , cPropertyInfo().Kind( KIND_ENUM   ).Enum("Identity,Binary step,Logistic").Description("Activation Function")),
     WeightDimensions( this, "WeightDimensions", std::vector<unsigned int>(0) , cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightDimensions"), this, &SerializableNeuronLayer::GetWeightDimensionsVector ),
     WeightMatrix    ( this, "WeightMatrix"    , thrust::host_vector<float>(0), cPropertyInfo().Kind( KIND_VECTOR ).Description("WeightMatrix") ),

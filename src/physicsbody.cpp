@@ -11,7 +11,7 @@ const float PhysicsBody::sDescriptor::METER_IN_PIXELS = 0.04f;
  **
 ******************************************************************************/
 PhysicsBody::PhysicsBody( const std::string& name, codeframe::ObjectNode* parent ) :
-    cSerializable( name, parent )
+    Object( name, parent )
 {
     m_descryptor.Body = NULL;
 }
@@ -32,7 +32,7 @@ PhysicsBody::~PhysicsBody()
  **
 ******************************************************************************/
 PhysicsBody::PhysicsBody( const PhysicsBody& other ) :
-    cSerializable( other )
+    Object( other )
 {
     m_descryptor.Body = other.m_descryptor.Body;
     m_descryptor.Shape = other.m_descryptor.Shape;

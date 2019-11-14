@@ -2,9 +2,9 @@
 #define FONTFACTORY_HPP
 
 #include <SFML/Graphics.hpp>
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
-class FontFactory : public codeframe::cSerializable
+class FontFactory : public codeframe::Object
 {
         CODEFRAME_META_CLASS_NAME( "FontFactory" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );

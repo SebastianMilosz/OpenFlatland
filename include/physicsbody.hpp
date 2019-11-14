@@ -3,9 +3,9 @@
 
 #include <Box2D/Box2D.h>
 #include <SFML/Graphics.hpp>
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
-class PhysicsBody : public codeframe::cSerializable
+class PhysicsBody : public codeframe::Object
 {
     CODEFRAME_META_CLASS_NAME( "PhysicsBody" );
     CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );

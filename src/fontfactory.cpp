@@ -9,7 +9,7 @@ sf::Font FontFactory::m_font;
  **
 ******************************************************************************/
 FontFactory::FontFactory( const std::string& name, ObjectNode* parent ) :
-    cSerializable( name, parent )
+    Object( name, parent )
 {
     if( m_initialized == false )
     {

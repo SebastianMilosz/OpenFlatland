@@ -1,7 +1,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
 #include "entityshell.hpp"
 #include "entityghost.hpp"

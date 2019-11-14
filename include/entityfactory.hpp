@@ -2,9 +2,9 @@
 #define ENTITYFACTORY_HPP
 
 #include <sigslot.h>
-#include <serializable.hpp>
-#include <serializablecontainer.hpp>
 #include <serializable_object_node.hpp>
+#include <serializable_object.hpp>
+#include <serializablecontainer.hpp>
 
 #include "world.hpp"
 #include "entity.hpp"

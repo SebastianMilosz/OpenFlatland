@@ -3,7 +3,7 @@
 
 #include <sigslot.h>
 
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 #include <serializablecontainer.hpp>
 #include <extpoint2d.hpp>
 

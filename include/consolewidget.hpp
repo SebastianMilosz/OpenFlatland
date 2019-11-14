@@ -3,7 +3,7 @@
 
 #include <imgui.h>
 #include <imgui-SFML.h>
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 #include <utilities/LoggerUtilities.h>
 #include <utilities/FileUtilities.h>
 #include <utilities/DataTypesUtilities.h>

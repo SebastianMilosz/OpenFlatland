@@ -6,7 +6,7 @@
 #include <algorithm>
 
 #include "instancemanager.hpp"
-#include "serializable.hpp"
+#include "serializable_object.hpp"
 
 namespace codeframe
 {

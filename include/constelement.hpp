@@ -1,7 +1,7 @@
 #ifndef CONSTELEMENT_HPP_INCLUDED
 #define CONSTELEMENT_HPP_INCLUDED
 
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
 #include "physicsbody.hpp"
 

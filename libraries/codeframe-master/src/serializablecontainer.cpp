@@ -10,8 +10,8 @@ using namespace codeframe;
  **
 ******************************************************************************/
 cSerializableContainer::cSerializableContainer( const std::string& name, ObjectNode* parentObject ) :
-    cSerializable( name, parentObject ),
-    m_selected( smart_ptr<cSerializable>(NULL) ),
+    Object( name, parentObject ),
+    m_selected( smart_ptr<Object>(NULL) ),
     m_size( 0 )
 {
 }
@@ -59,9 +59,9 @@ void cSerializableContainer::CreateRange( const std::string& className, const st
 ******************************************************************************/
 bool cSerializableContainer::IsName( const std::string& name )
 {
-    for(typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+    for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
     {
-        smart_ptr<cSerializable> sptr = *it;
+        smart_ptr<Object> sptr = *it;
 
         if( smart_ptr_isValid( sptr ) == true )
         {
@@ -109,12 +109,12 @@ bool cSerializableContainer::Dispose( unsigned int id )
 {
     if ( m_containerVector.size() <= id ) return false;
 
-    smart_ptr<cSerializable> obj = m_containerVector[ id ];
+    smart_ptr<Object> obj = m_containerVector[ id ];
 
     if ( smart_ptr_isValid( obj ) == true )
     {
         m_containerVector[ id ]->Selection().DisconectFromContainer();
-        m_containerVector[ id ] = smart_ptr<cSerializable>(NULL);
+        m_containerVector[ id ] = smart_ptr<Object>(NULL);
 
         if ( m_size )
         {
@@ -144,14 +144,14 @@ bool cSerializableContainer::Dispose( const std::string& objName )
 ******************************************************************************/
 bool cSerializableContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore )
 {
-    for ( typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); )
+    for ( typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); )
     {
-        smart_ptr<cSerializable> sptr = *it;
+        smart_ptr<Object> sptr = *it;
 
         if ( smart_ptr_isValid( sptr ) && sptr->BuildType() == serType && ignore.IsIgnored( smart_ptr_getRaw( sptr ) ) == false )
         {
             sptr->Selection().DisconectFromContainer();
-            *it = smart_ptr<cSerializable>(NULL);
+            *it = smart_ptr<Object>(NULL);
 
             if ( m_size )
             {
@@ -175,16 +175,16 @@ bool cSerializableContainer::DisposeByBuildType( eBuildType serType, cIgnoreList
 ******************************************************************************/
 bool cSerializableContainer::Dispose( smart_ptr<ObjectNode> obj )
 {
-    for(typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+    for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
     {
-        smart_ptr<cSerializable> sptr = *it;
+        smart_ptr<Object> sptr = *it;
 
         if( smart_ptr_isValid( sptr ) && smart_ptr_isValid( obj ) )
         {
             if( sptr->Identity().ObjectName() == obj->Identity().ObjectName() )
             {
                 sptr->Selection().DisconectFromContainer();
-                *it = smart_ptr<cSerializable>();
+                *it = smart_ptr<Object>();
                 if( m_size ) m_size--;
                 signalContainerSelectionChanged.Emit( sptr );
                 return true;
@@ -204,15 +204,15 @@ bool cSerializableContainer::Dispose()
 {
     if( m_containerVector.size() == 0 ) return true;    // Pusty kontener zwracamy prawde bo nie ma nic do usuwania
 
-    for(typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+    for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
     {
-        smart_ptr<cSerializable> obj = *it;
+        smart_ptr<Object> obj = *it;
 
         // Usuwamy tylko jesli nikt inny nie korzysta z obiektu
         if( smart_ptr_getCount( obj ) <= 2 )
         {
             obj->Selection().DisconectFromContainer();
-            obj = smart_ptr<cSerializable>(NULL);
+            obj = smart_ptr<Object>(NULL);
         }
         else // Nie mozna usunac obiektu
         {
@@ -307,7 +307,7 @@ smart_ptr<ObjectNode> cSerializableContainer::Get( int id )
   * @brief
  **
 ******************************************************************************/
-int cSerializableContainer::Add( smart_ptr<cSerializable> classType, int pos )
+int cSerializableContainer::Add( smart_ptr<Object> classType, int pos )
 {
     return InsertObject( classType, pos );
 }
@@ -317,7 +317,7 @@ int cSerializableContainer::Add( smart_ptr<cSerializable> classType, int pos )
   * @brief
  **
 ******************************************************************************/
-int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, int pos )
+int cSerializableContainer::InsertObject( smart_ptr<Object> classType, int pos )
 {
     // pos == -1 oznacza pierwszy lepszy
     bool found  = false;
@@ -328,7 +328,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
         // Szukamy bezposrednio
         if( pos >= 0 )
         {
-            smart_ptr<cSerializable> tmp = m_containerVector[ pos ];
+            smart_ptr<Object> tmp = m_containerVector[ pos ];
 
             if( smart_ptr_isValid( tmp ) )
             {
@@ -341,7 +341,7 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
         if( found == false )
         {
             // Po calym wektorze szukamy pustych miejsc
-            for(typename std::vector< smart_ptr<cSerializable> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+            for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
             {
                 smart_ptr<ObjectNode> obj = *it;
 
@@ -386,19 +386,19 @@ int cSerializableContainer::InsertObject( smart_ptr<cSerializable> classType, in
 ******************************************************************************/
 void cSerializableContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
 {
-    cSerializable* serializableObjectNew = static_cast<cSerializable*>( smart_ptr_getRaw(obj) );
+    Object* serializableObjectNew = static_cast<Object*>( smart_ptr_getRaw(obj) );
 
-    if ( (cSerializable*)NULL != serializableObjectNew )
+    if ( (Object*)NULL != serializableObjectNew )
     {
         std::string name = serializableObjectNew->Identity().ObjectName();
 
         if ( serializableObjectNew->Selection().IsSelected() == true )
         {
-            cSerializable* serializableObjectSel = static_cast<cSerializable*>( smart_ptr_getRaw(m_selected) );
+            Object* serializableObjectSel = static_cast<Object*>( smart_ptr_getRaw(m_selected) );
 
             if( serializableObjectSel != serializableObjectNew )
             {
-                if ( (cSerializable*)NULL != serializableObjectSel )
+                if ( (Object*)NULL != serializableObjectSel )
                 {
                     serializableObjectSel->Selection().Select( false );
                 }

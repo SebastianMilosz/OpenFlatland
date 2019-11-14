@@ -1,17 +1,17 @@
 #include "catch.hpp"
 
-#include <serializable.hpp>
+#include <serializable_object.hpp>
 
 TEST_CASE( "Serializable library construction and destruction", "[serializable]" )
 {
-    class classTestSerializable : public codeframe::cSerializable
+    class classTestSerializable : public codeframe::Object
     {
         public:
             CODEFRAME_META_CLASS_NAME( "classTestSerializable" );
             CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-            classTestSerializable( const std::string& name, ObjectNode* parent ) : cSerializable( name, parent )
+            classTestSerializable( const std::string& name, ObjectNode* parent ) : Object( name, parent )
             {
 
             }
