@@ -66,8 +66,8 @@ namespace codeframe
             virtual void        SetString( const std::string&  val );
             virtual std::string GetString() const;
 
-            virtual Lock() const;
-            virtual Unlock() const;
+            virtual void Lock() const;
+            virtual void Unlock() const;
 
         private:
             PropertyNode* m_selection;

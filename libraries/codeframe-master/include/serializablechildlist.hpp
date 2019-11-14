@@ -14,7 +14,7 @@ namespace codeframe
         friend class iterator;
 
         private:
-            int                                  m_childCnt;
+            int                      m_childCnt;
             std::vector<ObjectNode*> m_childVector;
 
             ///

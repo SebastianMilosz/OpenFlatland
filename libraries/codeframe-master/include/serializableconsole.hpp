@@ -9,7 +9,7 @@ namespace codeframe
     class cSerializableConsole : public cSerializable
     {
         public:
-            cSerializableConsole( std::string objName, std::istream& istr = std::cin, std::ostream& ostr = std::cout, std::ostream& estr = std::cerr ) :
+            cSerializableConsole( const std::string& objName, std::istream& istr = std::cin, std::ostream& ostr = std::cout, std::ostream& estr = std::cerr ) :
             cSerializable( objName, NULL ),
             m_drawCommandPrompt(true),
             m_istr(istr), m_ostr(ostr), m_estr(estr)
@@ -18,7 +18,7 @@ namespace codeframe
             }
 
             // Wyswietla panel informacyjny aplikacji
-            virtual void OnCustomCommand(std::string cmd = "", std::string val = "")
+            virtual void OnCustomCommand(const std::string& cmd = "", const std::string& val = "")
             {
 
             }
