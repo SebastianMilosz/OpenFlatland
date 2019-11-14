@@ -2,12 +2,12 @@
 
 #include <serializable_object.hpp>
 
-TEST_CASE( "Serializable library construction and destruction", "[serializable]" )
+TEST_CASE( "codeframe library Object construction and destruction", "[codeframe::Object]" )
 {
     class classTestSerializable : public codeframe::Object
     {
         public:
-            CODEFRAME_META_CLASS_NAME( "classTestSerializable" );
+            CODEFRAME_META_CLASS_NAME( "classTestObject" );
             CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:

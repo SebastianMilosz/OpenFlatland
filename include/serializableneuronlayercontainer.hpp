@@ -4,11 +4,11 @@
 #include <sigslot.h>
 #include <serializable_object_node.hpp>
 #include <serializable_object.hpp>
-#include <serializablecontainer.hpp>
+#include <serializable_object_container.hpp>
 
 #include "serializableneuronlayer.hpp"
 
-class SerializableNeuronLayerContainer : public codeframe::cSerializableContainer
+class SerializableNeuronLayerContainer : public codeframe::ObjectContainer
 {
         CODEFRAME_META_CLASS_NAME( "SerializableNeuronLayerContainer" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );

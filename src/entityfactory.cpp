@@ -8,7 +8,7 @@
  **
 ******************************************************************************/
 EntityFactory::EntityFactory( const std::string& name, ObjectNode* parent ) :
-    cSerializableContainer( name, parent )
+    ObjectContainer( name, parent )
 {
     //ctor
 }

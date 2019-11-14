@@ -4,12 +4,12 @@
 #include <sigslot.h>
 
 #include <serializable_object.hpp>
-#include <serializablecontainer.hpp>
+#include <serializable_object_container.hpp>
 #include <extpoint2d.hpp>
 
 #include "constelement.hpp"
 
-class ConstElementsFactory : public codeframe::cSerializableContainer
+class ConstElementsFactory : public codeframe::ObjectContainer
 {
         CODEFRAME_META_CLASS_NAME( "ConstElementsFactory" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
