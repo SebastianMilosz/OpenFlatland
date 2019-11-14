@@ -1,5 +1,5 @@
-#ifndef _CSERIALIZABLE_H
-#define _CSERIALIZABLE_H
+#ifndef _CSERIALIZABLE_OBJECT_H
+#define _CSERIALIZABLE_OBJECT_H
 
 #include "serializable_object_node.hpp"
 #include "serializablepropertybase.hpp"
@@ -15,20 +15,19 @@ namespace codeframe
     /*****************************************************************************/
     /**
       * @brief
-      * @author Sebastian Milosz
       * @version 1.0
-      * @note cSetializable
+      * @note Object
      **
     ******************************************************************************/
-    class cSerializable : public ObjectNode
+    class Object : public ObjectNode
     {
         CODEFRAME_META_BUILD_ROLE( codeframe::OBJECT );
 
         public:
             std::string ConstructPatern() const;
 
-                     cSerializable( const std::string& name, ObjectNode* parent = NULL );
-            virtual ~cSerializable();
+                     Object( const std::string& name, ObjectNode* parent = NULL );
+            virtual ~Object();
 
             cSerializablePath&       Path();
             cSerializableStorage&    Storage();
@@ -54,4 +53,4 @@ namespace codeframe
     };
 }
 
-#endif
+#endif // _CSERIALIZABLE_OBJECT_H

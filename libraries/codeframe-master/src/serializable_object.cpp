@@ -1,4 +1,4 @@
-#include "serializable.hpp"
+#include "serializable_object.hpp"
 
 #include <iostream>
 #include <exception>
@@ -17,7 +17,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string cSerializable::ConstructPatern() const
+    std::string Object::ConstructPatern() const
     {
         return "";
     }
@@ -27,7 +27,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable::cSerializable( const std::string& name, ObjectNode* parent ) :
+    Object::Object( const std::string& name, ObjectNode* parent ) :
         m_SerializablePath( *this ),
         m_SerializableStorage( *this ),
         m_SerializableSelectable( *this ),
@@ -43,7 +43,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::PulseChanged( bool fullTree )
+    void Object::PulseChanged( bool fullTree )
     {
         m_Identity.EnterPulseState();
         m_PropertyManager.PulseChanged();
@@ -60,7 +60,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializable::~cSerializable()
+    Object::~Object()
     {
         // Wyrejestrowywujemy sie u rodzica
         m_SerializablePath.ParentUnbound();
@@ -72,7 +72,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializablePath& cSerializable::Path()
+    cSerializablePath& Object::Path()
     {
         return m_SerializablePath;
     }
@@ -82,7 +82,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableStorage& cSerializable::Storage()
+    cSerializableStorage& Object::Storage()
     {
         return m_SerializableStorage;
     }
@@ -92,7 +92,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableSelectable& cSerializable::Selection()
+    cSerializableSelectable& Object::Selection()
     {
         return m_SerializableSelectable;
     }
@@ -102,7 +102,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableScript& cSerializable::Script()
+    cSerializableScript& Object::Script()
     {
         return m_SerializableScript;
     }
@@ -112,7 +112,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cPropertyManager& cSerializable::PropertyManager()
+    cPropertyManager& Object::PropertyManager()
     {
         return m_PropertyManager;
     }
@@ -122,7 +122,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableChildList& cSerializable::ChildList()
+    cSerializableChildList& Object::ChildList()
     {
         return m_childList;
     }
@@ -132,7 +132,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableIdentity& cSerializable::Identity()
+    cSerializableIdentity& Object::Identity()
     {
         return m_Identity;
     }
@@ -142,7 +142,7 @@ namespace codeframe
       * @brief Zatwierdzenie wszystkich zmian obiektu i jego potomnych
      **
     ******************************************************************************/
-    void cSerializable::CommitChanges()
+    void Object::CommitChanges()
     {
         m_PropertyManager.CommitChanges();
         m_childList.CommitChanges();
@@ -153,7 +153,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializable::Enable( bool val )
+    void Object::Enable( bool val )
     {
         m_PropertyManager.Enable( val );
         m_childList.Enable( val );
