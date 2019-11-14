@@ -13,7 +13,7 @@ set(CODEFRAME_LIB_HDRS
     include/referencemanager.hpp
     include/serializable_object.hpp
     include/serializablechildlist.hpp
-    include/serializablecontainer.hpp
+    include/serializable_object_container.hpp
     include/serializableidentity.hpp
     include/serializable_object_node.hpp
     include/serializablelua.hpp
@@ -42,7 +42,7 @@ set(CODEFRAME_LIB_SRC
     src/referencemanager.cpp
     src/serializable_object.cpp
     src/serializablechildlist.cpp
-    src/serializablecontainer.cpp
+    src/serializable_object_container.cpp
     src/serializableidentity.cpp
     src/serializable_object_node.cpp
     src/serializablepropertybase.cpp

@@ -21,17 +21,17 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    class cSerializableContainer : public Object
+    class ObjectContainer : public Object
     {
         friend class cSerializableSelectable;
 
-        CODEFRAME_META_CLASS_NAME( "cSerializableContainer" );
+        CODEFRAME_META_CLASS_NAME( "ObjectContainer" );
         CODEFRAME_META_BUILD_ROLE( codeframe::CONTAINER  );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-                     cSerializableContainer( const std::string& name, ObjectNode* parentObject );
-            virtual ~cSerializableContainer();
+                     ObjectContainer( const std::string& name, ObjectNode* parentObject );
+            virtual ~ObjectContainer();
 
             virtual smart_ptr<ObjectNode> Create(
                                                              const std::string& className,

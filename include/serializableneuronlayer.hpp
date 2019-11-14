@@ -4,7 +4,7 @@
 #include <sigslot.h>
 #include <serializable_object_node.hpp>
 #include <serializable_object.hpp>
-#include <serializablecontainer.hpp>
+#include <serializable_object_container.hpp>
 
 #include <thrust/device_vector.h>
 #include <thrust/random.h>

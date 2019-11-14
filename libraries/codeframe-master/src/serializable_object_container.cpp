@@ -1,4 +1,4 @@
-#include "serializablecontainer.hpp"
+#include "serializable_object_container.hpp"
 
 #include <LoggerUtilities.h>
 
@@ -9,7 +9,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-cSerializableContainer::cSerializableContainer( const std::string& name, ObjectNode* parentObject ) :
+ObjectContainer::ObjectContainer( const std::string& name, ObjectNode* parentObject ) :
     Object( name, parentObject ),
     m_selected( smart_ptr<Object>(NULL) ),
     m_size( 0 )
@@ -21,7 +21,7 @@ cSerializableContainer::cSerializableContainer( const std::string& name, ObjectN
   * @brief
  **
 ******************************************************************************/
-cSerializableContainer::~cSerializableContainer()
+ObjectContainer::~ObjectContainer()
 {
     Dispose();
 }
@@ -31,7 +31,7 @@ cSerializableContainer::~cSerializableContainer()
   * @brief
  **
 ******************************************************************************/
-int cSerializableContainer::Count() const
+int ObjectContainer::Count() const
 {
     return m_size;
 }
@@ -41,13 +41,13 @@ int cSerializableContainer::Count() const
   * @brief
  **
 ******************************************************************************/
-void cSerializableContainer::CreateRange( const std::string& className, const std::string& objName, int range )
+void ObjectContainer::CreateRange( const std::string& className, const std::string& objName, int range )
 {
     for(int i = 0; i < range; i++)
     {
         if( smart_ptr_isValid( Create( className, objName ) ) == false )
         {
-            throw std::runtime_error( "cSerializableContainer::Create return NULL" );
+            throw std::runtime_error( "ObjectContainer::Create return NULL" );
         }
     }
 }
@@ -57,7 +57,7 @@ void cSerializableContainer::CreateRange( const std::string& className, const st
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::IsName( const std::string& name )
+bool ObjectContainer::IsName( const std::string& name )
 {
     for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
     {
@@ -82,7 +82,7 @@ bool cSerializableContainer::IsName( const std::string& name )
   * @brief
  **
 ******************************************************************************/
-std::string cSerializableContainer::CreateUniqueName( const std::string& nameBase )
+std::string ObjectContainer::CreateUniqueName( const std::string& nameBase )
 {
     std::string uniqueName  = nameBase;
 
@@ -105,7 +105,7 @@ std::string cSerializableContainer::CreateUniqueName( const std::string& nameBas
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::Dispose( unsigned int id )
+bool ObjectContainer::Dispose( unsigned int id )
 {
     if ( m_containerVector.size() <= id ) return false;
 
@@ -131,7 +131,7 @@ bool cSerializableContainer::Dispose( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::Dispose( const std::string& objName )
+bool ObjectContainer::Dispose( const std::string& objName )
 {
     // Unimplemented
     return false;
@@ -142,7 +142,7 @@ bool cSerializableContainer::Dispose( const std::string& objName )
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore )
+bool ObjectContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore )
 {
     for ( typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); )
     {
@@ -173,7 +173,7 @@ bool cSerializableContainer::DisposeByBuildType( eBuildType serType, cIgnoreList
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::Dispose( smart_ptr<ObjectNode> obj )
+bool ObjectContainer::Dispose( smart_ptr<ObjectNode> obj )
 {
     for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
     {
@@ -200,7 +200,7 @@ bool cSerializableContainer::Dispose( smart_ptr<ObjectNode> obj )
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::Dispose()
+bool ObjectContainer::Dispose()
 {
     if( m_containerVector.size() == 0 ) return true;    // Pusty kontener zwracamy prawde bo nie ma nic do usuwania
 
@@ -231,7 +231,7 @@ bool cSerializableContainer::Dispose()
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::IsInRange( unsigned int cnt ) const
+bool ObjectContainer::IsInRange( unsigned int cnt ) const
 {
     return (bool)( cnt < m_containerVector.size() );
 }
@@ -241,7 +241,7 @@ bool cSerializableContainer::IsInRange( unsigned int cnt ) const
   * @brief
  **
 ******************************************************************************/
-smart_ptr<ObjectNode> cSerializableContainer::operator[]( int i )
+smart_ptr<ObjectNode> ObjectContainer::operator[]( int i )
 {
     return Get( i );
 }
@@ -251,7 +251,7 @@ smart_ptr<ObjectNode> cSerializableContainer::operator[]( int i )
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::Select( int pos )
+bool ObjectContainer::Select( int pos )
 {
     if( IsInRange( pos ) )
     {
@@ -267,7 +267,7 @@ bool cSerializableContainer::Select( int pos )
   * @brief
  **
 ******************************************************************************/
-bool cSerializableContainer::IsSelected()
+bool ObjectContainer::IsSelected()
 {
     return smart_ptr_isValid( m_selected );
 }
@@ -277,7 +277,7 @@ bool cSerializableContainer::IsSelected()
   * @brief
  **
 ******************************************************************************/
-smart_ptr<ObjectNode> cSerializableContainer::GetSelected()
+smart_ptr<ObjectNode> ObjectContainer::GetSelected()
 {
     return m_selected;
 }
@@ -287,7 +287,7 @@ smart_ptr<ObjectNode> cSerializableContainer::GetSelected()
   * @brief
  **
 ******************************************************************************/
-smart_ptr<ObjectNode> cSerializableContainer::Get( int id )
+smart_ptr<ObjectNode> ObjectContainer::Get( int id )
 {
     if( IsInRange( id ) )
     {
@@ -307,7 +307,7 @@ smart_ptr<ObjectNode> cSerializableContainer::Get( int id )
   * @brief
  **
 ******************************************************************************/
-int cSerializableContainer::Add( smart_ptr<Object> classType, int pos )
+int ObjectContainer::Add( smart_ptr<Object> classType, int pos )
 {
     return InsertObject( classType, pos );
 }
@@ -317,7 +317,7 @@ int cSerializableContainer::Add( smart_ptr<Object> classType, int pos )
   * @brief
  **
 ******************************************************************************/
-int cSerializableContainer::InsertObject( smart_ptr<Object> classType, int pos )
+int ObjectContainer::InsertObject( smart_ptr<Object> classType, int pos )
 {
     // pos == -1 oznacza pierwszy lepszy
     bool found  = false;
@@ -371,7 +371,7 @@ int cSerializableContainer::InsertObject( smart_ptr<Object> classType, int pos )
         classType->Path().ParentBound( serPar );
     }
 
-    classType->Selection().ConectToContainer<cSerializableContainer>( this, classType );
+    classType->Selection().ConectToContainer<ObjectContainer>( this, classType );
     classType->Identity().SetId( retPos );
 
     m_size++;
@@ -384,7 +384,7 @@ int cSerializableContainer::InsertObject( smart_ptr<Object> classType, int pos )
   * @brief
  **
 ******************************************************************************/
-void cSerializableContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
+void ObjectContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
 {
     Object* serializableObjectNew = static_cast<Object*>( smart_ptr_getRaw(obj) );
 

@@ -1,11 +1,11 @@
 #include "catch.hpp"
 
 #include <serializable_object.hpp>
-#include <serializablecontainer.hpp>
+#include <serializable_object_container.hpp>
 
 using namespace codeframe;
 
-TEST_CASE( "Serializable library path", "[serializable.Path]" )
+TEST_CASE( "codeframe library object path", "[Object::Path]" )
 {
     class classTest_Static : public codeframe::Object
     {
@@ -81,7 +81,7 @@ TEST_CASE( "Serializable library path", "[serializable.Path]" )
     staticContainerObject.Create( "classTest_Dynamic", "node" );
     staticContainerObject.Create( "classTest_Dynamic", "node" );
 
-    SECTION( "Basic serializable objects tests" )
+    SECTION( "Basic codeframe library objects tests" )
     {
         REQUIRE( staticSerializableObject.Identity().ObjectName() == "testNameStatic" );
         REQUIRE( staticContainerObject.Identity().ObjectName() == "testNameContainerStatic" );

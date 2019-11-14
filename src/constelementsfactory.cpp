@@ -9,7 +9,7 @@
  **
 ******************************************************************************/
 ConstElementsFactory::ConstElementsFactory( const std::string& name, ObjectNode* parent ) :
-    cSerializableContainer( name, parent )
+    ObjectContainer( name, parent )
 {
 
 }

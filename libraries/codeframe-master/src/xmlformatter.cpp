@@ -10,7 +10,7 @@
 #include <TextUtilities.h>
 
 #include "serializable_object_node.hpp"
-#include "serializablecontainer.hpp"
+#include "serializable_object_container.hpp"
 
 namespace codeframe
 {
@@ -258,10 +258,10 @@ namespace codeframe
         if ( thisRole == "Container" )
         {
             // Rzutujemy na kontener
-            cSerializableContainer* containerObject = dynamic_cast< cSerializableContainer* >(&m_serializableObject);
+            ObjectContainer* containerObject = dynamic_cast< ObjectContainer* >(&m_serializableObject);
 
             // Usuwamy wszystkie dynamiczne obiekty z kontenera
-            if ( (cSerializableContainer*)NULL != containerObject )
+            if ( (ObjectContainer*)NULL != containerObject )
             {
                 cIgnoreList ignore;
 

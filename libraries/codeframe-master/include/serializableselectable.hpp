@@ -21,7 +21,7 @@ namespace codeframe
     ******************************************************************************/
     class cSerializableSelectable
     {
-        friend class cSerializableContainer;
+        friend class ObjectContainer;
 
         public:
                      cSerializableSelectable( ObjectNode& sint );
