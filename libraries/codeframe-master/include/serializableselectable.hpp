@@ -1,5 +1,5 @@
-#ifndef SERIALIZABLESELECTABLE_HPP_INCLUDED
-#define SERIALIZABLESELECTABLE_HPP_INCLUDED
+#ifndef CSELECTABLE_HPP_INCLUDED
+#define CSELECTABLE_HPP_INCLUDED
 
 #include <sigslot.h>
 #include <smartpointer.h>
@@ -8,24 +8,22 @@ using namespace sigslot;
 
 namespace codeframe
 {
-    class cSerializableContainer;
     class ObjectNode;
 
     /*****************************************************************************/
     /**
       * @brief
-      * @author Sebastian Milosz
       * @version 1.0
-      * @note cSerializableSelectable
+      * @note cSelectable
      **
     ******************************************************************************/
-    class cSerializableSelectable
+    class cSelectable
     {
         friend class ObjectContainer;
 
         public:
-                     cSerializableSelectable( ObjectNode& sint );
-            virtual ~cSerializableSelectable();
+                     cSelectable( ObjectNode& sint );
+            virtual ~cSelectable();
 
             virtual void Select( bool state = true );
             virtual bool IsSelected();
@@ -48,4 +46,4 @@ namespace codeframe
     };
 }
 
-#endif // SERIALIZABLESELECTABLE_HPP_INCLUDED
+#endif // CSELECTABLE_HPP_INCLUDED

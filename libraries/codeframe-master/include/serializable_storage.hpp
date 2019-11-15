@@ -1,5 +1,5 @@
-#ifndef CSERIALIZABLESTORAGE_H
-#define CSERIALIZABLESTORAGE_H
+#ifndef CSTORAGE_H
+#define CSTORAGE_H
 
 #include "cxml.hpp"
 
@@ -10,12 +10,11 @@ namespace codeframe
     /*****************************************************************************/
     /**
       * @brief This class add storage functionality to cInstanceManager
-      * @author Sebastian Milosz
       * @version 1.0
-      * @note cSetializable
+      * @note Object::cStorage
      **
     ******************************************************************************/
-    class cSerializableStorage
+    class cStorage
     {
         public:
             enum eShareLevel
@@ -24,8 +23,8 @@ namespace codeframe
                 ShareFull
             };
 
-                     cSerializableStorage( ObjectNode& sint );
-            virtual ~cSerializableStorage();
+                     cStorage( ObjectNode& sint );
+            virtual ~cStorage();
 
             ObjectNode& ShareLevel  ( eShareLevel level = ShareFull );
             ObjectNode& LoadFromFile( const std::string& filePath, const std::string& container = "", bool createIfNotExist = false );
@@ -41,4 +40,4 @@ namespace codeframe
 
 }
 
-#endif // CSERIALIZABLESTORAGE_H
+#endif // CSTORAGE_H

@@ -112,7 +112,7 @@ namespace codeframe
         int childLp  = 0;
 
         // Po wszystkich obiektach dzieci ladujemy zawartosc
-        for( cSerializableChildList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
+        for( cObjectList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
         {
             ObjectNode* iser = *it;
 
@@ -120,7 +120,7 @@ namespace codeframe
             if( iser->Role() == CONTAINER )
             {
                 // Po wszystkich obiektach dzieci ladujemy zawartosc
-                for( cSerializableChildList::iterator itc = iser->ChildList().begin(); itc != iser->ChildList().end(); ++itc )
+                for( cObjectList::iterator itc = iser->ChildList().begin(); itc != iser->ChildList().end(); ++itc )
                 {
                     cXMLNode childNodeElement = childNodeContainer.FindChildByAttribute("element", "id", utilities::math::IntToStr(childLp++).c_str());
                     cXMLNode childNodeObject  = childNodeElement.Child("cSocket");
@@ -454,7 +454,7 @@ namespace codeframe
             {
                 int lp = 0;
 
-                for ( cSerializableChildList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
+                for ( cObjectList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
                 {
                     ObjectNode* iser = *it;
 
@@ -615,7 +615,7 @@ namespace codeframe
             unsigned int childLp  = 0;
 
             // Po wszystkich obiektach dzieci ladujemy zawartosc
-            for ( cSerializableChildList::iterator it = obj.ChildList().begin(); it != obj.ChildList().end(); ++it )
+            for ( cObjectList::iterator it = obj.ChildList().begin(); it != obj.ChildList().end(); ++it )
             {
                 ObjectNode* iser = *it;
                 cXmlFormatter formatter( *iser );

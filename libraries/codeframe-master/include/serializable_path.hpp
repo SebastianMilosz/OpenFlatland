@@ -1,5 +1,5 @@
-#ifndef SERIALIZABLEPATH_HPP_INCLUDED
-#define SERIALIZABLEPATH_HPP_INCLUDED
+#ifndef CPATH_HPP_INCLUDED
+#define CPATH_HPP_INCLUDED
 
 #include <string>
 
@@ -8,11 +8,11 @@ namespace codeframe
     class ObjectNode;
     class PropertyBase;
 
-    class cSerializablePath
+    class cPath
     {
         public:
-             cSerializablePath( ObjectNode& sint );
-            ~cSerializablePath();
+             cPath( ObjectNode& sint );
+            ~cPath();
 
             std::string PathString() const;
             void ParentBound( ObjectNode* parent );
@@ -32,4 +32,4 @@ namespace codeframe
 
 }
 
-#endif // SERIALIZABLEPATH_HPP_INCLUDED
+#endif // CPATH_HPP_INCLUDED

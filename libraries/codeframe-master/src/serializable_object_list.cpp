@@ -1,4 +1,4 @@
-#include "serializablechildlist.hpp"
+#include "serializable_object_list.hpp"
 #include "serializable_object.hpp"
 
 #include <cstdio> // std::remove
@@ -10,7 +10,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableChildList::cSerializableChildList() :
+    cObjectList::cObjectList() :
         m_childCnt( 0 )
     {
     }
@@ -20,7 +20,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableChildList::Register( ObjectNode* child )
+    void cObjectList::Register( ObjectNode* child )
     {
         if( child )
         {
@@ -36,7 +36,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableChildList::UnRegister( ObjectNode* child )
+    void cObjectList::UnRegister( ObjectNode* child )
     {
         if( child )
         {
@@ -52,11 +52,11 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableChildList::PulseChanged( bool fullTree )
+    void cObjectList::PulseChanged( bool fullTree )
     {
         m_Mutex.Lock();
         // Zmuszamy dzieci do aktualizacji
-        for ( cSerializableChildList::iterator it = begin(); it != end(); ++it )
+        for ( cObjectList::iterator it = begin(); it != end(); ++it )
         {
             ObjectNode* iser = *it;
 
@@ -73,10 +73,10 @@ namespace codeframe
       * @brief Zatwierdzenie wszystkich zmian obiektu i jego potomnych
      **
     ******************************************************************************/
-    void cSerializableChildList::CommitChanges()
+    void cObjectList::CommitChanges()
     {
         m_Mutex.Lock();
-        for( cSerializableChildList::iterator it = begin(); it != end(); ++it )
+        for( cObjectList::iterator it = begin(); it != end(); ++it )
         {
             ObjectNode* iser = *it;
             if( iser )
@@ -92,10 +92,10 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableChildList::Enable( bool val )
+    void cObjectList::Enable( bool val )
     {
         m_Mutex.Lock();
-        for( cSerializableChildList::iterator it = begin(); it != end(); ++it )
+        for( cObjectList::iterator it = begin(); it != end(); ++it )
         {
             ObjectNode* iser = *it;
             if( iser )

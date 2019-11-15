@@ -19,11 +19,11 @@ namespace codeframe
         CONTAINER
     };
 
-    class cSerializableIdentity
+    class cIdentity
     {
         public:
-             cSerializableIdentity( const std::string& name, ObjectNode& sint );
-            ~cSerializableIdentity();
+             cIdentity( const std::string& name, ObjectNode& sint );
+            ~cIdentity();
 
             void SetName ( const std::string& name );
             std::string ObjectName( bool idSuffix = true ) const;
@@ -40,7 +40,7 @@ namespace codeframe
             static float       LibraryVersion();
             static std::string LibraryVersionString();
         private:
-             int32_t m_id;
+            int32_t m_id;
             uint32_t m_uid;
             static uint32_t g_uid;
             ObjectNode& m_sint;

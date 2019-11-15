@@ -3,7 +3,7 @@
 
 #include "serializable_object_node.hpp"
 #include "serializablepropertybase.hpp"
-#include "serializablestorage.hpp"
+#include "serializable_storage.hpp"
 
 #define CODEFRAME_META_CLASS_NAME(p) public: std::string Class() const { return p; }
 #define CODEFRAME_META_CONSTRUCT_PATERN(p) public: std::string ConstructPatern() const { return p; }
@@ -29,26 +29,26 @@ namespace codeframe
                      Object( const std::string& name, ObjectNode* parent = NULL );
             virtual ~Object();
 
-            cSerializablePath&       Path();
-            cSerializableStorage&    Storage();
-            cSerializableSelectable& Selection();
-            cSerializableScript&     Script();
+            cPath&       Path();
+            cStorage&    Storage();
+            cSelectable& Selection();
+            cScript&     Script();
             cPropertyManager&        PropertyManager();
-            cSerializableChildList&  ChildList();
-            cSerializableIdentity&   Identity();
+            cObjectList& ChildList();
+            cIdentity&   Identity();
 
             void        PulseChanged( bool fullTree = false );
             void        CommitChanges();
             void        Enable( bool val );
 
         private:
-            cSerializablePath       m_SerializablePath;
-            cSerializableStorage    m_SerializableStorage;
-            cSerializableSelectable m_SerializableSelectable;
-            cSerializableScript     m_SerializableScript;
+            cPath       m_SerializablePath;
+            cStorage    m_SerializableStorage;
+            cSelectable m_SerializableSelectable;
+            cScript     m_SerializableScript;
             cPropertyManager        m_PropertyManager;
-            cSerializableChildList  m_childList;
-            cSerializableIdentity   m_Identity;
+            cObjectList m_childList;
+            cIdentity   m_Identity;
             WrMutex                 m_Mutex;
     };
 }

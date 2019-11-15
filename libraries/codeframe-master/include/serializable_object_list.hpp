@@ -9,7 +9,7 @@ namespace codeframe
 {
     class ObjectNode;
 
-    class cSerializableChildList
+    class cObjectList
     {
         friend class iterator;
 
@@ -22,12 +22,12 @@ namespace codeframe
         public:
             class iterator : public std::iterator<std::input_iterator_tag, ObjectNode*>
             {
-                friend class cSerializableChildList;
+                friend class cObjectList;
 
                 private:
-                    int                     m_childCnt;
-                    cSerializableChildList* m_childList;
-                    ObjectNode* m_serializable;
+                    int          m_childCnt;
+                    cObjectList* m_childList;
+                    ObjectNode*  m_serializable;
 
                 public:
                     iterator(const iterator& n) : m_childCnt(n.m_childCnt), m_childList(n.m_childList), m_serializable(n.m_serializable) {}
@@ -51,11 +51,11 @@ namespace codeframe
                     bool operator!=(const iterator& n) { return !(n.m_childCnt == m_childCnt); }
 
                 private:
-                    iterator(cSerializableChildList* b, int n) : m_childCnt(n), m_childList(b) {}
+                    iterator(cObjectList* b, int n) : m_childCnt(n), m_childList(b) {}
             };
 
         public:
-            cSerializableChildList();
+            cObjectList();
             void Register  ( ObjectNode* child );
             void UnRegister( ObjectNode* child );
             void PulseChanged( bool fullTree = false );
