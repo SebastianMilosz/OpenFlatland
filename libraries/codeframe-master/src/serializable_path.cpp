@@ -1,4 +1,4 @@
-#include "serializablepath.hpp"
+#include "serializable_path.hpp"
 
 #include <vector>
 #include <TextUtilities.h>
@@ -13,7 +13,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializablePath::cSerializablePath( ObjectNode& sint ) :
+    cPath::cPath( ObjectNode& sint ) :
         m_sint( sint ),
         m_parent( NULL )
     {
@@ -25,7 +25,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializablePath::~cSerializablePath()
+    cPath::~cPath()
     {
 
     }
@@ -35,7 +35,7 @@ namespace codeframe
       * @brief Return full object path
      **
     ******************************************************************************/
-    std::string cSerializablePath::PathString() const
+    std::string cPath::PathString() const
     {
         std::string path;
 
@@ -56,7 +56,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializablePath::ParentBound( ObjectNode* parent )
+    void cPath::ParentBound( ObjectNode* parent )
     {
         // Rejestrujemy sie u rodzica
         if( parent )
@@ -71,7 +71,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializablePath::ParentUnbound()
+    void cPath::ParentUnbound()
     {
         if( m_parent )
         {
@@ -85,7 +85,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cSerializablePath::IsNameUnique( const std::string& name, const bool checkParent ) const
+    bool cPath::IsNameUnique( const std::string& name, const bool checkParent ) const
     {
         int octcnt = 0;
 
@@ -109,7 +109,7 @@ namespace codeframe
         }
 
         // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
-        for( cSerializableChildList::iterator it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
+        for( cObjectList::iterator it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
         {
             ObjectNode* iser = *it;
 
@@ -122,7 +122,7 @@ namespace codeframe
             }
             else
             {
-                throw std::runtime_error( "cSerializablePath::IsNameUnique() cSerializable* iser = NULL" );
+                throw std::runtime_error( "cPath::IsNameUnique() cSerializable* iser = NULL" );
             }
         }
 
@@ -135,7 +135,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    ObjectNode* cSerializablePath::Parent() const
+    ObjectNode* cPath::Parent() const
     {
         return m_parent;
     }
@@ -145,9 +145,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    ObjectNode* cSerializablePath::GetChildByName( const std::string& name )
+    ObjectNode* cPath::GetChildByName( const std::string& name )
     {
-        for ( cSerializableChildList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
+        for ( cObjectList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
         {
             ObjectNode* iser = *it;
             std::string objectName = iser->Identity().ObjectName( true );
@@ -165,7 +165,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    ObjectNode* cSerializablePath::GetRootObject()
+    ObjectNode* cPath::GetRootObject()
     {
         if ( Parent() )
         {
@@ -180,7 +180,7 @@ namespace codeframe
       * @brief Return serializable object from string path
      **
     ******************************************************************************/
-    ObjectNode* cSerializablePath::GetObjectFromPath( const std::string& path )
+    ObjectNode* cPath::GetObjectFromPath( const std::string& path )
     {
         // Rozdzelamy stringa na kawalki
         std::vector<std::string> tokens;

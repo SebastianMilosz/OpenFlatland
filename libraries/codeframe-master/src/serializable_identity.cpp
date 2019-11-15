@@ -1,4 +1,4 @@
-#include "serializableidentity.hpp"
+#include "serializable_identity.hpp"
 #include "serializable_object_node.hpp"
 
 #include <TextUtilities.h>
@@ -6,14 +6,14 @@
 
 namespace codeframe
 {
-    uint32_t cSerializableIdentity::g_uid = 0U;
+    uint32_t cIdentity::g_uid = 0U;
 
     /*****************************************************************************/
     /**
       * @brief
      **
     ******************************************************************************/
-    cSerializableIdentity::cSerializableIdentity( const std::string& name, ObjectNode& sint ) :
+    cIdentity::cIdentity( const std::string& name, ObjectNode& sint ) :
         m_id( -1 ),
         m_uid( g_uid++ ),
         m_sint( sint ),
@@ -26,7 +26,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableIdentity::~cSerializableIdentity()
+    cIdentity::~cIdentity()
     {
 
     }
@@ -36,7 +36,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cSerializableIdentity::SetName( const std::string& name )
+    void cIdentity::SetName( const std::string& name )
     {
         m_sContainerName = name;
     }
@@ -46,7 +46,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string cSerializableIdentity::ObjectName( bool idSuffix ) const
+    std::string cIdentity::ObjectName( bool idSuffix ) const
     {
         if ( (GetId() >= 0) && (idSuffix == true) )
         {
@@ -62,7 +62,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    float cSerializableIdentity::LibraryVersion()
+    float cIdentity::LibraryVersion()
     {
         return 0.2;
     }
@@ -72,8 +72,8 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string cSerializableIdentity::LibraryVersionString()
+    std::string cIdentity::LibraryVersionString()
     {
-        return std::string( "Serializable library version 0.2" );
+        return std::string( "codeframe library version 0.2" );
     }
 }

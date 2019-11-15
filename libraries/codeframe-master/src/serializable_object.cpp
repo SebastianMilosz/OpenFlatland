@@ -72,7 +72,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializablePath& Object::Path()
+    cPath& Object::Path()
     {
         return m_SerializablePath;
     }
@@ -82,7 +82,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableStorage& Object::Storage()
+    cStorage& Object::Storage()
     {
         return m_SerializableStorage;
     }
@@ -92,7 +92,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableSelectable& Object::Selection()
+    cSelectable& Object::Selection()
     {
         return m_SerializableSelectable;
     }
@@ -102,7 +102,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableScript& Object::Script()
+    cScript& Object::Script()
     {
         return m_SerializableScript;
     }
@@ -122,7 +122,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableChildList& Object::ChildList()
+    cObjectList& Object::ChildList()
     {
         return m_childList;
     }
@@ -132,7 +132,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cSerializableIdentity& Object::Identity()
+    cIdentity& Object::Identity()
     {
         return m_Identity;
     }

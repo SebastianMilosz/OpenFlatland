@@ -22,14 +22,14 @@ namespace codeframe
       * @brief Scripting functionality
       * @author Sebastian Milosz
       * @version 1.0
-      * @note cSerializableScript
+      * @note cScript
      **
     ******************************************************************************/
-    class cSerializableScript
+    class cScript
     {
         public:
-                     cSerializableScript( ObjectNode& sint );
-            virtual ~cSerializableScript();
+                     cScript( ObjectNode& sint );
+            virtual ~cScript();
 
             void RunString( const std::string& scriptString );
             void RunFile  ( const std::string& scriptFile   );

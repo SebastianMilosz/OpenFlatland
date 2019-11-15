@@ -8,7 +8,7 @@ namespace codeframe
   * @brief
  **
 ******************************************************************************/
-cSerializableSelectable::cSerializableSelectable( ObjectNode& sint ) :
+cSelectable::cSelectable( ObjectNode& sint ) :
     m_selected( false ),
     m_smartThis( smart_ptr<ObjectNode>(NULL) )
 {
@@ -20,7 +20,7 @@ cSerializableSelectable::cSerializableSelectable( ObjectNode& sint ) :
   * @brief
  **
 ******************************************************************************/
-cSerializableSelectable::~cSerializableSelectable()
+cSelectable::~cSelectable()
 {
 
 }
@@ -30,7 +30,7 @@ cSerializableSelectable::~cSerializableSelectable()
   * @brief
  **
 ******************************************************************************/
-void cSerializableSelectable::Select( bool state )
+void cSelectable::Select( bool state )
 {
     m_selected = state;
 
@@ -45,7 +45,7 @@ void cSerializableSelectable::Select( bool state )
   * @brief
  **
 ******************************************************************************/
-bool cSerializableSelectable::IsSelected()
+bool cSelectable::IsSelected()
 {
     return m_selected;
 }
@@ -55,7 +55,7 @@ bool cSerializableSelectable::IsSelected()
   * @brief
  **
 ******************************************************************************/
-void cSerializableSelectable::DisconectFromContainer()
+void cSelectable::DisconectFromContainer()
 {
     m_smartThis = smart_ptr<ObjectNode>( NULL );
     signalSelectionChanged.disconnect_all();

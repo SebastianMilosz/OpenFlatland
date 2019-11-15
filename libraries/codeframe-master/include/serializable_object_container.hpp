@@ -23,7 +23,7 @@ namespace codeframe
     ******************************************************************************/
     class ObjectContainer : public Object
     {
-        friend class cSerializableSelectable;
+        friend class cSelectable;
 
         CODEFRAME_META_CLASS_NAME( "ObjectContainer" );
         CODEFRAME_META_BUILD_ROLE( codeframe::CONTAINER  );
@@ -34,10 +34,10 @@ namespace codeframe
             virtual ~ObjectContainer();
 
             virtual smart_ptr<ObjectNode> Create(
-                                                             const std::string& className,
-                                                             const std::string& objName,
-                                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                             ) = 0;
+                                                  const std::string& className,
+                                                  const std::string& objName,
+                                                  const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                 ) = 0;
 
             smart_ptr<ObjectNode> operator[]( int i );
 
