@@ -1,13 +1,13 @@
-#ifndef SERIALIZABLEPROPERTYMANAGER_HPP_INCLUDED
-#define SERIALIZABLEPROPERTYMANAGER_HPP_INCLUDED
+#ifndef PROPERTY_LIST_HPP_INCLUDED
+#define PROPERTY_LIST_HPP_INCLUDED
 
 #include <ThreadUtilities.h>
 #include <sigslot.h>
 #include <string>
 #include <vector>
 
-#include "serializablepropertyiterator.hpp"
-#include "serializablepropertybase.hpp"
+#include "serializable_property_iterator.hpp"
+#include "serializable_property_base.hpp"
 #include "serializable_property_selection.hpp"
 
 namespace codeframe
@@ -15,13 +15,13 @@ namespace codeframe
     class ObjectNode;
     class PropertyBase;
 
-    class cPropertyManager : public sigslot::has_slots<>
+    class cPropertyList : public sigslot::has_slots<>
     {
         friend class PropertyIterator;
 
         public:
-             cPropertyManager( ObjectNode& sint );
-            ~cPropertyManager();
+             cPropertyList( ObjectNode& sint );
+            ~cPropertyList();
 
             smart_ptr<PropertyNode> GetPropertyByName  ( const std::string& name );
             smart_ptr<PropertyNode> GetPropertyById    ( uint32_t    id   );
@@ -69,4 +69,4 @@ namespace codeframe
     };
 }
 
-#endif // SERIALIZABLEPROPERTYMANAGER_HPP_INCLUDED
+#endif // PROPERTY_LIST_HPP_INCLUDED

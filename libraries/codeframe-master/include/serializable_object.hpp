@@ -2,7 +2,7 @@
 #define _CSERIALIZABLE_OBJECT_H
 
 #include "serializable_object_node.hpp"
-#include "serializablepropertybase.hpp"
+#include "serializable_property_base.hpp"
 #include "serializable_storage.hpp"
 
 #define CODEFRAME_META_CLASS_NAME(p) public: std::string Class() const { return p; }
@@ -29,27 +29,27 @@ namespace codeframe
                      Object( const std::string& name, ObjectNode* parent = NULL );
             virtual ~Object();
 
-            cPath&       Path();
-            cStorage&    Storage();
-            cSelectable& Selection();
-            cScript&     Script();
-            cPropertyManager&        PropertyManager();
-            cObjectList& ChildList();
-            cIdentity&   Identity();
+            cPath&          Path();
+            cStorage&       Storage();
+            cSelectable&    Selection();
+            cScript&        Script();
+            cPropertyList&  PropertyManager();
+            cObjectList&    ChildList();
+            cIdentity&      Identity();
 
-            void        PulseChanged( bool fullTree = false );
-            void        CommitChanges();
-            void        Enable( bool val );
+            void PulseChanged( bool fullTree = false );
+            void CommitChanges();
+            void Enable( bool val );
 
         private:
-            cPath       m_SerializablePath;
-            cStorage    m_SerializableStorage;
-            cSelectable m_SerializableSelectable;
-            cScript     m_SerializableScript;
-            cPropertyManager        m_PropertyManager;
-            cObjectList m_childList;
-            cIdentity   m_Identity;
-            WrMutex                 m_Mutex;
+            cPath           m_SerializablePath;
+            cStorage        m_SerializableStorage;
+            cSelectable     m_SerializableSelectable;
+            cScript         m_SerializableScript;
+            cPropertyList   m_PropertyManager;
+            cObjectList     m_childList;
+            cIdentity       m_Identity;
+            WrMutex         m_Mutex;
     };
 }
 

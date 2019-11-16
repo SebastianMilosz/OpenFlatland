@@ -1,7 +1,7 @@
-#ifndef _SERIALIZABLEPROPERTY_H
-#define _SERIALIZABLEPROPERTY_H
+#ifndef _SERIALIZABLE_PROPERTY_H
+#define _SERIALIZABLE_PROPERTY_H
 
-#include "serializablepropertybase.hpp"
+#include "serializable_property_base.hpp"
 #include "extpoint2d.hpp"
 #include "extvector.hpp"
 
@@ -641,4 +641,4 @@ namespace codeframe
     };
 }
 
-#endif
+#endif  // _SERIALIZABLE_PROPERTY_H

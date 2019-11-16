@@ -1,6 +1,6 @@
-#include "serializablepropertyiterator.hpp"
+#include "serializable_property_iterator.hpp"
 
-#include "serializablepropertymanager.hpp"
+#include "serializable_property_list.hpp"
 
 namespace codeframe
 {
@@ -107,7 +107,7 @@ namespace codeframe
       * @brief Konstruktor bazowy prywatny bo tylko cSerializable moze tworzyc swoje iteratory
      **
     ******************************************************************************/
-    PropertyIterator::PropertyIterator( cPropertyManager& pm, int n ) :
+    PropertyIterator::PropertyIterator( cPropertyList& pm, int n ) :
         m_PropertyManager( pm ),
         m_curId( n )
     {

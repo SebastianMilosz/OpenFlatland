@@ -1,5 +1,5 @@
 #include "serializable_object_node.hpp"
-#include "serializableproperty.hpp"
+#include "serializable_property.hpp"
 
 #include <LoggerUtilities.h>
 
