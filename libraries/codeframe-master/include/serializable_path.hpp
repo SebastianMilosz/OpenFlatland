@@ -21,9 +21,9 @@ namespace codeframe
             bool IsNameUnique( const std::string& name, const bool checkParent = false ) const;
 
             ObjectNode*  Parent()     const;
-            ObjectNode*  GetRootObject      (                  );
-            ObjectNode*  GetObjectFromPath  ( const std::string& path );
-            ObjectNode*  GetChildByName     ( const std::string& name );
+            ObjectNode*  GetRootObject    (                  );
+            ObjectNode*  GetObjectFromPath( const std::string& path );
+            ObjectNode*  GetChildByName   ( const std::string& name );
 
         private:
             ObjectNode& m_sint;
