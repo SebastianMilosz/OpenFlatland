@@ -33,7 +33,7 @@ namespace codeframe
             cStorage&       Storage();
             cSelectable&    Selection();
             cScript&        Script();
-            cPropertyList&  PropertyManager();
+            cPropertyList&  PropertyList();
             cObjectList&    ChildList();
             cIdentity&      Identity();
 
@@ -46,7 +46,7 @@ namespace codeframe
             cStorage        m_SerializableStorage;
             cSelectable     m_SerializableSelectable;
             cScript         m_SerializableScript;
-            cPropertyList   m_PropertyManager;
+            cPropertyList   m_PropertyList;
             cObjectList     m_childList;
             cIdentity       m_Identity;
             WrMutex         m_Mutex;

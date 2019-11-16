@@ -9,8 +9,8 @@ set(CODEFRAME_LIB_HDRS
     include/extpoint2d.hpp
     include/extthrust.hpp
     include/extvector.hpp
-    include/instancemanager.hpp
-    include/referencemanager.hpp
+    include/instance_manager.hpp
+    include/reference_manager.hpp
     include/serializable_object.hpp
     include/serializable_object_list.hpp
     include/serializable_object_container.hpp
@@ -20,12 +20,12 @@ set(CODEFRAME_LIB_HDRS
     include/serializable_lua.hpp
     include/serializable_path.hpp
     include/serializable_property.hpp
-    include/serializablepropertyinfo.hpp
+    include/serializable_property_info.hpp
     include/serializable_property_iterator.hpp
     include/serializable_property_list.hpp
     include/serializable_property_selection.hpp
     include/serializable_property_node.hpp
-    include/serializableregister.hpp
+    include/serializable_register.hpp
     include/serializable_selectable.hpp
     include/serializable_storage.hpp
     include/typeinfo.hpp
@@ -39,8 +39,8 @@ set(CODEFRAME_LIB_SRC
     src/extpoint2d.cpp
     src/extthrust.cpp
     src/extvector.cpp
-    src/instancemanager.cpp
-    src/referencemanager.cpp
+    src/instance_manager.cpp
+    src/reference_manager.cpp
     src/serializable_object.cpp
     src/serializable_object_list.cpp
     src/serializable_object_container.cpp
@@ -50,11 +50,11 @@ set(CODEFRAME_LIB_SRC
     src/serializable_lua.cpp
     src/serializable_path.cpp
     src/serializable_property.cpp
-    src/serializablepropertyinfo.cpp
+    src/serializable_property_info.cpp
     src/serializable_property_iterator.cpp
     src/serializable_property_list.cpp
     src/serializable_property_selection.cpp
-    src/serializableregister.cpp
+    src/serializable_register.cpp
     src/serializable_selectable.cpp
     src/serializable_storage.cpp
     src/typeinfo.cpp

@@ -1,8 +1,8 @@
-#ifndef SERIALIZABLEPROPERTYBASE_HPP_INCLUDED
-#define SERIALIZABLEPROPERTYBASE_HPP_INCLUDED
+#ifndef SERIALIZABLE_PROPERTY_BASE_HPP_INCLUDED
+#define SERIALIZABLE_PROPERTY_BASE_HPP_INCLUDED
 
-#include "serializableregister.hpp"
-#include "serializablepropertyinfo.hpp"
+#include "serializable_register.hpp"
+#include "serializable_property_info.hpp"
 #include "serializable_property_node.hpp"
 #include "typeinfo.hpp"
 #include "ThreadUtilities.h"
@@ -168,4 +168,4 @@ namespace codeframe
     };
 }
 
-#endif // SERIALIZABLEPROPERTYBASE_HPP_INCLUDED
+#endif // SERIALIZABLE_PROPERTY_BASE_HPP_INCLUDED

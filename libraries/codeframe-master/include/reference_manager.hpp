@@ -1,5 +1,5 @@
-#ifndef REFERENCEMANAGER_HPP_INCLUDED
-#define REFERENCEMANAGER_HPP_INCLUDED
+#ifndef REFERENCE_MANAGER_HPP_INCLUDED
+#define REFERENCE_MANAGER_HPP_INCLUDED
 
 #include <map>
 #include <string>
@@ -37,4 +37,4 @@ namespace codeframe
     };
 }
 
-#endif // REFERENCEMANAGER_HPP_INCLUDED
+#endif // REFERENCE_MANAGER_HPP_INCLUDED

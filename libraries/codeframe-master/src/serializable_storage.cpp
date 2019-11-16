@@ -6,7 +6,7 @@
 #include <LoggerUtilities.h>
 
 #include "serializable_object_node.hpp"
-#include "referencemanager.hpp"
+#include "reference_manager.hpp"
 
 namespace codeframe
 {

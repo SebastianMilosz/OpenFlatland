@@ -5,7 +5,7 @@
 #include <sstream>
 #include <algorithm>
 
-#include "instancemanager.hpp"
+#include "instance_manager.hpp"
 #include "serializable_object.hpp"
 
 namespace codeframe

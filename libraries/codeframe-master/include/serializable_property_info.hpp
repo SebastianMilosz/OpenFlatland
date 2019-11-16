@@ -1,12 +1,12 @@
-#ifndef SERIALIZABLEPROPERTYINFO_HPP_INCLUDED
-#define SERIALIZABLEPROPERTYINFO_HPP_INCLUDED
+#ifndef SERIALIZABLE_PROPERTY_INFO_HPP_INCLUDED
+#define SERIALIZABLE_PROPERTY_INFO_HPP_INCLUDED
 
 #include <map>
 #include <string>
 #include <limits.h>
 
-#include "referencemanager.hpp"
-#include "serializableregister.hpp"
+#include "reference_manager.hpp"
+#include "serializable_register.hpp"
 
 namespace codeframe
 {
@@ -100,4 +100,4 @@ namespace codeframe
     };
 }
 
-#endif // SERIALIZABLEPROPERTYINFO_HPP_INCLUDED
+#endif // SERIALIZABLE_PROPERTY_BASE_HPP_INCLUDED

@@ -99,7 +99,7 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<PropertyNode> cScript::GetProperty( const std::string& path )
     {
-        return m_sint.PropertyManager().GetPropertyFromPath( path );
+        return m_sint.PropertyList().GetPropertyFromPath( path );
     }
 
     /*****************************************************************************/

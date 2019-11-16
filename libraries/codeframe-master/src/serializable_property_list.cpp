@@ -89,7 +89,7 @@ namespace codeframe
 
         if( object )
         {
-            smart_ptr<PropertyNode> propNode = object->PropertyManager().GetPropertyByName( propertyName );
+            smart_ptr<PropertyNode> propNode = object->PropertyList().GetPropertyByName( propertyName );
             return propNode;
         }
 

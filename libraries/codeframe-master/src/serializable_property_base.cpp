@@ -5,7 +5,7 @@
 #include <sstream>
 #include <algorithm>
 
-#include "instancemanager.hpp"
+#include "instance_manager.hpp"
 #include "serializable_object.hpp"
 
 namespace codeframe
@@ -46,11 +46,11 @@ namespace codeframe
 
         m_Mutex.Lock();
 
-        int size = m_parentpc->PropertyManager().GetObjectFieldCnt();
+        int size = m_parentpc->PropertyList().GetObjectFieldCnt();
 
         m_id = GetHashId( Name(), 255 * s_globalParConCnt + size );
 
-        m_parentpc->PropertyManager().RegisterProperty( this );
+        m_parentpc->PropertyList().RegisterProperty( this );
 
         s_globalParConCnt++;
 
@@ -68,7 +68,7 @@ namespace codeframe
 
         m_Mutex.Lock();
 
-        m_parentpc->PropertyManager().UnRegisterProperty( this );
+        m_parentpc->PropertyList().UnRegisterProperty( this );
 
         s_globalParConCnt--;
 

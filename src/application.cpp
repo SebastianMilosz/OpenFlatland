@@ -4,7 +4,7 @@
 #include "performancelogger.hpp"
 #include "performanceapplicationdef.hpp"
 
-#include <referencemanager.hpp>
+#include <reference_manager.hpp>
 #include <utilities/MathUtilities.h>
 #include <utilities/LoggerUtilities.h>
 #include <SFML/Graphics.hpp>

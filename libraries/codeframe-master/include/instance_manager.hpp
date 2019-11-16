@@ -1,5 +1,5 @@
-#ifndef INSTANCEMANAGER_H_INCLUDED
-#define INSTANCEMANAGER_H_INCLUDED
+#ifndef INSTANCE_MANAGER_H_INCLUDED
+#define INSTANCE_MANAGER_H_INCLUDED
 
 #include <vector>
 #include <algorithm>
@@ -33,4 +33,4 @@ namespace codeframe
 
 }
 
-#endif // INSTANCEMANAGER_H_INCLUDED
+#endif // INSTANCE_MANAGER_H_INCLUDED
