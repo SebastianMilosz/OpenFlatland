@@ -1,5 +1,5 @@
-#ifndef CSELECTABLE_HPP_INCLUDED
-#define CSELECTABLE_HPP_INCLUDED
+#ifndef SELECTABLE_HPP_INCLUDED
+#define SELECTABLE_HPP_INCLUDED
 
 #include <sigslot.h>
 #include <smartpointer.h>
@@ -46,4 +46,4 @@ namespace codeframe
     };
 }
 
-#endif // CSELECTABLE_HPP_INCLUDED
+#endif // SELECTABLE_HPP_INCLUDED
