@@ -32,7 +32,7 @@ namespace codeframe
         m_SerializableStorage( *this ),
         m_SerializableSelectable( *this ),
         m_SerializableScript( *this ),
-        m_PropertyManager( *this ),
+        m_PropertyList( *this ),
         m_Identity( name, *this )
     {
         m_SerializablePath.ParentBound( parent );
@@ -46,7 +46,7 @@ namespace codeframe
     void Object::PulseChanged( bool fullTree )
     {
         m_Identity.EnterPulseState();
-        m_PropertyManager.PulseChanged();
+        m_PropertyList.PulseChanged();
         m_Identity.LeavePulseState();
 
         if ( fullTree )
@@ -64,7 +64,7 @@ namespace codeframe
     {
         // Wyrejestrowywujemy sie u rodzica
         m_SerializablePath.ParentUnbound();
-        m_PropertyManager.ClearPropertyList();
+        m_PropertyList.ClearPropertyList();
     }
 
     /*****************************************************************************/
@@ -112,9 +112,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cPropertyList& Object::PropertyManager()
+    cPropertyList& Object::PropertyList()
     {
-        return m_PropertyManager;
+        return m_PropertyList;
     }
 
     /*****************************************************************************/
@@ -144,7 +144,7 @@ namespace codeframe
     ******************************************************************************/
     void Object::CommitChanges()
     {
-        m_PropertyManager.CommitChanges();
+        m_PropertyList.CommitChanges();
         m_childList.CommitChanges();
     }
 
@@ -155,7 +155,7 @@ namespace codeframe
     ******************************************************************************/
     void Object::Enable( bool val )
     {
-        m_PropertyManager.Enable( val );
+        m_PropertyList.Enable( val );
         m_childList.Enable( val );
     }
 

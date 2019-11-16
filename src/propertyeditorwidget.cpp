@@ -112,7 +112,7 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
         if ( node_open == true )
         {
             // Iterate through properties in object
-            for ( codeframe::PropertyIterator it = obj->PropertyManager().begin(); it != obj->PropertyManager().end(); ++it )
+            for ( codeframe::PropertyIterator it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
             {
                 codeframe::PropertyBase* iser = *it;
 

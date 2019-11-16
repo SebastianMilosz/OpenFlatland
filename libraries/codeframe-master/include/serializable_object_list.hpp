@@ -1,5 +1,5 @@
-#ifndef SERIALIZABLECHILDLIST_H
-#define SERIALIZABLECHILDLIST_H
+#ifndef SERIALIZABLE_CHILD_LIST_H
+#define SERIALIZABLE_CHILD_LIST_H
 
 #include <vector>
 #include <MathUtilities.h>
@@ -73,4 +73,4 @@ namespace codeframe
 
 }
 
-#endif // SERIALIZABLECHILDLIST_H
+#endif // SERIALIZABLE_CHILD_LIST_H

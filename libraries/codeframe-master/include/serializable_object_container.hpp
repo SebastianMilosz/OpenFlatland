@@ -1,5 +1,5 @@
-#ifndef CSERIALIZABLECONTAINER_H
-#define CSERIALIZABLECONTAINER_H
+#ifndef SERIALIZABLE_CONTAINER_H
+#define SERIALIZABLE_CONTAINER_H
 
 #include <exception>
 #include <stdexcept>
@@ -76,4 +76,4 @@ namespace codeframe
 
 }
 
-#endif // CSERIALIZABLECONTAINER_H
+#endif // SERIALIZABLE_CONTAINER_H

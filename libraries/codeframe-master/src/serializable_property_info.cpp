@@ -1,4 +1,4 @@
-#include "serializablepropertyinfo.hpp"
+#include "serializable_property_info.hpp"
 
 namespace codeframe
 {

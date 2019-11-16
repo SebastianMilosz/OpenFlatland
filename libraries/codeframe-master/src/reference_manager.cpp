@@ -1,4 +1,4 @@
-#include "referencemanager.hpp"
+#include "reference_manager.hpp"
 
 #include <cstring>      // std::strlen
 
@@ -101,7 +101,7 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
         if ( (PropertyBase*)NULL != refData.Property )
         {
-            smart_ptr<PropertyNode> targetProp = root.PropertyManager().GetPropertyFromPath( referenceAbsolutePath );
+            smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( referenceAbsolutePath );
 
             if ( smart_ptr_isValid( targetProp ) )
             {

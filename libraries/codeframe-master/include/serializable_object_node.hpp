@@ -43,7 +43,7 @@ namespace codeframe
             virtual cStorage&       Storage() = 0;
             virtual cSelectable&    Selection() = 0;
             virtual cScript&        Script() = 0;
-            virtual cPropertyList&  PropertyManager() = 0;
+            virtual cPropertyList&  PropertyList() = 0;
             virtual cObjectList&    ChildList() = 0;
             virtual cIdentity&      Identity() = 0;
 
