@@ -91,7 +91,7 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
         REQUIRE( (int)(*static_cast<classTest_Dynamic*>(smart_ptr_getRaw(staticContainerObject[0]))).Property1 == 100 );
 
         // Direct property access
-        smart_ptr<PropertyNode> propNode = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );
+        smart_ptr<PropertyNode> propNode = staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );
         REQUIRE( smart_ptr_isValid( propNode ) );
         REQUIRE( (int)(*propNode) == 100 );
 
@@ -105,12 +105,12 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
 
         REQUIRE( (int)(*propNode) == 1 );
 
-        propNode = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property2" );
+        propNode = staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property2" );
 
         REQUIRE( (int)(*propNode) == 789 );
 
         // Property access by selection
-        propNode = staticSerializableObject.PropertyManager().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[*].Property1" );
+        propNode = staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[*].Property1" );
 
         REQUIRE( smart_ptr_isValid( propNode ) );
 

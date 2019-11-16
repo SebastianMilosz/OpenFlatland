@@ -1,5 +1,5 @@
-#ifndef CSTORAGE_H
-#define CSTORAGE_H
+#ifndef STORAGE_H
+#define STORAGE_H
 
 #include "cxml.hpp"
 
@@ -40,4 +40,4 @@ namespace codeframe
 
 }
 
-#endif // CSTORAGE_H
+#endif // STORAGE_H

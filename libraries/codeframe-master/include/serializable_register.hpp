@@ -1,5 +1,5 @@
-#ifndef SERIALIZABLEREGISTER_H
-#define SERIALIZABLEREGISTER_H
+#ifndef SERIALIZABLE_REGISTER_H
+#define SERIALIZABLE_REGISTER_H
 
 #include <stdint.h>
 
@@ -59,16 +59,16 @@ namespace codeframe
                 m_enable            = val.m_enable;
 
                 m_registerRead      = val.m_registerRead;
-                m_registerSizeRead	= val.m_registerSizeRead;
-                m_cellOffsetRead	= val.m_cellOffsetRead;
+                m_registerSizeRead  = val.m_registerSizeRead;
+                m_cellOffsetRead    = val.m_cellOffsetRead;
                 m_cellSizeRead      = val.m_cellSizeRead;
-                m_bitMaskRead		= val.m_bitMaskRead;
+                m_bitMaskRead       = val.m_bitMaskRead;
 
                 m_registerWrite     = val.m_registerWrite;
-                m_registerSizeWrite	= val.m_registerSizeWrite;
-                m_cellOffsetWrite	= val.m_cellOffsetWrite;
+                m_registerSizeWrite = val.m_registerSizeWrite;
+                m_cellOffsetWrite   = val.m_cellOffsetWrite;
                 m_cellSizeWrite     = val.m_cellSizeWrite;
-                m_bitMaskWrite		= val.m_bitMaskWrite;
+                m_bitMaskWrite      = val.m_bitMaskWrite;
 
                 return *this;
             }
@@ -83,10 +83,8 @@ namespace codeframe
             explicit cRegisterFormatter(cRegister& reg) : m_reg(reg)
             {
             }
-
-
     };
 
 }
 
-#endif // SERIALIZABLEREGISTER_H
+#endif // SERIALIZABLE_REGISTER_H
