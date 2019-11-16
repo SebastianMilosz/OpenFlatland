@@ -1,4 +1,4 @@
-#include "serializablepropertybase.hpp"
+#include "serializable_property_base.hpp"
 
 #include <exception>
 #include <stdexcept>

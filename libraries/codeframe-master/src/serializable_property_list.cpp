@@ -1,8 +1,7 @@
-#include "serializablepropertymanager.hpp"
+#include "serializable_property_list.hpp"
+#include "serializable_object_node.hpp"
 
 #include <LoggerUtilities.h>
-
-#include "serializable_object_node.hpp"
 
 namespace codeframe
 {
@@ -11,7 +10,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cPropertyManager::cPropertyManager( ObjectNode& sint ) :
+    cPropertyList::cPropertyList( ObjectNode& sint ) :
         m_sint( sint ),
         m_dummyProperty(NULL, "DUMMY", TYPE_NON, cPropertyInfo())
     {
@@ -23,7 +22,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cPropertyManager::~cPropertyManager()
+    cPropertyList::~cPropertyList()
     {
 
     }
@@ -33,7 +32,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<PropertyNode> cPropertyManager::GetPropertyByName( const std::string& name )
+    smart_ptr<PropertyNode> cPropertyList::GetPropertyByName( const std::string& name )
     {
         // Po wszystkich zarejestrowanych parametrach
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
@@ -55,7 +54,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<PropertyNode> cPropertyManager::GetPropertyById( uint32_t id )
+    smart_ptr<PropertyNode> cPropertyList::GetPropertyById( uint32_t id )
     {
         //m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
@@ -79,7 +78,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<PropertyNode> cPropertyManager::GetPropertyFromPath( const std::string& path )
+    smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath( const std::string& path )
     {
         // Wydzielamy sciezke od nazwy propertisa
         std::string::size_type found = path.find_last_of(".");
@@ -102,7 +101,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string cPropertyManager::GetNameById( uint32_t id ) const
+    std::string cPropertyList::GetNameById( uint32_t id ) const
     {
         std::string retName = "";
 
@@ -126,7 +125,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string cPropertyManager::SizeString() const
+    std::string cPropertyList::SizeString() const
     {
         return utilities::math::IntToStr( size() );
     }
@@ -136,7 +135,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyManager::PulseChanged()
+    void cPropertyList::PulseChanged()
     {
         // Emitujemy sygnaly zmiany wszystkich propertisow
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
@@ -154,7 +153,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyManager::CommitChanges()
+    void cPropertyList::CommitChanges()
     {
         m_Mutex.Lock();
         for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
@@ -173,7 +172,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyManager::Enable( bool val )
+    void cPropertyList::Enable( bool val )
     {
         // Po wszystkich propertisach ustawiamy nowy stan
         m_Mutex.Lock();
@@ -193,12 +192,12 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyManager::RegisterProperty( PropertyBase* prop )
+    void cPropertyList::RegisterProperty( PropertyBase* prop )
     {
         m_Mutex.Lock();
         m_vMainPropertyList.push_back( prop );
-        prop->signalChanged.connect(this, &cPropertyManager::slotPropertyChanged       );
-        prop->signalChanged.connect(this, &cPropertyManager::slotPropertyChangedGlobal );
+        prop->signalChanged.connect(this, &cPropertyList::slotPropertyChanged       );
+        prop->signalChanged.connect(this, &cPropertyList::slotPropertyChangedGlobal );
         m_Mutex.Unlock();
     }
 
@@ -207,7 +206,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyManager::UnRegisterProperty( PropertyBase* prop )
+    void cPropertyList::UnRegisterProperty( PropertyBase* prop )
     {
         m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
@@ -230,7 +229,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyManager::ClearPropertyList()
+    void cPropertyList::ClearPropertyList()
     {
         m_Mutex.Lock();
         m_vMainPropertyList.clear();
@@ -242,7 +241,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cPropertyManager::IsPropertyUnique( const std::string& name ) const
+    bool cPropertyList::IsPropertyUnique( const std::string& name ) const
     {
         int octcnt = 0;
 
@@ -266,7 +265,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyBase* cPropertyManager::GetObjectFieldValue( int cnt )
+    PropertyBase* cPropertyList::GetObjectFieldValue( int cnt )
     {
         m_Mutex.Lock();
         PropertyBase* retParameter = m_vMainPropertyList.at( cnt );
@@ -280,7 +279,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    int cPropertyManager::GetObjectFieldCnt() const
+    int cPropertyList::GetObjectFieldCnt() const
     {
         m_Mutex.Lock();
         int retSize = m_vMainPropertyList.size();
@@ -294,7 +293,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyIterator cPropertyManager::begin() throw()
+    PropertyIterator cPropertyList::begin() throw()
     {
         return PropertyIterator( *this, 0 );
     }
@@ -304,7 +303,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyIterator cPropertyManager::end() throw()
+    PropertyIterator cPropertyList::end() throw()
     {
         return PropertyIterator( *this, GetObjectFieldCnt() );
     }
@@ -314,7 +313,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    int cPropertyManager::size() const
+    int cPropertyList::size() const
     {
         return GetObjectFieldCnt();
     }
@@ -324,7 +323,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyManager::slotPropertyChangedGlobal( PropertyBase* prop )
+    void cPropertyList::slotPropertyChangedGlobal( PropertyBase* prop )
     {
         signalPropertyChanged.Emit( prop );
     }
@@ -334,7 +333,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyManager::slotPropertyChanged( PropertyBase* prop )
+    void cPropertyList::slotPropertyChanged( PropertyBase* prop )
     {
         #ifdef SERIALIZABLE_USE_WXWIDGETS
         wxUpdatePropertyValue( prop );

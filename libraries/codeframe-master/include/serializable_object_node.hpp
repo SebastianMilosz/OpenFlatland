@@ -12,13 +12,13 @@
 #include <MathUtilities.h>
 #include <ThreadUtilities.h>
 
-#include "serializableproperty.hpp"
+#include "serializable_property.hpp"
 #include "serializable_object_list.hpp"
 #include "serializable_identity.hpp"
 #include "serializable_path.hpp"
 #include "serializable_storage.hpp"
-#include "serializableselectable.hpp"
-#include "serializablepropertymanager.hpp"
+#include "serializable_selectable.hpp"
+#include "serializable_property_list.hpp"
 #include "serializable_lua.hpp"
 #include "xmlformatter.hpp"
 
@@ -39,13 +39,13 @@ namespace codeframe
             virtual eBuildRole  Role()              const = 0;    ///< Class role meta data
             virtual eBuildType  BuildType()         const = 0;    ///< Class build type meta data
 
-            virtual cPath&       Path() = 0;
-            virtual cStorage&    Storage() = 0;
-            virtual cSelectable& Selection() = 0;
-            virtual cScript&          Script() = 0;
-            virtual cPropertyManager& PropertyManager() = 0;
-            virtual cObjectList&      ChildList() = 0;
-            virtual cIdentity&        Identity() = 0;
+            virtual cPath&          Path() = 0;
+            virtual cStorage&       Storage() = 0;
+            virtual cSelectable&    Selection() = 0;
+            virtual cScript&        Script() = 0;
+            virtual cPropertyList&  PropertyManager() = 0;
+            virtual cObjectList&    ChildList() = 0;
+            virtual cIdentity&      Identity() = 0;
 
             virtual void PulseChanged( bool fullTree = false ) = 0;
             virtual void CommitChanges() = 0;

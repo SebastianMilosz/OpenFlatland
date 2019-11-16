@@ -112,7 +112,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cPropertyManager& Object::PropertyManager()
+    cPropertyList& Object::PropertyManager()
     {
         return m_PropertyManager;
     }

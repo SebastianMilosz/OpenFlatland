@@ -16,16 +16,17 @@ set(CODEFRAME_LIB_HDRS
     include/serializable_object_container.hpp
     include/serializable_identity.hpp
     include/serializable_object_node.hpp
+    include/serializable_property_base.hpp
     include/serializable_lua.hpp
     include/serializable_path.hpp
-    include/serializableproperty.hpp
+    include/serializable_property.hpp
     include/serializablepropertyinfo.hpp
-    include/serializablepropertyiterator.hpp
-    include/serializablepropertymanager.hpp
+    include/serializable_property_iterator.hpp
+    include/serializable_property_list.hpp
     include/serializable_property_selection.hpp
     include/serializable_property_node.hpp
     include/serializableregister.hpp
-    include/serializableselectable.hpp
+    include/serializable_selectable.hpp
     include/serializable_storage.hpp
     include/typeinfo.hpp
     include/xmlformatter.hpp
@@ -45,16 +46,16 @@ set(CODEFRAME_LIB_SRC
     src/serializable_object_container.cpp
     src/serializable_identity.cpp
     src/serializable_object_node.cpp
-    src/serializablepropertybase.cpp
+    src/serializable_property_base.cpp
     src/serializable_lua.cpp
     src/serializable_path.cpp
-    src/serializableproperty.cpp
+    src/serializable_property.cpp
     src/serializablepropertyinfo.cpp
-    src/serializablepropertyiterator.cpp
-    src/serializablepropertymanager.cpp
+    src/serializable_property_iterator.cpp
+    src/serializable_property_list.cpp
     src/serializable_property_selection.cpp
     src/serializableregister.cpp
-    src/serializableselectable.cpp
+    src/serializable_selectable.cpp
     src/serializable_storage.cpp
     src/typeinfo.cpp
     src/xmlformatter.cpp
