@@ -31,7 +31,7 @@ ConstElementsFactory::~ConstElementsFactory()
 ******************************************************************************/
 smart_ptr<ConstElement> ConstElementsFactory::Create( smart_ptr<ConstElement> )
 {
-
+    return smart_ptr<ConstElement>( nullptr );
 }
 
 /*****************************************************************************/
@@ -43,7 +43,7 @@ smart_ptr<ConstElement> ConstElementsFactory::CreateLine( codeframe::Point2D<int
 {
     smart_ptr<ConstElementLine> obj = smart_ptr<ConstElementLine>( new ConstElementLine( "line", sPoint, ePoint ) );
 
-    int id = InsertObject( obj );
+    (void)InsertObject( obj );
 
     signalElementAdd.Emit( obj );
 
@@ -83,7 +83,7 @@ smart_ptr<codeframe::ObjectNode> ConstElementsFactory::Create(
 
         smart_ptr<ConstElementLine> obj = smart_ptr<ConstElementLine>( new ConstElementLine( objName, startPoint, endPoint ) );
 
-        int id = InsertObject( obj );
+        (void)InsertObject( obj );
 
         signalElementAdd.Emit( obj );
 

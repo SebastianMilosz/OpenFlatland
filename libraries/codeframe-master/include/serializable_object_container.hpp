@@ -48,12 +48,12 @@ namespace codeframe
             virtual bool DisposeByBuildType( eBuildType serType, cIgnoreList ignore = cIgnoreList() );
             virtual bool Dispose();
 
-            int         Count() const;
-            bool        IsName( const std::string& name );
-            std::string CreateUniqueName( const std::string& nameBase );
-            bool        IsInRange( unsigned int cnt ) const;
-            bool        Select( int pos );
-            bool        IsSelected();
+            unsigned int Count() const;
+            bool         IsName( const std::string& name );
+            std::string  CreateUniqueName( const std::string& nameBase );
+            bool         IsInRange( unsigned int cnt ) const;
+            bool         Select( int pos );
+            bool         IsSelected();
 
             smart_ptr<ObjectNode> GetSelected();
             smart_ptr<ObjectNode> Get( int id );
