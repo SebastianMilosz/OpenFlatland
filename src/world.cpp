@@ -9,8 +9,6 @@
 
 #include <utilities/LoggerUtilities.h>
 
-#include <ctpl_stl.h>
-
 class QueryCallback : public b2QueryCallback
 {
 public:
@@ -47,10 +45,10 @@ public:
 ******************************************************************************/
 World::World( const std::string& name, ObjectNode* parent ) :
     Object( name, parent ),
+    m_GroundBody( NULL ),
+    m_MouseJoint( NULL ),
     m_Gravity( 0.f, 0.f ),
     m_World( m_Gravity ),
-    m_MouseJoint( NULL ),
-    m_GroundBody( NULL ),
     m_entitySelMode( false )
 {
     b2BodyDef groundBodyDef;
@@ -292,7 +290,7 @@ void World::CalculateRays( void )
 
                 //#pragma omp parallel for shared(vosion, pWorld, rayLength, rayCntLimit, currentRayAngle, rayAngleStep, callback, p1, p2) private(ray)
                 //{
-                    #pragma omp for nowait
+                    //#pragma omp for nowait
                     for ( ray = 0U; ray < rayCntLimit; ray++ )
                     {
                         //calculate points of ray

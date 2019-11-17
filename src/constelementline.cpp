@@ -75,7 +75,8 @@ void ConstElementLine::Draw( sf::RenderWindow& window, b2Body* body )
 {
     if( (b2Body*)NULL != body )
     {
-        sf::Color& entColor = GetColor();
+        // @todo Support line color
+        //sf::Color& entColor = GetColor();
 
         float xpos = sDescriptor::PIXELS_IN_METER * body->GetPosition().x;
         float ypos = sDescriptor::PIXELS_IN_METER * body->GetPosition().y;

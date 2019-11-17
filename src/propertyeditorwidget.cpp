@@ -215,6 +215,10 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
 
                             break;
                         }
+                        default:
+                        {
+
+                        }
                     }
 
                     ImGui::PopItemWidth();

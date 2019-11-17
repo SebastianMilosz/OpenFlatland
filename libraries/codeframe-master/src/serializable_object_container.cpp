@@ -12,7 +12,7 @@ using namespace codeframe;
 ObjectContainer::ObjectContainer( const std::string& name, ObjectNode* parentObject ) :
     Object( name, parentObject ),
     m_selected( smart_ptr<Object>(NULL) ),
-    m_size( 0 )
+    m_size( 0U )
 {
 }
 
@@ -31,7 +31,7 @@ ObjectContainer::~ObjectContainer()
   * @brief
  **
 ******************************************************************************/
-int ObjectContainer::Count() const
+unsigned int ObjectContainer::Count() const
 {
     return m_size;
 }
@@ -185,7 +185,10 @@ bool ObjectContainer::Dispose( smart_ptr<ObjectNode> obj )
             {
                 sptr->Selection().DisconectFromContainer();
                 *it = smart_ptr<Object>();
-                if( m_size ) m_size--;
+                if ( m_size )
+                {
+                    m_size--;
+                }
                 signalContainerSelectionChanged.Emit( sptr );
                 return true;
             }
@@ -221,7 +224,7 @@ bool ObjectContainer::Dispose()
     }
 
     m_containerVector.clear();
-    m_size = 0;
+    m_size = 0U;
 
     return true;
 }

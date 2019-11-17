@@ -211,7 +211,10 @@ namespace codeframe
         {
             std::string levelName = tokens.at(i);
             curObject = curObject->Path().GetChildByName( levelName );
-            if(curObject == NULL) break;
+            if(curObject == NULL)
+            {
+                break;
+            }
         }
 
         return curObject;
