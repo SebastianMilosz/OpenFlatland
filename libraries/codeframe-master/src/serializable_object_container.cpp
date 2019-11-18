@@ -11,7 +11,7 @@ using namespace codeframe;
 ******************************************************************************/
 ObjectContainer::ObjectContainer( const std::string& name, ObjectNode* parentObject ) :
     Object( name, parentObject ),
-    m_selected( smart_ptr<Object>(NULL) ),
+    m_selected( smart_ptr<Object>( nullptr ) ),
     m_size( 0U )
 {
 }
@@ -114,7 +114,7 @@ bool ObjectContainer::Dispose( unsigned int id )
     if ( smart_ptr_isValid( obj ) == true )
     {
         m_containerVector[ id ]->Selection().DisconectFromContainer();
-        m_containerVector[ id ] = smart_ptr<Object>(NULL);
+        m_containerVector[ id ] = smart_ptr<Object>(nullptr);
 
         if ( m_size )
         {
@@ -151,7 +151,7 @@ bool ObjectContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore
         if ( smart_ptr_isValid( sptr ) && sptr->BuildType() == serType && ignore.IsIgnored( smart_ptr_getRaw( sptr ) ) == false )
         {
             sptr->Selection().DisconectFromContainer();
-            *it = smart_ptr<Object>(NULL);
+            *it = smart_ptr<Object>( nullptr );
 
             if ( m_size )
             {
@@ -215,7 +215,7 @@ bool ObjectContainer::Dispose()
         if( smart_ptr_getCount( obj ) <= 2 )
         {
             obj->Selection().DisconectFromContainer();
-            obj = smart_ptr<Object>(NULL);
+            obj = smart_ptr<Object>( nullptr );
         }
         else // Nie mozna usunac obiektu
         {
@@ -302,7 +302,7 @@ smart_ptr<ObjectNode> ObjectContainer::Get( int id )
         }
     }
 
-    return smart_ptr<ObjectNode>( NULL );
+    return smart_ptr<ObjectNode>( nullptr );
 }
 
 /*****************************************************************************/
@@ -368,7 +368,7 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, int pos )
     }
 
     // If there is no parent we become one
-    if( NULL == classType->Path().Parent() )
+    if( nullptr == classType->Path().Parent() )
     {
         ObjectNode* serPar = static_cast<ObjectNode*>( this );
         classType->Path().ParentBound( serPar );
@@ -391,7 +391,7 @@ void ObjectContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
 {
     Object* serializableObjectNew = static_cast<Object*>( smart_ptr_getRaw(obj) );
 
-    if ( (Object*)NULL != serializableObjectNew )
+    if ( (Object*)nullptr != serializableObjectNew )
     {
         std::string name = serializableObjectNew->Identity().ObjectName();
 
@@ -401,7 +401,7 @@ void ObjectContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
 
             if( serializableObjectSel != serializableObjectNew )
             {
-                if ( (Object*)NULL != serializableObjectSel )
+                if ( (Object*)nullptr != serializableObjectSel )
                 {
                     serializableObjectSel->Selection().Select( false );
                 }

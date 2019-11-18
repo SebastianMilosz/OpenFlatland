@@ -42,7 +42,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::RegisterProperty()
     {
-        if( m_parentpc == NULL ) return;
+        if ( m_parentpc == nullptr )
+        {
+            return;
+        }
 
         m_Mutex.Lock();
 
@@ -64,7 +67,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::UnRegisterProperty()
     {
-        if( m_parentpc == NULL ) return;
+        if( m_parentpc == nullptr )
+        {
+            return;
+        }
 
         m_Mutex.Lock();
 

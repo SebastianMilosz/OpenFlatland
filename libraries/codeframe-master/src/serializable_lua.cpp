@@ -31,7 +31,7 @@ namespace codeframe
      **
     ******************************************************************************/
     cScript::cScript( ObjectNode& sint ) :
-        m_luastate( NULL ),
+        m_luastate( nullptr ),
         m_sint( sint )
     {
 
@@ -115,7 +115,7 @@ namespace codeframe
 
         m_luastate = luaL_newstate();
 
-        if( m_luastate == NULL ) return;
+        if( m_luastate == nullptr ) return;
 
         try
         {
@@ -128,14 +128,14 @@ namespace codeframe
                 // compile-time error
                 LOGGER( LOG_ERROR << "LUA script compile-time error: " << lua_tostring( m_luastate, -1 ) );
                 lua_close( m_luastate );
-                m_luastate = NULL;
+                m_luastate = nullptr;
             }
             else if( lua_pcall( m_luastate, 0, 0, 0 ) != 0 )
             {
                 // runtime error
                 LOGGER( LOG_ERROR << "LUA script runtime error: " << lua_tostring( m_luastate, -1 ) );
                 lua_close( m_luastate );
-                m_luastate = NULL;
+                m_luastate = nullptr;
             }
         }
         catch(const std::runtime_error& re)

@@ -12,7 +12,7 @@ namespace codeframe
     ******************************************************************************/
     cPropertyList::cPropertyList( ObjectNode& sint ) :
         m_sint( sint ),
-        m_dummyProperty(NULL, "DUMMY", TYPE_NON, cPropertyInfo())
+        m_dummyProperty( nullptr, "DUMMY", TYPE_NON, cPropertyInfo() )
     {
 
     }
@@ -70,7 +70,7 @@ namespace codeframe
 
         throw std::out_of_range( "cSerializable::GetPropertyById(" + utilities::math::IntToStr(id) + "): Out of range" );
 
-        return smart_ptr<PropertyNode>( NULL );
+        return smart_ptr<PropertyNode>( nullptr );
     }
 
     /*****************************************************************************/
@@ -89,15 +89,11 @@ namespace codeframe
 
         if( smart_ptr_isValid( objectSelection ) )
         {
-            ObjectNode* node = objectSelection->GetNode();
-            if ( node != nullptr )
-            {
-                smart_ptr<PropertyNode> propNode = node->PropertyList().GetPropertyByName( propertyName );
-                return propNode;
-            }
+            smart_ptr<PropertyNode> propNode = objectSelection->GetNode()->PropertyList().GetPropertyByName( propertyName );
+            return propNode;
         }
 
-        return smart_ptr<PropertyNode>( NULL );
+        return smart_ptr<PropertyNode>( nullptr );
     }
 
     /*****************************************************************************/

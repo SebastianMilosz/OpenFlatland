@@ -43,11 +43,7 @@ namespace codeframe
 
         if( smart_ptr_isValid( parentSelection ) )
         {
-            ObjectNode* node = parentSelection->GetNode();
-            if ( node != nullptr )
-            {
-                path = node->Path().PathString() + "/" + path;
-            }
+            path = parentSelection->GetNode()->Path().PathString() + "/" + path;
         }
 
         path += m_sint.Identity().ObjectName( true );
@@ -178,11 +174,7 @@ namespace codeframe
     {
         if ( smart_ptr_isValid( Parent() ) )
         {
-            ObjectNode* node = Parent()->GetNode();
-            if ( node != nullptr )
-            {
-                return node->Path().GetRootObject();
-            }
+            return Parent()->GetNode()->Path().GetRootObject();
         }
 
         return smart_ptr<ObjectSelection>( new ObjectSelection( &m_sint ) );

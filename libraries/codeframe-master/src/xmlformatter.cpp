@@ -261,7 +261,7 @@ namespace codeframe
             ObjectContainer* containerObject = dynamic_cast< ObjectContainer* >(&m_serializableObject);
 
             // Usuwamy wszystkie dynamiczne obiekty z kontenera
-            if ( (ObjectContainer*)NULL != containerObject )
+            if ( (ObjectContainer*)nullptr != containerObject )
             {
                 cIgnoreList ignore;
 

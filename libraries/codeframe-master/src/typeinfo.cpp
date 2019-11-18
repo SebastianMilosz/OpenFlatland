@@ -18,13 +18,13 @@ namespace codeframe
         TypeCompName( typeName ),
         TypeUserName( typeUser ),
         TypeCode( enumType ),
-        FromStringCallback( NULL ),
-        ToStringCallback( NULL ),
-        FromIntegerCallback( NULL ),
-        ToIntegerCallback( NULL ),
-        FromRealCallback( NULL ),
-        ToRealCallback( NULL ),
-        AddOperatorCallback( NULL )
+        FromStringCallback( nullptr ),
+        ToStringCallback( nullptr ),
+        FromIntegerCallback( nullptr ),
+        ToIntegerCallback( nullptr ),
+        FromRealCallback( nullptr ),
+        ToRealCallback( nullptr ),
+        AddOperatorCallback( nullptr )
     {
     }
 
@@ -176,8 +176,8 @@ namespace codeframe
         GetTypeInfo<float          >().SetFromIntegerCallback( &FundamentalTypes<float>::FloatFromInt  );
         GetTypeInfo<double         >().SetFromIntegerCallback( &FundamentalTypes<double>::DoubleFromInt );
         GetTypeInfo<std::string    >().SetFromIntegerCallback( &FundamentalTypes<std::string>::StringFromInt );
-        GetTypeInfo<Point2D<int>   >().SetFromIntegerCallback( NULL );
-        GetTypeInfo<Point2D<float> >().SetFromIntegerCallback( NULL );
+        GetTypeInfo<Point2D<int>   >().SetFromIntegerCallback( nullptr );
+        GetTypeInfo<Point2D<float> >().SetFromIntegerCallback( nullptr );
 
         GetTypeInfo<bool           >().SetToIntegerCallback( &FundamentalTypes<bool>::BoolToInt    );
         GetTypeInfo<int            >().SetToIntegerCallback( &FundamentalTypes<int>::IntToInt     );

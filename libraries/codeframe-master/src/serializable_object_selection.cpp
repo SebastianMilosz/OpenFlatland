@@ -1,6 +1,6 @@
 #include "serializable_object_selection.hpp"
 
-#include <assert.h>
+#include <cassert>
 
 namespace codeframe
 {
