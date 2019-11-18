@@ -10,7 +10,7 @@ namespace codeframe
 ******************************************************************************/
 cSelectable::cSelectable( ObjectNode& sint ) :
     m_selected( false ),
-    m_smartThis( smart_ptr<ObjectNode>(NULL) )
+    m_smartThis( smart_ptr<ObjectNode>(nullptr) )
 {
 
 }
@@ -57,7 +57,7 @@ bool cSelectable::IsSelected()
 ******************************************************************************/
 void cSelectable::DisconectFromContainer()
 {
-    m_smartThis = smart_ptr<ObjectNode>( NULL );
+    m_smartThis = smart_ptr<ObjectNode>( nullptr );
     signalSelectionChanged.disconnect_all();
 }
 

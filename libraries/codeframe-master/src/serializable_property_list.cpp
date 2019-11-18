@@ -85,12 +85,16 @@ namespace codeframe
         std::string objPath      = path.substr( 0, found );
         std::string propertyName = path.substr( found+1  );
 
-        ObjectNode* object = m_sint.Path().GetObjectFromPath( objPath );
+        smart_ptr<ObjectSelection> objectSelection = m_sint.Path().GetObjectFromPath( objPath );
 
-        if( object )
+        if( smart_ptr_isValid( objectSelection ) )
         {
-            smart_ptr<PropertyNode> propNode = object->PropertyList().GetPropertyByName( propertyName );
-            return propNode;
+            ObjectNode* node = objectSelection->GetNode();
+            if ( node != nullptr )
+            {
+                smart_ptr<PropertyNode> propNode = node->PropertyList().GetPropertyByName( propertyName );
+                return propNode;
+            }
         }
 
         return smart_ptr<PropertyNode>( NULL );
