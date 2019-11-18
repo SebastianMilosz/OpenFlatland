@@ -1,5 +1,7 @@
 #include "serializable_property_selection.hpp"
 
+#include <cassert>
+
 namespace codeframe
 {
     /*****************************************************************************/
@@ -7,12 +9,10 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertySelection::PropertySelection( PropertyNode* prop )
+    PropertySelection::PropertySelection( PropertyNode* prop ) :
+        m_selection( prop )
     {
-        if ( prop != nullptr )
-        {
-            m_selection = prop;
-        }
+        assert( prop );
     }
 
     /*****************************************************************************/

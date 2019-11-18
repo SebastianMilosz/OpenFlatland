@@ -10,7 +10,7 @@ namespace codeframe
 ******************************************************************************/
 cSelectable::cSelectable( ObjectNode& sint ) :
     m_selected( false ),
-    m_smartThis( smart_ptr<ObjectNode>(nullptr) )
+    m_smartThis( smart_ptr<ObjectNode>( nullptr ) )
 {
 
 }

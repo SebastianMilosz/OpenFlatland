@@ -17,7 +17,7 @@ std::map<std::string, ReferenceManager::sReferenceData> ReferenceManager::m_refe
 ******************************************************************************/
 ReferenceManager::ReferenceManager() :
     m_referencePath(""),
-    m_property( NULL )
+    m_property( nullptr )
 {
 
 }
@@ -44,7 +44,7 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
 
     if ( m_referencePath != "" )
     {
-        if ( NULL != m_property )
+        if ( nullptr != m_property )
         {
             std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
             sReferenceData refData;
@@ -62,7 +62,7 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
 ******************************************************************************/
 void ReferenceManager::SetProperty( PropertyBase* prop )
 {
-    if ( (m_referencePath != "") && (NULL != prop) && (NULL == m_property) )
+    if ( (m_referencePath != "") && (nullptr != prop) && (nullptr == m_property) )
     {
         m_property = prop;
         std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
@@ -99,7 +99,7 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
         std::string referenceAbsolutePath = PreparePath( refData.RefPath, refData.Property );
 
-        if ( (PropertyBase*)NULL != refData.Property )
+        if ( (PropertyBase*)nullptr != refData.Property )
         {
             smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( referenceAbsolutePath );
 
@@ -129,12 +129,12 @@ void ReferenceManager::LogUnresolvedReferences()
     {
         sReferenceData refData = it->second;
 
-        if ( (PropertyBase*)NULL != refData.Property )
+        if ( (PropertyBase*)nullptr != refData.Property )
         {
             ObjectNode* propertyParent = refData.Property->Parent();
             std::string propertyParentPath = "NULL";
 
-            if ( NULL != propertyParent )
+            if ( nullptr != propertyParent )
             {
                 propertyParentPath = propertyParent->Path().PathString();
             }
@@ -161,7 +161,7 @@ std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase
 
     std::string retString = std::string( path );
 
-    if ( NULL != propertyParent )
+    if ( nullptr != propertyParent )
     {
         bool isDownHierarchy = (strncmp(retString.c_str(), "..", std::strlen("..")) == 0);
         bool isRelative = (strncmp(retString.c_str(), "/", std::strlen("/")) == 0);

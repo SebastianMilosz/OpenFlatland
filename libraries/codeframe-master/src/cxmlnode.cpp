@@ -12,7 +12,7 @@ using namespace codeframe;
 ******************************************************************************/
 void cXMLNode::Initialize()
 {
-    if( m_xmlNode != NULL )
+    if( m_xmlNode != nullptr )
     {
         delete m_xmlNode;
     }
@@ -24,7 +24,7 @@ void cXMLNode::Initialize()
   * @brief
  **
 ******************************************************************************/
-cXMLNode::cXMLNode() : m_xmlNode(NULL)
+cXMLNode::cXMLNode() : m_xmlNode( nullptr )
 {
     Initialize();
 }
@@ -34,7 +34,7 @@ cXMLNode::cXMLNode() : m_xmlNode(NULL)
   * @brief
  **
 ******************************************************************************/
-cXMLNode::cXMLNode( const cXMLNode& node ) : m_xmlNode(NULL)
+cXMLNode::cXMLNode( const cXMLNode& node ) : m_xmlNode( nullptr )
 {
     Initialize();
 
@@ -46,7 +46,7 @@ cXMLNode::cXMLNode( const cXMLNode& node ) : m_xmlNode(NULL)
   * @brief
  **
 ******************************************************************************/
-cXMLNode::cXMLNode( const pugi::xml_node& node ) : m_xmlNode(NULL)
+cXMLNode::cXMLNode( const pugi::xml_node& node ) : m_xmlNode( nullptr )
 {
     Initialize();
 
@@ -60,7 +60,7 @@ cXMLNode::cXMLNode( const pugi::xml_node& node ) : m_xmlNode(NULL)
 ******************************************************************************/
 cXMLNode::~cXMLNode()
 {
-    if( m_xmlNode != NULL )
+    if( m_xmlNode != nullptr )
     {
         delete m_xmlNode;
     }
