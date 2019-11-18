@@ -75,8 +75,8 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     PERFORMANCE_LEAVE( PERFORMANCE_LOAD_XML_FILE );
 
     // @todo Remove Lua test
-    this->Script().RunString("CF:GetProperty('Application/EntityFactory/Unknown[0].CastRays').Number = 1");
-    this->Script().RunString("CF:GetProperty('Application/EntityFactory/Unknown[1].CastRays').Number = 1");
+    //this->Script().RunString("CF:GetProperty('Application/EntityFactory/Unknown[0].CastRays').Number = 1");
+    //this->Script().RunString("CF:GetProperty('Application/EntityFactory/Unknown[1].CastRays').Number = 1");
 
 #if defined(_OPENMP)
     LOGGER( LOG_INFO << "OpenMP Enabled Version:" << _OPENMP );

@@ -90,9 +90,19 @@ target_include_directories( LIFESIM_App
 target_include_directories( LIFESIM_App
     PUBLIC ${PROJECT_SOURCE_DIR}/libraries/codeframe-master/include )
    
-target_link_libraries(LIFESIM_App
-    codeframe sfml-main sfml-graphics sfml-network sfml-window sfml-system Box2D lualib
+target_link_libraries( LIFESIM_App
+    codeframe 
+    sfml-graphics 
+    sfml-network 
+    sfml-window 
+    sfml-system 
+    Box2D 
+    lualib
 )
+
+if(SFML_OS_WINDOWS OR SFML_OS_ANDROID OR SFML_OS_IOS)
+target_link_libraries( LIFESIM_App sfml-main )
+endif()
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/arial.ttf
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

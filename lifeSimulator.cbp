@@ -33,6 +33,7 @@
 					<Add option="-O2" />
 					<Add option="-std=c++11" />
 					<Add option="-m32" />
+					<Add option="-DNDEBUG" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
@@ -273,6 +274,7 @@
 		<Unit filename="libraries/codeframe-master/include/serializable_object_container.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_list.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_node.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializable_object_selection.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_path.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_property.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_property_base.hpp" />
@@ -312,6 +314,7 @@
 		<Unit filename="libraries/codeframe-master/src/serializable_object_container.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_object_list.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_object_node.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializable_object_selection.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_path.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_property.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_property_base.cpp" />

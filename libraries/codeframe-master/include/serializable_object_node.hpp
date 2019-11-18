@@ -34,10 +34,10 @@ namespace codeframe
     class ObjectNode : public sigslot::has_slots<>
     {
         public:
-            virtual std::string Class()             const = 0;    ///< Class name meta data
-            virtual std::string ConstructPatern()   const = 0;    ///< Constructor parameters patern
-            virtual eBuildRole  Role()              const = 0;    ///< Class role meta data
-            virtual eBuildType  BuildType()         const = 0;    ///< Class build type meta data
+            virtual std::string Class()           const = 0;    ///< Class name meta data
+            virtual std::string ConstructPatern() const = 0;    ///< Constructor parameters patern
+            virtual eBuildRole  Role()            const = 0;    ///< Class role meta data
+            virtual eBuildType  BuildType()       const = 0;    ///< Class build type meta data
 
             virtual cPath&          Path() = 0;
             virtual cStorage&       Storage() = 0;
