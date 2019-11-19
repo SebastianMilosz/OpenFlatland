@@ -1,4 +1,4 @@
-#include "serializable_object_selection.hpp"
+#include "serializable_object_multiple_selection.hpp"
 
 #include <cassert>
 
@@ -10,10 +10,12 @@ namespace codeframe
   * @brief
  **
 ******************************************************************************/
-ObjectSelection::ObjectSelection( ObjectNode* obj ) :
-    m_selection( obj )
+ObjectMultipleSelection::ObjectMultipleSelection( ObjectNode* obj ) :
+    ObjectSelection()
 {
     assert( obj );
+
+    m_selection.push_back( obj );
 }
 
 /*****************************************************************************/
@@ -21,8 +23,7 @@ ObjectSelection::ObjectSelection( ObjectNode* obj ) :
   * @brief
  **
 ******************************************************************************/
-ObjectSelection::ObjectSelection() :
-    m_selection( nullptr )
+ObjectMultipleSelection::~ObjectMultipleSelection()
 {
 
 }
@@ -32,9 +33,9 @@ ObjectSelection::ObjectSelection() :
   * @brief
  **
 ******************************************************************************/
-ObjectSelection::~ObjectSelection()
+ObjectNode* ObjectMultipleSelection::GetNode( unsigned int id )
 {
-
+    return m_selection.at( id );
 }
 
 /*****************************************************************************/
@@ -42,9 +43,9 @@ ObjectSelection::~ObjectSelection()
   * @brief
  **
 ******************************************************************************/
-ObjectNode* ObjectSelection::GetNode( unsigned int id )
+unsigned int ObjectMultipleSelection::GetNodeCount()
 {
-    return m_selection;
+    return m_selection.size();
 }
 
 /*****************************************************************************/
@@ -52,9 +53,9 @@ ObjectNode* ObjectSelection::GetNode( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-unsigned int ObjectSelection::GetNodeCount()
+void ObjectMultipleSelection::Add( ObjectNode* obj )
 {
-    return 1U;
+    m_selection.push_back( obj );
 }
 
 }

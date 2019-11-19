@@ -15,6 +15,7 @@ set(CODEFRAME_LIB_HDRS
     include/serializable_object_list.hpp
     include/serializable_object_container.hpp
     include/serializable_object_selection.hpp
+    include/serializable_object_multiple_selection.hpp
     include/serializable_identity.hpp
     include/serializable_object_node.hpp
     include/serializable_property_base.hpp
@@ -46,6 +47,7 @@ set(CODEFRAME_LIB_SRC
     src/serializable_object_list.cpp
     src/serializable_object_container.cpp
     src/serializable_object_selection.cpp
+    src/serializable_object_multiple_selection.cpp
     src/serializable_identity.cpp
     src/serializable_object_node.cpp
     src/serializable_property_base.cpp

@@ -5,6 +5,7 @@
 #include <smartpointer.h>
 
 #include "serializable_object_selection.hpp"
+#include "serializable_object_multiple_selection.hpp"
 
 namespace codeframe
 {
