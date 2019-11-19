@@ -14,10 +14,14 @@ namespace codeframe
     class ObjectSelection
     {
         public:
-            ObjectSelection( ObjectNode* obj );
-           ~ObjectSelection();
+                    ObjectSelection( ObjectNode* obj );
+           virtual ~ObjectSelection();
 
-            ObjectNode* GetNode( unsigned int id = 0U );
+            virtual ObjectNode* GetNode( unsigned int id = 0U );
+            virtual unsigned int GetNodeCount();
+
+        protected:
+            ObjectSelection();
 
         private:
             ObjectNode* m_selection;

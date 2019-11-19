@@ -274,6 +274,7 @@
 		<Unit filename="libraries/codeframe-master/include/serializable_object.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_container.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_list.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializable_object_multiple_selection.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_node.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_selection.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_path.hpp" />
@@ -314,6 +315,7 @@
 		<Unit filename="libraries/codeframe-master/src/serializable_object.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_object_container.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_object_list.cpp" />
+		<Unit filename="libraries/codeframe-master/src/serializable_object_multiple_selection.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_object_node.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_object_selection.cpp" />
 		<Unit filename="libraries/codeframe-master/src/serializable_path.cpp" />

@@ -126,8 +126,12 @@ namespace codeframe
             }
         }
 
-        if ( octcnt == 1 ) return true;
-        else return false;
+        if ( octcnt == 1 )
+        {
+            return true;
+        }
+
+        return false;
     }
 
     /*****************************************************************************/
@@ -188,16 +192,16 @@ namespace codeframe
     smart_ptr<ObjectSelection> cPath::GetObjectFromPath( const std::string& path )
     {
         // Rozdzelamy stringa na kawalki
-        std::vector<std::string> tokens;
-        std::string              delimiters = "/";
-        ObjectNode*  curObject = &m_sint;
+        std::vector<std::string>   tokens;
+        std::string                delimiters = "/";
+        smart_ptr<ObjectSelection> curObjectSelection = smart_ptr<ObjectSelection>( new ObjectSelection( &m_sint ) );
 
         utilities::text::split( path, delimiters, tokens);
 
         // Sprawdzamy czy root sie zgadza
         if ( tokens.size() == 0 )
         {
-            if ( curObject->Identity().ObjectName() != path )
+            if ( curObjectSelection->GetNode()->Identity().ObjectName() != path )
             {
                 return smart_ptr<ObjectSelection>( nullptr );
             }
@@ -205,23 +209,29 @@ namespace codeframe
         else
         {
             std::string tempStr = tokens.at(0);
-            if ( curObject->Identity().ObjectName() != tempStr )
+            if ( curObjectSelection->GetNode()->Identity().ObjectName() != tempStr )
             {
                 return smart_ptr<ObjectSelection>( nullptr );
             }
         }
 
         // Po wszystkich skladnikach sciezki
-        for ( unsigned int i = 1; i < tokens.size(); i++ )
+        for ( unsigned int i = 1U; i < tokens.size(); i++ )
         {
             std::string levelName = tokens.at(i);
 
-            if ( smart_ptr_isValid( curObject->Path().GetChildByName( levelName ) ) == false )
+            smart_ptr<ObjectSelection> objectSelection = curObjectSelection->GetNode()->Path().GetChildByName( levelName );
+
+            if ( smart_ptr_isValid( objectSelection ) )
+            {
+                curObjectSelection = objectSelection;
+            }
+            else
             {
                 return smart_ptr<ObjectSelection>( nullptr );
             }
         }
 
-        return smart_ptr<ObjectSelection>( new ObjectSelection( curObject ) );
+        return curObjectSelection;
     }
 }
