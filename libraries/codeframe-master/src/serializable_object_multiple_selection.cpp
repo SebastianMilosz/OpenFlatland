@@ -10,6 +10,17 @@ namespace codeframe
   * @brief
  **
 ******************************************************************************/
+ObjectMultipleSelection::ObjectMultipleSelection() :
+    ObjectSelection()
+{
+
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 ObjectMultipleSelection::ObjectMultipleSelection( ObjectNode* obj ) :
     ObjectSelection()
 {

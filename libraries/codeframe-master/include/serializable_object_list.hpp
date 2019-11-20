@@ -39,6 +39,11 @@ namespace codeframe
                         return m_serializable;
                     }
 
+                    operator int() const
+                    {
+                        return m_childCnt;
+                    }
+
                     // Operator inkrementacji (przejscia na kolejne pole)
                     iterator& operator ++(){ if(m_childCnt < m_childList->size()) ++m_childCnt; return *this; }
 
