@@ -156,10 +156,39 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::GetChildByName( const std::string& name )
     {
+        // Separate * symbol
+        std::size_t foundRangeOpen  = name.find_last_of("[");
+
+        // Multi selection
+        if ( foundRangeOpen != std::string::npos )
+        {
+            if ( name.at( foundRangeOpen + 1U ) == '*' )
+            {
+                auto  nameCore( name.substr( 0, foundRangeOpen + 1U ) );
+
+                smart_ptr<ObjectMultipleSelection> multipleSelection = smart_ptr<ObjectMultipleSelection>( new ObjectMultipleSelection );
+
+                for ( cObjectList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
+                {
+                    ObjectNode* iser = *it;
+                    auto  objectName( iser->Identity().ObjectName( true ) );
+                    auto  refName( nameCore + ( std::to_string( (int)it ).append( "]" ) ) );
+
+                    if ( objectName == refName )
+                    {
+                        multipleSelection->Add( iser );
+                    }
+                }
+
+                return multipleSelection;
+            }
+        }
+
+        // Single selection
         for ( cObjectList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
         {
             ObjectNode* iser = *it;
-            std::string objectName = iser->Identity().ObjectName( true );
+            std::string objectName( iser->Identity().ObjectName( true ) );
 
             if ( objectName == name )
             {
@@ -193,7 +222,7 @@ namespace codeframe
     {
         // Rozdzelamy stringa na kawalki
         std::vector<std::string>   tokens;
-        std::string                delimiters = "/";
+        std::string                delimiters("/");
         smart_ptr<ObjectSelection> curObjectSelection = smart_ptr<ObjectSelection>( new ObjectSelection( &m_sint ) );
 
         utilities::text::split( path, delimiters, tokens);

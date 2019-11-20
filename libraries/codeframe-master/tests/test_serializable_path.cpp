@@ -116,6 +116,6 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
 
         INFO ( "The selection property name: " << propNode->Name() );
 
-        //*propNode = 777;
+        *propNode = 777;
     }
 }

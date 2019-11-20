@@ -16,6 +16,7 @@ namespace codeframe
     class ObjectMultipleSelection : public ObjectSelection
     {
         public:
+            ObjectMultipleSelection();
             ObjectMultipleSelection( ObjectNode* obj );
            ~ObjectMultipleSelection();
 
