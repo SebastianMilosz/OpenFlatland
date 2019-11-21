@@ -81,13 +81,13 @@ namespace codeframe
     smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath( const std::string& path )
     {
         // Wydzielamy sciezke od nazwy propertisa
-        std::string::size_type found = path.find_last_of(".");
-        std::string objPath      = path.substr( 0, found );
-        std::string propertyName = path.substr( found+1  );
+        std::string::size_type found( path.find_last_of(".") );
+        std::string objPath( path.substr( 0, found ) );
+        std::string propertyName( path.substr( found+1 ) );
 
         smart_ptr<ObjectSelection> objectSelection = m_sint.Path().GetObjectFromPath( objPath );
 
-        if( smart_ptr_isValid( objectSelection ) )
+        if ( smart_ptr_isValid( objectSelection ) )
         {
             smart_ptr<PropertyNode> propNode = objectSelection->GetNode()->PropertyList().GetPropertyByName( propertyName );
             return propNode;
@@ -103,14 +103,14 @@ namespace codeframe
     ******************************************************************************/
     std::string cPropertyList::GetNameById( uint32_t id ) const
     {
-        std::string retName = "";
+        std::string retName( "" );
 
         m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp && temp->Id() == id )
+            if ( temp && temp->Id() == id )
             {
                 retName = temp->Name();
             }
@@ -138,10 +138,10 @@ namespace codeframe
     void cPropertyList::PulseChanged()
     {
         // Emitujemy sygnaly zmiany wszystkich propertisow
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp )
+            if ( temp )
             {
                 temp->PulseChanged();
             }
@@ -156,10 +156,10 @@ namespace codeframe
     void cPropertyList::CommitChanges()
     {
         m_Mutex.Lock();
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp )
+            if ( temp )
             {
                 temp->CommitChanges();
             }
@@ -176,10 +176,10 @@ namespace codeframe
     {
         // Po wszystkich propertisach ustawiamy nowy stan
         m_Mutex.Lock();
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp )
+            if ( temp )
             {
                 temp->Info().Enable( val );
             }
@@ -210,10 +210,10 @@ namespace codeframe
     {
         m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp && temp->Name() == prop->Name() )
+            if ( temp && temp->Name() == prop->Name() )
             {
                 // Wywalamy z listy
                 temp->signalChanged.disconnect( this );
@@ -246,17 +246,17 @@ namespace codeframe
         int octcnt = 0;
 
         m_Mutex.Lock();
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
         {
             PropertyBase* temp = m_vMainPropertyList.at(n);
-            if( temp && temp->Name() == name )
+            if ( temp && temp->Name() == name )
             {
                 octcnt++;
             }
         }
         m_Mutex.Unlock();
 
-        if(octcnt == 1 ) return true;
+        if (octcnt == 1 ) return true;
         else return false;
     }
 

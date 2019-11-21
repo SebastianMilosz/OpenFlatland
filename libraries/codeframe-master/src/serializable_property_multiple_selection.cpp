@@ -95,7 +95,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=(bool val)
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             *propSelection = val;
         }
@@ -110,7 +110,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=(char val)
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             *propSelection = val;
         }
@@ -125,7 +125,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=(unsigned char val)
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             *propSelection = val;
         }
@@ -155,7 +155,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=(unsigned int val)
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             *propSelection = val;
         }
@@ -170,7 +170,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=(float val)
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             *propSelection = val;
         }
@@ -185,7 +185,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=(double val)
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             *propSelection = val;
         }
@@ -200,7 +200,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=( const std::string& val )
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             *propSelection = val;
         }
@@ -215,7 +215,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator++()
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             ++(*propSelection);
         }
@@ -230,7 +230,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator--()
     {
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             --(*propSelection);
         }
@@ -287,7 +287,7 @@ namespace codeframe
     {
         std::string name;
 
-        for (auto* propSelection : m_selectionVector)
+        for ( auto* propSelection : m_selectionVector )
         {
             name += propSelection->Name();
         }
@@ -302,7 +302,7 @@ namespace codeframe
     ******************************************************************************/
     bool PropertyMultipleSelection::NameIs( const std::string& name ) const
     {
-        std::string thisName = Name();
+        std::string thisName( Name() );
         if ( thisName.compare( name ) == 0 )
         {
             return true;

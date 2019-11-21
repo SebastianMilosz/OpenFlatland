@@ -6,7 +6,7 @@
  **
 ******************************************************************************/
 ConstElement::ConstElement( const std::string& name ) :
-    PhysicsBody( name, NULL )
+    PhysicsBody( name, nullptr )
 {
 
 }

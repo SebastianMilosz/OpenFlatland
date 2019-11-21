@@ -201,13 +201,13 @@ namespace codeframe
     ******************************************************************************/
     cXmlFormatter& cXmlFormatter::LoadFromXML_v1( cXML& xml )
     {
-        std::string serializableObjectName = m_serializableObject.Identity().ObjectName( false ); // No sufix only name
-        int serializableObjectId           = m_serializableObject.Identity().GetId();             // container iterator
+        std::string serializableObjectName( m_serializableObject.Identity().ObjectName( false ) ); // No sufix only name
+        int serializableObjectId( m_serializableObject.Identity().GetId() );             // container iterator
 
         // Dozwolone sa tylko nazwy unikalne na danym poziomie
         if ( m_serializableObject.Path().IsNameUnique( m_serializableObject.Identity().ObjectName() ) == false ) // Test Unique with Id number
         {
-            std::string throwString = std::string("cXmlFormatter::LoadFromXML() Name is not Unique: ") + m_serializableObject.Identity().ObjectName();
+            std::string throwString( std::string("cXmlFormatter::LoadFromXML() Name is not Unique: ") + m_serializableObject.Identity().ObjectName() );
 
             throw std::runtime_error( throwString );
         }
@@ -219,7 +219,7 @@ namespace codeframe
             rootObjNode = xml.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr( serializableObjectId ).c_str());
 
             // Name will have to also match
-            std::string name = std::string( rootObjNode.GetAttributeAsString("name") );
+            std::string name( rootObjNode.GetAttributeAsString("name") );
 
             if( name != serializableObjectName )
             {
@@ -347,10 +347,10 @@ namespace codeframe
     {
         cXML xmlDocument;
 
-        std::string objName = m_serializableObject.Identity().ObjectName( false );
+        std::string objName( m_serializableObject.Identity().ObjectName( false ) );
 
-        std::string BuildTypeString = "Static";
-        std::string RoleString = "Object";
+        std::string BuildTypeString( "Static" );
+        std::string RoleString( "Object" );
 
         if ( m_serializableObject.BuildType() == DYNAMIC )
         {
@@ -401,7 +401,7 @@ namespace codeframe
                 if( iser->Info().GetKind() != 0  )
                 {
                     eKind kind = iser->Info().GetKind();
-                    std::string kindString = utilities::math::IntToStr( static_cast<int>(kind) );
+                    std::string kindString( utilities::math::IntToStr( static_cast<int>(kind) ) );
                     descr.AppendAttribute("kind", kindString.c_str() );
                 }
 
@@ -520,7 +520,7 @@ namespace codeframe
                 // Dozwolone sa tylko pola unikalne na danym poziomie
                 if ( obj.PropertyList().IsPropertyUnique( iser->Name() ) == false )
                 {
-                    std::string throwString = std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name();
+                    std::string throwString( std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name() );
 
                     throw std::runtime_error( throwString );
                 }
@@ -550,13 +550,13 @@ namespace codeframe
                     }
                     else if ( strcmp (type, "text") == 0 )
                     {
-                        std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
+                        std::string tempText( propertyNode.GetAttributeAsString("value") );
 
                         *iser = FromEscapeXml( tempText );
                     }
                     else if ( strcmp (type, "vec") == 0 )
                     {
-                        std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
+                        std::string tempText( propertyNode.GetAttributeAsString("value") );
                         *iser = tempText;
                     }
                     else if ( strcmp (type, "image") == 0 )
@@ -581,7 +581,7 @@ namespace codeframe
 
                     if( description )
                     {
-                        std::string tempText = std::string( description );
+                        std::string tempText( description );
 
                         iser->Info().Description( FromEscapeXml( tempText ) );
                     }
@@ -592,7 +592,7 @@ namespace codeframe
                     iser->Info().ReferencePath( std::string( propertyNode.GetAttributeAsString("href") ) );
 
                     // Enable
-                    std::string en = std::string( propertyNode.GetAttributeAsString("enable") );
+                    std::string en( propertyNode.GetAttributeAsString("enable") );
                     if( en.size() )
                     {
                         bool isEnable = char( propertyNode.GetAttributeAsInteger("enable") );
@@ -630,8 +630,8 @@ namespace codeframe
                 }
                 else
                 {
-                    std::string parentName = obj.Identity().ObjectName( false );
-                    std::string childNodeContainerName = std::string( node.Name() );
+                    std::string parentName( obj.Identity().ObjectName( false ) );
+                    std::string childNodeContainerName( node.Name() );
                     std::string throwString = std::string("cXmlFormatter::LoadFromXML() Cant find childNode Id: " ) +
                                               utilities::math::IntToStr( childLp ) +
                                               std::string(" for object ") + parentName +
@@ -686,7 +686,7 @@ namespace codeframe
         utilities::text::split( buildConstruct, ",", paramNameVector);
 
         // Filling parameter vector
-        for ( std::vector<std::string>::const_iterator it = paramNameVector.begin(); it != paramNameVector.end(); ++it )
+        for ( auto it = paramNameVector.begin(); it != paramNameVector.end(); ++it )
         {
             std::string propName = *it;
 
@@ -720,14 +720,14 @@ namespace codeframe
                 else if ( strcmp (type, "text") == 0 )
                 {
                     variantValue.Type = codeframe::TYPE_TEXT;
-                    std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
+                    std::string tempText(propertyNode.GetAttributeAsString("value") );
 
                     variantValue.ValueString = FromEscapeXml( tempText );
                 }
                 else if ( strcmp (type, "vec") == 0 )
                 {
                     variantValue.Type = codeframe::TYPE_VECTOR;
-                    std::string tempText = std::string(propertyNode.GetAttributeAsString("value") );
+                    std::string tempText(propertyNode.GetAttributeAsString("value") );
 
                     variantValue.ValueString = FromEscapeXml( tempText );
                 }

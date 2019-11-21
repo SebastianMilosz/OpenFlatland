@@ -310,7 +310,7 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutline()
     {
-        std::size_t count = m_vertices.getVertexCount() - 2;
+        std::size_t count( m_vertices.getVertexCount() - 2 );
         m_outlineVertices.resize((count + 1) * 2);
 
         // Recreate color table
@@ -324,16 +324,16 @@ namespace sf
 
         for (std::size_t i = 0; i < count; ++i)
         {
-            std::size_t index = i + 1;
+            std::size_t index( i + 1 );
 
             // Get the two segments shared by the current point
-            Vector2f p0 = (i == 0) ? m_vertices[count].position : m_vertices[index - 1].position;
-            Vector2f p1 = m_vertices[index].position;
-            Vector2f p2 = m_vertices[index + 1].position;
+            Vector2f p0( (i == 0) ? m_vertices[count].position : m_vertices[index - 1].position );
+            Vector2f p1( m_vertices[index].position );
+            Vector2f p2( m_vertices[index + 1].position );
 
             // Compute their normal
-            Vector2f n1 = computeNormal(p0, p1);
-            Vector2f n2 = computeNormal(p1, p2);
+            Vector2f n1( computeNormal(p0, p1) );
+            Vector2f n2( computeNormal(p1, p2) );
 
             // Make sure that the normals point towards the outside of the shape
             // (this depends on the order in which the points were defined)
@@ -343,8 +343,8 @@ namespace sf
                 n2 = -n2;
 
             // Combine them to get the extrusion direction
-            float factor = 1.f + (n1.x * n2.x + n1.y * n2.y);
-            Vector2f normal = (n1 + n2) / factor;
+            float factor( 1.f + (n1.x * n2.x + n1.y * n2.y) );
+            Vector2f normal( (n1 + n2) / factor );
 
             // Update the outline points
             m_outlineVertices[i * 2 + 0].position = p1;
@@ -369,8 +369,8 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutlineColors()
     {
-        std::size_t count = m_vertices.getVertexCount() - 2;
-        unsigned int n = 0;
+        std::size_t count( m_vertices.getVertexCount() - 2 );
+        unsigned int n(0);
         Color cl;
         for (std::size_t i = 0; i < count; ++i)
         {
@@ -451,13 +451,13 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    Vector2f ColorizeCircleShape::getPoint(std::size_t index) const
+    Vector2f ColorizeCircleShape::getPoint( const std::size_t index ) const
     {
         static const float pi = 3.141592654F;
 
-        float angle = -((index * 2.0F * pi / m_pointCount) + (pi / 2.0F));
-        float x = std::cos( angle ) * m_radius;
-        float y = std::sin( angle ) * m_radius;
+        float angle( -((index * 2.0F * pi / m_pointCount) + (pi / 2.0F)) );
+        float x( std::cos( angle ) * m_radius );
+        float y( std::sin( angle ) * m_radius );
 
         return Vector2f(m_radius + x, m_radius + y);
     }

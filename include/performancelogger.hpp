@@ -44,12 +44,12 @@ class PerformanceLogger
         void AddNote( const std::string& note );
         void SaveToFile( const std::string& filePath );
 
-        std::string PointToString( unsigned int id );
+        std::string PointToString( const unsigned int id );
 
-        void AddPerformancePoint( unsigned int id, const std::string& name );
+        void AddPerformancePoint( const unsigned int id, const std::string& name );
 
-        void PerformancePointEnter( unsigned int id );
-        void PerformancePointLeave( unsigned int id );
+        void PerformancePointEnter( const unsigned int id );
+        void PerformancePointLeave( const unsigned int id );
 
     private:
         PerformanceLogger();

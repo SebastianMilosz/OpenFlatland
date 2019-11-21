@@ -14,7 +14,7 @@ class AnnViewerWidget : public sigslot::has_slots<>
        ~AnnViewerWidget();
 
         void SetObject( smart_ptr<codeframe::ObjectNode> obj );
-        void Draw(const char* title, bool* p_open = NULL);
+        void Draw( const char* title, bool* p_open = nullptr );
 
     private:
         smart_ptr<codeframe::ObjectNode> m_obj;

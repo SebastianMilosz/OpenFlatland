@@ -115,7 +115,10 @@ namespace codeframe
 
         m_luastate = luaL_newstate();
 
-        if( m_luastate == nullptr ) return;
+        if ( m_luastate == nullptr )
+        {
+            return;
+        }
 
         try
         {
@@ -123,14 +126,14 @@ namespace codeframe
 
             ThisToLua( m_luastate );
 
-            if( luaL_loadstring( m_luastate, scriptString.c_str() ) != 0 )
+            if ( luaL_loadstring( m_luastate, scriptString.c_str() ) != 0 )
             {
                 // compile-time error
                 LOGGER( LOG_ERROR << "LUA script compile-time error: " << lua_tostring( m_luastate, -1 ) );
                 lua_close( m_luastate );
                 m_luastate = nullptr;
             }
-            else if( lua_pcall( m_luastate, 0, 0, 0 ) != 0 )
+            else if ( lua_pcall( m_luastate, 0, 0, 0 ) != 0 )
             {
                 // runtime error
                 LOGGER( LOG_ERROR << "LUA script runtime error: " << lua_tostring( m_luastate, -1 ) );
@@ -138,11 +141,11 @@ namespace codeframe
                 m_luastate = nullptr;
             }
         }
-        catch(const std::runtime_error& re)
+        catch (const std::runtime_error& re)
         {
             LOGGER( LOG_ERROR << "LUA script runtime exception: " << re.what() );
         }
-        catch(...)
+        catch (...)
         {
             LOGGER( LOG_ERROR << "LUA script Critical Unknown failure occured. Possible memory corruption" );
         }

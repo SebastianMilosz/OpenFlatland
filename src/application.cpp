@@ -269,7 +269,7 @@ void Application::ProcesseLogic( void )
   * @brief
  **
 ******************************************************************************/
-void Application::ZoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, float zoom )
+void Application::ZoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, const float zoom )
 {
 	const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel) };
 	sf::View view{ window.getView() };

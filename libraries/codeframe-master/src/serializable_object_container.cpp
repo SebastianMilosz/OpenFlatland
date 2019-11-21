@@ -43,9 +43,9 @@ unsigned int ObjectContainer::Count() const
 ******************************************************************************/
 void ObjectContainer::CreateRange( const std::string& className, const std::string& objName, int range )
 {
-    for(int i = 0; i < range; i++)
+    for ( int i = 0; i < range; i++ )
     {
-        if( smart_ptr_isValid( Create( className, objName ) ) == false )
+        if ( smart_ptr_isValid( Create( className, objName ) ) == false )
         {
             throw std::runtime_error( "ObjectContainer::Create return NULL" );
         }
@@ -59,15 +59,15 @@ void ObjectContainer::CreateRange( const std::string& className, const std::stri
 ******************************************************************************/
 bool ObjectContainer::IsName( const std::string& name )
 {
-    for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+    for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); ++it )
     {
         smart_ptr<Object> sptr = *it;
 
-        if( smart_ptr_isValid( sptr ) == true )
+        if ( smart_ptr_isValid( sptr ) == true )
         {
-            std::string inContainerName = sptr->Identity().ObjectName();
+            std::string inContainerName( sptr->Identity().ObjectName() );
 
-            if( name == inContainerName )
+            if ( name == inContainerName )
             {
                 return true;
             }
@@ -84,13 +84,13 @@ bool ObjectContainer::IsName( const std::string& name )
 ******************************************************************************/
 std::string ObjectContainer::CreateUniqueName( const std::string& nameBase )
 {
-    std::string uniqueName  = nameBase;
+    std::string uniqueName( nameBase );
 
-    for( int curIter = 0; curIter < MAXID; curIter++ )
+    for ( int curIter = 0; curIter < MAXID; curIter++ )
     {
-        std::string name = nameBase + utilities::math::IntToStr( curIter );
+        std::string name( nameBase + utilities::math::IntToStr( curIter ) );
 
-        if( IsName( name ) == false )
+        if ( IsName( name ) == false )
         {
             uniqueName = name;
             break;
@@ -107,7 +107,10 @@ std::string ObjectContainer::CreateUniqueName( const std::string& nameBase )
 ******************************************************************************/
 bool ObjectContainer::Dispose( unsigned int id )
 {
-    if ( m_containerVector.size() <= id ) return false;
+    if ( m_containerVector.size() <= id )
+    {
+        return false;
+    }
 
     smart_ptr<Object> obj = m_containerVector[ id ];
 
@@ -144,7 +147,7 @@ bool ObjectContainer::Dispose( const std::string& objName )
 ******************************************************************************/
 bool ObjectContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore )
 {
-    for ( typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); )
+    for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); )
     {
         smart_ptr<Object> sptr = *it;
 
@@ -175,13 +178,13 @@ bool ObjectContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore
 ******************************************************************************/
 bool ObjectContainer::Dispose( smart_ptr<ObjectNode> obj )
 {
-    for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+    for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); ++it )
     {
         smart_ptr<Object> sptr = *it;
 
-        if( smart_ptr_isValid( sptr ) && smart_ptr_isValid( obj ) )
+        if ( smart_ptr_isValid( sptr ) && smart_ptr_isValid( obj ) )
         {
-            if( sptr->Identity().ObjectName() == obj->Identity().ObjectName() )
+            if ( sptr->Identity().ObjectName() == obj->Identity().ObjectName() )
             {
                 sptr->Selection().DisconectFromContainer();
                 *it = smart_ptr<Object>();
@@ -207,12 +210,12 @@ bool ObjectContainer::Dispose()
 {
     if( m_containerVector.size() == 0 ) return true;    // Pusty kontener zwracamy prawde bo nie ma nic do usuwania
 
-    for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+    for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); ++it )
     {
         smart_ptr<Object> obj = *it;
 
         // Usuwamy tylko jesli nikt inny nie korzysta z obiektu
-        if( smart_ptr_getCount( obj ) <= 2 )
+        if ( smart_ptr_getCount( obj ) <= 2 )
         {
             obj->Selection().DisconectFromContainer();
             obj = smart_ptr<Object>( nullptr );
@@ -256,7 +259,7 @@ smart_ptr<ObjectNode> ObjectContainer::operator[]( int i )
 ******************************************************************************/
 bool ObjectContainer::Select( int pos )
 {
-    if( IsInRange( pos ) )
+    if ( IsInRange( pos ) )
     {
         m_selected = Get( pos );
         signalContainerSelectionChanged.Emit( m_selected );
@@ -292,7 +295,7 @@ smart_ptr<ObjectNode> ObjectContainer::GetSelected()
 ******************************************************************************/
 smart_ptr<ObjectNode> ObjectContainer::Get( int id )
 {
-    if( IsInRange( id ) )
+    if ( IsInRange( id ) )
     {
         smart_ptr<ObjectNode> obj = m_containerVector.at( id );
 
@@ -326,14 +329,14 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, int pos )
     bool found  = false;
     int  retPos = -1;
 
-    if( pos < static_cast<int>(m_containerVector.size()) )
+    if ( pos < static_cast<int>(m_containerVector.size()) )
     {
         // Szukamy bezposrednio
-        if( pos >= 0 )
+        if ( pos >= 0 )
         {
             smart_ptr<Object> tmp = m_containerVector[ pos ];
 
-            if( smart_ptr_isValid( tmp ) )
+            if ( smart_ptr_isValid( tmp ) )
             {
                 m_containerVector[ pos ] = classType;
                 found = true;
@@ -341,14 +344,14 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, int pos )
         }
 
         // Szukamy wolnego miejsca
-        if( found == false )
+        if ( found == false )
         {
             // Po calym wektorze szukamy pustych miejsc
-            for(typename std::vector< smart_ptr<Object> >::iterator it = m_containerVector.begin(); it != m_containerVector.end(); ++it)
+            for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); ++it )
             {
                 smart_ptr<ObjectNode> obj = *it;
 
-                if( smart_ptr_isValid( obj ) == false )
+                if ( smart_ptr_isValid( obj ) == false )
                 {
                     // Znalezlismy wiec zapisujemy
                     *it = classType;
@@ -361,14 +364,14 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, int pos )
     }
 
     // poza zakresem dodajemy do wektora nowa pozycje
-    if( found == false )
+    if ( found == false )
     {
         m_containerVector.push_back( classType );
         retPos = m_containerVector.size() - 1;
     }
 
     // If there is no parent we become one
-    if( nullptr == classType->Path().Parent() )
+    if ( nullptr == classType->Path().Parent() )
     {
         ObjectNode* serPar = static_cast<ObjectNode*>( this );
         classType->Path().ParentBound( serPar );
@@ -393,13 +396,13 @@ void ObjectContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
 
     if ( (Object*)nullptr != serializableObjectNew )
     {
-        std::string name = serializableObjectNew->Identity().ObjectName();
+        std::string name( serializableObjectNew->Identity().ObjectName() );
 
         if ( serializableObjectNew->Selection().IsSelected() == true )
         {
             Object* serializableObjectSel = static_cast<Object*>( smart_ptr_getRaw(m_selected) );
 
-            if( serializableObjectSel != serializableObjectNew )
+            if ( serializableObjectSel != serializableObjectNew )
             {
                 if ( (Object*)nullptr != serializableObjectSel )
                 {

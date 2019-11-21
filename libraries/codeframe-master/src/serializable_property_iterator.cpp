@@ -35,7 +35,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyIterator& PropertyIterator::operator ++()
     {
-        if( m_curId < m_PropertyManager.GetObjectFieldCnt() )
+        if ( m_curId < m_PropertyManager.GetObjectFieldCnt() )
         {
             ++m_curId;
         }

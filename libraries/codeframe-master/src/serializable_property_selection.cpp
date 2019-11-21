@@ -242,7 +242,7 @@ namespace codeframe
     ******************************************************************************/
     bool PropertySelection::NameIs( const std::string& name ) const
     {
-        std::string thisName = Name();
+        std::string thisName( Name() );
         if ( thisName.compare( name ) == 0 )
         {
             return true;
@@ -280,6 +280,11 @@ namespace codeframe
         return m_selection->Reference();
     }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     uint32_t PropertySelection::Id() const
     {
         return m_selection->Id();

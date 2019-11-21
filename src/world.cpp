@@ -15,7 +15,7 @@ public:
    QueryCallback( const b2Vec2& point )
    {
       m_point = point;
-      m_fixture = NULL;
+      m_fixture = nullptr;
    }
 
    bool ReportFixture( b2Fixture* fixture )
@@ -45,8 +45,8 @@ public:
 ******************************************************************************/
 World::World( const std::string& name, ObjectNode* parent ) :
     Object( name, parent ),
-    m_GroundBody( NULL ),
-    m_MouseJoint( NULL ),
+    m_GroundBody( nullptr ),
+    m_MouseJoint( nullptr ),
     m_Gravity( 0.f, 0.f ),
     m_World( m_Gravity ),
     m_entitySelMode( false )
@@ -56,7 +56,7 @@ World::World( const std::string& name, ObjectNode* parent ) :
     m_GroundBody = m_World.CreateBody( &groundBodyDef );
 
     m_JointDef.bodyA = m_GroundBody;
-    m_JointDef.bodyB = NULL;
+    m_JointDef.bodyB = nullptr;
 
     m_JointDef.target.Set( 0.5f, 24.f );
 
@@ -90,7 +90,7 @@ void World::AddShell( std::shared_ptr<Entity> entity )
 
     b2Body* body = m_World.CreateBody( &desc.BodyDef );
 
-    if ( (b2Body*)NULL != body )
+    if ( (b2Body*)nullptr != body )
     {
         body->CreateFixture( &desc.FixtureDef );
         desc.Body = body;
@@ -108,7 +108,7 @@ void World::AddConst( std::shared_ptr<ConstElement> constElement )
 
     b2Body* body = m_World.CreateBody( &desc.BodyDef );
 
-    if ( (b2Body*)NULL != body )
+    if ( (b2Body*)nullptr != body )
     {
         body->CreateFixture( &desc.FixtureDef );
         desc.Body = body;
@@ -144,11 +144,11 @@ bool World::PhysisStep(sf::RenderWindow& window)
 ******************************************************************************/
 bool World::Draw( sf::RenderWindow& window )
 {
-    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext() )
+    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
     {
         PhysicsBody* physicsBody = static_cast<PhysicsBody*>( BodyIterator->GetUserData() );
 
-        if ( (PhysicsBody*)NULL != physicsBody )
+        if ( (PhysicsBody*)nullptr != physicsBody )
         {
             physicsBody->Draw( window, BodyIterator );
         }
@@ -162,7 +162,7 @@ bool World::Draw( sf::RenderWindow& window )
   * @brief
  **
 ******************************************************************************/
-void World::MouseDown( float x, float y )
+void World::MouseDown( const float x, const float y )
 {
     if( m_entitySelMode == false )
     {
@@ -202,7 +202,7 @@ void World::MouseDown( float x, float y )
   * @brief
  **
 ******************************************************************************/
-void World::MouseUp( float x, float y )
+void World::MouseUp( const float x, const float y )
 {
     m_entitySelMode = false;
 
@@ -218,7 +218,7 @@ void World::MouseUp( float x, float y )
   * @brief
  **
 ******************************************************************************/
-void World::MouseMove( float x, float y )
+void World::MouseMove( const float x, const float y )
 {
     if ( m_MouseJoint )
     {
@@ -232,7 +232,7 @@ void World::MouseMove( float x, float y )
   * @brief
  **
 ******************************************************************************/
-b2Body* World::getBodyAtMouse( float x, float y )
+b2Body* World::getBodyAtMouse( const float x, const float y )
 {
    b2Vec2 mouseV2;
    mouseV2.Set(x,y);
@@ -251,7 +251,7 @@ b2Body* World::getBodyAtMouse( float x, float y )
         return callback.m_fixture->GetBody();
    }
 
-   return NULL;
+   return nullptr;
 }
 
 /*****************************************************************************/
@@ -263,27 +263,27 @@ void World::CalculateRays( void )
 {
     static const float pi = 3.141592654f;
 
-    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext() )
+    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
     {
         if ( BodyIterator->GetType() == b2_dynamicBody )
         {
             Entity* entity = static_cast<Entity*>( BodyIterator->GetUserData() );
 
-            if ( (Entity*)NULL != entity )
+            if ( (Entity*)nullptr != entity )
             {
                 //center of entity
                 b2Vec2 p1 = entity->GetPhysicalPoint();
 
-                EntityVision& vosion = entity->Vision();
+                EntityVision& vosion( entity->Vision() );
 
                 vosion.StartFrame();
 
-                register unsigned int rayLength   = (unsigned int)entity->RaysSize;
-                register unsigned int rayCntLimit = (unsigned int)entity->RaysCnt;
-                register float32      rotation    = entity->GetRotation();
+                register unsigned int rayLength( (unsigned int)entity->RaysSize );
+                register unsigned int rayCntLimit( (unsigned int)entity->RaysCnt );
+                register float32      rotation( entity->GetRotation() );
 
-                float32 currentRayAngle = -(rotation+180.0F) * (pi/180.0F);
-                float32 rayAngleStep = (360.0F / (float32)rayCntLimit) * (pi/180.0F);
+                float32 currentRayAngle( -(rotation+180.0F) * (pi/180.0F) );
+                float32 rayAngleStep( (360.0F / (float32)rayCntLimit) * (pi/180.0F) );
                 RayCastCallback callback;
                 b2Vec2 p2;
                 unsigned int ray;

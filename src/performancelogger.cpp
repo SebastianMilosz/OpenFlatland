@@ -75,8 +75,7 @@ void PerformanceLogger::SaveToFile( const std::string& filePath )
 
     performanceFile << m_applicationId;
 
-    std::map<unsigned int , PerformanceData>::iterator it;
-    for ( it = m_PerformanceMap.begin(); it != m_PerformanceMap.end(); it++ )
+    for ( auto it = m_PerformanceMap.begin(); it != m_PerformanceMap.end(); it++ )
     {
         performanceFile << ", " << it->second.Name << " = " << std::fixed << std::setw(9)
         << std::setprecision(6) << it->second.Elapsed_ns/(10e8) << "s";
@@ -96,9 +95,9 @@ void PerformanceLogger::SaveToFile( const std::string& filePath )
   * @brief
  **
 ******************************************************************************/
-std::string PerformanceLogger::PointToString( unsigned int id )
+std::string PerformanceLogger::PointToString( const unsigned int id )
 {
-    volatile double elapsed_ns = m_PerformanceMap[ id ].Elapsed_ns/(10e8);
+    volatile double elapsed_ns( m_PerformanceMap[ id ].Elapsed_ns/(10e8) );
 
     std::ostringstream ss;
 
@@ -112,7 +111,7 @@ std::string PerformanceLogger::PointToString( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-void PerformanceLogger::AddPerformancePoint( unsigned int id, const std::string& name )
+void PerformanceLogger::AddPerformancePoint( const unsigned int id, const std::string& name )
 {
     m_PerformanceMap[ id ].Name = name;
 }
@@ -122,7 +121,7 @@ void PerformanceLogger::AddPerformancePoint( unsigned int id, const std::string&
   * @brief
  **
 ******************************************************************************/
-void PerformanceLogger::PerformancePointEnter( unsigned int id )
+void PerformanceLogger::PerformancePointEnter( const unsigned int id )
 {
     m_timer.start();
 }
@@ -132,7 +131,7 @@ void PerformanceLogger::PerformancePointEnter( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-void PerformanceLogger::PerformancePointLeave( unsigned int id )
+void PerformanceLogger::PerformancePointLeave( const unsigned int id )
 {
     m_PerformanceMap[ id ].Elapsed_ns = m_timer.get_elapsed_ns();
 }

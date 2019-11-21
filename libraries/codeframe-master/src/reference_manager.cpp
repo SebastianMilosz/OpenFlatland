@@ -46,7 +46,7 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
     {
         if ( nullptr != m_property )
         {
-            std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
+            std::string referenceAbsolutePath( PreparePath( m_referencePath, m_property ) );
             sReferenceData refData;
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
@@ -65,7 +65,7 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
     if ( (m_referencePath != "") && (nullptr != prop) && (nullptr == m_property) )
     {
         m_property = prop;
-        std::string referenceAbsolutePath = PreparePath( m_referencePath, m_property );
+        std::string referenceAbsolutePath( PreparePath( m_referencePath, m_property ) );
         sReferenceData refData;
         refData.Property = m_property;
         refData.RefPath = m_referencePath;
@@ -90,14 +90,12 @@ const std::string& ReferenceManager::Get() const
 ******************************************************************************/
 void ReferenceManager::ResolveReferences( ObjectNode& root )
 {
-    std::map<std::string, sReferenceData>::iterator it;
-
-    for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end();  )
+    for ( auto it = m_referencePathMap.begin(); it != m_referencePathMap.end();  )
     {
         sReferenceData refData = it->second;
-        std::string path = it->first;
+        std::string path( it->first );
 
-        std::string referenceAbsolutePath = PreparePath( refData.RefPath, refData.Property );
+        std::string referenceAbsolutePath( PreparePath( refData.RefPath, refData.Property ) );
 
         if ( (PropertyBase*)nullptr != refData.Property )
         {
@@ -123,16 +121,14 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 ******************************************************************************/
 void ReferenceManager::LogUnresolvedReferences()
 {
-    std::map<std::string, sReferenceData>::iterator it;
-
-    for ( it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++ )
+    for ( auto it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++ )
     {
-        sReferenceData refData = it->second;
+        sReferenceData refData( it->second );
 
         if ( (PropertyBase*)nullptr != refData.Property )
         {
-            ObjectNode* propertyParent = refData.Property->Parent();
-            std::string propertyParentPath = "NULL";
+            ObjectNode* propertyParent( refData.Property->Parent() );
+            std::string propertyParentPath( "NULL" );
 
             if ( nullptr != propertyParent )
             {
@@ -159,7 +155,7 @@ std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase
 {
     ObjectNode* propertyParent = prop->Parent();
 
-    std::string retString = std::string( path );
+    std::string retString( path );
 
     if ( nullptr != propertyParent )
     {
@@ -168,7 +164,7 @@ std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase
 
         if ( isRelative || isDownHierarchy )
         {
-            std::string propertyPath = propertyParent->Path().PathString();
+            std::string propertyPath( propertyParent->Path().PathString() );
 
             retString.erase(0, retString.find("/")+1);
 

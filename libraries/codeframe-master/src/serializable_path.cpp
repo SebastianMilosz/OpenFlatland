@@ -109,7 +109,7 @@ namespace codeframe
         }
 
         // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
-        for ( cObjectList::iterator it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
+        for ( auto it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
         {
             ObjectNode* iser = *it;
 
@@ -168,7 +168,7 @@ namespace codeframe
 
                 smart_ptr<ObjectMultipleSelection> multipleSelection = smart_ptr<ObjectMultipleSelection>( new ObjectMultipleSelection );
 
-                for ( cObjectList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
+                for ( auto it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
                 {
                     ObjectNode* iser = *it;
                     auto  objectName( iser->Identity().ObjectName( true ) );
@@ -185,10 +185,10 @@ namespace codeframe
         }
 
         // Single selection
-        for ( cObjectList::iterator it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
+        for ( auto it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
         {
             ObjectNode* iser = *it;
-            std::string objectName( iser->Identity().ObjectName( true ) );
+            auto objectName( iser->Identity().ObjectName( true ) );
 
             if ( objectName == name )
             {
@@ -237,7 +237,7 @@ namespace codeframe
         }
         else
         {
-            std::string tempStr = tokens.at(0);
+            std::string tempStr( tokens.at(0) );
             if ( curObjectSelection->GetNode()->Identity().ObjectName() != tempStr )
             {
                 return smart_ptr<ObjectSelection>( nullptr );
@@ -247,7 +247,7 @@ namespace codeframe
         // Po wszystkich skladnikach sciezki
         for ( unsigned int i = 1U; i < tokens.size(); i++ )
         {
-            std::string levelName = tokens.at(i);
+            std::string levelName( tokens.at(i) );
 
             smart_ptr<ObjectSelection> objectSelection = curObjectSelection->GetNode()->Path().GetChildByName( levelName );
 
