@@ -46,7 +46,7 @@ EntityVision::sRay::sRay( b2Vec2& p1, b2Vec2& p2, float32 f ) :
 ******************************************************************************/
 void EntityVision::Draw( sf::RenderWindow& window )
 {
-    for(std::vector<EntityVision::sRay>::iterator it = m_visionVector.begin(); it != m_visionVector.end(); ++it)
+    for ( auto it = m_visionVector.begin(); it != m_visionVector.end(); ++it )
     {
         m_rayLine[0].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P1 );
         m_rayLine[1].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P2 );
@@ -74,9 +74,9 @@ void EntityVision::StartFrame()
 ******************************************************************************/
 void EntityVision::AddRay( EntityVision::sRay ray )
 {
-    m_visionVector.push_back( ray );
-    m_distanceVisionVector.push_back( (ray.P2-ray.P1).Length() );
-    m_fixtureVisionVector.push_back( ray.Fixture );
+    m_visionVector.emplace_back( ray );
+    m_distanceVisionVector.emplace_back( (ray.P2-ray.P1).Length() );
+    m_fixtureVisionVector.emplace_back( ray.Fixture );
 }
 
 /*****************************************************************************/

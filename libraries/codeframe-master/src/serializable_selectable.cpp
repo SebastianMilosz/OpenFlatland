@@ -34,7 +34,7 @@ void cSelectable::Select( bool state )
 {
     m_selected = state;
 
-    if( smart_ptr_isValid( m_smartThis ) == true )
+    if ( smart_ptr_isValid( m_smartThis ) == true )
     {
         signalSelectionChanged.Emit( m_smartThis );
     }

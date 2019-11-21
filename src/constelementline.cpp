@@ -12,10 +12,10 @@ ConstElementLine::ConstElementLine( const std::string& name, codeframe::Point2D<
     StartPoint( this, "SPoint" , Point2D<int>( startPoint ), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint"), this ),
     EndPoint  ( this, "EPoint" , Point2D<int>( endPoint   ), cPropertyInfo().Kind( KIND_2DPOINT ).Description("EndPoint"), this)
 {
-    float sx = (float)startPoint.X()/sDescriptor::PIXELS_IN_METER;
-    float sy = (float)startPoint.Y()/sDescriptor::PIXELS_IN_METER;
-    float w = endPoint.X() / sDescriptor::PIXELS_IN_METER - sx;
-    float h = endPoint.Y() / sDescriptor::PIXELS_IN_METER - sy;
+    float sx( (float)startPoint.X()/sDescriptor::PIXELS_IN_METER );
+    float sy( (float)startPoint.Y()/sDescriptor::PIXELS_IN_METER );
+    float w( endPoint.X() / sDescriptor::PIXELS_IN_METER - sx );
+    float h( endPoint.Y() / sDescriptor::PIXELS_IN_METER - sy );
 
     b2EdgeShape * lineShape = new b2EdgeShape ();
     lineShape->Set(
@@ -73,18 +73,18 @@ ConstElementLine& ConstElementLine::operator=(const ConstElementLine& other)
 ******************************************************************************/
 void ConstElementLine::Draw( sf::RenderWindow& window, b2Body* body )
 {
-    if( (b2Body*)NULL != body )
+    if( (b2Body*)nullptr != body )
     {
         // @todo Support line color
         //sf::Color& entColor = GetColor();
 
-        float xpos = sDescriptor::PIXELS_IN_METER * body->GetPosition().x;
-        float ypos = sDescriptor::PIXELS_IN_METER * body->GetPosition().y;
+        float xpos( sDescriptor::PIXELS_IN_METER * body->GetPosition().x );
+        float ypos( sDescriptor::PIXELS_IN_METER * body->GetPosition().y );
 
-        float sx = (float)StartPoint.GetValue().X();
-        float sy = (float)StartPoint.GetValue().Y();
-        float w = EndPoint.GetValue().X() - sx;
-        float h = EndPoint.GetValue().Y() - sy;
+        float sx( (float)StartPoint.GetValue().X() );
+        float sy( (float)StartPoint.GetValue().Y() );
+        float w( EndPoint.GetValue().X() - sx );
+        float h( EndPoint.GetValue().Y() - sy );
 
         sf::Vertex line[2];
         line[0].position = sf::Vector2f(xpos, ypos);

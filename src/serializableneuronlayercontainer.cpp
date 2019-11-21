@@ -9,7 +9,7 @@ using namespace codeframe;
 ******************************************************************************/
 SerializableNeuronLayerContainer::SerializableNeuronLayerContainer( const std::string& name, ObjectNode* parent ) :
     ObjectContainer( name, parent ),
-    LayersCnt( this, "LayersCnt" , 2U , cPropertyInfo().Kind( KIND_NUMBER ).Description("LayersCnt"), this, NULL, &SerializableNeuronLayerContainer::SetLayersCnt )
+    LayersCnt( this, "LayersCnt" , 2U , cPropertyInfo().Kind( KIND_NUMBER ).Description("LayersCnt"), this, nullptr, &SerializableNeuronLayerContainer::SetLayersCnt )
 {
     SetLayersCnt( (unsigned int)LayersCnt );
 }
@@ -37,7 +37,7 @@ void SerializableNeuronLayerContainer::Calculate()
 
         SerializableNeuronLayer* neuronLayerObj = static_cast<SerializableNeuronLayer*>( smart_ptr_getRaw( serializableObj ) );
 
-        if ( (SerializableNeuronLayer*)NULL != neuronLayerObj )
+        if ( (SerializableNeuronLayer*)nullptr != neuronLayerObj )
         {
             neuronLayerObj->Calculate();
         }
@@ -57,7 +57,7 @@ smart_ptr<codeframe::ObjectNode> SerializableNeuronLayerContainer::Create(
 {
     if ( className == "SerializableNeuronLayer" )
     {
-        smart_ptr<SerializableNeuronLayer> obj = smart_ptr<SerializableNeuronLayer>( new SerializableNeuronLayer( objName, NULL ) );
+        auto obj = smart_ptr<SerializableNeuronLayer>( new SerializableNeuronLayer( objName, NULL ) );
 
         (void)InsertObject( obj );
 
@@ -74,11 +74,11 @@ smart_ptr<codeframe::ObjectNode> SerializableNeuronLayerContainer::Create(
 ******************************************************************************/
 void SerializableNeuronLayerContainer::SetLayersCnt( unsigned int cnt )
 {
-    unsigned int thisCnt = Count();
+    unsigned int thisCnt( Count() );
     // Set layer cnt to be at least configured
     if ( cnt > thisCnt )
     {
-        unsigned int newCnt = (cnt - thisCnt);
+        unsigned int newCnt( cnt - thisCnt );
         CreateRange( "SerializableNeuronLayer", "AnnLayer", newCnt );
     }
 }

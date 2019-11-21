@@ -23,9 +23,9 @@ class World : public codeframe::Object
         bool PhysisStep(sf::RenderWindow& window);
         bool Draw( sf::RenderWindow& window );
 
-        void MouseDown( float x, float y );
-        void MouseUp( float x, float y );
-        void MouseMove( float x, float y );
+        void MouseDown( const float x, const float y );
+        void MouseUp( const float x, const float y );
+        void MouseMove( const float x, const float y );
 
     protected:
 
@@ -39,7 +39,7 @@ class World : public codeframe::Object
                 }
 
                 float32 ReportFixture( b2Fixture* fixture, const b2Vec2& point,
-                                       const b2Vec2& normal, float32 fraction )
+                                       const b2Vec2& normal, const float32 fraction )
                 {
                     m_hit    = true;
                     m_point  = point;
@@ -48,8 +48,8 @@ class World : public codeframe::Object
                     return fraction;
                 }
 
-                bool   WasHit() { return m_hit; }
-                b2Vec2 HitPoint() { return m_point; }
+                bool   WasHit() const { return m_hit; }
+                b2Vec2 HitPoint() const { return m_point; }
 
             private:
                 bool m_hit;
@@ -57,7 +57,7 @@ class World : public codeframe::Object
                 b2Vec2 m_normal;
         };
 
-        b2Body* getBodyAtMouse( float x, float y );
+        b2Body* getBodyAtMouse( const float x, const float y );
 
         void CalculateRays( void );
 

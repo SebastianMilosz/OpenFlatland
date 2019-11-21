@@ -12,6 +12,9 @@ using namespace codeframe;
 
 class ConsoleWidget : public sigslot::has_slots<>
 {
+    template<uint32_t S, typename T>
+    using CircularBuffer = utilities::data::CircularBuffer<S,T>;
+
     public:
         ConsoleWidget( ObjectNode& parent );
        ~ConsoleWidget();
@@ -27,14 +30,14 @@ class ConsoleWidget : public sigslot::has_slots<>
         static int TextEditCallbackStub( ImGuiInputTextCallbackData* data );
         int TextEditCallback( ImGuiInputTextCallbackData* data );
 
-        ObjectNode&                                     m_parent;
-        ImGuiTextBuffer                                 m_Buf;
-        ImGuiTextFilter                                 m_Filter;
-        ImVector<int>                                   m_LineOffsets;
-        bool                                            m_ScrollToBottom;
-        char                                            m_InputBuf[256];
-        ImVector<const char*>                           m_Commands;
-        utilities::data::CircularBuffer<32, std::string> m_History;
+        ObjectNode&                     m_parent;
+        ImGuiTextBuffer                 m_Buf;
+        ImGuiTextFilter                 m_Filter;
+        ImVector<int>                   m_LineOffsets;
+        bool                            m_ScrollToBottom;
+        char                            m_InputBuf[256];
+        ImVector<const char*>           m_Commands;
+        CircularBuffer<32, std::string> m_History;
 };
 
 #endif // LOGWIDGET_HPP

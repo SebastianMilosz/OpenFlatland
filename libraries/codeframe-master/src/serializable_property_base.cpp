@@ -20,7 +20,7 @@ namespace codeframe
     uint32_t PropertyBase::GetHashId( const std::string& str, uint16_t mod )
     {
         uint32_t hash, i;
-        for(hash = i = 0; i < str.size(); ++i)
+        for ( hash = i = 0; i < str.size(); ++i )
         {
             hash += str[i];
             hash += (hash << 10);
@@ -457,7 +457,7 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::CommitChanges()
     {
-        if ( (NULL != m_parentpc) &&  (m_parentpc->Identity().IsPulseState() == true) )
+        if ( (nullptr != m_parentpc) &&  (m_parentpc->Identity().IsPulseState() == true) )
         {
             m_pulseAbort = true;
         }
@@ -480,7 +480,7 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::PulseChanged()
     {
-        if ( (m_pulseAbort == true) && (m_parentpc != NULL) &&  (m_parentpc->Identity().IsPulseState() == true) )
+        if ( (m_pulseAbort == true) && (m_parentpc != nullptr) &&  (m_parentpc->Identity().IsPulseState() == true) )
         {
             return;
         }
@@ -591,7 +591,7 @@ namespace codeframe
             return (std::string)(*this);
         }
 
-        std::string enumString = Info().GetEnum();
+        std::string enumString( Info().GetEnum() );
 
         std::vector<std::string> output;
 
@@ -626,7 +626,7 @@ namespace codeframe
             return 0;
         }
 
-        std::string enumString = Info().GetEnum();
+        std::string enumString( Info().GetEnum() );
 
         int pos = 0;
 

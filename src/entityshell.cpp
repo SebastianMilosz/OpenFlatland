@@ -14,7 +14,7 @@ using namespace codeframe;
  **
 ******************************************************************************/
 EntityShell::EntityShell( const std::string& name, int x, int y ) :
-    PhysicsBody( name, NULL ),
+    PhysicsBody( name, nullptr ),
     X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
     Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
     Rotation( this, "R"       , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), this, &EntityShell::GetRotation, &EntityShell::SetRotation ),
@@ -128,11 +128,11 @@ EntityShell& EntityShell::operator=( const EntityShell& rhs )
 ******************************************************************************/
 void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
 {
-    if( (b2Body*)NULL != body )
+    if( (b2Body*)nullptr != body )
     {
-        float xpos = body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
-        float ypos = body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
-        float rot  = body->GetAngle() * 180.0F/b2_pi;
+        float xpos( body->GetPosition().x * sDescriptor::PIXELS_IN_METER );
+        float ypos( body->GetPosition().y * sDescriptor::PIXELS_IN_METER );
+        float rot ( body->GetAngle() * 180.0F/b2_pi );
 
         // Drawing rays if configured
         if ( (bool)CastRays == true )
@@ -160,7 +160,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
 ******************************************************************************/
 const int& EntityShell::GetX()
 {
-    if( GetDescriptor().Body != NULL )
+    if ( GetDescriptor().Body != nullptr )
     {
         m_curX = GetDescriptor().Body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
     }
@@ -174,7 +174,10 @@ const int& EntityShell::GetX()
 ******************************************************************************/
 float32 EntityShell::GetPhysicalX()
 {
-    if( GetDescriptor().Body == NULL ) return 0;
+    if ( GetDescriptor().Body == nullptr )
+    {
+        return 0.0F;
+    }
 
     return GetDescriptor().Body->GetPosition().x;
 }
@@ -196,7 +199,7 @@ void EntityShell::SetX(int val)
 ******************************************************************************/
 const int& EntityShell::GetY()
 {
-    if( GetDescriptor().Body != NULL )
+    if ( GetDescriptor().Body != nullptr )
     {
         m_curY = GetDescriptor().Body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
     }
@@ -210,7 +213,10 @@ const int& EntityShell::GetY()
 ******************************************************************************/
 float32 EntityShell::GetPhysicalY()
 {
-    if( GetDescriptor().Body == NULL ) return 0;
+    if ( GetDescriptor().Body == nullptr )
+    {
+        return 0.0F;
+    }
 
     return GetDescriptor().Body->GetPosition().y;
 }
@@ -232,7 +238,7 @@ void EntityShell::SetY(int val)
 ******************************************************************************/
 const float32& EntityShell::GetRotation()
 {
-    if( GetDescriptor().Body != NULL )
+    if ( GetDescriptor().Body != nullptr )
     {
         static const float pi = 3.141592654F;
 
@@ -250,11 +256,11 @@ void EntityShell::SetRotation( float rotation )
 {
     b2Body* body = GetDescriptor().Body;
 
-    if( (b2Body*)NULL != body )
+    if ( (b2Body*)nullptr != body )
     {
         static const float pi = 3.141592654F;
 
-        float angleToSet = rotation / (180.0/pi) ;
+        float angleToSet( rotation / (180.0/pi) );
 
         body->SetTransform( body->GetPosition(), angleToSet );
     }
@@ -267,7 +273,10 @@ void EntityShell::SetRotation( float rotation )
 ******************************************************************************/
 const b2Vec2& EntityShell::GetPhysicalPoint()
 {
-    if( GetDescriptor().Body == NULL ) return m_zeroVector;
+    if ( GetDescriptor().Body == nullptr )
+    {
+        return m_zeroVector;
+    }
 
     return GetDescriptor().Body->GetPosition();
 }

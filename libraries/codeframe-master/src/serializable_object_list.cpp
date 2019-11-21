@@ -22,7 +22,7 @@ namespace codeframe
     ******************************************************************************/
     void cObjectList::Register( ObjectNode* child )
     {
-        if( child )
+        if ( child )
         {
             m_Mutex.Lock();
             m_childVector.push_back( child );
@@ -38,7 +38,7 @@ namespace codeframe
     ******************************************************************************/
     void cObjectList::UnRegister( ObjectNode* child )
     {
-        if( child )
+        if ( child )
         {
             m_Mutex.Lock();
             m_childVector.erase(std::remove(m_childVector.begin(), m_childVector.end(), child), m_childVector.end());
@@ -56,7 +56,7 @@ namespace codeframe
     {
         m_Mutex.Lock();
         // Zmuszamy dzieci do aktualizacji
-        for ( cObjectList::iterator it = begin(); it != end(); ++it )
+        for ( auto it = begin(); it != end(); ++it )
         {
             ObjectNode* iser = *it;
 
@@ -76,10 +76,10 @@ namespace codeframe
     void cObjectList::CommitChanges()
     {
         m_Mutex.Lock();
-        for( cObjectList::iterator it = begin(); it != end(); ++it )
+        for ( auto it = begin(); it != end(); ++it )
         {
             ObjectNode* iser = *it;
-            if( iser )
+            if ( iser )
             {
                 iser->CommitChanges();
             }
@@ -95,10 +95,10 @@ namespace codeframe
     void cObjectList::Enable( bool val )
     {
         m_Mutex.Lock();
-        for( cObjectList::iterator it = begin(); it != end(); ++it )
+        for ( auto it = begin(); it != end(); ++it )
         {
             ObjectNode* iser = *it;
-            if( iser )
+            if ( iser )
             {
                 iser->Enable( val );
             }

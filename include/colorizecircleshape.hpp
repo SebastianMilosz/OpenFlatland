@@ -42,7 +42,7 @@ public:
     std::size_t getOutlineColorsCount() const;
 
     virtual std::size_t getPointCount() const;
-    virtual Vector2f getPoint(std::size_t index) const;
+    virtual Vector2f getPoint( const std::size_t index) const;
 
 protected:
     void update();

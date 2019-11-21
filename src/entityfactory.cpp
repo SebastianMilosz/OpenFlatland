@@ -36,7 +36,7 @@ void EntityFactory::CalculateNeuralNetworks()
 
         Entity* entityObj = static_cast<Entity*>( smart_ptr_getRaw( serializableObj ) );
 
-        if ( (Entity*)NULL != entityObj )
+        if ( (Entity*)nullptr != entityObj )
         {
             entityObj->CalculateNeuralNetworks();
         }
@@ -71,10 +71,10 @@ smart_ptr<codeframe::ObjectNode> EntityFactory::Create(
 {
     if ( className == "Entity" )
     {
-        int x = 0;
-        int y = 0;
+        int x( 0 );
+        int y( 0 );
 
-        for ( std::vector<codeframe::VariantValue>::const_iterator it = params.begin(); it != params.end(); ++it )
+        for ( auto it = params.begin(); it != params.end(); ++it )
         {
             if ( it->GetType() == codeframe::TYPE_INT )
             {

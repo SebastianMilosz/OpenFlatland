@@ -97,7 +97,7 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
 {
     if ( smart_ptr_isValid( obj ) == true )
     {
-        uint32_t uid = obj->Identity().GetUId();
+        uint32_t uid( obj->Identity().GetUId() );
 
         // Take object pointer as unique id
         ImGui::PushID( uid );
@@ -112,11 +112,11 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
         if ( node_open == true )
         {
             // Iterate through properties in object
-            for ( codeframe::PropertyIterator it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
+            for ( auto it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
             {
                 codeframe::PropertyBase* iser = *it;
 
-                if ( (codeframe::PropertyBase*)NULL != iser )
+                if ( (codeframe::PropertyBase*)nullptr != iser )
                 {
                     uint32_t upropid = iser->Id();
 

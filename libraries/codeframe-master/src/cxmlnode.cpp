@@ -123,7 +123,7 @@ cXMLNode cXMLNode::FindChildByAttribute(const char_t* attr_name, const char_t* a
   * @brief
  **
 ******************************************************************************/
-cXMLNode cXMLNode::Child(const char_t* name) const
+cXMLNode cXMLNode::Child( const char_t* name ) const
 {
     return cXMLNode( m_xmlNode->child( name ) );
 }

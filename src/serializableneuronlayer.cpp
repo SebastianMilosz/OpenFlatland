@@ -65,11 +65,11 @@ void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::Proper
 {
     if ( InitializeNetwork() == true )
     {
-        unsigned int wVecSize  = 0U;
-        unsigned int ioVecSize = 0U;
+        unsigned int wVecSize( 0U );
+        unsigned int ioVecSize( 0U );
 
-        unsigned int  curValue  = 0U;
-        unsigned int  prewValue = 0U;
+        unsigned int curValue( 0U );
+        unsigned int prewValue( 0U );
 
         // Iterate through configured weight vector to determinate size of working vectors
         for ( unsigned int n = 0U; n < m_WeightDimensions.size(); n++ )
@@ -93,7 +93,7 @@ void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::Proper
         // Random initialize
         std::mt19937_64 rng;
         // initialize the random number generator with time-dependent seed
-        uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+        uint64_t timeSeed( std::chrono::high_resolution_clock::now().time_since_epoch().count() );
         std::seed_seq ss
         {
             uint32_t( timeSeed & 0xffffffff ),

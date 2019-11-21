@@ -41,7 +41,7 @@ cLog::cLogEntryContainer::cLogEntryContainer()
 ******************************************************************************/
 cLog::cLogEntryContainer::~cLogEntryContainer()
 {
-    for( unsigned int n = 0; n < logEntrys.size(); n++ )
+    for( unsigned int n = 0U; n < logEntrys.size(); n++ )
     {
         sLogEntry* temp = logEntrys.at( n );
         delete temp;
@@ -55,7 +55,7 @@ cLog::cLogEntryContainer::~cLogEntryContainer()
 ******************************************************************************/
 std::string cLog::GetLogHeader()
 {
-    std::string fileLine = "";
+    std::string fileLine( "" );
 
             fileLine += "<html><head><style type=\"text/css\">";
             fileLine += " table { border:1px solid dodgerblue; border-collapse: collapse; width:100%; } ";
@@ -81,7 +81,7 @@ std::string cLog::GetLogHeader()
 ******************************************************************************/
 std::string cLog::GetLogTableHeader()
 {
-    std::string fileLine = "";
+    std::string fileLine( "" );
 
         fileLine += "<table>";
         fileLine += "<tr>";
@@ -115,13 +115,13 @@ void cLog::SetLogPath( const std::string& p )
 {
     m_AutoFlushMode = 1;
 
-    std::string filePath = p + "/log.txt";
+    std::string filePath( p + std::string("/log.txt") );
 
     // Sprawdzamy czy plik istnieje jesli nie to tworzymy i dodajmey naglowek jesli trzeba
-    if(!IsFileExist(filePath))
+    if ( !IsFileExist(filePath) )
     {
         FILE *fp;
-        std::string fileLine = "";
+        std::string fileLine( "" );
         fp = fopen( filePath.c_str(), "a+" );
 
         fileLine += GetLogHeader();
@@ -203,7 +203,7 @@ void cLog::cLogEntryContainer::SaveAsCSV( const std::string& path )
 
     if ( fp != NULL )
     {
-        for( unsigned int n = 0; n < logEntrys.size(); n++ )
+        for( unsigned int n = 0U; n < logEntrys.size(); n++ )
         {
             sLogEntry* temp = logEntrys.at( n );
             std::string logLine =   temp->DatePoint + ", " +
@@ -215,7 +215,7 @@ void cLog::cLogEntryContainer::SaveAsCSV( const std::string& path )
             fputs ( logLine.c_str() ,fp );
         }
 
-		fclose(fp);
+        fclose(fp);
     }
 }
 
@@ -321,14 +321,14 @@ void cLog::Message( const std::string& title, const std::string& msg, int type, 
 {
     (void)debugLevel;
 
-    std::string timeStamp = GetNow();
+    std::string timeStamp( GetNow() );
 
-    if( LogPath != "" )
+    if ( LogPath != "" )
     {
         // File Loggin
         std::fstream f;
         f.open( LogPath.c_str(), std::ios::out|std::ios::app );
-        if( !f.fail() )
+        if ( !f.fail() )
         {
             f << timeStamp << " : " << title << " : " << msg << "\n";
             f.close();

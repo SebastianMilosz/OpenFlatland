@@ -28,7 +28,7 @@ namespace codeframe
     {
         s_Mutex.Lock();
 
-        std::vector<void*>::iterator position = std::find( s_vInstanceList.begin(), s_vInstanceList.end(), (void*)this );
+        auto position = std::find( s_vInstanceList.begin(), s_vInstanceList.end(), (void*)this );
 
         // Jesli znaleziono to usuwamy
         if( position != s_vInstanceList.end() )
@@ -47,10 +47,10 @@ namespace codeframe
     ******************************************************************************/
     bool cInstanceManager::IsInstance( void* ptr )
     {
-        bool retVal = false;
+        bool retVal( false );
         s_Mutex.Lock();
 
-        std::vector<void*>::iterator position = std::find( s_vInstanceList.begin(), s_vInstanceList.end(), (void*)ptr );
+        auto position = std::find( s_vInstanceList.begin(), s_vInstanceList.end(), (void*)ptr );
 
         // Jesli znaleziono to usuwamy
         if( position != s_vInstanceList.end() )
@@ -72,7 +72,7 @@ namespace codeframe
     {
         s_Mutex.Lock();
 
-        std::vector<void*>::iterator position = std::find( s_vInstanceList.begin(), s_vInstanceList.end(), (void*)ptr );
+        auto position = std::find( s_vInstanceList.begin(), s_vInstanceList.end(), (void*)ptr );
 
         // Jesli znaleziono to usuwamy
         if( position != s_vInstanceList.end() )

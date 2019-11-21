@@ -23,7 +23,7 @@ class Application : public codeframe::Object
         void ProcesseLogic( void );
 
     private:
-            void ZoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, float zoom );
+            void ZoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, const float zoom );
 
             const float         m_zoomAmount;
 

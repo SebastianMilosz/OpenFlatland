@@ -13,7 +13,7 @@ const float PhysicsBody::sDescriptor::METER_IN_PIXELS = 0.04f;
 PhysicsBody::PhysicsBody( const std::string& name, codeframe::ObjectNode* parent ) :
     Object( name, parent )
 {
-    m_descryptor.Body = NULL;
+    m_descryptor.Body = nullptr;
 }
 
 /*****************************************************************************/
