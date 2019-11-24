@@ -75,11 +75,11 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
 
     classTest_Container staticContainerObject( "testNameContainerStatic", &staticSerializableObject );
 
-    staticContainerObject.Create( "classTest_Dynamic", "node" );
-    staticContainerObject.Create( "classTest_Dynamic", "node" );
-    staticContainerObject.Create( "classTest_Dynamic", "node" );
-    staticContainerObject.Create( "classTest_Dynamic", "node" );
-    staticContainerObject.Create( "classTest_Dynamic", "node" );
+    staticContainerObject.Create( "classTest_Dynamic", "node" );    // node[0]
+    staticContainerObject.Create( "classTest_Dynamic", "node" );    // node[1]
+    staticContainerObject.Create( "classTest_Dynamic", "node" );    // node[2]
+    staticContainerObject.Create( "classTest_Dynamic", "node" );    // node[3]
+    staticContainerObject.Create( "classTest_Dynamic", "node" );    // node[4]
 
     SECTION( "Basic codeframe library objects tests" )
     {
@@ -115,7 +115,14 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
         REQUIRE( smart_ptr_isValid( propNode ) );
 
         INFO ( "The selection property name: " << propNode->Name() );
+        INFO ( "The selection parent name: " << propNode->ParentName() );
 
         *propNode = 777;
+
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" )) == 777 );
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[1].Property1" )) == 777 );
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[2].Property1" )) == 777 );
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" )) == 777 );
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[4].Property1" )) == 777 );
     }
 }

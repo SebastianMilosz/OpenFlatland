@@ -1,5 +1,8 @@
 #include "serializable_property_list.hpp"
+#include "serializable_property_selection.hpp"
 #include "serializable_object_node.hpp"
+#include "serializable_property_base.hpp"
+#include "serializable_property_multiple_selection.hpp"
 
 #include <LoggerUtilities.h>
 
@@ -54,7 +57,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<PropertyNode> cPropertyList::GetPropertyById( uint32_t id )
+    smart_ptr<PropertyNode> cPropertyList::GetPropertyById( const uint32_t id )
     {
         //m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
@@ -89,8 +92,25 @@ namespace codeframe
 
         if ( smart_ptr_isValid( objectSelection ) )
         {
-            smart_ptr<PropertyNode> propNode = objectSelection->GetNode()->PropertyList().GetPropertyByName( propertyName );
-            return propNode;
+            if ( objectSelection->GetNodeCount() > 1U )
+            {
+                smart_ptr<PropertyMultipleSelection> propMultiNode( new PropertyMultipleSelection() );
+
+                for ( ObjectNode* obj : *objectSelection )
+                {
+                    smart_ptr<PropertyNode> node = obj->PropertyList().GetPropertyByName( propertyName );
+                    if ( nullptr != node )
+                    {
+                        propMultiNode->Add( node );
+                    }
+                }
+                return propMultiNode;
+            }
+            else
+            {
+                smart_ptr<PropertyNode> propNode = objectSelection->GetNode()->PropertyList().GetPropertyByName( propertyName );
+                return propNode;
+            }
         }
 
         return smart_ptr<PropertyNode>( nullptr );

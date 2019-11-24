@@ -305,6 +305,16 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    std::string PropertySelection::ParentName() const
+    {
+        return m_selection->ParentName();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     bool PropertySelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
         return false;

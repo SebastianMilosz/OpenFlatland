@@ -114,7 +114,8 @@ namespace codeframe
             virtual uint32_t        Id() const;
             virtual eType           Type() const;
             virtual std::string     Path(bool addName = true) const;
-            virtual ObjectNode*     Parent() const { return m_parentpc; }
+            virtual ObjectNode*     Parent() const;
+            virtual std::string     ParentName() const;
             virtual PropertyNode*   Reference() const { return m_reference; }
             virtual bool            ConnectReference( smart_ptr<PropertyNode> refNode );
             virtual std::string     TypeString() const;

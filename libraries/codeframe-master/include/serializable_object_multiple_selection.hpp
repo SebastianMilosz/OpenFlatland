@@ -16,6 +16,8 @@ namespace codeframe
     class ObjectMultipleSelection : public ObjectSelection
     {
         public:
+            using ObjectSelectionIterator = ObjectSelection::ObjectSelectionIterator;
+
             ObjectMultipleSelection();
             ObjectMultipleSelection( ObjectNode* obj );
            ~ObjectMultipleSelection();

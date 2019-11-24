@@ -401,6 +401,30 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
+      * @brief
+     **
+    ******************************************************************************/
+    ObjectNode* PropertyBase::Parent() const
+    {
+        return m_parentpc;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertyBase::ParentName() const
+    {
+        if ( m_parentpc != nullptr )
+        {
+            return m_parentpc->Identity().ObjectName();
+        }
+        return "nullptr";
+    }
+
+    /*****************************************************************************/
+    /**
       * @brief Wymusza na zmiennej ze ma czekac na aktualizacje w wypadku
       * jej braku jest generowany event
      **
