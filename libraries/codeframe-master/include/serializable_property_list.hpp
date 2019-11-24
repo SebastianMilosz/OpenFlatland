@@ -5,15 +5,15 @@
 #include <sigslot.h>
 #include <string>
 #include <vector>
+#include <smartpointer.h>
 
 #include "serializable_property_iterator.hpp"
 #include "serializable_property_base.hpp"
-#include "serializable_property_selection.hpp"
 
 namespace codeframe
 {
     class ObjectNode;
-    class PropertyBase;
+    class PropertyNode;
 
     class cPropertyList : public sigslot::has_slots<>
     {
@@ -24,7 +24,7 @@ namespace codeframe
             ~cPropertyList();
 
             smart_ptr<PropertyNode> GetPropertyByName  ( const std::string& name );
-            smart_ptr<PropertyNode> GetPropertyById    ( uint32_t    id   );
+            smart_ptr<PropertyNode> GetPropertyById    ( const uint32_t id   );
             smart_ptr<PropertyNode> GetPropertyFromPath( const std::string& path );
 
             std::string   GetNameById( uint32_t id ) const;

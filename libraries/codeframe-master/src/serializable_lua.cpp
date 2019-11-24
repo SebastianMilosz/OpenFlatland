@@ -1,5 +1,7 @@
 #include "serializable_object.hpp"
 
+#include "serializable_property_selection.hpp"
+
 #ifdef SERIALIZABLE_USE_LUA
 #include <LuaBridge/LuaBridge.h>
 using namespace luabridge;

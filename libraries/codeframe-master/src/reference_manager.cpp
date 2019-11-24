@@ -2,8 +2,9 @@
 
 #include <cstring>      // std::strlen
 
-#include <serializable_object.hpp>
-#include <utilities/LoggerUtilities.h>
+#include "serializable_object.hpp"
+#include "serializable_property_selection.hpp"
+#include "utilities/LoggerUtilities.h"
 
 namespace codeframe
 {

@@ -25,6 +25,7 @@ namespace codeframe
             virtual uint32_t      Id() const;
 
             virtual ObjectNode* Parent() const;
+            virtual std::string ParentName() const;
             virtual bool ConnectReference( smart_ptr<PropertyNode> refNode );
 
             virtual bool operator==(const PropertySelection& sval) const;
