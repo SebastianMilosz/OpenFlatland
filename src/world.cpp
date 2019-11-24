@@ -280,6 +280,8 @@ void World::CalculateRays( void )
 
                 register unsigned int rayLength( (unsigned int)entity->RaysSize );
                 register unsigned int rayCntLimit( (unsigned int)entity->RaysCnt );
+                register          int rayAngleStart( (int)entity->RaysStartingAngle );
+                register          int rayAngleEnd( (int)entity->RaysEndingAngle );
                 register float32      rotation( entity->GetRotation() );
 
                 float32 currentRayAngle( -(rotation+180.0F) * (pi/180.0F) );
