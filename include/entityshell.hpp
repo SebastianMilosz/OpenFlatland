@@ -22,6 +22,8 @@ class EntityShell : public PhysicsBody
         codeframe::Property<bool,         EntityShell> CastRays;
         codeframe::Property<unsigned int, EntityShell> RaysCnt;
         codeframe::Property<unsigned int, EntityShell> RaysSize;
+        codeframe::Property<int,          EntityShell> RaysStartingAngle;
+        codeframe::Property<int,          EntityShell> RaysEndingAngle;
         codeframe::Property<std::string,  EntityShell> Name;
         codeframe::Property<float,        EntityShell> Density;
         codeframe::Property<float,        EntityShell> Friction;
