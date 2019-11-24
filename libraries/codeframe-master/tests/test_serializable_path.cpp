@@ -124,5 +124,13 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
         REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[2].Property1" )) == 777 );
         REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" )) == 777 );
         REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[4].Property1" )) == 777 );
+
+        staticSerializableObject.Script().RunString("CF:GetProperty('testNameStatic/testNameContainerStatic/node[*].Property1').Number = 1234");
+
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" )) == 1234 );
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[1].Property1" )) == 1234 );
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[2].Property1" )) == 1234 );
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" )) == 1234 );
+        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[4].Property1" )) == 1234 );
     }
 }
