@@ -284,8 +284,11 @@ void World::CalculateRays( void )
                 register          int rayAngleEnd( (int)entity->RaysEndingAngle );
                 register float32      rotation( entity->GetRotation() );
 
-                float32 currentRayAngle( -(rotation+180.0F) * (pi/180.0F) );
-                float32 rayAngleStep( (360.0F / (float32)rayCntLimit) * (pi/180.0F) );
+                register float32 rayRange = std::abs(rayAngleStart) + std::abs(rayAngleEnd);
+
+                //float32 currentRayAngle( -(rotation+180.0F) * (pi/180.0F) );
+                float32 currentRayAngle( -(rotation + rayAngleStart + 180.0F) * (pi/180.0F) );
+                float32 rayAngleStep( (rayRange / (float32)rayCntLimit) * (pi/180.0F) );
                 RayCastCallback callback;
                 b2Vec2 p2;
                 unsigned int ray;
