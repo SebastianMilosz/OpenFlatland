@@ -150,7 +150,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         m_circle.setRotation( rot );
 
         m_triangle.setPosition( xpos, ypos );
-        m_triangle.setRotation( rot );
+        m_triangle.setRotation( rot + 35 );
 
         window.draw( m_circle );
         window.draw( m_triangle );
