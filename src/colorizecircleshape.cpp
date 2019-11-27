@@ -198,7 +198,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    ColorizeCircleShape::ColorizeCircleShape(float radius, std::size_t pointCount) :
+    ColorizeCircleShape::ColorizeCircleShape(float radius, std::size_t pointCount, int startAngle, int endAngle) :
     m_texture         (NULL),
     m_textureRect     (),
     m_fillColor       (255, 255, 255),
@@ -209,7 +209,9 @@ namespace sf
     m_bounds          (),
     m_radius          (radius),
     m_pointCount      (pointCount),
-    m_colorData       (NULL)
+    m_colorData       (NULL),
+    m_StartAngle      (startAngle),
+    m_EndAngle        (endAngle)
     {
 
     }
@@ -421,6 +423,18 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
+    void ColorizeCircleShape::setAngle( int startAngle, int endAngle )
+    {
+        m_StartAngle = startAngle;
+        m_EndAngle = endAngle;
+        update();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     Color* ColorizeCircleShape::getOutlineColors()
     {
         return m_colorData;
@@ -455,6 +469,7 @@ namespace sf
     {
         static const float pi = 3.141592654F;
 
+        // angle( -((index * 360o / m_pointCount) + 90o) );
         float angle( -((index * 2.0F * pi / m_pointCount) + (pi / 2.0F)) );
         float x( std::cos( angle ) * m_radius );
         float y( std::sin( angle ) * m_radius );

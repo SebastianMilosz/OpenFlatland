@@ -49,7 +49,7 @@ class EntityShell : public PhysicsBody
 
     private:
         b2Vec2                  m_zeroVector;
-        sf::ColorizeCircleShape m_circle;
+        sf::ColorizeCircleShape m_visionShape;
         sf::CircleShape         m_triangle;
         EntityVision            m_vision;
 

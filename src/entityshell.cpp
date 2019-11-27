@@ -27,6 +27,7 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     Density          ( this, "Density"          , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
     Friction         ( this, "Friction"         , 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
     m_zeroVector( 0.0F, 0.0F ),
+    m_visionShape(),
     m_triangle( sDescriptor::PIXELS_IN_METER * 0.5f, 3 ),
     m_vision( this ),
     m_curX(0),
@@ -48,17 +49,18 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     GetDescriptor().FixtureDef.friction = (float)Friction;
     GetDescriptor().FixtureDef.shape    = GetDescriptor().Shape;
 
-    m_circle.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
-    m_circle.setOutlineThickness(2);
-    m_circle.setOrigin(12.5F, 12.5F);
-    m_circle.setPointCount(16);
+    m_visionShape.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
+    m_visionShape.setOutlineThickness(2);
+    m_visionShape.setOrigin(12.5F, 12.5F);
+    m_visionShape.setPointCount(16);
+    m_visionShape.setAngle( -45, 45 );
 
     m_triangle.setOutlineThickness(1);
     m_triangle.setOrigin(12.5F, 12.5F);
     m_triangle.setFillColor( sf::Color::Transparent );
 
-    m_circle.setOutlineColor( GetColor() );
-    m_circle.setFillColor( sf::Color::Transparent );
+    m_visionShape.setOutlineColor( GetColor() );
+    m_visionShape.setFillColor( sf::Color::Transparent );
 
     Selection().signalSelectionChanged.connect( this, &EntityShell::slotSelectionChanged );
 }
@@ -82,11 +84,11 @@ void EntityShell::slotSelectionChanged( smart_ptr<ObjectNode> )
 {
     if ( Selection().IsSelected() == true )
     {
-        m_circle.setFillColor( sf::Color::Blue );
+        m_visionShape.setFillColor( sf::Color::Blue );
     }
     else
     {
-        m_circle.setFillColor( sf::Color::Transparent );
+        m_visionShape.setFillColor( sf::Color::Transparent );
     }
 }
 
@@ -144,15 +146,15 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
             m_vision.Draw( window );
         }
 
-        m_circle.setOutlineColor( m_vision.GetDistanceVector() );
+        m_visionShape.setOutlineColor( m_vision.GetDistanceVector() );
 
-        m_circle.setPosition( xpos, ypos );
-        m_circle.setRotation( rot );
+        m_visionShape.setPosition( xpos, ypos );
+        m_visionShape.setRotation( rot );
 
         m_triangle.setPosition( xpos, ypos );
         m_triangle.setRotation( rot + 35 );
 
-        window.draw( m_circle );
+        window.draw( m_visionShape );
         window.draw( m_triangle );
     }
 }
