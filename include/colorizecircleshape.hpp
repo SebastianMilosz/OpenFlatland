@@ -18,7 +18,7 @@ namespace sf
 class ColorizeCircleShape : public Drawable, public Transformable
 {
 public:
-             ColorizeCircleShape(float radius = 0, std::size_t pointCount = 30);
+             ColorizeCircleShape( float radius = 0, std::size_t pointCount = 30, int startAngle = 0, int endAngle = 360 );
     virtual ~ColorizeCircleShape();
 
     void setTexture(const Texture* texture, bool resetRect = false);
@@ -37,6 +37,8 @@ public:
     void setRadius(float radius);
     float getRadius() const;
     void setPointCount(std::size_t count);
+
+    void setAngle( int startAngle, int endAngle );
 
     Color* getOutlineColors();
     std::size_t getOutlineColorsCount() const;
@@ -66,6 +68,9 @@ private:
     float          m_radius;           ///< Radius of the circle
     std::size_t    m_pointCount;       ///< Number of points composing the circle
     Color*         m_colorData;        ///<
+
+    int            m_StartAngle;
+    int            m_EndAngle;
 };
 
 } // namespace sf
