@@ -423,9 +423,19 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setAngle( int startAngle, int endAngle )
+    void ColorizeCircleShape::setStartAngle( int startAngle )
     {
         m_StartAngle = startAngle;
+        update();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void ColorizeCircleShape::setEndAngle( int endAngle )
+    {
         m_EndAngle = endAngle;
         update();
     }

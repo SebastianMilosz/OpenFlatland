@@ -38,7 +38,8 @@ public:
     float getRadius() const;
     void setPointCount(std::size_t count);
 
-    void setAngle( int startAngle, int endAngle );
+    void setStartAngle( int startAngle );
+    void setEndAngle( int endAngle );
 
     Color* getOutlineColors();
     std::size_t getOutlineColorsCount() const;
