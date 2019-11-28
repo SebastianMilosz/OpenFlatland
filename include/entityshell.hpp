@@ -39,6 +39,9 @@ class EntityShell : public PhysicsBody
         float32 GetPhysicalY();
         void SetY(int val);
 
+        void SetRaysStartingAngle( int value );
+        void SetRaysEndingAngle( int value );
+
         const float32& GetRotation();
 
         void SetRotation( float rotation );
