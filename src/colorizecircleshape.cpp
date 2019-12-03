@@ -268,7 +268,7 @@ namespace sf
 
         // Render the inside
         states.texture = m_texture;
-        target.draw(m_vertices, states);
+        //target.draw(m_vertices, states);
 
         // Render the outline
         if (m_outlineThickness != 0)
@@ -313,7 +313,7 @@ namespace sf
     void ColorizeCircleShape::updateOutline()
     {
         std::size_t count( m_vertices.getVertexCount() - 2 );
-        m_outlineVertices.resize((count + 1) * 2);
+        m_outlineVertices.resize((count) * 2);
 
         // Recreate color table
         if ( NULL != m_colorData )
@@ -354,8 +354,8 @@ namespace sf
         }
 
         // Duplicate the first point at the end, to close the outline
-        m_outlineVertices[count * 2 + 0].position = m_outlineVertices[0].position;
-        m_outlineVertices[count * 2 + 1].position = m_outlineVertices[1].position;
+        //m_outlineVertices[count * 2 + 0].position = m_outlineVertices[0].position;
+        //m_outlineVertices[count * 2 + 1].position = m_outlineVertices[1].position;
 
         // Update outline colors
         updateOutlineColors();
@@ -382,8 +382,8 @@ namespace sf
             n += 2;
         }
 
-        m_outlineVertices[count * 2 + 0].color = cl;
-        m_outlineVertices[count * 2 + 1].color = cl;
+        //m_outlineVertices[count * 2 + 0].color = cl;
+        //m_outlineVertices[count * 2 + 1].color = cl;
     }
 
     /*****************************************************************************/

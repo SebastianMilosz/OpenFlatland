@@ -85,11 +85,11 @@ void EntityShell::slotSelectionChanged( smart_ptr<ObjectNode> )
 {
     if ( Selection().IsSelected() == true )
     {
-        m_visionShape.setFillColor( sf::Color::Blue );
+        m_triangle.setFillColor( sf::Color::Blue );
     }
     else
     {
-        m_visionShape.setFillColor( sf::Color::Transparent );
+        m_triangle.setFillColor( sf::Color::Transparent );
     }
 }
 
@@ -153,7 +153,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         m_visionShape.setRotation( rot );
 
         m_triangle.setPosition( xpos, ypos );
-        m_triangle.setRotation( rot + 35 );
+        m_triangle.setRotation( rot + 35 + 180 );
 
         window.draw( m_visionShape );
         window.draw( m_triangle );
