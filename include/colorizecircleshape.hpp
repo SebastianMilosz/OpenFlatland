@@ -21,14 +21,10 @@ public:
              ColorizeCircleShape( float radius = 0, std::size_t pointCount = 30, int startAngle = 0, int endAngle = 360 );
     virtual ~ColorizeCircleShape();
 
-    void setTexture(const Texture* texture, bool resetRect = false);
-    void setTextureRect(const IntRect& rect);
     void setFillColor(const Color& color);
     void setOutlineColor(const Color& color);
     void setOutlineColor(const std::vector<float>& floatVevtor);
     void setOutlineThickness(float thickness);
-    const Texture* getTexture() const;
-    const IntRect& getTextureRect() const;
     const Color& getFillColor() const;
     float getOutlineThickness() const;
     FloatRect getLocalBounds() const;
@@ -53,16 +49,12 @@ protected:
 private:
     virtual void draw(RenderTarget& target, RenderStates states) const;
     void updateFillColors();
-    void updateTexCoords();
     void updateOutlineColors();
     void updateOutline();
 
 private:
-    const Texture* m_texture;          ///< Texture of the shape
-    IntRect        m_textureRect;      ///< Rectangle defining the area of the source texture to display
     Color          m_fillColor;        ///< Fill color
     float          m_outlineThickness; ///< Thickness of the shape's outline
-    VertexArray    m_vertices;         ///< Vertex array containing the fill geometry
     VertexArray    m_outlineVertices;  ///< Vertex array containing the outline geometry
     FloatRect      m_insideBounds;     ///< Bounding rectangle of the inside (fill)
     FloatRect      m_bounds;           ///< Bounding rectangle of the whole shape (outline + fill)
