@@ -56,55 +56,6 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setTexture(const Texture* texture, bool resetRect)
-    {
-        if (texture)
-        {
-            // Recompute the texture area if requested, or if there was no texture & rect before
-            if (resetRect || (!m_texture && (m_textureRect == IntRect())))
-                setTextureRect(IntRect(0, 0, texture->getSize().x, texture->getSize().y));
-        }
-
-        // Assign the new texture
-        m_texture = texture;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    const Texture* ColorizeCircleShape::getTexture() const
-    {
-        return m_texture;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void ColorizeCircleShape::setTextureRect(const IntRect& rect)
-    {
-        m_textureRect = rect;
-        updateTexCoords();
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    const IntRect& ColorizeCircleShape::getTextureRect() const
-    {
-        return m_textureRect;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     void ColorizeCircleShape::setFillColor(const Color& color)
     {
         m_fillColor = color;
@@ -199,11 +150,8 @@ namespace sf
      **
     ******************************************************************************/
     ColorizeCircleShape::ColorizeCircleShape(float radius, std::size_t pointCount, int startAngle, int endAngle) :
-    m_texture         (NULL),
-    m_textureRect     (),
     m_fillColor       (255, 255, 255),
     m_outlineThickness(0),
-    m_vertices        (TriangleFan),
     m_outlineVertices (TriangleStrip),
     m_insideBounds    (),
     m_bounds          (),
@@ -227,31 +175,9 @@ namespace sf
         std::size_t count = getPointCount();
         if (count < 3)
         {
-            m_vertices.resize(0);
             m_outlineVertices.resize(0);
             return;
         }
-
-        m_vertices.resize(count + 2); // + 2 for center and repeated first point
-
-        // Position
-        for (std::size_t i = 0; i < count; ++i)
-            m_vertices[i + 1].position = getPoint(i);
-        m_vertices[count + 1].position = m_vertices[1].position;
-
-        // Update the bounding rectangle
-        m_vertices[0] = m_vertices[1]; // so that the result of getBounds() is correct
-        m_insideBounds = m_vertices.getBounds();
-
-        // Compute the center and make it the first vertex
-        m_vertices[0].position.x = m_insideBounds.left + m_insideBounds.width / 2;
-        m_vertices[0].position.y = m_insideBounds.top + m_insideBounds.height / 2;
-
-        // Color
-        updateFillColors();
-
-        // Texture coordinates
-        updateTexCoords();
 
         // Outline
         updateOutline();
@@ -266,14 +192,10 @@ namespace sf
     {
         states.transform *= getTransform();
 
-        // Render the inside
-        states.texture = m_texture;
-        //target.draw(m_vertices, states);
-
         // Render the outline
         if (m_outlineThickness != 0)
         {
-            states.texture = NULL;
+            states.texture = nullptr;
             target.draw(m_outlineVertices, states);
         }
     }
@@ -285,24 +207,6 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateFillColors()
     {
-        for (std::size_t i = 0; i < m_vertices.getVertexCount(); ++i)
-            m_vertices[i].color = m_fillColor;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    void ColorizeCircleShape::updateTexCoords()
-    {
-        for (std::size_t i = 0; i < m_vertices.getVertexCount(); ++i)
-        {
-            float xratio = m_insideBounds.width > 0 ? (m_vertices[i].position.x - m_insideBounds.left) / m_insideBounds.width : 0;
-            float yratio = m_insideBounds.height > 0 ? (m_vertices[i].position.y - m_insideBounds.top) / m_insideBounds.height : 0;
-            m_vertices[i].texCoords.x = m_textureRect.left + m_textureRect.width * xratio;
-            m_vertices[i].texCoords.y = m_textureRect.top + m_textureRect.height * yratio;
-        }
     }
 
     /*****************************************************************************/
@@ -312,7 +216,7 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutline()
     {
-        std::size_t count( m_vertices.getVertexCount() - 2 );
+        std::size_t count( getPointCount() );
         m_outlineVertices.resize((count) * 2);
 
         // Recreate color table
@@ -329,9 +233,9 @@ namespace sf
             std::size_t index( i + 1 );
 
             // Get the two segments shared by the current point
-            Vector2f p0( (i == 0) ? m_vertices[count].position : m_vertices[index - 1].position );
-            Vector2f p1( m_vertices[index].position );
-            Vector2f p2( m_vertices[index + 1].position );
+            Vector2f p0( (i == 0) ? getPoint(count) : getPoint(index - 1) );
+            Vector2f p1( getPoint(index) );
+            Vector2f p2( getPoint(index + 1) );
 
             // Compute their normal
             Vector2f n1( computeNormal(p0, p1) );
@@ -339,9 +243,9 @@ namespace sf
 
             // Make sure that the normals point towards the outside of the shape
             // (this depends on the order in which the points were defined)
-            if (dotProduct(n1, m_vertices[0].position - p1) > 0)
+            if (dotProduct(n1, getPoint(0) - p1) > 0)
                 n1 = -n1;
-            if (dotProduct(n2, m_vertices[0].position - p1) > 0)
+            if (dotProduct(n2, getPoint(0) - p1) > 0)
                 n2 = -n2;
 
             // Combine them to get the extrusion direction
@@ -352,10 +256,6 @@ namespace sf
             m_outlineVertices[i * 2 + 0].position = p1;
             m_outlineVertices[i * 2 + 1].position = p1 + normal * m_outlineThickness;
         }
-
-        // Duplicate the first point at the end, to close the outline
-        //m_outlineVertices[count * 2 + 0].position = m_outlineVertices[0].position;
-        //m_outlineVertices[count * 2 + 1].position = m_outlineVertices[1].position;
 
         // Update outline colors
         updateOutlineColors();
@@ -371,7 +271,7 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutlineColors()
     {
-        std::size_t count( m_vertices.getVertexCount() - 2 );
+        std::size_t count( getPointCount() );
         unsigned int n(0);
         Color cl;
         for (std::size_t i = 0; i < count; ++i)
@@ -381,9 +281,6 @@ namespace sf
             m_outlineVertices[n + 1].color = cl;
             n += 2;
         }
-
-        //m_outlineVertices[count * 2 + 0].color = cl;
-        //m_outlineVertices[count * 2 + 1].color = cl;
     }
 
     /*****************************************************************************/
