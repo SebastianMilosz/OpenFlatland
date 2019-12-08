@@ -56,7 +56,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setFillColor(const Color& color)
+    void ColorizeCircleShape::setFillColor( const Color& color )
     {
         m_fillColor = color;
         updateFillColors();
@@ -77,9 +77,9 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setOutlineColor(const Color& color)
+    void ColorizeCircleShape::setOutlineColor( const Color& color )
     {
-        for (std::size_t i = 0; i < m_pointCount; ++i)
+        for ( std::size_t i = 0; i < m_pointCount; ++i )
         {
             m_colorData[i] = color;
         }
@@ -93,13 +93,13 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::setOutlineColor( const std::vector<float>& floatVevtor )
     {
-        if ( getPointCount() != floatVevtor.size() )
+        if ( m_pointCount != floatVevtor.size() )
         {
             setPointCount( floatVevtor.size() );
         }
 
         ColorizeRealNumbers cl;
-        cl.Colorize_Grayscale( floatVevtor, m_colorData, getPointCount() );
+        cl.Colorize_Grayscale( floatVevtor, m_colorData, m_pointCount );
         updateOutlineColors();
     }
 
@@ -172,8 +172,7 @@ namespace sf
     void ColorizeCircleShape::update()
     {
         // Get the total number of points of the shape
-        std::size_t count = getPointCount();
-        if (count < 3)
+        if ( m_pointCount < 3 )
         {
             m_outlineVertices.resize(0);
             return;
@@ -188,7 +187,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::draw(RenderTarget& target, RenderStates states) const
+    void ColorizeCircleShape::draw( RenderTarget& target, RenderStates states ) const
     {
         states.transform *= getTransform();
 
@@ -196,7 +195,7 @@ namespace sf
         if (m_outlineThickness != 0)
         {
             states.texture = nullptr;
-            target.draw(m_outlineVertices, states);
+            target.draw( m_outlineVertices, states );
         }
     }
 
@@ -216,8 +215,7 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutline()
     {
-        std::size_t count( getPointCount() );
-        m_outlineVertices.resize((count) * 2);
+        m_outlineVertices.resize(m_pointCount * 2);
 
         // Recreate color table
         if ( NULL != m_colorData )
@@ -228,14 +226,14 @@ namespace sf
 
         m_colorData = new Color[ m_pointCount ];
 
-        for (std::size_t i = 0; i < count; ++i)
+        for (std::size_t i = 0; i < m_pointCount; ++i)
         {
             std::size_t index( i + 1 );
 
             // Get the two segments shared by the current point
-            Vector2f p0( (i == 0) ? getPoint(count) : getPoint(index - 1) );
-            Vector2f p1( getPoint(index) );
-            Vector2f p2( getPoint(index + 1) );
+            Vector2f p0( (i == 0) ? getPoint( m_pointCount ) : getPoint( index - 1 ) );
+            Vector2f p1( getPoint( index ) );
+            Vector2f p2( getPoint( index + 1 ) );
 
             // Compute their normal
             Vector2f n1( computeNormal(p0, p1) );
@@ -271,10 +269,9 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutlineColors()
     {
-        std::size_t count( getPointCount() );
         unsigned int n(0);
         Color cl;
-        for (std::size_t i = 0; i < count; ++i)
+        for (std::size_t i = 0; i < m_pointCount; ++i)
         {
             cl = m_colorData[i];
             m_outlineVertices[n + 0].color = cl;
@@ -288,7 +285,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setRadius(float radius)
+    void ColorizeCircleShape::setRadius( const float radius )
     {
         m_radius = radius;
         update();
@@ -309,7 +306,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setPointCount(std::size_t count)
+    void ColorizeCircleShape::setPointCount( const std::size_t count )
     {
         m_pointCount = count;
         update();
@@ -320,7 +317,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setStartAngle( int startAngle )
+    void ColorizeCircleShape::setStartAngle( const int startAngle )
     {
         m_StartAngle = startAngle;
         update();
@@ -331,7 +328,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setEndAngle( int endAngle )
+    void ColorizeCircleShape::setEndAngle( const int endAngle )
     {
         m_EndAngle = endAngle;
         update();
@@ -377,8 +374,8 @@ namespace sf
         static const float pi = 3.141592654F;
 
         // angle( -((index * 360o / m_pointCount) + 90o) );
-        float angleRange(std::abs(m_StartAngle)+std::abs(m_EndAngle));
-        float angle( -((index * ( angleRange* (pi/180.0F)) / m_pointCount) + (130)* (pi/180.0F)) );
+        float angleRange( std::abs(std::max(m_StartAngle,m_EndAngle) - std::min(m_StartAngle,m_EndAngle)) );
+        float angle( ((index * ( angleRange* (pi/180.0F)) / m_pointCount) + ((std::min(m_StartAngle,m_EndAngle)+90) * (pi/180.0F))) );
         float x( std::cos( angle ) * m_radius );
         float y( std::sin( angle ) * m_radius );
 

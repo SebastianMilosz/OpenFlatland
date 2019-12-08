@@ -30,12 +30,12 @@ public:
     FloatRect getLocalBounds() const;
     FloatRect getGlobalBounds() const;
 
-    void setRadius(float radius);
+    void setRadius( const float radius);
     float getRadius() const;
-    void setPointCount(std::size_t count);
+    void setPointCount( const std::size_t count );
 
-    void setStartAngle( int startAngle );
-    void setEndAngle( int endAngle );
+    void setStartAngle( const int startAngle );
+    void setEndAngle( const int endAngle );
 
     Color* getOutlineColors();
     std::size_t getOutlineColorsCount() const;
@@ -47,7 +47,7 @@ protected:
     void update();
 
 private:
-    virtual void draw(RenderTarget& target, RenderStates states) const;
+    virtual void draw( RenderTarget& target, RenderStates states ) const;
     void updateFillColors();
     void updateOutlineColors();
     void updateOutline();

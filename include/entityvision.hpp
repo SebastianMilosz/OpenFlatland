@@ -20,6 +20,7 @@ class EntityVision : public codeframe::Object
 
         struct sRay
         {
+            sRay();
             sRay( b2Vec2& p1, b2Vec2& p2, float32 f );
 
             b2Vec2 P1;
@@ -30,6 +31,7 @@ class EntityVision : public codeframe::Object
         void Draw( sf::RenderWindow& window );
         void StartFrame();
         void AddRay( EntityVision::sRay ray );
+        void AddDirectionRay( EntityVision::sRay ray );
         void EndFrame();
 
         const std::vector<float>& GetDistanceVector();
@@ -41,6 +43,8 @@ class EntityVision : public codeframe::Object
         std::vector<float> m_distanceVisionVector;
         std::vector<float> m_fixtureVisionVector;
         sf::Vertex         m_rayLine[2];
+        sf::Vertex         m_directionRayLine[2];
+        EntityVision::sRay m_directionRay;
 };
 
 #endif // ENTITYVISION_HPP_INCLUDED

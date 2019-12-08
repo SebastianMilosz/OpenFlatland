@@ -14,6 +14,9 @@ EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
 {
     m_rayLine[0].color = sf::Color::White;
     m_rayLine[1].color = sf::Color::White;
+
+    m_directionRayLine[0].color = sf::Color::Red;
+    m_directionRayLine[1].color = sf::Color::Red;
 }
 
 /*****************************************************************************/
@@ -24,6 +27,19 @@ EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
 EntityVision::~EntityVision()
 {
     m_visionVector.clear();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+EntityVision::sRay::sRay() :
+    P1( 0.0F, 0.0F ),
+    P2( 0.0F, 0.0F ),
+    Fixture( 0.0F )
+{
+
 }
 
 /*****************************************************************************/
@@ -53,6 +69,10 @@ void EntityVision::Draw( sf::RenderWindow& window )
 
         window.draw( m_rayLine, 2, sf::Lines );
     }
+
+    m_directionRayLine[0].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( m_directionRay.P1 );
+    m_directionRayLine[1].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( m_directionRay.P2 );
+    window.draw( m_directionRayLine, 2, sf::Lines );
 }
 
 /*****************************************************************************/
@@ -77,6 +97,16 @@ void EntityVision::AddRay( EntityVision::sRay ray )
     m_visionVector.emplace_back( ray );
     m_distanceVisionVector.emplace_back( (ray.P2-ray.P1).Length() );
     m_fixtureVisionVector.emplace_back( ray.Fixture );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityVision::AddDirectionRay( EntityVision::sRay ray )
+{
+    m_directionRay = ray;
 }
 
 /*****************************************************************************/
