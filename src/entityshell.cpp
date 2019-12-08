@@ -153,7 +153,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         m_visionShape.setRotation( rot );
 
         m_triangle.setPosition( xpos, ypos );
-        m_triangle.setRotation( rot + 35 + 180 );
+        m_triangle.setRotation( rot );
 
         window.draw( m_visionShape );
         window.draw( m_triangle );
