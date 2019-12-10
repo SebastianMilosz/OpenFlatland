@@ -31,11 +31,13 @@ class EntityVision : public codeframe::Object
         void Draw( sf::RenderWindow& window );
         void StartFrame();
         void AddRay( EntityVision::sRay ray );
-        void AddDirectionRay( EntityVision::sRay ray );
         void EndFrame();
-
         const std::vector<float>& GetDistanceVector();
         const std::vector<float>& GetFixtureVector();
+
+#ifdef ENTITY_VISION_DEBUG
+        void AddDirectionRay( EntityVision::sRay ray );
+#endif // ENTITY_VISION_DEBUG
 
     private:
         std::vector<EntityVision::sRay> m_visionVector;
@@ -43,8 +45,11 @@ class EntityVision : public codeframe::Object
         std::vector<float> m_distanceVisionVector;
         std::vector<float> m_fixtureVisionVector;
         sf::Vertex         m_rayLine[2];
+
+#ifdef ENTITY_VISION_DEBUG
         sf::Vertex         m_directionRayLine[2];
         EntityVision::sRay m_directionRay;
+#endif // ENTITY_VISION_DEBUG
 };
 
 #endif // ENTITYVISION_HPP_INCLUDED

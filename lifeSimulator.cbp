@@ -17,6 +17,7 @@
 					<Add option="-m32" />
 					<Add option="-Og" />
 					<Add option="-g" />
+					<Add option="-DENTITY_VISION_DEBUG" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>

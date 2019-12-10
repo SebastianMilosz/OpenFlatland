@@ -15,8 +15,10 @@ EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     m_rayLine[0].color = sf::Color::White;
     m_rayLine[1].color = sf::Color::White;
 
+#ifdef ENTITY_VISION_DEBUG
     m_directionRayLine[0].color = sf::Color::Red;
     m_directionRayLine[1].color = sf::Color::Red;
+#endif // ENTITY_VISION_DEBUG
 }
 
 /*****************************************************************************/
@@ -64,15 +66,30 @@ void EntityVision::Draw( sf::RenderWindow& window )
 {
     for ( auto it = m_visionVector.begin(); it != m_visionVector.end(); ++it )
     {
+#ifdef ENTITY_VISION_DEBUG
+        if ( it == m_visionVector.begin() )
+        {
+            m_rayLine[0].color = sf::Color::Blue;
+            m_rayLine[1].color = sf::Color::Blue;
+        }
+        else
+        {
+            m_rayLine[0].color = sf::Color::White;
+            m_rayLine[1].color = sf::Color::White;
+        }
+#endif // ENTITY_VISION_DEBUG
+
         m_rayLine[0].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P1 );
         m_rayLine[1].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P2 );
 
         window.draw( m_rayLine, 2, sf::Lines );
     }
 
+#ifdef ENTITY_VISION_DEBUG
     m_directionRayLine[0].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( m_directionRay.P1 );
     m_directionRayLine[1].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( m_directionRay.P2 );
     window.draw( m_directionRayLine, 2, sf::Lines );
+#endif // ENTITY_VISION_DEBUG
 }
 
 /*****************************************************************************/
@@ -104,10 +121,12 @@ void EntityVision::AddRay( EntityVision::sRay ray )
   * @brief
  **
 ******************************************************************************/
+#ifdef ENTITY_VISION_DEBUG
 void EntityVision::AddDirectionRay( EntityVision::sRay ray )
 {
     m_directionRay = ray;
 }
+#endif // ENTITY_VISION_DEBUG
 
 /*****************************************************************************/
 /**

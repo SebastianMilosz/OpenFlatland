@@ -313,9 +313,10 @@ void World::CalculateRays( void )
                     }
                 //}
 
-                // Add direction ray
+#ifdef ENTITY_VISION_DEBUG
                 p2 = p1 + b2Vec2( std::sin(-rotation * (pi/180.0F)), std::cos(-rotation * (pi/180.0F)) );
                 vosion.AddDirectionRay( EntityVision::sRay( p1, p2, 0 ) );
+#endif // ENTITY_VISION_DEBUG
 
                 vosion.EndFrame();
             }
