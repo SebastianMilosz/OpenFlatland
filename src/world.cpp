@@ -278,17 +278,15 @@ void World::CalculateRays( void )
 
                 vosion.StartFrame();
 
-                volatile unsigned int rayLength( (unsigned int)entity->RaysSize );
-                volatile unsigned int rayCntLimit( (unsigned int)entity->RaysCnt );
-                volatile          int rayAngleStart( (int)entity->RaysStartingAngle );
-                volatile          int rayAngleEnd( (int)entity->RaysEndingAngle );
-                volatile float32      rotation( entity->GetRotation() );
-
-                register float32 rayRange((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))));
+                register unsigned int rayLength( (unsigned int)entity->RaysSize );
+                register unsigned int rayCntLimit( (unsigned int)entity->RaysCnt );
+                register          int rayAngleStart( (int)entity->RaysStartingAngle );
+                register          int rayAngleEnd( (int)entity->RaysEndingAngle );
+                register float32      rotation( entity->GetRotation() * (pi/180.0F) );
 
                 //float32 currentRayAngle( -(rotation+180.0F) * (pi/180.0F) ); + rayAngleStart
-                volatile float32 currentRayAngle( (std::min(rayAngleStart,rayAngleEnd)) ); //
-                volatile float32 rayAngleStep( (rayRange / (float32)rayCntLimit) );
+                register float32 currentRayAngle( (std::min(rayAngleStart,rayAngleEnd)) * (pi/180.0F) ); //
+                register float32 rayAngleStep( ((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float32)rayCntLimit) * (pi/180.0F) );
                 RayCastCallback callback;
                 b2Vec2 p2;
                 unsigned int ray;
@@ -299,7 +297,7 @@ void World::CalculateRays( void )
                     for ( ray = 0U; ray < rayCntLimit; ray++ )
                     {
                         //calculate points of ray
-                        p2 = p1 + rayLength * b2Vec2( std::sin((currentRayAngle-rotation) * (pi/180.0F)), std::cos((currentRayAngle-rotation) * (pi/180.0F)) );
+                        p2 = p1 + rayLength * b2Vec2( std::sin((-currentRayAngle-rotation)), std::cos((-currentRayAngle-rotation)) );
 
                         m_World.RayCast( &callback, p1, p2 );
 
@@ -314,7 +312,7 @@ void World::CalculateRays( void )
                 //}
 
 #ifdef ENTITY_VISION_DEBUG
-                p2 = p1 + b2Vec2( std::sin(-rotation * (pi/180.0F)), std::cos(-rotation * (pi/180.0F)) );
+                p2 = p1 + b2Vec2( std::sin(-rotation), std::cos(-rotation) );
                 vosion.AddDirectionRay( EntityVision::sRay( p1, p2, 0 ) );
 #endif // ENTITY_VISION_DEBUG
 
