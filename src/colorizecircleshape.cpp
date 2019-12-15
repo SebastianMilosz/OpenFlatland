@@ -215,7 +215,7 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutline()
     {
-        m_outlineVertices.resize(m_pointCount * 2);
+        m_outlineVertices.resize( m_pointCount * 2U );
 
         // Recreate color table
         if ( NULL != m_colorData )
@@ -226,33 +226,24 @@ namespace sf
 
         m_colorData = new Color[ m_pointCount ];
 
-        for (std::size_t i = 0; i < m_pointCount; ++i)
+        for ( std::size_t i = 0U; i < m_pointCount; ++i )
         {
-            std::size_t index( i + 1 );
+            std::size_t index( i + 1U );
 
             // Get the two segments shared by the current point
-            Vector2f p0( (i == 0) ? getPoint( m_pointCount ) : getPoint( index - 1 ) );
+            Vector2f p0( ( i == 0U ) ? getPoint( m_pointCount ) : getPoint( index - 1U ) );
             Vector2f p1( getPoint( index ) );
-            Vector2f p2( getPoint( index + 1 ) );
+            Vector2f p2( getPoint( index + 1U ) );
 
             // Compute their normal
             Vector2f n1( computeNormal(p0, p1) );
             Vector2f n2( computeNormal(p1, p2) );
 
-            // Make sure that the normals point towards the outside of the shape
-            // (this depends on the order in which the points were defined)
-            if (dotProduct(n1, getPoint(0) - p1) > 0)
-                n1 = -n1;
-            if (dotProduct(n2, getPoint(0) - p1) > 0)
-                n2 = -n2;
-
-            // Combine them to get the extrusion direction
-            float factor( 1.f + (n1.x * n2.x + n1.y * n2.y) );
-            Vector2f normal( (n1 + n2) / factor );
+            Vector2f normal( n1 + n2 ); //factor
 
             // Update the outline points
-            m_outlineVertices[i * 2 + 0].position = p1;
-            m_outlineVertices[i * 2 + 1].position = p1 + normal * m_outlineThickness;
+            m_outlineVertices[i * 2U + 0U].position = p1;
+            m_outlineVertices[i * 2U + 1U].position = p1 + normal * m_outlineThickness;
         }
 
         // Update outline colors
@@ -269,14 +260,14 @@ namespace sf
     ******************************************************************************/
     void ColorizeCircleShape::updateOutlineColors()
     {
-        unsigned int n(0);
+        uint32_t n( 0U );
         Color cl;
-        for (std::size_t i = 0; i < m_pointCount; ++i)
+        for ( std::size_t i = 0U; i < m_pointCount; ++i )
         {
             cl = m_colorData[i];
-            m_outlineVertices[n + 0].color = cl;
-            m_outlineVertices[n + 1].color = cl;
-            n += 2;
+            m_outlineVertices[n + 0U].color = cl;
+            m_outlineVertices[n + 1U].color = cl;
+            n += 2U;
         }
     }
 
@@ -374,8 +365,8 @@ namespace sf
         static const float pi = 3.141592654F;
 
         // angle( -((index * 360o / m_pointCount) + 90o) );
-        float angleRange( std::abs(std::max(m_StartAngle,m_EndAngle) - std::min(m_StartAngle,m_EndAngle)) );
-        float angle( ((index * ( angleRange* (pi/180.0F)) / m_pointCount) + ((std::min(m_StartAngle,m_EndAngle)+90) * (pi/180.0F))) );
+        float angleRange( (std::max(m_StartAngle,m_EndAngle) - std::min(m_StartAngle,m_EndAngle) * (pi/180.0F)) );
+        float angle( ((index * (angleRange) / m_pointCount) + ((std::min(m_StartAngle,m_EndAngle)+90) * (pi/180.0F))) );
         float x( std::cos( angle ) * m_radius );
         float y( std::sin( angle ) * m_radius );
 
