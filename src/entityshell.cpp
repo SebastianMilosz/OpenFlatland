@@ -49,9 +49,9 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     GetDescriptor().FixtureDef.friction = (float)Friction;
     GetDescriptor().FixtureDef.shape    = GetDescriptor().Shape;
 
-    m_visionShape.setRadius(sDescriptor::PIXELS_IN_METER * 0.5f);
-    m_visionShape.setOutlineThickness(2);
-    m_visionShape.setOrigin(12.5F, 12.5F);
+    m_visionShape.setRadius(sDescriptor::PIXELS_IN_METER * 0.6f);
+    m_visionShape.setOutlineThickness(1);
+    m_visionShape.setOrigin(15.0F, 15.0F);
     m_visionShape.setPointCount(16);
     m_visionShape.setStartAngle( -45 );
     m_visionShape.setEndAngle( 45 );
