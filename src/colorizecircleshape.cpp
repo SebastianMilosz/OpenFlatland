@@ -23,16 +23,6 @@ namespace
             normal /= length;
         return normal;
     }
-
-    /*****************************************************************************/
-    /**
-      * @brief Compute the dot product of two vectors
-     **
-    ******************************************************************************/
-    float dotProduct(const sf::Vector2f& p1, const sf::Vector2f& p2)
-    {
-        return p1.x * p2.x + p1.y * p2.y;
-    }
 }
 
 namespace sf
@@ -365,8 +355,8 @@ namespace sf
         static const float pi = 3.141592654F;
 
         // angle( -((index * 360o / m_pointCount) + 90o) );
-        float angleRange( (std::max(m_StartAngle,m_EndAngle) - std::min(m_StartAngle,m_EndAngle) * (pi/180.0F)) );
-        float angle( ((index * (angleRange) / m_pointCount) + ((std::min(m_StartAngle,m_EndAngle)+90) * (pi/180.0F))) );
+        float angleRange( std::max(m_StartAngle,m_EndAngle) - std::min(m_StartAngle,m_EndAngle) );
+        float angle( ((index * ( angleRange* (pi/180.0F)) / m_pointCount) + ((std::min(m_StartAngle,m_EndAngle)+90.0F) * (pi/180.0F))) );
         float x( std::cos( angle ) * m_radius );
         float y( std::sin( angle ) * m_radius );
 
