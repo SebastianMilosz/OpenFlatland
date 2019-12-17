@@ -18,16 +18,10 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     X                ( this, "X"                , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
     Y                ( this, "Y"                , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
     Rotation         ( this, "R"                , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), this, &EntityShell::GetRotation, &EntityShell::SetRotation ),
-    CastRays         ( this, "CastRays"         , false, cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays") ),
-    RaysCnt          ( this, "RaysCnt"          , 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt") ),
-    RaysSize         ( this, "RaysSize"         , 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
-    RaysStartingAngle( this, "RaysStartingAngle", -45  , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), this, nullptr, &EntityShell::SetRaysStartingAngle),
-    RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45  , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), this, nullptr, &EntityShell::SetRaysEndingAngle),
     Name             ( this, "Name"             , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") ),
     Density          ( this, "Density"          , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
     Friction         ( this, "Friction"         , 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
     m_zeroVector( 0.0F, 0.0F ),
-    m_visionShape(),
     m_triangle( sDescriptor::PIXELS_IN_METER * 0.5f, 3 ),
     m_vision( this ),
     m_curX(0),
@@ -49,19 +43,9 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     GetDescriptor().FixtureDef.friction = (float)Friction;
     GetDescriptor().FixtureDef.shape    = GetDescriptor().Shape;
 
-    m_visionShape.setRadius(sDescriptor::PIXELS_IN_METER * 0.6f);
-    m_visionShape.setOutlineThickness(1);
-    m_visionShape.setOrigin(15.0F, 15.0F);
-    m_visionShape.setPointCount(16);
-    m_visionShape.setStartAngle( -45 );
-    m_visionShape.setEndAngle( 45 );
-
     m_triangle.setOutlineThickness(1);
     m_triangle.setOrigin(12.5F, 12.5F);
     m_triangle.setFillColor( sf::Color::Transparent );
-
-    m_visionShape.setOutlineColor( GetColor() );
-    m_visionShape.setFillColor( sf::Color::Transparent );
 
     Selection().signalSelectionChanged.connect( this, &EntityShell::slotSelectionChanged );
 }
@@ -103,11 +87,6 @@ EntityShell::EntityShell( const EntityShell& other ) :
     X       ( other.X ),
     Y       ( other.Y ),
     Rotation( other.Rotation ),
-    CastRays( other.CastRays ),
-    RaysCnt ( other.RaysCnt ),
-    RaysSize( other.RaysSize ),
-    RaysStartingAngle( other.RaysStartingAngle ),
-    RaysEndingAngle( other.RaysEndingAngle ),
     Name    ( other.Name ),
     Density ( other.Density ),
     Friction( other.Friction ),
@@ -141,21 +120,14 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         float ypos( body->GetPosition().y * sDescriptor::PIXELS_IN_METER );
         float rot ( body->GetAngle() * 180.0F/b2_pi );
 
-        // Drawing rays if configured
-        if ( (bool)CastRays == true )
-        {
-            m_vision.Draw( window );
-        }
-
-        m_visionShape.setOutlineColor( m_vision.GetDistanceVector() );
-
-        m_visionShape.setPosition( xpos, ypos );
-        m_visionShape.setRotation( rot );
+        m_vision.setPosition( xpos, ypos );
+        m_vision.setRotation( rot );
 
         m_triangle.setPosition( xpos, ypos );
         m_triangle.setRotation( rot );
 
-        window.draw( m_visionShape );
+        m_vision.Draw( window );
+        window.draw( m_vision );
         window.draw( m_triangle );
     }
 }
@@ -236,26 +208,6 @@ float32 EntityShell::GetPhysicalY()
 void EntityShell::SetY(int val)
 {
     //m_y = val;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityShell::SetRaysStartingAngle( int value )
-{
-    m_visionShape.setStartAngle( value );
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityShell::SetRaysEndingAngle( int value )
-{
-    m_visionShape.setEndAngle( value );
 }
 
 /*****************************************************************************/

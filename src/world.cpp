@@ -274,14 +274,14 @@ void World::CalculateRays( void )
                 //center of entity
                 b2Vec2 p1 = entity->GetPhysicalPoint();
 
-                EntityVision& vosion( entity->Vision() );
+                EntityVision& vision( entity->Vision() );
 
-                vosion.StartFrame();
+                vision.StartFrame();
 
-                register unsigned int rayLength( (unsigned int)entity->RaysSize );
-                register unsigned int rayCntLimit( (unsigned int)entity->RaysCnt );
-                register          int rayAngleStart( (int)entity->RaysStartingAngle );
-                register          int rayAngleEnd( (int)entity->RaysEndingAngle );
+                register unsigned int rayLength( (unsigned int)vision.RaysSize );
+                register unsigned int rayCntLimit( (unsigned int)vision.RaysCnt );
+                register          int rayAngleStart( (int)vision.RaysStartingAngle );
+                register          int rayAngleEnd( (int)vision.RaysEndingAngle );
                 register float32      rotation( entity->GetRotation() * (pi/180.0F) );
 
                 //float32 currentRayAngle( -(rotation+180.0F) * (pi/180.0F) ); + rayAngleStart
@@ -291,7 +291,7 @@ void World::CalculateRays( void )
                 b2Vec2 p2;
                 unsigned int ray;
 
-                //#pragma omp parallel for shared(vosion, pWorld, rayLength, rayCntLimit, currentRayAngle, rayAngleStep, callback, p1, p2) private(ray)
+                //#pragma omp parallel for shared(vision, pWorld, rayLength, rayCntLimit, currentRayAngle, rayAngleStep, callback, p1, p2) private(ray)
                 //{
                     //#pragma omp for nowait
                     for ( ray = 0U; ray < rayCntLimit; ray++ )
@@ -306,17 +306,17 @@ void World::CalculateRays( void )
                             p2 = callback.HitPoint();
                         }
 
-                        vosion.AddRay( EntityVision::sRay( p1, p2, 0 ) );
+                        vision.AddRay( EntityVision::sRay( p1, p2, 0 ) );
                         currentRayAngle += rayAngleStep;
                     }
                 //}
 
 #ifdef ENTITY_VISION_DEBUG
                 p2 = p1 + b2Vec2( std::sin(-rotation), std::cos(-rotation) );
-                vosion.AddDirectionRay( EntityVision::sRay( p1, p2, 0 ) );
+                vision.AddDirectionRay( EntityVision::sRay( p1, p2, 0 ) );
 #endif // ENTITY_VISION_DEBUG
 
-                vosion.EndFrame();
+                vision.EndFrame();
             }
         }
     }
