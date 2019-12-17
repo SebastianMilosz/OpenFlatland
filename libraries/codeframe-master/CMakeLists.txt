@@ -26,6 +26,7 @@ set(CODEFRAME_LIB_HDRS
     include/serializable_property_iterator.hpp
     include/serializable_property_list.hpp
     include/serializable_property_selection.hpp
+    include/serializable_property_multiple_selection.hpp
     include/serializable_property_node.hpp
     include/serializable_register.hpp
     include/serializable_selectable.hpp
@@ -58,6 +59,7 @@ set(CODEFRAME_LIB_SRC
     src/serializable_property_iterator.cpp
     src/serializable_property_list.cpp
     src/serializable_property_selection.cpp
+    src/serializable_property_multiple_selection.cpp
     src/serializable_register.cpp
     src/serializable_selectable.cpp
     src/serializable_storage.cpp

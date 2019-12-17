@@ -97,137 +97,166 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
 {
     if ( smart_ptr_isValid( obj ) == true )
     {
-        uint32_t uid( obj->Identity().GetUId() );
+        ShowRawObject( smart_ptr_getRaw( obj ) );
+    }
+}
 
-        // Take object pointer as unique id
-        ImGui::PushID( uid );
-        ImGui::AlignTextToFramePadding();
-        bool node_open = ImGui::TreeNode( "Object", "%s", obj->Identity().ObjectName().c_str() );
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void PropertyEditorWidget::ShowRawObject( codeframe::ObjectNode* obj )
+{
+    uint32_t uid( obj->Identity().GetUId() );
 
-        ImGui::NextColumn();
-        ImGui::AlignTextToFramePadding();
-        ImGui::Text( "Class: %s", obj->Class().c_str() );
-        ImGui::NextColumn();
+    // Take object pointer as unique id
+    ImGui::PushID( uid );
+    ImGui::AlignTextToFramePadding();
+    bool node_open = ImGui::TreeNode( "Object", "%s", obj->Identity().ObjectName().c_str() );
 
-        if ( node_open == true )
+    ImGui::NextColumn();
+    ImGui::AlignTextToFramePadding();
+    ImGui::Text( "Class: %s", obj->Class().c_str() );
+    ImGui::NextColumn();
+
+    if ( node_open == true )
+    {
+        // Iterate through properties in object
+        for ( auto it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
         {
-            // Iterate through properties in object
-            for ( auto it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
-            {
-                codeframe::PropertyBase* iser = *it;
+            codeframe::PropertyBase* iser = *it;
 
-                if ( (codeframe::PropertyBase*)nullptr != iser )
-                {
-                    uint32_t upropid = iser->Id();
-
-                    // Use property pointer as identifier.
-                    ImGui::PushID( upropid );
-
-                    ImGui::AlignTextToFramePadding();
-
-                    ImGui::Bullet();
-                    ImGui::Selectable( iser->Name().c_str() );
-
-                    ImGui::NextColumn();
-                    ImGui::PushItemWidth(-1);
-
-                    // Depend on the property type
-                    switch ( iser->Info().GetKind() )
-                    {
-                        case codeframe::KIND_NON:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_LOGIC:
-                        {
-                            bool check = (bool)(*iser);
-                            ImGui::Checkbox("##value", &check);
-                            (*iser) = check;
-                            break;
-                        }
-                        case codeframe::KIND_NUMBER:
-                        {
-                            int value = (int)(*iser);
-                            ImGui::InputInt("##value", &value, 1);
-                            (*iser) = value;
-                            break;
-                        }
-                        case codeframe::KIND_NUMBERRANGE:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_REAL:
-                        {
-                            float value = (float)(*iser);
-                            ImGui::InputFloat("##value", &value, 1.0f);
-                            (*iser) = value;
-                            break;
-                        }
-                        case codeframe::KIND_TEXT:
-                        {
-                            char newText[32];
-                            memset(newText, 0, 32);
-                            std::string textValue = (std::string)(*iser);
-                            strncpy(newText, textValue.c_str(), textValue.length());
-                            ImGui::InputText("##value", newText, IM_ARRAYSIZE(newText));
-                            (*iser) = std::string( newText );
-                            break;
-                        }
-                        case codeframe::KIND_ENUM:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_DIR:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_URL:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_FILE:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_DATE:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_FONT:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_COLOR:
-                        {
-
-                            break;
-                        }
-                        case codeframe::KIND_IMAGE:
-                        {
-
-                            break;
-                        }
-                        default:
-                        {
-
-                        }
-                    }
-
-                    ImGui::PopItemWidth();
-                    ImGui::NextColumn();
-                    ImGui::PopID();
-                }
-            }
-            ImGui::TreePop();
+            ShowRawProperty( iser );
         }
+
+        // Iterate through childs in the object
+        for ( auto it = obj->ChildList().begin(); it != obj->ChildList().end(); ++it )
+        {
+            auto childObject = *it;
+
+            ShowRawObject( childObject );
+        }
+
+        ImGui::TreePop();
+    }
+    ImGui::PopID();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
+{
+    if ( (codeframe::PropertyBase*)nullptr != prop )
+    {
+        uint32_t upropid = prop->Id();
+
+        // Use property pointer as identifier.
+        ImGui::PushID( upropid );
+
+        ImGui::AlignTextToFramePadding();
+
+        ImGui::Bullet();
+        ImGui::Selectable( prop->Name().c_str() );
+
+        ImGui::NextColumn();
+        ImGui::PushItemWidth(-1);
+
+        // Depend on the property type
+        switch ( prop->Info().GetKind() )
+        {
+            case codeframe::KIND_NON:
+            {
+
+                break;
+            }
+            case codeframe::KIND_LOGIC:
+            {
+                bool check = (bool)(*prop);
+                ImGui::Checkbox("##value", &check);
+                (*prop) = check;
+                break;
+            }
+            case codeframe::KIND_NUMBER:
+            {
+                int value = (int)(*prop);
+                ImGui::InputInt("##value", &value, 1);
+                (*prop) = value;
+                break;
+            }
+            case codeframe::KIND_NUMBERRANGE:
+            {
+
+                break;
+            }
+            case codeframe::KIND_REAL:
+            {
+                float value = (float)(*prop);
+                ImGui::InputFloat("##value", &value, 1.0f);
+                (*prop) = value;
+                break;
+            }
+            case codeframe::KIND_TEXT:
+            {
+                char newText[32];
+                memset(newText, 0, 32);
+                std::string textValue = (std::string)(*prop);
+                strncpy(newText, textValue.c_str(), textValue.length());
+                ImGui::InputText("##value", newText, IM_ARRAYSIZE(newText));
+                (*prop) = std::string( newText );
+                break;
+            }
+            case codeframe::KIND_ENUM:
+            {
+
+                break;
+            }
+            case codeframe::KIND_DIR:
+            {
+
+                break;
+            }
+            case codeframe::KIND_URL:
+            {
+
+                break;
+            }
+            case codeframe::KIND_FILE:
+            {
+
+                break;
+            }
+            case codeframe::KIND_DATE:
+            {
+
+                break;
+            }
+            case codeframe::KIND_FONT:
+            {
+
+                break;
+            }
+            case codeframe::KIND_COLOR:
+            {
+
+                break;
+            }
+            case codeframe::KIND_IMAGE:
+            {
+
+                break;
+            }
+            default:
+            {
+
+            }
+        }
+
+        ImGui::PopItemWidth();
+        ImGui::NextColumn();
         ImGui::PopID();
     }
 }
