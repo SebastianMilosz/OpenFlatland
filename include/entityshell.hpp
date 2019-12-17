@@ -3,7 +3,6 @@
 
 #include "physicsbody.hpp"
 #include "entityvision.hpp"
-#include "colorizecircleshape.hpp"
 
 class EntityShell : public PhysicsBody
 {
@@ -19,11 +18,6 @@ class EntityShell : public PhysicsBody
         codeframe::Property<int,          EntityShell> X;
         codeframe::Property<int,          EntityShell> Y;
         codeframe::Property<float,        EntityShell> Rotation;
-        codeframe::Property<bool,         EntityShell> CastRays;
-        codeframe::Property<unsigned int, EntityShell> RaysCnt;
-        codeframe::Property<unsigned int, EntityShell> RaysSize;
-        codeframe::Property<int,          EntityShell> RaysStartingAngle;
-        codeframe::Property<int,          EntityShell> RaysEndingAngle;
         codeframe::Property<std::string,  EntityShell> Name;
         codeframe::Property<float,        EntityShell> Density;
         codeframe::Property<float,        EntityShell> Friction;
@@ -39,9 +33,6 @@ class EntityShell : public PhysicsBody
         float32 GetPhysicalY();
         void SetY(int val);
 
-        void SetRaysStartingAngle( int value );
-        void SetRaysEndingAngle( int value );
-
         const float32& GetRotation();
 
         void SetRotation( float rotation );
@@ -51,10 +42,9 @@ class EntityShell : public PhysicsBody
         EntityVision& Vision() { return m_vision; }
 
     private:
-        b2Vec2                  m_zeroVector;
-        sf::ColorizeCircleShape m_visionShape;
-        sf::CircleShape         m_triangle;
-        EntityVision            m_vision;
+        b2Vec2          m_zeroVector;
+        sf::CircleShape m_triangle;
+        EntityVision    m_vision;
 
         int     m_curX;
         int     m_curY;
