@@ -59,9 +59,12 @@ class EntityVision : public codeframe::Object, public sf::Drawable, public sf::T
         sf::ColorizeCircleShape m_visionShape;
         std::vector<EntityVision::sRay> m_visionVector;
 
+        void SetRaysCnt( unsigned int cnt );
+        void PrepareRays();
+
         std::vector<float> m_distanceVisionVector;
         std::vector<float> m_fixtureVisionVector;
-        sf::Vertex         m_rayLine[2];
+        sf::Vertex*        m_rayLine;
 
         float m_x;
         float m_y;
