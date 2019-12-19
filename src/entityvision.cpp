@@ -18,7 +18,7 @@ EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     VisionVector     ( this, "VisionVector"     , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0].Input").Description("VisionVector"), this, &EntityVision::GetDistanceVector ),
     FixtureVector    ( this, "FixtureVector"    , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[1].Input").Description("FixtureVector"), this, &EntityVision::GetFixtureVector ),
     m_visionShape(),
-    m_rayLine( new sf::Vertex[ 2U * (unsigned int)RaysCnt ] )
+    m_rayLines( new sf::Vertex[ 2U * (unsigned int)RaysCnt ] )
 {
     m_visionShape.setRadius( PhysicsBody::sDescriptor::PIXELS_IN_METER * 0.6f);
     m_visionShape.setOutlineThickness(1);
@@ -50,7 +50,7 @@ EntityVision::EntityVision( const EntityVision& other ) :
     RaysEndingAngle( other.RaysEndingAngle ),
     VisionVector( other.VisionVector ),
     FixtureVector( other.FixtureVector ),
-    m_rayLine( new sf::Vertex[ 2U * (unsigned int)RaysCnt ] )
+    m_rayLines( new sf::Vertex[ 2U * (unsigned int)RaysCnt ] )
 {
 }
 
@@ -61,11 +61,6 @@ EntityVision::EntityVision( const EntityVision& other ) :
 ******************************************************************************/
 EntityVision::~EntityVision()
 {
-    if ( m_rayLine != nullptr )
-    {
-        delete[] m_rayLine;
-        m_rayLine = nullptr;
-    }
     m_visionVector.clear();
 }
 
@@ -102,32 +97,17 @@ EntityVision::sRay::sRay( b2Vec2& p1, b2Vec2& p2, float32 f ) :
 ******************************************************************************/
 void EntityVision::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityVision::Draw( sf::RenderWindow& window )
-{
     // Drawing rays if configured
     if ( (bool)CastRays == true )
     {
-        window.draw( m_rayLine, 2U * m_visionVector.size(), sf::Lines );
+        target.draw( m_rayLines.get(), 2U * m_visionVector.size(), sf::Lines );
 
 #ifdef ENTITY_VISION_DEBUG
-        window.draw( m_directionRayLine, 2U, sf::Lines );
+        target.draw( m_directionRayLine, 2U, sf::Lines );
 #endif // ENTITY_VISION_DEBUG
     }
 
-    m_visionShape.setOutlineColor( GetDistanceVector() );
-
-    m_visionShape.setPosition( m_x, m_y );
-    m_visionShape.setRotation( m_r );
-
-    window.draw( m_visionShape );
+    target.draw( m_visionShape );
 }
 
 /*****************************************************************************/
@@ -175,6 +155,11 @@ void EntityVision::AddDirectionRay( EntityVision::sRay ray )
 ******************************************************************************/
 void EntityVision::EndFrame()
 {
+    m_visionShape.setOutlineColor( GetDistanceVector() );
+
+    m_visionShape.setPosition( m_x, m_y );
+    m_visionShape.setRotation( m_r );
+
     PrepareRays();
 }
 
@@ -246,13 +231,7 @@ void EntityVision::setRotation(float angle)
 ******************************************************************************/
 void EntityVision::SetRaysCnt( unsigned int cnt )
 {
-    if ( m_rayLine != nullptr )
-    {
-        delete[] m_rayLine;
-        m_rayLine = nullptr;
-    }
-
-    m_rayLine = new sf::Vertex[ 2U * cnt ];
+    m_rayLines = std::unique_ptr<sf::Vertex>( new sf::Vertex[ 2U * cnt ] );
 
     PrepareRays();
 }
@@ -267,20 +246,20 @@ void EntityVision::PrepareRays()
     // Drawing rays if configured
     if ( (bool)CastRays == true )
     {
-        unsigned int n = 0U;
+        size_t n = 0U;
         for ( auto it = m_visionVector.begin(); it != m_visionVector.end(); ++it )
         {
-            m_rayLine[ n + 0U ].color = sf::Color::White;
-            m_rayLine[ n + 1U ].color = sf::Color::White;
-            m_rayLine[ n + 0U ].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P1 );
-            m_rayLine[ n + 1U ].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P2 );
+            m_rayLines.get()[ n + 0U ].color = sf::Color::White;
+            m_rayLines.get()[ n + 1U ].color = sf::Color::White;
+            m_rayLines.get()[ n + 0U ].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P1 );
+            m_rayLines.get()[ n + 1U ].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P2 );
 
             n += 2U;
         }
 
 #ifdef ENTITY_VISION_DEBUG
-        m_rayLine[ 0U ].color = sf::Color::Blue;
-        m_rayLine[ 1U ].color = sf::Color::Blue;
+        m_rayLines.get()[ 0U ].color = sf::Color::Blue;
+        m_rayLines.get()[ 1U ].color = sf::Color::Blue;
 #endif // ENTITY_VISION_DEBUG
     }
 }
