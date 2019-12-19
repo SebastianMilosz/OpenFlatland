@@ -2,6 +2,7 @@
 #define ENTITYVISION_HPP_INCLUDED
 
 #include <vector>
+#include <memory>
 #include <serializable_object.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
@@ -38,7 +39,6 @@ class EntityVision : public codeframe::Object, public sf::Drawable, public sf::T
         };
 
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
-        void Draw( sf::RenderWindow& window );
         void StartFrame();
         void AddRay( EntityVision::sRay ray );
         void EndFrame();
@@ -62,9 +62,9 @@ class EntityVision : public codeframe::Object, public sf::Drawable, public sf::T
         void SetRaysCnt( unsigned int cnt );
         void PrepareRays();
 
-        std::vector<float> m_distanceVisionVector;
-        std::vector<float> m_fixtureVisionVector;
-        sf::Vertex*        m_rayLine;
+        std::vector<float>          m_distanceVisionVector;
+        std::vector<float>          m_fixtureVisionVector;
+        std::unique_ptr<sf::Vertex> m_rayLines;
 
         float m_x;
         float m_y;
