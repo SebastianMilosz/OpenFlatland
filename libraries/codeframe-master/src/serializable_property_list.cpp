@@ -38,9 +38,8 @@ namespace codeframe
     smart_ptr<PropertyNode> cPropertyList::GetPropertyByName( const std::string& name )
     {
         // Po wszystkich zarejestrowanych parametrach
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for( auto temp : m_vMainPropertyList )
         {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Name() == name )
             {
                 return smart_ptr<PropertyNode>( new PropertySelection(temp) );
@@ -61,9 +60,8 @@ namespace codeframe
     {
         //m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
-        for( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for( auto temp : m_vMainPropertyList )
         {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
             if( temp && temp->Id() == id )
             {
                 return smart_ptr<PropertyNode>( new PropertySelection( temp ) );
@@ -92,7 +90,7 @@ namespace codeframe
 
         if ( smart_ptr_isValid( objectSelection ) )
         {
-            if ( objectSelection->GetNodeCount() > 1U )
+            if ( objectSelection->GetNodeCount() >= 1U )
             {
                 smart_ptr<PropertyMultipleSelection> propMultiNode( new PropertyMultipleSelection() );
 
@@ -127,9 +125,8 @@ namespace codeframe
 
         m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
-        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for( auto temp : m_vMainPropertyList )
         {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
             if ( temp && temp->Id() == id )
             {
                 retName = temp->Name();
@@ -158,9 +155,8 @@ namespace codeframe
     void cPropertyList::PulseChanged()
     {
         // Emitujemy sygnaly zmiany wszystkich propertisow
-        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for( auto temp : m_vMainPropertyList )
         {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
             if ( temp )
             {
                 temp->PulseChanged();
@@ -176,9 +172,8 @@ namespace codeframe
     void cPropertyList::CommitChanges()
     {
         m_Mutex.Lock();
-        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for( auto temp : m_vMainPropertyList )
         {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
             if ( temp )
             {
                 temp->CommitChanges();
@@ -196,9 +191,8 @@ namespace codeframe
     {
         // Po wszystkich propertisach ustawiamy nowy stan
         m_Mutex.Lock();
-        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for( auto temp : m_vMainPropertyList )
         {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
             if ( temp )
             {
                 temp->Info().Enable( val );
@@ -266,9 +260,8 @@ namespace codeframe
         int octcnt = 0;
 
         m_Mutex.Lock();
-        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        for( auto temp : m_vMainPropertyList )
         {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
             if ( temp && temp->Name() == name )
             {
                 octcnt++;

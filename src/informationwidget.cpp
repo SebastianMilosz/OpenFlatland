@@ -6,7 +6,7 @@
 #include <ctime>
 #include <climits>
 
-#include "physicsbody.hpp"
+#include "physics_body.hpp"
 
 /*****************************************************************************/
 /**

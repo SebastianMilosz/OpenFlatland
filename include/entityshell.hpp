@@ -1,8 +1,8 @@
 #ifndef ENTITYSHELL_HPP
 #define ENTITYSHELL_HPP
 
-#include "physicsbody.hpp"
-#include "entityvision.hpp"
+#include "physics_body.hpp"
+#include "entity_vision.hpp"
 
 class EntityShell : public PhysicsBody
 {

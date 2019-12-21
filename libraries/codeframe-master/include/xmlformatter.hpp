@@ -22,7 +22,6 @@ namespace codeframe
     /*****************************************************************************/
     /**
       * @brief Klasa zapisuje do formatu xml obiekty implementujace interfejs ISerializable
-      * @author Sebastian Milosz
       * @version 1.0
      **
     ******************************************************************************/

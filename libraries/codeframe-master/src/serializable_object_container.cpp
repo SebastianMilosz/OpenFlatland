@@ -59,10 +59,8 @@ void ObjectContainer::CreateRange( const std::string& className, const std::stri
 ******************************************************************************/
 bool ObjectContainer::IsName( const std::string& name )
 {
-    for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); ++it )
+    for ( auto& sptr : m_containerVector )
     {
-        smart_ptr<Object> sptr = *it;
-
         if ( smart_ptr_isValid( sptr ) == true )
         {
             std::string inContainerName( sptr->Identity().ObjectName() );

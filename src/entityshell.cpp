@@ -138,7 +138,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
 ******************************************************************************/
 const int& EntityShell::GetX()
 {
-    if ( GetDescriptor().Body != nullptr )
+    if ( (b2Body*)nullptr != GetDescriptor().Body )
     {
         m_curX = GetDescriptor().Body->GetPosition().x * sDescriptor::PIXELS_IN_METER;
     }
@@ -152,7 +152,7 @@ const int& EntityShell::GetX()
 ******************************************************************************/
 float32 EntityShell::GetPhysicalX()
 {
-    if ( GetDescriptor().Body == nullptr )
+    if ( (b2Body*)nullptr == GetDescriptor().Body )
     {
         return 0.0F;
     }
@@ -177,7 +177,7 @@ void EntityShell::SetX(int val)
 ******************************************************************************/
 const int& EntityShell::GetY()
 {
-    if ( GetDescriptor().Body != nullptr )
+    if ( (b2Body*)nullptr != GetDescriptor().Body )
     {
         m_curY = GetDescriptor().Body->GetPosition().y * sDescriptor::PIXELS_IN_METER;
     }
@@ -191,7 +191,7 @@ const int& EntityShell::GetY()
 ******************************************************************************/
 float32 EntityShell::GetPhysicalY()
 {
-    if ( GetDescriptor().Body == nullptr )
+    if ( (b2Body*)nullptr == GetDescriptor().Body )
     {
         return 0.0F;
     }
@@ -216,7 +216,7 @@ void EntityShell::SetY(int val)
 ******************************************************************************/
 const float32& EntityShell::GetRotation()
 {
-    if ( GetDescriptor().Body != nullptr )
+    if ( (b2Body*)nullptr != GetDescriptor().Body )
     {
         static const float pi = 3.141592654F;
 
@@ -251,7 +251,7 @@ void EntityShell::SetRotation( float rotation )
 ******************************************************************************/
 const b2Vec2& EntityShell::GetPhysicalPoint()
 {
-    if ( GetDescriptor().Body == nullptr )
+    if ( (b2Body*)nullptr == GetDescriptor().Body )
     {
         return m_zeroVector;
     }

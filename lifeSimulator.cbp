@@ -75,6 +75,7 @@
 					<Add option="-m32" />
 					<Add option="-Og" />
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
@@ -144,7 +145,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/colorizecircleshape.hpp">
+		<Unit filename="include/colorize_circle_shape.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -179,6 +180,12 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/entity_vision.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entity_vision_node.hpp" />
 		<Unit filename="include/entityfactory.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -190,11 +197,6 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="include/entityshell.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="include/entityvision.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -229,7 +231,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/physicsbody.hpp">
+		<Unit filename="include/physics_body.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -423,7 +425,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/colorizecircleshape.cpp">
+		<Unit filename="src/colorize_circle_shape.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -458,6 +460,12 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="src/entity_vision.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entity_vision_node.cpp" />
 		<Unit filename="src/entityfactory.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -469,11 +477,6 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="src/entityshell.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="src/entityvision.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -498,7 +501,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/physicsbody.cpp">
+		<Unit filename="src/physics_body.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />

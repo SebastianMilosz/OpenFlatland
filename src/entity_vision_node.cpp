@@ -1,28 +1,14 @@
-#include "serializable_object_selection.hpp"
-
-#include <cassert>
-
-namespace codeframe
-{
+#include "entity_vision_node.hpp"
 
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-ObjectSelection::ObjectSelection( ObjectNode* obj ) :
-    m_selection( obj )
-{
-    assert( obj );
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-ObjectSelection::ObjectSelection() :
-    m_selection( nullptr )
+EntityVisionNode::sRay::sRay() :
+    P1( 0.0F, 0.0F ),
+    P2( 0.0F, 0.0F ),
+    Fixture( 0.0F )
 {
 
 }
@@ -32,7 +18,10 @@ ObjectSelection::ObjectSelection() :
   * @brief
  **
 ******************************************************************************/
-ObjectSelection::~ObjectSelection()
+EntityVisionNode::sRay::sRay( b2Vec2& p1, b2Vec2& p2, float32 f ) :
+    P1( p1 ),
+    P2( p2 ),
+    Fixture( f )
 {
 
 }
@@ -42,9 +31,9 @@ ObjectSelection::~ObjectSelection()
   * @brief
  **
 ******************************************************************************/
-ObjectNode* ObjectSelection::GetNode( unsigned int id )
+EntityVisionNode::EntityVisionNode()
 {
-    return m_selection;
+    //ctor
 }
 
 /*****************************************************************************/
@@ -52,9 +41,7 @@ ObjectNode* ObjectSelection::GetNode( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-unsigned int ObjectSelection::GetNodeCount()
+EntityVisionNode::~EntityVisionNode()
 {
-    return 0U;
-}
-
+    //dtor
 }

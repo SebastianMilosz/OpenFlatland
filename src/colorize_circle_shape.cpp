@@ -1,4 +1,4 @@
-#include "colorizecircleshape.hpp"
+#include "colorize_circle_shape.hpp"
 
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
