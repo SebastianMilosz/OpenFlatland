@@ -3,7 +3,7 @@
 
 #include <serializable_object.hpp>
 
-#include "physicsbody.hpp"
+#include "physics_body.hpp"
 
 /*****************************************************************************/
 /**

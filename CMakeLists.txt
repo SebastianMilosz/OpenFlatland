@@ -10,7 +10,7 @@ set(LIFESIM_AppSRC
     main.cpp
     src/application.cpp
     src/annviewerwidget.cpp
-    src/colorizecircleshape.cpp
+    src/colorize_circle_shape.cpp
     src/colorizerealnbr.cpp
     src/consolewidget.cpp
     src/constelement.cpp
@@ -20,12 +20,13 @@ set(LIFESIM_AppSRC
     src/entityfactory.cpp
     src/entityghost.cpp
     src/entityshell.cpp
-    src/entityvision.cpp
+    src/entity_vision.cpp
+    src/entity_vision_node.cpp
     src/fontfactory.cpp
     src/guiwidgetslayer.cpp
     src/informationwidget.cpp
     src/performancelogger.cpp
-    src/physicsbody.cpp
+    src/physics_body.cpp
     src/propertyeditorwidget.cpp
     src/serializableneuronlayer.cpp
     src/serializableneuronlayercontainer.cpp

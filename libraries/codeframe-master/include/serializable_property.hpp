@@ -56,14 +56,17 @@ namespace codeframe
 
             void SetValue( const internalType& value )
             {
-                if ( (NULL != SetValueCallback) && (NULL != ContextObject) )
+                if ( IsChanged() == true  )
                 {
-                    (ContextObject->*SetValueCallback)( value );
-                }
+                    if ( (NULL != SetValueCallback) && (NULL != ContextObject) )
+                    {
+                        (ContextObject->*SetValueCallback)( value );
+                    }
 
-                if ( m_propertyInfo.IsEventEnable() )
-                {
-                    signalChanged.Emit( this );
+                    if ( m_propertyInfo.IsEventEnable() )
+                    {
+                        signalChanged.Emit( this );
+                    }
                 }
             }
 
