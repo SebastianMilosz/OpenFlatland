@@ -18,7 +18,7 @@ namespace sf
 class ColorizeCircleShape : public Drawable, public Transformable
 {
 public:
-             ColorizeCircleShape( float radius = 0, std::size_t pointCount = 30, int startAngle = 0, int endAngle = 360 );
+             ColorizeCircleShape( float radius = 0, std::size_t pointCount = 30, const int startAngle = 0, const int endAngle = 360 );
     virtual ~ColorizeCircleShape();
 
     void setFillColor(const Color& color);

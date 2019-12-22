@@ -175,6 +175,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/drawable_entity_vision.hpp" />
 		<Unit filename="include/entity.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -455,6 +456,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="src/drawable_entity_vision.cpp" />
 		<Unit filename="src/entity.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />

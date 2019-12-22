@@ -20,6 +20,7 @@ set(LIFESIM_AppSRC
     src/entityfactory.cpp
     src/entityghost.cpp
     src/entityshell.cpp
+    src/drawable_entity_vision.hpp
     src/entity_vision.cpp
     src/entity_vision_node.cpp
     src/fontfactory.cpp
