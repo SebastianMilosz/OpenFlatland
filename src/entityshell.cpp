@@ -15,9 +15,9 @@ using namespace codeframe;
 ******************************************************************************/
 EntityShell::EntityShell( const std::string& name, int x, int y ) :
     PhysicsBody( name, nullptr ),
-    X                ( this, "X"                , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), this, &EntityShell::GetX ),
-    Y                ( this, "Y"                , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), this, &EntityShell::GetY ),
-    Rotation         ( this, "R"                , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), this, &EntityShell::GetRotation, &EntityShell::SetRotation ),
+    X                ( this, "X"                , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), std::bind(&EntityShell::GetX, this) ),
+    Y                ( this, "Y"                , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), std::bind(&EntityShell::GetY, this) ),
+    Rotation         ( this, "R"                , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), std::bind(&EntityShell::GetRotation, this), std::bind(&EntityShell::SetRotation, this, std::placeholders::_1) ),
     Name             ( this, "Name"             , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") ),
     Density          ( this, "Density"          , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
     Friction         ( this, "Friction"         , 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
@@ -216,11 +216,13 @@ void EntityShell::SetY(int val)
 ******************************************************************************/
 const float32& EntityShell::GetRotation()
 {
-    if ( (b2Body*)nullptr != GetDescriptor().Body )
+    b2Body* body = GetDescriptor().Body;
+
+    if ( (b2Body*)nullptr != body )
     {
         static const float pi = 3.141592654F;
 
-        m_curR = utilities::math::ConstrainAngle( GetDescriptor().Body->GetAngle() * (180.0/pi) );
+        m_curR = utilities::math::ConstrainAngle( body->GetAngle() * (180.0/pi) );
     }
     return m_curR;
 }

@@ -9,7 +9,7 @@ using namespace codeframe;
 ******************************************************************************/
 SerializableNeuronLayerContainer::SerializableNeuronLayerContainer( const std::string& name, ObjectNode* parent ) :
     ObjectContainer( name, parent ),
-    LayersCnt( this, "LayersCnt" , 2U , cPropertyInfo().Kind( KIND_NUMBER ).Description("LayersCnt"), this, nullptr, &SerializableNeuronLayerContainer::SetLayersCnt )
+    LayersCnt( this, "LayersCnt" , 2U , cPropertyInfo().Kind( KIND_NUMBER ).Description("LayersCnt"), nullptr, std::bind(&SerializableNeuronLayerContainer::SetLayersCnt, this, std::placeholders::_1) )
 {
     SetLayersCnt( (unsigned int)LayersCnt );
 }

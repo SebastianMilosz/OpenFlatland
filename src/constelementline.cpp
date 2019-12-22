@@ -9,8 +9,8 @@ using namespace codeframe;
 ******************************************************************************/
 ConstElementLine::ConstElementLine( const std::string& name, codeframe::Point2D<int>& startPoint, codeframe::Point2D<int>& endPoint ) :
     ConstElement( name ),
-    StartPoint( this, "SPoint" , Point2D<int>( startPoint ), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint"), this ),
-    EndPoint  ( this, "EPoint" , Point2D<int>( endPoint   ), cPropertyInfo().Kind( KIND_2DPOINT ).Description("EndPoint"), this)
+    StartPoint( this, "SPoint" , Point2D<int>( startPoint ), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint") ),
+    EndPoint  ( this, "EPoint" , Point2D<int>( endPoint   ), cPropertyInfo().Kind( KIND_2DPOINT ).Description("EndPoint") )
 {
     float sx( (float)startPoint.X()/sDescriptor::PIXELS_IN_METER );
     float sy( (float)startPoint.Y()/sDescriptor::PIXELS_IN_METER );
@@ -50,8 +50,8 @@ ConstElementLine::~ConstElementLine()
 ******************************************************************************/
 ConstElementLine::ConstElementLine(const ConstElementLine& other) :
     ConstElement( other ),
-    StartPoint( this, "SPoint" , Point2D<int>(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint"), this ),
-    EndPoint  ( this, "EPoint" , Point2D<int>(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("EndPoint"), this)
+    StartPoint( this, "SPoint" , Point2D<int>(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint") ),
+    EndPoint  ( this, "EPoint" , Point2D<int>(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("EndPoint") )
 {
 
 }

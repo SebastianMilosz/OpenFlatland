@@ -11,12 +11,12 @@ using namespace codeframe;
 EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     Object( "Vision", parent ),
     CastRays         ( this, "CastRays"         , false               , cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays") ),
-    RaysCnt          ( this, "RaysCnt"          , 100U                , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt"), this, nullptr, &EntityVision::SetRaysCnt ),
+    RaysCnt          ( this, "RaysCnt"          , 100U                , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt"), nullptr, std::bind(&EntityVision::SetRaysCnt, this, std::placeholders::_1) ),
     RaysSize         ( this, "RaysSize"         , 100U                , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
-    RaysStartingAngle( this, "RaysStartingAngle", -45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), this, nullptr, &EntityVision::SetRaysStartingAngle),
-    RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), this, nullptr, &EntityVision::SetRaysEndingAngle),
-    VisionVector     ( this, "VisionVector"     , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0].Input").Description("VisionVector"), this, &EntityVision::GetDistanceVector ),
-    FixtureVector    ( this, "FixtureVector"    , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[1].Input").Description("FixtureVector"), this, &EntityVision::GetFixtureVector ),
+    RaysStartingAngle( this, "RaysStartingAngle", -45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
+    RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), nullptr, std::bind(&EntityVision::SetRaysEndingAngle, this, std::placeholders::_1) ),
+    VisionVector     ( this, "VisionVector"     , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0].Input").Description("VisionVector"), std::bind(&EntityVision::GetDistanceVector, this) ),
+    FixtureVector    ( this, "FixtureVector"    , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[1].Input").Description("FixtureVector"), std::bind(&EntityVision::GetFixtureVector, this) ),
     m_visionShape(),
     m_rayLines( 2U * (unsigned int)RaysCnt )
 {
