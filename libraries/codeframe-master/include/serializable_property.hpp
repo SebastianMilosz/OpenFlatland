@@ -24,14 +24,13 @@ namespace codeframe
                       const std::string& name,
                       internalType val,
                       cPropertyInfo info,
-                      classT* contextObject = NULL,
-                      const internalType& (classT::*getValue)() = NULL,
-                      void                (classT::*setValue)(internalType) = NULL
-                     ) : PropertyBase( parentpc, name, GetTypeInfo<internalType>().GetTypeCode(), info )
+                      std::function<const internalType&()> getValueFunc = nullptr,
+                      std::function<void(internalType)> setValueFunc = nullptr
+                     ) : PropertyBase( parentpc, name, GetTypeInfo<internalType>().GetTypeCode(), info ),
+                     m_GetValueFunction( getValueFunc ),
+                     m_SetValueFunction( setValueFunc )
             {
-                ContextObject    = contextObject;
-                GetValueCallback = getValue;
-                SetValueCallback = setValue;
+
                 m_baseValue      = val;
             }
 
@@ -43,9 +42,9 @@ namespace codeframe
 
             const internalType& GetValue() const
             {
-                if ( (NULL != GetValueCallback) && (NULL != ContextObject) )
+                if ( m_GetValueFunction )
                 {
-                    return (ContextObject->*GetValueCallback)();
+                    return m_GetValueFunction();
                 }
                 return m_baseValue;
             }
@@ -59,9 +58,9 @@ namespace codeframe
             {
                 if ( IsChanged() == true  )
                 {
-                    if ( (NULL != SetValueCallback) && (NULL != ContextObject) )
+                    if ( m_SetValueFunction )
                     {
-                        (ContextObject->*SetValueCallback)( value );
+                        m_SetValueFunction( value );
                     }
 
                     if ( m_propertyInfo.IsEventEnable() )
@@ -79,8 +78,8 @@ namespace codeframe
                 m_baseValuePrew = sval.m_baseValuePrew;
 
                 // Funktors
-                GetValueCallback = sval.GetValueCallback;
-                SetValueCallback = sval.SetValueCallback;
+                m_GetValueFunction = sval.m_GetValueFunction;
+                m_SetValueFunction = sval.m_SetValueFunction;
             }
 
             // Comparison operators
@@ -142,8 +141,8 @@ namespace codeframe
                 SetValue( val.GetValue() );
 
                 // Funktors
-                GetValueCallback = val.GetValueCallback;
-                SetValueCallback = val.SetValueCallback;
+                m_GetValueFunction = val.m_GetValueFunction;
+                m_SetValueFunction = val.m_SetValueFunction;
 
                 return *this;
             }
@@ -639,9 +638,8 @@ namespace codeframe
             internalType m_baseValue;
             internalType m_baseValuePrew;
 
-            classT* ContextObject;
-            const internalType& (classT::*GetValueCallback)();
-            void                (classT::*SetValueCallback)(internalType);
+            std::function<const internalType&()> m_GetValueFunction;
+            std::function<void(internalType)>    m_SetValueFunction;
     };
 }
 
