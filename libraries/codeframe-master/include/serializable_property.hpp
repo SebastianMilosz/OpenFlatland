@@ -5,6 +5,7 @@
 #include "extpoint2d.hpp"
 #include "extvector.hpp"
 
+#include <functional>
 #include <climits>
 #include <string>
 

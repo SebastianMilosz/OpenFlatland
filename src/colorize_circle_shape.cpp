@@ -139,7 +139,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    ColorizeCircleShape::ColorizeCircleShape(float radius, std::size_t pointCount, int startAngle, int endAngle) :
+    ColorizeCircleShape::ColorizeCircleShape(float radius, std::size_t pointCount, const int startAngle, const int endAngle) :
     m_fillColor       (255, 255, 255),
     m_outlineThickness(0),
     m_outlineVertices (TriangleStrip),
