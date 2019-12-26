@@ -86,7 +86,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyBase::operator=( const PropertyNode& val )
+    PropertyNode& PropertyBase::operator=(const PropertyNode& val)
     {
         m_Mutex.Lock();
         val.Lock();
@@ -659,14 +659,14 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    int PropertyBase::ToEnumPosition( const std::string& enumStringValue )
+    int PropertyBase::ToEnumPosition( const std::string& enumStringValue ) const
     {
-        if ( Info().GetKind() != KIND_ENUM )
+        if ( ConstInfo().GetKind() != KIND_ENUM )
         {
             return 0;
         }
 
-        std::string enumString( Info().GetEnum() );
+        std::string enumString( ConstInfo().GetEnum() );
 
         int pos = 0;
 
