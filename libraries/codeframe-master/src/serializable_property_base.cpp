@@ -103,22 +103,42 @@ namespace codeframe
         return *this;
     }
 
-    bool PropertyBase::operator==(const PropertyBase& sval) const
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    bool_t PropertyBase::operator==(const PropertyBase& sval) const
     {
         return false;
     }
 
-    bool PropertyBase::operator!=(const PropertyBase& sval) const
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    bool_t PropertyBase::operator!=(const PropertyBase& sval) const
     {
         return false;
     }
 
-    bool PropertyBase::operator==(const int& sval) const
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    bool_t PropertyBase::operator==(const int& sval) const
     {
         return false;
     }
 
-    bool PropertyBase::operator!=(const int& sval) const
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    bool_t PropertyBase::operator!=(const int& sval) const
     {
         return false;
     }
@@ -298,7 +318,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyBase::NameIs( const std::string& name ) const
+    bool_t PropertyBase::NameIs( const std::string& name ) const
     {
         if( name == m_name ) return true;
         return false;
@@ -379,11 +399,11 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string PropertyBase::Path( bool addName ) const
+    std::string PropertyBase::Path( bool_t addName ) const
     {
         std::string propPath;
 
-        if ( m_parentpc )
+        if ( (ObjectNode*)nullptr != m_parentpc )
         {
             propPath = m_parentpc->Path().PathString();
             if ( addName )
@@ -416,7 +436,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::ParentName() const
     {
-        if ( m_parentpc != nullptr )
+        if ( (ObjectNode*)nullptr != m_parentpc )
         {
             return m_parentpc->Identity().ObjectName();
         }
@@ -425,8 +445,7 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Wymusza na zmiennej ze ma czekac na aktualizacje w wypadku
-      * jej braku jest generowany event
+      * @brief
      **
     ******************************************************************************/
     void PropertyBase::WaitForUpdate( int time )
@@ -437,12 +456,12 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Wyzwalacz licznika dla oczekiwania aktualizacji rejestru
+      * @brief
      **
     ******************************************************************************/
     void PropertyBase::WaitForUpdatePulse()
     {
-        if ( (m_isWaitForUpdate == true) && (m_waitForUpdateCnt > 0) )
+        if ( (m_isWaitForUpdate) && (m_waitForUpdateCnt > 0) )
         {
            m_waitForUpdateCnt--;
 
@@ -459,7 +478,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyBase::ConnectReference( smart_ptr<PropertyNode> refNode )
+    bool_t PropertyBase::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
         // Sprawdzamy czy zgadza sie typ
         if ( smart_ptr_isValid( refNode ) && (this->Type() == refNode->Type()) )
@@ -476,15 +495,12 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Zatwierdzenie wszystkich zmian obiektu i jego potomnych
+      * @brief Commit changes
      **
     ******************************************************************************/
     void PropertyBase::CommitChanges()
     {
-        if ( (nullptr != m_parentpc) &&  (m_parentpc->Identity().IsPulseState() == true) )
-        {
-            m_pulseAbort = true;
-        }
+        m_changed = false;
     }
 
     /*****************************************************************************/
@@ -492,9 +508,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyBase::IsChanged() const
+    bool_t PropertyBase::IsChanged() const
     {
-        return false;
+        return m_changed;
     }
 
     /*****************************************************************************/
@@ -504,12 +520,12 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::PulseChanged()
     {
-        if ( (m_pulseAbort == true) && (m_parentpc != nullptr) &&  (m_parentpc->Identity().IsPulseState() == true) )
+        if ( m_changed )
         {
             return;
         }
 
-        m_pulseAbort = false;
+        m_changed = true;
 
         signalChanged.Emit( this );
     }
@@ -608,14 +624,14 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string PropertyBase::ToString()
+    std::string PropertyBase::ToString() const
     {
-        if ( Info().GetKind() != KIND_ENUM )
+        if ( ConstInfo().GetKind() != KIND_ENUM )
         {
             return (std::string)(*this);
         }
 
-        std::string enumString( Info().GetEnum() );
+        std::string enumString( ConstInfo().GetEnum() );
 
         std::vector<std::string> output;
 
@@ -675,7 +691,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyBase::IsReference() const
+    bool_t PropertyBase::IsReference() const
     {
         if ( cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(m_referenceParent) ) )
         {

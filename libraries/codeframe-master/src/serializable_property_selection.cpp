@@ -40,7 +40,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertySelection::operator==(const PropertySelection& sval) const
+    bool_t PropertySelection::operator==(const PropertySelection& sval) const
     {
         return false;
     }
@@ -50,7 +50,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertySelection::operator!=(const PropertySelection& sval) const
+    bool_t PropertySelection::operator!=(const PropertySelection& sval) const
     {
         return false;
     }
@@ -60,7 +60,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertySelection::operator==(const int& sval) const
+    bool_t PropertySelection::operator==(const int& sval) const
     {
         return false;
     }
@@ -70,7 +70,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertySelection::operator!=(const int& sval) const
+    bool_t PropertySelection::operator!=(const int& sval) const
     {
         return false;
     }
@@ -190,6 +190,28 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    PropertyNode& PropertySelection::operator+=(const int rhs)
+    {
+        (*m_selection) += rhs;
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyNode& PropertySelection::operator-=(const int rhs)
+    {
+        (*m_selection) -= rhs;
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     PropertyNode& PropertySelection::operator+=( const PropertySelection& rhs )
     {
         return *this;
@@ -240,7 +262,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertySelection::NameIs( const std::string& name ) const
+    bool_t PropertySelection::NameIs( const std::string& name ) const
     {
         std::string thisName( Name() );
         if ( thisName.compare( name ) == 0 )
@@ -255,7 +277,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string PropertySelection::ToString()
+    std::string PropertySelection::ToString() const
     {
         return m_selection->ToString();
     }
@@ -268,6 +290,16 @@ namespace codeframe
     eType PropertySelection::Type() const
     {
         return m_selection->Type();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertySelection::Path( bool_t addName ) const
+    {
+        return m_selection->Path( addName );
     }
 
     /*****************************************************************************/
@@ -315,9 +347,59 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertySelection::ConnectReference( smart_ptr<PropertyNode> refNode )
+    bool_t PropertySelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
         return false;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertySelection::TypeString() const
+    {
+        return m_selection->TypeString();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertySelection::PreviousValueString() const
+    {
+        return m_selection->PreviousValueString();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertySelection::CurentValueString() const
+    {
+        return m_selection->CurentValueString();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    int PropertySelection::PreviousValueInteger() const
+    {
+        return m_selection->PreviousValueInteger();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    int PropertySelection::CurentValueInteger() const
+    {
+        return m_selection->CurentValueInteger();
     }
 
     /*****************************************************************************/
@@ -408,6 +490,26 @@ namespace codeframe
     PropertySelection::operator std::string() const
     {
         return (std::string)(*m_selection);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    bool_t PropertySelection::IsReference() const
+    {
+        return false;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    int PropertySelection::ToInt() const
+    {
+        return m_selection->GetNumber();
     }
 
     /*****************************************************************************/
