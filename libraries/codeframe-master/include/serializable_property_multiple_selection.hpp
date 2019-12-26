@@ -19,58 +19,68 @@ namespace codeframe
 
             void Add( smart_ptr<PropertyNode> prop );
 
-            virtual std::string Name() const;
-            virtual bool        NameIs( const std::string& name ) const;
-            virtual std::string ToString();
-            virtual eType       Type() const;
-            virtual PropertyNode* Reference() const;
-            virtual uint32_t      Id() const;
+            std::string   Name() const override;
+            bool_t        NameIs( const std::string& name ) const override;
+            std::string   ToString() const override;
+            eType         Type() const override;
+            std::string   Path( bool_t addName = true ) const override;
+            PropertyNode* Reference() const override;
+            uint32_t      Id() const override;
 
-            virtual ObjectNode* Parent() const;
-            virtual std::string ParentName() const;
-            virtual bool ConnectReference( smart_ptr<PropertyNode> refNode );
+            ObjectNode* Parent() const override;
+            std::string ParentName() const override;
+            bool_t ConnectReference( smart_ptr<PropertyNode> refNode ) override;
+            std::string TypeString() const override;
 
-            virtual bool operator==(const PropertyMultipleSelection& sval) const;
-            virtual bool operator!=(const PropertyMultipleSelection& sval) const;
+            std::string PreviousValueString() const override;
+            std::string CurentValueString() const override;
+            int         PreviousValueInteger() const override;
+            int         CurentValueInteger() const override;
 
-            virtual bool operator==(const int& sval) const;
-            virtual bool operator!=(const int& sval) const;
+            bool_t        operator==(const int& sval) const override;
+            bool_t        operator!=(const int& sval) const override;
+            PropertyNode& operator =(const bool          val) override;
+            PropertyNode& operator =(const char          val) override;
+            PropertyNode& operator =(const unsigned char val) override;
+            PropertyNode& operator =(const int           val) override;
+            PropertyNode& operator =(const unsigned int  val) override;
+            PropertyNode& operator =(const float         val) override;
+            PropertyNode& operator =(const double        val) override;
+            PropertyNode& operator =(const std::string&  val) override;
+            PropertyNode& operator+=(const int           rhs) override;
+            PropertyNode& operator-=(const int           rhs) override;
+            PropertyNode& operator++() override;
+            PropertyNode& operator--() override;
 
-            virtual PropertyNode& operator=(const PropertyMultipleSelection& val);
-            virtual PropertyNode& operator=(const bool          val);
-            virtual PropertyNode& operator=(const char          val);
-            virtual PropertyNode& operator=(const unsigned char val);
-            virtual PropertyNode& operator=(const int           val);
-            virtual PropertyNode& operator=(const unsigned int  val);
-            virtual PropertyNode& operator=(const float         val);
-            virtual PropertyNode& operator=(const double        val);
-            virtual PropertyNode& operator=(const std::string&  val);
-            virtual PropertyNode& operator++();
-            virtual PropertyNode& operator--();
-            virtual PropertyNode& operator+=(const PropertyMultipleSelection& rhs);
-            virtual PropertyNode& operator-=(const PropertyMultipleSelection& rhs);
-            virtual PropertyNode& operator+ (const PropertyMultipleSelection& rhs);
-            virtual PropertyNode& operator- (const PropertyMultipleSelection& rhs);
+            PropertyNode& operator =(const PropertyMultipleSelection& val);
+            PropertyNode& operator+=(const PropertyMultipleSelection& rhs);
+            PropertyNode& operator-=(const PropertyMultipleSelection& rhs);
+            PropertyNode& operator+ (const PropertyMultipleSelection& rhs);
+            PropertyNode& operator- (const PropertyMultipleSelection& rhs);
+            bool_t        operator==(const PropertyMultipleSelection& sval) const;
+            bool_t        operator!=(const PropertyMultipleSelection& sval) const;
 
-            virtual operator bool() const;
-            virtual operator char() const;
-            virtual operator unsigned char() const;
-            virtual operator int() const;
-            virtual operator unsigned int() const;
-            virtual operator unsigned short() const;
-            virtual operator double() const;
-            virtual operator float() const;
-            virtual operator std::string() const;
+            operator bool() const override;
+            operator char() const override;
+            operator unsigned char() const override;
+            operator int() const override;
+            operator unsigned int() const override;
+            operator unsigned short() const override;
+            operator double() const override;
+            operator float() const override;
+            operator std::string() const override;
 
-            virtual void        SetNumber( const int val );
-            virtual int         GetNumber() const;
-            virtual void        SetReal( const double val );
-            virtual double      GetReal() const;
-            virtual void        SetString( const std::string&  val );
-            virtual std::string GetString() const;
+            bool_t      IsReference() const override;
+            int         ToInt() const override;
+            void        SetNumber( const int val ) override;
+            int         GetNumber() const override;
+            void        SetReal( const double val ) override;
+            double      GetReal() const override;
+            void        SetString( const std::string&  val ) override;
+            std::string GetString() const override;
 
-            virtual void Lock() const;
-            virtual void Unlock() const;
+            void Lock() const override;
+            void Unlock() const override;
         private:
             std::vector< smart_ptr<PropertyNode> > m_selectionVector;
     };

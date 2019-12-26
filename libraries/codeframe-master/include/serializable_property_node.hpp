@@ -2,6 +2,7 @@
 #define _SERIALIZABLE_PROPERTY_NODE_H
 
 #include "typeinfo.hpp"
+#include "typedefs.hpp"
 
 #include <string>
 #include <smartpointer.h>
@@ -26,6 +27,11 @@ namespace codeframe
             virtual PropertyNode& operator=(const std::string&  val) = 0;
             virtual PropertyNode& operator++() = 0;
             virtual PropertyNode& operator--() = 0;
+            virtual PropertyNode& operator+=(const int rhs) = 0;
+            virtual PropertyNode& operator-=(const int rhs) = 0;
+
+            virtual bool_t operator==(const int& sval) const = 0;
+            virtual bool_t operator!=(const int& sval) const = 0;
 
             virtual operator bool() const = 0;
             virtual operator char() const = 0;
@@ -37,17 +43,26 @@ namespace codeframe
             virtual operator float() const = 0;
             virtual operator std::string() const = 0;
 
-            virtual std::string ToString() = 0;
-            virtual std::string Name() const = 0;
-            virtual bool        NameIs( const std::string& name ) const = 0;
-            virtual eType       Type() const = 0;
+            virtual bool_t        IsReference() const = 0;
+            virtual int           ToInt() const = 0;
+            virtual std::string   ToString() const = 0;
+            virtual std::string   Name() const = 0;
+            virtual bool_t        NameIs( const std::string& name ) const = 0;
+            virtual eType         Type() const = 0;
+            virtual std::string   Path( bool_t addName = true ) const = 0;
             virtual PropertyNode* Reference() const = 0;
             virtual uint32_t      Id() const = 0;
 
             virtual ObjectNode* Parent() const = 0;
             virtual std::string ParentName() const = 0;
 
-            virtual bool        ConnectReference( smart_ptr<PropertyNode> refNode ) = 0;
+            virtual bool_t      ConnectReference( smart_ptr<PropertyNode> refNode ) = 0;
+            virtual std::string TypeString() const = 0;
+
+            virtual std::string PreviousValueString() const = 0;
+            virtual std::string CurentValueString() const = 0;
+            virtual int         PreviousValueInteger() const = 0;
+            virtual int         CurentValueInteger() const = 0;
 
             virtual void        SetNumber( const int val ) = 0;
             virtual int         GetNumber() const = 0;

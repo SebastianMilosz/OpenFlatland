@@ -27,11 +27,10 @@ namespace codeframe
                       std::function<const internalType&()> getValueFunc = nullptr,
                       std::function<void(internalType)> setValueFunc = nullptr
                      ) : PropertyBase( parentpc, name, GetTypeInfo<internalType>().GetTypeCode(), info ),
+                     m_baseValue( val ),
                      m_GetValueFunction( getValueFunc ),
                      m_SetValueFunction( setValueFunc )
             {
-
-                m_baseValue      = val;
             }
 
             // Destructor

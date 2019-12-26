@@ -51,7 +51,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyMultipleSelection::operator==(const PropertyMultipleSelection& sval) const
+    bool_t PropertyMultipleSelection::operator==(const PropertyMultipleSelection& sval) const
     {
         return false;
     }
@@ -61,7 +61,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyMultipleSelection::operator!=(const PropertyMultipleSelection& sval) const
+    bool_t PropertyMultipleSelection::operator!=(const PropertyMultipleSelection& sval) const
     {
         return false;
     }
@@ -71,7 +71,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyMultipleSelection::operator==(const int& sval) const
+    bool_t PropertyMultipleSelection::operator==(const int& sval) const
     {
         return false;
     }
@@ -81,7 +81,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyMultipleSelection::operator!=(const int& sval) const
+    bool_t PropertyMultipleSelection::operator!=(const int& sval) const
     {
         return false;
     }
@@ -203,6 +203,34 @@ namespace codeframe
             *propSelection = val;
         }
 
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyNode& PropertyMultipleSelection::operator+=(const int rhs)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            (*propSelection) += rhs;
+        }
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyNode& PropertyMultipleSelection::operator-=(const int rhs)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            (*propSelection) -= rhs;
+        }
         return *this;
     }
 
@@ -382,6 +410,26 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    bool_t PropertyMultipleSelection::IsReference() const
+    {
+        return false;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    int PropertyMultipleSelection::ToInt() const
+    {
+        return 0U;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     void PropertyMultipleSelection::SetNumber( const int val )
     {
         for ( auto propSelection : m_selectionVector )
@@ -469,7 +517,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyMultipleSelection::NameIs( const std::string& name ) const
+    bool_t PropertyMultipleSelection::NameIs( const std::string& name ) const
     {
         std::string thisName( Name() );
         if ( thisName.compare( name ) == 0 )
@@ -484,7 +532,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    std::string PropertyMultipleSelection::ToString()
+    std::string PropertyMultipleSelection::ToString() const
     {
         std::string retVal;
 
@@ -505,6 +553,16 @@ namespace codeframe
     eType PropertyMultipleSelection::Type() const
     {
         return eType::TYPE_VECTOR;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertyMultipleSelection::Path( bool_t addName ) const
+    {
+        return "Multiple::Selection::Path";
     }
 
     /*****************************************************************************/
@@ -560,9 +618,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool PropertyMultipleSelection::ConnectReference( smart_ptr<PropertyNode> refNode )
+    bool_t PropertyMultipleSelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
-        bool retVal = false;
+        bool_t retVal = false;
 
         for ( auto propSelection : m_selectionVector )
         {
@@ -570,6 +628,80 @@ namespace codeframe
         }
 
         return retVal;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertyMultipleSelection::TypeString() const
+    {
+        std::string retVal = "";
+
+        for ( auto propSelection : m_selectionVector )
+        {
+            retVal += propSelection->TypeString();
+            retVal += " ";
+        }
+
+        return retVal;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertyMultipleSelection::PreviousValueString() const
+    {
+        std::string retVal = "";
+
+        for ( auto propSelection : m_selectionVector )
+        {
+            retVal += propSelection->PreviousValueString();
+            retVal += " ";
+        }
+
+        return retVal;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string PropertyMultipleSelection::CurentValueString() const
+    {
+        std::string retVal = "";
+
+        for ( auto propSelection : m_selectionVector )
+        {
+            retVal += propSelection->CurentValueString();
+            retVal += " ";
+        }
+
+        return retVal;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    int PropertyMultipleSelection::PreviousValueInteger() const
+    {
+        return 0;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    int PropertyMultipleSelection::CurentValueInteger() const
+    {
+        return 0;
     }
 
     /*****************************************************************************/

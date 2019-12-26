@@ -293,6 +293,7 @@
 		<Unit filename="libraries/codeframe-master/include/serializable_register.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_selectable.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_storage.hpp" />
+		<Unit filename="libraries/codeframe-master/include/typedefs.hpp" />
 		<Unit filename="libraries/codeframe-master/include/typeinfo.hpp" />
 		<Unit filename="libraries/codeframe-master/include/typeinterface.hpp" />
 		<Unit filename="libraries/codeframe-master/include/utilities/DataTypesUtilities.h" />
