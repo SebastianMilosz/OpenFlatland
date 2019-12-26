@@ -30,6 +30,11 @@ namespace codeframe
             virtual PropertyNode& operator+=(const int rhs) = 0;
             virtual PropertyNode& operator-=(const int rhs) = 0;
 
+            virtual PropertyNode& operator+=(const PropertyNode& rhs) = 0;
+            virtual PropertyNode& operator-=(const PropertyNode& rhs) = 0;
+            virtual PropertyNode& operator+ (const PropertyNode& rhs) = 0;
+            virtual PropertyNode& operator- (const PropertyNode& rhs) = 0;
+
             virtual bool_t operator==(const int& sval) const = 0;
             virtual bool_t operator!=(const int& sval) const = 0;
 

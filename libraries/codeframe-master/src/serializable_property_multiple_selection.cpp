@@ -40,9 +40,13 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator=( const PropertyMultipleSelection& val )
+    PropertyNode& PropertyMultipleSelection::operator=( const PropertyNode& val )
     {
-        m_selectionVector = val.m_selectionVector;
+        const PropertyMultipleSelection* multiSel = dynamic_cast<const PropertyMultipleSelection*>(&val);
+        if ( (const PropertyMultipleSelection*)nullptr != multiSel )
+        {
+            m_selectionVector = multiSel->m_selectionVector;
+        }
         return *this;
     }
 
@@ -51,7 +55,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool_t PropertyMultipleSelection::operator==(const PropertyMultipleSelection& sval) const
+    bool_t PropertyMultipleSelection::operator==(const PropertyNode& sval) const
     {
         return false;
     }
@@ -61,7 +65,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool_t PropertyMultipleSelection::operator!=(const PropertyMultipleSelection& sval) const
+    bool_t PropertyMultipleSelection::operator!=(const PropertyNode& sval) const
     {
         return false;
     }
@@ -269,7 +273,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator+=( const PropertyMultipleSelection& rhs )
+    PropertyNode& PropertyMultipleSelection::operator+=( const PropertyNode& rhs )
     {
         return *this;
     }
@@ -279,7 +283,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator-=( const PropertyMultipleSelection& rhs )
+    PropertyNode& PropertyMultipleSelection::operator-=( const PropertyNode& rhs )
     {
         return *this;
     }
@@ -289,7 +293,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator+(const PropertyMultipleSelection& rhs)
+    PropertyNode& PropertyMultipleSelection::operator+(const PropertyNode& rhs)
     {
         return *this;
     }
@@ -299,7 +303,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator-( const PropertyMultipleSelection& rhs )
+    PropertyNode& PropertyMultipleSelection::operator-( const PropertyNode& rhs )
     {
         return *this;
     }

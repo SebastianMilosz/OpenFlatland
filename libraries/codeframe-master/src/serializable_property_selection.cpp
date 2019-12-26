@@ -30,7 +30,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=( const PropertySelection& val )
+    PropertyNode& PropertySelection::operator=( const PropertyNode& val )
     {
         return *this;
     }
@@ -40,7 +40,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool_t PropertySelection::operator==(const PropertySelection& sval) const
+    bool_t PropertySelection::operator==(const PropertyNode& sval) const
     {
         return false;
     }
@@ -50,7 +50,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool_t PropertySelection::operator!=(const PropertySelection& sval) const
+    bool_t PropertySelection::operator!=(const PropertyNode& sval) const
     {
         return false;
     }
@@ -212,7 +212,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator+=( const PropertySelection& rhs )
+    PropertyNode& PropertySelection::operator+=( const PropertyNode& rhs )
     {
         return *this;
     }
@@ -222,7 +222,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator-=( const PropertySelection& rhs )
+    PropertyNode& PropertySelection::operator-=( const PropertyNode& rhs )
     {
         return *this;
     }
@@ -232,7 +232,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator+(const PropertySelection& rhs)
+    PropertyNode& PropertySelection::operator+(const PropertyNode& rhs)
     {
         return *this;
     }
@@ -242,7 +242,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator-( const PropertySelection& rhs )
+    PropertyNode& PropertySelection::operator-( const PropertyNode& rhs )
     {
         return *this;
     }

@@ -83,11 +83,11 @@ namespace codeframe
             PropertyNode& operator+=(const int rhs) override;
             PropertyNode& operator-=(const int rhs) override;
 
-            PropertyNode& operator =(const PropertyNode& val);
-            PropertyNode& operator+=(const PropertyNode& rhs);
-            PropertyNode& operator-=(const PropertyNode& rhs);
-            PropertyNode& operator+ (const PropertyNode& rhs);
-            PropertyNode& operator- (const PropertyNode& rhs);
+            PropertyNode& operator=(const PropertyNode& rhs);
+            PropertyNode& operator+=(const PropertyNode& rhs) override;
+            PropertyNode& operator-=(const PropertyNode& rhs) override;
+            PropertyNode& operator+(const PropertyNode& rhs) override;
+            PropertyNode& operator-(const PropertyNode& rhs) override;
             bool_t        operator==(const PropertyBase& sval) const;
             bool_t        operator!=(const PropertyBase& sval) const;
 
@@ -105,7 +105,7 @@ namespace codeframe
             bool_t         IsReference() const override;
             int            ToInt() const override { return (int)(*this); }
             std::string    ToString() const override;
-            int            ToEnumPosition( const std::string& enumStringValue );
+            int            ToEnumPosition( const std::string& enumStringValue ) const;
             const cPropertyInfo& ConstInfo() const { return m_propertyInfo; }
             cPropertyInfo& Info() { return m_propertyInfo; }
             void           WaitForUpdatePulse();

@@ -51,13 +51,13 @@ namespace codeframe
             PropertyNode& operator+=(const int rhs) override;
             PropertyNode& operator-=(const int rhs) override;
 
-            bool_t        operator==(const PropertySelection& sval) const;
-            bool_t        operator!=(const PropertySelection& sval) const;
-            PropertyNode& operator= (const PropertySelection& val);
-            PropertyNode& operator+=(const PropertySelection& rhs);
-            PropertyNode& operator-=(const PropertySelection& rhs);
-            PropertyNode& operator+ (const PropertySelection& rhs);
-            PropertyNode& operator- (const PropertySelection& rhs);
+            bool_t        operator==(const PropertyNode& sval) const;
+            bool_t        operator!=(const PropertyNode& sval) const;
+            PropertyNode& operator =(const PropertyNode& rhs);
+            PropertyNode& operator+=(const PropertyNode& rhs) override;
+            PropertyNode& operator-=(const PropertyNode& rhs) override;
+            PropertyNode& operator+ (const PropertyNode& rhs) override;
+            PropertyNode& operator- (const PropertyNode& rhs) override;
 
             operator bool() const override;
             operator char() const override;
