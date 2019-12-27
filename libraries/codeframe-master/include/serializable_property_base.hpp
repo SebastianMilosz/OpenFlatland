@@ -163,8 +163,9 @@ namespace codeframe
             bool_t          m_changed;
             bool_t          m_temporary;
 
-            void     RegisterProperty();
-            void     UnRegisterProperty();
+            void RegisterProperty();
+            void UnRegisterProperty();
+            void EmitChanges() override;
 
             static uint32_t GetHashId( const std::string& str, uint16_t mod = 0 );
     };

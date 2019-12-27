@@ -318,9 +318,12 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool_t PropertyBase::NameIs( const std::string& name ) const
+    bool_t PropertyBase::NameIs(const std::string& name) const
     {
-        if( name == m_name ) return true;
+        if ( name == m_name )
+        {
+            return true;
+        }
         return false;
     }
 
@@ -527,7 +530,7 @@ namespace codeframe
 
         m_changed = true;
 
-        signalChanged.Emit( this );
+        EmitChanges();
     }
 
     /*****************************************************************************/
@@ -788,5 +791,15 @@ namespace codeframe
     PropertyBase::operator std::string() const
     {
         return "";
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyBase::EmitChanges()
+    {
+        signalChanged.Emit( this );
     }
 }

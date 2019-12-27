@@ -53,22 +53,6 @@ namespace codeframe
                 return m_baseValue;
             }
 
-            void SetValue( const internalType& value )
-            {
-                if ( IsChanged() == true  )
-                {
-                    if ( m_SetValueFunction )
-                    {
-                        m_SetValueFunction( value );
-                    }
-
-                    if ( m_propertyInfo.IsEventEnable() )
-                    {
-                        signalChanged.Emit( this );
-                    }
-                }
-            }
-
             // Copy operator
             Property( const Property& sval ) : PropertyBase( sval )
             {
@@ -136,12 +120,18 @@ namespace codeframe
             {
                 this->PropertyBase::operator=( val );
 
-                // Values
-                SetValue( val.GetValue() );
-
                 // Funktors
                 m_GetValueFunction = val.m_GetValueFunction;
                 m_SetValueFunction = val.m_SetValueFunction;
+
+                m_baseValue = val.m_baseValue;
+                m_baseValuePrew = val.m_baseValuePrew;
+
+                // Values
+                if ( IsChanged() == true  )
+                {
+                    EmitChanges();
+                }
 
                 return *this;
             }
@@ -154,11 +144,13 @@ namespace codeframe
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
                     m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_Mutex.Unlock();
 
                     // Values external
-                    SetValue( m_baseValue );
-
-                    m_Mutex.Unlock();
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -177,11 +169,13 @@ namespace codeframe
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
                     m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_Mutex.Unlock();
 
                     // Values external
-                    SetValue( m_baseValue );
-
-                    m_Mutex.Unlock();
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -200,11 +194,13 @@ namespace codeframe
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
                     m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_Mutex.Unlock();
 
                     // Values external
-                    SetValue( m_baseValue );
-
-                    m_Mutex.Unlock();
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -223,11 +219,13 @@ namespace codeframe
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
                     m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_Mutex.Unlock();
 
                     // Values external
-                    SetValue( m_baseValue );
-
-                    m_Mutex.Unlock();
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -246,11 +244,13 @@ namespace codeframe
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
                     m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_Mutex.Unlock();
 
                     // Values external
-                    SetValue( m_baseValue );
-
-                    m_Mutex.Unlock();
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -269,11 +269,13 @@ namespace codeframe
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
                     m_baseValue = GetTypeInfo<internalType>().FromReal( val );
+                    m_Mutex.Unlock();
 
                     // Values external
-                    SetValue( m_baseValue );
-
-                    m_Mutex.Unlock();
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -292,11 +294,13 @@ namespace codeframe
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
                     m_baseValue = GetTypeInfo<internalType>().FromReal( val );
+                    m_Mutex.Unlock();
 
                     // Values external
-                    SetValue( m_baseValue );
-
-                    m_Mutex.Unlock();
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -315,11 +319,13 @@ namespace codeframe
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
                     m_baseValue = GetTypeInfo<internalType>().FromString( val );
+                    m_Mutex.Unlock();
 
                     // Values external
-                    SetValue( m_baseValue );
-
-                    m_Mutex.Unlock();
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
 
                     // Przypisanie wartosci zdalnej referencji
                     if ( m_reference )
@@ -371,7 +377,10 @@ namespace codeframe
                 m_Mutex.Unlock();
 
                 // Values external
-                SetValue( m_baseValue );
+                if ( IsChanged() == true  )
+                {
+                    EmitChanges();
+                }
 
                 return *this;
             }
@@ -391,7 +400,10 @@ namespace codeframe
                 m_Mutex.Unlock();
 
                 // Values external
-                SetValue( m_baseValue );
+                if ( IsChanged() == true  )
+                {
+                    EmitChanges();
+                }
 
                 return *this;
             }
@@ -631,7 +643,19 @@ namespace codeframe
                 return false;
             }
 
+        protected:
+            void EmitChanges() override
+            {
+                if ( m_SetValueFunction )
+                {
+                    m_SetValueFunction( m_baseValue );
+                }
 
+                if ( m_propertyInfo.IsEventEnable() )
+                {
+                    signalChanged.Emit( this );
+                }
+            }
 
         private:
             internalType m_baseValue;

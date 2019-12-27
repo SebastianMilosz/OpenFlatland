@@ -81,6 +81,10 @@ namespace codeframe
 
             void Lock() const override;
             void Unlock() const override;
+
+        protected:
+            void EmitChanges() override;
+
         private:
             std::vector< smart_ptr<PropertyNode> > m_selectionVector;
     };
