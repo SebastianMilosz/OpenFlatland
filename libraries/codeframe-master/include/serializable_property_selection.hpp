@@ -82,6 +82,8 @@ namespace codeframe
             void Unlock() const override;
 
         private:
+            void EmitChanges() override;
+
             PropertyNode* m_selection;
     };
 }

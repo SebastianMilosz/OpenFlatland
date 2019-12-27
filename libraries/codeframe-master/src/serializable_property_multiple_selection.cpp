@@ -733,4 +733,17 @@ namespace codeframe
             propSelection->Unlock();
         }
     }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::EmitChanges()
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->EmitChanges();
+        }
+    }
 }

@@ -591,4 +591,14 @@ namespace codeframe
     {
         m_selection->Unlock();
     }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::EmitChanges()
+    {
+        m_selection->EmitChanges();
+    }
 }
