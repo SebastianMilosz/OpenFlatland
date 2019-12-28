@@ -79,7 +79,8 @@ namespace codeframe
             virtual void Lock() const = 0;
             virtual void Unlock() const = 0;
 
-            virtual void EmitChanges() = 0;
+            virtual bool_t IsChanged() const = 0;
+            virtual void   EmitChanges() = 0;
     };
 }
 

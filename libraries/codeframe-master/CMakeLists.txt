@@ -32,6 +32,7 @@ set(CODEFRAME_LIB_HDRS
     include/serializable_selectable.hpp
     include/serializable_storage.hpp
     include/typeinfo.hpp
+    include/typedefs.hpp
     include/xmlformatter.hpp
 )
 

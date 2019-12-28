@@ -25,45 +25,11 @@ namespace codeframe
 
         public:
 
-            PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
-                m_reference(NULL),
-                m_referenceParent(NULL),
-                m_type(type),
-                m_parentpc( parentpc ),
-                m_name(name),
-                m_id(0),
-                m_isWaitForUpdate( false ),
-                m_waitForUpdateCnt(0),
-                m_propertyInfo( info, this ),
-                m_changed( false ),
-                m_temporary( false )
-                {
-                    RegisterProperty();
-                }
+            PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info );
+            PropertyBase( const PropertyBase& sval );
+            virtual ~PropertyBase();
 
-            // Copy constructor
-            PropertyBase( const PropertyBase& sval ) :
-                m_reference      (sval.m_reference),
-                m_referenceParent(sval.m_referenceParent),
-                m_type           (sval.m_type),
-                m_parentpc       (sval.m_parentpc),
-                m_name           (sval.m_name),
-                m_id             (sval.m_id),
-                m_propertyInfo   (sval.m_propertyInfo),
-                m_changed        (sval.m_changed),
-                m_temporary      ( true )
-            {
-            }
-
-            virtual ~PropertyBase()
-            {
-                if( m_temporary == false )
-                {
-                    UnRegisterProperty();
-                }
-            }
-
-            // Sygnaly
+            // Signals
             sigslot::signal1<PropertyBase*> signalChanged;
 
             bool_t operator==(const int& sval) const override;
@@ -102,51 +68,46 @@ namespace codeframe
             operator float() const override;
             operator std::string() const override;
 
-            bool_t         IsReference() const override;
-            int            ToInt() const override { return (int)(*this); }
-            std::string    ToString() const override;
-            int            ToEnumPosition( const std::string& enumStringValue ) const;
+            bool_t      IsReference() const override;
+            int         ToInt() const override { return (int)(*this); }
+            std::string ToString() const override;
+            int         ToEnumPosition( const std::string& enumStringValue ) const;
+            void        WaitForUpdatePulse();
+            void        WaitForUpdate( int time = 100 );
+            std::string Name() const override;
+            bool_t      NameIs( const std::string& name ) const override;
+            uint32_t    Id() const override;
+            eType       Type() const override;
+            std::string Path(bool_t addName = true) const override;
+            ObjectNode* Parent() const override;
+            std::string ParentName() const override;
+            PropertyNode* Reference() const override { return m_reference; }
+            bool_t      ConnectReference( smart_ptr<PropertyNode> refNode ) override;
+            std::string TypeString() const override;
+
+            std::string PreviousValueString() const override;
+            std::string CurentValueString() const override;
+            int         PreviousValueInteger() const override;
+            int         CurentValueInteger() const override;
+
             const cPropertyInfo& ConstInfo() const { return m_propertyInfo; }
-            cPropertyInfo& Info() { return m_propertyInfo; }
-            void           WaitForUpdatePulse();
-            void           WaitForUpdate( int time = 100 );
-            std::string    Name() const override;
-            bool_t         NameIs( const std::string& name ) const override;
-            uint32_t       Id() const override;
-            eType          Type() const override;
-            std::string    Path(bool_t addName = true) const override;
-            ObjectNode*    Parent() const override;
-            std::string    ParentName() const override;
-            PropertyNode*  Reference() const override { return m_reference; }
-            bool_t         ConnectReference( smart_ptr<PropertyNode> refNode ) override;
-            std::string    TypeString() const override;
+            cPropertyInfo&       Info() { return m_propertyInfo; }
 
-            std::string    PreviousValueString() const override;
-            std::string    CurentValueString() const override;
-            int            PreviousValueInteger() const override;
-            int            CurentValueInteger() const override;
+            void   PulseChanged();
+            void   CommitChanges();
+            bool_t IsChanged() const override;
 
-            void           PulseChanged();
-            void           CommitChanges();
-            bool_t         IsChanged() const;
-            PropertyNode&  WatchdogGetValue( int time = 1000 );
+            PropertyNode& WatchdogGetValue( int time = 1000 );
 
-            void            SetNumber( const int val ) override;
-            int             GetNumber() const override;
-            void            SetReal( const double val ) override;
-            double          GetReal() const override;
-            void            SetString( const std::string&  val ) override;
-            std::string     GetString() const override;
+            void        SetNumber( const int val ) override;
+            int         GetNumber() const override;
+            void        SetReal( const double val ) override;
+            double      GetReal() const override;
+            void        SetString( const std::string&  val ) override;
+            std::string GetString() const override;
 
-            void Lock() const override
-            {
-                m_Mutex.Lock();
-            }
-
-            void Unlock() const override
-            {
-                m_Mutex.Unlock();
-            }
+            void Lock() const override;
+            void Unlock() const override;
 
         protected:
             static int      s_globalParConCnt;

@@ -213,22 +213,36 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
             }
             case codeframe::KIND_ENUM:
             {
+                std::string enumString = prop->Info().GetEnum();
                 static ImGuiComboFlags flags = 0;
-                // General BeginCombo() API, you have full control over your selection data and display type.
-                // (your selection data could be an index, a pointer to the object, an id for the object, a flag stored in the object itself, etc.)
-                const char* items[] = { "AAAA", "BBBB", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH", "IIII", "JJJJ", "KKKK", "LLLLLLL", "MMMM", "OOOOOOO" };
-                static const char* item_current = items[0];            // Here our selection is a single pointer stored outside the object.
-                if (ImGui::BeginCombo("combo 1", item_current, flags)) // The second parameter is the label previewed before opening the combo.
+
+                if ( enumString.size() )
                 {
-                    for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+                    std::vector<std::string> elems;
+                    std::stringstream ss(enumString);
+                    std::string currentValue;
+                    while (std::getline(ss, currentValue, ',') )
                     {
-                        bool is_selected = (item_current == items[n]);
-                        if (ImGui::Selectable(items[n], is_selected))
-                            item_current = items[n];
-                        if (is_selected)
-                            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+                        elems.push_back( currentValue );
                     }
-                    ImGui::EndCombo();
+
+                    static const char* item_current = elems[0].c_str();    // Here our selection is a single pointer stored outside the object.
+                    if (ImGui::BeginCombo("Combo 1", item_current, flags)) // The second parameter is the label previewed before opening the combo.
+                    {
+                        for (size_t n = 0; n < elems.size(); n++)
+                        {
+                            bool is_selected = (item_current == elems[n]);
+                            if (ImGui::Selectable(elems[n].c_str(), is_selected))
+                            {
+                                item_current = elems[n].c_str();
+                            }
+                            if (is_selected)
+                            {
+                                ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+                            }
+                        }
+                        ImGui::EndCombo();
+                    }
                 }
                 break;
             }
