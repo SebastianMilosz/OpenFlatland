@@ -40,6 +40,58 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    PropertyBase::PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
+        m_reference(NULL),
+        m_referenceParent(NULL),
+        m_type(type),
+        m_parentpc( parentpc ),
+        m_name(name),
+        m_id(0),
+        m_isWaitForUpdate( false ),
+        m_waitForUpdateCnt(0),
+        m_propertyInfo( info, this ),
+        m_changed( false ),
+        m_temporary( false )
+        {
+            RegisterProperty();
+        }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::PropertyBase( const PropertyBase& sval ) :
+        m_reference      (sval.m_reference),
+        m_referenceParent(sval.m_referenceParent),
+        m_type           (sval.m_type),
+        m_parentpc       (sval.m_parentpc),
+        m_name           (sval.m_name),
+        m_id             (sval.m_id),
+        m_propertyInfo   (sval.m_propertyInfo),
+        m_changed        (sval.m_changed),
+        m_temporary      ( true )
+    {
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyBase::~PropertyBase()
+    {
+        if( m_temporary == false )
+        {
+            UnRegisterProperty();
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     void PropertyBase::RegisterProperty()
     {
         if ( m_parentpc == nullptr )
@@ -620,6 +672,26 @@ namespace codeframe
     {
         PropertyBase prop = *this;
         return (std::string)prop;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyBase::Lock() const
+    {
+        m_Mutex.Lock();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyBase::Unlock() const
+    {
+        m_Mutex.Unlock();
     }
 
     /*****************************************************************************/

@@ -633,9 +633,9 @@ namespace codeframe
                 m_Mutex.Unlock();
             }
 
-            bool IsChanged() const
+            bool_t IsChanged() const override
             {
-                if ( m_baseValuePrew != GetValue() )
+                if ( (PropertyBase::IsChanged()) || (m_baseValuePrew != GetValue()) )
                 {
                     return true;
                 }

@@ -597,6 +597,16 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    bool_t PropertySelection::IsChanged() const
+    {
+        return m_selection->IsChanged();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     void PropertySelection::EmitChanges()
     {
         m_selection->EmitChanges();

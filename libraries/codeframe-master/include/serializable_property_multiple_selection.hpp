@@ -82,6 +82,8 @@ namespace codeframe
             void Lock() const override;
             void Unlock() const override;
 
+            bool_t IsChanged() const override;
+
         protected:
             void EmitChanges() override;
 

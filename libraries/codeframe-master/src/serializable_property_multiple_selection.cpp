@@ -739,6 +739,23 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    bool_t PropertyMultipleSelection::IsChanged() const
+    {
+        bool_t retVal = false;
+
+        for ( auto propSelection : m_selectionVector )
+        {
+            retVal |= propSelection->IsChanged();
+        }
+
+        return retVal;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     void PropertyMultipleSelection::EmitChanges()
     {
         for ( auto propSelection : m_selectionVector )
