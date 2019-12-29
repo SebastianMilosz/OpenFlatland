@@ -175,28 +175,28 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
             }
             case codeframe::KIND_LOGIC:
             {
-                bool check = (bool)(*prop);
+                bool check = static_cast<bool>(*prop);
                 ImGui::Checkbox("##value", &check);
                 (*prop) = check;
                 break;
             }
             case codeframe::KIND_NUMBER:
             {
-                int value = (int)(*prop);
+                int value = static_cast<int>(*prop);
                 ImGui::InputInt("##value", &value, 1);
                 (*prop) = value;
                 break;
             }
             case codeframe::KIND_NUMBERRANGE:
             {
-                int value = (int)(*prop);
+                int value = static_cast<int>(*prop);
                 ImGui::InputInt("##value", &value, 1);
                 (*prop) = value;
                 break;
             }
             case codeframe::KIND_REAL:
             {
-                float value = (float)(*prop);
+                float value = static_cast<float>(*prop);
                 ImGui::InputFloat("##value", &value, 1.0f);
                 (*prop) = value;
                 break;
@@ -205,10 +205,14 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
             {
                 char newText[32];
                 memset(newText, 0, 32);
-                std::string textValue = (std::string)(*prop);
+                std::string textValue = static_cast<std::string>(*prop);
                 strncpy(newText, textValue.c_str(), textValue.length());
                 ImGui::InputText("##value", newText, IM_ARRAYSIZE(newText));
-                (*prop) = std::string( newText );
+                std::string editedText = std::string( newText );
+                if ( textValue != editedText )
+                {
+                    (*prop) = editedText;
+                }
                 break;
             }
             case codeframe::KIND_ENUM:
@@ -226,15 +230,14 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                         elems.push_back( currentValue );
                     }
 
-                    static const char* item_current = elems[0].c_str();    // Here our selection is a single pointer stored outside the object.
-                    if (ImGui::BeginCombo("Combo 1", item_current, flags)) // The second parameter is the label previewed before opening the combo.
+                    if (ImGui::BeginCombo("Combo 1", elems[static_cast<size_t>(*prop)].c_str(), flags)) // The second parameter is the label previewed before opening the combo.
                     {
                         for (size_t n = 0; n < elems.size(); n++)
                         {
-                            bool is_selected = (item_current == elems[n]);
+                            bool is_selected = (static_cast<size_t>(*prop) == n);
                             if (ImGui::Selectable(elems[n].c_str(), is_selected))
                             {
-                                item_current = elems[n].c_str();
+                                (*prop) = n;
                             }
                             if (is_selected)
                             {

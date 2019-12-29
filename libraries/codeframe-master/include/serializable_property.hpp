@@ -16,17 +16,17 @@ namespace codeframe
     /*****************************************************************************
      * @class Property
      *****************************************************************************/
-    template <typename internalType, typename classT = Object >
+    template <typename PROPERTY_TYPE>
     class Property : public PropertyBase
     {
         public:
             Property( Object* parentpc,
                       const std::string& name,
-                      internalType val,
+                      PROPERTY_TYPE val,
                       cPropertyInfo info,
-                      std::function<const internalType&()> getValueFunc = nullptr,
-                      std::function<void(internalType)> setValueFunc = nullptr
-                     ) : PropertyBase( parentpc, name, GetTypeInfo<internalType>().GetTypeCode(), info ),
+                      std::function<const PROPERTY_TYPE&()> getValueFunc = nullptr,
+                      std::function<void(PROPERTY_TYPE)> setValueFunc = nullptr
+                     ) : PropertyBase( parentpc, name, GetTypeInfo<PROPERTY_TYPE>().GetTypeCode(), info ),
                      m_baseValue( val ),
                      m_GetValueFunction( getValueFunc ),
                      m_SetValueFunction( setValueFunc )
@@ -39,7 +39,7 @@ namespace codeframe
 
             }
 
-            const internalType& GetValue() const
+            const PROPERTY_TYPE& GetValue() const
             {
                 if ( m_GetValueFunction )
                 {
@@ -48,7 +48,7 @@ namespace codeframe
                 return m_baseValue;
             }
 
-            internalType& GetBaseValue()
+            PROPERTY_TYPE& GetBaseValue()
             {
                 return m_baseValue;
             }
@@ -66,10 +66,10 @@ namespace codeframe
             }
 
             // Comparison operators
-            virtual bool operator==(const Property& sval) const
+            bool_t operator==(const Property& sval) const
             {
                 m_Mutex.Lock();
-                bool retVal = false;
+                bool_t retVal = false;
                 if ( GetValue() == sval.GetValue() )
                 {
                     retVal = true;
@@ -80,10 +80,10 @@ namespace codeframe
             }
 
             // Comparison operators
-            virtual bool operator!=(const Property& sval) const
+            bool_t operator!=(const Property& sval) const
             {
                 m_Mutex.Lock();
-                bool retVal = false;
+                bool_t retVal = false;
                 if ( GetValue() != sval.GetValue() )
                 {
                     retVal = true;
@@ -94,13 +94,13 @@ namespace codeframe
             }
 
             // Comparison operators
-            virtual bool operator==(const int& sval)
+            bool_t operator==(const int& sval) const override
             {
-                bool retVal = false;
+                bool_t retVal = false;
 
                 m_Mutex.Lock();
 
-                if( GetTypeInfo<internalType>().ToInteger( GetValue() ) == sval )
+                if( GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() ) == sval )
                 {
                     retVal = true;
                 }
@@ -110,13 +110,13 @@ namespace codeframe
                 return retVal;
             }
 
-            virtual bool operator!=(const int& sval)
+            bool_t operator!=(const int& sval) const override
             {
                 return !(*this==sval);
             }
 
             // Copy operator
-            virtual Property& operator=( const Property& val )
+            Property& operator=( const Property& val )
             {
                 this->PropertyBase::operator=( val );
 
@@ -137,13 +137,13 @@ namespace codeframe
             }
 
             // From fundamental type bool
-            virtual Property& operator=( bool val )
+            Property& operator=( bool_t val )
             {
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
                     // Values external
@@ -162,13 +162,13 @@ namespace codeframe
             }
 
             // From fundamental type char
-            virtual Property& operator=( char val )
+            Property& operator=( char val ) override
             {
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
                     // Values external
@@ -187,13 +187,13 @@ namespace codeframe
             }
 
             // From fundamental type unsigned char
-            virtual Property& operator=(unsigned char val)
+            Property& operator=(unsigned char val) override
             {
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
                     // Values external
@@ -212,13 +212,13 @@ namespace codeframe
             }
 
             // From fundamental type int
-            virtual Property& operator=( int val )
+            Property& operator=( int val ) override
             {
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
                     // Values external
@@ -237,13 +237,13 @@ namespace codeframe
             }
 
             // From fundamental type unsigned int
-            virtual Property& operator=( unsigned int val )
+            Property& operator=( unsigned int val ) override
             {
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = GetTypeInfo<internalType>().FromInteger( val );
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
                     // Values external
@@ -262,13 +262,13 @@ namespace codeframe
             }
 
             // From fundamental type float
-            virtual Property& operator=(float val)
+            Property& operator=(float val) override
             {
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = GetTypeInfo<internalType>().FromReal( val );
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromReal( val );
                     m_Mutex.Unlock();
 
                     // Values external
@@ -287,13 +287,13 @@ namespace codeframe
             }
 
             // From fundamental type double
-            virtual Property& operator=(double val)
+            Property& operator=(double val) override
             {
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = GetTypeInfo<internalType>().FromReal( val );
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromReal( val );
                     m_Mutex.Unlock();
 
                     // Values external
@@ -312,13 +312,13 @@ namespace codeframe
             }
 
             // From extended type std::string
-            virtual Property& operator=( std::string& val )
+            Property& operator=( const std::string& val ) override
             {
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
                     m_baseValuePrew = GetValue();
-                    m_baseValue = GetTypeInfo<internalType>().FromString( val );
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromString( val );
                     m_Mutex.Unlock();
 
                     // Values external
@@ -337,18 +337,18 @@ namespace codeframe
             }
 
             // ++
-            virtual Property& operator++()
+            Property& operator++() override
             {
-                (*this) = (int)(*this) + 1;
+                (*this) = (int)(*this) + 1U;
 
                 // actual increment takes place here
                 return *this;
             }
 
             // --
-            virtual Property& operator--()
+            Property& operator--() override
             {
-                (*this) = (int)(*this) - 1;
+                (*this) = (int)(*this) - 1U;
 
                 // actual decrement takes place here
                 return *this;
@@ -373,7 +373,7 @@ namespace codeframe
             {
                 m_Mutex.Lock();
                 m_baseValuePrew = GetValue();
-                m_baseValue = GetTypeInfo<internalType>().AddOperator( GetValue(), rhs.GetValue() );
+                m_baseValue = GetTypeInfo<PROPERTY_TYPE>().AddOperator( GetValue(), rhs.GetValue() );
                 m_Mutex.Unlock();
 
                 // Values external
@@ -389,10 +389,10 @@ namespace codeframe
             virtual Property  operator-(const Property& rhs)
             {
                 m_Mutex.Lock();
-                IntegerType valA = GetTypeInfo<internalType>().ToInteger( GetValue()     );
-                IntegerType valB = GetTypeInfo<internalType>().ToInteger( rhs.GetValue() );
+                IntegerType valA = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue()     );
+                IntegerType valB = GetTypeInfo<PROPERTY_TYPE>().ToInteger( rhs.GetValue() );
 
-                internalType valueT = GetTypeInfo<internalType>().FromInteger( valA - valB );
+                PROPERTY_TYPE valueT = GetTypeInfo<PROPERTY_TYPE>().FromInteger( valA - valB );
 
                 m_baseValuePrew = GetValue();
                 m_baseValue = valueT;
@@ -411,7 +411,7 @@ namespace codeframe
             // +=
             virtual Property& operator+=(const int rhs)
             {
-                Property<internalType, classT> prop(*this);
+                Property<PROPERTY_TYPE> prop(*this);
                 prop = rhs;
 
                 *this = *this + prop;
@@ -421,7 +421,7 @@ namespace codeframe
             // -=
             virtual Property& operator-=(const int rhs)
             {
-                Property<internalType, classT> prop(*this);
+                Property<PROPERTY_TYPE> prop(*this);
                 prop = rhs;
 
                 *this = *this - prop;
@@ -431,7 +431,7 @@ namespace codeframe
             //
             virtual Property  operator++(int)
             {
-                Property<internalType, classT> prop(*this); // copy
+                Property<PROPERTY_TYPE> prop(*this); // copy
                 operator++();                       // pre-increment
                 return prop;                        // return old value
             }
@@ -439,13 +439,13 @@ namespace codeframe
             //
             virtual Property  operator--(int)
             {
-                Property<internalType, classT> prop(*this); // copy
+                Property<PROPERTY_TYPE> prop(*this); // copy
                 operator--();                       // pre-decrement
                 return prop;                        // return old value
             }
 
             // Fundamental types casting operators
-            virtual operator bool() const
+            operator bool() const override
             {
                 if( m_reference )
                 {
@@ -455,13 +455,13 @@ namespace codeframe
                 bool retVal = false;
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual operator char() const
+            operator char() const override
             {
                 if( m_reference )
                 {
@@ -471,14 +471,14 @@ namespace codeframe
                 char retVal = false;
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
             //
-            virtual operator unsigned char() const
+            operator unsigned char() const override
             {
                 if( m_reference )
                 {
@@ -488,132 +488,132 @@ namespace codeframe
                 unsigned char retVal = 0U;
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
             //
-            virtual operator int() const
+            operator int() const override
             {
                 if( m_reference )
                 {
                     return (int)(*m_reference);
                 }
 
-                int retVal = 0;
+                int retVal(0);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual operator unsigned int() const
+            operator unsigned int() const override
             {
                 if( m_reference )
                 {
                     return (unsigned int)(*m_reference);
                 }
 
-                unsigned int retVal = 0U;
+                unsigned int retVal(0U);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual operator float() const
+            operator float() const override
             {
                 if( m_reference )
                 {
                     return (float)(*m_reference);
                 }
 
-                float retVal = 0.0F;
+                float retVal(0.0F);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToReal( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToReal( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual operator double() const
+            operator double() const override
             {
                 if( m_reference )
                 {
                     return (double)(*m_reference);
                 }
 
-                double retVal = 0.0F;
+                double retVal(0.0F);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToReal( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToReal( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual operator std::string() const
+            operator std::string() const override
             {
                 if( m_reference )
                 {
                     return (std::string)(*m_reference);
                 }
 
-                std::string retVal = "";
+                std::string retVal("");
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToString( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToString( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual std::string PreviousValueString() const
+            std::string PreviousValueString() const override
             {
-                std::string retVal = "";
+                std::string retVal("");
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToString( m_baseValuePrew );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToString( m_baseValuePrew );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual std::string CurentValueString() const
+            std::string CurentValueString() const override
             {
-                std::string retVal = "";
+                std::string retVal("");
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToString( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToString( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual int PreviousValueInteger() const
+            int PreviousValueInteger() const override
             {
-                int retVal = 0;
+                int retVal(0);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToInteger( m_baseValuePrew );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( m_baseValuePrew );
                 m_Mutex.Unlock();
 
                 return retVal;
             }
 
-            virtual int CurentValueInteger() const
+            int CurentValueInteger() const override
             {
-                int retVal = 0;
+                int retVal(0);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<internalType>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -621,7 +621,7 @@ namespace codeframe
 
             std::string TypeString() const
             {
-                return std::string( GetTypeInfo<internalType>().GetTypeUserName() );
+                return std::string( GetTypeInfo<PROPERTY_TYPE>().GetTypeUserName() );
             }
 
             void CommitChanges()
@@ -658,11 +658,11 @@ namespace codeframe
             }
 
         private:
-            internalType m_baseValue;
-            internalType m_baseValuePrew;
+            PROPERTY_TYPE m_baseValue;
+            PROPERTY_TYPE m_baseValuePrew;
 
-            std::function<const internalType&()> m_GetValueFunction;
-            std::function<void(internalType)>    m_SetValueFunction;
+            std::function<const PROPERTY_TYPE&()> m_GetValueFunction;
+            std::function<void(PROPERTY_TYPE)>    m_SetValueFunction;
     };
 }
 

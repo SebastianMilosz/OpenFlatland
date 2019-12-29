@@ -23,7 +23,7 @@ class SerializableNeuronLayer : public codeframe::Object
         void Calculate();
 
         codeframe::Property< unsigned int > Activation;
-        codeframe::Property< std::vector<unsigned int>, SerializableNeuronLayer > WeightDimensions;
+        codeframe::Property< std::vector<unsigned int> > WeightDimensions;
         codeframe::Property< thrust::host_vector<float> > WeightMatrix;
         codeframe::Property< thrust::host_vector<float> > Input;
         codeframe::Property< thrust::host_vector<float> > Output;
