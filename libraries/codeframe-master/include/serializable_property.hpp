@@ -452,7 +452,7 @@ namespace codeframe
                     return (bool)(*m_reference);
                 }
 
-                bool retVal = false;
+                bool_t retVal = false;
 
                 m_Mutex.Lock();
                 retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );

@@ -5,10 +5,10 @@
 #include "serializable_property_base.hpp"
 #include "serializable_storage.hpp"
 
-#define CODEFRAME_META_CLASS_NAME(p) public: std::string Class() const { return p; }
-#define CODEFRAME_META_CONSTRUCT_PATERN(p) public: std::string ConstructPatern() const { return p; }
-#define CODEFRAME_META_BUILD_ROLE(p) public: codeframe::eBuildRole Role() const { return p; }
-#define CODEFRAME_META_BUILD_TYPE(p) public: codeframe::eBuildType BuildType() const { return p; }
+#define CODEFRAME_META_CLASS_NAME(p) public: std::string Class() const override { return p; }
+#define CODEFRAME_META_CONSTRUCT_PATERN(p) public: std::string ConstructPatern() const override { return p; }
+#define CODEFRAME_META_BUILD_ROLE(p) public: codeframe::eBuildRole Role() const override { return p; }
+#define CODEFRAME_META_BUILD_TYPE(p) public: codeframe::eBuildType BuildType() const override { return p; }
 
 namespace codeframe
 {
@@ -29,17 +29,17 @@ namespace codeframe
                      Object( const std::string& name, ObjectNode* parent = NULL );
             virtual ~Object();
 
-            cPath&          Path();
-            cStorage&       Storage();
-            cSelectable&    Selection();
-            cScript&        Script();
-            cPropertyList&  PropertyList();
-            cObjectList&    ChildList();
-            cIdentity&      Identity();
+            cPath&          Path() override;
+            cStorage&       Storage() override;
+            cSelectable&    Selection() override;
+            cScript&        Script() override;
+            cPropertyList&  PropertyList() override;
+            cObjectList&    ChildList() override;
+            cIdentity&      Identity() override;
 
-            void PulseChanged( bool fullTree = false );
-            void CommitChanges();
-            void Enable( bool val );
+            void PulseChanged( bool fullTree = false ) override;
+            void CommitChanges() override;
+            void Enable( bool val ) override;
 
         private:
             cPath           m_SerializablePath;
