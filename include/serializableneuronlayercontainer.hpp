@@ -19,7 +19,7 @@ class SerializableNeuronLayerContainer : public codeframe::ObjectContainer
 
         void Calculate();
 
-        codeframe::Property<unsigned int, SerializableNeuronLayerContainer> LayersCnt;
+        codeframe::Property<unsigned int> LayersCnt;
 
     protected:
         smart_ptr<codeframe::ObjectNode> Create(

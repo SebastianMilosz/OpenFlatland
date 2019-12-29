@@ -18,13 +18,13 @@ class EntityVision : public codeframe::Object, public EntityVisionNode
          EntityVision( const EntityVision& other );
         ~EntityVision();
 
-        codeframe::Property<bool,                EntityVision > CastRays;
-        codeframe::Property<unsigned int,        EntityVision > RaysCnt;
-        codeframe::Property<unsigned int,        EntityVision > RaysSize;
-        codeframe::Property<int,                 EntityVision > RaysStartingAngle;
-        codeframe::Property<int,                 EntityVision > RaysEndingAngle;
-        codeframe::Property< std::vector<float>, EntityVision > VisionVector;
-        codeframe::Property< std::vector<float>, EntityVision > FixtureVector;
+        codeframe::Property<bool                > CastRays;
+        codeframe::Property<unsigned int        > RaysCnt;
+        codeframe::Property<unsigned int        > RaysSize;
+        codeframe::Property<int                 > RaysStartingAngle;
+        codeframe::Property<int                 > RaysEndingAngle;
+        codeframe::Property< std::vector<float> > VisionVector;
+        codeframe::Property< std::vector<float> > FixtureVector;
 
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
         void StartFrame();

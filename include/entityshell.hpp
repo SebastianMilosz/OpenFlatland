@@ -15,12 +15,12 @@ class EntityShell : public PhysicsBody
                  EntityShell( const EntityShell& other );
         virtual ~EntityShell();
 
-        codeframe::Property<int,          EntityShell> X;
-        codeframe::Property<int,          EntityShell> Y;
-        codeframe::Property<float,        EntityShell> Rotation;
-        codeframe::Property<std::string,  EntityShell> Name;
-        codeframe::Property<float,        EntityShell> Density;
-        codeframe::Property<float,        EntityShell> Friction;
+        codeframe::Property<int        > X;
+        codeframe::Property<int        > Y;
+        codeframe::Property<float      > Rotation;
+        codeframe::Property<std::string> Name;
+        codeframe::Property<float      > Density;
+        codeframe::Property<float      > Friction;
 
         EntityShell& operator=(const EntityShell& other);
 

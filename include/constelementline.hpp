@@ -24,8 +24,8 @@ class ConstElementLine : public ConstElement
 
         virtual void Draw( sf::RenderWindow& window, b2Body* body );
 
-        codeframe::Property<codeframe::Point2D<int>, ConstElementLine> StartPoint;
-        codeframe::Property<codeframe::Point2D<int>, ConstElementLine> EndPoint;
+        codeframe::Property< codeframe::Point2D<int> > StartPoint;
+        codeframe::Property< codeframe::Point2D<int> > EndPoint;
 };
 
 #endif // CONSTELEMENTLINE_HPP_INCLUDED
