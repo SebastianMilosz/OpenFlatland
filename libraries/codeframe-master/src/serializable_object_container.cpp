@@ -41,7 +41,7 @@ unsigned int ObjectContainer::Count() const
   * @brief
  **
 ******************************************************************************/
-void ObjectContainer::CreateRange( const std::string& className, const std::string& objName, int range )
+void ObjectContainer::CreateRange( const std::string& className, const std::string& objName, const int range )
 {
     for ( int i = 0; i < range; i++ )
     {
@@ -103,7 +103,7 @@ std::string ObjectContainer::CreateUniqueName( const std::string& nameBase )
   * @brief
  **
 ******************************************************************************/
-bool ObjectContainer::Dispose( unsigned int id )
+bool ObjectContainer::Dispose( const unsigned int id )
 {
     if ( m_containerVector.size() <= id )
     {
@@ -235,7 +235,7 @@ bool ObjectContainer::Dispose()
   * @brief
  **
 ******************************************************************************/
-bool ObjectContainer::IsInRange( unsigned int cnt ) const
+bool ObjectContainer::IsInRange( const unsigned int cnt ) const
 {
     return (bool)( cnt < m_containerVector.size() );
 }
@@ -255,7 +255,7 @@ smart_ptr<ObjectNode> ObjectContainer::operator[]( int i )
   * @brief
  **
 ******************************************************************************/
-bool ObjectContainer::Select( int pos )
+bool ObjectContainer::Select( const int pos )
 {
     if ( IsInRange( pos ) )
     {
@@ -291,7 +291,7 @@ smart_ptr<ObjectNode> ObjectContainer::GetSelected()
   * @brief
  **
 ******************************************************************************/
-smart_ptr<ObjectNode> ObjectContainer::Get( int id )
+smart_ptr<ObjectNode> ObjectContainer::Get( const int id )
 {
     if ( IsInRange( id ) )
     {
@@ -311,7 +311,7 @@ smart_ptr<ObjectNode> ObjectContainer::Get( int id )
   * @brief
  **
 ******************************************************************************/
-int ObjectContainer::Add( smart_ptr<Object> classType, int pos )
+int ObjectContainer::Add( smart_ptr<Object> classType, const int pos )
 {
     return InsertObject( classType, pos );
 }
@@ -321,7 +321,7 @@ int ObjectContainer::Add( smart_ptr<Object> classType, int pos )
   * @brief
  **
 ******************************************************************************/
-int ObjectContainer::InsertObject( smart_ptr<Object> classType, int pos )
+int ObjectContainer::InsertObject( smart_ptr<Object> classType, const int pos )
 {
     // pos == -1 oznacza pierwszy lepszy
     bool found  = false;

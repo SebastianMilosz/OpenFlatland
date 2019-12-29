@@ -42,7 +42,7 @@ namespace codeframe
             smart_ptr<ObjectNode> operator[]( int i );
 
             virtual void CreateRange( const std::string& className, const std::string& objName, int range );
-            virtual bool Dispose( unsigned int id );
+            virtual bool Dispose( const unsigned int id );
             virtual bool Dispose( const std::string& objName );
             virtual bool Dispose( smart_ptr<ObjectNode> obj );
             virtual bool DisposeByBuildType( eBuildType serType, cIgnoreList ignore = cIgnoreList() );
@@ -51,19 +51,19 @@ namespace codeframe
             unsigned int Count() const;
             bool         IsName( const std::string& name );
             std::string  CreateUniqueName( const std::string& nameBase );
-            bool         IsInRange( unsigned int cnt ) const;
-            bool         Select( int pos );
+            bool         IsInRange( const unsigned int cnt ) const;
+            bool         Select( const int pos );
             bool         IsSelected();
 
             smart_ptr<ObjectNode> GetSelected();
-            smart_ptr<ObjectNode> Get( int id );
+            smart_ptr<ObjectNode> Get( const int id );
 
-            int Add( smart_ptr<Object> classType, int pos = -1 );
+            int Add( smart_ptr<Object> classType, const int pos = -1 );
 
             signal1< smart_ptr<ObjectNode> > signalContainerSelectionChanged;
 
         protected:
-            virtual int InsertObject( smart_ptr<Object> classType, int pos = -1 );
+            virtual int InsertObject( smart_ptr<Object> classType, const int pos = -1 );
 
         private:
             void slotSelectionChanged( smart_ptr<ObjectNode> obj );
