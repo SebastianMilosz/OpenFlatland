@@ -301,7 +301,7 @@ void World::CalculateRays( void )
 
                         m_World.RayCast( &callback, p1, p2 );
 
-                        if( callback.WasHit() == true )
+                        if ( callback.WasHit() == true )
                         {
                             p2 = callback.HitPoint();
                         }

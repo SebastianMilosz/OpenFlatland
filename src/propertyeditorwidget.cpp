@@ -230,11 +230,11 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                         elems.push_back( currentValue );
                     }
 
-                    if (ImGui::BeginCombo("Combo 1", elems[static_cast<size_t>(*prop)].c_str(), flags)) // The second parameter is the label previewed before opening the combo.
+                    if (ImGui::BeginCombo("Combo 1", elems[static_cast<unsigned int>(*prop)].c_str(), flags)) // The second parameter is the label previewed before opening the combo.
                     {
                         for (size_t n = 0; n < elems.size(); n++)
                         {
-                            bool is_selected = (static_cast<size_t>(*prop) == n);
+                            bool_t is_selected = (static_cast<unsigned int>(*prop) == n);
                             if (ImGui::Selectable(elems[n].c_str(), is_selected))
                             {
                                 (*prop) = n;

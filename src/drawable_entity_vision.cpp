@@ -13,6 +13,9 @@ DrawableEntityVision:: DrawableEntityVision( codeframe::ObjectNode* parent ) :
     m_visionShape.setOutlineThickness(1);
     m_visionShape.setOrigin(15.0F, 15.0F);
 
+    m_visionShape.setStartAngle( -45 );
+    m_visionShape.setEndAngle( 45 );
+
     m_visionShape.setOutlineColor( sf::Color::White );
     m_visionShape.setFillColor( sf::Color::Transparent );
 
@@ -31,7 +34,6 @@ DrawableEntityVision::DrawableEntityVision( const DrawableEntityVision& other ) 
     EntityVision( other ),
     m_rayLines( other.m_rayLines )
 {
-
 }
 
 /*****************************************************************************/
@@ -49,9 +51,9 @@ DrawableEntityVision::~ DrawableEntityVision()
   * @brief
  **
 ******************************************************************************/
-void DrawableEntityVision::setPosition(float x, float y)
+void DrawableEntityVision::setPosition(const float x, const float y)
 {
-    EntityVisionNode::setPosition( x, y );
+    EntityVision::setPosition( x, y );
     m_visionShape.setPosition( x, y );
 }
 
@@ -60,9 +62,9 @@ void DrawableEntityVision::setPosition(float x, float y)
   * @brief
  **
 ******************************************************************************/
-void DrawableEntityVision::setRotation(float angle)
+void DrawableEntityVision::setRotation(const float angle)
 {
-    EntityVisionNode::setRotation( angle );
+    EntityVision::setRotation( angle );
     m_visionShape.setRotation( angle );
 }
 
@@ -108,6 +110,67 @@ void DrawableEntityVision::AddDirectionRay( EntityVision::sRay ray )
 ******************************************************************************/
 void DrawableEntityVision::EndFrame()
 {
+    EntityVision::EndFrame();
     m_visionShape.setOutlineColor( GetDistanceVector() );
-    //PrepareRays();
+    PrepareRays();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void DrawableEntityVision::SetRaysStartingAngle( const int value )
+{
+    EntityVision::SetRaysStartingAngle(value);
+    m_visionShape.setStartAngle(value);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void DrawableEntityVision::SetRaysEndingAngle( const int value )
+{
+    EntityVision::SetRaysEndingAngle(value);
+    m_visionShape.setEndAngle(value);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void DrawableEntityVision::SetRaysCnt( const unsigned int cnt )
+{
+    m_rayLines.resize( 2U * cnt );
+
+    PrepareRays();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void DrawableEntityVision::PrepareRays()
+{
+    // Drawing rays if configured
+    if ( (bool)CastRays == true )
+    {
+        size_t n = 0U;
+        for ( auto it = m_visionVector.begin(); it != m_visionVector.end(); ++it )
+        {
+            m_rayLines[ n   ].color    = sf::Color::White;
+            m_rayLines[ n++ ].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P1 );
+            m_rayLines[ n   ].color    = sf::Color::White;
+            m_rayLines[ n++ ].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P2 );
+        }
+
+#ifdef ENTITY_VISION_DEBUG
+        m_rayLines[ 0U ].color = sf::Color::Blue;
+        m_rayLines[ 1U ].color = sf::Color::Blue;
+#endif // ENTITY_VISION_DEBUG
+    }
 }

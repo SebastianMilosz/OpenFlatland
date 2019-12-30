@@ -14,8 +14,8 @@ class EntityVision : public codeframe::Object, public EntityVisionNode
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-         EntityVision( codeframe::ObjectNode* parent );
-         EntityVision( const EntityVision& other );
+         EntityVision(codeframe::ObjectNode* parent);
+         EntityVision(const EntityVision& other);
         ~EntityVision();
 
         codeframe::Property<bool                > CastRays;
@@ -26,37 +26,29 @@ class EntityVision : public codeframe::Object, public EntityVisionNode
         codeframe::Property< std::vector<float> > VisionVector;
         codeframe::Property< std::vector<float> > FixtureVector;
 
-        void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
-        void StartFrame();
-        void AddRay( EntityVision::sRay ray );
-        void EndFrame();
         const std::vector<float>& GetDistanceVector();
         const std::vector<float>& GetFixtureVector();
 
-        void SetRaysStartingAngle( int value );
-        void SetRaysEndingAngle( int value );
+        virtual void StartFrame();
+        virtual void AddRay(EntityVision::sRay ray);
+        virtual void EndFrame();
+
+        virtual void SetRaysStartingAngle(const int value);
+        virtual void SetRaysEndingAngle(const int value);
+
+        virtual void setPosition(const float x, const float y);
+        virtual void setRotation(const float angle);
 
 #ifdef ENTITY_VISION_DEBUG
-        void AddDirectionRay( EntityVision::sRay ray );
+        virtual void AddDirectionRay(EntityVision::sRay ray);
 #endif // ENTITY_VISION_DEBUG
 
-        void setPosition(float x, float y);
-        void setRotation(float angle);
-    private:
-        sf::ColorizeCircleShape m_visionShape;
+    protected:
+        virtual void SetRaysCnt(const unsigned int cnt);
+
         std::vector<EntityVision::sRay> m_visionVector;
-
-        void SetRaysCnt( unsigned int cnt );
-        void PrepareRays();
-
-        std::vector<float>      m_distanceVisionVector;
-        std::vector<float>      m_fixtureVisionVector;
-        std::vector<sf::Vertex> m_rayLines;
-
-#ifdef ENTITY_VISION_DEBUG
-        sf::Vertex         m_directionRayLine[2];
-        EntityVision::sRay m_directionRay;
-#endif // ENTITY_VISION_DEBUG
+        std::vector<float> m_distanceVisionVector;
+        std::vector<float> m_fixtureVisionVector;
 };
 
 #endif // ENTITYVISION_HPP_INCLUDED

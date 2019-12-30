@@ -5,7 +5,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
-class EntityVisionNode : public sf::Drawable, public sf::Transformable
+class EntityVisionNode
 {
     public:
         struct sRay

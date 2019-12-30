@@ -3,27 +3,30 @@
 
 #include "entity_vision.hpp"
 
-class DrawableEntityVision : public EntityVision
+class DrawableEntityVision : public EntityVision, public sf::Drawable, public sf::Transformable
 {
     public:
                  DrawableEntityVision( codeframe::ObjectNode* parent );
                  DrawableEntityVision( const DrawableEntityVision& other );
         virtual ~DrawableEntityVision();
 
-        void setPosition(float x, float y);
-        void setRotation(float angle);
+        void setPosition(const float x, const float y) override;
+        void setRotation(const float angle) override;
 
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
 
 #ifdef ENTITY_VISION_DEBUG
-        void AddDirectionRay( EntityVision::sRay ray );
+        void AddDirectionRay( EntityVision::sRay ray ) override;
 #endif // ENTITY_VISION_DEBUG
 
-        void EndFrame();
-    protected:
+        void EndFrame() override;
 
+    protected:
+        void SetRaysStartingAngle( const int value ) override;
+        void SetRaysEndingAngle( const int value ) override;
     private:
         void PrepareRays();
+        void SetRaysCnt( const unsigned int cnt ) override;
 
         sf::ColorizeCircleShape m_visionShape;
 
