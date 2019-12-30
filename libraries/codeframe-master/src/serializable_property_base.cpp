@@ -200,7 +200,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyBase::operator=(bool val)
+    PropertyNode& PropertyBase::operator=(const bool_t val)
     {
         return *this;
     }
@@ -210,7 +210,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyBase::operator=(char val)
+    PropertyNode& PropertyBase::operator=(const char val)
     {
         return *this;
     }
@@ -220,7 +220,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyBase::operator=(unsigned char val)
+    PropertyNode& PropertyBase::operator=(const unsigned char val)
     {
         return *this;
     }
@@ -230,7 +230,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyBase::operator=(int val)
+    PropertyNode& PropertyBase::operator=(const int val)
     {
         return *this;
     }
@@ -240,7 +240,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyBase::operator=(unsigned int val)
+    PropertyNode& PropertyBase::operator=(const unsigned int val)
     {
         return *this;
     }
@@ -250,7 +250,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyBase::operator=(float val)
+    PropertyNode& PropertyBase::operator=(const float val)
     {
         return *this;
     }
@@ -260,7 +260,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyBase::operator=(double val)
+    PropertyNode& PropertyBase::operator=(const double val)
     {
         return *this;
     }

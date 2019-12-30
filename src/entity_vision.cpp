@@ -10,7 +10,7 @@ using namespace codeframe;
 ******************************************************************************/
 EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     Object( "Vision", parent ),
-    CastRays         ( this, "CastRays"         , false               , cPropertyInfo().Kind( KIND_LOGIC  ).Description("CastRays") ),
+    DrawRays         ( this, "DrawRays"         , false               , cPropertyInfo().Kind( KIND_LOGIC  ).Description("DrawRays") ),
     RaysCnt          ( this, "RaysCnt"          , 100U                , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt"), nullptr, std::bind(&EntityVision::SetRaysCnt, this, std::placeholders::_1) ),
     RaysSize         ( this, "RaysSize"         , 100U                , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
     RaysStartingAngle( this, "RaysStartingAngle", -45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
@@ -27,7 +27,7 @@ EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
 ******************************************************************************/
 EntityVision::EntityVision( const EntityVision& other ) :
     Object( other ),
-    CastRays( other.CastRays ),
+    DrawRays( other.DrawRays ),
     RaysCnt ( other.RaysCnt ),
     RaysSize( other.RaysSize ),
     RaysStartingAngle( other.RaysStartingAngle ),
@@ -45,6 +45,16 @@ EntityVision::EntityVision( const EntityVision& other ) :
 EntityVision::~EntityVision()
 {
     m_visionVector.clear();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityVision::CastRays(b2World& world)
+{
+
 }
 
 /*****************************************************************************/
@@ -76,8 +86,9 @@ void EntityVision::AddRay(EntityVision::sRay ray)
   * @brief
  **
 ******************************************************************************/
-void EntityVision::setPosition(const float x, const float y)
+void EntityVision::setPosition(float x, float y)
 {
+    sf::Transformable::setPosition(x, y);
 }
 
 /*****************************************************************************/
@@ -85,8 +96,9 @@ void EntityVision::setPosition(const float x, const float y)
   * @brief
  **
 ******************************************************************************/
-void EntityVision::setRotation(const float angle)
+void EntityVision::setRotation(float angle)
 {
+    sf::Transformable::setRotation(angle);
 }
 
 /*****************************************************************************/

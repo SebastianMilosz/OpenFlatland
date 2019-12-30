@@ -282,7 +282,7 @@ void World::CalculateRays( void )
                 register unsigned int rayCntLimit( (unsigned int)vision.RaysCnt );
                 register          int rayAngleStart( (int)vision.RaysStartingAngle );
                 register          int rayAngleEnd( (int)vision.RaysEndingAngle );
-                register float32      rotation( entity->GetRotation() * (pi/180.0F) );
+                register float32      rotation( vision.getRotation() * (pi/180.0F) );
 
                 //float32 currentRayAngle( -(rotation+180.0F) * (pi/180.0F) ); + rayAngleStart
                 register float32 currentRayAngle( (std::min(rayAngleStart,rayAngleEnd)) * (pi/180.0F) ); //

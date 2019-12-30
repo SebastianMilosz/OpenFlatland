@@ -51,7 +51,7 @@ DrawableEntityVision::~ DrawableEntityVision()
   * @brief
  **
 ******************************************************************************/
-void DrawableEntityVision::setPosition(const float x, const float y)
+void DrawableEntityVision::setPosition(float x, float y)
 {
     EntityVision::setPosition( x, y );
     m_visionShape.setPosition( x, y );
@@ -62,7 +62,7 @@ void DrawableEntityVision::setPosition(const float x, const float y)
   * @brief
  **
 ******************************************************************************/
-void DrawableEntityVision::setRotation(const float angle)
+void DrawableEntityVision::setRotation(float angle)
 {
     EntityVision::setRotation( angle );
     m_visionShape.setRotation( angle );
@@ -77,7 +77,7 @@ void DrawableEntityVision::setRotation(const float angle)
 void DrawableEntityVision::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
     // Drawing rays if configured
-    if ( (bool)CastRays == true )
+    if ( (bool)DrawRays == true )
     {
         target.draw( m_rayLines.data(), m_rayLines.size(), sf::Lines );
 
@@ -157,7 +157,7 @@ void DrawableEntityVision::SetRaysCnt( const unsigned int cnt )
 void DrawableEntityVision::PrepareRays()
 {
     // Drawing rays if configured
-    if ( (bool)CastRays == true )
+    if ( (bool)DrawRays == true )
     {
         size_t n = 0U;
         for ( auto it = m_visionVector.begin(); it != m_visionVector.end(); ++it )

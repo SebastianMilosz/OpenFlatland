@@ -137,7 +137,7 @@ namespace codeframe
             }
 
             // From fundamental type bool
-            Property& operator=( bool_t val )
+            Property& operator=( bool_t val ) override
             {
                 if ( Info().GetEnable() == true )
                 {
