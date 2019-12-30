@@ -29,27 +29,27 @@ namespace codeframe
                      Object( const std::string& name, ObjectNode* parent = NULL );
             virtual ~Object();
 
-            cPath&          Path() override;
-            cStorage&       Storage() override;
-            cSelectable&    Selection() override;
-            cScript&        Script() override;
-            cPropertyList&  PropertyList() override;
-            cObjectList&    ChildList() override;
-            cIdentity&      Identity() override;
+            cPath&         Path() override;
+            cStorage&      Storage() override;
+            cSelectable&   Selection() override;
+            cScript&       Script() override;
+            cPropertyList& PropertyList() override;
+            cObjectList&   ChildList() override;
+            cIdentity&     Identity() override;
 
             void PulseChanged( bool fullTree = false ) override;
             void CommitChanges() override;
             void Enable( bool val ) override;
 
         private:
-            cPath           m_SerializablePath;
-            cStorage        m_SerializableStorage;
-            cSelectable     m_SerializableSelectable;
-            cScript         m_SerializableScript;
-            cPropertyList   m_PropertyList;
-            cObjectList     m_childList;
-            cIdentity       m_Identity;
-            WrMutex         m_Mutex;
+            cPath         m_SerializablePath;
+            cStorage      m_SerializableStorage;
+            cSelectable   m_SerializableSelectable;
+            cScript       m_SerializableScript;
+            cPropertyList m_PropertyList;
+            cObjectList   m_childList;
+            cIdentity     m_Identity;
+            WrMutex       m_Mutex;
     };
 }
 

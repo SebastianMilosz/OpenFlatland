@@ -16,24 +16,8 @@ EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     RaysStartingAngle( this, "RaysStartingAngle", -45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
     RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), nullptr, std::bind(&EntityVision::SetRaysEndingAngle, this, std::placeholders::_1) ),
     VisionVector     ( this, "VisionVector"     , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0].Input").Description("VisionVector"), std::bind(&EntityVision::GetDistanceVector, this) ),
-    FixtureVector    ( this, "FixtureVector"    , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[1].Input").Description("FixtureVector"), std::bind(&EntityVision::GetFixtureVector, this) ),
-    m_visionShape(),
-    m_rayLines( 2U * (unsigned int)RaysCnt )
+    FixtureVector    ( this, "FixtureVector"    , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[1].Input").Description("FixtureVector"), std::bind(&EntityVision::GetFixtureVector, this) )
 {
-    m_visionShape.setRadius( PhysicsBody::sDescriptor::PIXELS_IN_METER * 0.6f);
-    m_visionShape.setOutlineThickness(1);
-    m_visionShape.setOrigin(15.0F, 15.0F);
-    m_visionShape.setPointCount(16);
-    m_visionShape.setStartAngle( -45 );
-    m_visionShape.setEndAngle( 45 );
-
-    m_visionShape.setOutlineColor( sf::Color::White );
-    m_visionShape.setFillColor( sf::Color::Transparent );
-
-#ifdef ENTITY_VISION_DEBUG
-    m_directionRayLine[0].color = sf::Color::Red;
-    m_directionRayLine[1].color = sf::Color::Red;
-#endif // ENTITY_VISION_DEBUG
 }
 
 /*****************************************************************************/
@@ -49,8 +33,7 @@ EntityVision::EntityVision( const EntityVision& other ) :
     RaysStartingAngle( other.RaysStartingAngle ),
     RaysEndingAngle( other.RaysEndingAngle ),
     VisionVector( other.VisionVector ),
-    FixtureVector( other.FixtureVector ),
-    m_rayLines( other.m_rayLines )
+    FixtureVector( other.FixtureVector )
 {
 }
 
@@ -62,26 +45,6 @@ EntityVision::EntityVision( const EntityVision& other ) :
 EntityVision::~EntityVision()
 {
     m_visionVector.clear();
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityVision::draw( sf::RenderTarget& target, sf::RenderStates states ) const
-{
-    // Drawing rays if configured
-    if ( (bool)CastRays == true )
-    {
-        target.draw( m_rayLines.data(), m_rayLines.size(), sf::Lines );
-
-#ifdef ENTITY_VISION_DEBUG
-        target.draw( m_directionRayLine, 2U, sf::Lines );
-#endif // ENTITY_VISION_DEBUG
-    }
-
-    target.draw( m_visionShape );
 }
 
 /*****************************************************************************/
@@ -101,7 +64,7 @@ void EntityVision::StartFrame()
   * @brief
  **
 ******************************************************************************/
-void EntityVision::AddRay( EntityVision::sRay ray )
+void EntityVision::AddRay(EntityVision::sRay ray)
 {
     m_visionVector.emplace_back( ray );
     m_distanceVisionVector.emplace_back( (ray.P2-ray.P1).Length() );
@@ -113,24 +76,8 @@ void EntityVision::AddRay( EntityVision::sRay ray )
   * @brief
  **
 ******************************************************************************/
-#ifdef ENTITY_VISION_DEBUG
-void EntityVision::AddDirectionRay( EntityVision::sRay ray )
+void EntityVision::setPosition(const float x, const float y)
 {
-    m_directionRay = ray;
-    m_directionRayLine[0].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( m_directionRay.P1 );
-    m_directionRayLine[1].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( m_directionRay.P2 );
-}
-#endif // ENTITY_VISION_DEBUG
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityVision::setPosition(float x, float y)
-{
-    EntityVisionNode::setPosition( x, y );
-    m_visionShape.setPosition( x, y );
 }
 
 /*****************************************************************************/
@@ -138,10 +85,26 @@ void EntityVision::setPosition(float x, float y)
   * @brief
  **
 ******************************************************************************/
-void EntityVision::setRotation(float angle)
+void EntityVision::setRotation(const float angle)
 {
-    EntityVisionNode::setRotation( angle );
-    m_visionShape.setRotation( angle );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityVision::AddDirectionRay(EntityVision::sRay ray)
+{
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityVision::SetRaysCnt(const unsigned int cnt)
+{
 }
 
 /*****************************************************************************/
@@ -151,8 +114,6 @@ void EntityVision::setRotation(float angle)
 ******************************************************************************/
 void EntityVision::EndFrame()
 {
-    m_visionShape.setOutlineColor( GetDistanceVector() );
-    PrepareRays();
 }
 
 /*****************************************************************************/
@@ -180,9 +141,8 @@ const std::vector<float>& EntityVision::GetFixtureVector()
   * @brief
  **
 ******************************************************************************/
-void EntityVision::SetRaysStartingAngle( int value )
+void EntityVision::SetRaysStartingAngle(const int value)
 {
-    m_visionShape.setStartAngle( value );
 }
 
 /*****************************************************************************/
@@ -190,45 +150,6 @@ void EntityVision::SetRaysStartingAngle( int value )
   * @brief
  **
 ******************************************************************************/
-void EntityVision::SetRaysEndingAngle( int value )
+void EntityVision::SetRaysEndingAngle(const int value)
 {
-    m_visionShape.setEndAngle( value );
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityVision::SetRaysCnt( unsigned int cnt )
-{
-    m_rayLines.resize( 2U * cnt );
-
-    PrepareRays();
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityVision::PrepareRays()
-{
-    // Drawing rays if configured
-    if ( (bool)CastRays == true )
-    {
-        size_t n = 0U;
-        for ( auto it = m_visionVector.begin(); it != m_visionVector.end(); ++it )
-        {
-            m_rayLines[ n   ].color    = sf::Color::White;
-            m_rayLines[ n++ ].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P1 );
-            m_rayLines[ n   ].color    = sf::Color::White;
-            m_rayLines[ n++ ].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( it->P2 );
-        }
-
-#ifdef ENTITY_VISION_DEBUG
-        m_rayLines[ 0U ].color = sf::Color::Blue;
-        m_rayLines[ 1U ].color = sf::Color::Blue;
-#endif // ENTITY_VISION_DEBUG
-    }
 }

@@ -2,7 +2,7 @@
 #define ENTITYSHELL_HPP
 
 #include "physics_body.hpp"
-#include "entity_vision.hpp"
+#include "drawable_entity_vision.hpp"
 
 class EntityShell : public PhysicsBody
 {
@@ -42,9 +42,9 @@ class EntityShell : public PhysicsBody
         EntityVision& Vision() { return m_vision; }
 
     private:
-        b2Vec2          m_zeroVector;
-        sf::CircleShape m_triangle;
-        EntityVision    m_vision;
+        b2Vec2               m_zeroVector;
+        sf::CircleShape      m_triangle;
+        DrawableEntityVision m_vision;
 
         int     m_curX;
         int     m_curY;

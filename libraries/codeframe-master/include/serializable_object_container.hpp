@@ -41,7 +41,7 @@ namespace codeframe
 
             smart_ptr<ObjectNode> operator[]( int i );
 
-            virtual void CreateRange( const std::string& className, const std::string& objName, int range );
+            virtual void CreateRange( const std::string& className, const std::string& objName, const int range );
             virtual bool Dispose( const unsigned int id );
             virtual bool Dispose( const std::string& objName );
             virtual bool Dispose( smart_ptr<ObjectNode> obj );
