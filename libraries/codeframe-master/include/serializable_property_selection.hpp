@@ -38,7 +38,7 @@ namespace codeframe
             bool_t operator==(const int& sval) const override;
             bool_t operator!=(const int& sval) const override;
 
-            PropertyNode& operator=(const bool          val) override;
+            PropertyNode& operator=(const bool_t        val) override;
             PropertyNode& operator=(const char          val) override;
             PropertyNode& operator=(const unsigned char val) override;
             PropertyNode& operator=(const int           val) override;

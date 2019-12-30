@@ -80,7 +80,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=(bool val)
+    PropertyNode& PropertySelection::operator=(const bool_t val)
     {
         *m_selection = val;
         return *this;
@@ -91,7 +91,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=(char val)
+    PropertyNode& PropertySelection::operator=(const char val)
     {
         *m_selection = val;
         return *this;
@@ -102,7 +102,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=(unsigned char val)
+    PropertyNode& PropertySelection::operator=(const unsigned char val)
     {
         *m_selection = val;
         return *this;
@@ -113,7 +113,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=(int val)
+    PropertyNode& PropertySelection::operator=(const int val)
     {
         *m_selection = val;
         return *this;
@@ -124,7 +124,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=(unsigned int val)
+    PropertyNode& PropertySelection::operator=(const unsigned int val)
     {
         *m_selection = val;
         return *this;
@@ -135,7 +135,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=(float val)
+    PropertyNode& PropertySelection::operator=(const float val)
     {
         *m_selection = val;
         return *this;
@@ -146,7 +146,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=(double val)
+    PropertyNode& PropertySelection::operator=(const double val)
     {
         *m_selection = val;
         return *this;
@@ -157,7 +157,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=( const std::string& val )
+    PropertyNode& PropertySelection::operator=(const std::string& val)
     {
         *m_selection = val;
         return *this;

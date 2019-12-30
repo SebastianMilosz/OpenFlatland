@@ -95,7 +95,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator=(bool val)
+    PropertyNode& PropertyMultipleSelection::operator=(const bool_t val)
     {
         for ( auto propSelection : m_selectionVector )
         {
@@ -110,7 +110,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator=(char val)
+    PropertyNode& PropertyMultipleSelection::operator=(const char val)
     {
         for ( auto propSelection : m_selectionVector )
         {
@@ -125,7 +125,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator=(unsigned char val)
+    PropertyNode& PropertyMultipleSelection::operator=(const unsigned char val)
     {
         for ( auto propSelection : m_selectionVector )
         {
@@ -140,7 +140,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator=(int val)
+    PropertyNode& PropertyMultipleSelection::operator=(const int val)
     {
         for (auto propSelection : m_selectionVector)
         {
@@ -155,7 +155,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator=(unsigned int val)
+    PropertyNode& PropertyMultipleSelection::operator=(const unsigned int val)
     {
         for ( auto propSelection : m_selectionVector )
         {
@@ -170,7 +170,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator=(float val)
+    PropertyNode& PropertyMultipleSelection::operator=(const float val)
     {
         for ( auto propSelection : m_selectionVector )
         {
@@ -185,7 +185,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertyMultipleSelection::operator=(double val)
+    PropertyNode& PropertyMultipleSelection::operator=(const double val)
     {
         for ( auto propSelection : m_selectionVector )
         {

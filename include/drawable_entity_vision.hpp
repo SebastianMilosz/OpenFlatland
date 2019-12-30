@@ -3,15 +3,15 @@
 
 #include "entity_vision.hpp"
 
-class DrawableEntityVision : public EntityVision, public sf::Drawable, public sf::Transformable
+class DrawableEntityVision : public EntityVision, public sf::Drawable
 {
     public:
                  DrawableEntityVision( codeframe::ObjectNode* parent );
                  DrawableEntityVision( const DrawableEntityVision& other );
         virtual ~DrawableEntityVision();
 
-        void setPosition(const float x, const float y) override;
-        void setRotation(const float angle) override;
+        void setPosition(float x, float y) override;
+        void setRotation(float angle) override;
 
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
 

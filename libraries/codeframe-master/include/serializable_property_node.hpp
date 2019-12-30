@@ -17,7 +17,7 @@ namespace codeframe
     class PropertyNode
     {
         public:
-            virtual PropertyNode& operator=(const bool          val) = 0;
+            virtual PropertyNode& operator=(const bool_t        val) = 0;
             virtual PropertyNode& operator=(const char          val) = 0;
             virtual PropertyNode& operator=(const unsigned char val) = 0;
             virtual PropertyNode& operator=(const int           val) = 0;

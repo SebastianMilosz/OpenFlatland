@@ -8,7 +8,7 @@
 #include "colorize_circle_shape.hpp"
 #include "entity_vision_node.hpp"
 
-class EntityVision : public codeframe::Object, public EntityVisionNode
+class EntityVision : public codeframe::Object, public EntityVisionNode, public sf::Transformable
 {
         CODEFRAME_META_CLASS_NAME( "EntityVision" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
@@ -18,7 +18,7 @@ class EntityVision : public codeframe::Object, public EntityVisionNode
          EntityVision(const EntityVision& other);
         ~EntityVision();
 
-        codeframe::Property<bool                > CastRays;
+        codeframe::Property<bool                > DrawRays;
         codeframe::Property<unsigned int        > RaysCnt;
         codeframe::Property<unsigned int        > RaysSize;
         codeframe::Property<int                 > RaysStartingAngle;
@@ -29,6 +29,8 @@ class EntityVision : public codeframe::Object, public EntityVisionNode
         const std::vector<float>& GetDistanceVector();
         const std::vector<float>& GetFixtureVector();
 
+        void CastRays(b2World& world);
+
         virtual void StartFrame();
         virtual void AddRay(EntityVision::sRay ray);
         virtual void EndFrame();
@@ -36,8 +38,8 @@ class EntityVision : public codeframe::Object, public EntityVisionNode
         virtual void SetRaysStartingAngle(const int value);
         virtual void SetRaysEndingAngle(const int value);
 
-        virtual void setPosition(const float x, const float y);
-        virtual void setRotation(const float angle);
+        virtual void setPosition(float x, float y);
+        virtual void setRotation(float angle);
 
 #ifdef ENTITY_VISION_DEBUG
         virtual void AddDirectionRay(EntityVision::sRay ray);
