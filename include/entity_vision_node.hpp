@@ -11,7 +11,7 @@ class EntityVisionNode
         struct sRay
         {
             sRay();
-            sRay( b2Vec2& p1, b2Vec2& p2, float32 f );
+            sRay( const b2Vec2& p1, const b2Vec2& p2, const float32 f );
 
             b2Vec2 P1;
             b2Vec2 P2;

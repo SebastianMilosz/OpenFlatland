@@ -30,44 +30,16 @@ class World : public codeframe::Object
     protected:
 
     private:
-        class RayCastCallback : public b2RayCastCallback
-        {
-            public:
-                RayCastCallback()
-                {
-                    m_hit = false;
-                }
-
-                float32 ReportFixture( b2Fixture* fixture, const b2Vec2& point,
-                                       const b2Vec2& normal, const float32 fraction )
-                {
-                    m_hit    = true;
-                    m_point  = point;
-                    m_normal = normal;
-
-                    return fraction;
-                }
-
-                bool   WasHit() const { return m_hit; }
-                b2Vec2 HitPoint() const { return m_point; }
-
-            private:
-                bool m_hit;
-                b2Vec2 m_point;
-                b2Vec2 m_normal;
-        };
-
         b2Body* getBodyAtMouse( const float x, const float y );
 
-        void CalculateRays( void );
+        void CalculateRays();
 
         b2Body*         m_GroundBody;
         b2MouseJoint*   m_MouseJoint;
         b2MouseJointDef m_JointDef;
         b2Vec2          m_Gravity;
         b2World         m_World;
-
-        bool            m_entitySelMode;
+        bool_t          m_entitySelMode;
 };
 
 #endif // WORLD_H
