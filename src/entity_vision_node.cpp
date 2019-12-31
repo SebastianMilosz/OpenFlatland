@@ -18,7 +18,7 @@ EntityVisionNode::sRay::sRay() :
   * @brief
  **
 ******************************************************************************/
-EntityVisionNode::sRay::sRay( b2Vec2& p1, b2Vec2& p2, float32 f ) :
+EntityVisionNode::sRay::sRay( const b2Vec2& p1, const b2Vec2& p2, const float32 f ) :
     P1( p1 ),
     P2( p2 ),
     Fixture( f )

@@ -52,9 +52,48 @@ EntityVision::~EntityVision()
   * @brief
  **
 ******************************************************************************/
-void EntityVision::CastRays(b2World& world)
+void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
 {
+    static const float pi = 3.141592654f;
 
+    StartFrame();
+
+    register unsigned int rayLength  ( (unsigned int)RaysSize );
+    register unsigned int rayCntLimit( (unsigned int)RaysCnt  );
+    register float32      rotation( getRotation() * (pi/180.0F) );
+
+    int rayAngleStart( (int)RaysStartingAngle );
+    int rayAngleEnd( (int)RaysEndingAngle );
+
+    register float32 currentRayAngle( (std::min(rayAngleStart,rayAngleEnd)) * (pi/180.0F) ); //
+    register float32 rayAngleStep( ((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float32)rayCntLimit) * (pi/180.0F) );
+
+    m_rayCastCallback.Reset();
+
+    b2Vec2 p2;
+
+    for ( unsigned int ray = 0U; ray < rayCntLimit; ray++ )
+    {
+        //calculate points of ray
+        p2 = p1 + rayLength * b2Vec2( std::sin((-currentRayAngle-rotation)), std::cos((-currentRayAngle-rotation)) );
+
+        world.RayCast( &m_rayCastCallback, p1, p2 );
+
+        if ( m_rayCastCallback.WasHit() == true )
+        {
+            p2 = m_rayCastCallback.HitPoint();
+        }
+
+        AddRay( EntityVision::sRay( p1, p2, 0 ) );
+        currentRayAngle += rayAngleStep;
+    }
+
+#ifdef ENTITY_VISION_DEBUG
+    p2 = p1 + b2Vec2( std::sin(-rotation), std::cos(-rotation) );
+    AddDirectionRay( EntityVision::sRay( p1, p2, 0 ) );
+#endif // ENTITY_VISION_DEBUG
+
+    EndFrame();
 }
 
 /*****************************************************************************/

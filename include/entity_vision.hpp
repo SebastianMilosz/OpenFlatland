@@ -2,6 +2,7 @@
 #define ENTITYVISION_HPP_INCLUDED
 
 #include <vector>
+#include <Box2D/Box2D.h>
 #include <serializable_object.hpp>
 
 #include "physics_body.hpp"
@@ -29,7 +30,7 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
         const std::vector<float>& GetDistanceVector();
         const std::vector<float>& GetFixtureVector();
 
-        void CastRays(b2World& world);
+        void CastRays(b2World& world, const b2Vec2& p1);
 
         virtual void StartFrame();
         virtual void AddRay(EntityVision::sRay ray);
@@ -51,6 +52,41 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
         std::vector<EntityVision::sRay> m_visionVector;
         std::vector<float> m_distanceVisionVector;
         std::vector<float> m_fixtureVisionVector;
+
+    private:
+        class RayCastCallback : public b2RayCastCallback
+        {
+            public:
+                inline void Reset()
+                {
+                    m_hit = false;
+                }
+
+                RayCastCallback()
+                {
+                    Reset();
+                }
+
+                float32 ReportFixture( b2Fixture* fixture, const b2Vec2& point,
+                                       const b2Vec2& normal, const float32 fraction )
+                {
+                    m_hit    = true;
+                    m_point  = point;
+                    m_normal = normal;
+
+                    return fraction;
+                }
+
+                bool   WasHit() const { return m_hit; }
+                b2Vec2 HitPoint() const { return m_point; }
+
+            private:
+                bool m_hit;
+                b2Vec2 m_point;
+                b2Vec2 m_normal;
+        };
+
+        RayCastCallback m_rayCastCallback;
 };
 
 #endif // ENTITYVISION_HPP_INCLUDED

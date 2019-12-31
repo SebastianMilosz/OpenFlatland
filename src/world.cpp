@@ -261,8 +261,6 @@ b2Body* World::getBodyAtMouse( const float x, const float y )
 ******************************************************************************/
 void World::CalculateRays( void )
 {
-    static const float pi = 3.141592654f;
-
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
     {
         if ( BodyIterator->GetType() == b2_dynamicBody )
@@ -271,52 +269,7 @@ void World::CalculateRays( void )
 
             if ( (Entity*)nullptr != entity )
             {
-                //center of entity
-                b2Vec2 p1 = entity->GetPhysicalPoint();
-
-                EntityVision& vision( entity->Vision() );
-
-                vision.StartFrame();
-
-                register unsigned int rayLength( (unsigned int)vision.RaysSize );
-                register unsigned int rayCntLimit( (unsigned int)vision.RaysCnt );
-                register          int rayAngleStart( (int)vision.RaysStartingAngle );
-                register          int rayAngleEnd( (int)vision.RaysEndingAngle );
-                register float32      rotation( vision.getRotation() * (pi/180.0F) );
-
-                //float32 currentRayAngle( -(rotation+180.0F) * (pi/180.0F) ); + rayAngleStart
-                register float32 currentRayAngle( (std::min(rayAngleStart,rayAngleEnd)) * (pi/180.0F) ); //
-                register float32 rayAngleStep( ((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float32)rayCntLimit) * (pi/180.0F) );
-                RayCastCallback callback;
-                b2Vec2 p2;
-                unsigned int ray;
-
-                //#pragma omp parallel for shared(vision, pWorld, rayLength, rayCntLimit, currentRayAngle, rayAngleStep, callback, p1, p2) private(ray)
-                //{
-                    //#pragma omp for nowait
-                    for ( ray = 0U; ray < rayCntLimit; ray++ )
-                    {
-                        //calculate points of ray
-                        p2 = p1 + rayLength * b2Vec2( std::sin((-currentRayAngle-rotation)), std::cos((-currentRayAngle-rotation)) );
-
-                        m_World.RayCast( &callback, p1, p2 );
-
-                        if ( callback.WasHit() == true )
-                        {
-                            p2 = callback.HitPoint();
-                        }
-
-                        vision.AddRay( EntityVision::sRay( p1, p2, 0 ) );
-                        currentRayAngle += rayAngleStep;
-                    }
-                //}
-
-#ifdef ENTITY_VISION_DEBUG
-                p2 = p1 + b2Vec2( std::sin(-rotation), std::cos(-rotation) );
-                vision.AddDirectionRay( EntityVision::sRay( p1, p2, 0 ) );
-#endif // ENTITY_VISION_DEBUG
-
-                vision.EndFrame();
+                entity->Vision().CastRays(m_World, entity->GetPhysicalPoint());
             }
         }
     }
