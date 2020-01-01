@@ -1,4 +1,4 @@
-#include "entityshell.hpp"
+#include "entity_shell.hpp"
 
 #include <utilities/LoggerUtilities.h>
 #include <utilities/TextUtilities.h>

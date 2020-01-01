@@ -1,4 +1,4 @@
-#include "serializableneuronlayer.hpp"
+#include "neuron_layer.hpp"
 
 #include <utilities/MathUtilities.h>
 #include <utilities/LoggerUtilities.h>

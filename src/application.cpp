@@ -48,9 +48,10 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     window.setView(view);
 
     // Connect Signals
-    m_EntityFactory       .signalEntityAdd .connect( &m_World, &World::AddShell );
-    m_EntityFactory       .signalContainerSelectionChanged.connect( &m_Widgets.GetPropertyEditorWidget(), &PropertyEditorWidget::SetObject );
-    m_EntityFactory       .signalContainerSelectionChanged.connect( &m_Widgets.GetAnnViewerWidget(), &AnnViewerWidget::SetObject );
+    m_EntityFactory.signalEntityAdd .connect( &m_World, &World::AddShell );
+    m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetPropertyEditorWidget(), &PropertyEditorWidget::SetObject );
+    m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetAnnViewerWidget(), &AnnViewerWidget::SetObject );
+    m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetVisionViewerWidget(), &VisionViewerWidget::SetObject );
     m_ConstElementsFactory.signalElementAdd.connect( &m_World, &World::AddConst );
 
     m_Widgets.GetInformationWidget().SetEntityFactory(  m_EntityFactory  );

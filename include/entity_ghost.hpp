@@ -1,8 +1,8 @@
 #ifndef ENTITYGHOST_HPP
 #define ENTITYGHOST_HPP
 
-#include "entityshell.hpp"
-#include "serializableneuronlayercontainer.hpp"
+#include "entity_shell.hpp"
+#include "neuron_layer_container.hpp"
 
 class EntityGhost : public EntityShell
 {

@@ -12,18 +12,18 @@ class DrawableEntityVision : public EntityVision, public sf::Drawable
 
         void setPosition(float x, float y) override;
         void setRotation(float angle) override;
-
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
+
+    protected:
+        void EndFrame() override;
 
 #ifdef ENTITY_VISION_DEBUG
         void AddDirectionRay( EntityVision::sRay ray ) override;
 #endif // ENTITY_VISION_DEBUG
 
-        void EndFrame() override;
-
-    protected:
         void SetRaysStartingAngle( const int value ) override;
         void SetRaysEndingAngle( const int value ) override;
+
     private:
         void PrepareRays();
         void SetRaysCnt( const unsigned int cnt ) override;

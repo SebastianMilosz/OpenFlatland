@@ -4,10 +4,10 @@
 #include <serializable_object.hpp>
 
 #include "world.hpp"
-#include "entityfactory.hpp"
+#include "entity_factory.hpp"
 #include "constelementsfactory.hpp"
 #include "fontfactory.hpp"
-#include "guiwidgetslayer.hpp"
+#include "gui_widgets_layer.hpp"
 #include "entity.hpp"
 
 class Application : public codeframe::Object

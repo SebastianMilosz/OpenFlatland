@@ -3,8 +3,8 @@
 
 #include <serializable_object.hpp>
 
-#include "entityshell.hpp"
-#include "entityghost.hpp"
+#include "entity_shell.hpp"
+#include "entity_ghost.hpp"
 
 /*****************************************************************************/
 /**

@@ -1,4 +1,4 @@
-#include "guiwidgetslayer.hpp"
+#include "gui_widgets_layer.hpp"
 
 #include <chrono>
 #include <ctime>
@@ -75,6 +75,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, ObjectNode& parent, 
     m_ConsoleWidgetOpen( true ),
     m_PropertyEditorOpen( true ),
     m_AnnViewerWidgetOpen( false ),
+    m_VisionViewerWidgetOpen( true ),
     m_InformationWidgetOpen( true ),
     m_ConsoleWidget( parent ),
     m_InformationWidget( window )
@@ -190,6 +191,11 @@ void GUIWidgetsLayer::Draw()
     if ( m_AnnViewerWidgetOpen == true )
     {
         m_AnnViewerWidget.Draw( "Ann Viewer", &m_AnnViewerWidgetOpen );
+    }
+
+    if ( m_VisionViewerWidgetOpen == true )
+    {
+        m_VisionViewerWidget.Draw( "Vision Viewer", &m_VisionViewerWidgetOpen );
     }
 
     ImGui::SFML::Render( m_window );

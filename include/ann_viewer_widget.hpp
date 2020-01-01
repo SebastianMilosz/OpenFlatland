@@ -1,5 +1,5 @@
-#ifndef ANNVIEWERWIDGET_HPP_INCLUDED
-#define ANNVIEWERWIDGET_HPP_INCLUDED
+#ifndef ANN_VIEWER_WIDGET_HPP
+#define ANN_VIEWER_WIDGET_HPP
 
 #include <imgui.h>
 #include <imgui-SFML.h>
@@ -10,8 +10,8 @@
 class AnnViewerWidget : public sigslot::has_slots<>
 {
     public:
-        AnnViewerWidget();
-       ~AnnViewerWidget();
+                AnnViewerWidget();
+       virtual ~AnnViewerWidget();
 
         void SetObject( smart_ptr<codeframe::ObjectNode> obj );
         void Draw( const char* title, bool* p_open = nullptr );
@@ -21,4 +21,4 @@ class AnnViewerWidget : public sigslot::has_slots<>
 };
 
 
-#endif // ANNVIEWERWIDGET_HPP_INCLUDED
+#endif // ANN_VIEWER_WIDGET_HPP

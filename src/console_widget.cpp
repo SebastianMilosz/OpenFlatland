@@ -1,4 +1,4 @@
-#include "consolewidget.hpp"
+#include "console_widget.hpp"
 
 #include <cstring>
 

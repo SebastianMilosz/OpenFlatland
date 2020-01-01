@@ -21,6 +21,8 @@ class EntityVisionNode
                  EntityVisionNode();
         virtual ~EntityVisionNode();
 
+        virtual const std::vector<float>& GetDistanceVector() const = 0;
+        virtual const std::vector<float>& GetFixtureVector() const = 0;
     protected:
 
     private:
