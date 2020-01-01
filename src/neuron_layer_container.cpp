@@ -1,4 +1,4 @@
-#include "serializableneuronlayercontainer.hpp"
+#include "neuron_layer_container.hpp"
 
 using namespace codeframe;
 

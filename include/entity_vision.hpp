@@ -27,26 +27,26 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
         codeframe::Property< std::vector<float> > VisionVector;
         codeframe::Property< std::vector<float> > FixtureVector;
 
-        const std::vector<float>& GetDistanceVector();
-        const std::vector<float>& GetFixtureVector();
+        const std::vector<float>& GetDistanceVector() const override;
+        const std::vector<float>& GetFixtureVector() const override;
 
         void CastRays(b2World& world, const b2Vec2& p1);
+
+        virtual void setPosition(float x, float y);
+        virtual void setRotation(float angle);
+
+    protected:
+        virtual void SetRaysStartingAngle(const int value);
+        virtual void SetRaysEndingAngle(const int value);
 
         virtual void StartFrame();
         virtual void AddRay(EntityVision::sRay ray);
         virtual void EndFrame();
 
-        virtual void SetRaysStartingAngle(const int value);
-        virtual void SetRaysEndingAngle(const int value);
-
-        virtual void setPosition(float x, float y);
-        virtual void setRotation(float angle);
-
 #ifdef ENTITY_VISION_DEBUG
         virtual void AddDirectionRay(EntityVision::sRay ray);
 #endif // ENTITY_VISION_DEBUG
 
-    protected:
         virtual void SetRaysCnt(const unsigned int cnt);
 
         std::vector<EntityVision::sRay> m_visionVector;
@@ -54,6 +54,9 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
         std::vector<float> m_fixtureVisionVector;
 
     private:
+        static constexpr float NUMBER_PI = 3.141592654F;
+        static constexpr float TO_RADIAN(const float dg) { return dg * (NUMBER_PI/180.0F); }
+
         class RayCastCallback : public b2RayCastCallback
         {
             public:

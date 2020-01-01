@@ -12,3 +12,5 @@
 
 //#define smart_ptr_getCount(ptr) (ptr.GetCount())
 #define smart_ptr_getCount(ptr) (ptr.use_count())
+
+#define smart_dynamic_pointer_cast std::dynamic_pointer_cast

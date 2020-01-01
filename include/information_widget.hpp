@@ -7,7 +7,7 @@
 #include <smartpointer.h>
 #include <serializable_object.hpp>
 
-#include "entityfactory.hpp"
+#include "entity_factory.hpp"
 
 class InformationWidget : public sigslot::has_slots<>
 {

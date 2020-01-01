@@ -1,4 +1,4 @@
-#include "propertyeditorwidget.hpp"
+#include "property_editor_widget.hpp"
 
 using namespace codeframe;
 

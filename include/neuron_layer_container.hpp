@@ -6,7 +6,7 @@
 #include <serializable_object.hpp>
 #include <serializable_object_container.hpp>
 
-#include "serializableneuronlayer.hpp"
+#include "neuron_layer.hpp"
 
 class SerializableNeuronLayerContainer : public codeframe::ObjectContainer
 {

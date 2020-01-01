@@ -1,4 +1,4 @@
-#include "entityghost.hpp"
+#include "entity_ghost.hpp"
 
 #include <LoggerUtilities.h>
 

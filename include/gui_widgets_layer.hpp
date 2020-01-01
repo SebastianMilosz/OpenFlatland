@@ -5,10 +5,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "consolewidget.hpp"
-#include "propertyeditorwidget.hpp"
-#include "annviewerwidget.hpp"
-#include "informationwidget.hpp"
+#include "console_widget.hpp"
+#include "property_editor_widget.hpp"
+#include "ann_viewer_widget.hpp"
+#include "entity_vision_viewer_widget.hpp"
+#include "information_widget.hpp"
 
 #include "imgui_internal.h"
 
@@ -153,6 +154,7 @@ class GUIWidgetsLayer
         ConsoleWidget&          GetConsoleWidget() { return m_ConsoleWidget; }
         PropertyEditorWidget&   GetPropertyEditorWidget() { return m_PropertyEditorWidget; }
         AnnViewerWidget&        GetAnnViewerWidget() { return m_AnnViewerWidget; }
+        VisionViewerWidget&     GetVisionViewerWidget() { return m_VisionViewerWidget; }
         InformationWidget&      GetInformationWidget() { return m_InformationWidget; }
 
     protected:
@@ -167,6 +169,7 @@ class GUIWidgetsLayer
         bool           m_ConsoleWidgetOpen;
         bool           m_PropertyEditorOpen;
         bool           m_AnnViewerWidgetOpen;
+        bool           m_VisionViewerWidgetOpen;
         bool           m_InformationWidgetOpen;
 
         std::vector< sf::Rect<int> > m_guiRegions;
@@ -175,6 +178,7 @@ class GUIWidgetsLayer
         ConsoleWidget        m_ConsoleWidget;
         PropertyEditorWidget m_PropertyEditorWidget;
         AnnViewerWidget      m_AnnViewerWidget;
+        VisionViewerWidget   m_VisionViewerWidget;
         InformationWidget    m_InformationWidget;
 };
 

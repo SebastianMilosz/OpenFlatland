@@ -135,7 +135,7 @@
 		<ExtraCommands>
 			<Add before="UpdateMercurialInfo.bat" />
 		</ExtraCommands>
-		<Unit filename="include/annviewerwidget.hpp">
+		<Unit filename="include/ann_viewer_widget.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -155,7 +155,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/consolewidget.hpp">
+		<Unit filename="include/console_widget.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -181,43 +181,54 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/entity_factory.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entity_ghost.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entity_shell.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/entity_vision.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="include/entity_vision_node.hpp" />
-		<Unit filename="include/entityfactory.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="include/entityghost.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="include/entityshell.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
+		<Unit filename="include/entity_vision_viewer_widget.hpp" />
 		<Unit filename="include/fontfactory.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/guiwidgetslayer.hpp">
+		<Unit filename="include/gui_widgets_layer.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/informationwidget.hpp">
+		<Unit filename="include/information_widget.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="include/mercurialinfo.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/neuron_layer.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/neuron_layer_container.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -237,17 +248,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/propertyeditorwidget.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="include/serializableneuronlayer.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="include/serializableneuronlayercontainer.hpp">
+		<Unit filename="include/property_editor_widget.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -417,7 +418,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/annviewerwidget.cpp">
+		<Unit filename="src/ann_viewer_widget.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -437,7 +438,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/consolewidget.cpp">
+		<Unit filename="src/console_widget.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -463,38 +464,49 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="src/entity_factory.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entity_ghost.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entity_shell.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="src/entity_vision.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="src/entity_vision_node.cpp" />
-		<Unit filename="src/entityfactory.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="src/entityghost.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="src/entityshell.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
+		<Unit filename="src/entity_vision_viewer_widget.cpp" />
 		<Unit filename="src/fontfactory.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/guiwidgetslayer.cpp">
+		<Unit filename="src/gui_widgets_layer.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/informationwidget.cpp">
+		<Unit filename="src/information_widget.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/neuron_layer.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/neuron_layer_container.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -509,17 +521,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/propertyeditorwidget.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="src/serializableneuronlayer.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="src/serializableneuronlayercontainer.cpp">
+		<Unit filename="src/property_editor_widget.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />

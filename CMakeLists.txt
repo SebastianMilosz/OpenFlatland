@@ -9,28 +9,29 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 set(LIFESIM_AppSRC
     main.cpp
     src/application.cpp
-    src/annviewerwidget.cpp
+    src/ann_viewer_widget.cpp
+    src/entity_vision_viewer_widget.hpp
     src/colorize_circle_shape.cpp
     src/colorizerealnbr.cpp
-    src/consolewidget.cpp
+    src/console_widget.cpp
     src/constelement.cpp
     src/constelementline.cpp
     src/constelementsfactory.cpp
     src/entity.cpp
-    src/entityfactory.cpp
-    src/entityghost.cpp
-    src/entityshell.cpp
+    src/entity_factory.cpp
+    src/entity_ghost.cpp
+    src/entity_shell.cpp
     src/drawable_entity_vision.cpp
     src/entity_vision.cpp
     src/entity_vision_node.cpp
     src/fontfactory.cpp
-    src/guiwidgetslayer.cpp
-    src/informationwidget.cpp
+    src/gui_widgets_layer.cpp
+    src/information_widget.cpp
     src/performancelogger.cpp
     src/physics_body.cpp
-    src/propertyeditorwidget.cpp
-    src/serializableneuronlayer.cpp
-    src/serializableneuronlayercontainer.cpp
+    src/property_editor_widget.cpp
+    src/neuron_layer.cpp
+    src/neuron_layer_container.cpp
     src/world.cpp
 )
 

@@ -1,4 +1,4 @@
-#include "informationwidget.hpp"
+#include "information_widget.hpp"
 #include "performancelogger.hpp"
 #include "performanceapplicationdef.hpp"
 

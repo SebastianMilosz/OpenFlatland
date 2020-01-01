@@ -7,7 +7,7 @@
 #include <Box2D/Box2D.h>
 
 #include "application.hpp"
-#include "consolewidget.hpp"
+#include "console_widget.hpp"
 
 int main()
 {

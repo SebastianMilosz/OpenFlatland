@@ -1,4 +1,4 @@
-#include "annviewerwidget.hpp"
+#include "ann_viewer_widget.hpp"
 
 /*****************************************************************************/
 /**

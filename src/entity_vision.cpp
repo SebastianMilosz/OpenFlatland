@@ -54,19 +54,17 @@ EntityVision::~EntityVision()
 ******************************************************************************/
 void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
 {
-    static const float pi = 3.141592654f;
-
     StartFrame();
 
     register unsigned int rayLength  ( (unsigned int)RaysSize );
     register unsigned int rayCntLimit( (unsigned int)RaysCnt  );
-    register float32      rotation( getRotation() * (pi/180.0F) );
+    register float32      rotation( TO_RADIAN( getRotation() ) );
 
     int rayAngleStart( (int)RaysStartingAngle );
     int rayAngleEnd( (int)RaysEndingAngle );
 
-    register float32 currentRayAngle( (std::min(rayAngleStart,rayAngleEnd)) * (pi/180.0F) ); //
-    register float32 rayAngleStep( ((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float32)rayCntLimit) * (pi/180.0F) );
+    register float32 currentRayAngle( TO_RADIAN( (std::min(rayAngleStart,rayAngleEnd)) ) ); //
+    register float32 rayAngleStep( TO_RADIAN((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float32)rayCntLimit) );
 
     m_rayCastCallback.Reset();
 
@@ -172,7 +170,7 @@ void EntityVision::EndFrame()
   * @brief
  **
 ******************************************************************************/
-const std::vector<float>& EntityVision::GetDistanceVector()
+const std::vector<float>& EntityVision::GetDistanceVector() const
 {
     return m_distanceVisionVector;
 }
@@ -182,7 +180,7 @@ const std::vector<float>& EntityVision::GetDistanceVector()
   * @brief
  **
 ******************************************************************************/
-const std::vector<float>& EntityVision::GetFixtureVector()
+const std::vector<float>& EntityVision::GetFixtureVector() const
 {
     return m_fixtureVisionVector;
 }
