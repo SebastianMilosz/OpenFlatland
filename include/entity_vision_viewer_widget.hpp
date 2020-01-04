@@ -16,10 +16,14 @@ class VisionViewerWidget : public sigslot::has_slots<>
         void SetObject( smart_ptr<codeframe::ObjectNode> obj );
         void Draw( const char* title, bool* p_open = nullptr );
 
+        static constexpr unsigned int SCREEN_WIDTH = 320U;
+        static constexpr unsigned int SCREEN_HEIGHT = 200U;
+        static constexpr unsigned int DISTANCE_TO_SCREEN_FACTOR = 2000U;
     private:
-        sf::Image   m_displayImage;
-        sf::Texture m_displayTexture;
-        smart_ptr<Entity> m_objEntity;
+        ImVec2             m_cursorPos;
+        sf::RectangleShape m_rectangle;
+        sf::RenderTexture  m_displayTexture;
+        smart_ptr<Entity>  m_objEntity;
 };
 
 #endif // VISION_VIEWER_WIDGET_HPP
