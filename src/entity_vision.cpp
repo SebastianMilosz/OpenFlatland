@@ -10,13 +10,12 @@ using namespace codeframe;
 ******************************************************************************/
 EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     Object( "Vision", parent ),
-    DrawRays         ( this, "DrawRays"         , false               , cPropertyInfo().Kind( KIND_LOGIC  ).Description("DrawRays") ),
-    RaysCnt          ( this, "RaysCnt"          , 100U                , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt"), nullptr, std::bind(&EntityVision::SetRaysCnt, this, std::placeholders::_1) ),
-    RaysSize         ( this, "RaysSize"         , 100U                , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
-    RaysStartingAngle( this, "RaysStartingAngle", -45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
-    RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                 , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), nullptr, std::bind(&EntityVision::SetRaysEndingAngle, this, std::placeholders::_1) ),
-    VisionVector     ( this, "VisionVector"     , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0].Input").Description("VisionVector"), std::bind(&EntityVision::GetDistanceVector, this) ),
-    FixtureVector    ( this, "FixtureVector"    , std::vector<float>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[1].Input").Description("FixtureVector"), std::bind(&EntityVision::GetFixtureVector, this) )
+    DrawRays         ( this, "DrawRays"         , false                 , cPropertyInfo().Kind( KIND_LOGIC  ).Description("DrawRays") ),
+    RaysCnt          ( this, "RaysCnt"          , 100U                  , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt"), nullptr, std::bind(&EntityVision::SetRaysCnt, this, std::placeholders::_1) ),
+    RaysSize         ( this, "RaysSize"         , 100U                  , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
+    RaysStartingAngle( this, "RaysStartingAngle", -45                   , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
+    RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                   , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), nullptr, std::bind(&EntityVision::SetRaysEndingAngle, this, std::placeholders::_1) ),
+    VisionVector     ( this, "VisionVector"     , std::vector<RayData>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0].Input").Description("VisionVector"), std::bind(&EntityVision::GetVisionVector, this) )
 {
 }
 
@@ -32,8 +31,7 @@ EntityVision::EntityVision( const EntityVision& other ) :
     RaysSize( other.RaysSize ),
     RaysStartingAngle( other.RaysStartingAngle ),
     RaysEndingAngle( other.RaysEndingAngle ),
-    VisionVector( other.VisionVector ),
-    FixtureVector( other.FixtureVector )
+    VisionVector( other.VisionVector )
 {
 }
 
@@ -82,13 +80,13 @@ void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
             p2 = m_rayCastCallback.HitPoint();
         }
 
-        AddRay( EntityVision::sRay( p1, p2, 0 ) );
+        AddRay( EntityVision::Ray( p1, p2, 0 ) );
         currentRayAngle += rayAngleStep;
     }
 
 #ifdef ENTITY_VISION_DEBUG
     p2 = p1 + b2Vec2( std::sin(-rotation), std::cos(-rotation) );
-    AddDirectionRay( EntityVision::sRay( p1, p2, 0 ) );
+    AddDirectionRay( EntityVision::Ray( p1, p2, 0 ) );
 #endif // ENTITY_VISION_DEBUG
 
     EndFrame();
@@ -102,8 +100,7 @@ void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
 void EntityVision::StartFrame()
 {
     m_visionVector.clear();
-    m_distanceVisionVector.clear();
-    m_fixtureVisionVector.clear();
+    m_visionDataVector.clear();
 }
 
 /*****************************************************************************/
@@ -111,11 +108,10 @@ void EntityVision::StartFrame()
   * @brief
  **
 ******************************************************************************/
-void EntityVision::AddRay(EntityVision::sRay ray)
+void EntityVision::AddRay(EntityVision::Ray ray)
 {
     m_visionVector.emplace_back( ray );
-    m_distanceVisionVector.emplace_back( (ray.P2-ray.P1).Length() );
-    m_fixtureVisionVector.emplace_back( ray.Fixture );
+    m_visionDataVector.emplace_back( (ray.P2-ray.P1).Length(), ray.Fixture );
 }
 
 /*****************************************************************************/
@@ -143,7 +139,7 @@ void EntityVision::setRotation(float angle)
   * @brief
  **
 ******************************************************************************/
-void EntityVision::AddDirectionRay(EntityVision::sRay ray)
+void EntityVision::AddDirectionRay(EntityVision::Ray ray)
 {
 }
 
@@ -170,19 +166,9 @@ void EntityVision::EndFrame()
   * @brief
  **
 ******************************************************************************/
-const std::vector<float>& EntityVision::GetDistanceVector() const
+const std::vector<EntityVision::RayData>& EntityVision::GetVisionVector() const
 {
-    return m_distanceVisionVector;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-const std::vector<float>& EntityVision::GetFixtureVector() const
-{
-    return m_fixtureVisionVector;
+    return m_visionDataVector;
 }
 
 /*****************************************************************************/

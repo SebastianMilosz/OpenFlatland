@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-EntityVisionNode::sRay::sRay() :
+EntityVisionNode::Ray::Ray() :
     P1( 0.0F, 0.0F ),
     P2( 0.0F, 0.0F ),
     Fixture( 0.0F )
@@ -18,10 +18,34 @@ EntityVisionNode::sRay::sRay() :
   * @brief
  **
 ******************************************************************************/
-EntityVisionNode::sRay::sRay( const b2Vec2& p1, const b2Vec2& p2, const float32 f ) :
+EntityVisionNode::Ray::Ray( const b2Vec2& p1, const b2Vec2& p2, const float32 f ) :
     P1( p1 ),
     P2( p2 ),
     Fixture( f )
+{
+
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+EntityVisionNode::RayData::RayData() :
+    Distance( 0.0F ),
+    Fixture( 0U )
+{
+
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+EntityVisionNode::RayData::RayData(float distance, uint32_t fixture) :
+    Distance( distance ),
+    Fixture( fixture )
 {
 
 }
