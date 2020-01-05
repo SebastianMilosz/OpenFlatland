@@ -81,7 +81,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setOutlineColor( const std::vector<float>& floatVevtor )
+    void ColorizeCircleShape::setOutlineColor( const std::vector<RayData>& floatVevtor )
     {
         if ( m_pointCount != floatVevtor.size() )
         {

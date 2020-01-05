@@ -3,8 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "entity_vision_node.hpp"
+
 class ColorizeRealNumbers
 {
+    using RayData = EntityVisionNode::RayData;
+
     public:
     enum eColorizeMode
     {
@@ -27,7 +31,7 @@ class ColorizeRealNumbers
         void Colorize_BlackRed    ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
         void Colorize_BlueRedBin  ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
         void Colorize_BlueGreenRed( const float* dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_Grayscale   ( const std::vector<float>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_Grayscale   ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
         void Colorize_ShiftGray   ( const float* dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift );
 };
 

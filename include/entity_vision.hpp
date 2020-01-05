@@ -19,16 +19,14 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
          EntityVision(const EntityVision& other);
         ~EntityVision();
 
-        codeframe::Property<bool                > DrawRays;
-        codeframe::Property<unsigned int        > RaysCnt;
-        codeframe::Property<unsigned int        > RaysSize;
-        codeframe::Property<int                 > RaysStartingAngle;
-        codeframe::Property<int                 > RaysEndingAngle;
-        codeframe::Property< std::vector<float> > VisionVector;
-        codeframe::Property< std::vector<float> > FixtureVector;
+        codeframe::Property<bool                  > DrawRays;
+        codeframe::Property<unsigned int          > RaysCnt;
+        codeframe::Property<unsigned int          > RaysSize;
+        codeframe::Property<int                   > RaysStartingAngle;
+        codeframe::Property<int                   > RaysEndingAngle;
+        codeframe::Property< std::vector<RayData> > VisionVector;
 
-        const std::vector<float>& GetDistanceVector() const override;
-        const std::vector<float>& GetFixtureVector() const override;
+        const std::vector<RayData>& GetVisionVector() const override;
 
         void CastRays(b2World& world, const b2Vec2& p1);
 
@@ -40,18 +38,17 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
         virtual void SetRaysEndingAngle(const int value);
 
         virtual void StartFrame();
-        virtual void AddRay(EntityVision::sRay ray);
+        virtual void AddRay(EntityVision::Ray ray);
         virtual void EndFrame();
 
 #ifdef ENTITY_VISION_DEBUG
-        virtual void AddDirectionRay(EntityVision::sRay ray);
+        virtual void AddDirectionRay(EntityVision::Ray ray);
 #endif // ENTITY_VISION_DEBUG
 
         virtual void SetRaysCnt(const unsigned int cnt);
 
-        std::vector<EntityVision::sRay> m_visionVector;
-        std::vector<float> m_distanceVisionVector;
-        std::vector<float> m_fixtureVisionVector;
+        std::vector<EntityVision::Ray> m_visionVector;
+        std::vector<EntityVision::RayData> m_visionDataVector;
 
     private:
         static constexpr float NUMBER_PI = 3.141592654F;

@@ -18,7 +18,7 @@ class DrawableEntityVision : public EntityVision, public sf::Drawable
         void EndFrame() override;
 
 #ifdef ENTITY_VISION_DEBUG
-        void AddDirectionRay( EntityVision::sRay ray ) override;
+        void AddDirectionRay( EntityVision::Ray ray ) override;
 #endif // ENTITY_VISION_DEBUG
 
         void SetRaysStartingAngle( const int value ) override;
@@ -34,7 +34,7 @@ class DrawableEntityVision : public EntityVision, public sf::Drawable
 
 #ifdef ENTITY_VISION_DEBUG
         sf::Vertex m_directionRayLine[2];
-        EntityVision::sRay m_directionRay;
+        EntityVision::Ray m_directionRay;
 #endif // ENTITY_VISION_DEBUG
 };
 

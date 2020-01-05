@@ -7,6 +7,8 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include "entity_vision_node.hpp"
+
 namespace sf
 {
 
@@ -17,13 +19,15 @@ namespace sf
 ******************************************************************************/
 class ColorizeCircleShape : public Drawable, public Transformable
 {
+    using RayData = EntityVisionNode::RayData;
+
 public:
              ColorizeCircleShape( float radius = 0, std::size_t pointCount = 30, const int startAngle = 0, const int endAngle = 360 );
     virtual ~ColorizeCircleShape();
 
     void setFillColor(const Color& color);
     void setOutlineColor(const Color& color);
-    void setOutlineColor(const std::vector<float>& floatVevtor);
+    void setOutlineColor(const std::vector<RayData>& floatVevtor);
     void setOutlineThickness(float thickness);
     const Color& getFillColor() const;
     float getOutlineThickness() const;

@@ -1,6 +1,7 @@
 #include "typeinfo.hpp"
 
 #include <MathUtilities.h>
+#include <entity_vision_node.hpp>
 
 #include "extvector.hpp"
 #include "extfundamental.hpp"
@@ -121,6 +122,8 @@ namespace codeframe
         AddOperatorCallback = toAddOperatorCallback;
     }
 
+    using RayData = EntityVisionNode::RayData;
+
     // Fundamental types
     REGISTER_TYPE( std::string                      , "text" );
     REGISTER_TYPE( bool                             , "int"  );
@@ -134,6 +137,7 @@ namespace codeframe
     REGISTER_TYPE( Point2D<float>                   , "vec"  );
     REGISTER_TYPE( std::vector<float>               , "vec"  );
     REGISTER_TYPE( std::vector<unsigned int>        , "vec"  );
+    REGISTER_TYPE( std::vector<RayData>             , "vec"  );
     REGISTER_TYPE( thrust::host_vector<float>       , "vec"  );
     REGISTER_TYPE( thrust::host_vector<unsigned int>, "vec"  );
 
@@ -154,6 +158,7 @@ namespace codeframe
         GetTypeInfo<Point2D<float>     >().SetFromStringCallback( &Point2D<float>::Point2DFromString );
         GetTypeInfo<std::vector<float> >().SetFromStringCallback( &PropertyVector<float>::VectorFromString );
         GetTypeInfo<std::vector<unsigned int> >().SetFromStringCallback( &PropertyVector<unsigned int>::VectorFromString );
+        GetTypeInfo<std::vector<RayData> >().SetFromStringCallback( &PropertyVector<RayData>::VectorFromString );
         GetTypeInfo<thrust::host_vector<float> >().SetFromStringCallback( &PropertyThrustVector<float>::VectorFromString );
         GetTypeInfo<thrust::host_vector<unsigned int> >().SetFromStringCallback( &PropertyThrustVector<unsigned int>::VectorFromString );
 
@@ -167,6 +172,7 @@ namespace codeframe
         GetTypeInfo<Point2D<float>     >().SetToStringCallback( &Point2D<float>::Point2DToString );
         GetTypeInfo<std::vector<float> >().SetToStringCallback( &PropertyVector<float>::VectorToString );
         GetTypeInfo<std::vector<unsigned int> >().SetToStringCallback( &PropertyVector<unsigned int>::VectorToString );
+        GetTypeInfo<std::vector<RayData> >().SetToStringCallback( &PropertyVector<RayData>::VectorToString );
         GetTypeInfo<thrust::host_vector<float> >().SetToStringCallback( &PropertyThrustVector<float>::VectorToString );
         GetTypeInfo<thrust::host_vector<unsigned int> >().SetToStringCallback( &PropertyThrustVector<unsigned int>::VectorToString );
 

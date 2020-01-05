@@ -56,22 +56,33 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
 
         EntityVision& vision = m_objEntity->Vision();
 
-        const std::vector<float>& distanceVector = vision.GetDistanceVector();
+        const std::vector<EntityVisionNode::RayData>& visionVector = vision.GetVisionVector();
 
-        const unsigned int w = std::ceil((const float)SCREEN_WIDTH / (const float)distanceVector.size());
+        const uint32_t w = std::ceil((const float)SCREEN_WIDTH / (const float)visionVector.size());
 
         m_displayTexture.clear();
 
-        unsigned int x_rec = 0;
+        uint32_t cl_r = 255U;
+        uint32_t cl_g = 255U;
+        uint32_t cl_b = 255U;
+        uint32_t x_rec = 0;
 
-        for ( const auto distance : distanceVector )
+        for ( const auto& visionData : visionVector )
         {
-            float h = SCREEN_HEIGHT - distance/SCREEN_HEIGHT * DISTANCE_TO_SCREEN_FACTOR;
-            float y_rec = (SCREEN_HEIGHT / 2.0F) - (h / 2.0F);
+            float ds = visionData.Distance/SCREEN_HEIGHT;
+            cl_r = (255U - 255U * ds * 10U);
+            cl_g = (255U - 255U * ds * 10U);
+            cl_b = (255U - 255U * ds * 10U);
+            if ( cl_r < 255 && cl_g < 255 && cl_b < 255 )
+            {
+                float h = SCREEN_HEIGHT - visionData.Distance/SCREEN_HEIGHT * DISTANCE_TO_SCREEN_FACTOR;
+                float y_rec = (SCREEN_HEIGHT / 2.0F) - (h / 2.0F);
 
-            m_rectangle.setPosition(x_rec, y_rec);
-            m_rectangle.setSize( sf::Vector2f(w, h) );
-            m_displayTexture.draw(m_rectangle);
+                m_rectangle.setPosition(x_rec, y_rec);
+                m_rectangle.setSize( sf::Vector2f(w, h) );
+                m_rectangle.setFillColor( sf::Color(cl_r, cl_g, cl_b) );
+                m_displayTexture.draw(m_rectangle);
+            }
             x_rec += w;
         }
 

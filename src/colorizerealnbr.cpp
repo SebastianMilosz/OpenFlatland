@@ -259,13 +259,13 @@ void ColorizeRealNumbers::Colorize_BlueGreenRed( const float* dataIn, sf::Color*
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_Grayscale( const std::vector<float>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRealNumbers::Colorize_Grayscale( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-        volatile float dataFloat = dataIn[ n ];
+        volatile float dataFloat = dataIn[ n ].Distance;
         uint16_t data = dataFloat * 1000;
 
         r = data >> 6;

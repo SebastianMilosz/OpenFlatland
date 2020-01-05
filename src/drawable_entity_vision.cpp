@@ -95,7 +95,7 @@ void DrawableEntityVision::draw( sf::RenderTarget& target, sf::RenderStates stat
  **
 ******************************************************************************/
 #ifdef ENTITY_VISION_DEBUG
-void DrawableEntityVision::AddDirectionRay( EntityVision::sRay ray )
+void DrawableEntityVision::AddDirectionRay( EntityVision::Ray ray )
 {
     m_directionRay = ray;
     m_directionRayLine[0].position = PhysicsBody::sDescriptor::Meters2SFMLPixels( m_directionRay.P1 );
@@ -111,7 +111,7 @@ void DrawableEntityVision::AddDirectionRay( EntityVision::sRay ray )
 void DrawableEntityVision::EndFrame()
 {
     EntityVision::EndFrame();
-    m_visionShape.setOutlineColor( GetDistanceVector() );
+    m_visionShape.setOutlineColor( GetVisionVector() );
     PrepareRays();
 }
 
