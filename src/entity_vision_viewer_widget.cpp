@@ -67,22 +67,26 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
 
         const std::vector<EntityVisionNode::RayData>& visionVector = vision.GetVisionVector();
 
-        const uint32_t w = std::ceil((const float)SCREEN_WIDTH / (const float)visionVector.size());
+        const float w = (const float)SCREEN_WIDTH / (const float)visionVector.size();
 
         m_displayTexture.clear();
 
-        uint32_t cl_r = 255U;
-        uint32_t cl_g = 255U;
-        uint32_t cl_b = 255U;
-        uint32_t x_rec = 0;
+        uint32_t cl_r = 0U;
+        uint32_t cl_g = 0U;
+        uint32_t cl_b = 0U;
+        float x_rec = 0.0F;
 
-        for ( const auto& visionData : visionVector )
+        for ( volatile const auto& visionData : visionVector )
         {
             float ds = visionData.Distance/SCREEN_HEIGHT;
+            //cl_r = 255U - ((visionData.Fixture >> 0U ) & 0x000000FF) * ds * 10U;
+            //cl_g = 255U - ((visionData.Fixture >> 8U ) & 0x000000FF) * ds * 10U;
+            //cl_b = 255U - ((visionData.Fixture >> 16U) & 0x000000FF) * ds * 10U;
+
             cl_r = (255U - 255U * ds * 10U);
             cl_g = (255U - 255U * ds * 10U);
             cl_b = (255U - 255U * ds * 10U);
-            if ( cl_r < 255 && cl_g < 255 && cl_b < 255 )
+            if ( cl_r < 256 && cl_g < 256 && cl_b < 256 )
             {
                 float h = SCREEN_HEIGHT - visionData.Distance/SCREEN_HEIGHT * DISTANCE_TO_SCREEN_FACTOR;
                 float y_rec = (SCREEN_HEIGHT / 2.0F) - (h / 2.0F);
