@@ -11,11 +11,14 @@
 #include <thrust/generate.h>
 #include <thrust/sort.h>
 
+#include "entity_vision_node.hpp"
+
 class SerializableNeuronLayer : public codeframe::Object
 {
         CODEFRAME_META_CLASS_NAME( "SerializableNeuronLayer" );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
+        using RayData = EntityVisionNode::RayData;
     public:
         SerializableNeuronLayer( const std::string& name, ObjectNode* parent );
         virtual ~SerializableNeuronLayer();
@@ -25,7 +28,7 @@ class SerializableNeuronLayer : public codeframe::Object
         codeframe::Property< unsigned int > Activation;
         codeframe::Property< std::vector<unsigned int> > WeightDimensions;
         codeframe::Property< thrust::host_vector<float> > WeightMatrix;
-        codeframe::Property< thrust::host_vector<float> > Input;
+        codeframe::Property< thrust::host_vector<RayData> > Input;
         codeframe::Property< thrust::host_vector<float> > Output;
 
     protected:

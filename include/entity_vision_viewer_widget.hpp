@@ -20,6 +20,7 @@ class VisionViewerWidget : public sigslot::has_slots<>
         static constexpr unsigned int SCREEN_HEIGHT = 200U;
         static constexpr unsigned int DISTANCE_TO_SCREEN_FACTOR = 2000U;
     private:
+        bool               m_lockObjectChange;
         ImVec2             m_cursorPos;
         sf::RectangleShape m_rectangle;
         sf::RenderTexture  m_displayTexture;
