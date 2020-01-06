@@ -77,8 +77,9 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
                     return fraction;
                 }
 
-                bool   WasHit() const { return m_hit; }
-                b2Vec2 HitPoint() const { return m_point; }
+                bool     WasHit() const { return m_hit; }
+                b2Vec2   HitPoint() const { return m_point; }
+                uint32_t Fixture() const { return 0U; }
 
             private:
                 bool m_hit;

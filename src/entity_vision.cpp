@@ -57,6 +57,7 @@ void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
     register unsigned int rayLength  ( (unsigned int)RaysSize );
     register unsigned int rayCntLimit( (unsigned int)RaysCnt  );
     register float32      rotation( TO_RADIAN( getRotation() ) );
+    register uint32_t     fixture = 0U;
 
     int rayAngleStart( (int)RaysStartingAngle );
     int rayAngleEnd( (int)RaysEndingAngle );
@@ -78,9 +79,10 @@ void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
         if ( m_rayCastCallback.WasHit() == true )
         {
             p2 = m_rayCastCallback.HitPoint();
+            fixture = m_rayCastCallback.Fixture();
         }
 
-        AddRay( EntityVision::Ray( p1, p2, 0 ) );
+        AddRay( EntityVision::Ray( p1, p2, fixture ) );
         currentRayAngle += rayAngleStep;
     }
 
