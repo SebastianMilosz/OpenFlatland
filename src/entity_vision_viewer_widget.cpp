@@ -5,7 +5,8 @@
   * @brief
  **
 ******************************************************************************/
-VisionViewerWidget::VisionViewerWidget()
+VisionViewerWidget::VisionViewerWidget() :
+    m_lockObjectChange(false)
 {
     m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
@@ -27,7 +28,10 @@ VisionViewerWidget::~VisionViewerWidget()
 ******************************************************************************/
 void VisionViewerWidget::SetObject( smart_ptr<codeframe::ObjectNode> obj )
 {
-    m_objEntity = smart_dynamic_pointer_cast<Entity>(obj);
+    if ( m_lockObjectChange == false )
+    {
+        m_objEntity = smart_dynamic_pointer_cast<Entity>(obj);
+    }
 }
 
 /*****************************************************************************/
@@ -48,6 +52,11 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
 
     if ( smart_ptr_isValid(m_objEntity) )
     {
+        // Lock object change
+        ImGui::Checkbox("Lock Object Change: ", &m_lockObjectChange);
+
+        ImGui::Separator();
+
         // Center vision screen inside imgui widget
         m_cursorPos = ImGui::GetWindowSize();
         m_cursorPos.x = (m_cursorPos.x - SCREEN_WIDTH) * 0.5f;

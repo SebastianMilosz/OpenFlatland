@@ -28,7 +28,7 @@ namespace codeframe
 
         for ( unsigned int n = 0; n < floatSize; n++ )
         {
-            retVector.push_back( EntityVisionNode::RayData(floatTab[ n ], 0) );
+            retVector.push_back( EntityVisionNode::RayData(floatTab[ n ], 0U) );
         }
 
         return retVector;
