@@ -21,6 +21,7 @@ class VisionViewerWidget : public sigslot::has_slots<>
         static constexpr unsigned int DISTANCE_TO_SCREEN_FACTOR = 2000U;
     private:
         const sf::Color&& SetColorBrightness(const sf::Color& cl, const float bri);
+        const float CalculateBrightness(const float distance );
 
         bool               m_lockObjectChange;
         ImVec2             m_cursorPos;

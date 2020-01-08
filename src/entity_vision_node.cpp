@@ -18,7 +18,7 @@ EntityVisionNode::Ray::Ray() :
   * @brief
  **
 ******************************************************************************/
-EntityVisionNode::Ray::Ray( const b2Vec2& p1, const b2Vec2& p2, const float32 f ) :
+EntityVisionNode::Ray::Ray( const b2Vec2& p1, const b2Vec2& p2, const uint32_t f ) :
     P1( p1 ),
     P2( p2 ),
     Fixture( f )
@@ -43,7 +43,7 @@ EntityVisionNode::RayData::RayData() :
   * @brief
  **
 ******************************************************************************/
-EntityVisionNode::RayData::RayData(float distance, uint32_t fixture) :
+EntityVisionNode::RayData::RayData(const float distance, const uint32_t fixture) :
     Distance( distance ),
     Fixture( fixture )
 {
