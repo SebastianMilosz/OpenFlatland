@@ -54,16 +54,16 @@ void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
 {
     StartFrame();
 
-    register unsigned int rayLength  ( (unsigned int)RaysSize );
-    register unsigned int rayCntLimit( (unsigned int)RaysCnt  );
-    register float32      rotation( TO_RADIAN( getRotation() ) );
-    register uint32_t     fixture = 0U;
+    unsigned int rayLength  ( (unsigned int)RaysSize );
+    unsigned int rayCntLimit( (unsigned int)RaysCnt  );
+    float32      rotation( TO_RADIAN( getRotation() ) );
+    volatile uint32_t     fixture = 0U;
 
     int rayAngleStart( (int)RaysStartingAngle );
     int rayAngleEnd( (int)RaysEndingAngle );
 
-    register float32 currentRayAngle( TO_RADIAN( (std::min(rayAngleStart,rayAngleEnd)) ) ); //
-    register float32 rayAngleStep( TO_RADIAN((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float32)rayCntLimit) );
+    float32 currentRayAngle( TO_RADIAN( (std::min(rayAngleStart,rayAngleEnd)) ) ); //
+    float32 rayAngleStep( TO_RADIAN((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float32)rayCntLimit) );
 
     m_rayCastCallback.Reset();
 
@@ -113,7 +113,7 @@ void EntityVision::StartFrame()
 void EntityVision::AddRay(EntityVision::Ray ray)
 {
     m_visionVector.emplace_back( ray );
-    m_visionDataVector.emplace_back( (ray.P2-ray.P1).Length(), ray.Fixture );
+    m_visionDataVector.emplace_back( EntityVision::RayData( (ray.P2-ray.P1).Length(), ray.Fixture ) );
 }
 
 /*****************************************************************************/

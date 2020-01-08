@@ -15,12 +15,12 @@ using namespace codeframe;
 ******************************************************************************/
 EntityShell::EntityShell( const std::string& name, int x, int y ) :
     PhysicsBody( name, nullptr ),
-    X                ( this, "X"                , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), std::bind(&EntityShell::GetX, this) ),
-    Y                ( this, "Y"                , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), std::bind(&EntityShell::GetY, this) ),
-    Rotation         ( this, "R"                , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), std::bind(&EntityShell::GetRotation, this), std::bind(&EntityShell::SetRotation, this, std::placeholders::_1) ),
-    Name             ( this, "Name"             , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") ),
-    Density          ( this, "Density"          , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
-    Friction         ( this, "Friction"         , 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
+    X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), std::bind(&EntityShell::GetX, this) ),
+    Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), std::bind(&EntityShell::GetY, this) ),
+    Rotation( this, "R"       , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), std::bind(&EntityShell::GetRotation, this), std::bind(&EntityShell::SetRotation, this, std::placeholders::_1) ),
+    Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") ),
+    Density ( this, "Density" , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
+    Friction( this, "Friction", 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
     m_zeroVector( 0.0F, 0.0F ),
     m_triangle( sDescriptor::PIXELS_IN_METER * 0.5f, 3 ),
     m_vision( this ),
@@ -42,6 +42,7 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     GetDescriptor().FixtureDef.density  = (float)Density;
     GetDescriptor().FixtureDef.friction = (float)Friction;
     GetDescriptor().FixtureDef.shape    = GetDescriptor().Shape;
+    GetDescriptor().Color               = sf::Color::Blue;
 
     m_triangle.setOutlineThickness(1);
     m_triangle.setOrigin(12.5F, 12.5F);

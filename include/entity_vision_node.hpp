@@ -11,17 +11,17 @@ class EntityVisionNode
         struct Ray
         {
             Ray();
-            Ray( const b2Vec2& p1, const b2Vec2& p2, const float32 f );
+            Ray( const b2Vec2& p1, const b2Vec2& p2, const uint32_t f );
 
             b2Vec2 P1;
             b2Vec2 P2;
-            float32 Fixture;
+            uint32_t Fixture;
         };
 
         struct RayData
         {
             RayData();
-            RayData(float distance, uint32_t fixture);
+            RayData(const float distance, const uint32_t fixture);
 
             bool operator==(const RayData& rval) const
             {

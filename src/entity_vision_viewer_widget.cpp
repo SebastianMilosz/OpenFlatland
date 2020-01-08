@@ -71,32 +71,18 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
 
         m_displayTexture.clear();
 
-        uint32_t cl_r = 0U;
-        uint32_t cl_g = 0U;
-        uint32_t cl_b = 0U;
         float x_rec = 0.0F;
 
         for ( volatile const auto& visionData : visionVector )
         {
-            float ds = visionData.Distance/SCREEN_HEIGHT;
-            //cl_r = 255U - ((visionData.Fixture >> 0U ) & 0x000000FF) * ds * 10U;
-            //cl_g = 255U - ((visionData.Fixture >> 8U ) & 0x000000FF) * ds * 10U;
-            //cl_b = 255U - ((visionData.Fixture >> 16U) & 0x000000FF) * ds * 10U;
+            float h = SCREEN_HEIGHT - visionData.Distance/SCREEN_HEIGHT * DISTANCE_TO_SCREEN_FACTOR;
+            float y_rec = (SCREEN_HEIGHT / 2.0F) - (h / 2.0F);
 
-            cl_r = (255U - 255U * ds * 10U);
-            cl_g = (255U - 255U * ds * 10U);
-            cl_b = (255U - 255U * ds * 10U);
+            m_rectangle.setPosition(x_rec, y_rec);
+            m_rectangle.setSize( sf::Vector2f(w, h) );
+            m_rectangle.setFillColor( SetColorBrightness( sf::Color(visionData.Fixture), CalculateBrightness(visionData.Distance) ) );
+            m_displayTexture.draw(m_rectangle);
 
-            if ( cl_r < 256 || cl_g < 256 || cl_b < 256 )
-            {
-                float h = SCREEN_HEIGHT - visionData.Distance/SCREEN_HEIGHT * DISTANCE_TO_SCREEN_FACTOR;
-                float y_rec = (SCREEN_HEIGHT / 2.0F) - (h / 2.0F);
-
-                m_rectangle.setPosition(x_rec, y_rec);
-                m_rectangle.setSize( sf::Vector2f(w, h) );
-                m_rectangle.setFillColor( SetColorBrightness( sf::Color(0xFFFFFFFF), ds * 10U ) );
-                m_displayTexture.draw(m_rectangle);
-            }
             x_rec += w;
         }
 
@@ -115,5 +101,25 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
 ******************************************************************************/
 const sf::Color&& VisionViewerWidget::SetColorBrightness(const sf::Color& cl, const float bri)
 {
-    return std::move(sf::Color(255U - cl.r * bri, 255U - cl.g * bri, 255U - cl.b * bri));
+    return std::move(sf::Color(cl.r * bri, cl.g * bri, cl.b * bri));
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+const float VisionViewerWidget::CalculateBrightness(const float distance)
+{
+    const float ds = 1.0F - distance/SCREEN_HEIGHT * 10U;
+    if (ds > 1.0F)
+    {
+        return 1.0F;
+    }
+    else if (ds < 0.0F)
+    {
+        return 0.0F;
+    }
+
+    return ds;
 }

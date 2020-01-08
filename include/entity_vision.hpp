@@ -60,6 +60,7 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
                 inline void Reset()
                 {
                     m_hit = false;
+                    m_fixture = 0xFFFFFFFFU;
                 }
 
                 RayCastCallback()
@@ -74,17 +75,24 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
                     m_point  = point;
                     m_normal = normal;
 
+                    PhysicsBody* physicsBody = static_cast<PhysicsBody*>( fixture->GetBody()->GetUserData() );
+
+                    if ( (PhysicsBody*)nullptr != physicsBody )
+                    {
+                        m_fixture = physicsBody->GetColor().toInteger();
+                    }
                     return fraction;
                 }
 
                 bool     WasHit() const { return m_hit; }
                 b2Vec2   HitPoint() const { return m_point; }
-                uint32_t Fixture() const { return 0xFFFFFFFFU; }
+                uint32_t Fixture() const { return m_fixture; }
 
             private:
-                bool m_hit;
-                b2Vec2 m_point;
-                b2Vec2 m_normal;
+                bool     m_hit;
+                b2Vec2   m_point;
+                b2Vec2   m_normal;
+                uint32_t m_fixture;
         };
 
         RayCastCallback m_rayCastCallback;

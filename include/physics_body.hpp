@@ -19,7 +19,7 @@ class PhysicsBody : public codeframe::Object
             sDescriptor() :
                 Body( NULL ),
                 Shape( NULL ),
-                Color( sf::Color::Red )
+                Color( sf::Color::White )
             {
             }
 
