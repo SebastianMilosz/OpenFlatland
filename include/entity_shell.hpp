@@ -2,6 +2,7 @@
 #define ENTITYSHELL_HPP
 
 #include "physics_body.hpp"
+#include "drawable_entity_motion.hpp"
 #include "drawable_entity_vision.hpp"
 
 class EntityShell : public PhysicsBody
@@ -45,6 +46,7 @@ class EntityShell : public PhysicsBody
         b2Vec2               m_zeroVector;
         sf::CircleShape      m_triangle;
         DrawableEntityVision m_vision;
+        DrawableEntityMotion m_motion;
 
         int     m_curX;
         int     m_curY;
