@@ -24,6 +24,7 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     m_zeroVector( 0.0F, 0.0F ),
     m_triangle( sDescriptor::PIXELS_IN_METER * 0.5f, 3 ),
     m_vision( this ),
+    m_motion( this ),
     m_curX(0),
     m_curY(0),
     m_curR(0.0F)
@@ -91,7 +92,8 @@ EntityShell::EntityShell( const EntityShell& other ) :
     Name    ( other.Name ),
     Density ( other.Density ),
     Friction( other.Friction ),
-    m_vision( other.m_vision )
+    m_vision( other.m_vision ),
+    m_motion( other.m_motion )
 {
 }
 
@@ -128,6 +130,7 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
         m_triangle.setRotation( rot );
 
         window.draw( m_vision );
+        window.draw( m_motion );
         window.draw( m_triangle );
     }
 }

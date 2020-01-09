@@ -12,7 +12,7 @@ class DrawableEntityVision : public EntityVision, public sf::Drawable
 
         void setPosition(float x, float y) override;
         void setRotation(float angle) override;
-        void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
+        void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
 
     protected:
         void EndFrame() override;
