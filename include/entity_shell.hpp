@@ -25,7 +25,8 @@ class EntityShell : public PhysicsBody
 
         EntityShell& operator=(const EntityShell& other);
 
-        virtual void Draw( sf::RenderWindow& window, b2Body* body );
+        void Draw( sf::RenderWindow& window ) override;
+        void Synchronize( b2Body* body ) override;
 
         const int& GetX();
         float32 GetPhysicalX();

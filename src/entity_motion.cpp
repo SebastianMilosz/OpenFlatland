@@ -26,7 +26,7 @@ EntityMotion::~EntityMotion()
   * @brief
  **
 ******************************************************************************/
-void EntityMotion::Draw(sf::RenderWindow& window, b2Body* body)
+void EntityMotion::Synchronize( b2Body* body )
 {
 
 }

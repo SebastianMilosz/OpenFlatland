@@ -142,7 +142,7 @@ bool World::PhysisStep(sf::RenderWindow& window)
   * @brief
  **
 ******************************************************************************/
-bool World::Draw( sf::RenderWindow& window )
+void World::Draw( sf::RenderWindow& window )
 {
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
     {
@@ -150,11 +150,10 @@ bool World::Draw( sf::RenderWindow& window )
 
         if ( (PhysicsBody*)nullptr != physicsBody )
         {
-            physicsBody->Draw( window, BodyIterator );
+            physicsBody->Synchronize(BodyIterator);
+            physicsBody->Draw( window );
         }
     }
-
-    return true;
 }
 
 /*****************************************************************************/
