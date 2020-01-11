@@ -3,7 +3,6 @@
 
 #include <physics_body.hpp>
 
-
 class EntityMotion : public PhysicsBody
 {
     CODEFRAME_META_CLASS_NAME( "EntityMotion" );
@@ -13,7 +12,7 @@ class EntityMotion : public PhysicsBody
         EntityMotion(codeframe::ObjectNode* parent);
         virtual ~EntityMotion();
 
-        void Draw( sf::RenderWindow& window, b2Body* body ) override;
+        void Synchronize( b2Body* body ) override;
     protected:
 
     private:

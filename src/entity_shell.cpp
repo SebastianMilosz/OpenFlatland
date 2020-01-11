@@ -115,7 +115,19 @@ EntityShell& EntityShell::operator=( const EntityShell& rhs )
   * @brief
  **
 ******************************************************************************/
-void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
+void EntityShell::Draw( sf::RenderWindow& window )
+{
+    window.draw( m_vision );
+    window.draw( m_motion );
+    window.draw( m_triangle );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void EntityShell::Synchronize( b2Body* body )
 {
     if( (b2Body*)nullptr != body )
     {
@@ -128,10 +140,6 @@ void EntityShell::Draw( sf::RenderWindow& window, b2Body* body )
 
         m_triangle.setPosition( xpos, ypos );
         m_triangle.setRotation( rot );
-
-        window.draw( m_vision );
-        window.draw( m_motion );
-        window.draw( m_triangle );
     }
 }
 

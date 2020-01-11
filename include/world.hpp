@@ -21,7 +21,7 @@ class World : public codeframe::Object
         void AddConst( std::shared_ptr<ConstElement> constElement );
 
         bool PhysisStep(sf::RenderWindow& window);
-        bool Draw( sf::RenderWindow& window );
+        void Draw( sf::RenderWindow& window );
 
         void MouseDown( const float x, const float y );
         void MouseUp( const float x, const float y );

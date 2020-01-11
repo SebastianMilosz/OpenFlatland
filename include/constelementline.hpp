@@ -22,10 +22,14 @@ class ConstElementLine : public ConstElement
         ConstElementLine(const ConstElementLine& other);
         ConstElementLine& operator=(const ConstElementLine& other);
 
-        virtual void Draw( sf::RenderWindow& window, b2Body* body );
+        void Draw( sf::RenderWindow& window );
+        void Synchronize( b2Body* body ) override;
 
         codeframe::Property< codeframe::Point2D<int> > StartPoint;
         codeframe::Property< codeframe::Point2D<int> > EndPoint;
+
+    private:
+        sf::Vertex m_line[2];
 };
 
 #endif // CONSTELEMENTLINE_HPP_INCLUDED

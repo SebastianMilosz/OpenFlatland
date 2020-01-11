@@ -71,7 +71,17 @@ ConstElementLine& ConstElementLine::operator=(const ConstElementLine& other)
   * @brief
  **
 ******************************************************************************/
-void ConstElementLine::Draw( sf::RenderWindow& window, b2Body* body )
+void ConstElementLine::Draw( sf::RenderWindow& window )
+{
+    window.draw( m_line, 2, sf::Lines );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ConstElementLine::Synchronize( b2Body* body )
 {
     if( (b2Body*)nullptr != body )
     {
@@ -86,12 +96,9 @@ void ConstElementLine::Draw( sf::RenderWindow& window, b2Body* body )
         float w( EndPoint.GetValue().X() - sx );
         float h( EndPoint.GetValue().Y() - sy );
 
-        sf::Vertex line[2];
-        line[0].position = sf::Vector2f(xpos, ypos);
-        line[0].color  = sf::Color::Red;
-        line[1].position = sf::Vector2f(xpos+w, ypos+h);
-        line[1].color = sf::Color::Red;
-
-        window.draw( line, 2, sf::Lines );
+        m_line[0].position = sf::Vector2f(xpos, ypos);
+        m_line[0].color  = sf::Color::Red;
+        m_line[1].position = sf::Vector2f(xpos+w, ypos+h);
+        m_line[1].color = sf::Color::Red;
     }
 }
