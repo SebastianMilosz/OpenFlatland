@@ -242,7 +242,9 @@ void Application::ProcesseLogic( void )
 
     PERFORMANCE_ENTER( PERFORMANCE_RENDER_GRAPHIC );
 
-    m_World.Draw( m_Window );
+    m_World.Synchronize();
+
+    m_World.draw( m_Window, sf::RenderStates::Default );
 
     if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
     {

@@ -1,4 +1,4 @@
-#include "constelementline.hpp"
+#include "const_element_line.hpp"
 
 using namespace codeframe;
 
@@ -64,6 +64,16 @@ ConstElementLine::ConstElementLine(const ConstElementLine& other) :
 ConstElementLine& ConstElementLine::operator=(const ConstElementLine& other)
 {
     return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ConstElementLine::draw( sf::RenderTarget& target, sf::RenderStates states ) const
+{
+    target.draw( m_line, 2, sf::Lines );
 }
 
 /*****************************************************************************/

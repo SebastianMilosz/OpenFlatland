@@ -1,16 +1,17 @@
 #ifndef CONSTELEMENTLINE_HPP_INCLUDED
 #define CONSTELEMENTLINE_HPP_INCLUDED
 
-#include "constelement.hpp"
-
 #include <serializable_object.hpp>
+
+#include "const_element.hpp"
+#include "drawable_object.hpp"
 
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-class ConstElementLine : public ConstElement
+class ConstElementLine : public ConstElement, public DrawableObject
 {
         CODEFRAME_META_CLASS_NAME( "ConstElementLine" );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
@@ -22,6 +23,7 @@ class ConstElementLine : public ConstElement
         ConstElementLine(const ConstElementLine& other);
         ConstElementLine& operator=(const ConstElementLine& other);
 
+        void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
         void Draw( sf::RenderWindow& window );
         void Synchronize( b2Body* body ) override;
 

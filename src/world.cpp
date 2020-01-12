@@ -142,16 +142,37 @@ bool World::PhysisStep(sf::RenderWindow& window)
   * @brief
  **
 ******************************************************************************/
-void World::Draw( sf::RenderWindow& window )
+void World::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
-    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
+    for ( const b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
     {
         PhysicsBody* physicsBody = static_cast<PhysicsBody*>( BodyIterator->GetUserData() );
 
         if ( (PhysicsBody*)nullptr != physicsBody )
         {
+            DrawableObject* drawableBody = dynamic_cast<DrawableObject*>(physicsBody);
+            if ((DrawableObject*)nullptr != drawableBody)
+            {
+                drawableBody->draw(target, sf::RenderStates::Default);
+            }
+        }
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void World::Synchronize()
+{
+    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
+    {
+        PhysicsBody*  physicsBody  = static_cast<PhysicsBody*>( BodyIterator->GetUserData() );
+
+        if ( (PhysicsBody*)nullptr != physicsBody )
+        {
             physicsBody->Synchronize(BodyIterator);
-            physicsBody->Draw( window );
         }
     }
 }

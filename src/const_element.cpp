@@ -1,28 +1,14 @@
-#include "fontfactory.hpp"
-
-bool     FontFactory::m_initialized = false;
-sf::Font FontFactory::m_font;
+#include "const_element.hpp"
 
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-FontFactory::FontFactory( const std::string& name, ObjectNode* parent ) :
-    Object( name, parent )
+ConstElement::ConstElement( const std::string& name ) :
+    PhysicsBody( name, nullptr )
 {
-    if( m_initialized == false )
-    {
-        // Load it from a file
-        if ( m_font.loadFromFile( "arial.ttf" ) )
-        {
-            m_initialized = true;
-        }
-        else
-        {
 
-        }
-    }
 }
 
 /*****************************************************************************/
@@ -30,9 +16,9 @@ FontFactory::FontFactory( const std::string& name, ObjectNode* parent ) :
   * @brief
  **
 ******************************************************************************/
-FontFactory::~FontFactory()
+ConstElement::~ConstElement()
 {
-    //dtor
+
 }
 
 /*****************************************************************************/
@@ -40,7 +26,20 @@ FontFactory::~FontFactory()
   * @brief
  **
 ******************************************************************************/
-sf::Font& FontFactory::GetFont()
+ConstElement::ConstElement(const ConstElement& other) :
+    PhysicsBody( other )
 {
-    return m_font;
+
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+ConstElement& ConstElement::operator=(const ConstElement& rhs)
+{
+    PhysicsBody::operator = (rhs);
+
+    return *this;
 }

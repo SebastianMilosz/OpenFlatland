@@ -1,9 +1,10 @@
 #ifndef DRAWABLE_ENTITY_MOTION_HPP
 #define DRAWABLE_ENTITY_MOTION_HPP
 
-#include <entity_motion.hpp>
+#include "entity_motion.hpp"
+#include "drawable_object.hpp"
 
-class DrawableEntityMotion : public EntityMotion, public sf::Drawable
+class DrawableEntityMotion : public EntityMotion, public DrawableObject
 {
     public:
         DrawableEntityMotion(codeframe::ObjectNode* parent);
