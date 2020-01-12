@@ -63,8 +63,7 @@ class PhysicsBody : public codeframe::Object
         void       SetColor( const sf::Color& color );
         sf::Color& GetColor();
 
-        virtual void Draw( sf::RenderWindow& window ) = 0;
-        virtual void Synchronize( b2Body* body ) = 0;
+        virtual void synchronize( b2Body& body ) = 0;
 
         sDescriptor& GetDescriptor();
 

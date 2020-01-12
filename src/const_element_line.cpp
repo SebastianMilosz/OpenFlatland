@@ -81,34 +81,21 @@ void ConstElementLine::draw( sf::RenderTarget& target, sf::RenderStates states )
   * @brief
  **
 ******************************************************************************/
-void ConstElementLine::Draw( sf::RenderWindow& window )
+void ConstElementLine::synchronize( b2Body& body )
 {
-    window.draw( m_line, 2, sf::Lines );
-}
+    // @todo Support line color
+    //sf::Color& entColor = GetColor();
 
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void ConstElementLine::Synchronize( b2Body* body )
-{
-    if( (b2Body*)nullptr != body )
-    {
-        // @todo Support line color
-        //sf::Color& entColor = GetColor();
+    float xpos( sDescriptor::PIXELS_IN_METER * body.GetPosition().x );
+    float ypos( sDescriptor::PIXELS_IN_METER * body.GetPosition().y );
 
-        float xpos( sDescriptor::PIXELS_IN_METER * body->GetPosition().x );
-        float ypos( sDescriptor::PIXELS_IN_METER * body->GetPosition().y );
+    float sx( (float)StartPoint.GetValue().X() );
+    float sy( (float)StartPoint.GetValue().Y() );
+    float w( EndPoint.GetValue().X() - sx );
+    float h( EndPoint.GetValue().Y() - sy );
 
-        float sx( (float)StartPoint.GetValue().X() );
-        float sy( (float)StartPoint.GetValue().Y() );
-        float w( EndPoint.GetValue().X() - sx );
-        float h( EndPoint.GetValue().Y() - sy );
-
-        m_line[0].position = sf::Vector2f(xpos, ypos);
-        m_line[0].color  = sf::Color::Red;
-        m_line[1].position = sf::Vector2f(xpos+w, ypos+h);
-        m_line[1].color = sf::Color::Red;
-    }
+    m_line[0].position = sf::Vector2f(xpos, ypos);
+    m_line[0].color  = sf::Color::Red;
+    m_line[1].position = sf::Vector2f(xpos+w, ypos+h);
+    m_line[1].color = sf::Color::Red;
 }

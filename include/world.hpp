@@ -22,18 +22,18 @@ class World : public codeframe::Object, public DrawableObject
         void AddConst( std::shared_ptr<ConstElement> constElement );
 
         bool PhysisStep(sf::RenderWindow& window);
-        void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
-        void Synchronize();
 
-        void MouseDown( const float x, const float y );
-        void MouseUp( const float x, const float y );
-        void MouseMove( const float x, const float y );
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        void synchronize();
+
+        void MouseDown(const float x, const float y);
+        void MouseUp(const float x, const float y);
+        void MouseMove(const float x, const float y);
 
     protected:
 
     private:
-        b2Body* getBodyAtMouse( const float x, const float y );
-
+        b2Body* GetBodyAtMouse(const float x, const float y);
         void CalculateRays();
 
         b2Body*         m_GroundBody;

@@ -22,7 +22,7 @@ class ColorizeCircleShape : public Drawable, public Transformable
     using RayData = EntityVisionNode::RayData;
 
 public:
-             ColorizeCircleShape( float radius = 0, std::size_t pointCount = 30, const int startAngle = 0, const int endAngle = 360 );
+             ColorizeCircleShape(float radius = 0, std::size_t pointCount = 30, const int startAngle = 0, const int endAngle = 360);
     virtual ~ColorizeCircleShape();
 
     void setFillColor(const Color& color);
@@ -34,24 +34,26 @@ public:
     FloatRect getLocalBounds() const;
     FloatRect getGlobalBounds() const;
 
-    void setRadius( const float radius);
+    void setRadius(const float radius);
     float getRadius() const;
-    void setPointCount( const std::size_t count );
+    void setPointCount(const std::size_t count);
 
-    void setStartAngle( const int startAngle );
-    void setEndAngle( const int endAngle );
+    void setStartAngle(const int startAngle);
+    void setEndAngle(const int endAngle);
+
+    void setColorizeMode(const int mode);
 
     Color* getOutlineColors();
     std::size_t getOutlineColorsCount() const;
 
     virtual std::size_t getPointCount() const;
-    virtual Vector2f getPoint( const std::size_t index) const;
+    virtual Vector2f getPoint(const std::size_t index) const;
 
 protected:
     void update();
 
 private:
-    virtual void draw( RenderTarget& target, RenderStates states ) const;
+    virtual void draw(RenderTarget& target, RenderStates states ) const;
     void updateFillColors();
     void updateOutlineColors();
     void updateOutline();
@@ -65,6 +67,7 @@ private:
     float          m_radius;           ///< Radius of the circle
     std::size_t    m_pointCount;       ///< Number of points composing the circle
     Color*         m_colorData;        ///<
+    int            m_colorizeMode;
 
     int            m_StartAngle;
     int            m_EndAngle;

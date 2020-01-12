@@ -1,5 +1,7 @@
 #include "drawable_entity_vision.hpp"
 
+using namespace codeframe;
+
 /*****************************************************************************/
 /**
   * @brief
@@ -7,6 +9,7 @@
 ******************************************************************************/
 DrawableEntityVision:: DrawableEntityVision( codeframe::ObjectNode* parent ) :
     EntityVision( parent ),
+    ColorizeMode( this, "ColorizeMode", 0U, cPropertyInfo().Kind(KIND_ENUM).Enum("IronBow,RedYellow,BlueRed,BlackRed,BlueRedBin,BlueGreenRed,Grayscale,ShiftGray").Description("ColorizeMode"), nullptr, std::bind(&sf::ColorizeCircleShape::setColorizeMode, &m_visionShape, std::placeholders::_1) ),
     m_visionShape( PhysicsBody::sDescriptor::PIXELS_IN_METER * 0.6f, 16 ),
     m_rayLines( 2U * (unsigned int)RaysCnt )
 {
@@ -32,6 +35,7 @@ DrawableEntityVision:: DrawableEntityVision( codeframe::ObjectNode* parent ) :
 ******************************************************************************/
 DrawableEntityVision::DrawableEntityVision( const DrawableEntityVision& other ) :
     EntityVision( other ),
+    ColorizeMode( other.ColorizeMode ),
     m_rayLines( other.m_rayLines )
 {
 }

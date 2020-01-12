@@ -30,15 +30,12 @@ EntityMotion::~EntityMotion()
   * @brief
  **
 ******************************************************************************/
-void EntityMotion::Synchronize( b2Body* body )
+void EntityMotion::synchronize( b2Body& body )
 {
-    if ( (b2Body*)nullptr != body )
-    {
-        b2Vec2 vel = body->GetLinearVelocity();
+    b2Vec2 vel = body.GetLinearVelocity();
 
-        vel.x = (float)VelocityX;
-        vel.y = (float)VelocityY;
+    vel.x = (float)VelocityX;
+    vel.y = (float)VelocityY;
 
-        body->SetLinearVelocity( vel );
-    }
+    body.SetLinearVelocity( vel );
 }

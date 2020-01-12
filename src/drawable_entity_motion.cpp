@@ -30,13 +30,3 @@ void DrawableEntityMotion::draw( sf::RenderTarget& target, sf::RenderStates stat
 {
 
 }
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void DrawableEntityMotion::Draw( sf::RenderWindow& window )
-{
-
-}

@@ -11,6 +11,8 @@ class DrawableEntityVision : public EntityVision, public DrawableObject
                  DrawableEntityVision( const DrawableEntityVision& other );
         virtual ~DrawableEntityVision();
 
+        codeframe::Property<unsigned int> ColorizeMode;
+
         void setPosition(float x, float y) override;
         void setRotation(float angle) override;
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;

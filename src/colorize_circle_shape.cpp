@@ -6,7 +6,7 @@
 #include <SFML/System/Err.hpp>
 #include <cmath>
 
-#include "colorizerealnbr.hpp"
+#include "colorize_ray_data.hpp"
 
 namespace
 {
@@ -46,7 +46,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setFillColor( const Color& color )
+    void ColorizeCircleShape::setFillColor(const Color& color)
     {
         m_fillColor = color;
         updateFillColors();
@@ -67,7 +67,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setOutlineColor( const Color& color )
+    void ColorizeCircleShape::setOutlineColor(const Color& color)
     {
         for ( std::size_t i = 0; i < m_pointCount; ++i )
         {
@@ -81,15 +81,15 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setOutlineColor( const std::vector<RayData>& floatVevtor )
+    void ColorizeCircleShape::setOutlineColor(const std::vector<RayData>& floatVevtor)
     {
         if ( m_pointCount != floatVevtor.size() )
         {
             setPointCount( floatVevtor.size() );
         }
 
-        ColorizeRealNumbers cl;
-        cl.Colorize_Grayscale( floatVevtor, m_colorData, m_pointCount );
+        ColorizeRayData cl;
+        cl.Colorize( (ColorizeRayData::eColorizeMode)m_colorizeMode, floatVevtor, m_colorData, m_pointCount );
         updateOutlineColors();
     }
 
@@ -148,6 +148,7 @@ namespace sf
     m_radius          (radius),
     m_pointCount      (pointCount),
     m_colorData       (NULL),
+    m_colorizeMode    (ColorizeRayData::eColorizeMode::Grayscale),
     m_StartAngle      (startAngle),
     m_EndAngle        (endAngle)
     {
@@ -177,7 +178,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::draw( RenderTarget& target, RenderStates states ) const
+    void ColorizeCircleShape::draw(RenderTarget& target, RenderStates states) const
     {
         states.transform *= getTransform();
 
@@ -266,7 +267,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setRadius( const float radius )
+    void ColorizeCircleShape::setRadius(const float radius)
     {
         m_radius = radius;
         update();
@@ -287,7 +288,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setPointCount( const std::size_t count )
+    void ColorizeCircleShape::setPointCount(const std::size_t count)
     {
         m_pointCount = count;
         update();
@@ -298,7 +299,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setStartAngle( const int startAngle )
+    void ColorizeCircleShape::setStartAngle(const int startAngle)
     {
         m_StartAngle = startAngle;
         update();
@@ -309,9 +310,20 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    void ColorizeCircleShape::setEndAngle( const int endAngle )
+    void ColorizeCircleShape::setEndAngle(const int endAngle)
     {
         m_EndAngle = endAngle;
+        update();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void ColorizeCircleShape::setColorizeMode(const int mode)
+    {
+        m_colorizeMode = mode;
         update();
     }
 
@@ -350,7 +362,7 @@ namespace sf
       * @brief
      **
     ******************************************************************************/
-    Vector2f ColorizeCircleShape::getPoint( const std::size_t index ) const
+    Vector2f ColorizeCircleShape::getPoint(const std::size_t index) const
     {
         static const float pi = 3.141592654F;
 
