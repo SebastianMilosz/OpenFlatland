@@ -6,9 +6,10 @@
 #include <serializable_object.hpp>
 
 #include "entity.hpp"
-#include "constelement.hpp"
+#include "const_element.hpp"
+#include "drawable_object.hpp"
 
-class World : public codeframe::Object
+class World : public codeframe::Object, public DrawableObject
 {
         CODEFRAME_META_CLASS_NAME( "World" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
@@ -21,7 +22,8 @@ class World : public codeframe::Object
         void AddConst( std::shared_ptr<ConstElement> constElement );
 
         bool PhysisStep(sf::RenderWindow& window);
-        void Draw( sf::RenderWindow& window );
+        void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
+        void Synchronize();
 
         void MouseDown( const float x, const float y );
         void MouseUp( const float x, const float y );

@@ -1,14 +1,13 @@
-#include "constelement.hpp"
+#include "drawable_object.hpp"
 
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-ConstElement::ConstElement( const std::string& name ) :
-    PhysicsBody( name, nullptr )
+DrawableObject::DrawableObject()
 {
-
+    //ctor
 }
 
 /*****************************************************************************/
@@ -16,9 +15,9 @@ ConstElement::ConstElement( const std::string& name ) :
   * @brief
  **
 ******************************************************************************/
-ConstElement::~ConstElement()
+DrawableObject::~DrawableObject()
 {
-
+    //dtor
 }
 
 /*****************************************************************************/
@@ -26,20 +25,7 @@ ConstElement::~ConstElement()
   * @brief
  **
 ******************************************************************************/
-ConstElement::ConstElement(const ConstElement& other) :
-    PhysicsBody( other )
+void DrawableObject::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
 
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-ConstElement& ConstElement::operator=(const ConstElement& rhs)
-{
-    PhysicsBody::operator = (rhs);
-
-    return *this;
 }

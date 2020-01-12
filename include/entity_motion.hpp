@@ -12,6 +12,9 @@ class EntityMotion : public PhysicsBody
         EntityMotion(codeframe::ObjectNode* parent);
         virtual ~EntityMotion();
 
+        codeframe::Property<float> VelocityX;
+        codeframe::Property<float> VelocityY;
+
         void Synchronize( b2Body* body ) override;
     protected:
 

@@ -5,8 +5,8 @@
 
 #include "world.hpp"
 #include "entity_factory.hpp"
-#include "constelementsfactory.hpp"
-#include "fontfactory.hpp"
+#include "const_elements_factory.hpp"
+#include "font_factory.hpp"
 #include "gui_widgets_layer.hpp"
 #include "entity.hpp"
 

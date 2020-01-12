@@ -2,10 +2,11 @@
 #define ENTITYSHELL_HPP
 
 #include "physics_body.hpp"
+#include "drawable_object.hpp"
 #include "drawable_entity_motion.hpp"
 #include "drawable_entity_vision.hpp"
 
-class EntityShell : public PhysicsBody
+class EntityShell : public PhysicsBody, public DrawableObject
 {
         CODEFRAME_META_CLASS_NAME( "EntityShell" );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
@@ -25,6 +26,7 @@ class EntityShell : public PhysicsBody
 
         EntityShell& operator=(const EntityShell& other);
 
+        void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
         void Draw( sf::RenderWindow& window ) override;
         void Synchronize( b2Body* body ) override;
 

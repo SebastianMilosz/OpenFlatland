@@ -160,23 +160,24 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/constelement.hpp">
+		<Unit filename="include/const_element.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/constelementline.hpp">
+		<Unit filename="include/const_element_line.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/constelementsfactory.hpp">
+		<Unit filename="include/const_elements_factory.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="include/drawable_entity_motion.hpp" />
 		<Unit filename="include/drawable_entity_vision.hpp" />
+		<Unit filename="include/drawable_object.hpp" />
 		<Unit filename="include/entity.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -205,7 +206,7 @@
 		</Unit>
 		<Unit filename="include/entity_vision_node.hpp" />
 		<Unit filename="include/entity_vision_viewer_widget.hpp" />
-		<Unit filename="include/fontfactory.hpp">
+		<Unit filename="include/font_factory.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -445,23 +446,24 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/constelement.cpp">
+		<Unit filename="src/const_element.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/constelementline.cpp">
+		<Unit filename="src/const_element_line.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/constelementsfactory.cpp">
+		<Unit filename="src/const_elements_factory.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="src/drawable_entity_motion.cpp" />
 		<Unit filename="src/drawable_entity_vision.cpp" />
+		<Unit filename="src/drawable_object.cpp" />
 		<Unit filename="src/entity.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -490,7 +492,7 @@
 		</Unit>
 		<Unit filename="src/entity_vision_node.cpp" />
 		<Unit filename="src/entity_vision_viewer_widget.cpp" />
-		<Unit filename="src/fontfactory.cpp">
+		<Unit filename="src/font_factory.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />

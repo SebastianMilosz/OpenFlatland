@@ -2,8 +2,9 @@
 #define DRAWABLE_ENTITY_VISION_H
 
 #include "entity_vision.hpp"
+#include "drawable_object.hpp"
 
-class DrawableEntityVision : public EntityVision, public sf::Drawable
+class DrawableEntityVision : public EntityVision, public DrawableObject
 {
     public:
                  DrawableEntityVision( codeframe::ObjectNode* parent );

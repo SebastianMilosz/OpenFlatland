@@ -4,7 +4,7 @@
 #include <utilities/TextUtilities.h>
 #include <utilities/MathUtilities.h>
 
-#include "fontfactory.hpp"
+#include "font_factory.hpp"
 
 using namespace codeframe;
 
@@ -115,6 +115,18 @@ EntityShell& EntityShell::operator=( const EntityShell& rhs )
   * @brief
  **
 ******************************************************************************/
+void EntityShell::draw( sf::RenderTarget& target, sf::RenderStates states ) const
+{
+    target.draw( m_vision );
+    target.draw( m_motion );
+    target.draw( m_triangle );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void EntityShell::Draw( sf::RenderWindow& window )
 {
     window.draw( m_vision );
@@ -140,6 +152,8 @@ void EntityShell::Synchronize( b2Body* body )
 
         m_triangle.setPosition( xpos, ypos );
         m_triangle.setRotation( rot );
+
+        m_motion.Synchronize( body );
     }
 }
 

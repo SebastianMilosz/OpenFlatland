@@ -14,17 +14,19 @@ set(LIFESIM_AppSRC
     src/colorize_circle_shape.cpp
     src/colorizerealnbr.cpp
     src/console_widget.cpp
-    src/constelement.cpp
-    src/constelementline.cpp
-    src/constelementsfactory.cpp
+    src/const_element.cpp
+    src/const_element_line.cpp
+    src/const_elements_factory.cpp
     src/entity.cpp
     src/entity_factory.cpp
     src/entity_ghost.cpp
     src/entity_shell.cpp
+    src/drawable_entity_motion.cpp
     src/drawable_entity_vision.cpp
+    src/drawable_object.cpp
     src/entity_vision.cpp
     src/entity_vision_node.cpp
-    src/fontfactory.cpp
+    src/font_factory.cpp
     src/gui_widgets_layer.cpp
     src/information_widget.cpp
     src/performancelogger.cpp
