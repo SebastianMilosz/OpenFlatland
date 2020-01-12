@@ -12,7 +12,7 @@ set(LIFESIM_AppSRC
     src/ann_viewer_widget.cpp
     src/entity_vision_viewer_widget.hpp
     src/colorize_circle_shape.cpp
-    src/colorizerealnbr.cpp
+    src/colorize_ray_data.cpp
     src/console_widget.cpp
     src/const_element.cpp
     src/const_element_line.cpp

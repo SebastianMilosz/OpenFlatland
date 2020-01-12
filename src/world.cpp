@@ -142,15 +142,15 @@ bool World::PhysisStep(sf::RenderWindow& window)
   * @brief
  **
 ******************************************************************************/
-void World::draw( sf::RenderTarget& target, sf::RenderStates states ) const
+void World::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     for ( const b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
     {
-        PhysicsBody* physicsBody = static_cast<PhysicsBody*>( BodyIterator->GetUserData() );
+        const PhysicsBody* physicsBody = static_cast<const PhysicsBody*>( BodyIterator->GetUserData() );
 
         if ( (PhysicsBody*)nullptr != physicsBody )
         {
-            DrawableObject* drawableBody = dynamic_cast<DrawableObject*>(physicsBody);
+            const DrawableObject* drawableBody = dynamic_cast<const DrawableObject*>(physicsBody);
             if ((DrawableObject*)nullptr != drawableBody)
             {
                 drawableBody->draw(target, sf::RenderStates::Default);
@@ -164,7 +164,7 @@ void World::draw( sf::RenderTarget& target, sf::RenderStates states ) const
   * @brief
  **
 ******************************************************************************/
-void World::Synchronize()
+void World::synchronize()
 {
     for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
     {
@@ -172,7 +172,7 @@ void World::Synchronize()
 
         if ( (PhysicsBody*)nullptr != physicsBody )
         {
-            physicsBody->Synchronize(BodyIterator);
+            physicsBody->synchronize(*BodyIterator);
         }
     }
 }
@@ -182,24 +182,24 @@ void World::Synchronize()
   * @brief
  **
 ******************************************************************************/
-void World::MouseDown( const float x, const float y )
+void World::MouseDown(const float x, const float y)
 {
     if( m_entitySelMode == false )
     {
         m_entitySelMode = true;
 
-        b2Body* body = getBodyAtMouse( x/PhysicsBody::sDescriptor::PIXELS_IN_METER, y/PhysicsBody::sDescriptor::PIXELS_IN_METER );
+        b2Body* body = GetBodyAtMouse( x/PhysicsBody::sDescriptor::PIXELS_IN_METER, y/PhysicsBody::sDescriptor::PIXELS_IN_METER );
 
-        if ( body )
+        if ( (b2Body*)nullptr != body )
         {
             EntityShell* entShell = static_cast<EntityShell*>( body->GetUserData() );
 
-            if ( (EntityShell*)NULL != entShell )
+            if ( (EntityShell*)nullptr != entShell )
             {
                 if ( m_MouseJoint )
                 {
                     m_World.DestroyJoint( m_MouseJoint );
-                    m_MouseJoint = NULL;
+                    m_MouseJoint = nullptr;
                 }
 
                 b2Vec2 locationWorld = b2Vec2(x/PhysicsBody::sDescriptor::PIXELS_IN_METER, y/PhysicsBody::sDescriptor::PIXELS_IN_METER);
@@ -222,7 +222,7 @@ void World::MouseDown( const float x, const float y )
   * @brief
  **
 ******************************************************************************/
-void World::MouseUp( const float x, const float y )
+void World::MouseUp(const float x, const float y)
 {
     m_entitySelMode = false;
 
@@ -238,7 +238,7 @@ void World::MouseUp( const float x, const float y )
   * @brief
  **
 ******************************************************************************/
-void World::MouseMove( const float x, const float y )
+void World::MouseMove(const float x, const float y)
 {
     if ( m_MouseJoint )
     {
@@ -252,7 +252,7 @@ void World::MouseMove( const float x, const float y )
   * @brief
  **
 ******************************************************************************/
-b2Body* World::getBodyAtMouse( const float x, const float y )
+b2Body* World::GetBodyAtMouse(const float x, const float y)
 {
    b2Vec2 mouseV2;
    mouseV2.Set(x,y);
@@ -279,9 +279,9 @@ b2Body* World::getBodyAtMouse( const float x, const float y )
   * @brief
  **
 ******************************************************************************/
-void World::CalculateRays( void )
+void World::CalculateRays()
 {
-    for ( b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
+    for ( const b2Body* BodyIterator = m_World.GetBodyList(); BodyIterator != nullptr; BodyIterator = BodyIterator->GetNext() )
     {
         if ( BodyIterator->GetType() == b2_dynamicBody )
         {

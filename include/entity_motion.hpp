@@ -15,10 +15,7 @@ class EntityMotion : public PhysicsBody
         codeframe::Property<float> VelocityX;
         codeframe::Property<float> VelocityY;
 
-        void Synchronize( b2Body* body ) override;
-    protected:
-
-    private:
+        void synchronize( b2Body& body ) override;
 };
 
 #endif // ENTITY_MOTION_HPP

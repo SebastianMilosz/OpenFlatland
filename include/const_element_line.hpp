@@ -24,8 +24,7 @@ class ConstElementLine : public ConstElement, public DrawableObject
         ConstElementLine& operator=(const ConstElementLine& other);
 
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
-        void Draw( sf::RenderWindow& window );
-        void Synchronize( b2Body* body ) override;
+        void synchronize( b2Body& body ) override;
 
         codeframe::Property< codeframe::Point2D<int> > StartPoint;
         codeframe::Property< codeframe::Point2D<int> > EndPoint;

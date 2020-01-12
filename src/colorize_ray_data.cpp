@@ -1,22 +1,22 @@
-#include "colorizerealnbr.hpp"
+#include "colorize_ray_data.hpp"
 
 /*****************************************************************************/
 /**
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize( eColorizeMode mode, const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize( const eColorizeMode mode, const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     switch ( mode )
     {
-        case IronBow: break;
-        case RedYellow: break;
-        case BlueRed: break;
-        case BlackRed: break;
-        case BlueRedBin: break;
-        case BlueGreenRed: break;
-        case Grayscale: break;
-        case ShiftGray: break;
+        case IronBow:      Colorize_IronBow(dataIn, dataOut, dataSize); break;
+        case RedYellow:    Colorize_RedYellow(dataIn, dataOut, dataSize); break;
+        case BlueRed:      Colorize_BlueRed(dataIn, dataOut, dataSize); break;
+        case BlackRed:     Colorize_BlackRed(dataIn, dataOut, dataSize); break;
+        case BlueRedBin:   Colorize_BlueRedBin(dataIn, dataOut, dataSize); break;
+        case BlueGreenRed: Colorize_BlueGreenRed(dataIn, dataOut, dataSize); break;
+        case Grayscale:    Colorize_Grayscale(dataIn, dataOut, dataSize); break;
+        case ShiftGray:    Colorize_ShiftGray(dataIn, dataOut, dataSize, 0x22); break;
     }
 }
 
@@ -25,7 +25,7 @@ void ColorizeRealNumbers::Colorize( eColorizeMode mode, const float* dataIn, sf:
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_IronBow( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_IronBow( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -33,7 +33,7 @@ void ColorizeRealNumbers::Colorize_IronBow( const float* dataIn, sf::Color* data
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-            uint16_t data = dataIn[ n ]*1000;
+            uint16_t data = dataIn[ n ].Distance * 1000;
 
             r = data >> 6;
             if ( r > 255       ) r = 255;
@@ -57,7 +57,7 @@ void ColorizeRealNumbers::Colorize_IronBow( const float* dataIn, sf::Color* data
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_RedYellow( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_RedYellow( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r;
     uint16_t g;
@@ -65,7 +65,7 @@ void ColorizeRealNumbers::Colorize_RedYellow( const float* dataIn, sf::Color* da
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ];
+        uint16_t data = dataIn[ n ].Distance * 1000;
 
         r = data >> 6;
         if (r > 255) r = 255;
@@ -83,7 +83,7 @@ void ColorizeRealNumbers::Colorize_RedYellow( const float* dataIn, sf::Color* da
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_BlueRed( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_BlueRed( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -91,7 +91,7 @@ void ColorizeRealNumbers::Colorize_BlueRed( const float* dataIn, sf::Color* data
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ];
+        uint16_t data = dataIn[ n ].Distance * 1000;
 
         if( (data & 0x3000) == 0 )
         {
@@ -133,7 +133,7 @@ void ColorizeRealNumbers::Colorize_BlueRed( const float* dataIn, sf::Color* data
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_BlackRed( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_BlackRed( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -141,7 +141,7 @@ void ColorizeRealNumbers::Colorize_BlackRed( const float* dataIn, sf::Color* dat
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ];
+        uint16_t data = dataIn[ n ].Distance * 1000;
 
         if ((data & 0x3000) == 0)
         {
@@ -184,7 +184,7 @@ void ColorizeRealNumbers::Colorize_BlackRed( const float* dataIn, sf::Color* dat
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_BlueRedBin( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_BlueRedBin( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -192,7 +192,7 @@ void ColorizeRealNumbers::Colorize_BlueRedBin( const float* dataIn, sf::Color* d
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ];
+        uint16_t data = dataIn[ n ].Distance * 1000;
 
         r = data >> 6;
         if (r > 255) r = 255;
@@ -210,7 +210,7 @@ void ColorizeRealNumbers::Colorize_BlueRedBin( const float* dataIn, sf::Color* d
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_BlueGreenRed( const float* dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_BlueGreenRed( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -218,7 +218,7 @@ void ColorizeRealNumbers::Colorize_BlueGreenRed( const float* dataIn, sf::Color*
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ];
+        uint16_t data = dataIn[ n ].Distance * 1000;
 
         if ((data & 0x3000) == 0)
         {
@@ -259,7 +259,7 @@ void ColorizeRealNumbers::Colorize_BlueGreenRed( const float* dataIn, sf::Color*
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_Grayscale( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_Grayscale( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
 
@@ -281,13 +281,13 @@ void ColorizeRealNumbers::Colorize_Grayscale( const std::vector<RayData>& dataIn
   * @brief
  **
 ******************************************************************************/
-void ColorizeRealNumbers::Colorize_ShiftGray( const float* dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift )
+void ColorizeRayData::Colorize_ShiftGray( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift )
 {
     uint16_t r = 0;
 
     for ( unsigned int n = 0; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ];
+        uint16_t data = dataIn[ n ].Distance * 1000;
 
         r = data >> shift;
         if (r > 255) r = 255;

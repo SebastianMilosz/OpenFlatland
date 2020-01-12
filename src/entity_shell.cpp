@@ -127,34 +127,19 @@ void EntityShell::draw( sf::RenderTarget& target, sf::RenderStates states ) cons
   * @brief
  **
 ******************************************************************************/
-void EntityShell::Draw( sf::RenderWindow& window )
+void EntityShell::synchronize( b2Body& body )
 {
-    window.draw( m_vision );
-    window.draw( m_motion );
-    window.draw( m_triangle );
-}
+    float xpos( body.GetPosition().x * sDescriptor::PIXELS_IN_METER );
+    float ypos( body.GetPosition().y * sDescriptor::PIXELS_IN_METER );
+    float rot ( body.GetAngle() * 180.0F/b2_pi );
 
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void EntityShell::Synchronize( b2Body* body )
-{
-    if( (b2Body*)nullptr != body )
-    {
-        float xpos( body->GetPosition().x * sDescriptor::PIXELS_IN_METER );
-        float ypos( body->GetPosition().y * sDescriptor::PIXELS_IN_METER );
-        float rot ( body->GetAngle() * 180.0F/b2_pi );
+    m_vision.setPosition( xpos, ypos );
+    m_vision.setRotation( rot );
 
-        m_vision.setPosition( xpos, ypos );
-        m_vision.setRotation( rot );
+    m_triangle.setPosition( xpos, ypos );
+    m_triangle.setRotation( rot );
 
-        m_triangle.setPosition( xpos, ypos );
-        m_triangle.setRotation( rot );
-
-        m_motion.Synchronize( body );
-    }
+    m_motion.synchronize( body );
 }
 
 /*****************************************************************************/

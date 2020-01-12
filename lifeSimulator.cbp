@@ -150,7 +150,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/colorizerealnbr.hpp">
+		<Unit filename="include/colorize_ray_data.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -436,7 +436,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/colorizerealnbr.cpp">
+		<Unit filename="src/colorize_ray_data.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
