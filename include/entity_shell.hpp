@@ -43,6 +43,7 @@ class EntityShell : public PhysicsBody, public DrawableObject
         const b2Vec2& GetPhysicalPoint();
 
         EntityVision& Vision() { return m_vision; }
+        EntityMotion& Motion() { return m_motion; }
 
     private:
         b2Vec2               m_zeroVector;

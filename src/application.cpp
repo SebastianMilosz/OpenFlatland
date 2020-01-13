@@ -174,6 +174,16 @@ void Application::ProcesseEvents( sf::Event& event )
         }
     }
 
+    else if ( event.type == sf::Event::KeyPressed )
+    {
+        m_Widgets.GetVisionViewerWidget().OnKeyPressed(event.key.code);
+    }
+
+    else if ( event.type == sf::Event::KeyReleased )
+    {
+        m_Widgets.GetVisionViewerWidget().OnKeyPressed(sf::Keyboard::Key::Unknown);
+    }
+
     m_Widgets.HandleEvent(event);
 }
 
