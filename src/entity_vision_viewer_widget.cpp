@@ -6,7 +6,8 @@
  **
 ******************************************************************************/
 VisionViewerWidget::VisionViewerWidget() :
-    m_lockObjectChange(false)
+    m_lockObjectChange(false),
+    m_moveSelectedObject(false)
 {
     m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
@@ -19,6 +20,47 @@ VisionViewerWidget::VisionViewerWidget() :
 VisionViewerWidget::~VisionViewerWidget()
 {
 
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void VisionViewerWidget::OnKeyPressed( sf::Keyboard::Key key )
+{
+    if ( smart_ptr_isValid(m_objEntity) )
+    {
+        EntityMotion& motion = m_objEntity->Motion();
+
+        if ( m_moveSelectedObject )
+        {
+            if (key == sf::Keyboard::Left)
+            {
+                motion.VelocityR = -45.0;
+            }
+            else if (key == sf::Keyboard::Right)
+            {
+                motion.VelocityR = 45.0;
+            }
+            else if (key == sf::Keyboard::Up)
+            {
+
+            }
+            else if (key == sf::Keyboard::Down)
+            {
+
+            }
+            else
+            {
+                motion.VelocityR = 0.0;
+            }
+        }
+        else
+        {
+            motion.VelocityR = 0.0;
+        }
+    }
 }
 
 /*****************************************************************************/
@@ -54,6 +96,8 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
     {
         // Lock object change
         ImGui::Checkbox("Lock Object Change: ", &m_lockObjectChange);
+
+        ImGui::Checkbox("Move Object: ", &m_moveSelectedObject);
 
         ImGui::Separator();
 

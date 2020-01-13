@@ -14,6 +14,7 @@ class EntityMotion : public PhysicsBody
 
         codeframe::Property<float> VelocityX;
         codeframe::Property<float> VelocityY;
+        codeframe::Property<float> VelocityR;
 
         void synchronize( b2Body& body ) override;
 };
