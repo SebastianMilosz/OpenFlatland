@@ -181,7 +181,7 @@ void Application::ProcesseEvents( sf::Event& event )
 
     else if ( event.type == sf::Event::KeyReleased )
     {
-        m_Widgets.GetVisionViewerWidget().OnKeyPressed(sf::Keyboard::Key::Unknown);
+        m_Widgets.GetVisionViewerWidget().OnKeyReleased(event.key.code);
     }
 
     m_Widgets.HandleEvent(event);
