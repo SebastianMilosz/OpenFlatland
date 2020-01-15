@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 2.8.11)
 
-project (LIFESIM)
+project (OpenFlatland)
 
 # enable project folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
-set(LIFESIM_AppSRC
+set(OpenFlatland_AppSRC
     main.cpp
     src/application.cpp
     src/ann_viewer_widget.cpp
@@ -37,7 +37,7 @@ set(LIFESIM_AppSRC
     src/world.cpp
 )
 
-set(LIFESIM_ImGuiSRC
+set(OpenFlatland_ImGuiSRC
     libraries/imgui-master/imgui.cpp
     libraries/imgui-master/imgui_demo.cpp
     libraries/imgui-master/imgui_draw.cpp
@@ -73,29 +73,29 @@ add_subdirectory(libraries/codeframe-master/thirdparty/luabridge-master )
 add_subdirectory(libraries/Box2D-master/Box2D )
 add_subdirectory(libraries/SFML-master )
 
-add_executable(LIFESIM_App
-    ${LIFESIM_AppSRC}
-    ${LIFESIM_ImGuiSRC}
+add_executable(OpenFlatland_App
+    ${OpenFlatland_AppSRC}
+    ${OpenFlatland_ImGuiSRC}
 )
 
-set_target_properties(LIFESIM_App PROPERTIES
-    OUTPUT_NAME "LIFESIM"
+set_target_properties(OpenFlatland_App PROPERTIES
+    OUTPUT_NAME "OpenFlatland"
     CLEAN_DIRECT_OUTPUT 1
 )
 
-set_target_properties(LIFESIM_App PROPERTIES
+set_target_properties(OpenFlatland_App PROPERTIES
     CXX_STANDARD 11
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )
 
-target_include_directories( LIFESIM_App
+target_include_directories( OpenFlatland_App
     PUBLIC ${PROJECT_SOURCE_DIR}/include )
     
 target_include_directories( LIFESIM_App
     PUBLIC ${PROJECT_SOURCE_DIR}/libraries/codeframe-master/include )
    
-target_link_libraries( LIFESIM_App
+target_link_libraries( OpenFlatland_App
     codeframe 
     sfml-graphics 
     sfml-network 
@@ -106,7 +106,7 @@ target_link_libraries( LIFESIM_App
 )
 
 if(SFML_OS_WINDOWS OR SFML_OS_ANDROID OR SFML_OS_IOS)
-target_link_libraries( LIFESIM_App sfml-main )
+target_link_libraries( OpenFlatland_App sfml-main )
 endif()
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/arial.ttf

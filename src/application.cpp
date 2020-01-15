@@ -1,6 +1,5 @@
 #include "application.hpp"
 #include "version.hpp"
-#include "mercurialinfo.hpp"
 #include "performancelogger.hpp"
 #include "performanceapplicationdef.hpp"
 
@@ -30,9 +29,12 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     m_FontFactory( "FontFactory", this ),
     lineCreateState(0)
 {
-    std::string applicationId  = std::string( MERCURIAL_AUTHOR ) + std::string(" ") +
+    std::string applicationId  = "0.01";
+    /*
+                                 std::string( MERCURIAL_AUTHOR ) + std::string(" ") +
                                  std::string( MERCURIAL_DATE_TIME ) + std::string(" ") +
                                  utilities::math::IntToStr( MERCURIAL_REVISION );
+    */
 
     // Logger Setup
     LOGGERINS().LogPath = m_logFilePath;
@@ -41,7 +43,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     PERFORMANCE_INITIALIZE( applicationId );
 
-    m_Window.setTitle( std::string( APPLICATION_NAME ) + std::string(" Rev: ") + utilities::math::IntToStr( MERCURIAL_REVISION ) );
+    m_Window.setTitle( std::string( APPLICATION_NAME ) + std::string(" Rev: ") + applicationId );
 
     sf::View view( window.getDefaultView() );
 

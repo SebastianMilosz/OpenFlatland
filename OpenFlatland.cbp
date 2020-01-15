@@ -2,14 +2,14 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="lifeSimulator" />
+		<Option title="OpenFlatland" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../bin/lifeSimulator/Debug/lifeSimulator" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/lifeSimulator/Debug/" />
-				<Option object_output="../bin/lifeSimulator/obj/Debug/" />
+				<Option output="../bin/OpenFlatland/Debug/OpenFlatland" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/OpenFlatland/Debug/" />
+				<Option object_output="../bin/OpenFlatland/obj/Debug/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -25,9 +25,9 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../bin/lifeSimulator/Release/lifeSimulator" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/lifeSimulator/Release/" />
-				<Option object_output="../bin/lifeSimulator/obj/Release/" />
+				<Option output="../bin/OpenFlatland/Release/OpenFlatland" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/OpenFlatland/Release/" />
+				<Option object_output="../bin/OpenFlatland/obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -44,9 +44,9 @@
 				</Linker>
 			</Target>
 			<Target title="ReleaseMP">
-				<Option output="../bin/lifeSimulator/ReleaseMP/lifeSimulator" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/lifeSimulator/ReleaseMP/" />
-				<Option object_output="../bin/lifeSimulator/obj/ReleaseMP/" />
+				<Option output="../bin/OpenFlatland/ReleaseMP/OpenFlatland" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/OpenFlatland/ReleaseMP/" />
+				<Option object_output="../bin/OpenFlatland/obj/ReleaseMP/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -66,9 +66,9 @@
 				</Linker>
 			</Target>
 			<Target title="Test CodeFrame">
-				<Option output="../bin/lifeSimulator/test/test_codeframe" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/lifeSimulator/test/" />
-				<Option object_output="../bin/lifeSimulator/obj/test/" />
+				<Option output="../bin/OpenFlatland/test/test_codeframe" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/OpenFlatland/test/" />
+				<Option object_output="../bin/OpenFlatland/obj/test/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -133,7 +133,7 @@
 			<Add directory="libraries/codeframe-master/thirdparty/lua-5.3.5/build" />
 		</Linker>
 		<ExtraCommands>
-			<Add before="UpdateMercurialInfo.bat" />
+			<Add before="UpdateGitInfo.bat" />
 		</ExtraCommands>
 		<Unit filename="include/ann_viewer_widget.hpp">
 			<Option target="Debug" />
