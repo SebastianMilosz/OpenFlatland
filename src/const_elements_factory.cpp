@@ -19,16 +19,6 @@ ConstElementsFactory::ConstElementsFactory( const std::string& name, ObjectNode*
   * @brief
  **
 ******************************************************************************/
-ConstElementsFactory::~ConstElementsFactory()
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 smart_ptr<ConstElement> ConstElementsFactory::Create( smart_ptr<ConstElement> )
 {
     return smart_ptr<ConstElement>( nullptr );

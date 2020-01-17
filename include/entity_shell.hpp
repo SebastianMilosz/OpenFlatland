@@ -15,7 +15,7 @@ class EntityShell : public PhysicsBody, public DrawableObject
     public:
                  EntityShell( const std::string& name, int x, int y );
                  EntityShell( const EntityShell& other );
-        virtual ~EntityShell();
+        virtual ~EntityShell() = default;
 
         codeframe::Property<int        > X;
         codeframe::Property<int        > Y;

@@ -16,7 +16,7 @@ class EntityFactory : public codeframe::ObjectContainer
 
     public:
         EntityFactory( const std::string& name, ObjectNode* parent );
-        virtual ~EntityFactory();
+        virtual ~EntityFactory() = default;
 
         smart_ptr<Entity> Create( int x, int y, int z );
 

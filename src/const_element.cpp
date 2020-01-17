@@ -16,16 +16,6 @@ ConstElement::ConstElement( const std::string& name ) :
   * @brief
  **
 ******************************************************************************/
-ConstElement::~ConstElement()
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 ConstElement::ConstElement(const ConstElement& other) :
     PhysicsBody( other )
 {

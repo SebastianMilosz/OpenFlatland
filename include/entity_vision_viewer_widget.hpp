@@ -11,7 +11,7 @@ class VisionViewerWidget : public sigslot::has_slots<>
 {
     public:
         VisionViewerWidget();
-        virtual ~VisionViewerWidget();
+        virtual ~VisionViewerWidget() = default;
 
         void OnKeyPressed( const sf::Keyboard::Key key );
         void OnKeyReleased( const sf::Keyboard::Key key );

@@ -17,7 +17,7 @@ class ConsoleWidget : public sigslot::has_slots<>
 
     public:
         ConsoleWidget( ObjectNode& parent );
-       ~ConsoleWidget();
+       ~ConsoleWidget() = default;
 
         void Clear();
         void Draw(const char* title, bool* p_open = NULL);

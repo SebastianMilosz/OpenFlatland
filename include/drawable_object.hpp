@@ -7,7 +7,7 @@ class DrawableObject : public sf::Drawable
 {
     public:
         DrawableObject();
-        virtual ~DrawableObject();
+        virtual ~DrawableObject() = default;
 
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
     protected:

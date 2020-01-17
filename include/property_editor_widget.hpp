@@ -1,5 +1,5 @@
-#ifndef PROPERTYEDITORWIDGET_HPP_INCLUDED
-#define PROPERTYEDITORWIDGET_HPP_INCLUDED
+#ifndef PROPERTY_EDITOR_WIDGET_HPP
+#define PROPERTY_EDITOR_WIDGET_HPP
 
 #include <imgui.h>
 #include <imgui-SFML.h>
@@ -11,7 +11,7 @@ class PropertyEditorWidget : public sigslot::has_slots<>
 {
     public:
         PropertyEditorWidget();
-       ~PropertyEditorWidget();
+       ~PropertyEditorWidget() = default;
 
         void Clear();
         void SetObject( smart_ptr<codeframe::ObjectNode> obj );
@@ -26,4 +26,4 @@ class PropertyEditorWidget : public sigslot::has_slots<>
         smart_ptr<codeframe::ObjectNode> m_obj;
 };
 
-#endif // PROPERTYEDITORWIDGET_HPP_INCLUDED
+#endif // PROPERTY_EDITOR_WIDGET_HPP

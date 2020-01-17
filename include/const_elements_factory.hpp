@@ -16,7 +16,7 @@ class ConstElementsFactory : public codeframe::ObjectContainer
 
     public:
         ConstElementsFactory( const std::string& name, ObjectNode* parent );
-        virtual ~ConstElementsFactory();
+        virtual ~ConstElementsFactory() = default;
 
         smart_ptr<ConstElement> Create( smart_ptr<ConstElement> );
         smart_ptr<ConstElement> CreateLine( codeframe::Point2D<int> sPoint, codeframe::Point2D<int> ePoint );

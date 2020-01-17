@@ -19,7 +19,8 @@ class ConstElementLine : public ConstElement, public DrawableObject
 
     public:
         ConstElementLine( const std::string& name, codeframe::Point2D<int>& startPoint, codeframe::Point2D<int>& endPoint );
-        virtual ~ConstElementLine();
+        virtual ~ConstElementLine() = default;
+
         ConstElementLine(const ConstElementLine& other);
         ConstElementLine& operator=(const ConstElementLine& other);
 

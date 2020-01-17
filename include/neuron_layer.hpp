@@ -20,8 +20,8 @@ class SerializableNeuronLayer : public codeframe::Object
 
         using RayData = EntityVisionNode::RayData;
     public:
-        SerializableNeuronLayer( const std::string& name, ObjectNode* parent );
-        virtual ~SerializableNeuronLayer();
+                 SerializableNeuronLayer( const std::string& name, ObjectNode* parent );
+        virtual ~SerializableNeuronLayer() = default;
 
         void Calculate();
 

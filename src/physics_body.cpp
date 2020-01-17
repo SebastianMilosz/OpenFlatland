@@ -21,16 +21,6 @@ PhysicsBody::PhysicsBody( const std::string& name, codeframe::ObjectNode* parent
   * @brief
  **
 ******************************************************************************/
-PhysicsBody::~PhysicsBody()
-{
-    //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 PhysicsBody::PhysicsBody( const PhysicsBody& other ) :
     Object( other )
 {

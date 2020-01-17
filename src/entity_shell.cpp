@@ -57,16 +57,6 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
   * @brief
  **
 ******************************************************************************/
-EntityShell::~EntityShell()
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void EntityShell::slotSelectionChanged( smart_ptr<ObjectNode> )
 {
     if ( Selection().IsSelected() == true )

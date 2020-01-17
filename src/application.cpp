@@ -1,7 +1,7 @@
 #include "application.hpp"
 #include "version.hpp"
-#include "performancelogger.hpp"
-#include "performanceapplicationdef.hpp"
+#include "performance_logger.hpp"
+#include "performance_application_def.hpp"
 
 #include <reference_manager.hpp>
 #include <utilities/MathUtilities.h>
@@ -86,15 +86,6 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 #else
     LOGGER( LOG_INFO << "OpenMP Disabled" );
 #endif
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-Application::~Application()
-{
 }
 
 /*****************************************************************************/

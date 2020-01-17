@@ -11,7 +11,7 @@ class FontFactory : public codeframe::Object
 
     public:
         FontFactory( const std::string& name, ObjectNode* parent );
-        virtual ~FontFactory();
+        virtual ~FontFactory() = default;
 
         static sf::Font& GetFont();
 

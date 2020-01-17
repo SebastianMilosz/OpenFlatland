@@ -14,8 +14,8 @@ class SerializableNeuronLayerContainer : public codeframe::ObjectContainer
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-        SerializableNeuronLayerContainer( const std::string& name, ObjectNode* parent );
-        virtual ~SerializableNeuronLayerContainer();
+                 SerializableNeuronLayerContainer( const std::string& name, ObjectNode* parent );
+        virtual ~SerializableNeuronLayerContainer() = default;
 
         void Calculate();
 

@@ -38,16 +38,6 @@ ConstElementLine::ConstElementLine( const std::string& name, codeframe::Point2D<
   * @brief
  **
 ******************************************************************************/
-ConstElementLine::~ConstElementLine()
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 ConstElementLine::ConstElementLine(const ConstElementLine& other) :
     ConstElement( other ),
     StartPoint( this, "SPoint" , Point2D<int>(), cPropertyInfo().Kind( KIND_2DPOINT ).Description("StartPoint") ),

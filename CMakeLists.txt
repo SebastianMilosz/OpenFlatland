@@ -29,7 +29,7 @@ set(OpenFlatland_AppSRC
     src/font_factory.cpp
     src/gui_widgets_layer.cpp
     src/information_widget.cpp
-    src/performancelogger.cpp
+    src/performance_logger.cpp
     src/physics_body.cpp
     src/property_editor_widget.cpp
     src/neuron_layer.cpp

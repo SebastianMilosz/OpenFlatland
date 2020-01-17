@@ -1,6 +1,6 @@
 #include "information_widget.hpp"
-#include "performancelogger.hpp"
-#include "performanceapplicationdef.hpp"
+#include "performance_logger.hpp"
+#include "performance_application_def.hpp"
 
 #include <chrono>
 #include <ctime>
@@ -19,16 +19,6 @@ InformationWidget::InformationWidget( sf::RenderWindow& window ) :
     m_curFps( 0 ),
     m_minFps( INT_MAX ),
     m_maxFps( INT_MIN )
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-InformationWidget::~InformationWidget()
 {
 
 }

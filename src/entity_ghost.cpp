@@ -19,16 +19,6 @@ EntityGhost::EntityGhost( const std::string& name, int x, int y ) :
   * @brief
  **
 ******************************************************************************/
-EntityGhost::~EntityGhost()
-{
-    //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 EntityGhost::EntityGhost(const EntityGhost& other) :
     EntityShell( other ),
     m_NeuronLayerContainer( "ANN", this )

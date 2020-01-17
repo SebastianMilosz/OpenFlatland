@@ -19,16 +19,6 @@ SerializableNeuronLayerContainer::SerializableNeuronLayerContainer( const std::s
   * @brief
  **
 ******************************************************************************/
-SerializableNeuronLayerContainer::~SerializableNeuronLayerContainer()
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void SerializableNeuronLayerContainer::Calculate()
 {
     for ( unsigned int n = 0; n < Count(); n++ )

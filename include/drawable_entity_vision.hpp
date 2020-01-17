@@ -9,7 +9,7 @@ class DrawableEntityVision : public EntityVision, public DrawableObject
     public:
                  DrawableEntityVision( codeframe::ObjectNode* parent );
                  DrawableEntityVision( const DrawableEntityVision& other );
-        virtual ~DrawableEntityVision();
+        virtual ~DrawableEntityVision() = default;
 
         codeframe::Property<unsigned int> ColorizeMode;
 

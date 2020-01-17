@@ -16,16 +16,6 @@ DrawableEntityMotion::DrawableEntityMotion(codeframe::ObjectNode* parent) :
   * @brief
  **
 ******************************************************************************/
-DrawableEntityMotion::~DrawableEntityMotion()
-{
-    //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void DrawableEntityMotion::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
 

@@ -45,16 +45,6 @@ DrawableEntityVision::DrawableEntityVision( const DrawableEntityVision& other ) 
   * @brief
  **
 ******************************************************************************/
-DrawableEntityVision::~ DrawableEntityVision()
-{
-    //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void DrawableEntityVision::setPosition(float x, float y)
 {
     EntityVision::setPosition( x, y );

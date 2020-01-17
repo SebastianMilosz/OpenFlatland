@@ -16,7 +16,7 @@ class World : public codeframe::Object, public DrawableObject
 
     public:
                  World( const std::string& name, ObjectNode* parent );
-        virtual ~World();
+        virtual ~World() = default;
 
         void AddShell( std::shared_ptr<Entity>       entity );
         void AddConst( std::shared_ptr<ConstElement> constElement );

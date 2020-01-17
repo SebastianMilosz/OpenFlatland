@@ -11,7 +11,8 @@ class EntityGhost : public EntityShell
 
     public:
         EntityGhost( const std::string& name, int x, int y );
-        virtual ~EntityGhost();
+        virtual ~EntityGhost() = default;
+
         EntityGhost(const EntityGhost& other);
         EntityGhost& operator=(const EntityGhost& other);
 

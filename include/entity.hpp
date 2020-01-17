@@ -18,7 +18,8 @@ class Entity : public EntityGhost
 
     public:
         Entity( const std::string& name, int x, int y );
-        virtual ~Entity();
+        virtual ~Entity() = default;
+
         Entity(const Entity& other);
         Entity& operator=(const Entity& other);
 };

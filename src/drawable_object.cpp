@@ -15,16 +15,6 @@ DrawableObject::DrawableObject()
   * @brief
  **
 ******************************************************************************/
-DrawableObject::~DrawableObject()
-{
-    //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void DrawableObject::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
 

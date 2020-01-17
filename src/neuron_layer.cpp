@@ -31,16 +31,6 @@ SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, Objec
   * @brief
  **
 ******************************************************************************/
-SerializableNeuronLayer::~SerializableNeuronLayer()
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void SerializableNeuronLayer::Calculate()
 {
 

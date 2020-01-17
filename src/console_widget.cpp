@@ -21,15 +21,6 @@ ConsoleWidget::ConsoleWidget( ObjectNode& parent ) :
   * @brief
  **
 ******************************************************************************/
-ConsoleWidget::~ConsoleWidget()
-{
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void ConsoleWidget::OnLogMessage(const std::string& timestamp, const std::string& title, const std::string& msg, int type)
 {
     AddLog( "[%s] : [%s] : [%d] : %s\n", timestamp.c_str(), title.c_str(), type, msg.c_str() );

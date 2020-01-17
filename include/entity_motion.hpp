@@ -10,7 +10,7 @@ class EntityMotion : public PhysicsBody
 
     public:
         EntityMotion(codeframe::ObjectNode* parent);
-        virtual ~EntityMotion();
+        virtual ~EntityMotion() = default;
 
         codeframe::Property<float> VelocityForward;
         codeframe::Property<float> VelocityRotation;

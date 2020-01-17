@@ -17,7 +17,7 @@ class Application : public codeframe::Object
 
     public:
                  Application( std::string name, sf::RenderWindow& window );
-        virtual ~Application();
+        virtual ~Application() = default;
 
         void ProcesseEvents( sf::Event& event );
         void ProcesseLogic( void );

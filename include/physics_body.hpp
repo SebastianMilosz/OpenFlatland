@@ -55,8 +55,9 @@ class PhysicsBody : public codeframe::Object
             }
         };
 
-        PhysicsBody( const std::string& name, codeframe::ObjectNode* parent );
-        virtual ~PhysicsBody();
+                 PhysicsBody( const std::string& name, codeframe::ObjectNode* parent );
+        virtual ~PhysicsBody() = default;
+
         PhysicsBody(const PhysicsBody& other);
         PhysicsBody& operator=(const PhysicsBody& other);
 

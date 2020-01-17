@@ -21,16 +21,6 @@ VisionViewerWidget::VisionViewerWidget() :
   * @brief
  **
 ******************************************************************************/
-VisionViewerWidget::~VisionViewerWidget()
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void VisionViewerWidget::OnKeyPressed( const sf::Keyboard::Key key )
 {
     if ( m_moveSelectedObject )

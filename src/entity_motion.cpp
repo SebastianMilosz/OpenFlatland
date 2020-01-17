@@ -22,16 +22,6 @@ EntityMotion::EntityMotion(codeframe::ObjectNode* parent) :
   * @brief
  **
 ******************************************************************************/
-EntityMotion::~EntityMotion()
-{
-    //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void EntityMotion::synchronize(b2Body& body)
 {
     static const float DEGTORAD = 0.0174532925199432957F;

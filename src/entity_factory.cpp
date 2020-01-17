@@ -18,16 +18,6 @@ EntityFactory::EntityFactory( const std::string& name, ObjectNode* parent ) :
   * @brief
  **
 ******************************************************************************/
-EntityFactory::~EntityFactory()
-{
-    //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 void EntityFactory::CalculateNeuralNetworks()
 {
     for ( unsigned int n = 0; n < Count(); n++ )

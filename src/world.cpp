@@ -1,6 +1,6 @@
 #include "world.hpp"
-#include "performancelogger.hpp"
-#include "performanceapplicationdef.hpp"
+#include "performance_logger.hpp"
+#include "performance_application_def.hpp"
 
 #include <string>
 #include <sstream>
@@ -67,16 +67,6 @@ World::World( const std::string& name, ObjectNode* parent ) :
 
     PERFORMANCE_ADD( PERFORMANCE_BOX2D_ONLY_PHYSIC_SYM, "Box2d physic" );
     PERFORMANCE_ADD( PERFORMANCE_BOX2D_RAYS_CAST,       "Box2d rays" );
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-World::~World()
-{
-    //dtor
 }
 
 /*****************************************************************************/

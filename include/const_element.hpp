@@ -17,7 +17,8 @@ class ConstElement : public PhysicsBody
 
     public:
         ConstElement( const std::string& name );
-        virtual ~ConstElement();
+        virtual ~ConstElement() = default;
+
         ConstElement(const ConstElement& other);
         ConstElement& operator=(const ConstElement& rhs);
 };

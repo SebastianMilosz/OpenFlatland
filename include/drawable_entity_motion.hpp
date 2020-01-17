@@ -8,7 +8,7 @@ class DrawableEntityMotion : public EntityMotion, public DrawableObject
 {
     public:
         DrawableEntityMotion(codeframe::ObjectNode* parent);
-        virtual ~DrawableEntityMotion();
+        virtual ~DrawableEntityMotion() = default;
 
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
     protected:

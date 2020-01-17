@@ -12,8 +12,8 @@
 class InformationWidget : public sigslot::has_slots<>
 {
     public:
-        InformationWidget( sf::RenderWindow& window );
-       ~InformationWidget();
+                InformationWidget( sf::RenderWindow& window );
+       virtual ~InformationWidget() = default;
 
         int GetFps();
 

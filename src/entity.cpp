@@ -15,16 +15,6 @@ Entity::Entity( const std::string& name, int x, int y ) : EntityGhost( name, x, 
   * @brief
  **
 ******************************************************************************/
-Entity::~Entity()
-{
-    //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 Entity::Entity(const Entity& other) : EntityGhost( other )
 {
     //copy ctor
