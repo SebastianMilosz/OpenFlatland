@@ -21,8 +21,7 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Klasa zapisuje do formatu xml obiekty implementujace interfejs ISerializable
-      * @version 1.0
+      * @brief
      **
     ******************************************************************************/
     class cXmlFormatter

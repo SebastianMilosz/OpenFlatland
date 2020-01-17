@@ -18,7 +18,7 @@ struct MatchPathSeparator
 
 /*****************************************************************************/
 /**
-  * @brief Zwraca nazwe pliku
+  * @brief
  **
 ******************************************************************************/
 std::string utilities::file::GetFileName( const std::string& pathname )

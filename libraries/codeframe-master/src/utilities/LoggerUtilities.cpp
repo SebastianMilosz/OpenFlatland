@@ -193,7 +193,7 @@ void cLog::cLogEntryContainer::AddEntry( int level,
 
 /*****************************************************************************/
 /**
-  * @brief Zapisuje zawartosc loga do pliku csv (kolumny odzielone przecinkami)
+  * @brief
  **
 ******************************************************************************/
 void cLog::cLogEntryContainer::SaveAsCSV( const std::string& path )

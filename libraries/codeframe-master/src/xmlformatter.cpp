@@ -69,7 +69,7 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Wersja Load'era zaczytująca stare pliki xml mio-1
+      * @brief
      **
     ******************************************************************************/
     cXmlFormatter& cXmlFormatter::LoadFromXML_v0( cXML& xml )

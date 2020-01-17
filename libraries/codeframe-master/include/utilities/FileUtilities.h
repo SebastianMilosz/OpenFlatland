@@ -27,7 +27,7 @@ namespace utilities
 
 		/*****************************************************************************/
 		/**
-		  * @brief Zwraca rozszerzenie pliku
+		  * @brief
 		 **
 		******************************************************************************/
 		inline std::string GetFileExtension( const std::string& filePath )
@@ -63,7 +63,7 @@ namespace utilities
 
 		/*****************************************************************************/
 		/**
-		  * @brief Zwraca prawde jesli plik istnieje w przeciwntm razie falsz
+		  * @brief
 		 **
 		******************************************************************************/
 		inline bool IsFileExist( const std::string& filePath )
@@ -114,7 +114,7 @@ namespace utilities
 
 		/*****************************************************************************/
 		/**
-		  * @brief Zwraca katalog aplikacji
+		  * @brief
 		 **
 		******************************************************************************/
         inline std::string GetExecutablePath()

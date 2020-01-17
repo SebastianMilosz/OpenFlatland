@@ -226,7 +226,7 @@ void WrThread::Join()
 /**
   * @brief
   * @param msec The time interval for which execution is to be suspended, in
-  *				milliseconds
+  * milliseconds
  **
 ******************************************************************************/
 void WrThread::Sleep(unsigned long msec)
