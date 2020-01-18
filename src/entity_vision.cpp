@@ -141,9 +141,11 @@ void EntityVision::setRotation(float angle)
   * @brief
  **
 ******************************************************************************/
+#ifdef ENTITY_VISION_DEBUG
 void EntityVision::AddDirectionRay(EntityVision::Ray ray)
 {
 }
+#endif // ENTITY_VISION_DEBUG
 
 /*****************************************************************************/
 /**

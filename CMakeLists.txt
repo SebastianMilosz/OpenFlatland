@@ -10,7 +10,7 @@ set(OpenFlatland_AppSRC
     main.cpp
     src/application.cpp
     src/ann_viewer_widget.cpp
-    src/entity_vision_viewer_widget.hpp
+    src/entity_vision_viewer_widget.cpp
     src/colorize_circle_shape.cpp
     src/colorize_ray_data.cpp
     src/console_widget.cpp
@@ -21,6 +21,7 @@ set(OpenFlatland_AppSRC
     src/entity_factory.cpp
     src/entity_ghost.cpp
     src/entity_shell.cpp
+    src/entity_motion.cpp
     src/drawable_entity_motion.cpp
     src/drawable_entity_vision.cpp
     src/drawable_object.cpp
@@ -92,7 +93,7 @@ set_target_properties(OpenFlatland_App PROPERTIES
 target_include_directories( OpenFlatland_App
     PUBLIC ${PROJECT_SOURCE_DIR}/include )
     
-target_include_directories( LIFESIM_App
+target_include_directories( OpenFlatland_App
     PUBLIC ${PROJECT_SOURCE_DIR}/libraries/codeframe-master/include )
    
 target_link_libraries( OpenFlatland_App
