@@ -112,4 +112,7 @@ endif()
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/arial.ttf
         DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/examples/OpenFlatland_cfg.xml
+        DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
         
