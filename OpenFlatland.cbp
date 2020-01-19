@@ -22,11 +22,11 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library="sfml-graphics-s-d" />
-					<Add library="sfml-network-s-d" />
-					<Add library="sfml-window-s-d" />
-					<Add library="sfml-system-s-d" />
-					<Add library="sfml-main-d" />
+					<Add library="sfml-graphics-s" />
+					<Add library="sfml-network-s" />
+					<Add library="sfml-window-s" />
+					<Add library="sfml-system-s" />
+					<Add library="sfml-main" />
 					<Add library="opengl32" />
 					<Add library="freetype" />
 					<Add library="ws2_32" />
@@ -106,11 +106,11 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library="sfml-graphics-s-d" />
-					<Add library="sfml-network-s-d" />
-					<Add library="sfml-window-s-d" />
-					<Add library="sfml-system-s-d" />
-					<Add library="sfml-main-d" />
+					<Add library="sfml-graphics-s" />
+					<Add library="sfml-network-s" />
+					<Add library="sfml-window-s" />
+					<Add library="sfml-system-s" />
+					<Add library="sfml-main" />
 					<Add library="ws2_32" />
 					<Add library="freetype" />
 					<Add library="opengl32" />

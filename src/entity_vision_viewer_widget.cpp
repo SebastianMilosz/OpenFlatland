@@ -13,6 +13,7 @@ VisionViewerWidget::VisionViewerWidget() :
     m_up(false),
     m_down(false)
 {
+    m_renderStates.blendMode = sf::BlendMode(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
     m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
@@ -138,7 +139,8 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
             m_rectangle.setPosition(x_rec, y_rec);
             m_rectangle.setSize( sf::Vector2f(w, h) );
             m_rectangle.setFillColor( SetColorBrightness( sf::Color(visionData.Fixture), CalculateBrightness(visionData.Distance) ) );
-            m_displayTexture.draw(m_rectangle);
+
+            m_displayTexture.draw(m_rectangle, m_renderStates);
 
             x_rec += w;
         }

@@ -33,6 +33,7 @@ class VisionViewerWidget : public sigslot::has_slots<>
         sf::RectangleShape m_rectangle;
         sf::RenderTexture  m_displayTexture;
         smart_ptr<Entity>  m_objEntity;
+        sf::RenderStates   m_renderStates;
 
         bool m_left;
         bool m_right;
