@@ -18,11 +18,8 @@ This project is aim to create a sandbox for reinforcement learning experiments o
 ## Building
 -----
 
-// Print the CMake version.
-cmake --version  
-mkdir build
-cd build
-// Call the CMake.
-cmake ..
-// Build the project.
-make
+* cmake --version
+* mkdir build
+* cd build
+* cmake ..
+* make
