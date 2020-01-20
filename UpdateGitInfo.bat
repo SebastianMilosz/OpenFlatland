@@ -1,0 +1,1 @@
+git describe --long --always > include\\gitinfo.hpp
