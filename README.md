@@ -14,3 +14,15 @@ This project is aim to create a sandbox for reinforcement learning experiments o
 * [box2d](https://github.com/erincatto/box2d)
 * [thrust](https://github.com/thrust/thrust)
 * [lua](https://github.com/lua)
+
+## Building
+-----
+
+# Print the CMake version.
+cmake --version  
+mkdir build
+cd build
+# Call the CMake.
+cmake ..
+# Build the project.
+make
