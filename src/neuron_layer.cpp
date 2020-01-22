@@ -43,7 +43,10 @@ void SerializableNeuronLayer::Calculate()
 ******************************************************************************/
 bool SerializableNeuronLayer::InitializeNetwork()
 {
-    return true;
+    if ( m_WeightVector.size() > 0U )
+    {
+        return true;
+    }
 }
 
 /*****************************************************************************/
@@ -99,10 +102,6 @@ void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::Proper
         }
 
         LOGGER_DEBUG( LOG_INFO << LOG_LEVEL7 << prop->Path() << " change has triggered Serializable Neuron Layer Initialization wVecSize: " << wVecSize << ", ioVecSize: " << ioVecSize );
-    }
-    else
-    {
-        LOGGER( LOG_ERROR << prop->Path() << " Serializable Neuron Layer Initialization Fail!" );
     }
 }
 

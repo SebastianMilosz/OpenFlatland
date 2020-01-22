@@ -274,6 +274,42 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
 
                 break;
             }
+            case codeframe::KIND_VECTOR:
+            {
+                auto propVectorUInt = dynamic_cast<codeframe::Property< std::vector<unsigned int> >*>(prop);
+
+                if (nullptr != propVectorUInt)
+                {
+                    std::vector<unsigned int> vectorUInt = propVectorUInt->GetBaseValue();
+
+                    if (vectorUInt.size() > 0U)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+
+                    int i1 = 0;
+
+                    int value = 0;
+                    ImGui::InputInt("##value", &value, 1); ImGui::SameLine();
+                    ImGui::DragInt("drag int", &i1, 1, 0, vectorUInt.size());
+
+                    if (ImGui::BeginPopupContextWindow())
+                    {
+                        if (ImGui::MenuItem("Add item"))
+                        {
+                            auto it = vectorUInt.begin();
+                            vectorUInt.push_back(0);
+                        }
+
+                        ImGui::EndPopup();
+                    }
+                }
+                break;
+            }
             default:
             {
 
