@@ -252,11 +252,6 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/mercurialinfo.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
 		<Unit filename="include/neuron_layer.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />

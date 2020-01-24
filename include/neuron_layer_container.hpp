@@ -10,7 +10,7 @@
 
 class SerializableNeuronLayerContainer : public codeframe::ObjectContainer
 {
-        CODEFRAME_META_CLASS_NAME( "SerializableNeuronLayerContainer" );
+        CODEFRAME_META_CLASS_NAME( "NeuronLayerContainer" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:

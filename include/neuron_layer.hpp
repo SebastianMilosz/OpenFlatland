@@ -15,7 +15,7 @@
 
 class SerializableNeuronLayer : public codeframe::Object
 {
-        CODEFRAME_META_CLASS_NAME( "SerializableNeuronLayer" );
+        CODEFRAME_META_CLASS_NAME( "NeuronLayer" );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
         using RayData = EntityVisionNode::RayData;

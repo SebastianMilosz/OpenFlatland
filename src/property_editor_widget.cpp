@@ -220,7 +220,7 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                         elems.push_back( currentValue );
                     }
 
-                    if (ImGui::BeginCombo("Combo 1", elems[static_cast<unsigned int>(*prop)].c_str(), flags)) // The second parameter is the label previewed before opening the combo.
+                    if (ImGui::BeginCombo("##Combo 1", elems[static_cast<unsigned int>(*prop)].c_str(), flags)) // The second parameter is the label previewed before opening the combo.
                     {
                         for (size_t n = 0; n < elems.size(); n++)
                         {
@@ -291,22 +291,26 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
 
                     }
 
-                    int i1 = 0;
-
                     int value = 0;
-                    ImGui::InputInt("##value", &value, 1); ImGui::SameLine();
-                    ImGui::DragInt("drag int", &i1, 1, 0, vectorUInt.size());
-
-                    if (ImGui::BeginPopupContextWindow())
+                    int index = 0;
+                    float width = ImGui::GetColumnWidth() - 135.0F;
+                    ImGui::PushItemWidth(width * 0.6F);
+                    ImGui::InputInt("=vector(", &value, 1); ImGui::SameLine();
+                    ImGui::PopItemWidth();
+                    ImGui::PushItemWidth(width * 0.4F);
+                    ImGui::InputInt(")##vector_index", &index, 1); ImGui::SameLine();
+                    ImGui::PopItemWidth();
+                    if (ImGui::Button("+"))
                     {
-                        if (ImGui::MenuItem("Add item"))
-                        {
-                            auto it = vectorUInt.begin();
-                            vectorUInt.push_back(0);
-                        }
-
-                        ImGui::EndPopup();
+                        //... my_code
                     }
+                    ImGui::SameLine();
+                    if (ImGui::Button("-"))
+                    {
+                        //... my_code
+                    }
+                    ImGui::SameLine();
+
                 }
                 break;
             }
