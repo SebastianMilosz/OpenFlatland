@@ -47,6 +47,7 @@ bool SerializableNeuronLayer::InitializeNetwork()
     {
         return true;
     }
+    return false;
 }
 
 /*****************************************************************************/

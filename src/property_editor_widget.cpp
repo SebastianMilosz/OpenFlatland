@@ -1,5 +1,8 @@
 #include "property_editor_widget.hpp"
 
+#include <imgui_internal.h> // Currently imgui dosn't have disable/enable control feature
+#include <string>
+
 using namespace codeframe;
 
 /*****************************************************************************/
@@ -280,37 +283,57 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
 
                 if (nullptr != propVectorUInt)
                 {
-                    std::vector<unsigned int> vectorUInt = propVectorUInt->GetBaseValue();
+                    std::vector<unsigned int>& vectorUInt = propVectorUInt->GetBaseValue();
+
+                    int value = 0U;
+                    static int index = 0;
+                    std::string vectorSizeIndexText = std::string("/") + std::to_string(vectorUInt.size()) + std::string(")");
+                    volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
+                    float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
+                    vectorSizeIndexText +=  std::string("##vector_index");
 
                     if (vectorUInt.size() > 0U)
                     {
-
+                        if (index >= vectorUInt.size())
+                        {
+                            index = vectorUInt.size() - 1U;
+                        }
+                        value = vectorUInt[index];
+                        ImGui::PushItemWidth(width * 0.6F);
+                        ImGui::InputInt("=vector(", &value, 1); ImGui::SameLine();
+                        ImGui::PopItemWidth();
+                        ImGui::PushItemWidth(width * 0.4F);
+                        ImGui::InputInt(vectorSizeIndexText.c_str(), &index, 1); ImGui::SameLine();
+                        ImGui::PopItemWidth();
+                        if (ImGui::Button("-"))
+                        {
+                            vectorUInt.erase(vectorUInt.begin() + index);
+                        }
+                        ImGui::SameLine();
                     }
                     else
                     {
-
+                        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+                        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+                        ImGui::PushItemWidth(width * 0.6F);
+                        ImGui::InputInt("=vector(##_value", &value, 1); ImGui::SameLine();
+                        ImGui::PopItemWidth();
+                        ImGui::PushItemWidth(width * 0.4F);
+                        ImGui::InputInt(vectorSizeIndexText.c_str(), &index, 1); ImGui::SameLine();
+                        ImGui::PopItemWidth();
+                        if (ImGui::Button("-"))
+                        {
+                        }
+                        ImGui::SameLine();
+                        ImGui::PopItemFlag();
+                        ImGui::PopStyleVar();
                     }
 
-                    int value = 0;
-                    int index = 0;
-                    float width = ImGui::GetColumnWidth() - 135.0F;
-                    ImGui::PushItemWidth(width * 0.6F);
-                    ImGui::InputInt("=vector(", &value, 1); ImGui::SameLine();
-                    ImGui::PopItemWidth();
-                    ImGui::PushItemWidth(width * 0.4F);
-                    ImGui::InputInt(")##vector_index", &index, 1); ImGui::SameLine();
-                    ImGui::PopItemWidth();
                     if (ImGui::Button("+"))
                     {
-                        //... my_code
+                        vectorUInt.insert(vectorUInt.begin() + index, 0U);
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("-"))
-                    {
-                        //... my_code
-                    }
-                    ImGui::SameLine();
-
                 }
                 break;
             }
