@@ -14,14 +14,17 @@ class PropertyEditorWidget : public sigslot::has_slots<>
        ~PropertyEditorWidget() = default;
 
         void Clear();
-        void SetObject( smart_ptr<codeframe::ObjectNode> obj );
+        void SetObject(smart_ptr<codeframe::ObjectNode> obj);
         void Draw(const char* title, bool* p_open = NULL);
 
     private:
-        void ShowHelpMarker( const char* desc );
-        void ShowObject( smart_ptr<codeframe::ObjectNode> obj );
-        void ShowRawObject( codeframe::ObjectNode* obj );
-        void ShowRawProperty( codeframe::PropertyBase* prop );
+        void ShowHelpMarker(const char* desc );
+        void ShowObject(smart_ptr<codeframe::ObjectNode> obj);
+        void ShowRawObject(codeframe::ObjectNode* obj);
+        void ShowRawProperty(codeframe::PropertyBase* prop);
+
+        template<typename PROPERTY_TYPE>
+        void ShowVectorProperty(codeframe::PropertyBase* prop);
 
         smart_ptr<codeframe::ObjectNode> m_obj;
 };

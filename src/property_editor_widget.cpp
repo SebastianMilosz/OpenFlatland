@@ -1,7 +1,7 @@
 #include "property_editor_widget.hpp"
 
 #include <imgui_internal.h> // Currently imgui dosn't have disable/enable control feature
-#include <string>
+#include <MathUtilities.h>
 
 using namespace codeframe;
 
@@ -134,6 +134,73 @@ void PropertyEditorWidget::ShowRawObject( codeframe::ObjectNode* obj )
         ImGui::TreePop();
     }
     ImGui::PopID();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<typename PROPERTY_TYPE>
+void PropertyEditorWidget::ShowVectorProperty(codeframe::PropertyBase* prop)
+{
+    auto propVectorUInt = dynamic_cast<codeframe::Property< std::vector<PROPERTY_TYPE> >*>(prop);
+
+    if (nullptr != propVectorUInt)
+    {
+        std::vector<PROPERTY_TYPE>& vectorUInt = propVectorUInt->GetBaseValue();
+
+        PROPERTY_TYPE value = 0U;
+        static size_t index = 0;
+        std::string vectorSizeIndexText = std::string("/") + std::to_string(vectorUInt.size()) + std::string(")");
+        volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
+        float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
+        vectorSizeIndexText +=  std::string("##vector_index");
+
+        if (vectorUInt.size() > 0U)
+        {
+            if (index >= vectorUInt.size())
+            {
+                index = vectorUInt.size() - 1U;
+            }
+            value = vectorUInt[index];
+            ImGui::PushItemWidth(width * 0.6F);
+            ImGui::InputInt("=vector(", reinterpret_cast<int*>(&value), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            ImGui::PushItemWidth(width * 0.4F);
+            ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            vectorUInt[index] = value;
+            if (ImGui::Button("-"))
+            {
+                vectorUInt.erase(vectorUInt.begin() + index);
+            }
+            ImGui::SameLine();
+        }
+        else
+        {
+            ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+            ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+            ImGui::PushItemWidth(width * 0.6F);
+            ImGui::InputInt("=vector(##_value", reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            ImGui::PushItemWidth(width * 0.4F);
+            ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            if (ImGui::Button("-"))
+            {
+            }
+            ImGui::SameLine();
+            ImGui::PopItemFlag();
+            ImGui::PopStyleVar();
+        }
+
+        if (ImGui::Button("+"))
+        {
+            vectorUInt.insert(vectorUInt.begin() + index, 0U);
+        }
+        ImGui::SameLine();
+    }
 }
 
 /*****************************************************************************/
@@ -279,62 +346,7 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
             }
             case codeframe::KIND_VECTOR:
             {
-                auto propVectorUInt = dynamic_cast<codeframe::Property< std::vector<unsigned int> >*>(prop);
-
-                if (nullptr != propVectorUInt)
-                {
-                    std::vector<unsigned int>& vectorUInt = propVectorUInt->GetBaseValue();
-
-                    int value = 0U;
-                    static int index = 0;
-                    std::string vectorSizeIndexText = std::string("/") + std::to_string(vectorUInt.size()) + std::string(")");
-                    volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
-                    float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
-                    vectorSizeIndexText +=  std::string("##vector_index");
-
-                    if (vectorUInt.size() > 0U)
-                    {
-                        if (index >= vectorUInt.size())
-                        {
-                            index = vectorUInt.size() - 1U;
-                        }
-                        value = vectorUInt[index];
-                        ImGui::PushItemWidth(width * 0.6F);
-                        ImGui::InputInt("=vector(", &value, 1); ImGui::SameLine();
-                        ImGui::PopItemWidth();
-                        ImGui::PushItemWidth(width * 0.4F);
-                        ImGui::InputInt(vectorSizeIndexText.c_str(), &index, 1); ImGui::SameLine();
-                        ImGui::PopItemWidth();
-                        if (ImGui::Button("-"))
-                        {
-                            vectorUInt.erase(vectorUInt.begin() + index);
-                        }
-                        ImGui::SameLine();
-                    }
-                    else
-                    {
-                        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-                        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-                        ImGui::PushItemWidth(width * 0.6F);
-                        ImGui::InputInt("=vector(##_value", &value, 1); ImGui::SameLine();
-                        ImGui::PopItemWidth();
-                        ImGui::PushItemWidth(width * 0.4F);
-                        ImGui::InputInt(vectorSizeIndexText.c_str(), &index, 1); ImGui::SameLine();
-                        ImGui::PopItemWidth();
-                        if (ImGui::Button("-"))
-                        {
-                        }
-                        ImGui::SameLine();
-                        ImGui::PopItemFlag();
-                        ImGui::PopStyleVar();
-                    }
-
-                    if (ImGui::Button("+"))
-                    {
-                        vectorUInt.insert(vectorUInt.begin() + index, 0U);
-                    }
-                    ImGui::SameLine();
-                }
+                ShowVectorProperty<unsigned int>(prop);
                 break;
             }
             default:

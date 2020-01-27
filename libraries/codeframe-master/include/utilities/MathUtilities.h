@@ -13,6 +13,15 @@
 #include <limits>
 #include <cmath>
 
+namespace std {
+    template<typename T>
+    std::string to_string(const T &n) {
+        std::ostringstream s;
+        s << n;
+        return s.str();
+    }
+}
+
 namespace utilities
 {
     namespace math
