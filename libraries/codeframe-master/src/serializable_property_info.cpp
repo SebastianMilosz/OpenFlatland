@@ -10,7 +10,8 @@ namespace codeframe
 void cPropertyInfo::Init()
 {
     m_description   = "";
-    m_kind          = KIND_NON;
+    m_kind[0U]      = KIND_NON;
+    m_kind[1U]      = KIND_NON;
     m_xmlmode       = XMLMODE_RW;
     m_eventEnable   = true;
     m_min           = INT_MIN;
@@ -37,7 +38,6 @@ cPropertyInfo::cPropertyInfo() :
 ******************************************************************************/
 cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval) :
     m_description(sval.m_description),
-    m_kind(sval.m_kind),
     m_enumArray(sval.m_enumArray),
     m_eventEnable(sval.m_eventEnable),
     m_min(sval.m_min),
@@ -48,7 +48,8 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval) :
     m_refmgr(sval.m_refmgr),
     m_serializableProperty(sval.m_serializableProperty)
 {
-
+    m_kind[0U] = sval.m_kind[0U];
+    m_kind[1U] = sval.m_kind[1U];
 }
 
 /*****************************************************************************/
@@ -58,7 +59,6 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval) :
 ******************************************************************************/
 cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval, PropertyBase* serializableProperty ) :
     m_description(sval.m_description),
-    m_kind(sval.m_kind),
     m_enumArray(sval.m_enumArray),
     m_eventEnable(sval.m_eventEnable),
     m_min(sval.m_min),
@@ -69,6 +69,8 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval, PropertyBase* serializab
     m_refmgr(sval.m_refmgr),
     m_serializableProperty( serializableProperty )
 {
+    m_kind[0U] = sval.m_kind[0U];
+    m_kind[1U] = sval.m_kind[1U];
     m_refmgr.SetProperty( m_serializableProperty );
 }
 
@@ -105,9 +107,10 @@ cPropertyInfo& cPropertyInfo::Description( const std::string& desc )
   * @brief
  **
 ******************************************************************************/
-cPropertyInfo& cPropertyInfo::Kind( eKind kind )
+cPropertyInfo& cPropertyInfo::Kind( eKind kind1, eKind kind2 )
 {
-    m_kind = kind;
+    m_kind[0] = kind1;
+    m_kind[1] = kind2;
     return *this;
 }
 
@@ -196,7 +199,8 @@ cPropertyInfo& cPropertyInfo::XMLMode( eXMLMode mode )
 cPropertyInfo& cPropertyInfo::operator=(cPropertyInfo val)
 {
     m_description           = val.m_description;
-    m_kind                  = val.m_kind;
+    m_kind[0U]              = val.m_kind[0U];
+    m_kind[1U]              = val.m_kind[1U];
     m_xmlmode               = val.m_xmlmode;
     m_enumArray	            = val.m_enumArray;
     m_register              = val.m_register;

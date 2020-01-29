@@ -346,7 +346,21 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
             }
             case codeframe::KIND_VECTOR:
             {
-                ShowVectorProperty<unsigned int>(prop);
+                switch ( prop->Info().GetKind(1U) )
+                {
+                    case codeframe::KIND_NUMBER:
+                    {
+                        ShowVectorProperty<unsigned int>(prop);
+                    }
+                    case codeframe::KIND_REAL:
+                    {
+                        ShowVectorProperty<float>(prop);
+                    }
+                    default:
+                    {
+
+                    }
+                }
                 break;
             }
             default:

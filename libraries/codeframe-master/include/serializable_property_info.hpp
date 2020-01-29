@@ -51,7 +51,7 @@ namespace codeframe
             void Init();
 
             std::string             m_description;
-            eKind                   m_kind;
+            eKind                   m_kind[2U];
             std::string             m_enumArray;
             bool                    m_eventEnable;
             int                     m_min;
@@ -74,7 +74,7 @@ namespace codeframe
                                         uint16_t  bitMask = 0xFFFF
                                       );
             cPropertyInfo& Description  ( const std::string& desc );
-            cPropertyInfo& Kind         ( eKind kind );
+            cPropertyInfo& Kind         ( eKind kind1, eKind kind2=KIND_NON );
             cPropertyInfo& Enum         ( const std::string& enuma );
             cPropertyInfo& ReferencePath( const std::string& referencePath );
             cPropertyInfo& Event        ( int e );
@@ -84,16 +84,16 @@ namespace codeframe
             cPropertyInfo& XMLMode      ( eXMLMode mode );
 
             // Accessors
-            inline cRegister&         GetRegister()            { return m_register;     }
-            inline eKind              GetKind()          const { return m_kind;         }
-            inline eXMLMode           GetXmlMode()       const { return m_xmlmode;      }
-            inline const std::string& GetDescription()   const { return m_description;  }
-            inline const std::string& GetEnum()          const { return m_enumArray;    }
-            inline const std::string& GetReferencePath() const { return m_refmgr.Get(); }
-            inline bool               IsEventEnable()    const { return m_eventEnable;  }
-            inline int                GetMin()           const { return m_min;          }
-            inline int                GetMax()           const { return m_max;          }
-            inline bool               GetEnable()        const { return m_enable;       }
+            inline cRegister&         GetRegister()               { return m_register;     }
+            inline eKind              GetKind(uint8_t l=0U) const { return (l < 2U) ? m_kind[l] : KIND_NON; }
+            inline eXMLMode           GetXmlMode()          const { return m_xmlmode;      }
+            inline const std::string& GetDescription()      const { return m_description;  }
+            inline const std::string& GetEnum()             const { return m_enumArray;    }
+            inline const std::string& GetReferencePath()    const { return m_refmgr.Get(); }
+            inline bool               IsEventEnable()       const { return m_eventEnable;  }
+            inline int                GetMin()              const { return m_min;          }
+            inline int                GetMax()              const { return m_max;          }
+            inline bool               GetEnable()           const { return m_enable;       }
 
             // Operators
             cPropertyInfo& operator=(cPropertyInfo val);
