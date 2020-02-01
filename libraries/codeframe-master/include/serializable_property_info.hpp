@@ -28,6 +28,13 @@ namespace codeframe
         KIND_IMAGE,
         KIND_2DPOINT,
         KIND_VECTOR,
+        KIND_VECTOR_THRUST_HOST,
+    };
+
+    enum eDepth
+    {
+        DEPTH_EXTERNAL_KIND = 0U,
+        DEPTH_INTERNAL_KIND = 1U,
     };
 
     enum eXMLMode
@@ -40,27 +47,11 @@ namespace codeframe
 
     /*****************************************************************************
     * @class cPropertyInfo
-    * @brief Klasa zawiera wszystkie ustawienia konfiguracyjne klasy Property
-    * dostêp do nich jest potokowy czyli: cPropertyInfo(this).Config1(a).Config2(b)
+    * @brief cPropertyInfo(this).Config1(a).Config2(b)
     *****************************************************************************/
     class cPropertyInfo
     {
         friend class PropertyBase;
-
-        private:
-            void Init();
-
-            std::string             m_description;
-            eKind                   m_kind[2U];
-            std::string             m_enumArray;
-            bool                    m_eventEnable;
-            int                     m_min;
-            int                     m_max;
-            bool                    m_enable;
-            cRegister               m_register;
-            eXMLMode                m_xmlmode;
-            ReferenceManager        m_refmgr;
-            PropertyBase*           m_serializableProperty;
 
         public:
             cPropertyInfo();
@@ -68,10 +59,10 @@ namespace codeframe
             cPropertyInfo(const cPropertyInfo& sval, PropertyBase* serializableProperty );
             cPropertyInfo& Register   ( eREG_MODE mod,
                                         uint16_t  reg,
-                                        uint16_t  regSize = 1,
-                                        uint16_t  cellOffset = 0,
-                                        uint16_t  cellSize = 1,
-                                        uint16_t  bitMask = 0xFFFF
+                                        uint16_t  regSize = 1U,
+                                        uint16_t  cellOffset = 0U,
+                                        uint16_t  cellSize = 1U,
+                                        uint16_t  bitMask = 0xFFFFU
                                       );
             cPropertyInfo& Description  ( const std::string& desc );
             cPropertyInfo& Kind         ( eKind kind1, eKind kind2=KIND_NON );
@@ -84,20 +75,137 @@ namespace codeframe
             cPropertyInfo& XMLMode      ( eXMLMode mode );
 
             // Accessors
-            inline cRegister&         GetRegister()               { return m_register;     }
-            inline eKind              GetKind(uint8_t l=0U) const { return (l < 2U) ? m_kind[l] : KIND_NON; }
-            inline eXMLMode           GetXmlMode()          const { return m_xmlmode;      }
-            inline const std::string& GetDescription()      const { return m_description;  }
-            inline const std::string& GetEnum()             const { return m_enumArray;    }
-            inline const std::string& GetReferencePath()    const { return m_refmgr.Get(); }
-            inline bool               IsEventEnable()       const { return m_eventEnable;  }
-            inline int                GetMin()              const { return m_min;          }
-            inline int                GetMax()              const { return m_max;          }
-            inline bool               GetEnable()           const { return m_enable;       }
+            cRegister&         GetRegister();
+            eKind              GetKind(uint8_t depth = DEPTH_EXTERNAL_KIND) const;
+            eXMLMode           GetXmlMode() const;
+            const std::string& GetDescription() const;
+            const std::string& GetEnum() const;
+            const std::string& GetReferencePath() const;
+            bool               IsEventEnable() const;
+            int                GetMin() const;
+            int                GetMax() const;
+            bool               GetEnable() const;
 
             // Operators
             cPropertyInfo& operator=(cPropertyInfo val);
+
+        private:
+            static constexpr uint8_t KIND_DEPTH = 2U;
+
+            void Init();
+
+            std::string             m_description;
+            eKind                   m_kind[KIND_DEPTH];
+            std::string             m_enumArray;
+            bool                    m_eventEnable;
+            int                     m_min;
+            int                     m_max;
+            bool                    m_enable;
+            cRegister               m_register;
+            eXMLMode                m_xmlmode;
+            ReferenceManager        m_refmgr;
+            PropertyBase*           m_serializableProperty;
     };
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline cRegister& cPropertyInfo::GetRegister()
+    {
+        return m_register;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline eKind cPropertyInfo::GetKind(uint8_t depth) const
+    {
+        return (depth < KIND_DEPTH) ? m_kind[depth] : KIND_NON;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline eXMLMode cPropertyInfo::GetXmlMode() const
+    {
+        return m_xmlmode;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline const std::string& cPropertyInfo::GetDescription() const
+    {
+        return m_description;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline const std::string& cPropertyInfo::GetEnum() const
+    {
+        return m_enumArray;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline const std::string& cPropertyInfo::GetReferencePath() const
+    {
+        return m_refmgr.Get();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline bool cPropertyInfo::IsEventEnable() const
+    {
+        return m_eventEnable;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline int cPropertyInfo::GetMin() const
+    {
+        return m_min;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline int cPropertyInfo::GetMax() const
+    {
+        return m_max;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline bool cPropertyInfo::GetEnable() const
+    {
+        return m_enable;
+    }
 }
 
 #endif // SERIALIZABLE_PROPERTY_BASE_HPP_INCLUDED

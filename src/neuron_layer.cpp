@@ -18,9 +18,9 @@ SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, Objec
     Object( name, parent ),
     Activation      ( this, "Activation"      , 0                             , cPropertyInfo().Kind( KIND_ENUM                ).Enum("Identity,Binary step,Logistic").Description("Activation Function")),
     WeightDimensions( this, "WeightDimensions", std::vector<unsigned int>(0)  , cPropertyInfo().Kind( KIND_VECTOR, KIND_NUMBER ).Description("WeightDimensions"), std::bind(&SerializableNeuronLayer::GetWeightDimensionsVector, this) ),
-    WeightMatrix    ( this, "WeightMatrix"    , thrust::host_vector<float>(0) , cPropertyInfo().Kind( KIND_VECTOR, KIND_REAL   ).Description("WeightMatrix") ),
-    Input           ( this, "Input"           , thrust::host_vector<RayData>(), cPropertyInfo().Kind( KIND_VECTOR              ).Description("Input") ),
-    Output          ( this, "Output"          , thrust::host_vector<float>(0) , cPropertyInfo().Kind( KIND_VECTOR, KIND_REAL   ).Description("Output") )
+    WeightMatrix    ( this, "WeightMatrix"    , thrust::host_vector<float>(0) , cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("WeightMatrix") ),
+    Input           ( this, "Input"           , thrust::host_vector<RayData>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST            ).Description("Input") ),
+    Output          ( this, "Output"          , thrust::host_vector<float>(0) , cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Output") )
 {
     // Signal On property change connection
     WeightDimensions.signalChanged.connect( this, &SerializableNeuronLayer::OnWeightDimensionsVectorChanged );

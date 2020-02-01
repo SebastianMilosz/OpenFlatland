@@ -24,7 +24,10 @@ class PropertyEditorWidget : public sigslot::has_slots<>
         void ShowRawProperty(codeframe::PropertyBase* prop);
 
         template<typename PROPERTY_TYPE>
-        void ShowVectorProperty(codeframe::PropertyBase* prop);
+        bool_t ShowVectorProperty(codeframe::PropertyBase* prop);
+
+        template<typename PROPERTY_TYPE>
+        bool_t ShowVectorThrustHostProperty(codeframe::PropertyBase* prop);
 
         smart_ptr<codeframe::ObjectNode> m_obj;
 };

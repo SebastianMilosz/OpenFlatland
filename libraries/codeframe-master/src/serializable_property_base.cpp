@@ -575,10 +575,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::PulseChanged()
     {
-        if ( m_changed )
-        {
-            return;
-        }
+        //if ( m_changed )
+        //{
+        //    return;
+        //}
 
         m_changed = true;
 
