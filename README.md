@@ -9,7 +9,7 @@ This project is aim to create a sandbox for reinforcement learning experiments o
 ## Dependencies
 -----
 
-* [CodeFrame](https://github.com/SebastianMilosz/OpenFlatland/libraries/codeframe-master)
+* [CodeFrame](https://github.com/SebastianMilosz/OpenFlatland/master/libraries/codeframe-master)
 * [ImGui+docking](https://github.com/ocornut/imgui)
 * [ImGui + SFML](https://github.com/eliasdaler/imgui-sfml)
 * [box2d](https://github.com/erincatto/box2d)
