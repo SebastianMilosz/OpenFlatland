@@ -79,10 +79,10 @@ void ConstElementLine::synchronize( b2Body& body )
     float xpos( sDescriptor::PIXELS_IN_METER * body.GetPosition().x );
     float ypos( sDescriptor::PIXELS_IN_METER * body.GetPosition().y );
 
-    float sx( (float)StartPoint.GetValue().X() );
-    float sy( (float)StartPoint.GetValue().Y() );
-    float w( EndPoint.GetValue().X() - sx );
-    float h( EndPoint.GetValue().Y() - sy );
+    float sx( (float)StartPoint.GetConstValue().X() );
+    float sy( (float)StartPoint.GetConstValue().Y() );
+    float w( EndPoint.GetConstValue().X() - sx );
+    float h( EndPoint.GetConstValue().Y() - sy );
 
     m_line[0].position = sf::Vector2f(xpos, ypos);
     m_line[0].color  = sf::Color::Red;

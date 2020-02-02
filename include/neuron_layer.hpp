@@ -36,7 +36,8 @@ class SerializableNeuronLayer : public codeframe::Object
 
     private:
         void OnWeightDimensionsVectorChanged( codeframe::PropertyBase* prop );
-        const std::vector<unsigned int>& GetWeightDimensionsVector();
+        const std::vector<unsigned int>& GetWeightDimensionsConstVector();
+              std::vector<unsigned int>& GetWeightDimensionsVector();
 
         std::vector<unsigned int> m_WeightDimensions;
 

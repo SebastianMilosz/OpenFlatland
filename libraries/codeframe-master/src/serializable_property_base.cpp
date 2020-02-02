@@ -50,7 +50,6 @@ namespace codeframe
         m_isWaitForUpdate( false ),
         m_waitForUpdateCnt(0),
         m_propertyInfo( info, this ),
-        m_changed( false ),
         m_temporary( false )
         {
             RegisterProperty();
@@ -69,7 +68,6 @@ namespace codeframe
         m_name           (sval.m_name),
         m_id             (sval.m_id),
         m_propertyInfo   (sval.m_propertyInfo),
-        m_changed        (sval.m_changed),
         m_temporary      ( true )
     {
     }
@@ -555,7 +553,6 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::CommitChanges()
     {
-        m_changed = false;
     }
 
     /*****************************************************************************/
@@ -565,7 +562,7 @@ namespace codeframe
     ******************************************************************************/
     bool_t PropertyBase::IsChanged() const
     {
-        return m_changed;
+        return false;
     }
 
     /*****************************************************************************/
@@ -575,13 +572,6 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::PulseChanged()
     {
-        //if ( m_changed )
-        //{
-        //    return;
-        //}
-
-        m_changed = true;
-
         EmitChanges();
     }
 

@@ -24,12 +24,14 @@ namespace codeframe
                       const std::string& name,
                       PROPERTY_TYPE val,
                       cPropertyInfo info,
-                      std::function<const PROPERTY_TYPE&()> getValueFunc = nullptr,
-                      std::function<void(PROPERTY_TYPE)> setValueFunc = nullptr
+                      std::function<const PROPERTY_TYPE&()> getConstValueFunc = nullptr,
+                      std::function<void(PROPERTY_TYPE)> setValueFunc = nullptr,
+                      std::function<PROPERTY_TYPE&()> getValueFunc = nullptr
                      ) : PropertyBase( parentpc, name, GetTypeInfo<PROPERTY_TYPE>().GetTypeCode(), info ),
-                     m_baseValue( val ),
-                     m_GetValueFunction( getValueFunc ),
-                     m_SetValueFunction( setValueFunc )
+                     m_baseValue(val),
+                     m_GetConstValueFunction(getConstValueFunc),
+                     m_GetValueFunction(getValueFunc),
+                     m_SetValueFunction(setValueFunc)
             {
             }
 
@@ -39,7 +41,16 @@ namespace codeframe
 
             }
 
-            const PROPERTY_TYPE& GetValue() const
+            const PROPERTY_TYPE& GetConstValue() const
+            {
+                if ( m_GetConstValueFunction )
+                {
+                    return m_GetConstValueFunction();
+                }
+                return m_baseValue;
+            }
+
+            PROPERTY_TYPE& GetValue()
             {
                 if ( m_GetValueFunction )
                 {
@@ -57,12 +68,13 @@ namespace codeframe
             Property( const Property& sval ) : PropertyBase( sval )
             {
                 // Values
-                m_baseValue = sval.GetValue();
+                m_baseValue = sval.GetConstValue();
                 m_baseValuePrew = sval.m_baseValuePrew;
 
                 // Funktors
-                m_GetValueFunction = sval.m_GetValueFunction;
-                m_SetValueFunction = sval.m_SetValueFunction;
+                m_GetConstValueFunction = sval.m_GetConstValueFunction;
+                m_GetValueFunction      = sval.m_GetValueFunction;
+                m_SetValueFunction      = sval.m_SetValueFunction;
             }
 
             // Comparison operators
@@ -70,7 +82,7 @@ namespace codeframe
             {
                 m_Mutex.Lock();
                 bool_t retVal = false;
-                if ( GetValue() == sval.GetValue() )
+                if ( GetConstValue() == sval.GetConstValue() )
                 {
                     retVal = true;
                 }
@@ -84,7 +96,7 @@ namespace codeframe
             {
                 m_Mutex.Lock();
                 bool_t retVal = false;
-                if ( GetValue() != sval.GetValue() )
+                if ( GetConstValue() != sval.GetConstValue() )
                 {
                     retVal = true;
                 }
@@ -100,7 +112,7 @@ namespace codeframe
 
                 m_Mutex.Lock();
 
-                if( GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() ) == sval )
+                if( GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() ) == sval )
                 {
                     retVal = true;
                 }
@@ -121,8 +133,9 @@ namespace codeframe
                 this->PropertyBase::operator=( val );
 
                 // Funktors
-                m_GetValueFunction = val.m_GetValueFunction;
-                m_SetValueFunction = val.m_SetValueFunction;
+                m_GetConstValueFunction = val.m_GetConstValueFunction;
+                m_GetValueFunction      = val.m_GetValueFunction;
+                m_SetValueFunction      = val.m_SetValueFunction;
 
                 m_baseValue = val.m_baseValue;
                 m_baseValuePrew = val.m_baseValuePrew;
@@ -142,7 +155,7 @@ namespace codeframe
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
-                    m_baseValuePrew = GetValue();
+                    m_baseValuePrew = GetConstValue();
                     m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
@@ -167,7 +180,7 @@ namespace codeframe
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
-                    m_baseValuePrew = GetValue();
+                    m_baseValuePrew = GetConstValue();
                     m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
@@ -192,7 +205,7 @@ namespace codeframe
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
-                    m_baseValuePrew = GetValue();
+                    m_baseValuePrew = GetConstValue();
                     m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
@@ -217,7 +230,7 @@ namespace codeframe
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
-                    m_baseValuePrew = GetValue();
+                    m_baseValuePrew = GetConstValue();
                     m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
@@ -242,7 +255,7 @@ namespace codeframe
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
-                    m_baseValuePrew = GetValue();
+                    m_baseValuePrew = GetConstValue();
                     m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
                     m_Mutex.Unlock();
 
@@ -267,7 +280,7 @@ namespace codeframe
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
-                    m_baseValuePrew = GetValue();
+                    m_baseValuePrew = GetConstValue();
                     m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromReal( val );
                     m_Mutex.Unlock();
 
@@ -292,7 +305,7 @@ namespace codeframe
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
-                    m_baseValuePrew = GetValue();
+                    m_baseValuePrew = GetConstValue();
                     m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromReal( val );
                     m_Mutex.Unlock();
 
@@ -317,7 +330,7 @@ namespace codeframe
                 if ( Info().GetEnable() == true )
                 {
                     m_Mutex.Lock();
-                    m_baseValuePrew = GetValue();
+                    m_baseValuePrew = GetConstValue();
                     m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromString( val );
                     m_Mutex.Unlock();
 
@@ -372,8 +385,8 @@ namespace codeframe
             virtual Property  operator+(const Property& rhs)
             {
                 m_Mutex.Lock();
-                m_baseValuePrew = GetValue();
-                m_baseValue = GetTypeInfo<PROPERTY_TYPE>().AddOperator( GetValue(), rhs.GetValue() );
+                m_baseValuePrew = GetConstValue();
+                m_baseValue = GetTypeInfo<PROPERTY_TYPE>().AddOperator( GetConstValue(), rhs.GetConstValue() );
                 m_Mutex.Unlock();
 
                 // Values external
@@ -389,12 +402,12 @@ namespace codeframe
             virtual Property  operator-(const Property& rhs)
             {
                 m_Mutex.Lock();
-                IntegerType valA = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue()     );
-                IntegerType valB = GetTypeInfo<PROPERTY_TYPE>().ToInteger( rhs.GetValue() );
+                IntegerType valA = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue()     );
+                IntegerType valB = GetTypeInfo<PROPERTY_TYPE>().ToInteger( rhs.GetConstValue() );
 
                 PROPERTY_TYPE valueT = GetTypeInfo<PROPERTY_TYPE>().FromInteger( valA - valB );
 
-                m_baseValuePrew = GetValue();
+                m_baseValuePrew = GetConstValue();
                 m_baseValue = valueT;
 
                 m_Mutex.Unlock();
@@ -455,7 +468,7 @@ namespace codeframe
                 bool_t retVal = false;
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -471,7 +484,7 @@ namespace codeframe
                 char retVal = false;
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -488,7 +501,7 @@ namespace codeframe
                 unsigned char retVal = 0U;
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -505,7 +518,7 @@ namespace codeframe
                 int retVal(0);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -521,7 +534,7 @@ namespace codeframe
                 unsigned int retVal(0U);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -537,7 +550,7 @@ namespace codeframe
                 float retVal(0.0F);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToReal( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToReal( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -553,7 +566,7 @@ namespace codeframe
                 double retVal(0.0F);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToReal( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToReal( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -569,7 +582,7 @@ namespace codeframe
                 std::string retVal("");
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToString( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToString( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -591,7 +604,7 @@ namespace codeframe
                 std::string retVal("");
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToString( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToString( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -613,7 +626,7 @@ namespace codeframe
                 int retVal(0);
 
                 m_Mutex.Lock();
-                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetValue() );
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );
                 m_Mutex.Unlock();
 
                 return retVal;
@@ -629,13 +642,13 @@ namespace codeframe
                 PropertyBase::CommitChanges();
 
                 m_Mutex.Lock();
-                m_baseValuePrew = GetValue();
+                m_baseValuePrew = GetConstValue();
                 m_Mutex.Unlock();
             }
 
             bool_t IsChanged() const override
             {
-                if ( (PropertyBase::IsChanged()) || (m_baseValuePrew != GetValue()) )
+                if ( (PropertyBase::IsChanged()) || (m_baseValuePrew != GetConstValue()) )
                 {
                     return true;
                 }
@@ -661,7 +674,8 @@ namespace codeframe
             PROPERTY_TYPE m_baseValue;
             PROPERTY_TYPE m_baseValuePrew;
 
-            std::function<const PROPERTY_TYPE&()> m_GetValueFunction;
+            std::function<const PROPERTY_TYPE&()> m_GetConstValueFunction;
+            std::function<PROPERTY_TYPE&()>       m_GetValueFunction;
             std::function<void(PROPERTY_TYPE)>    m_SetValueFunction;
     };
 }

@@ -121,7 +121,6 @@ namespace codeframe
             bool_t          m_isWaitForUpdate;
             int             m_waitForUpdateCnt;
             cPropertyInfo   m_propertyInfo;
-            bool_t          m_changed;
             bool_t          m_temporary;
 
             void RegisterProperty();

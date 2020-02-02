@@ -149,7 +149,7 @@ bool_t PropertyEditorWidget::ShowVectorProperty(codeframe::PropertyBase* prop)
 
     if (nullptr != propVector)
     {
-        std::vector<PROPERTY_TYPE>& internalVector = propVector->GetBaseValue();
+        std::vector<PROPERTY_TYPE>& internalVector = propVector->GetValue();
 
         PROPERTY_TYPE value = 0U;
         PROPERTY_TYPE valuePrew = 0U;
@@ -227,7 +227,7 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty(codeframe::PropertyBas
 
     if (nullptr != propThrustHostVector)
     {
-        thrust::host_vector<PROPERTY_TYPE>& internalVector = propThrustHostVector->GetBaseValue();
+        thrust::host_vector<PROPERTY_TYPE>& internalVector = propThrustHostVector->GetValue();
 
         PROPERTY_TYPE value = 0U;
         PROPERTY_TYPE valuePrew = 0U;
