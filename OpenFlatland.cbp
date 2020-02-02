@@ -99,9 +99,11 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-m32" />
 					<Add option="-Og" />
 					<Add option="-g" />
+					<Add option="-DENTITY_VISION_DEBUG" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
@@ -110,10 +112,9 @@
 					<Add library="sfml-network-s" />
 					<Add library="sfml-window-s" />
 					<Add library="sfml-system-s" />
-					<Add library="sfml-main" />
-					<Add library="ws2_32" />
-					<Add library="freetype" />
 					<Add library="opengl32" />
+					<Add library="freetype" />
+					<Add library="ws2_32" />
 					<Add library="winmm" />
 				</Linker>
 			</Target>
@@ -206,9 +207,21 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/drawable_entity_motion.hpp" />
-		<Unit filename="include/drawable_entity_vision.hpp" />
-		<Unit filename="include/drawable_object.hpp" />
+		<Unit filename="include/drawable_entity_motion.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/drawable_entity_vision.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/drawable_object.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/entity.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -224,7 +237,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/entity_motion.hpp" />
+		<Unit filename="include/entity_motion.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/entity_shell.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -235,8 +252,16 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/entity_vision_node.hpp" />
-		<Unit filename="include/entity_vision_viewer_widget.hpp" />
+		<Unit filename="include/entity_vision_node.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entity_vision_viewer_widget.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/font_factory.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -282,6 +307,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/ray_data.hpp" />
 		<Unit filename="include/version.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -487,9 +513,21 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/drawable_entity_motion.cpp" />
-		<Unit filename="src/drawable_entity_vision.cpp" />
-		<Unit filename="src/drawable_object.cpp" />
+		<Unit filename="src/drawable_entity_motion.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/drawable_entity_vision.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/drawable_object.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="src/entity.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -505,7 +543,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/entity_motion.cpp" />
+		<Unit filename="src/entity_motion.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="src/entity_shell.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -516,8 +558,16 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/entity_vision_node.cpp" />
-		<Unit filename="src/entity_vision_viewer_widget.cpp" />
+		<Unit filename="src/entity_vision_node.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entity_vision_viewer_widget.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="src/font_factory.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -558,6 +608,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="src/ray_data.cpp" />
 		<Unit filename="src/world.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />

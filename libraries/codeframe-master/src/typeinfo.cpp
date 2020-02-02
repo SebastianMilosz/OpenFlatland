@@ -122,8 +122,6 @@ namespace codeframe
         AddOperatorCallback = toAddOperatorCallback;
     }
 
-    using RayData = EntityVisionNode::RayData;
-
     // Fundamental types
     REGISTER_TYPE( std::string                      , "text" );
     REGISTER_TYPE( bool                             , "int"  );

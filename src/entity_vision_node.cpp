@@ -31,30 +31,6 @@ EntityVisionNode::Ray::Ray( const b2Vec2& p1, const b2Vec2& p2, const uint32_t f
   * @brief
  **
 ******************************************************************************/
-EntityVisionNode::RayData::RayData() :
-    Distance( 0.0F ),
-    Fixture( 0U )
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-EntityVisionNode::RayData::RayData(const float distance, const uint32_t fixture) :
-    Distance( distance ),
-    Fixture( fixture )
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 EntityVisionNode::EntityVisionNode()
 {
     //ctor

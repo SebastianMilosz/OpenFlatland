@@ -30,13 +30,21 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
         codeframe::Property<int> Property3;
         codeframe::Property<int> Property4;
 
+        codeframe::Property<int> PropertyLink;
+
         public:
             classTest_Dynamic( const std::string& name, ObjectNode* parent ) :
                 Object( name, parent ),
                 Property1( this, "Property1", 100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property1_desc") ),
                 Property2( this, "Property2", 200U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property2_desc") ),
                 Property3( this, "Property3", 300U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property3_desc") ),
-                Property4( this, "Property4", 400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property4_desc") )
+                Property4( this, "Property4", 400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property4_desc") ),
+
+                PropertyLink( this, "PropertyLink", 500U,
+                                cPropertyInfo().
+                                    Kind( KIND_NUMBER ).
+                                    ReferencePath("testNameStatic/testNameContainerStatic/node[0].Property1").
+                                    Description("Property4_desc") )
             {
             }
     };
@@ -132,5 +140,16 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
         REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[2].Property1" )) == 1234 );
         REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" )) == 1234 );
         REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[4].Property1" )) == 1234 );
+    }
+
+    SECTION( "Test Property ReferencePath" )
+    {
+        classTest_Dynamic* dynObj1 = static_cast<classTest_Dynamic*>(smart_ptr_getRaw(staticContainerObject[1]));
+        classTest_Dynamic* dynObj0 = static_cast<classTest_Dynamic*>(smart_ptr_getRaw(staticContainerObject[0]));
+
+        dynObj1->PropertyLink = 3344U;
+        int refValue = (int)dynObj0->Property1;
+
+        REQUIRE( refValue == 3344U );
     }
 }

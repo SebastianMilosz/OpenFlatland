@@ -7,22 +7,20 @@
 
 class ColorizeRayData
 {
-    using RayData = EntityVisionNode::RayData;
-
     public:
-    enum eColorizeMode
-    {
-        IronBow = 0,
-        RedYellow,
-        BlueRed,
-        BlackRed,
-        BlueRedBin,
-        BlueGreenRed,
-        Grayscale,
-        ShiftGray
-    };
+        enum eColorizeMode
+        {
+            IronBow = 0,
+            RedYellow,
+            BlueRed,
+            BlackRed,
+            BlueRedBin,
+            BlueGreenRed,
+            Grayscale,
+            ShiftGray
+        };
 
-    void Colorize( const eColorizeMode mode, const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize( const eColorizeMode mode, const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
 
     public:
         void Colorize_IronBow     ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );

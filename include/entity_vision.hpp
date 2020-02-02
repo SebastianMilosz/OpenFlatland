@@ -48,7 +48,7 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
         virtual void SetRaysCnt(const unsigned int cnt);
 
         std::vector<EntityVision::Ray> m_visionVector;
-        std::vector<EntityVision::RayData> m_visionDataVector;
+        std::vector<RayData> m_visionDataVector;
 
     private:
         static constexpr float NUMBER_PI = 3.141592654F;

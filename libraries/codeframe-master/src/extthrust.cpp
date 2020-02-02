@@ -14,9 +14,9 @@ namespace codeframe
      **
     ******************************************************************************/
     template<>
-    thrust::host_vector<EntityVisionNode::RayData> PropertyThrustVector<EntityVisionNode::RayData>::VectorFromString( const std::string& value )
+    thrust::host_vector<RayData> PropertyThrustVector<RayData>::VectorFromString( const std::string& value )
     {
-        thrust::host_vector<EntityVisionNode::RayData> retVector;
+        thrust::host_vector<RayData> retVector;
 
         std::string outString = base64_decode( value );
 
@@ -28,7 +28,7 @@ namespace codeframe
 
         for ( unsigned int n = 0; n < floatSize; n++ )
         {
-            retVector.push_back( EntityVisionNode::RayData(floatTab[ n ], 0U) );
+            retVector.push_back( RayData(floatTab[ n ], 0U) );
         }
 
         return retVector;
@@ -40,7 +40,7 @@ namespace codeframe
      **
     ******************************************************************************/
     template<>
-    std::string PropertyThrustVector<EntityVisionNode::RayData>::VectorToString( const thrust::host_vector<EntityVisionNode::RayData>& vectorValue )
+    std::string PropertyThrustVector<RayData>::VectorToString( const thrust::host_vector<RayData>& vectorValue )
     {
         unsigned int vectorByteSize = vectorValue.size() * sizeof( float );
         const float* vectorValueData = &vectorValue[0].Distance;

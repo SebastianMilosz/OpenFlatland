@@ -113,7 +113,7 @@ void EntityVision::StartFrame()
 void EntityVision::AddRay(EntityVision::Ray ray)
 {
     m_visionVector.emplace_back( ray );
-    m_visionDataVector.emplace_back( EntityVision::RayData( (ray.P2-ray.P1).Length(), ray.Fixture ) );
+    m_visionDataVector.emplace_back( RayData( (ray.P2-ray.P1).Length(), ray.Fixture ) );
 }
 
 /*****************************************************************************/
@@ -170,7 +170,7 @@ void EntityVision::EndFrame()
   * @brief
  **
 ******************************************************************************/
-const std::vector<EntityVision::RayData>& EntityVision::GetVisionVector() const
+const std::vector<RayData>& EntityVision::GetVisionVector() const
 {
     return m_visionDataVector;
 }

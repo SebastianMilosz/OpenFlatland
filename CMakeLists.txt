@@ -27,6 +27,7 @@ set(OpenFlatland_AppSRC
     src/drawable_object.cpp
     src/entity_vision.cpp
     src/entity_vision_node.cpp
+    src/ray_data.cpp
     src/font_factory.cpp
     src/gui_widgets_layer.cpp
     src/information_widget.cpp

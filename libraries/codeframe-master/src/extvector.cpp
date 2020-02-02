@@ -2,7 +2,7 @@
 
 #include <MathUtilities.h>
 #include <TextUtilities.h>
-#include <entity_vision_node.hpp>
+#include <ray_data.hpp>
 
 #include "base64.hpp"
 
@@ -14,9 +14,9 @@ namespace codeframe
      **
     ******************************************************************************/
     template<>
-    std::vector<EntityVisionNode::RayData> PropertyVector<EntityVisionNode::RayData>::VectorFromString( const std::string& value )
+    std::vector<RayData> PropertyVector<RayData>::VectorFromString( const std::string& value )
     {
-        std::vector<EntityVisionNode::RayData> retVector;
+        std::vector<RayData> retVector;
 
         std::string outString = base64_decode( value );
 
@@ -28,7 +28,7 @@ namespace codeframe
 
         for ( unsigned int n = 0; n < floatSize; n++ )
         {
-            retVector.push_back( EntityVisionNode::RayData(floatTab[ n ], 0U) );
+            retVector.push_back( RayData(floatTab[ n ], 0U) );
         }
 
         return retVector;
@@ -40,7 +40,7 @@ namespace codeframe
      **
     ******************************************************************************/
     template<>
-    std::string PropertyVector<EntityVisionNode::RayData>::VectorToString( const std::vector<EntityVisionNode::RayData>& vectorValue )
+    std::string PropertyVector<RayData>::VectorToString( const std::vector<RayData>& vectorValue )
     {
         unsigned int vectorByteSize = vectorValue.size() * sizeof( float );
         const float* vectorValueData = &vectorValue[0].Distance;
