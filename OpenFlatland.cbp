@@ -130,8 +130,8 @@
 			<Add option="-D__GNUWIN32__" />
 			<Add option="-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP" />
 			<Add option="-DSERIALIZABLE_USE_LUA" />
-			<Add directory="libraries/imgui-sfml-master" />
-			<Add directory="libraries/imgui-docking" />
+			<Add directory="libraries/imgui" />
+			<Add directory="libraries/imgui-sfml" />
 			<Add directory="libraries/SFML-master/include" />
 			<Add directory="libraries/Box2D-master/Box2D" />
 			<Add directory="libraries/TinyThread++-1.0/source" />
@@ -418,52 +418,52 @@
 		<Unit filename="libraries/codeframe-master/thirdparty/pugixml-1.7/src/pugixml.hpp" />
 		<Unit filename="libraries/codeframe-master/thirdparty/smartpointer/smartpointer.h" />
 		<Unit filename="libraries/codeframe-master/thirdparty/smartpointer/yasper.h" />
-		<Unit filename="libraries/imgui-docking/imconfig.h">
+		<Unit filename="libraries/imgui-sfml/imconfig-SFML.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-docking/imgui.cpp">
+		<Unit filename="libraries/imgui-sfml/imgui-SFML.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-docking/imgui.h">
+		<Unit filename="libraries/imgui-sfml/imgui-SFML.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-docking/imgui_demo.cpp">
+		<Unit filename="libraries/imgui/imconfig.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-docking/imgui_draw.cpp">
+		<Unit filename="libraries/imgui/imgui.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-docking/imgui_internal.h">
+		<Unit filename="libraries/imgui/imgui.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-docking/imgui_widgets.cpp">
+		<Unit filename="libraries/imgui/imgui_demo.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-sfml-master/imconfig-SFML.h">
+		<Unit filename="libraries/imgui/imgui_draw.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.cpp">
+		<Unit filename="libraries/imgui/imgui_internal.h">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="libraries/imgui-sfml-master/imgui-SFML.h">
+		<Unit filename="libraries/imgui/imgui_widgets.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />

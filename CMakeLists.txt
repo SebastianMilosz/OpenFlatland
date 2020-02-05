@@ -40,11 +40,11 @@ set(OpenFlatland_AppSRC
 )
 
 set(OpenFlatland_ImGuiSRC
-    libraries/imgui-master/imgui.cpp
-    libraries/imgui-master/imgui_demo.cpp
-    libraries/imgui-master/imgui_draw.cpp
-    libraries/imgui-master/imgui_widgets.cpp
-    libraries/imgui-sfml-master/imgui-SFML.cpp
+    libraries/imgui/imgui.cpp
+    libraries/imgui/imgui_demo.cpp
+    libraries/imgui/imgui_draw.cpp
+    libraries/imgui/imgui_widgets.cpp
+    libraries/imgui-sfml/imgui-SFML.cpp
 )
 
 add_definitions(-DSFML_STATIC)
@@ -56,8 +56,8 @@ include_directories( include )
 include_directories( libraries/CTPL-master )
 include_directories( libraries/TinyThread++-1.0/source )
 include_directories( libraries/SFML-master/include )
-include_directories( libraries/imgui-sfml-master )
-include_directories( libraries/imgui-master )
+include_directories( libraries/imgui-sfml )
+include_directories( libraries/imgui )
 include_directories( libraries/Box2D-master/Box2D )
 include_directories( libraries/thrust-1.8.1 )
 
