@@ -1,7 +1,3 @@
 [submodule "libraries/imgui-sfml-master"]
 	path = libraries/imgui-sfml-master
 	url = https://github.com/SebastianMilosz/imgui-sfml.git
-[submodule "libraries/imgui-docking"]
-	path = libraries/imgui-docking
-	url = https://github.com/ocornut/imgui.git
-	branch = docking
