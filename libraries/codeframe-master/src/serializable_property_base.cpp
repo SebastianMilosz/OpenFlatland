@@ -105,6 +105,13 @@ namespace codeframe
 
         m_parentpc->PropertyList().RegisterProperty( this );
 
+        ObjectNode* rootNode = m_parentpc->Path().GetRootObject()->GetNode();
+
+        if (rootNode)
+        {
+            ReferenceManager::ResolveReferences( *rootNode );
+        }
+
         s_globalParConCnt++;
 
         m_Mutex.Unlock();

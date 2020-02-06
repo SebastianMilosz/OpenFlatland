@@ -70,7 +70,6 @@ ObjectNode& cStorage::LoadFromFile( const std::string& filePath, const std::stri
         {
             LOGGER( LOG_INFO  << "LoadFromFile v1.0" );
             formatter.LoadFromXML( xml.PointToNode( container ) );
-            ReferenceManager::ResolveReferences( m_sint );
             m_sint.PulseChanged( true );
         }
     }
@@ -130,8 +129,6 @@ ObjectNode& cStorage::LoadFromXML( cXML xml, const std::string& container )
         cXmlFormatter formatter( m_sint );
 
         formatter.LoadFromXML( xml.PointToNode( container ) );
-
-        ReferenceManager::ResolveReferences( m_sint );
     }
     catch ( std::exception& exc )
     {
