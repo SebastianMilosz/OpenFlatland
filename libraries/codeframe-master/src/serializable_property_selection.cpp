@@ -349,7 +349,7 @@ namespace codeframe
     ******************************************************************************/
     bool_t PropertySelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
-        return false;
+        return m_selection->ConnectReference(refNode);
     }
 
     /*****************************************************************************/
