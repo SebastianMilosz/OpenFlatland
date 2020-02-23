@@ -20,6 +20,17 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    PropertySelection::PropertySelection( const PropertySelection& prop ) :
+        m_selection(prop.m_selection)
+    {
+
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     PropertySelection::~PropertySelection()
     {
 
@@ -30,8 +41,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode& PropertySelection::operator=( const PropertyNode& val )
+    PropertySelection& PropertySelection::operator=( const PropertySelection& val )
     {
+        m_selection = val.m_selection;
         return *this;
     }
 

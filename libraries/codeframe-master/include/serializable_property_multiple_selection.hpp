@@ -15,6 +15,7 @@ namespace codeframe
     {
         public:
             PropertyMultipleSelection();
+            PropertyMultipleSelection( const PropertyMultipleSelection& prop );
            ~PropertyMultipleSelection();
 
             void Add( smart_ptr<PropertyNode> prop );
@@ -53,6 +54,8 @@ namespace codeframe
             PropertyNode& operator--() override;
 
             PropertyNode& operator =(const PropertyNode& rhs);
+            PropertyMultipleSelection& operator =(const PropertyMultipleSelection& rhs);
+
             PropertyNode& operator+=(const PropertyNode& rhs) override;
             PropertyNode& operator-=(const PropertyNode& rhs) override;
             PropertyNode& operator+ (const PropertyNode& rhs) override;

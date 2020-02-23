@@ -17,6 +17,16 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    PropertyMultipleSelection::PropertyMultipleSelection( const PropertyMultipleSelection& prop )
+    {
+        m_selectionVector = prop.m_selectionVector;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     PropertyMultipleSelection::~PropertyMultipleSelection()
     {
 
@@ -47,6 +57,17 @@ namespace codeframe
         {
             m_selectionVector = multiSel->m_selectionVector;
         }
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyMultipleSelection& PropertyMultipleSelection::operator=(const PropertyMultipleSelection& rhs)
+    {
+        m_selectionVector = rhs.m_selectionVector;
         return *this;
     }
 

@@ -41,8 +41,8 @@ namespace codeframe
      **
     ******************************************************************************/
     PropertyBase::PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
-        m_reference(NULL),
-        m_referenceParent(NULL),
+        m_reference(nullptr),
+        m_referenceParent(nullptr),
         m_type(type),
         m_parentpc( parentpc ),
         m_name(name),

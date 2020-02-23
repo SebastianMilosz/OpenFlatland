@@ -128,7 +128,7 @@ namespace codeframe
             }
 
             // Copy operator
-            Property& operator=( const Property& val )
+            virtual Property& operator=( const Property& val )
             {
                 this->PropertyBase::operator=( val );
 

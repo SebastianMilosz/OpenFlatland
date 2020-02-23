@@ -15,6 +15,7 @@ namespace codeframe
     {
         public:
             PropertySelection( PropertyNode* prop );
+            PropertySelection( const PropertySelection& prop );
            ~PropertySelection();
 
             std::string   Name() const override;
@@ -53,11 +54,12 @@ namespace codeframe
 
             bool_t        operator==(const PropertyNode& sval) const;
             bool_t        operator!=(const PropertyNode& sval) const;
-            PropertyNode& operator =(const PropertyNode& rhs);
             PropertyNode& operator+=(const PropertyNode& rhs) override;
             PropertyNode& operator-=(const PropertyNode& rhs) override;
             PropertyNode& operator+ (const PropertyNode& rhs) override;
             PropertyNode& operator- (const PropertyNode& rhs) override;
+
+            PropertySelection& operator =(const PropertySelection& rhs);
 
             operator bool() const override;
             operator char() const override;
