@@ -79,9 +79,9 @@ namespace codeframe
             uint32_t    Id() const override;
             eType       Type() const override;
             std::string Path(bool_t addName = true) const override;
-            ObjectNode* Parent() const override;
+            smart_ptr<ObjectNode> Parent() const override;
             std::string ParentName() const override;
-            PropertyNode* Reference() const override { return m_reference; }
+            smart_ptr<PropertyNode> Reference() const override { return m_reference; }
             bool_t      ConnectReference( smart_ptr<PropertyNode> refNode ) override;
             std::string TypeString() const override;
 
@@ -110,18 +110,18 @@ namespace codeframe
             void Unlock() const override;
 
         protected:
-            static int      s_globalParConCnt;
-            PropertyNode*   m_reference;             ///< Wskaznik na sprzezone z tym polem pole
-            ObjectNode*     m_referenceParent;
-            eType           m_type;
-            ObjectNode*     m_parentpc;
-            std::string     m_name;
-            uint32_t        m_id;
-            mutable WrMutex m_Mutex;
-            bool_t          m_isWaitForUpdate;
-            int             m_waitForUpdateCnt;
-            cPropertyInfo   m_propertyInfo;
-            bool_t          m_temporary;
+            static int              s_globalParConCnt;
+            smart_ptr<PropertyNode> m_reference;             ///< Wskaznik na sprzezone z tym polem pole
+            smart_ptr<ObjectNode>   m_referenceParent;
+            eType                   m_type;
+            smart_ptr<ObjectNode>   m_parentpc;
+            std::string             m_name;
+            uint32_t                m_id;
+            mutable WrMutex         m_Mutex;
+            bool_t                  m_isWaitForUpdate;
+            int                     m_waitForUpdateCnt;
+            cPropertyInfo           m_propertyInfo;
+            bool_t                  m_temporary;
 
             void RegisterProperty();
             void UnRegisterProperty();

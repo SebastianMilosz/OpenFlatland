@@ -128,7 +128,7 @@ void ReferenceManager::LogUnresolvedReferences()
 
         if ( (PropertyBase*)nullptr != refData.Property )
         {
-            ObjectNode* propertyParent( refData.Property->Parent() );
+            smart_ptr<ObjectNode> propertyParent( refData.Property->Parent() );
             std::string propertyParentPath( "NULL" );
 
             if ( nullptr != propertyParent )
@@ -154,7 +154,7 @@ void ReferenceManager::LogUnresolvedReferences()
 ******************************************************************************/
 std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase* prop )
 {
-    ObjectNode* propertyParent = prop->Parent();
+    smart_ptr<ObjectNode> propertyParent = prop->Parent();
 
     std::string retString( path );
 

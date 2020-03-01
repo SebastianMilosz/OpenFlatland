@@ -39,6 +39,8 @@ namespace codeframe
             virtual eBuildRole  Role()            const = 0;    ///< Class role meta data
             virtual eBuildType  BuildType()       const = 0;    ///< Class build type meta data
 
+            virtual ~ObjectNode();
+
             virtual cPath&          Path() = 0;
             virtual cStorage&       Storage() = 0;
             virtual cSelectable&    Selection() = 0;
@@ -52,8 +54,7 @@ namespace codeframe
             virtual void Enable( bool val ) = 0;
 
         protected:
-                     ObjectNode();
-            virtual ~ObjectNode();
+            ObjectNode();
     };
 
 }

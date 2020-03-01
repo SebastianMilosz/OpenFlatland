@@ -463,7 +463,7 @@ namespace codeframe
     {
         std::string propPath;
 
-        if ( (ObjectNode*)nullptr != m_parentpc )
+        if ( smart_ptr_isValid(m_parentpc) )
         {
             propPath = m_parentpc->Path().PathString();
             if ( addName )
@@ -484,7 +484,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    ObjectNode* PropertyBase::Parent() const
+    smart_ptr<ObjectNode> PropertyBase::Parent() const
     {
         return m_parentpc;
     }
@@ -496,7 +496,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::ParentName() const
     {
-        if ( (ObjectNode*)nullptr != m_parentpc )
+        if ( smart_ptr_isValid(m_parentpc) )
         {
             return m_parentpc->Identity().ObjectName();
         }
@@ -545,7 +545,7 @@ namespace codeframe
         {
             m_Mutex.Lock();
             m_referenceParent = refNode->Parent();
-            m_reference       = smart_ptr_getRaw( refNode );
+            m_reference       = refNode;
             m_Mutex.Unlock();
             return true;
         }
@@ -765,7 +765,7 @@ namespace codeframe
     ******************************************************************************/
     bool_t PropertyBase::IsReference() const
     {
-        if ( cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(m_referenceParent) ) )
+        if ( cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(smart_ptr_getRaw(m_referenceParent)) ) )
         {
             return true;
         }

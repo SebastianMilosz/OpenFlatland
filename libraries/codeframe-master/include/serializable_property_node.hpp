@@ -55,10 +55,10 @@ namespace codeframe
             virtual bool_t        NameIs( const std::string& name ) const = 0;
             virtual eType         Type() const = 0;
             virtual std::string   Path( bool_t addName = true ) const = 0;
-            virtual PropertyNode* Reference() const = 0;
+            virtual smart_ptr<PropertyNode> Reference() const = 0;
             virtual uint32_t      Id() const = 0;
 
-            virtual ObjectNode* Parent() const = 0;
+            virtual smart_ptr<ObjectNode> Parent() const = 0;
             virtual std::string ParentName() const = 0;
 
             virtual bool_t      ConnectReference( smart_ptr<PropertyNode> refNode ) = 0;

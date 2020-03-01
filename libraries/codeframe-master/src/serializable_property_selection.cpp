@@ -319,7 +319,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode* PropertySelection::Reference() const
+    smart_ptr<PropertyNode> PropertySelection::Reference() const
     {
         return m_selection->Reference();
     }
@@ -339,7 +339,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    ObjectNode* PropertySelection::Parent() const
+    smart_ptr<ObjectNode> PropertySelection::Parent() const
     {
         return m_selection->Parent();
     }
