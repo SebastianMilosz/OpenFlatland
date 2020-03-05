@@ -58,7 +58,7 @@ namespace codeframe
             virtual smart_ptr<PropertyNode> Reference() const = 0;
             virtual uint32_t      Id() const = 0;
 
-            virtual smart_ptr<ObjectNode> Parent() const = 0;
+            virtual ObjectNode* Parent() const = 0;
             virtual std::string ParentName() const = 0;
 
             virtual bool_t      ConnectReference( smart_ptr<PropertyNode> refNode ) = 0;

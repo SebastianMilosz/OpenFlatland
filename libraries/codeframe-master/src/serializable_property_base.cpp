@@ -42,7 +42,6 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase::PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
         m_reference(nullptr),
-        m_referenceParent(nullptr),
         m_type(type),
         m_parentpc( parentpc ),
         m_name(name),
@@ -62,7 +61,6 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase::PropertyBase( const PropertyBase& sval ) :
         m_reference      (sval.m_reference),
-        m_referenceParent(sval.m_referenceParent),
         m_type           (sval.m_type),
         m_parentpc       (sval.m_parentpc),
         m_name           (sval.m_name),
@@ -92,29 +90,23 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::RegisterProperty()
     {
-        if ( m_parentpc == nullptr )
+        if (m_parentpc == nullptr)
         {
             return;
         }
 
         m_Mutex.Lock();
-
         int size = m_parentpc->PropertyList().GetObjectFieldCnt();
-
         m_id = GetHashId( Name(), 255 * s_globalParConCnt + size );
-
         m_parentpc->PropertyList().RegisterProperty( this );
-
         ObjectNode* rootNode = m_parentpc->Path().GetRootObject()->GetNode();
+        s_globalParConCnt++;
+        m_Mutex.Unlock();
 
         if (rootNode)
         {
             ReferenceManager::ResolveReferences( *rootNode );
         }
-
-        s_globalParConCnt++;
-
-        m_Mutex.Unlock();
     }
 
     /*****************************************************************************/
@@ -124,7 +116,7 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::UnRegisterProperty()
     {
-        if( m_parentpc == nullptr )
+        if (m_parentpc == nullptr)
         {
             return;
         }
@@ -484,7 +476,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<ObjectNode> PropertyBase::Parent() const
+    ObjectNode* PropertyBase::Parent() const
     {
         return m_parentpc;
     }
@@ -544,8 +536,7 @@ namespace codeframe
         if ( smart_ptr_isValid( refNode ) && (this->Type() == refNode->Type()) )
         {
             m_Mutex.Lock();
-            m_referenceParent = refNode->Parent();
-            m_reference       = refNode;
+            m_reference = refNode;
             m_Mutex.Unlock();
             return true;
         }
@@ -765,9 +756,12 @@ namespace codeframe
     ******************************************************************************/
     bool_t PropertyBase::IsReference() const
     {
-        if ( cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(smart_ptr_getRaw(m_referenceParent)) ) )
+        if (m_reference)
         {
-            return true;
+            if (cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(m_reference->Parent())))
+            {
+                return true;
+            }
         }
         return false;
     }

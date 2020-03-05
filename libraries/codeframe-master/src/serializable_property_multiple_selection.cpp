@@ -615,7 +615,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<ObjectNode> PropertyMultipleSelection::Parent() const
+    ObjectNode* PropertyMultipleSelection::Parent() const
     {
         return nullptr;
     }

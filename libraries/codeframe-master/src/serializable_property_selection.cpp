@@ -339,7 +339,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<ObjectNode> PropertySelection::Parent() const
+    ObjectNode* PropertySelection::Parent() const
     {
         return m_selection->Parent();
     }
