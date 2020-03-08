@@ -41,7 +41,15 @@ ReferenceManager::~ReferenceManager()
 void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop )
 {
     m_referencePath = refPath;
-    m_property = prop;
+
+    if (prop)
+    {
+        m_property = smart_ptr<PropertyNode>( new PropertySelection(prop) );
+    }
+    else
+    {
+        m_property = smart_ptr<PropertyNode>(nullptr);
+    }
 
     if ( m_referencePath != "" )
     {
@@ -52,6 +60,8 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
             m_referencePathMap.insert( std::pair<std::string, sReferenceData>(referenceAbsolutePath, refData) );
+
+            LOGGER( LOG_INFO << "New reference to: " << referenceAbsolutePath << " from property: " << m_property->Name() );
         }
     }
 }
@@ -65,7 +75,8 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
 {
     if ( (m_referencePath != "") && (nullptr != prop) && (nullptr == m_property) )
     {
-        m_property = prop;
+        m_property = smart_ptr<PropertyNode>( new PropertySelection(prop) );
+
         std::string referenceAbsolutePath( PreparePath( m_referencePath, m_property ) );
         sReferenceData refData;
         refData.Property = m_property;
@@ -98,7 +109,7 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
         std::string referenceAbsolutePath( PreparePath( refData.RefPath, refData.Property ) );
 
-        if ((PropertyBase*)nullptr != refData.Property)
+        if (smart_ptr_isValid(refData.Property))
         {
             smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( referenceAbsolutePath );
 
@@ -126,7 +137,7 @@ void ReferenceManager::LogUnresolvedReferences()
     {
         sReferenceData refData( it->second );
 
-        if ((PropertyBase*)nullptr != refData.Property)
+        if (smart_ptr_isValid(refData.Property))
         {
             smart_ptr<ObjectNode> propertyParent(refData.Property->Parent());
             std::string propertyParentPath( "NULL" );
@@ -152,33 +163,36 @@ void ReferenceManager::LogUnresolvedReferences()
   * @brief
  **
 ******************************************************************************/
-std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase* prop )
+std::string ReferenceManager::PreparePath( const std::string& path, smart_ptr<PropertyNode> prop )
 {
-    ObjectNode* propertyParent = prop->Parent();
-
     std::string retString( path );
 
-    if (propertyParent)
+    if (prop)
     {
-        bool isDownHierarchy = (strncmp(retString.c_str(), "..", std::strlen("..")) == 0);
-        bool isRelative = (strncmp(retString.c_str(), "/", std::strlen("/")) == 0);
+        ObjectNode* propertyParent = prop->Parent();
 
-        if (isRelative || isDownHierarchy)
+        if (propertyParent)
         {
-            std::string propertyPath( propertyParent->Path().PathString() );
+            bool isDownHierarchy = (strncmp(retString.c_str(), "..", std::strlen("..")) == 0);
+            bool isRelative = (strncmp(retString.c_str(), "/", std::strlen("/")) == 0);
 
-            retString.erase(0, retString.find("/")+1);
-
-            // We have to make path absolute
-            if (isDownHierarchy)
+            if (isRelative || isDownHierarchy)
             {
-                if (propertyPath.rfind("/"))
-                {
-                    propertyPath.erase(propertyPath.rfind("/"), propertyPath.size());
-                }
-            }
+                std::string propertyPath( propertyParent->Path().PathString() );
 
-            retString = propertyPath + std::string("/") + retString;
+                retString.erase(0, retString.find("/")+1);
+
+                // We have to make path absolute
+                if (isDownHierarchy)
+                {
+                    if (propertyPath.rfind("/"))
+                    {
+                        propertyPath.erase(propertyPath.rfind("/"), propertyPath.size());
+                    }
+                }
+
+                retString = propertyPath + std::string("/") + retString;
+            }
         }
     }
 

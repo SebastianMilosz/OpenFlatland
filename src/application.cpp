@@ -104,6 +104,8 @@ void Application::ProcesseEvents( sf::Event& event )
     // catch window close event
     if ( event.type == sf::Event::Closed )
     {
+        LOGGER( LOG_INFO << "Application closed event" );
+
         codeframe::ReferenceManager::LogUnresolvedReferences();
 
         // Add fps note to performance log

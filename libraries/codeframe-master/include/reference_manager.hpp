@@ -3,6 +3,9 @@
 
 #include <map>
 #include <string>
+#include <smartpointer.h>
+
+#include "serializable_property_node.hpp"
 
 namespace codeframe
 {
@@ -25,14 +28,14 @@ namespace codeframe
         private:
             struct sReferenceData
             {
-                PropertyBase* Property;
-                std::string   RefPath;
+                smart_ptr<PropertyNode> Property;
+                std::string RefPath;
             };
 
-            static std::string PreparePath( const std::string& path, PropertyBase* prop );
+            static std::string PreparePath( const std::string& path, smart_ptr<PropertyNode> prop );
 
             std::string m_referencePath;
-            PropertyBase* m_property;
+            smart_ptr<PropertyNode> m_property;
             static std::map<std::string, sReferenceData> m_referencePathMap;
     };
 }
