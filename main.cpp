@@ -16,13 +16,13 @@ int main()
 
     while ( window.isOpen() )
     {
+        application.ProcesseLogic();
+
         sf::Event event;
         while ( window.pollEvent( event ) )
         {
             application.ProcesseEvents( event );
         }
-
-        application.ProcesseLogic();
     }
 
     return 0;

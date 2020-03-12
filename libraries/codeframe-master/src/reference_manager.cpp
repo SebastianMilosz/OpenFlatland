@@ -60,8 +60,6 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
             m_referencePathMap.insert( std::pair<std::string, sReferenceData>(referenceAbsolutePath, refData) );
-
-            LOGGER( LOG_INFO << "New reference to: " << referenceAbsolutePath << " from property: " << m_property->Name() );
         }
     }
 }
