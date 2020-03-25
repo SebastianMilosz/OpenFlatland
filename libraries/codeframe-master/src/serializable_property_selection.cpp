@@ -13,6 +13,7 @@ namespace codeframe
         m_selection( prop )
     {
         assert( prop );
+        prop->signalDeleted.connect(this, &PropertySelection::OnDelete);
     }
 
     /*****************************************************************************/
@@ -23,7 +24,6 @@ namespace codeframe
     PropertySelection::PropertySelection( const PropertySelection& prop ) :
         m_selection(prop.m_selection)
     {
-
     }
 
     /*****************************************************************************/
@@ -33,7 +33,16 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::~PropertySelection()
     {
+    }
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::OnDelete(void* deletedPtr)
+    {
+        m_selection = nullptr;
     }
 
     /*****************************************************************************/
@@ -94,7 +103,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const bool_t val)
     {
-        *m_selection = val;
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
         return *this;
     }
 
@@ -105,7 +117,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const char val)
     {
-        *m_selection = val;
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
         return *this;
     }
 
@@ -116,7 +131,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const unsigned char val)
     {
-        *m_selection = val;
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
         return *this;
     }
 
@@ -127,7 +145,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const int val)
     {
-        *m_selection = val;
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
         return *this;
     }
 
@@ -138,7 +159,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const unsigned int val)
     {
-        *m_selection = val;
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
         return *this;
     }
 
@@ -149,7 +173,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const float val)
     {
-        *m_selection = val;
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
         return *this;
     }
 
@@ -160,7 +187,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const double val)
     {
-        *m_selection = val;
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
         return *this;
     }
 
@@ -171,7 +201,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const std::string& val)
     {
-        *m_selection = val;
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
         return *this;
     }
 
@@ -182,7 +215,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator++()
     {
-        ++(*m_selection);
+        if (m_selection)
+        {
+            ++(*m_selection);
+        }
         return *this;
     }
 
@@ -193,7 +229,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator--()
     {
-        --(*m_selection);
+        if (m_selection)
+        {
+            --(*m_selection);
+        }
         return *this;
     }
 
@@ -204,7 +243,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator+=(const int rhs)
     {
-        (*m_selection) += rhs;
+        if (m_selection)
+        {
+            (*m_selection) += rhs;
+        }
         return *this;
     }
 
@@ -215,7 +257,10 @@ namespace codeframe
     ******************************************************************************/
     PropertyNode& PropertySelection::operator-=(const int rhs)
     {
-        (*m_selection) -= rhs;
+        if (m_selection)
+        {
+            (*m_selection) -= rhs;
+        }
         return *this;
     }
 
@@ -266,7 +311,11 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::Name() const
     {
-        return m_selection->Name();
+        if (m_selection)
+        {
+            return m_selection->Name();
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -291,7 +340,11 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::ToString() const
     {
-        return m_selection->ToString();
+        if (m_selection)
+        {
+            return m_selection->ToString();
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -301,7 +354,11 @@ namespace codeframe
     ******************************************************************************/
     eType PropertySelection::Type() const
     {
-        return m_selection->Type();
+        if (m_selection)
+        {
+            return m_selection->Type();
+        }
+        return eType::TYPE_NON;
     }
 
     /*****************************************************************************/
@@ -311,7 +368,11 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::Path( bool_t addName ) const
     {
-        return m_selection->Path( addName );
+        if (m_selection)
+        {
+            return m_selection->Path( addName );
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -321,7 +382,11 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<PropertyNode> PropertySelection::Reference() const
     {
-        return m_selection->Reference();
+        if (m_selection)
+        {
+            return m_selection->Reference();
+        }
+        return smart_ptr<PropertyNode>(nullptr);
     }
 
     /*****************************************************************************/
@@ -331,7 +396,11 @@ namespace codeframe
     ******************************************************************************/
     uint32_t PropertySelection::Id() const
     {
-        return m_selection->Id();
+        if (m_selection)
+        {
+            return m_selection->Id();
+        }
+        return 0U;
     }
 
     /*****************************************************************************/
@@ -341,7 +410,11 @@ namespace codeframe
     ******************************************************************************/
     ObjectNode* PropertySelection::Parent() const
     {
-        return m_selection->Parent();
+        if (m_selection)
+        {
+            return m_selection->Parent();
+        }
+        return nullptr;
     }
 
     /*****************************************************************************/
@@ -351,7 +424,11 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::ParentName() const
     {
-        return m_selection->ParentName();
+        if (m_selection)
+        {
+            return m_selection->ParentName();
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -361,7 +438,11 @@ namespace codeframe
     ******************************************************************************/
     bool_t PropertySelection::ConnectReference( smart_ptr<PropertyNode> refNode )
     {
-        return m_selection->ConnectReference(refNode);
+        if (m_selection)
+        {
+            return m_selection->ConnectReference(refNode);
+        }
+        return false;
     }
 
     /*****************************************************************************/
@@ -371,7 +452,11 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::TypeString() const
     {
-        return m_selection->TypeString();
+        if (m_selection)
+        {
+            return m_selection->TypeString();
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -381,7 +466,11 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::PreviousValueString() const
     {
-        return m_selection->PreviousValueString();
+        if (m_selection)
+        {
+            return m_selection->PreviousValueString();
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -391,7 +480,11 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::CurentValueString() const
     {
-        return m_selection->CurentValueString();
+        if (m_selection)
+        {
+            return m_selection->CurentValueString();
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -401,7 +494,11 @@ namespace codeframe
     ******************************************************************************/
     int PropertySelection::PreviousValueInteger() const
     {
-        return m_selection->PreviousValueInteger();
+        if (m_selection)
+        {
+            return m_selection->PreviousValueInteger();
+        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -411,7 +508,11 @@ namespace codeframe
     ******************************************************************************/
     int PropertySelection::CurentValueInteger() const
     {
-        return m_selection->CurentValueInteger();
+        if (m_selection)
+        {
+            return m_selection->CurentValueInteger();
+        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -421,7 +522,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator bool() const
     {
-        return (bool)(*m_selection);
+        if (m_selection)
+        {
+            return (bool)(*m_selection);
+        }
+        return false;
     }
 
     /*****************************************************************************/
@@ -431,7 +536,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator char() const
     {
-        return (char)(*m_selection);
+        if (m_selection)
+        {
+            return (char)(*m_selection);
+        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -441,7 +550,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator unsigned char() const
     {
-        return (unsigned char)(*m_selection);
+        if (m_selection)
+        {
+            return (unsigned char)(*m_selection);
+        }
+        return 0U;
     }
 
     /*****************************************************************************/
@@ -451,7 +564,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator int() const
     {
-        return (int)(*m_selection);
+        if (m_selection)
+        {
+            return (int)(*m_selection);
+        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -461,7 +578,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator unsigned int() const
     {
-        return (unsigned int)(*m_selection);
+        if (m_selection)
+        {
+            return (unsigned int)(*m_selection);
+        }
+        return 0U;
     }
 
     /*****************************************************************************/
@@ -471,7 +592,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator unsigned short() const
     {
-        return (unsigned short)(*m_selection);
+        if (m_selection)
+        {
+            return (unsigned short)(*m_selection);
+        }
+        return 0U;
     }
 
     /*****************************************************************************/
@@ -481,7 +606,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator double() const
     {
-        return (double)(*m_selection);
+        if (m_selection)
+        {
+            return (double)(*m_selection);
+        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -491,7 +620,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator float() const
     {
-        return (float)(*m_selection);
+        if (m_selection)
+        {
+            return (float)(*m_selection);
+        }
+        return 0.0F;
     }
 
     /*****************************************************************************/
@@ -501,7 +634,11 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::operator std::string() const
     {
-        return (std::string)(*m_selection);
+        if (m_selection)
+        {
+            return (std::string)(*m_selection);
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -521,7 +658,11 @@ namespace codeframe
     ******************************************************************************/
     int PropertySelection::ToInt() const
     {
-        return m_selection->GetNumber();
+        if (m_selection)
+        {
+            return m_selection->GetNumber();
+        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -531,7 +672,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertySelection::SetNumber( const int val )
     {
-        m_selection->SetNumber( val );
+        if (m_selection)
+        {
+            m_selection->SetNumber( val );
+        }
     }
 
     /*****************************************************************************/
@@ -541,7 +685,11 @@ namespace codeframe
     ******************************************************************************/
     int PropertySelection::GetNumber() const
     {
-        return m_selection->GetNumber();
+        if (m_selection)
+        {
+            return m_selection->GetNumber();
+        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -551,7 +699,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertySelection::SetReal( const double val )
     {
-        m_selection->SetReal( val );
+        if (m_selection)
+        {
+            m_selection->SetReal( val );
+        }
     }
 
     /*****************************************************************************/
@@ -561,7 +712,11 @@ namespace codeframe
     ******************************************************************************/
     double PropertySelection::GetReal() const
     {
-        return m_selection->GetReal();
+        if (m_selection)
+        {
+            return m_selection->GetReal();
+        }
+        return 0;
     }
 
     /*****************************************************************************/
@@ -571,7 +726,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertySelection::SetString( const std::string&  val )
     {
-        m_selection->SetString( val );
+        if (m_selection)
+        {
+            m_selection->SetString( val );
+        }
     }
 
     /*****************************************************************************/
@@ -581,7 +739,11 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertySelection::GetString() const
     {
-        return m_selection->GetString();
+        if (m_selection)
+        {
+            return m_selection->GetString();
+        }
+        return "PropertySelection\nullptr";
     }
 
     /*****************************************************************************/
@@ -591,7 +753,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertySelection::Lock() const
     {
-        m_selection->Lock();
+        if (m_selection)
+        {
+            m_selection->Lock();
+        }
     }
 
     /*****************************************************************************/
@@ -601,7 +766,10 @@ namespace codeframe
     ******************************************************************************/
     void PropertySelection::Unlock() const
     {
-        m_selection->Unlock();
+        if (m_selection)
+        {
+            m_selection->Unlock();
+        }
     }
 
     /*****************************************************************************/
@@ -611,7 +779,11 @@ namespace codeframe
     ******************************************************************************/
     bool_t PropertySelection::IsChanged() const
     {
-        return m_selection->IsChanged();
+        if (m_selection)
+        {
+            return m_selection->IsChanged();
+        }
+        return false;
     }
 
     /*****************************************************************************/
@@ -621,6 +793,9 @@ namespace codeframe
     ******************************************************************************/
     void PropertySelection::EmitChanges()
     {
-        m_selection->EmitChanges();
+        if (m_selection)
+        {
+            m_selection->EmitChanges();
+        }
     }
 }

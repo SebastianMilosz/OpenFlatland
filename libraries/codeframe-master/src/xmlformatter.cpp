@@ -370,7 +370,7 @@ namespace codeframe
         rootNode.AppendAttribute( "class",     m_serializableObject.Class().c_str() );
         rootNode.AppendAttribute( "construct", m_serializableObject.ConstructPatern().c_str() );
 #ifdef PATH_FIELD
-        rootNode.AppendAttribute("path", m_serializableObject.Path().c_str());
+        rootNode.AppendAttribute("path", m_serializableObject.Path().PathString().c_str());
 #endif
 
         // Po wszystkich polach serializacji
@@ -494,6 +494,10 @@ namespace codeframe
         catch( const std::runtime_error& re )
         {
             LOGGER( LOG_ERROR << "LoadFromXML runtime exception: " << re.what() );
+        }
+        catch(const std::exception& ex)
+        {
+            LOGGER( LOG_ERROR << "LoadFromXML std::exception: " << ex.what() );
         }
         catch (...)
         {

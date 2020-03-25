@@ -8,7 +8,6 @@
 #include "ThreadUtilities.h"
 #include "DataTypesUtilities.h"
 
-#include <sigslot.h>
 #include <climits>
 #include <string>
 
@@ -28,9 +27,6 @@ namespace codeframe
             PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info );
             PropertyBase( const PropertyBase& sval );
             virtual ~PropertyBase();
-
-            // Signals
-            sigslot::signal1<PropertyBase*> signalChanged;
 
             bool_t operator==(const int& sval) const override;
             bool_t operator!=(const int& sval) const override;

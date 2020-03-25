@@ -5,6 +5,7 @@
 #include "typedefs.hpp"
 
 #include <string>
+#include <sigslot.h>
 #include <smartpointer.h>
 
 namespace codeframe
@@ -81,6 +82,10 @@ namespace codeframe
 
             virtual bool_t IsChanged() const = 0;
             virtual void   EmitChanges() = 0;
+
+            // Signals
+            sigslot::signal1<PropertyNode*> signalChanged;
+            sigslot::signal1<void*>         signalDeleted;
     };
 }
 

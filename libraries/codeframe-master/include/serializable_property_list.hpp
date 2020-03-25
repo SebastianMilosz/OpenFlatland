@@ -49,12 +49,12 @@ namespace codeframe
             PropertyIterator end()   throw();
             int              size()  const;
 
-            signal1<PropertyBase*> signalPropertyChanged;                   ///< Emitowany gdy propertis zosta³ zmieniony razem z wskaznikiem na niego
-            signal1<PropertyBase*> signalPropertyUpdateFail;                ///< Emitowany gdy oczekiwano ustawienia propertisa
+            signal1<PropertyNode*> signalPropertyChanged;                   ///< Emitowany gdy propertis zosta³ zmieniony razem z wskaznikiem na niego
+            signal1<PropertyNode*> signalPropertyUpdateFail;                ///< Emitowany gdy oczekiwano ustawienia propertisa
 
         private:
-            void slotPropertyChangedGlobal( PropertyBase* prop );
-            void slotPropertyChanged( PropertyBase* prop );
+            void slotPropertyChangedGlobal( PropertyNode* prop );
+            void slotPropertyChanged( PropertyNode* prop );
 
             ObjectNode& m_sint;
 

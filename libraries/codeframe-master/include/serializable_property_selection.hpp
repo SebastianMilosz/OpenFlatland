@@ -11,7 +11,7 @@ namespace codeframe
      /*****************************************************************************
      * @class This class stores Property's from selection
      *****************************************************************************/
-    class PropertySelection : public PropertyNode
+    class PropertySelection : public PropertyNode, public sigslot::has_slots<>
     {
         public:
             PropertySelection( PropertyNode* prop );
@@ -87,6 +87,7 @@ namespace codeframe
 
         private:
             void EmitChanges() override;
+            void OnDelete(void* deletedPtr);
 
             PropertyNode* m_selection;
     };

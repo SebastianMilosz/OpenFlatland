@@ -11,7 +11,7 @@ namespace codeframe
      /*****************************************************************************
      * @class This class stores Property's from selection
      *****************************************************************************/
-    class PropertyMultipleSelection : public PropertyNode
+    class PropertyMultipleSelection : public PropertyNode, public sigslot::has_slots<>
     {
         public:
             PropertyMultipleSelection();
@@ -89,6 +89,7 @@ namespace codeframe
 
         protected:
             void EmitChanges() override;
+            void OnDelete(void* deletedPtr);
 
         private:
             std::vector< smart_ptr<PropertyNode> > m_selectionVector;

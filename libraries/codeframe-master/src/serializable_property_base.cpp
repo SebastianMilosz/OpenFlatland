@@ -77,6 +77,8 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase::~PropertyBase()
     {
+        signalDeleted.Emit(this);
+
         if( m_temporary == false )
         {
             UnRegisterProperty();
@@ -105,7 +107,7 @@ namespace codeframe
 
         if (rootNode)
         {
-            ReferenceManager::ResolveReferences( *rootNode );
+            //ReferenceManager::ResolveReferences( *rootNode );
         }
     }
 

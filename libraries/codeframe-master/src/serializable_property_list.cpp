@@ -336,7 +336,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyList::slotPropertyChangedGlobal( PropertyBase* prop )
+    void cPropertyList::slotPropertyChangedGlobal( PropertyNode* prop )
     {
         signalPropertyChanged.Emit( prop );
     }
@@ -346,7 +346,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyList::slotPropertyChanged( PropertyBase* prop )
+    void cPropertyList::slotPropertyChanged( PropertyNode* prop )
     {
         #ifdef SERIALIZABLE_USE_WXWIDGETS
         wxUpdatePropertyValue( prop );

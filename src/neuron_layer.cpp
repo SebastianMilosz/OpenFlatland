@@ -75,7 +75,7 @@ bool SerializableNeuronLayer::InitializeNetwork()
   * @brief
  **
 ******************************************************************************/
-void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::PropertyBase* prop )
+void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::PropertyNode* prop )
 {
     if ( InitializeNetwork() == true )
     {

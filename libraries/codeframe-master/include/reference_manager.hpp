@@ -6,6 +6,7 @@
 #include <smartpointer.h>
 
 #include "serializable_property_node.hpp"
+#include "serializable_object_selection.hpp"
 
 namespace codeframe
 {
@@ -32,7 +33,8 @@ namespace codeframe
                 std::string RefPath;
             };
 
-            static std::string PreparePath( const std::string& path, smart_ptr<PropertyNode> prop );
+            static std::string PreparePath(const std::string& path, smart_ptr<ObjectSelection> propertyParent);
+            static bool_t IsDownHierarchy(const std::string& path);
 
             std::string m_referencePath;
             smart_ptr<PropertyNode> m_property;
