@@ -9,7 +9,7 @@
 namespace codeframe
 {
 
-std::map<std::string, ReferenceManager::sReferenceData> ReferenceManager::m_referencePathMap;
+std::map<PropertyNode*, ReferenceManager::sReferenceData> ReferenceManager::m_referencePathMap;
 
 /*****************************************************************************/
 /**
@@ -60,9 +60,9 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
             sReferenceData refData;
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
-            m_referencePathMap.insert( std::pair<std::string, sReferenceData>(referenceAbsolutePath, refData) );
+            m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
 
-            LOGGER( LOG_INFO << "ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop ): " << referenceAbsolutePath << " PropPath: " << m_property->Path() );
+            LOGGER( LOG_INFO << "ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " AbsolutePath: " << referenceAbsolutePath << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path() );
         }
     }
 }
@@ -86,9 +86,9 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
 
-            m_referencePathMap.insert( std::pair<std::string, sReferenceData>(referenceAbsolutePath, refData) );
+            m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
 
-            LOGGER( LOG_INFO << "ReferenceManager::SetProperty( PropertyBase* prop ): " << referenceAbsolutePath << " PropPath: " << m_property->Path());
+            LOGGER( LOG_INFO << "ReferenceManager::SetProperty( PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " AbsolutePath: " << referenceAbsolutePath << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path());
         }
     }
 }
@@ -115,7 +115,6 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
     for (auto it = m_referencePathMap.begin(); it != m_referencePathMap.end();)
     {
         sReferenceData refData = it->second;
-        std::string path( it->first );
 
         if (refData.Property)
         {

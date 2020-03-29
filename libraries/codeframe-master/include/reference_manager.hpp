@@ -38,7 +38,7 @@ namespace codeframe
 
             std::string m_referencePath;
             smart_ptr<PropertyNode> m_property;
-            static std::map<std::string, sReferenceData> m_referencePathMap;
+            static std::map<PropertyNode*, sReferenceData> m_referencePathMap;
     };
 }
 
