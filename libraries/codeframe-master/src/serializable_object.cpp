@@ -35,7 +35,11 @@ namespace codeframe
         m_PropertyList( *this ),
         m_Identity( name, *this )
     {
-        m_SerializablePath.ParentBound( parent );
+        if (m_SerializablePath.ParentBound( parent ) == false)
+        {
+            // Resolve references only at root node
+            ReferenceManager::ResolveReferences(*(ObjectNode*)this);
+        }
     }
 
     /*****************************************************************************/

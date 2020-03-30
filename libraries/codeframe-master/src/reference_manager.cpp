@@ -44,26 +44,23 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
 
     if (prop)
     {
-        m_property = smart_ptr<PropertyNode>( new PropertySelection(prop) );
-    }
-    else
-    {
-        m_property = smart_ptr<PropertyNode>(nullptr);
-    }
+        m_property = smart_ptr<PropertyNode>(new PropertySelection(prop));
 
-    if ( m_referencePath != "" )
-    {
-        if ( nullptr != m_property )
+        if (m_referencePath != "")
         {
-            auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(m_property->Parent()));
-            std::string referenceAbsolutePath( PreparePath( m_referencePath, propertyParent ) );
             sReferenceData refData;
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
             m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
 
-            LOGGER( LOG_INFO << "ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " AbsolutePath: " << referenceAbsolutePath << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path() );
+#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
+            LOGGER( LOG_INFO << "ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path() );
+#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
         }
+    }
+    else
+    {
+        m_property = smart_ptr<PropertyNode>(nullptr);
     }
 }
 
@@ -74,21 +71,20 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
 ******************************************************************************/
 void ReferenceManager::SetProperty( PropertyBase* prop )
 {
-    if ( (m_referencePath != "") && (nullptr != prop) && (nullptr == m_property) )
+    if (prop)
     {
         m_property = smart_ptr<PropertyNode>( new PropertySelection(prop) );
 
-        if (m_property)
+        if (m_referencePath != "")
         {
-            auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(m_property->Parent()));
-            std::string referenceAbsolutePath( PreparePath( m_referencePath, propertyParent ) );
             sReferenceData refData;
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
-
             m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
 
-            LOGGER( LOG_INFO << "ReferenceManager::SetProperty( PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " AbsolutePath: " << referenceAbsolutePath << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path());
+#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
+            LOGGER( LOG_INFO << "ReferenceManager::SetProperty( PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path());
+#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
         }
     }
 }
@@ -114,6 +110,9 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
     for (auto it = m_referencePathMap.begin(); it != m_referencePathMap.end();)
     {
+        //auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(m_property->Parent()));
+        //std::string referenceAbsolutePath( PreparePath( m_referencePath, propertyParent ) );
+
         sReferenceData refData = it->second;
 
         if (refData.Property)

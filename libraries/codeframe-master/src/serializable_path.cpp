@@ -56,14 +56,16 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPath::ParentBound( ObjectNode* parent )
+    bool_t cPath::ParentBound( ObjectNode* parent )
     {
         // Rejestrujemy sie u rodzica
         if( parent )
         {
             m_parent = parent;
             m_parent->ChildList().Register( &m_sint );
+            return true;
         }
+        return false;
     }
 
     /*****************************************************************************/
@@ -85,7 +87,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cPath::IsNameUnique( const std::string& name, const bool checkParent ) const
+    bool_t cPath::IsNameUnique( const std::string& name, const bool_t checkParent ) const
     {
         int octcnt = 0;
 
@@ -99,7 +101,7 @@ namespace codeframe
         if ( checkParent )
         {
             // Sprawdzamy czy rodzic jest wyj¹tkowy
-            bool isParentUnique = m_parent->Path().IsNameUnique( m_parent->Identity().ObjectName() );
+            bool_t isParentUnique = m_parent->Path().IsNameUnique( m_parent->Identity().ObjectName() );
 
             // Jesli rodzic nie jest wyjatkowy to dzieci tez nie s¹ wiec niesprawdzamy dalej
             if( isParentUnique == false )

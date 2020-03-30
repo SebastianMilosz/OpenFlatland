@@ -17,6 +17,7 @@
 					<Add option="-m32" />
 					<Add option="-Og" />
 					<Add option="-g" />
+					<Add option="-DCODE_FRAME_REFERENCE_MANAGER_DEBUG" />
 					<Add option="-DENTITY_VISION_DEBUG" />
 					<Add option="-DPATH_FIELD" />
 					<Add directory="include" />

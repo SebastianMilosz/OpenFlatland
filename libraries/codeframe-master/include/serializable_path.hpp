@@ -3,6 +3,7 @@
 
 #include <string>
 #include <smartpointer.h>
+#include <typedefs.hpp>
 
 #include "serializable_object_selection.hpp"
 #include "serializable_object_multiple_selection.hpp"
@@ -18,10 +19,10 @@ namespace codeframe
             ~cPath();
 
             std::string PathString() const;
-            void ParentBound( ObjectNode* parent );
+            bool_t ParentBound( ObjectNode* parent );
             void ParentUnbound();
 
-            bool IsNameUnique( const std::string& name, const bool checkParent = false ) const;
+            bool_t IsNameUnique( const std::string& name, const bool_t checkParent = false ) const;
 
             smart_ptr<ObjectSelection> Parent() const;
             smart_ptr<ObjectSelection> GetRootObject    ();

@@ -101,14 +101,8 @@ namespace codeframe
         int size = m_parentpc->PropertyList().GetObjectFieldCnt();
         m_id = GetHashId( Name(), 255 * s_globalParConCnt + size );
         m_parentpc->PropertyList().RegisterProperty( this );
-        ObjectNode* rootNode = m_parentpc->Path().GetRootObject()->GetNode();
         s_globalParConCnt++;
         m_Mutex.Unlock();
-
-        if (rootNode)
-        {
-            //ReferenceManager::ResolveReferences( *rootNode );
-        }
     }
 
     /*****************************************************************************/
