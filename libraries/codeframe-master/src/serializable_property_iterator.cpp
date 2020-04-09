@@ -6,80 +6,33 @@ namespace codeframe
 {
     /*****************************************************************************/
     /**
-      * @brief Konstruktor kopiujacy
+      * @brief
      **
     ******************************************************************************/
     PropertyIterator::PropertyIterator(const PropertyIterator& n) :
-        m_PropertyManager(n.m_PropertyManager),
-        m_param(n.m_param),
-        m_curId(n.m_curId)
+        m_iterator(n.m_iterator)
     {
-
     }
 
     /*****************************************************************************/
     /**
-      * @brief Operator wskaznikowy wyodrebnienia wskazywanej wartosci
+      * @brief
      **
     ******************************************************************************/
     PropertyBase* PropertyIterator::operator *()
     {
-        m_param = m_PropertyManager.GetObjectFieldValue( m_curId );
-        return m_param;
+        return m_iterator->second;
     }
 
     /*****************************************************************************/
     /**
-      * @brief Operator inkrementacji (przejscia na kolejne pole)
+      * @brief
      **
     ******************************************************************************/
     PropertyIterator& PropertyIterator::operator ++()
     {
-        if ( m_curId < m_PropertyManager.GetObjectFieldCnt() )
-        {
-            ++m_curId;
-        }
+        ++m_iterator;
         return *this;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    bool PropertyIterator::operator< (const PropertyIterator& n)
-    {
-        return n.m_curId <  m_curId;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    bool PropertyIterator::operator> (const PropertyIterator& n)
-    {
-        return n.m_curId >  m_curId;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    bool PropertyIterator::operator<=(const PropertyIterator& n)
-    {
-        return !(n.m_curId >  m_curId);
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    bool PropertyIterator::operator>=(const PropertyIterator& n)
-    {
-        return !(n.m_curId <  m_curId);
     }
 
     /*****************************************************************************/
@@ -89,7 +42,7 @@ namespace codeframe
     ******************************************************************************/
     bool PropertyIterator::operator==(const PropertyIterator& n)
     {
-        return n.m_curId == m_curId;
+        return n.m_iterator == m_iterator;
     }
 
     /*****************************************************************************/
@@ -99,18 +52,16 @@ namespace codeframe
     ******************************************************************************/
     bool PropertyIterator::operator!=(const PropertyIterator& n)
     {
-        return !(n.m_curId == m_curId);
+        return !(n.m_iterator == m_iterator);
     }
 
     /*****************************************************************************/
     /**
-      * @brief Konstruktor bazowy prywatny bo tylko cSerializable moze tworzyc swoje iteratory
+      * @brief
      **
     ******************************************************************************/
-    PropertyIterator::PropertyIterator( cPropertyList& pm, int n ) :
-        m_PropertyManager( pm ),
-        m_curId( n )
+    PropertyIterator::PropertyIterator(std::map<std::string, PropertyBase*>::iterator iter) :
+        m_iterator( iter )
     {
-
     }
 }

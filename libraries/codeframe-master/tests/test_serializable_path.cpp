@@ -96,26 +96,26 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
 
         REQUIRE( staticContainerObject.Count() == 5 );
 
-        REQUIRE( (int)(*static_cast<classTest_Dynamic*>(smart_ptr_getRaw(staticContainerObject[0]))).Property1 == 100 );
+        REQUIRE( staticContainerObject[0]->Property("Property1")->GetValue<int>() == 100 );
 
         // Direct property access
         smart_ptr<PropertyNode> propNode = staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );
         REQUIRE( smart_ptr_isValid( propNode ) );
-        REQUIRE( (int)(*propNode) == 100 );
+        REQUIRE( propNode->GetValue<int>() == 100 );
 
         *propNode = 101;
 
-        REQUIRE( (int)(*propNode) == 101 );
+        REQUIRE( propNode->GetValue<int>() == 101 );
 
         // Script Test
         staticSerializableObject.Script().RunString("CF:GetProperty('testNameStatic/testNameContainerStatic/node[0].Property1').Number = 1");
         staticSerializableObject.Script().RunString("CF:GetProperty('testNameStatic/testNameContainerStatic/node[0].Property2').Number = 789");
 
-        REQUIRE( (int)(*propNode) == 1 );
+        REQUIRE( propNode->GetValue<int>() == 1 );
 
         propNode = staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property2" );
 
-        REQUIRE( (int)(*propNode) == 789 );
+        REQUIRE( propNode->GetValue<int>() == 789 );
 
         // Property access by selection
         propNode = staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[*].Property1" );
@@ -127,29 +127,25 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
 
         *propNode = 777;
 
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" )) == 777 );
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[1].Property1" )) == 777 );
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[2].Property1" )) == 777 );
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" )) == 777 );
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[4].Property1" )) == 777 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" )->GetValue<int>() == 777 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[1].Property1" )->GetValue<int>() == 777 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[2].Property1" )->GetValue<int>() == 777 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" )->GetValue<int>() == 777 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[4].Property1" )->GetValue<int>() == 777 );
 
         staticSerializableObject.Script().RunString("CF:GetProperty('testNameStatic/testNameContainerStatic/node[*].Property1').Number = 1234");
 
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" )) == 1234 );
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[1].Property1" )) == 1234 );
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[2].Property1" )) == 1234 );
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" )) == 1234 );
-        REQUIRE( (int)(*staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[4].Property1" )) == 1234 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" )->GetValue<int>() == 1234 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[1].Property1" )->GetValue<int>() == 1234 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[2].Property1" )->GetValue<int>() == 1234 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" )->GetValue<int>() == 1234 );
+        REQUIRE( staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[4].Property1" )->GetValue<int>() == 1234 );
     }
 
     SECTION( "Test Property ReferencePath" )
     {
-        classTest_Dynamic* dynObj1 = static_cast<classTest_Dynamic*>(smart_ptr_getRaw(staticContainerObject[1]));
-        classTest_Dynamic* dynObj0 = static_cast<classTest_Dynamic*>(smart_ptr_getRaw(staticContainerObject[0]));
+        *staticContainerObject[1]->Property("PropertyLink") = 3344U;
 
-        dynObj1->PropertyLink = 3344U;
-        int refValue = (int)dynObj0->Property1;
-
-        REQUIRE( refValue == 3344U );
+        REQUIRE( staticContainerObject[0]->Property("Property1")->GetValue<int>() == 3344U );
     }
 }

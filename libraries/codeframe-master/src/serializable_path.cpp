@@ -240,7 +240,8 @@ namespace codeframe
         else
         {
             std::string tempStr( tokens.at(0) );
-            if ( curObjectSelection->GetNode()->Identity().ObjectName() != tempStr )
+            std::string objectName(curObjectSelection->GetNode()->Path().GetRootObject()->GetNode()->Identity().ObjectName());
+            if ( objectName != tempStr )
             {
                 return smart_ptr<ObjectSelection>( nullptr );
             }

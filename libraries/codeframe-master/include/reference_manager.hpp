@@ -35,6 +35,7 @@ namespace codeframe
 
             static std::string PreparePath(const std::string& path, smart_ptr<ObjectSelection> propertyParent);
             static bool_t IsDownHierarchy(const std::string& path);
+            static bool_t IsRelativeHierarchy(const std::string& path);
 
             std::string m_referencePath;
             smart_ptr<PropertyNode> m_property;

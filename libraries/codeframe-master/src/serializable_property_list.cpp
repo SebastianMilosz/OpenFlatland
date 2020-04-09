@@ -37,13 +37,10 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<PropertyNode> cPropertyList::GetPropertyByName( const std::string& name )
     {
-        // Po wszystkich zarejestrowanych parametrach
-        for( auto temp : m_vMainPropertyList )
+        auto it = m_PropertyMap.find(name);
+        if (it != m_PropertyMap.end())
         {
-            if( temp && temp->Name() == name )
-            {
-                return smart_ptr<PropertyNode>( new PropertySelection(temp) );
-            }
+            return smart_ptr<PropertyNode>( new PropertySelection(it->second) );
         }
 
         LOGGER( LOG_FATAL << "cSerializable::GetPropertyByName(" << name << "): Out of range" );
@@ -60,11 +57,11 @@ namespace codeframe
     {
         //m_Mutex.Lock();
         // Po wszystkic1h zarejestrowanych parametrach
-        for( auto temp : m_vMainPropertyList )
+        for( auto element : m_PropertyMap )
         {
-            if( temp && temp->Id() == id )
+            if( element.second && element.second->Id() == id )
             {
-                return smart_ptr<PropertyNode>( new PropertySelection( temp ) );
+                return smart_ptr<PropertyNode>( new PropertySelection( element.second ) );
             }
         }
         //m_Mutex.Unlock();
@@ -81,7 +78,6 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath( const std::string& path )
     {
-        // Wydzielamy sciezke od nazwy propertisa
         std::string::size_type found( path.find_last_of(".") );
         std::string objPath( path.substr( 0, found ) );
         std::string propertyName( path.substr( found+1 ) );
@@ -124,12 +120,12 @@ namespace codeframe
         std::string retName( "" );
 
         m_Mutex.Lock();
-        // Po wszystkic1h zarejestrowanych parametrach
-        for( auto temp : m_vMainPropertyList )
+
+        for( auto element : m_PropertyMap )
         {
-            if ( temp && temp->Id() == id )
+            if ( element.second && element.second->Id() == id )
             {
-                retName = temp->Name();
+                retName = element.second->Name();
             }
         }
         m_Mutex.Unlock();
@@ -154,12 +150,11 @@ namespace codeframe
     ******************************************************************************/
     void cPropertyList::PulseChanged()
     {
-        // Emitujemy sygnaly zmiany wszystkich propertisow
-        for( auto temp : m_vMainPropertyList )
+        for( auto element : m_PropertyMap )
         {
-            if ( temp )
+            if ( element.second )
             {
-                temp->PulseChanged();
+                element.second->PulseChanged();
             }
         }
     }
@@ -172,11 +167,11 @@ namespace codeframe
     void cPropertyList::CommitChanges()
     {
         m_Mutex.Lock();
-        for( auto temp : m_vMainPropertyList )
+        for( auto element : m_PropertyMap )
         {
-            if ( temp )
+            if ( element.second )
             {
-                temp->CommitChanges();
+                element.second->CommitChanges();
             }
         }
         m_Mutex.Unlock();
@@ -191,11 +186,11 @@ namespace codeframe
     {
         // Po wszystkich propertisach ustawiamy nowy stan
         m_Mutex.Lock();
-        for( auto temp : m_vMainPropertyList )
+        for( auto element : m_PropertyMap )
         {
-            if ( temp )
+            if ( element.second )
             {
-                temp->Info().Enable( val );
+                element.second->Info().Enable( val );
             }
         }
         m_Mutex.Unlock();
@@ -206,10 +201,10 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyList::RegisterProperty( PropertyBase* prop )
+    void cPropertyList::RegisterProperty( const std::string& name, PropertyBase* prop )
     {
         m_Mutex.Lock();
-        m_vMainPropertyList.push_back( prop );
+        m_PropertyMap.emplace( name, prop );
         prop->signalChanged.connect(this, &cPropertyList::slotPropertyChanged       );
         prop->signalChanged.connect(this, &cPropertyList::slotPropertyChangedGlobal );
         m_Mutex.Unlock();
@@ -220,20 +215,14 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPropertyList::UnRegisterProperty( PropertyBase* prop )
+    void cPropertyList::UnRegisterProperty( const std::string& name, PropertyBase* prop )
     {
         m_Mutex.Lock();
-        // Po wszystkic1h zarejestrowanych parametrach
-        for ( unsigned int n = 0; n < m_vMainPropertyList.size(); n++ )
+        auto it = m_PropertyMap.find(name);
+        if (it != m_PropertyMap.end())
         {
-            PropertyBase* temp = m_vMainPropertyList.at(n);
-            if ( temp && temp->Name() == prop->Name() )
-            {
-                // Wywalamy z listy
-                temp->signalChanged.disconnect( this );
-                m_vMainPropertyList.erase(m_vMainPropertyList.begin() + n);
-                break;
-            }
+            it->second->signalChanged.disconnect( this );
+            m_PropertyMap.erase(it);
         }
         m_Mutex.Unlock();
     }
@@ -246,7 +235,7 @@ namespace codeframe
     void cPropertyList::ClearPropertyList()
     {
         m_Mutex.Lock();
-        m_vMainPropertyList.clear();
+        m_PropertyMap.clear();
         m_Mutex.Unlock();
     }
 
@@ -257,48 +246,17 @@ namespace codeframe
     ******************************************************************************/
     bool cPropertyList::IsPropertyUnique( const std::string& name ) const
     {
-        int octcnt = 0;
+        bool retVal = true;
 
         m_Mutex.Lock();
-        for( auto temp : m_vMainPropertyList )
+        auto it = m_PropertyMap.find(name);
+        if (it != m_PropertyMap.end())
         {
-            if ( temp && temp->Name() == name )
-            {
-                octcnt++;
-            }
+            retVal = false;
         }
         m_Mutex.Unlock();
 
-        if (octcnt == 1 ) return true;
-        else return false;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    PropertyBase* cPropertyList::GetObjectFieldValue( int cnt )
-    {
-        m_Mutex.Lock();
-        PropertyBase* retParameter = m_vMainPropertyList.at( cnt );
-        m_Mutex.Unlock();
-
-        return retParameter;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    int cPropertyList::GetObjectFieldCnt() const
-    {
-        m_Mutex.Lock();
-        int retSize = m_vMainPropertyList.size();
-        m_Mutex.Unlock();
-
-        return retSize;
+        return retVal;
     }
 
     /*****************************************************************************/
@@ -308,7 +266,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyIterator cPropertyList::begin() throw()
     {
-        return PropertyIterator( *this, 0 );
+        return PropertyIterator( m_PropertyMap.begin() );
     }
 
     /*****************************************************************************/
@@ -318,7 +276,7 @@ namespace codeframe
     ******************************************************************************/
     PropertyIterator cPropertyList::end() throw()
     {
-        return PropertyIterator( *this, GetObjectFieldCnt() );
+        return PropertyIterator( m_PropertyMap.end() );
     }
 
     /*****************************************************************************/
@@ -328,7 +286,11 @@ namespace codeframe
     ******************************************************************************/
     int cPropertyList::size() const
     {
-        return GetObjectFieldCnt();
+        m_Mutex.Lock();
+        int retSize = m_PropertyMap.size();
+        m_Mutex.Unlock();
+
+        return retSize;
     }
 
     /*****************************************************************************/

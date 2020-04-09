@@ -98,9 +98,9 @@ namespace codeframe
         }
 
         m_Mutex.Lock();
-        int size = m_parentpc->PropertyList().GetObjectFieldCnt();
+        int size = m_parentpc->PropertyList().size();
         m_id = GetHashId( Name(), 255 * s_globalParConCnt + size );
-        m_parentpc->PropertyList().RegisterProperty( this );
+        m_parentpc->PropertyList().RegisterProperty( Name(), this );
         s_globalParConCnt++;
         m_Mutex.Unlock();
     }
@@ -119,7 +119,7 @@ namespace codeframe
 
         m_Mutex.Lock();
 
-        m_parentpc->PropertyList().UnRegisterProperty( this );
+        m_parentpc->PropertyList().UnRegisterProperty( Name(), this );
 
         s_globalParConCnt--;
 

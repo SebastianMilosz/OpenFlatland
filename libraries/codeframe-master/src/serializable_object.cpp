@@ -35,7 +35,7 @@ namespace codeframe
         m_PropertyList( *this ),
         m_Identity( name, *this )
     {
-        if (m_SerializablePath.ParentBound( parent ) == false)
+        if (m_SerializablePath.ParentBound( parent ) == true)
         {
             // Resolve references only at root node
             ReferenceManager::ResolveReferences(*(ObjectNode*)this);
@@ -139,6 +139,16 @@ namespace codeframe
     cIdentity& Object::Identity()
     {
         return m_Identity;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<PropertyNode> Object::Property(const std::string& name)
+    {
+        return m_PropertyList.GetPropertyByName(name);
     }
 
     /*****************************************************************************/

@@ -106,21 +106,22 @@ const std::string& ReferenceManager::Get() const
 ******************************************************************************/
 void ReferenceManager::ResolveReferences( ObjectNode& root )
 {
-    LOGGER( LOG_INFO << "ResolveReferences:BEG m_referencePathMap.size()=" << m_referencePathMap.size() );
+#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
+    LOGGER( LOG_INFO << "ResolveReferences for root object: " << root.Path().PathString() );
+#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
 
     for (auto it = m_referencePathMap.begin(); it != m_referencePathMap.end();)
     {
-        //auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(m_property->Parent()));
-        //std::string referenceAbsolutePath( PreparePath( m_referencePath, propertyParent ) );
-
         sReferenceData refData = it->second;
 
         if (refData.Property)
         {
-            LOGGER( LOG_INFO << "ResolveReferences: refData.RefPath=" << refData.RefPath );
-
             auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(refData.Property->Parent()));
             std::string referenceAbsolutePath( PreparePath( refData.RefPath, propertyParent ) );
+
+#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
+            LOGGER( LOG_INFO << "ResolveReferences: AbsolutePath=" << referenceAbsolutePath );
+#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
 
             if (smart_ptr_isValid(refData.Property))
             {
@@ -129,8 +130,10 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
                 if (smart_ptr_isValid(targetProp))
                 {
                     refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp));
-                    LOGGER( LOG_INFO << "ResolveReferences:REFERENCE CONNECTED!!!" );
                     it = m_referencePathMap.erase(it);
+#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
+                    LOGGER( LOG_INFO << "ResolveReferences: REFERENCE CONNECTED!!!" );
+#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
                 }
                 else
                 {
@@ -139,8 +142,6 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
             }
         }
     }
-
-    LOGGER( LOG_INFO << "ResolveReferences:END m_referencePathMap.size()=" << m_referencePathMap.size() );
 }
 
 /*****************************************************************************/
@@ -178,39 +179,31 @@ void ReferenceManager::LogUnresolvedReferences()
 
 /*****************************************************************************/
 /**
-  * @brief
+  * @brief This method change relative paths to absolute ones
  **
 ******************************************************************************/
 std::string ReferenceManager::PreparePath( const std::string& path, smart_ptr<ObjectSelection> propertyParent )
 {
     std::string retString( path );
 
+    // With parent we may be able resolve relative path
     if (propertyParent)
     {
-        bool isDownHierarchy = (strncmp(retString.c_str(), "..", std::strlen("..")) == 0);
-        bool isRelative = (strncmp(retString.c_str(), "/", std::strlen("/")) == 0);
+        const std::string propertyPath( propertyParent->GetNode()->Path().PathString() );
 
-        if (isRelative || isDownHierarchy)
+        if (IsRelativeHierarchy(retString))
         {
-            std::string propertyPath( propertyParent->GetNode()->Path().PathString() );
-
-            retString.erase(0, retString.find("/")+1);
-
-            // We have to make path absolute
-            if (isDownHierarchy)
-            {
-                if (IsDownHierarchy(retString))
-                {
-                    smart_ptr<ObjectSelection> parentObject = propertyParent->GetNode()->Path().Parent();
-                    retString = PreparePath(retString, parentObject );
-                }
-
-                if (propertyPath.rfind("/")!=std::string::npos)
-                {
-                    propertyPath.erase(propertyPath.rfind("/"), propertyPath.size());
-                }
-            }
-
+            retString.erase(0, retString.find_first_of("/\\")+1);
+            retString = propertyPath + std::string("/") + retString;
+        }
+        else if (IsDownHierarchy(retString))
+        {
+            retString.erase(0, retString.find_first_of("/\\")+1);
+            smart_ptr<ObjectSelection> parentObject = propertyParent->GetNode()->Path().Parent();
+            retString = PreparePath(retString, parentObject );
+        }
+        else
+        {
             retString = propertyPath + std::string("/") + retString;
         }
     }
@@ -226,6 +219,16 @@ std::string ReferenceManager::PreparePath( const std::string& path, smart_ptr<Ob
 bool_t ReferenceManager::IsDownHierarchy(const std::string& path)
 {
     return (strncmp(path.c_str(), "..", std::strlen("..")) == 0);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+bool_t ReferenceManager::IsRelativeHierarchy(const std::string& path)
+{
+    return (path.find_first_of("/\\") == 0U);
 }
 
 }

@@ -4,7 +4,7 @@
 #include <ThreadUtilities.h>
 #include <sigslot.h>
 #include <string>
-#include <vector>
+#include <map>
 #include <smartpointer.h>
 
 #include "serializable_property_iterator.hpp"
@@ -33,16 +33,10 @@ namespace codeframe
             void PulseChanged();
             void CommitChanges();
             void Enable( bool val );
-            void RegisterProperty  ( PropertyBase* prop );
-            void UnRegisterProperty( PropertyBase* prop );
+            void RegisterProperty  ( const std::string& name, PropertyBase* prop );
+            void UnRegisterProperty( const std::string& name, PropertyBase* prop );
             void ClearPropertyList ();
             bool IsPropertyUnique( const std::string& name ) const;
-
-            /// Zwraca wartosc pola do serializacji
-            PropertyBase* GetObjectFieldValue( int cnt );
-
-            /// Zwraca ilosc skladowych do serializacji
-            int GetObjectFieldCnt() const;
 
             /// Iterators
             PropertyIterator begin() throw();
@@ -59,7 +53,7 @@ namespace codeframe
             ObjectNode& m_sint;
 
             /// Kontenet zawierajacy wskazniki do parametrow
-            std::vector<PropertyBase*>  m_vMainPropertyList;
+            std::map<std::string, PropertyBase*>  m_PropertyMap;
 
             ///
             PropertyBase m_dummyProperty;

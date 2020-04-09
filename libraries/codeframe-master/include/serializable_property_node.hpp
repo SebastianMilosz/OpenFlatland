@@ -77,6 +77,18 @@ namespace codeframe
             virtual void        SetString( const std::string&  val ) = 0;
             virtual std::string GetString() const = 0;
 
+            template<typename T>
+            T GetValue()
+            {
+                return (T)*this;
+            }
+
+            template<typename T>
+            void SetValue(T value)
+            {
+                *this = value;
+            }
+
             virtual void Lock() const = 0;
             virtual void Unlock() const = 0;
 
