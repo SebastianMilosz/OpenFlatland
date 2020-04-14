@@ -30,7 +30,6 @@ ReferenceManager::ReferenceManager() :
 ******************************************************************************/
 ReferenceManager::~ReferenceManager()
 {
-
 }
 
 /*****************************************************************************/
@@ -116,8 +115,9 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
         if (refData.Property)
         {
+            std::vector<std::string> pathDir;
             auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(refData.Property->Parent()));
-            std::string referenceAbsolutePath( PreparePath( refData.RefPath, propertyParent ) );
+            std::string referenceAbsolutePath( cPath::PreparePath( refData.RefPath, pathDir, propertyParent ) );
 
 #ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
             LOGGER( LOG_INFO << "ResolveReferences: AbsolutePath=" << referenceAbsolutePath );
@@ -175,60 +175,6 @@ void ReferenceManager::LogUnresolvedReferences()
             LOGGER( LOG_ERROR << "Unresolved reference to: " << it->first << " from object: NULL" );
         }
     }
-}
-
-/*****************************************************************************/
-/**
-  * @brief This method change relative paths to absolute ones
- **
-******************************************************************************/
-std::string ReferenceManager::PreparePath( const std::string& path, smart_ptr<ObjectSelection> propertyParent )
-{
-    std::string retString( path );
-
-    // With parent we may be able resolve relative path
-    if (propertyParent)
-    {
-        const std::string propertyPath( propertyParent->GetNode()->Path().PathString() );
-
-        if (IsRelativeHierarchy(retString))
-        {
-            retString.erase(0, retString.find_first_of("/\\")+1);
-            retString = propertyPath + std::string("/") + retString;
-        }
-        else if (IsDownHierarchy(retString))
-        {
-            retString.erase(0, retString.find_first_of("/\\")+1);
-            smart_ptr<ObjectSelection> parentObject = propertyParent->GetNode()->Path().Parent();
-            retString = PreparePath(retString, parentObject );
-        }
-        else
-        {
-            retString = propertyPath + std::string("/") + retString;
-        }
-    }
-
-    return retString;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-bool_t ReferenceManager::IsDownHierarchy(const std::string& path)
-{
-    return (strncmp(path.c_str(), "..", std::strlen("..")) == 0);
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-bool_t ReferenceManager::IsRelativeHierarchy(const std::string& path)
-{
-    return (path.find_first_of("/\\") == 0U);
 }
 
 }

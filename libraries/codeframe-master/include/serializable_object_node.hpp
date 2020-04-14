@@ -50,6 +50,7 @@ namespace codeframe
             virtual cIdentity&      Identity() = 0;
 
             virtual smart_ptr<PropertyNode> Property(const std::string& name) = 0;
+            virtual smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) = 0;
 
             virtual void PulseChanged( bool fullTree = false ) = 0;
             virtual void CommitChanges() = 0;

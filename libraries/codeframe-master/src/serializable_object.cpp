@@ -153,6 +153,16 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<PropertyNode> Object::PropertyFromPath(const std::string& path)
+    {
+        return m_PropertyList.GetPropertyFromPath(path);
+    }
+
+    /*****************************************************************************/
+    /**
       * @brief Zatwierdzenie wszystkich zmian obiektu i jego potomnych
      **
     ******************************************************************************/

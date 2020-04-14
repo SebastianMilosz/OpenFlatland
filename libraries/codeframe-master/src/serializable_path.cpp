@@ -1,5 +1,6 @@
 #include "serializable_path.hpp"
 
+#include <cstring>      // std::strlen
 #include <vector>
 #include <TextUtilities.h>
 #include <LoggerUtilities.h>
@@ -91,26 +92,23 @@ namespace codeframe
     {
         int octcnt = 0;
 
-        // Jesli niema rodzica to jestesmy rootem wiec na tym poziomie jestesmy wyjatkowi
+        // If there is no parent on this level we are unique
         if ( m_parent == nullptr )
         {
             return true;
         }
 
-        // Rodzica sprawdzamy tylko na wyrazne zyczenie
         if ( checkParent )
         {
-            // Sprawdzamy czy rodzic jest wyj¹tkowy
+            // Check unique of the parent
             bool_t isParentUnique = m_parent->Path().IsNameUnique( m_parent->Identity().ObjectName() );
 
-            // Jesli rodzic nie jest wyjatkowy to dzieci tez nie s¹ wiec niesprawdzamy dalej
             if( isParentUnique == false )
             {
                 return false;
             }
         }
 
-        // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
         for ( auto it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
         {
             ObjectNode* iser = *it;
@@ -222,17 +220,20 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::GetObjectFromPath( const std::string& path )
     {
-        // Rozdzelamy stringa na kawalki
+        auto thisNode = smart_ptr<ObjectSelection>(new ObjectSelection(&m_sint));
+        std::vector<std::string> pathDir;
+        std::string pathAbsolute = PreparePath(path, pathDir, thisNode );
+
+        // split path
         std::vector<std::string>   tokens;
-        std::string                delimiters("/");
+        std::string                delimiters("/\\");
         smart_ptr<ObjectSelection> curObjectSelection = smart_ptr<ObjectSelection>( new ObjectSelection( &m_sint ) );
 
-        utilities::text::split( path, delimiters, tokens);
+        utilities::text::split( pathAbsolute, delimiters, tokens);
 
-        // Sprawdzamy czy root sie zgadza
         if ( tokens.size() == 0 )
         {
-            if ( curObjectSelection->GetNode()->Identity().ObjectName() != path )
+            if ( curObjectSelection->GetNode()->Identity().ObjectName() != pathAbsolute )
             {
                 return smart_ptr<ObjectSelection>( nullptr );
             }
@@ -266,4 +267,74 @@ namespace codeframe
 
         return curObjectSelection;
     }
+
+/*****************************************************************************/
+/**
+  * @brief This method change relative paths to absolute ones
+ **
+******************************************************************************/
+std::string cPath::PreparePath( const std::string& path, std::vector<std::string>& pathDir, smart_ptr<ObjectSelection> propertyParent )
+{
+    std::string retString( path );
+
+    // With parent we may be able resolve relative path
+    if (propertyParent)
+    {
+        smart_ptr<ObjectSelection> parentNode = propertyParent->GetNode()->Path().Parent();
+        if (parentNode)
+        {
+            pathDir.push_back(parentNode->GetNode()->Identity().ObjectName());
+        }
+
+        if (IsDownHierarchy(retString))
+        {
+            if (retString.find_first_of("/\\") == 0)
+            {
+                retString.erase(0, retString.find_first_of("/\\")+1);
+            }
+            retString.erase(0, retString.find_first_of("/\\"));
+            smart_ptr<ObjectSelection> parentObject = propertyParent->GetNode()->Path().Parent();
+            retString = PreparePath(retString, pathDir, parentObject );
+        }
+        else if (IsRelativeHierarchy(retString))
+        {
+            retString.erase(0, retString.find_first_of("/\\")+1);
+
+            std::string pathDirString;
+            for (auto it = pathDir.rbegin(); it != pathDir.rend(); ++it)
+            {
+                pathDirString += *it;
+                pathDirString += "/";
+            }
+
+            pathDirString.pop_back();   // Remove last / char
+            retString = pathDirString + std::string("/") + retString;
+        }
+    }
+
+    return retString;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+bool_t cPath::IsDownHierarchy(const std::string& path)
+{
+    bool_t retVal = (strncmp(path.c_str(), "/..", std::strlen("/..")) == 0);
+    retVal |= (strncmp(path.c_str(), "..", std::strlen("..")) == 0);
+    retVal |= (strncmp(path.c_str(), "\\..", std::strlen("\\..")) == 0);
+    return retVal;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+bool_t cPath::IsRelativeHierarchy(const std::string& path)
+{
+    return (path.find_first_of("/\\") == 0U);
+}
 }

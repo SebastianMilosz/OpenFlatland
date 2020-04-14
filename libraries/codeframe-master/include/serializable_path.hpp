@@ -29,7 +29,12 @@ namespace codeframe
             smart_ptr<ObjectSelection> GetObjectFromPath( const std::string& path );
             smart_ptr<ObjectSelection> GetChildByName   ( const std::string& name );
 
+            static std::string PreparePath(const std::string& path, std::vector<std::string>& pathDir, smart_ptr<ObjectSelection> propertyParent);
+
         private:
+            static bool_t IsDownHierarchy(const std::string& path);
+            static bool_t IsRelativeHierarchy(const std::string& path);
+
             ObjectNode& m_sint;
             ObjectNode* m_parent;
     };
