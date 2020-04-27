@@ -18,6 +18,27 @@ namespace codeframe
              cPath( ObjectNode& sint );
             ~cPath();
 
+            enum ePathNodeType
+            {
+                OBJECT,     ///< This path node is an object
+                CONTAINER,  ///< This path node is an object container
+                PROPERTY,   ///< This path node is an value property
+            };
+
+            struct sPathNode
+            {
+                sPathNode(const std::string& name, const ePathNodeType type = OBJECT) :
+                    NodeName(name),
+                    NodeType(type)
+                {
+                }
+
+                operator std::string() const { return NodeName; }
+
+                std::string NodeName;
+                ePathNodeType NodeType;
+            };
+
             std::string PathString() const;
             bool_t ParentBound( ObjectNode* parent );
             void ParentUnbound();
@@ -29,9 +50,10 @@ namespace codeframe
             smart_ptr<ObjectSelection> GetObjectFromPath( const std::string& path );
             smart_ptr<ObjectSelection> GetChildByName   ( const std::string& name );
 
-            static std::string PreparePath(const std::string& path, std::vector<std::string>& pathDir, smart_ptr<ObjectSelection> propertyParent);
+            static void PreparePath(const std::string& path, std::vector<sPathNode>& pathDir, smart_ptr<ObjectSelection> propertyParent);
 
         private:
+            static const std::string m_delimiters;
             static bool_t IsDownHierarchy(const std::string& path);
             static bool_t IsRelativeHierarchy(const std::string& path);
 

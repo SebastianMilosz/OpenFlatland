@@ -16,7 +16,8 @@ namespace utilities
             else return false;
         }
 
-        inline void split(const std::string& str, const std::string& delimiters , std::vector<std::string>& tokens)
+        template<typename T>
+        void split(const std::string& str, const std::string& delimiters , std::vector<T>& tokens)
         {
             // Skip delimiters at beginning.
             std::size_t lastPos = str.find_first_not_of(delimiters, 0);
@@ -27,7 +28,7 @@ namespace utilities
             {
                 std::string foundString = str.substr(lastPos, pos - lastPos);
                 // Found a token, add it to the vector.
-                tokens.push_back(foundString);
+                tokens.push_back(T(foundString));
                 // Skip delimiters.  Note the "not_of"
                 lastPos = str.find_first_not_of(delimiters, pos);
                 // Find next "non-delimiter"

@@ -115,6 +115,17 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath( const std::vector<cPath::sPathNode>& path )
+    {
+
+        return smart_ptr<PropertyNode>( nullptr );
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     std::string cPropertyList::GetNameById( uint32_t id ) const
     {
         std::string retName( "" );

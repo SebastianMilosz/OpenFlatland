@@ -51,7 +51,6 @@ namespace utilities
         /**
           * @class cLogger
           * @ingroup Debug
-          * @author Sebastian.Milosz
           * @date 8.07.2009
           * @brief
           * @note Jak na razie klasa ta tylko obuduje standardowa obsluge loga wxWidgets
@@ -181,6 +180,21 @@ namespace utilities
                 cLog& operator << ( float f );                              // floating point [float]
                 cLog& operator << ( double d );                             // floating point [double]
                 cLog& operator << ( long double d );                        // floating point [long double]
+
+                template<typename T>
+                cLog& operator << ( std::vector<T> sv )
+                {
+                    m_mutex.Lock();
+                    m_line += "vector[";
+                    for (auto& n : sv)
+                    {
+                        m_line += (std::string)n + ",";
+                    }
+                    m_line += "]";
+                    m_activeCmd = cLog::LC_NO;
+                    m_mutex.Unlock();
+                    return *this;
+                }
 
                 cLog& operator << ( ELog_Type type );                       // message type [ELog_Type]
                 cLog& operator << ( ELog_Mode mode );                       // message mode [ELog_Mode]

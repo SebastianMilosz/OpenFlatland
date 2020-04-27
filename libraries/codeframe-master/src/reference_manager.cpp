@@ -115,17 +115,17 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
         if (refData.Property)
         {
-            std::vector<std::string> pathDir;
+            std::vector<cPath::sPathNode> pathDir;
             auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(refData.Property->Parent()));
-            std::string referenceAbsolutePath( cPath::PreparePath( refData.RefPath, pathDir, propertyParent ) );
+            cPath::PreparePath(refData.RefPath, pathDir, propertyParent);
 
 #ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-            LOGGER( LOG_INFO << "ResolveReferences: AbsolutePath=" << referenceAbsolutePath );
+            LOGGER( LOG_INFO << "ResolveReferences: AbsolutePath=" << pathDir );
 #endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
 
             if (smart_ptr_isValid(refData.Property))
             {
-                smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( referenceAbsolutePath );
+                smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathDir );
 
                 if (smart_ptr_isValid(targetProp))
                 {

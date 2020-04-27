@@ -148,7 +148,7 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
 
     SECTION( "Test Relative Paths" )
     {
-        REQUIRE( node4->PropertyFromPath("/../../node[0].Property1" )->GetValue<int>() == 1234 );
+        REQUIRE( node4->PropertyFromPath("/../../node[3].Property1" )->GetValue<int>() == 1234 );
     }
 
     SECTION( "Test Property ReferencePath" )
