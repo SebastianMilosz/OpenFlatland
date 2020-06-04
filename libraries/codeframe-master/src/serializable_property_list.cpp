@@ -76,7 +76,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath( const std::string& path )
+    smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath(const std::string& path)
     {
         std::string::size_type found( path.find_last_of(".") );
         std::string objPath( path.substr( 0, found ) );
@@ -115,7 +115,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath( const std::vector<cPath::sPathNode>& path )
+    smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath(const cPath::sPathLink& pathLink)
     {
 
         return smart_ptr<PropertyNode>( nullptr );

@@ -2,8 +2,7 @@
 
 #include <cstring>      // std::strlen
 #include <vector>
-#include <algorithm>    // std::reverse
-#include <TextUtilities.h>
+
 #include <LoggerUtilities.h>
 
 #include "serializable_object_node.hpp"
@@ -224,42 +223,44 @@ namespace codeframe
     smart_ptr<ObjectSelection> cPath::GetObjectFromPath( const std::string& path )
     {
         auto thisNode = smart_ptr<ObjectSelection>(new ObjectSelection(&m_sint));
-        std::vector<sPathNode> pathDir;
-        PreparePath(path, pathDir, thisNode );
+        cPath::sPathLink pathLink;
+        PreparePathLink(path, pathLink, thisNode );
 
-        smart_ptr<ObjectSelection> curObjectSelection = smart_ptr<ObjectSelection>( new ObjectSelection( &m_sint ) );
+        smart_ptr<ObjectSelection> curObjectSelection = m_sint.Path().GetRootObject();
 
-        LOGGER( LOG_INFO << "GetObjectFromPath: " << path << " pathDir: " << pathDir << " this path: " << m_sint.Path().PathString() );
+        LOGGER( LOG_INFO << "GetObjectFromPath: " << path << " pathLink: " << pathLink << " this path: " << m_sint.Path().PathString() );
 
-        if ( pathDir.size() )
+        if ( smart_ptr_isValid( curObjectSelection ) )
         {
-            std::string tempStr( pathDir.at(0) );
-            std::string objectRootName(curObjectSelection->GetNode()->Path().GetRootObject()->GetNode()->Identity().ObjectName());
-            if ( objectRootName != tempStr )
+            if ( pathLink.size() )
             {
-                return smart_ptr<ObjectSelection>( nullptr );
-            }
-        }
+                // check root match
+                if (pathLink.at(0) == curObjectSelection->GetNode()->Identity().ObjectName())
+                {
+                    for ( unsigned int i = 1U; i < pathLink.size(); i++ )
+                    {
+                        std::string levelName( pathLink.at(i) );
+                        curObjectSelection = curObjectSelection->GetNode()->Path().GetChildByName(levelName);
 
-        smart_ptr<ObjectSelection> objectSelection = curObjectSelection->GetNode()->Path().Parent();
-
-        // Po wszystkich skladnikach sciezki
-        for ( unsigned int i = 1U; i < pathDir.size(); i++ )
-        {
-            std::string levelName( pathDir.at(i) );
-            std::string objectRootName;
-
-            if ( smart_ptr_isValid( objectSelection ) )
-            {
-                curObjectSelection = objectSelection;
+                        if ( smart_ptr_isValid( curObjectSelection ) == false )
+                        {
+                            curObjectSelection = smart_ptr<ObjectSelection>( nullptr );
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    curObjectSelection = smart_ptr<ObjectSelection>( nullptr );
+                }
             }
             else
             {
-                return smart_ptr<ObjectSelection>( nullptr );
+                curObjectSelection = smart_ptr<ObjectSelection>( nullptr );
             }
         }
 
-        return objectSelection;
+        return curObjectSelection;
     }
 
 /*****************************************************************************/
@@ -267,9 +268,9 @@ namespace codeframe
   * @brief This method change relative paths to absolute ones
  **
 ******************************************************************************/
-void cPath::PreparePath( const std::string& path, std::vector<sPathNode>& pathDir, smart_ptr<ObjectSelection> propertyParent )
+void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pathLink, smart_ptr<ObjectSelection> propertyParent)
 {
-    std::string retString( path );
+    std::string retString( pathString );
 
     // With parent we may be able resolve relative path
     if (propertyParent)
@@ -279,7 +280,7 @@ void cPath::PreparePath( const std::string& path, std::vector<sPathNode>& pathDi
             smart_ptr<ObjectSelection> parentNode = propertyParent->GetNode()->Path().Parent();
             if (parentNode)
             {
-                pathDir.push_back( sPathNode(parentNode->GetNode()->Identity().ObjectName()));
+                pathLink.PathPushBack(parentNode->GetNode()->Identity().ObjectName());
             }
 
             if (retString.find_first_of("/\\") == 0)
@@ -287,33 +288,31 @@ void cPath::PreparePath( const std::string& path, std::vector<sPathNode>& pathDi
                 retString.erase(0, retString.find_first_of("/\\")+1);
             }
             retString.erase(0, retString.find_first_of("/\\"));
+
             smart_ptr<ObjectSelection> parentObject = propertyParent->GetNode()->Path().Parent();
-            PreparePath(retString, pathDir, parentObject );
+
+            if (IsDownHierarchy(retString) == false)
+            {
+                pathLink.reverse();
+            }
+
+            PreparePathLink(retString, pathLink, parentObject );
         }
         else if (IsRelativeHierarchy(retString))
         {
-            retString.erase(0, retString.find_first_of("/\\")+1);
-
-            std::string pathDirString;
-            for (auto it = pathDir.rbegin(); it != pathDir.rend(); ++it)
+            if (pathLink.size() == 0U)
             {
-                pathDirString += *it;
-                pathDirString += "/";
+                pathLink.FromDirString(propertyParent->GetNode()->Path().PathString());
             }
 
-            std::reverse(std::begin(pathDir), std::end(pathDir));
-            pathDir.push_back(retString);
-
-            pathDirString.pop_back();   // Remove last / char
-            retString = pathDirString + std::string("/") + retString;
+            retString.erase(0, retString.find_first_of("/\\")+1);
+            pathLink.PathPushBack(retString);
         }
         else
         {
-            utilities::text::split( path, m_delimiters, pathDir);
+            pathLink.FromDirString(pathString);
         }
     }
-
-    //return retString;
 }
 
 /*****************************************************************************/

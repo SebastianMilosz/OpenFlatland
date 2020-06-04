@@ -4,7 +4,10 @@
 #include <string>
 #include <smartpointer.h>
 #include <typedefs.hpp>
+#include <algorithm>    // std::reverse
+#include <TextUtilities.h>
 
+#include "serializable_property_node.hpp"
 #include "serializable_object_selection.hpp"
 #include "serializable_object_multiple_selection.hpp"
 
@@ -18,25 +21,67 @@ namespace codeframe
              cPath( ObjectNode& sint );
             ~cPath();
 
-            enum ePathNodeType
+            struct sPathLink
             {
-                OBJECT,     ///< This path node is an object
-                CONTAINER,  ///< This path node is an object container
-                PROPERTY,   ///< This path node is an value property
-            };
+                public:
+                    void SetPropertyName(const std::string& val)
+                    {
+                        m_PropertyName = val;
+                    }
 
-            struct sPathNode
-            {
-                sPathNode(const std::string& name, const ePathNodeType type = OBJECT) :
-                    NodeName(name),
-                    NodeType(type)
-                {
-                }
+                    void PathPushBack(const std::string& val)
+                    {
+                        m_ObjectPath.push_back(val);
+                    }
 
-                operator std::string() const { return NodeName; }
+                    size_t size() const noexcept
+                    {
+                        return m_ObjectPath.size();
+                    }
 
-                std::string NodeName;
-                ePathNodeType NodeType;
+                    std::string at(size_t pos)
+                    {
+                        return m_ObjectPath.at(pos);
+                    }
+
+                    void reverse()
+                    {
+                        std::reverse(std::begin(m_ObjectPath), std::end(m_ObjectPath));
+                    }
+
+                    void FromDirString(const std::string& val)
+                    {
+                        utilities::text::split( val, m_delimiters, m_ObjectPath);
+                    }
+
+                    std::string ToDirString() const
+                    {
+                        std::string dirString;
+                        for (auto it = m_ObjectPath.begin(); it != m_ObjectPath.end(); ++it)
+                        {
+                            dirString += *it;
+                            dirString += "/";
+                        }
+                        dirString.pop_back();   // Remove last / char
+                        return dirString;
+                    }
+
+                    operator std::string() const
+                    {
+                        std::string retLine("vector[");
+                        for (auto& n : m_ObjectPath)
+                        {
+                            retLine += (std::string)n + ",";
+                        }
+                        retLine += "]";
+                        return retLine;
+                    }
+
+                private:
+                    std::string              m_PropertyName;
+                    std::vector<std::string> m_ObjectPath;
+                    smart_ptr<PropertyNode>  m_Property;
+                    smart_ptr<ObjectNode>    m_Object;
             };
 
             std::string PathString() const;
@@ -50,7 +95,7 @@ namespace codeframe
             smart_ptr<ObjectSelection> GetObjectFromPath( const std::string& path );
             smart_ptr<ObjectSelection> GetChildByName   ( const std::string& name );
 
-            static void PreparePath(const std::string& path, std::vector<sPathNode>& pathDir, smart_ptr<ObjectSelection> propertyParent);
+            static void PreparePathLink(const std::string& pathString, cPath::sPathLink& pathLink, smart_ptr<ObjectSelection> propertyParent);
 
         private:
             static const std::string m_delimiters;

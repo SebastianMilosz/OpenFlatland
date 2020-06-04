@@ -148,7 +148,19 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
 
     SECTION( "Test Relative Paths" )
     {
-        REQUIRE( node4->PropertyFromPath("/../../node[3].Property1" )->GetValue<int>() == 1234 );
+        smart_ptr<PropertyNode> propNode = staticSerializableObject.PropertyList().GetPropertyFromPath( "testNameStatic/testNameContainerStatic/node[3].Property1" );
+        smart_ptr<PropertyNode> node3_1 = staticContainerObject.PropertyFromPath("/node[3].Property1" );
+        smart_ptr<PropertyNode> node3_2 = node4->PropertyFromPath("/../../testNameContainerStatic/node[3].Property1" );
+
+        *propNode = 1234;
+
+        REQUIRE( smart_ptr_isValid( node3_1 ) );
+        REQUIRE( node3_1->GetValue<int>() == 1234 );
+
+        *propNode = 1235;
+
+        REQUIRE( smart_ptr_isValid( node3_2 ) );
+        REQUIRE( node3_2->GetValue<int>() == 1235 );
     }
 
     SECTION( "Test Property ReferencePath" )
