@@ -272,16 +272,12 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
 {
     std::string retString( pathString );
 
-    // With parent we may be able resolve relative path
+    // With parent we may be able resolve relative paths
     if (propertyParent)
     {
         if (IsDownHierarchy(retString))
         {
             smart_ptr<ObjectSelection> parentNode = propertyParent->GetNode()->Path().Parent();
-            if (parentNode)
-            {
-                pathLink.PathPushBack(parentNode->GetNode()->Identity().ObjectName());
-            }
 
             if (retString.find_first_of("/\\") == 0)
             {
@@ -289,14 +285,7 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
             }
             retString.erase(0, retString.find_first_of("/\\"));
 
-            smart_ptr<ObjectSelection> parentObject = propertyParent->GetNode()->Path().Parent();
-
-            if (IsDownHierarchy(retString) == false)
-            {
-                pathLink.reverse();
-            }
-
-            PreparePathLink(retString, pathLink, parentObject );
+            PreparePathLink(retString, pathLink, parentNode );
         }
         else if (IsRelativeHierarchy(retString))
         {
@@ -306,7 +295,7 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
             }
 
             retString.erase(0, retString.find_first_of("/\\")+1);
-            pathLink.PathPushBack(retString);
+            pathLink.FromDirString(retString);
         }
         else
         {
