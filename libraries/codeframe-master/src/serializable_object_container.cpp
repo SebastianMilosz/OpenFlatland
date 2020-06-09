@@ -245,9 +245,27 @@ bool ObjectContainer::IsInRange( const unsigned int cnt ) const
   * @brief
  **
 ******************************************************************************/
-smart_ptr<ObjectNode> ObjectContainer::operator[]( int i )
+smart_ptr<ObjectSelection> ObjectContainer::operator[]( const unsigned int i )
 {
-    return Get( i );
+    return smart_ptr<ObjectSelection>( new ObjectSelection( Get( i ) ) );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectContainer::operator[]( const std::string& name )
+{
+    for (auto const& iteam: m_containerVector)
+    {
+        if (smart_ptr_isValid( iteam ) && iteam->Identity().ObjectName() == name)
+        {
+            return smart_ptr<ObjectSelection>( new ObjectSelection( iteam ) );
+        }
+    }
+
+    return smart_ptr<ObjectSelection>( nullptr );
 }
 
 /*****************************************************************************/

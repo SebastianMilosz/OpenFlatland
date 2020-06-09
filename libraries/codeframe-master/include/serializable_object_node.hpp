@@ -49,6 +49,9 @@ namespace codeframe
             virtual cObjectList&    ChildList() = 0;
             virtual cIdentity&      Identity() = 0;
 
+            virtual smart_ptr<ObjectSelection> operator[]( const unsigned int i ) = 0;
+            virtual smart_ptr<ObjectSelection> operator[]( const std::string& name ) = 0;
+
             virtual smart_ptr<PropertyNode> Property(const std::string& name) = 0;
             virtual smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) = 0;
 

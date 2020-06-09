@@ -336,6 +336,7 @@
 		<Unit filename="libraries/codeframe-master/include/serializable_lua.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_container.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializable_object_dummy.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_list.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_multiple_selection.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_node.hpp" />
@@ -405,6 +406,9 @@
 			<Option target="Test CodeFrame" />
 		</Unit>
 		<Unit filename="libraries/codeframe-master/tests/test_serializable.cpp">
+			<Option target="Test CodeFrame" />
+		</Unit>
+		<Unit filename="libraries/codeframe-master/tests/test_serializable_fixture.hpp">
 			<Option target="Test CodeFrame" />
 		</Unit>
 		<Unit filename="libraries/codeframe-master/tests/test_serializable_path.cpp">

@@ -10,8 +10,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cObjectList::cObjectList() :
-        m_childCnt( 0 )
+    cObjectList::cObjectList()
     {
     }
 
@@ -26,7 +25,6 @@ namespace codeframe
         {
             m_Mutex.Lock();
             m_childVector.push_back( child );
-            m_childCnt++;
             m_Mutex.Unlock();
         }
     }
@@ -42,7 +40,6 @@ namespace codeframe
         {
             m_Mutex.Lock();
             m_childVector.erase(std::remove(m_childVector.begin(), m_childVector.end(), child), m_childVector.end());
-            m_childCnt--;
             m_Mutex.Unlock();
         }
     }
@@ -55,7 +52,6 @@ namespace codeframe
     void cObjectList::PulseChanged( bool fullTree )
     {
         m_Mutex.Lock();
-        // Zmuszamy dzieci do aktualizacji
         for ( auto it = begin(); it != end(); ++it )
         {
             ObjectNode* iser = *it;
@@ -70,7 +66,7 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Zatwierdzenie wszystkich zmian obiektu i jego potomnych
+      * @brief
      **
     ******************************************************************************/
     void cObjectList::CommitChanges()
@@ -104,5 +100,64 @@ namespace codeframe
             }
         }
         m_Mutex.Unlock();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> cObjectList::GetObjectByName( const std::string& name )
+    {
+        // Separate * symbol
+        std::size_t foundRangeOpen  = name.find_last_of("[");
+
+        // Multi selection
+        if ( foundRangeOpen != std::string::npos )
+        {
+            if ( name.at( foundRangeOpen + 1U ) == '*' )
+            {
+                auto  nameCore( name.substr( 0, foundRangeOpen + 1U ) );
+
+                smart_ptr<ObjectMultipleSelection> multipleSelection = smart_ptr<ObjectMultipleSelection>( new ObjectMultipleSelection );
+
+                for ( auto it = begin(); it != end(); ++it )
+                {
+                    ObjectNode* iser = *it;
+                    auto  objectName( iser->Identity().ObjectName( true ) );
+                    auto  refName( nameCore + ( std::to_string( (int)it ).append( "]" ) ) );
+
+                    if ( objectName == refName )
+                    {
+                        multipleSelection->Add( iser );
+                    }
+                }
+
+                return multipleSelection;
+            }
+        }
+
+        // Single selection
+        for ( auto it = begin(); it != end(); ++it )
+        {
+            ObjectNode* iser = *it;
+            auto objectName( iser->Identity().ObjectName( true ) );
+
+            if ( objectName == name )
+            {
+                return smart_ptr<ObjectSelection>( new ObjectSelection( iser ) );
+            }
+        }
+        return smart_ptr<ObjectSelection>(  nullptr );
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> cObjectList::GetObjectById( const uint32_t id )
+    {
+        return smart_ptr<ObjectSelection>(nullptr);
     }
 }

@@ -39,7 +39,8 @@ namespace codeframe
                                                   const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                  ) = 0;
 
-            smart_ptr<ObjectNode> operator[]( int i );
+            smart_ptr<ObjectSelection> operator[]( const unsigned int i );
+            smart_ptr<ObjectSelection> operator[]( const std::string& name );
 
             virtual void CreateRange( const std::string& className, const std::string& objName, const int range );
             virtual bool Dispose( const unsigned int id );

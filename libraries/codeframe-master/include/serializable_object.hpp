@@ -37,6 +37,9 @@ namespace codeframe
             cObjectList&   ChildList() override;
             cIdentity&     Identity() override;
 
+            smart_ptr<ObjectSelection> operator[]( const unsigned int i ) override;
+            smart_ptr<ObjectSelection> operator[]( const std::string& name ) override;
+
             smart_ptr<PropertyNode> Property(const std::string& name) override;
             smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) override;
 

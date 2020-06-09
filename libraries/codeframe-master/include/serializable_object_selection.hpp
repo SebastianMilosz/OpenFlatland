@@ -3,10 +3,12 @@
 
 #include <string>
 #include <vector>
+#include <smartpointer.h>
 
 namespace codeframe
 {
     class ObjectNode;
+    class PropertyNode;
 
      /*****************************************************************************
      * @class This class stores Object's selection
@@ -49,7 +51,13 @@ namespace codeframe
 
         public:
                     ObjectSelection( ObjectNode* obj );
+                    ObjectSelection( smart_ptr<ObjectNode> obj );
            virtual ~ObjectSelection();
+
+            operator ObjectNode&();
+
+            virtual smart_ptr<PropertyNode> Property(const std::string& name);
+            virtual smart_ptr<PropertyNode> PropertyFromPath(const std::string& path);
 
             virtual ObjectNode* GetNode( unsigned int id = 0U );
             virtual unsigned int GetNodeCount();
@@ -68,6 +76,7 @@ namespace codeframe
             ObjectSelection();
 
         private:
+            smart_ptr<ObjectNode> m_smartSelection;
             ObjectNode* m_selection;
     };
 }

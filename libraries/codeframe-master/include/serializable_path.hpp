@@ -93,7 +93,6 @@ namespace codeframe
             smart_ptr<ObjectSelection> Parent() const;
             smart_ptr<ObjectSelection> GetRootObject    ();
             smart_ptr<ObjectSelection> GetObjectFromPath( const std::string& path );
-            smart_ptr<ObjectSelection> GetChildByName   ( const std::string& name );
 
             static void PreparePathLink(const std::string& pathString, cPath::sPathLink& pathLink, smart_ptr<ObjectSelection> propertyParent);
 

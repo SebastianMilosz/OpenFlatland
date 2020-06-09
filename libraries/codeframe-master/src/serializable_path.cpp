@@ -156,55 +156,6 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<ObjectSelection> cPath::GetChildByName( const std::string& name )
-    {
-        // Separate * symbol
-        std::size_t foundRangeOpen  = name.find_last_of("[");
-
-        // Multi selection
-        if ( foundRangeOpen != std::string::npos )
-        {
-            if ( name.at( foundRangeOpen + 1U ) == '*' )
-            {
-                auto  nameCore( name.substr( 0, foundRangeOpen + 1U ) );
-
-                smart_ptr<ObjectMultipleSelection> multipleSelection = smart_ptr<ObjectMultipleSelection>( new ObjectMultipleSelection );
-
-                for ( auto it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
-                {
-                    ObjectNode* iser = *it;
-                    auto  objectName( iser->Identity().ObjectName( true ) );
-                    auto  refName( nameCore + ( std::to_string( (int)it ).append( "]" ) ) );
-
-                    if ( objectName == refName )
-                    {
-                        multipleSelection->Add( iser );
-                    }
-                }
-
-                return multipleSelection;
-            }
-        }
-
-        // Single selection
-        for ( auto it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
-        {
-            ObjectNode* iser = *it;
-            auto objectName( iser->Identity().ObjectName( true ) );
-
-            if ( objectName == name )
-            {
-                return smart_ptr<ObjectSelection>( new ObjectSelection( iser ) );
-            }
-        }
-        return smart_ptr<ObjectSelection>(  nullptr );
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::GetRootObject()
     {
         if ( smart_ptr_isValid( Parent() ) )
@@ -228,8 +179,6 @@ namespace codeframe
 
         smart_ptr<ObjectSelection> curObjectSelection = m_sint.Path().GetRootObject();
 
-        LOGGER( LOG_INFO << "GetObjectFromPath: " << path << " pathLink: " << pathLink << " this path: " << m_sint.Path().PathString() );
-
         if ( smart_ptr_isValid( curObjectSelection ) )
         {
             if ( pathLink.size() )
@@ -240,7 +189,7 @@ namespace codeframe
                     for ( unsigned int i = 1U; i < pathLink.size(); i++ )
                     {
                         std::string levelName( pathLink.at(i) );
-                        curObjectSelection = curObjectSelection->GetNode()->Path().GetChildByName(levelName);
+                        curObjectSelection = curObjectSelection->GetNode()->ChildList().GetObjectByName(levelName);
 
                         if ( smart_ptr_isValid( curObjectSelection ) == false )
                         {

@@ -146,6 +146,26 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::operator[]( const unsigned int i )
+    {
+        return m_childList.GetObjectById(i);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::operator[]( const std::string& name )
+    {
+        return m_childList.GetObjectByName(name);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     smart_ptr<PropertyNode> Object::Property(const std::string& name)
     {
         return m_PropertyList.GetPropertyByName(name);

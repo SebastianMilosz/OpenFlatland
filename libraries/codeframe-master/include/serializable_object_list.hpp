@@ -4,21 +4,17 @@
 #include <vector>
 #include <MathUtilities.h>
 #include <ThreadUtilities.h>
+#include <smartpointer.h>
 
 namespace codeframe
 {
     class ObjectNode;
+    class ObjectSelection;
 
     class cObjectList
     {
         friend class iterator;
 
-        private:
-            int                      m_childCnt;
-            std::vector<ObjectNode*> m_childVector;
-
-            ///
-            WrMutex m_Mutex;
         public:
             class iterator : public std::iterator<std::input_iterator_tag, ObjectNode*>
             {
@@ -67,6 +63,9 @@ namespace codeframe
             void CommitChanges();
             void Enable( bool val );
 
+            smart_ptr<ObjectSelection> GetObjectByName( const std::string& name );
+            smart_ptr<ObjectSelection> GetObjectById  ( const uint32_t id   );
+
             // Iterator
             iterator begin() throw()      { return iterator(this, 0);                    }
             iterator end()   throw()      { return iterator(this, m_childVector.size()); }
@@ -74,6 +73,10 @@ namespace codeframe
             int              size()        const { return m_childVector.size();                 }
             std::string      sizeString()  const { return utilities::math::IntToStr(size());    }
 
+        private:
+            std::vector<ObjectNode*> m_childVector;
+
+            WrMutex m_Mutex;
     };
 
 }
