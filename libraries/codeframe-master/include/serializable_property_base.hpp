@@ -75,7 +75,7 @@ namespace codeframe
             uint32_t    Id() const override;
             eType       Type() const override;
             std::string Path(bool_t addName = true) const override;
-            ObjectNode* Parent() const override;
+            smart_ptr<ObjectNode> Parent() const override;
             std::string ParentName() const override;
             smart_ptr<PropertyNode> Reference() const override { return m_reference; }
             bool_t      ConnectReference( smart_ptr<PropertyNode> refNode ) override;
@@ -109,7 +109,7 @@ namespace codeframe
             static int              s_globalParConCnt;
             smart_ptr<PropertyNode> m_reference;             ///< Reference to another property
             eType                   m_type;
-            ObjectNode*             m_parentpc;
+            smart_ptr<ObjectNode>   m_parentpc;
             std::string             m_name;
             uint32_t                m_id;
             mutable WrMutex         m_Mutex;

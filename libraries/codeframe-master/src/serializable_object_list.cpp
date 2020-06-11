@@ -19,9 +19,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cObjectList::Register( ObjectNode* child )
+    void cObjectList::Register( smart_ptr<ObjectNode> child )
     {
-        if ( child )
+        if ( smart_ptr_isValid(child) )
         {
             m_Mutex.Lock();
             m_childVector.push_back( child );
@@ -34,9 +34,9 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cObjectList::UnRegister( ObjectNode* child )
+    void cObjectList::UnRegister( smart_ptr<ObjectNode> child )
     {
-        if ( child )
+        if ( smart_ptr_isValid(child) )
         {
             m_Mutex.Lock();
             m_childVector.erase(std::remove(m_childVector.begin(), m_childVector.end(), child), m_childVector.end());
@@ -54,9 +54,9 @@ namespace codeframe
         m_Mutex.Lock();
         for ( auto it = begin(); it != end(); ++it )
         {
-            ObjectNode* iser = *it;
+            smart_ptr<ObjectNode> iser = *it;
 
-            if ( iser )
+            if ( smart_ptr_isValid(iser) )
             {
                 iser->PulseChanged( fullTree );
             }
@@ -74,8 +74,9 @@ namespace codeframe
         m_Mutex.Lock();
         for ( auto it = begin(); it != end(); ++it )
         {
-            ObjectNode* iser = *it;
-            if ( iser )
+            smart_ptr<ObjectNode> iser = *it;
+
+            if ( smart_ptr_isValid(iser) )
             {
                 iser->CommitChanges();
             }
@@ -93,8 +94,9 @@ namespace codeframe
         m_Mutex.Lock();
         for ( auto it = begin(); it != end(); ++it )
         {
-            ObjectNode* iser = *it;
-            if ( iser )
+            smart_ptr<ObjectNode> iser = *it;
+
+            if ( smart_ptr_isValid(iser) )
             {
                 iser->Enable( val );
             }
@@ -123,7 +125,7 @@ namespace codeframe
 
                 for ( auto it = begin(); it != end(); ++it )
                 {
-                    ObjectNode* iser = *it;
+                    smart_ptr<ObjectNode> iser = *it;
                     auto  objectName( iser->Identity().ObjectName( true ) );
                     auto  refName( nameCore + ( std::to_string( (int)it ).append( "]" ) ) );
 
@@ -140,7 +142,7 @@ namespace codeframe
         // Single selection
         for ( auto it = begin(); it != end(); ++it )
         {
-            ObjectNode* iser = *it;
+            smart_ptr<ObjectNode> iser = *it;
             auto objectName( iser->Identity().ObjectName( true ) );
 
             if ( objectName == name )

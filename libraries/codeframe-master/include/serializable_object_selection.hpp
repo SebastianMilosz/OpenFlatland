@@ -33,7 +33,7 @@ namespace codeframe
                         return m_id != other.m_id;
                     }
 
-                    ObjectNode* operator* () const
+                    smart_ptr<ObjectNode> operator* () const
                     {
                         return m_ObjectSelection->GetNode( m_id );
                     }
@@ -50,16 +50,13 @@ namespace codeframe
             };
 
         public:
-                    ObjectSelection( ObjectNode* obj );
                     ObjectSelection( smart_ptr<ObjectNode> obj );
            virtual ~ObjectSelection();
-
-            operator ObjectNode&();
 
             virtual smart_ptr<PropertyNode> Property(const std::string& name);
             virtual smart_ptr<PropertyNode> PropertyFromPath(const std::string& path);
 
-            virtual ObjectNode* GetNode( unsigned int id = 0U );
+            virtual smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
             virtual unsigned int GetNodeCount();
 
             ObjectSelectionIterator begin()
@@ -76,8 +73,7 @@ namespace codeframe
             ObjectSelection();
 
         private:
-            smart_ptr<ObjectNode> m_smartSelection;
-            ObjectNode* m_selection;
+            smart_ptr<ObjectNode> m_selection;
     };
 }
 

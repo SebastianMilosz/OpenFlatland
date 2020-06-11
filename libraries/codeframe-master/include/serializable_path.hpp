@@ -85,7 +85,7 @@ namespace codeframe
             };
 
             std::string PathString() const;
-            bool_t ParentBound( ObjectNode* parent );
+            bool_t ParentBound( smart_ptr<ObjectNode> parent );
             void ParentUnbound();
 
             bool_t IsNameUnique( const std::string& name, const bool_t checkParent = false ) const;
@@ -102,7 +102,7 @@ namespace codeframe
             static bool_t IsRelativeHierarchy(const std::string& path);
 
             ObjectNode& m_sint;
-            ObjectNode* m_parent;
+            smart_ptr<ObjectNode> m_parent;
     };
 
 }

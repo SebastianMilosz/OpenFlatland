@@ -21,7 +21,7 @@ ObjectMultipleSelection::ObjectMultipleSelection() :
   * @brief
  **
 ******************************************************************************/
-ObjectMultipleSelection::ObjectMultipleSelection( ObjectNode* obj ) :
+ObjectMultipleSelection::ObjectMultipleSelection( smart_ptr<ObjectNode> obj ) :
     ObjectSelection()
 {
     assert( obj );
@@ -44,7 +44,7 @@ ObjectMultipleSelection::~ObjectMultipleSelection()
   * @brief
  **
 ******************************************************************************/
-ObjectNode* ObjectMultipleSelection::GetNode( unsigned int id )
+smart_ptr<ObjectNode> ObjectMultipleSelection::GetNode( unsigned int id )
 {
     return m_selection.at( id );
 }
@@ -64,7 +64,7 @@ unsigned int ObjectMultipleSelection::GetNodeCount()
   * @brief
  **
 ******************************************************************************/
-void ObjectMultipleSelection::Add( ObjectNode* obj )
+void ObjectMultipleSelection::Add( smart_ptr<ObjectNode> obj )
 {
     m_selection.push_back( obj );
 }

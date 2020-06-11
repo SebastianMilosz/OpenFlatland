@@ -472,7 +472,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    ObjectNode* PropertyBase::Parent() const
+    smart_ptr<ObjectNode> PropertyBase::Parent() const
     {
         return m_parentpc;
     }
@@ -754,7 +754,7 @@ namespace codeframe
     {
         if (m_reference)
         {
-            if (cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(m_reference->Parent())))
+            if (cInstanceManager::IsInstance( smart_ptr_getRaw(std::dynamic_pointer_cast<cInstanceManager>(m_reference->Parent()))) )
             {
                 return true;
             }

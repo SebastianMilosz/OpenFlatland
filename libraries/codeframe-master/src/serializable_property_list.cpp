@@ -90,10 +90,10 @@ namespace codeframe
             {
                 smart_ptr<PropertyMultipleSelection> propMultiNode( new PropertyMultipleSelection() );
 
-                for ( ObjectNode* obj : *objectSelection )
+                for ( auto obj : *objectSelection )
                 {
                     smart_ptr<PropertyNode> node = obj->PropertyList().GetPropertyByName( propertyName );
-                    if ( nullptr != node )
+                    if ( smart_ptr_isValid(node) )
                     {
                         propMultiNode->Add( node );
                     }

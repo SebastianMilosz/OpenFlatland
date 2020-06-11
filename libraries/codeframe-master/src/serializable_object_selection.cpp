@@ -13,20 +13,8 @@ namespace codeframe
   * @brief
  **
 ******************************************************************************/
-ObjectSelection::ObjectSelection( ObjectNode* obj ) :
-    m_selection( obj )
-{
-    assert( obj );
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 ObjectSelection::ObjectSelection( smart_ptr<ObjectNode> obj ) :
-    m_smartSelection( obj ),
-    m_selection( smart_ptr_getRaw(obj) )
+    m_selection( obj )
 {
 
 }
@@ -57,25 +45,9 @@ ObjectSelection::~ObjectSelection()
   * @brief
  **
 ******************************************************************************/
-ObjectSelection::operator ObjectNode&()
-{
-    if (m_selection)
-    {
-        return *m_selection;
-    }
-
-    static ObjectDummy dummyObject("dummyObject");
-    return dummyObject;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 smart_ptr<PropertyNode> ObjectSelection::Property(const std::string& name)
 {
-    if (m_selection)
+    if ( smart_ptr_isValid(m_selection) )
     {
         return m_selection->Property(name);
     }
@@ -91,7 +63,7 @@ smart_ptr<PropertyNode> ObjectSelection::Property(const std::string& name)
 ******************************************************************************/
 smart_ptr<PropertyNode> ObjectSelection::PropertyFromPath(const std::string& path)
 {
-    if (m_selection)
+    if ( smart_ptr_isValid(m_selection) )
     {
         return m_selection->PropertyFromPath(path);
     }
@@ -105,7 +77,7 @@ smart_ptr<PropertyNode> ObjectSelection::PropertyFromPath(const std::string& pat
   * @brief
  **
 ******************************************************************************/
-ObjectNode* ObjectSelection::GetNode( unsigned int id )
+smart_ptr<ObjectNode> ObjectSelection::GetNode( unsigned int id )
 {
     return m_selection;
 }

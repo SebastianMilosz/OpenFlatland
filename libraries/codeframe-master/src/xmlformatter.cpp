@@ -114,7 +114,7 @@ namespace codeframe
         // Po wszystkich obiektach dzieci ladujemy zawartosc
         for( cObjectList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
         {
-            ObjectNode* iser = *it;
+            smart_ptr<ObjectNode> iser = *it;
 
             // Jesli jest to kontener to po jego dzieciach czyli obiektach
             if( iser->Role() == CONTAINER )
@@ -127,7 +127,7 @@ namespace codeframe
 
                     if( childNodeObject.IsValid() == true )
                     {
-                        ObjectNode* iserc = *itc;
+                        smart_ptr<ObjectNode> iserc = *itc;
 
                         // Po wszystkich polach serializacji tego obiektu
                         for( PropertyIterator itcp = iserc->PropertyList().begin(); itcp != iserc->PropertyList().end(); ++itcp )
@@ -456,7 +456,7 @@ namespace codeframe
 
                 for ( cObjectList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
                 {
-                    ObjectNode* iser = *it;
+                    smart_ptr<ObjectNode> iser = *it;
 
                     if ( iser )
                     {
@@ -621,7 +621,7 @@ namespace codeframe
             // Po wszystkich obiektach dzieci ladujemy zawartosc
             for ( cObjectList::iterator it = obj.ChildList().begin(); it != obj.ChildList().end(); ++it )
             {
-                ObjectNode* iser = *it;
+                smart_ptr<ObjectNode> iser = *it;
                 cXmlFormatter formatter( *iser );
 
                 cXMLNode childNode = node.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr(childLp).c_str());

@@ -19,16 +19,16 @@ namespace codeframe
             using ObjectSelectionIterator = ObjectSelection::ObjectSelectionIterator;
 
             ObjectMultipleSelection();
-            ObjectMultipleSelection( ObjectNode* obj );
+            ObjectMultipleSelection( smart_ptr<ObjectNode> obj );
            ~ObjectMultipleSelection();
 
-            ObjectNode* GetNode( unsigned int id = 0U );
+            smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
             unsigned int GetNodeCount();
 
-            void Add( ObjectNode* obj );
+            void Add( smart_ptr<ObjectNode> obj );
 
         private:
-            std::vector<ObjectNode*> m_selection;
+            std::vector< smart_ptr<ObjectNode> > m_selection;
     };
 }
 

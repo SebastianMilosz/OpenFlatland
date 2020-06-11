@@ -59,13 +59,13 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool_t cPath::ParentBound( ObjectNode* parent )
+    bool_t cPath::ParentBound( smart_ptr<ObjectNode> parent )
     {
         // Rejestrujemy sie u rodzica
-        if( parent )
+        if( smart_ptr_isValid(parent) )
         {
             m_parent = parent;
-            m_parent->ChildList().Register( &m_sint );
+            m_parent->ChildList().Register( smart_ptr<ObjectNode>(&m_sint, [](ObjectNode* p) {}) );
             return true;
         }
         return false;
@@ -78,10 +78,10 @@ namespace codeframe
     ******************************************************************************/
     void cPath::ParentUnbound()
     {
-        if( m_parent )
+        if( smart_ptr_isValid(m_parent) )
         {
-            m_parent->ChildList().UnRegister( &m_sint );
-            m_parent = nullptr;
+            m_parent->ChildList().UnRegister( smart_ptr<ObjectNode>(&m_sint, [](ObjectNode* p) {}) );
+            m_parent = smart_ptr<ObjectNode>(nullptr);
         }
     }
 
@@ -95,7 +95,7 @@ namespace codeframe
         int octcnt = 0;
 
         // If there is no parent on this level we are unique
-        if ( m_parent == nullptr )
+        if ( smart_ptr_isValid(m_parent) == false )
         {
             return true;
         }
@@ -113,7 +113,7 @@ namespace codeframe
 
         for ( auto it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
         {
-            ObjectNode* iser = *it;
+            smart_ptr<ObjectNode> iser = *it;
 
             if ( iser != nullptr )
             {
@@ -143,7 +143,7 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::Parent() const
     {
-        if ( m_parent != nullptr )
+        if ( smart_ptr_isValid(m_parent) )
         {
             return smart_ptr<ObjectSelection>( new ObjectSelection(m_parent) );
         }
@@ -163,7 +163,7 @@ namespace codeframe
             return Parent()->GetNode()->Path().GetRootObject();
         }
 
-        return smart_ptr<ObjectSelection>( new ObjectSelection( &m_sint ) );
+        return smart_ptr<ObjectSelection>( new ObjectSelection( smart_ptr<ObjectNode>(&m_sint, [](ObjectNode* p) {}) ) );
     }
 
     /*****************************************************************************/
@@ -173,7 +173,7 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::GetObjectFromPath( const std::string& path )
     {
-        auto thisNode = smart_ptr<ObjectSelection>(new ObjectSelection(&m_sint));
+        auto thisNode = smart_ptr<ObjectSelection>(new ObjectSelection(smart_ptr<ObjectNode>(&m_sint, [](ObjectNode* p) {})));
         cPath::sPathLink pathLink;
         PreparePathLink(path, pathLink, thisNode );
 
