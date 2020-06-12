@@ -65,7 +65,7 @@ namespace codeframe
         if( smart_ptr_isValid(parent) )
         {
             m_parent = parent;
-            m_parent->ChildList().Register( smart_ptr<ObjectNode>(&m_sint, [](ObjectNode* p) {}) );
+            m_parent->ChildList().Register( smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {}) );
             return true;
         }
         return false;
@@ -80,7 +80,7 @@ namespace codeframe
     {
         if( smart_ptr_isValid(m_parent) )
         {
-            m_parent->ChildList().UnRegister( smart_ptr<ObjectNode>(&m_sint, [](ObjectNode* p) {}) );
+            m_parent->ChildList().UnRegister( smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {}) );
             m_parent = smart_ptr<ObjectNode>(nullptr);
         }
     }
@@ -163,7 +163,7 @@ namespace codeframe
             return Parent()->GetNode()->Path().GetRootObject();
         }
 
-        return smart_ptr<ObjectSelection>( new ObjectSelection( smart_ptr<ObjectNode>(&m_sint, [](ObjectNode* p) {}) ) );
+        return smart_ptr<ObjectSelection>( new ObjectSelection( smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {}) ) );
     }
 
     /*****************************************************************************/
@@ -173,7 +173,7 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::GetObjectFromPath( const std::string& path )
     {
-        auto thisNode = smart_ptr<ObjectSelection>(new ObjectSelection(smart_ptr<ObjectNode>(&m_sint, [](ObjectNode* p) {})));
+        auto thisNode = smart_ptr<ObjectSelection>(new ObjectSelection(smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {})));
         cPath::sPathLink pathLink;
         PreparePathLink(path, pathLink, thisNode );
 

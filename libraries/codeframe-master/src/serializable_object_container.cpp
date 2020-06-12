@@ -390,7 +390,7 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, const int pos )
     if ( nullptr == classType->Path().Parent() )
     {
         ObjectNode* serPar = static_cast<ObjectNode*>( this );
-        classType->Path().ParentBound( smart_ptr<ObjectNode>(serPar, [](ObjectNode* p) {}) );
+        classType->Path().ParentBound( smart_ptr_wild<ObjectNode>(serPar, [](ObjectNode* p) {}) );
     }
 
     classType->Selection().ConectToContainer<ObjectContainer>( this, classType );

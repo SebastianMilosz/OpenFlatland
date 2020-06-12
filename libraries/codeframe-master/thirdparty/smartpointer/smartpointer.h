@@ -4,6 +4,8 @@
 //#define smart_ptr yasper::ptr
 #define smart_ptr std::shared_ptr
 
+#define smart_ptr_wild std::shared_ptr
+
 //#define smart_isValid(ptr) (ptr.IsValid())
 #define smart_ptr_isValid(ptr) (ptr != NULL)
 

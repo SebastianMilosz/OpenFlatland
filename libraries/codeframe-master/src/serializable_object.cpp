@@ -35,7 +35,7 @@ namespace codeframe
         m_PropertyList( *this ),
         m_Identity( name, *this )
     {
-        if (m_SerializablePath.ParentBound( smart_ptr<ObjectNode>(parent, [](ObjectNode* p) {}) ) == true)
+        if (m_SerializablePath.ParentBound( smart_ptr_wild<ObjectNode>(parent, [](ObjectNode* p) {}) ) == true)
         {
             // Resolve references only at root node
             ReferenceManager::ResolveReferences(*(ObjectNode*)this);
