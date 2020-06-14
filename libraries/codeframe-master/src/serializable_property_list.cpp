@@ -86,7 +86,7 @@ namespace codeframe
 
         if ( smart_ptr_isValid( objectSelection ) )
         {
-            if ( objectSelection->GetNodeCount() >= 1U )
+            if ( objectSelection->GetNodeCount() > 1U )
             {
                 smart_ptr<PropertyMultipleSelection> propMultiNode( new PropertyMultipleSelection() );
 

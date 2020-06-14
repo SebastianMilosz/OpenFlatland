@@ -91,7 +91,7 @@ unsigned int ObjectSelection::GetNodeCount()
 {
     if ( smart_ptr_isValid(m_selection) )
     {
-        return 0U;
+        return 1U;
     }
 
     return 0U;
