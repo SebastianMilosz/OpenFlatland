@@ -25,6 +25,8 @@ namespace codeframe
             smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
             unsigned int GetNodeCount();
 
+            std::string ObjectName( bool idSuffix = true ) const;
+
             void Add( smart_ptr<ObjectNode> obj );
 
         private:

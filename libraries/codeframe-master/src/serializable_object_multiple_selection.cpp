@@ -1,4 +1,5 @@
 #include "serializable_object_multiple_selection.hpp"
+#include "serializable_object.hpp"
 
 #include <cassert>
 
@@ -57,6 +58,21 @@ smart_ptr<ObjectNode> ObjectMultipleSelection::GetNode( unsigned int id )
 unsigned int ObjectMultipleSelection::GetNodeCount()
 {
     return m_selection.size();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+std::string ObjectMultipleSelection::ObjectName( bool idSuffix ) const
+{
+    std::string retName;
+    for(auto const& value: m_selection)
+    {
+        retName += value->Identity().ObjectName(idSuffix);
+    }
+    return retName;
 }
 
 /*****************************************************************************/

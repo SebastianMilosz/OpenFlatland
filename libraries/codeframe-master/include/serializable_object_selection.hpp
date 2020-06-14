@@ -59,6 +59,8 @@ namespace codeframe
             virtual smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
             virtual unsigned int GetNodeCount();
 
+            virtual std::string ObjectName( bool idSuffix = true ) const;
+
             ObjectSelectionIterator begin()
             {
                 return ObjectSelectionIterator( this, 0 );

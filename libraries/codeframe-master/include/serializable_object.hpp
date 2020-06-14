@@ -43,6 +43,8 @@ namespace codeframe
             smart_ptr<PropertyNode> Property(const std::string& name) override;
             smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) override;
 
+            std::string ObjectName( bool idSuffix = true ) const override;
+
             void PulseChanged( bool fullTree = false ) override;
             void CommitChanges() override;
             void Enable( bool val ) override;

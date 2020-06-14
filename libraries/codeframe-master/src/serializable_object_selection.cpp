@@ -89,7 +89,27 @@ smart_ptr<ObjectNode> ObjectSelection::GetNode( unsigned int id )
 ******************************************************************************/
 unsigned int ObjectSelection::GetNodeCount()
 {
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        return 0U;
+    }
+
     return 0U;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+std::string ObjectSelection::ObjectName( bool idSuffix ) const
+{
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        return m_selection->Identity().ObjectName(idSuffix);
+    }
+
+    return "";
 }
 
 }

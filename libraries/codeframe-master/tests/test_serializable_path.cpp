@@ -15,8 +15,8 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
 
     SECTION( "Basic codeframe library objects tests" )
     {
-        REQUIRE( staticSerializableObject.Identity().ObjectName() == "testNameStatic" );
-        REQUIRE( staticContainerObject.Identity().ObjectName() == "testNameContainerStatic" );
+        REQUIRE( staticSerializableObject.ObjectName() == "testNameStatic" );
+        REQUIRE( staticSerializableObject["testNameContainerStatic"]->ObjectName() == "testNameContainerStatic" );
 
         REQUIRE( staticContainerObject.Count() == 5 );
 
