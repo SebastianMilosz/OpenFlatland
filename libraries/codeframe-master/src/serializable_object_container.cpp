@@ -21,6 +21,18 @@ ObjectContainer::ObjectContainer( const std::string& name, ObjectNode* parentObj
   * @brief
  **
 ******************************************************************************/
+ObjectContainer::ObjectContainer( const std::string& name, smart_ptr<ObjectNode> parentObject ) :
+    Object( name, parentObject ),
+    m_selected( smart_ptr<Object>( nullptr ) ),
+    m_size( 0U )
+{
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 ObjectContainer::~ObjectContainer()
 {
     Dispose();
@@ -247,7 +259,7 @@ bool ObjectContainer::IsInRange( const unsigned int cnt ) const
 ******************************************************************************/
 smart_ptr<ObjectSelection> ObjectContainer::operator[]( const unsigned int i )
 {
-    return smart_ptr<ObjectSelection>( new ObjectSelection( Get( i ) ) );
+    return Child(i);
 }
 
 /*****************************************************************************/
@@ -256,6 +268,26 @@ smart_ptr<ObjectSelection> ObjectContainer::operator[]( const unsigned int i )
  **
 ******************************************************************************/
 smart_ptr<ObjectSelection> ObjectContainer::operator[]( const std::string& name )
+{
+    return Child(name);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectContainer::Child( const unsigned int i )
+{
+    return smart_ptr<ObjectSelection>( new ObjectSelection( Get( i ) ) );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectContainer::Child( const std::string& name )
 {
     for (auto const& iteam: m_containerVector)
     {

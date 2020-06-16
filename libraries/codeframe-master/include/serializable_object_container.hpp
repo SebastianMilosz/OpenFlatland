@@ -30,17 +30,17 @@ namespace codeframe
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-                     ObjectContainer( const std::string& name, ObjectNode* parentObject );
+                     ObjectContainer( const std::string& name, ObjectNode* parentObject = nullptr );
+                     ObjectContainer( const std::string& name, smart_ptr<ObjectNode> parentObject );
             virtual ~ObjectContainer();
 
-            virtual smart_ptr<ObjectNode> Create(
-                                                  const std::string& className,
-                                                  const std::string& objName,
-                                                  const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                 ) = 0;
+            unsigned int Count() const override;
 
             smart_ptr<ObjectSelection> operator[]( const unsigned int i );
             smart_ptr<ObjectSelection> operator[]( const std::string& name );
+
+            smart_ptr<ObjectSelection> Child( const unsigned int i ) override;
+            smart_ptr<ObjectSelection> Child( const std::string& name ) override;
 
             virtual void CreateRange( const std::string& className, const std::string& objName, const int range );
             virtual bool Dispose( const unsigned int id );
@@ -49,7 +49,6 @@ namespace codeframe
             virtual bool DisposeByBuildType( eBuildType serType, cIgnoreList ignore = cIgnoreList() );
             virtual bool Dispose();
 
-            unsigned int Count() const;
             bool         IsName( const std::string& name );
             std::string  CreateUniqueName( const std::string& nameBase );
             bool         IsInRange( const unsigned int cnt ) const;

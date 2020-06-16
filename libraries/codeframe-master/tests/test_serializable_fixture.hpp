@@ -12,7 +12,6 @@ class classTest_Static : public codeframe::Object
         CODEFRAME_META_CLASS_NAME( "classTest_Static" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
-    public:
         classTest_Static( const std::string& name, ObjectNode* parent ) : Object( name, parent )
         {
         }
@@ -24,12 +23,12 @@ class classTest_Dynamic : public codeframe::Object
         CODEFRAME_META_CLASS_NAME( "classTest_Dynamic" );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
-    codeframe::Property<int> Property1;
-    codeframe::Property<int> Property2;
-    codeframe::Property<int> Property3;
-    codeframe::Property<int> Property4;
+        codeframe::Property<int> Property1;
+        codeframe::Property<int> Property2;
+        codeframe::Property<int> Property3;
+        codeframe::Property<int> Property4;
 
-    codeframe::Property<int> PropertyLink;
+        codeframe::Property<int> PropertyLink;
 
     public:
         classTest_Dynamic( const std::string& name, ObjectNode* parent ) :
@@ -73,9 +72,7 @@ class classTest_Container : public codeframe::ObjectContainer
         }
 
     public:
-        classTest_Container( const std::string& name, ObjectNode* parent ) : ObjectContainer( name, parent )
-        {
-        }
+        using codeframe::ObjectContainer::ObjectContainer;
 };
 
 #endif // TEST_CODEFRAME_FIXTURE_HPP_INCLUDED

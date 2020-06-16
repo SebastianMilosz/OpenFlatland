@@ -47,6 +47,26 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    Object::Object( const std::string& name, smart_ptr<ObjectNode> parent ) :
+        m_SerializablePath( *this ),
+        m_SerializableStorage( *this ),
+        m_SerializableSelectable( *this ),
+        m_SerializableScript( *this ),
+        m_PropertyList( *this ),
+        m_Identity( name, *this )
+    {
+        if (m_SerializablePath.ParentBound( parent ) == true)
+        {
+            // Resolve references only at root node
+            ReferenceManager::ResolveReferences(*(ObjectNode*)this);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     void Object::PulseChanged( bool fullTree )
     {
         m_Identity.EnterPulseState();
@@ -146,6 +166,30 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    smart_ptr<ObjectNode> Object::Create(
+                                    const std::string& className,
+                                    const std::string& objName,
+                                    const std::vector<codeframe::VariantValue>& params
+                                 )
+    {
+        return smart_ptr<ObjectNode>();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    unsigned int Object::Count() const
+    {
+        return 0U;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     smart_ptr<ObjectSelection> Object::operator[]( const unsigned int i )
     {
         return m_childList.GetObjectById(i);
@@ -157,6 +201,26 @@ namespace codeframe
      **
     ******************************************************************************/
     smart_ptr<ObjectSelection> Object::operator[]( const std::string& name )
+    {
+        return m_childList.GetObjectByName(name);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::Child( const unsigned int i )
+    {
+        return m_childList.GetObjectById(i);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::Child( const std::string& name )
     {
         return m_childList.GetObjectByName(name);
     }

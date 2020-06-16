@@ -26,7 +26,8 @@ namespace codeframe
         public:
             std::string ConstructPatern() const;
 
-                     Object( const std::string& name, ObjectNode* parent = NULL );
+                     Object( const std::string& name, ObjectNode* parent = nullptr );
+                     Object( const std::string& name, smart_ptr<ObjectNode> parent );
             virtual ~Object();
 
             cPath&         Path() override;
@@ -37,8 +38,19 @@ namespace codeframe
             cObjectList&   ChildList() override;
             cIdentity&     Identity() override;
 
+            smart_ptr<ObjectNode> Create(
+                                            const std::string& className,
+                                            const std::string& objName,
+                                            const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                         ) override;
+
+            unsigned int Count() const override;
+
             smart_ptr<ObjectSelection> operator[]( const unsigned int i ) override;
             smart_ptr<ObjectSelection> operator[]( const std::string& name ) override;
+
+            smart_ptr<ObjectSelection> Child( const unsigned int i ) override;
+            smart_ptr<ObjectSelection> Child( const std::string& name ) override;
 
             smart_ptr<PropertyNode> Property(const std::string& name) override;
             smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) override;

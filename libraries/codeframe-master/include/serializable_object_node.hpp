@@ -49,8 +49,19 @@ namespace codeframe
             virtual cObjectList&    ChildList() = 0;
             virtual cIdentity&      Identity() = 0;
 
+            virtual smart_ptr<ObjectNode> Create(
+                                                  const std::string& className,
+                                                  const std::string& objName,
+                                                  const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                 ) = 0;
+
+            virtual unsigned int Count() const = 0;
+
             virtual smart_ptr<ObjectSelection> operator[]( const unsigned int i ) = 0;
             virtual smart_ptr<ObjectSelection> operator[]( const std::string& name ) = 0;
+
+            virtual smart_ptr<ObjectSelection> Child( const unsigned int i ) = 0;
+            virtual smart_ptr<ObjectSelection> Child( const std::string& name ) = 0;
 
             virtual smart_ptr<PropertyNode> Property(const std::string& name) = 0;
             virtual smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) = 0;
