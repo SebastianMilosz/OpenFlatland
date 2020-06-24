@@ -27,7 +27,6 @@ namespace codeframe
             smart_ptr<PropertyNode> GetPropertyByName  ( const std::string& name );
             smart_ptr<PropertyNode> GetPropertyById    ( const uint32_t id   );
             smart_ptr<PropertyNode> GetPropertyFromPath( const std::string& path );
-            smart_ptr<PropertyNode> GetPropertyFromPath( const cPath::sPathLink& pathLink );
 
             std::string   GetNameById( uint32_t id ) const;
             std::string   SizeString() const;

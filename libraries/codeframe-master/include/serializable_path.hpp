@@ -91,7 +91,7 @@ namespace codeframe
             bool_t IsNameUnique( const std::string& name, const bool_t checkParent = false ) const;
 
             smart_ptr<ObjectSelection> Parent() const;
-            smart_ptr<ObjectSelection> GetRootObject    ();
+            smart_ptr<ObjectSelection> GetRootObject();
             smart_ptr<ObjectSelection> GetObjectFromPath( const std::string& path );
 
             static void PreparePathLink(const std::string& pathString, cPath::sPathLink& pathLink, smart_ptr<ObjectSelection> propertyParent);

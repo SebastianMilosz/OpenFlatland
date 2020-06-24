@@ -4,6 +4,7 @@
 #include "serializable_property_selection.hpp"
 
 #include <cassert>
+#include <LoggerUtilities.h>
 
 namespace codeframe
 {
@@ -16,7 +17,10 @@ namespace codeframe
 ObjectSelection::ObjectSelection( smart_ptr<ObjectNode> obj ) :
     m_selection( obj )
 {
-
+    if (smart_ptr_isValid(obj)==false)
+    {
+        assert(true);
+    }
 }
 
 /*****************************************************************************/
@@ -110,6 +114,98 @@ std::string ObjectSelection::ObjectName( bool idSuffix ) const
     }
 
     return "";
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+std::string ObjectSelection::PathString() const
+{
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        return m_selection->Path().PathString();
+    }
+
+    return "";
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectSelection::Parent() const
+{
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        return m_selection->Path().Parent();
+    }
+
+    return smart_ptr<ObjectSelection>(nullptr);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectSelection::Root()
+{
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        LOGGER( LOG_INFO << "ObjectSelection::Root(): " << m_selection->ObjectName() );
+
+        return m_selection->Path().GetRootObject();
+    }
+
+    return smart_ptr<ObjectSelection>(nullptr);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectSelection::ObjectFromPath( const std::string& path )
+{
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        return m_selection->Path().GetObjectFromPath(path);
+    }
+
+    return smart_ptr<ObjectSelection>(nullptr);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectSelection::GetObjectByName( const std::string& name )
+{
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        return m_selection->Child(name);
+    }
+
+    return smart_ptr<ObjectSelection>(nullptr);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectSelection::GetObjectById( const uint32_t id )
+{
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        return m_selection->Child(id);
+    }
+
+    return smart_ptr<ObjectSelection>(nullptr);
 }
 
 }

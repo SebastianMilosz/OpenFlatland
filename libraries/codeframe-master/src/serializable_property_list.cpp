@@ -102,21 +102,10 @@ namespace codeframe
             }
             else
             {
-                smart_ptr<PropertyNode> propNode = objectSelection->GetNode()->PropertyList().GetPropertyByName( propertyName );
+                smart_ptr<PropertyNode> propNode = objectSelection->Property( propertyName );
                 return propNode;
             }
         }
-
-        return smart_ptr<PropertyNode>( nullptr );
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    smart_ptr<PropertyNode> cPropertyList::GetPropertyFromPath(const cPath::sPathLink& pathLink)
-    {
 
         return smart_ptr<PropertyNode>( nullptr );
     }
