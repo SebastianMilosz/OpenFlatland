@@ -125,7 +125,7 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
             if (smart_ptr_isValid(refData.Property))
             {
-                smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLink );
+                smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLink.ToDirString() );
 
                 if (smart_ptr_isValid(targetProp))
                 {

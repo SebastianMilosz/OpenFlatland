@@ -46,7 +46,7 @@ namespace codeframe
 
         if( smart_ptr_isValid( parentSelection ) )
         {
-            path = parentSelection->GetNode()->Path().PathString() + "/" + path;
+            path = parentSelection->PathString() + "/" + path;
         }
 
         path += m_sint.Identity().ObjectName( true );
@@ -160,7 +160,7 @@ namespace codeframe
     {
         if ( smart_ptr_isValid( Parent() ) )
         {
-            return Parent()->GetNode()->Path().GetRootObject();
+            return Parent()->Root();
         }
 
         return smart_ptr<ObjectSelection>( new ObjectSelection( smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {}) ) );
@@ -168,7 +168,7 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief Return serializable object from string path
+      * @brief Return object from string path
      **
     ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::GetObjectFromPath( const std::string& path )
@@ -183,13 +183,13 @@ namespace codeframe
         {
             if ( pathLink.size() )
             {
-                // check root match
-                if (pathLink.at(0) == curObjectSelection->GetNode()->Identity().ObjectName())
+                if (pathLink.at(0) == curObjectSelection->ObjectName())
                 {
                     for ( unsigned int i = 1U; i < pathLink.size(); i++ )
                     {
                         std::string levelName( pathLink.at(i) );
-                        curObjectSelection = curObjectSelection->GetNode()->ChildList().GetObjectByName(levelName);
+
+                        curObjectSelection = curObjectSelection->GetObjectByName(levelName);
 
                         if ( smart_ptr_isValid( curObjectSelection ) == false )
                         {
@@ -226,7 +226,7 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
     {
         if (IsDownHierarchy(retString))
         {
-            smart_ptr<ObjectSelection> parentNode = propertyParent->GetNode()->Path().Parent();
+            smart_ptr<ObjectSelection> parentNode = propertyParent->Parent();
 
             if (retString.find_first_of("/\\") == 0)
             {
@@ -240,7 +240,7 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
         {
             if (pathLink.size() == 0U)
             {
-                pathLink.FromDirString(propertyParent->GetNode()->Path().PathString());
+                pathLink.FromDirString(propertyParent->PathString());
             }
 
             retString.erase(0, retString.find_first_of("/\\")+1);

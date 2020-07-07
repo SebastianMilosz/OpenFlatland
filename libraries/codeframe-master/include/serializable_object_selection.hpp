@@ -77,9 +77,9 @@ namespace codeframe
                 return ObjectSelectionIterator( this, GetNodeCount() );
             }
 
-            virtual smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
         protected:
             ObjectSelection();
+            virtual smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
 
         private:
             smart_ptr<ObjectNode> m_selection;

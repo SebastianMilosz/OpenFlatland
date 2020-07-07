@@ -187,7 +187,7 @@ smart_ptr<ObjectSelection> ObjectSelection::GetObjectByName( const std::string& 
 {
     if ( smart_ptr_isValid(m_selection) )
     {
-        return m_selection->Child(name);
+        return m_selection->ChildList().GetObjectByName(name);
     }
 
     return smart_ptr<ObjectSelection>(nullptr);
