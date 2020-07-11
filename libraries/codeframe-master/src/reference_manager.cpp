@@ -53,7 +53,7 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
             m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
 
 #ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-            LOGGER( LOG_INFO << "ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path() );
+            LOGGER( LOG_INFO << "ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path() << " size=" << m_referencePathMap.size() );
 #endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
         }
     }
@@ -82,7 +82,7 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
             m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
 
 #ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-            LOGGER( LOG_INFO << "ReferenceManager::SetProperty( PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path());
+            LOGGER( LOG_INFO << "ReferenceManager::SetProperty( PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path() << " size=" << m_referencePathMap.size());
 #endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
         }
     }
@@ -120,7 +120,7 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
             cPath::PreparePathLink(refData.RefPath, pathLink, propertyParent);
 
 #ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-            LOGGER( LOG_INFO << "ResolveReferences: AbsolutePath=" << pathLink );
+            LOGGER( LOG_INFO << "ResolveReferences: AbsolutePath=" << pathLink << " RefPath: " << refData.RefPath );
 #endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
 
             if (smart_ptr_isValid(refData.Property))
@@ -132,7 +132,7 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
                     refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp));
                     it = m_referencePathMap.erase(it);
 #ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-                    LOGGER( LOG_INFO << "ResolveReferences: REFERENCE CONNECTED!!!" );
+                    LOGGER( LOG_INFO << "ResolveReferences: REFERENCE CONNECTED!!! Map size= " << m_referencePathMap.size() );
 #endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
                 }
                 else

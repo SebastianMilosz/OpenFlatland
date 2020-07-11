@@ -401,7 +401,6 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, const int pos )
 
                 if ( smart_ptr_isValid( obj ) == false )
                 {
-                    // Znalezlismy wiec zapisujemy
                     *it = classType;
                     found = true;
                     retPos = std::distance( m_containerVector.begin(), it );
@@ -411,7 +410,7 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, const int pos )
         }
     }
 
-    // poza zakresem dodajemy do wektora nowa pozycje
+    // if out of range we add it at the end
     if ( found == false )
     {
         m_containerVector.push_back( classType );
@@ -427,8 +426,9 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, const int pos )
 
     classType->Selection().ConectToContainer<ObjectContainer>( this, classType );
     classType->Identity().SetId( retPos );
-
     m_size++;
+
+    ReferenceManager::ResolveReferences(*(ObjectNode*)this);
 
     return retPos;
 }

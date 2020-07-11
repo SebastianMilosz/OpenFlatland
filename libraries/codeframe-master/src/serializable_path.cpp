@@ -222,7 +222,7 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
     std::string retString( pathString );
 
     // With parent we may be able resolve relative paths
-    if (propertyParent)
+    if (smart_ptr_isValid(propertyParent))
     {
         if (IsDownHierarchy(retString))
         {
@@ -240,7 +240,12 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
         {
             if (pathLink.size() == 0U)
             {
-                pathLink.FromDirString(propertyParent->PathString());
+                std::string pathPropertyString = propertyParent->PathString();
+                pathLink.FromDirString(pathPropertyString);
+
+#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
+            LOGGER( LOG_INFO << "PreparePathLink: " << pathLink << " pathPropertyString: " << pathPropertyString);
+#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
             }
 
             retString.erase(0, retString.find_first_of("/\\")+1);

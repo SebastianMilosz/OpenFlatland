@@ -37,8 +37,12 @@ namespace codeframe
     {
         if (m_SerializablePath.ParentBound( smart_ptr_wild<ObjectNode>(parent, [](ObjectNode* p) {}) ) == true)
         {
-            // Resolve references only at root node
-            ReferenceManager::ResolveReferences(*(ObjectNode*)this);
+            // For containers we resolve references on inserting stage
+            if (parent->Role() != codeframe::CONTAINER)
+            {
+                // Resolve references only at root node
+                ReferenceManager::ResolveReferences(*(ObjectNode*)this);
+            }
         }
     }
 

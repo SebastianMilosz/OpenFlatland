@@ -29,6 +29,7 @@ class classTest_Dynamic : public codeframe::Object
         codeframe::Property<int> Property4;
 
         codeframe::Property<int> PropertyLink;
+        codeframe::Property<int> PropertyLink_rel;
 
     public:
         classTest_Dynamic( const std::string& name, ObjectNode* parent ) :
@@ -42,7 +43,13 @@ class classTest_Dynamic : public codeframe::Object
                             cPropertyInfo().
                                 Kind( KIND_NUMBER ).
                                 ReferencePath("testNameStatic/testNameContainerStatic/node[0].Property1").
-                                Description("Property4_desc") )
+                                Description("Property4_desc") ),
+
+            PropertyLink_rel( this, "PropertyLink_rel", 600U,
+                cPropertyInfo().
+                    Kind( KIND_NUMBER ).
+                    ReferencePath("/../node[0].Property1").
+                    Description("PropertyLink_rel_desc") )
         {
         }
 };

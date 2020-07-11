@@ -90,7 +90,9 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
     SECTION( "Test Property ReferencePath" )
     {
         staticContainerObject->Child(1)->Property("PropertyLink")->SetValue(3344U);
-
         REQUIRE( staticContainerObject->Child(0)->Property("Property1")->GetValue<int>() == 3344U );
+
+        staticContainerObject->Child(1)->Property("PropertyLink_rel")->SetValue(6522U);
+        REQUIRE( staticContainerObject->Child(0)->Property("Property1")->GetValue<int>() == 6522U );
     }
 }

@@ -24,64 +24,16 @@ namespace codeframe
             struct sPathLink
             {
                 public:
-                    void SetPropertyName(const std::string& val)
-                    {
-                        m_PropertyName = val;
-                    }
-
-                    void PathPushBack(const std::string& val)
-                    {
-                        m_ObjectPath.push_back(val);
-                    }
-
-                    size_t size() const noexcept
-                    {
-                        return m_ObjectPath.size();
-                    }
-
-                    std::string at(size_t pos)
-                    {
-                        return m_ObjectPath.at(pos);
-                    }
-
-                    void reverse()
-                    {
-                        std::reverse(std::begin(m_ObjectPath), std::end(m_ObjectPath));
-                    }
-
-                    void FromDirString(const std::string& val)
-                    {
-                        utilities::text::split( val, m_delimiters, m_ObjectPath);
-                    }
-
-                    std::string ToDirString() const
-                    {
-                        std::string dirString;
-                        for (auto it = m_ObjectPath.begin(); it != m_ObjectPath.end(); ++it)
-                        {
-                            dirString += *it;
-                            dirString += "/";
-                        }
-                        dirString.pop_back();   // Remove last / char
-                        return dirString;
-                    }
-
-                    operator std::string() const
-                    {
-                        std::string retLine("vector[");
-                        for (auto& n : m_ObjectPath)
-                        {
-                            retLine += (std::string)n + ",";
-                        }
-                        retLine += "]";
-                        return retLine;
-                    }
+                    void PathPushBack(const std::string& val);
+                    size_t size() const noexcept;
+                    std::string at(size_t pos);
+                    void reverse();
+                    void FromDirString(const std::string& val);
+                    std::string ToDirString() const;
+                    operator std::string() const;
 
                 private:
-                    std::string              m_PropertyName;
                     std::vector<std::string> m_ObjectPath;
-                    smart_ptr<PropertyNode>  m_Property;
-                    smart_ptr<ObjectNode>    m_Object;
             };
 
             std::string PathString() const;
@@ -105,6 +57,88 @@ namespace codeframe
             smart_ptr<ObjectNode> m_parent;
     };
 
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline void cPath::sPathLink::PathPushBack(const std::string& val)
+    {
+        m_ObjectPath.push_back(val);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline size_t cPath::sPathLink::size() const noexcept
+    {
+        return m_ObjectPath.size();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline std::string cPath::sPathLink::at(size_t pos)
+    {
+        return m_ObjectPath.at(pos);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline void cPath::sPathLink::reverse()
+    {
+        std::reverse(std::begin(m_ObjectPath), std::end(m_ObjectPath));
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline void cPath::sPathLink::FromDirString(const std::string& val)
+    {
+        utilities::text::split( val, m_delimiters, m_ObjectPath);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline std::string cPath::sPathLink::ToDirString() const
+    {
+        std::string dirString;
+        for (auto it = m_ObjectPath.begin(); it != m_ObjectPath.end(); ++it)
+        {
+            dirString += *it;
+            dirString += "/";
+        }
+        dirString.pop_back();   // Remove last / char
+        return dirString;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline cPath::sPathLink::operator std::string() const
+    {
+        std::string retLine("vector[");
+        for (auto& n : m_ObjectPath)
+        {
+            retLine += (std::string)n + ",";
+        }
+        retLine += "]";
+        return retLine;
+    }
 }
 
 #endif // CPATH_HPP_INCLUDED
