@@ -2,7 +2,7 @@
 
 #include "test_serializable_fixture.hpp"
 
-TEST_CASE( "codeframe library Object construction and destruction", "[codeframe::Object]" )
+TEST_CASE( "codeframe library Object save and load", "[codeframe::Object]" )
 {
     const std::string apiDir( utilities::file::GetExecutablePath() );
     const std::string dataFilePath( apiDir + std::string("\\test_data.xml") );

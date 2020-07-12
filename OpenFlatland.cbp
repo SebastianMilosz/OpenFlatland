@@ -405,6 +405,9 @@
 		<Unit filename="libraries/codeframe-master/tests/catch.hpp">
 			<Option target="Test CodeFrame" />
 		</Unit>
+		<Unit filename="libraries/codeframe-master/tests/test_serializable_container.cpp">
+			<Option target="Test CodeFrame" />
+		</Unit>
 		<Unit filename="libraries/codeframe-master/tests/test_serializable_fixture.hpp">
 			<Option target="Test CodeFrame" />
 		</Unit>
