@@ -18,8 +18,8 @@ class World : public codeframe::Object, public DrawableObject
                  World( const std::string& name, ObjectNode* parent );
         virtual ~World() = default;
 
-        void AddShell( std::shared_ptr<Entity>       entity );
-        void AddConst( std::shared_ptr<ConstElement> constElement );
+        void AddShell( smart_ptr<Entity>       entity );
+        void AddConst( smart_ptr<ConstElement> constElement );
 
         bool PhysisStep(sf::RenderWindow& window);
 

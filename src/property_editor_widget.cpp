@@ -91,7 +91,7 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
 {
     if ( smart_ptr_isValid( obj ) == true )
     {
-        ShowRawObject( smart_ptr_getRaw( obj ) );
+        ShowRawObject( obj );
     }
 }
 
@@ -100,7 +100,7 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
   * @brief
  **
 ******************************************************************************/
-void PropertyEditorWidget::ShowRawObject( codeframe::ObjectNode* obj )
+void PropertyEditorWidget::ShowRawObject( smart_ptr<codeframe::ObjectNode> obj )
 {
     uint32_t uid( obj->Identity().GetUId() );
 

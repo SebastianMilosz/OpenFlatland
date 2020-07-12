@@ -7,11 +7,11 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
     smart_ptr<ObjectNode> staticSerializableObject( new classTest_Static("testNameStatic", nullptr) );
     smart_ptr<ObjectNode> staticContainerObject( new classTest_Container("testNameContainerStatic", staticSerializableObject) );
 
-    smart_ptr<ObjectNode> node0 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[0]
-    smart_ptr<ObjectNode> node1 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[1]
-    smart_ptr<ObjectNode> node2 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[2]
-    smart_ptr<ObjectNode> node3 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[3]
-    smart_ptr<ObjectNode> node4 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[4]
+    smart_ptr<ObjectSelection> node0 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[0]
+    smart_ptr<ObjectSelection> node1 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[1]
+    smart_ptr<ObjectSelection> node2 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[2]
+    smart_ptr<ObjectSelection> node3 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[3]
+    smart_ptr<ObjectSelection> node4 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[4]
 
     SECTION( "Basic codeframe library objects tests" )
     {
@@ -23,8 +23,8 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
         REQUIRE( staticContainerObject->Child(0)->Property("Property1")->GetValue<int>() == 100 );
 
         // Test object PathString
-        REQUIRE( node3->Path().PathString() == "testNameStatic/testNameContainerStatic/node[3]" );
-        REQUIRE( node4->Path().PathString() == "testNameStatic/testNameContainerStatic/node[4]" );
+        REQUIRE( node3->PathString() == "testNameStatic/testNameContainerStatic/node[3]" );
+        REQUIRE( node4->PathString() == "testNameStatic/testNameContainerStatic/node[4]" );
 
         // Direct property access
         smart_ptr<PropertyNode> propNode = staticSerializableObject->PropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );

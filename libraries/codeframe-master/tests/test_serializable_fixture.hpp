@@ -60,22 +60,22 @@ class classTest_Container : public codeframe::ObjectContainer
         CODEFRAME_META_CLASS_NAME( "classTest_Container" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
-        virtual smart_ptr<ObjectNode> Create(
-                                                         const std::string& className,
-                                                         const std::string& objName,
-                                                         const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                         )
+        virtual smart_ptr<ObjectSelection> Create(
+                                                    const std::string& className,
+                                                    const std::string& objName,
+                                                    const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                 )
         {
-            if ( className == "classTest_Dynamic" )
+            if (className == "classTest_Dynamic")
             {
-                smart_ptr<classTest_Dynamic> obj = smart_ptr<classTest_Dynamic>( new classTest_Dynamic( objName, this ) );
+                smart_ptr<classTest_Dynamic> obj = smart_ptr<classTest_Dynamic>(new classTest_Dynamic(objName, this));
 
-                int id = InsertObject( obj );
+                int id = InsertObject(obj);
 
-                return obj;
+                return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
             }
 
-            return smart_ptr<codeframe::ObjectNode>();
+            return smart_ptr<codeframe::ObjectSelection>();
         }
 
     public:

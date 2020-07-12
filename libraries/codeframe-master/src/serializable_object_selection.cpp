@@ -31,7 +31,6 @@ ObjectSelection::ObjectSelection( smart_ptr<ObjectNode> obj ) :
 ObjectSelection::ObjectSelection() :
     m_selection( nullptr )
 {
-
 }
 
 /*****************************************************************************/
@@ -41,7 +40,6 @@ ObjectSelection::ObjectSelection() :
 ******************************************************************************/
 ObjectSelection::~ObjectSelection()
 {
-
 }
 
 /*****************************************************************************/

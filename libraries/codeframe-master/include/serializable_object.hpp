@@ -38,7 +38,7 @@ namespace codeframe
             cObjectList&   ChildList() override;
             cIdentity&     Identity() override;
 
-            smart_ptr<ObjectNode> Create(
+            smart_ptr<ObjectSelection> Create(
                                             const std::string& className,
                                             const std::string& objName,
                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()

@@ -49,7 +49,7 @@ namespace codeframe
             virtual cObjectList&    ChildList() = 0;
             virtual cIdentity&      Identity() = 0;
 
-            virtual smart_ptr<ObjectNode> Create(
+            virtual smart_ptr<ObjectSelection> Create(
                                                   const std::string& className,
                                                   const std::string& objName,
                                                   const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()

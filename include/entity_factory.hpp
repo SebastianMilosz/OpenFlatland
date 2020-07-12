@@ -26,11 +26,11 @@ class EntityFactory : public codeframe::ObjectContainer
         void CalculateNeuralNetworks();
 
     protected:
-        smart_ptr<codeframe::ObjectNode> Create(
-                                                             const std::string& className,
-                                                             const std::string& objName,
-                                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                            );
+        smart_ptr<codeframe::ObjectSelection> Create(
+                                                        const std::string& className,
+                                                        const std::string& objName,
+                                                        const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                    );
 
     private:
 
