@@ -164,13 +164,15 @@ bool ObjectContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore
         if ( smart_ptr_isValid( sptr ) && sptr->BuildType() == serType && ignore.IsIgnored( smart_ptr_getRaw( sptr ) ) == false )
         {
             sptr->Selection().DisconectFromContainer();
-            *it = smart_ptr<Object>( nullptr );
+            sptr->Unbound();
+            signalContainerSelectionChanged.Emit( sptr );
+
+            it = m_containerVector.erase(it);
 
             if ( m_size )
             {
                 m_size--;
             }
-            signalContainerSelectionChanged.Emit( sptr );
         }
         else
         {

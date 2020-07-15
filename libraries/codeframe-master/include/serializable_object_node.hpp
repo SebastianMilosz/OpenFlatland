@@ -72,6 +72,10 @@ namespace codeframe
             virtual void CommitChanges() = 0;
             virtual void Enable( bool val ) = 0;
 
+            virtual void Unbound() = 0;
+
+            // Signals
+            sigslot::signal1<void*> signalDeleted;
         protected:
             ObjectNode();
     };

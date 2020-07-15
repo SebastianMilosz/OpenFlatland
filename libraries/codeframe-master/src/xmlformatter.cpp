@@ -521,14 +521,6 @@ namespace codeframe
 
             if ( iser->Info().GetXmlMode() & XMLMODE_R )
             {
-                // Dozwolone sa tylko pola unikalne na danym poziomie
-                if ( obj.PropertyList().IsPropertyUnique( iser->Name() ) == false )
-                {
-                    std::string throwString( std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name() );
-
-                    throw std::runtime_error( throwString );
-                }
-
                 cXMLNode propertyNode = node.FindChildByAttribute(XMLTAG_PROPERTY, "name", iser->Name().c_str());
 
                 // Jesli znaleziono wezel
@@ -639,6 +631,7 @@ namespace codeframe
                     std::string throwString = std::string("cXmlFormatter::LoadFromXML() Cant find childNode Id: " ) +
                                               utilities::math::IntToStr( childLp ) +
                                               std::string(" for object ") + parentName +
+                                              std::string(" object ChildList size: ") + utilities::math::IntToStr(obj.ChildList().size()) +
                                               std::string(" inside node: ") + childNodeContainerName;
                     throw std::runtime_error( throwString );
                 }

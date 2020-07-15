@@ -49,6 +49,8 @@ TEST_CASE( "codeframe library Object save and load", "[codeframe::Object]" )
         node4->Property("Property3")->SetValue(3343U);
         node4->Property("Property4")->SetValue(3344U);
 
+        REQUIRE( node0->Property("Property1")->GetValue<unsigned int>() == 3301U );
+
         staticSerializableObject->Storage().SaveToFile( dataFilePath );
 
         node0->Property("Property1")->SetValue(4401U);
@@ -76,8 +78,17 @@ TEST_CASE( "codeframe library Object save and load", "[codeframe::Object]" )
         node4->Property("Property3")->SetValue(4443U);
         node4->Property("Property4")->SetValue(4444U);
 
-        //staticSerializableObject->Storage().LoadFromFile( dataFilePath );
+        REQUIRE( node0->Property("Property1")->GetValue<unsigned int>() == 4401U );
 
-        //REQUIRE( node0->Property("Property1")->GetValue<unsigned int>() == 4401U );
+        staticSerializableObject->Storage().LoadFromFile( dataFilePath );
+
+        // Update object pointers after load
+        node0 = staticContainerObject->Child("node[0]");    // node[0]
+        node1 = staticContainerObject->Child("node[1]");    // node[1]
+        node2 = staticContainerObject->Child("node[2]");    // node[2]
+        node3 = staticContainerObject->Child("node[3]");    // node[3]
+        node4 = staticContainerObject->Child("node[4]");    // node[4]
+
+        REQUIRE( node0->Property("Property1")->GetValue<unsigned int>() == 3301U );
     }
 }

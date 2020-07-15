@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <sigslot.h>
 #include <smartpointer.h>
 
 namespace codeframe
@@ -13,7 +14,7 @@ namespace codeframe
      /*****************************************************************************
      * @class This class stores Object's selection
      *****************************************************************************/
-    class ObjectSelection
+    class ObjectSelection : public sigslot::has_slots<>
     {
         public:
             class ObjectSelectionIterator
@@ -82,6 +83,7 @@ namespace codeframe
             virtual smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
 
         private:
+            void OnDelete(void* deletedPtr);
             smart_ptr<ObjectNode> m_selection;
     };
 }

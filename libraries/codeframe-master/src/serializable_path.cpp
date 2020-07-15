@@ -92,8 +92,6 @@ namespace codeframe
     ******************************************************************************/
     bool_t cPath::IsNameUnique( const std::string& name, const bool_t checkParent ) const
     {
-        int octcnt = 0;
-
         // If there is no parent on this level we are unique
         if ( smart_ptr_isValid(m_parent) == false )
         {
@@ -105,21 +103,23 @@ namespace codeframe
             // Check unique of the parent
             bool_t isParentUnique = m_parent->Path().IsNameUnique( m_parent->Identity().ObjectName() );
 
-            if( isParentUnique == false )
+            if ( isParentUnique == false )
             {
                 return false;
             }
         }
 
-        for ( auto it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
+        uint32_t occurrenceCount = 0U;
+
+        for ( auto it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
         {
             smart_ptr<ObjectNode> iser = *it;
 
-            if ( iser != nullptr )
+            if ( smart_ptr_isValid(iser) )
             {
-                if ( iser->Identity().ObjectName() == name )
+                if ( iser->Identity().ObjectName(true) == name )
                 {
-                    octcnt++;
+                    occurrenceCount++;
                 }
             }
             else
@@ -128,7 +128,7 @@ namespace codeframe
             }
         }
 
-        if ( octcnt == 1 )
+        if ( occurrenceCount == 0U )
         {
             return true;
         }

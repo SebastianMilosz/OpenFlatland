@@ -88,10 +88,20 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    void Object::Unbound()
+    {
+        m_SerializablePath.ParentUnbound();
+        signalDeleted.Emit(this);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     Object::~Object()
     {
-        // Wyrejestrowywujemy sie u rodzica
-        m_SerializablePath.ParentUnbound();
+        Unbound();
         m_PropertyList.ClearPropertyList();
     }
 

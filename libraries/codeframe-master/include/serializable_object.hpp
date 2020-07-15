@@ -61,6 +61,8 @@ namespace codeframe
             void CommitChanges() override;
             void Enable( bool val ) override;
 
+            void Unbound() override;
+
         private:
             cPath         m_SerializablePath;
             cStorage      m_SerializableStorage;

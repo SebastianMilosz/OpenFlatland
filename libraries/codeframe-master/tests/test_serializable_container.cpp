@@ -9,6 +9,12 @@ TEST_CASE( "codeframe library Object Container construction and destruction", "[
 
     SECTION( "test Create/Dispose" )
     {
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[0]") == true );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[1]") == true );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[2]") == true );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[3]") == true );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[4]") == true );
+
         smart_ptr<ObjectSelection> node0 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[0]
         smart_ptr<ObjectSelection> node1 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[1]
         smart_ptr<ObjectSelection> node2 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[2]
@@ -22,5 +28,23 @@ TEST_CASE( "codeframe library Object Container construction and destruction", "[
         REQUIRE( smart_ptr_isValid( node4 ) );
 
         REQUIRE( staticContainerObject->Count() == 5U);
+
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[0]") == false );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[1]") == false );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[2]") == false );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[3]") == false );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[4]") == false );
+
+        smart_ptr<ObjectContainer> containerObject = smart_dynamic_pointer_cast<ObjectContainer>(staticContainerObject);
+
+        REQUIRE( smart_ptr_isValid(containerObject) );
+
+        REQUIRE( containerObject->DisposeByBuildType(codeframe::DYNAMIC) );
+
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[0]") == true );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[1]") == true );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[2]") == true );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[3]") == true );
+        REQUIRE( staticContainerObject->Path().IsNameUnique("node[4]") == true );
     }
 }

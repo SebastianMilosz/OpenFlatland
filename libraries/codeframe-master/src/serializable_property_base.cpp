@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <algorithm>
+#include <LoggerUtilities.h>
 
 #include "instance_manager.hpp"
 #include "serializable_object.hpp"
@@ -81,6 +82,8 @@ namespace codeframe
 
         if( m_temporary == false )
         {
+            LOGGER( LOG_INFO << "PropertyBase destructor try unregister: " << m_name );
+
             UnRegisterProperty();
         }
     }

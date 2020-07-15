@@ -244,26 +244,6 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cPropertyList::IsPropertyUnique( const std::string& name ) const
-    {
-        bool retVal = true;
-
-        m_Mutex.Lock();
-        auto it = m_PropertyMap.find(name);
-        if (it != m_PropertyMap.end())
-        {
-            retVal = false;
-        }
-        m_Mutex.Unlock();
-
-        return retVal;
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     PropertyIterator cPropertyList::begin() throw()
     {
         return PropertyIterator( m_PropertyMap.begin() );

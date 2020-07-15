@@ -21,6 +21,7 @@ ObjectSelection::ObjectSelection( smart_ptr<ObjectNode> obj ) :
     {
         assert(true);
     }
+    obj->signalDeleted.connect(this, &ObjectSelection::OnDelete);
 }
 
 /*****************************************************************************/
@@ -40,6 +41,14 @@ ObjectSelection::ObjectSelection() :
 ******************************************************************************/
 ObjectSelection::~ObjectSelection()
 {
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        LOGGER( LOG_INFO << "ObjectSelection destructor with selection: " << m_selection->ObjectName() << " cnt: " << smart_ptr_getCount(m_selection) );
+    }
+    else
+    {
+        LOGGER( LOG_INFO << "ObjectSelection destructor null selection");
+    }
 }
 
 /*****************************************************************************/
@@ -204,6 +213,16 @@ smart_ptr<ObjectSelection> ObjectSelection::GetObjectById( const uint32_t id )
     }
 
     return smart_ptr<ObjectSelection>(nullptr);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ObjectSelection::OnDelete(void* deletedPtr)
+{
+    m_selection = smart_ptr<ObjectNode>(nullptr);
 }
 
 }

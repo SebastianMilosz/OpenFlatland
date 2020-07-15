@@ -40,6 +40,7 @@ namespace codeframe
             smart_ptr<ObjectSelection> GetObjectById( const uint32_t id ) override;
 
         private:
+            void OnDelete(void* deletedPtr);
             std::vector< smart_ptr<ObjectNode> > m_selection;
     };
 }

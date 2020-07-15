@@ -220,4 +220,21 @@ smart_ptr<ObjectSelection> ObjectMultipleSelection::GetObjectById( const uint32_
     return smart_ptr<ObjectSelection>(nullptr);
 }
 
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ObjectMultipleSelection::OnDelete(void* deletedPtr)
+{
+    for (auto& value: m_selection)
+    {
+        if (smart_ptr_getRaw(value) == deletedPtr)
+        {
+            value = smart_ptr<ObjectNode>(nullptr);
+            return;
+        }
+    }
+}
+
 }

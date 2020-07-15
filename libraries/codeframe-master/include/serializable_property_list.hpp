@@ -37,7 +37,6 @@ namespace codeframe
             void RegisterProperty  ( const std::string& name, PropertyBase* prop );
             void UnRegisterProperty( const std::string& name, PropertyBase* prop );
             void ClearPropertyList ();
-            bool IsPropertyUnique( const std::string& name ) const;
 
             /// Iterators
             PropertyIterator begin() throw();
