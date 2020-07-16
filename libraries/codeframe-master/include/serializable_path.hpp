@@ -18,8 +18,8 @@ namespace codeframe
     class cPath
     {
         public:
-             cPath( ObjectNode& sint );
-            ~cPath();
+                     cPath( ObjectNode& sint );
+            virtual ~cPath() = default;
 
             struct sPathLink
             {

@@ -25,16 +25,6 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
-      * @brief
-     **
-    ******************************************************************************/
-    cPath::~cPath()
-    {
-
-    }
-
-    /*****************************************************************************/
-    /**
       * @brief Return full object path
      **
     ******************************************************************************/
@@ -61,7 +51,6 @@ namespace codeframe
     ******************************************************************************/
     bool_t cPath::ParentBound( smart_ptr<ObjectNode> parent )
     {
-        // Rejestrujemy sie u rodzica
         if( smart_ptr_isValid(parent) )
         {
             m_parent = parent;
@@ -111,13 +100,11 @@ namespace codeframe
 
         uint32_t occurrenceCount = 0U;
 
-        for ( auto it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
+        for ( const auto& iteam: m_sint.ChildList() )
         {
-            smart_ptr<ObjectNode> iser = *it;
-
-            if ( smart_ptr_isValid(iser) )
+            if ( smart_ptr_isValid(iteam) )
             {
-                if ( iser->Identity().ObjectName(true) == name )
+                if ( iteam->ObjectName(true) == name )
                 {
                     occurrenceCount++;
                 }
@@ -242,10 +229,6 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
             {
                 std::string pathPropertyString = propertyParent->PathString();
                 pathLink.FromDirString(pathPropertyString);
-
-#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-            LOGGER( LOG_INFO << "PreparePathLink: " << pathLink << " pathPropertyString: " << pathPropertyString);
-#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
             }
 
             retString.erase(0, retString.find_first_of("/\\")+1);

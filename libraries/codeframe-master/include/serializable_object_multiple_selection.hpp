@@ -39,6 +39,8 @@ namespace codeframe
             smart_ptr<ObjectSelection> GetObjectByName( const std::string& name ) override;
             smart_ptr<ObjectSelection> GetObjectById( const uint32_t id ) override;
 
+            /// This method should return true if all objects in selection exist
+            bool_t IsValid() const override;
         private:
             void OnDelete(void* deletedPtr);
             std::vector< smart_ptr<ObjectNode> > m_selection;

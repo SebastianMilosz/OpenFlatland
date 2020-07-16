@@ -11,6 +11,8 @@ namespace codeframe
 
 std::map<PropertyNode*, ReferenceManager::sReferenceData> ReferenceManager::m_referencePathMap;
 
+bool_t ReferenceManager::m_inhibitResolveReferences = false;
+
 /*****************************************************************************/
 /**
   * @brief
@@ -19,16 +21,6 @@ std::map<PropertyNode*, ReferenceManager::sReferenceData> ReferenceManager::m_re
 ReferenceManager::ReferenceManager() :
     m_referencePath(""),
     m_property( nullptr )
-{
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-ReferenceManager::~ReferenceManager()
 {
 }
 
@@ -51,10 +43,6 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
             m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
-
-#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-            LOGGER( LOG_INFO << "ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path() << " size=" << m_referencePathMap.size() );
-#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
         }
     }
     else
@@ -80,10 +68,6 @@ void ReferenceManager::SetProperty( PropertyBase* prop )
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
             m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
-
-#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-            LOGGER( LOG_INFO << "ReferenceManager::SetProperty( PropertyBase* prop ): " << utilities::math::PointerToHex((void*)prop) << " m_referencePath: " << m_referencePath << " PropPath: " << m_property->Path() << " size=" << m_referencePathMap.size());
-#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
         }
     }
 }
@@ -105,39 +89,31 @@ const std::string& ReferenceManager::Get() const
 ******************************************************************************/
 void ReferenceManager::ResolveReferences( ObjectNode& root )
 {
-#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-    LOGGER( LOG_INFO << "ResolveReferences for root object: " << root.Path().PathString() );
-#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
-
-    for (auto it = m_referencePathMap.begin(); it != m_referencePathMap.end();)
+    if (m_inhibitResolveReferences == false)
     {
-        sReferenceData refData = it->second;
-
-        if (refData.Property)
+        for (auto it = m_referencePathMap.begin(); it != m_referencePathMap.end();)
         {
-            cPath::sPathLink pathLink;
-            auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(refData.Property->Parent()));
-            cPath::PreparePathLink(refData.RefPath, pathLink, propertyParent);
+            const sReferenceData refData = it->second;
 
-#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-            LOGGER( LOG_INFO << "ResolveReferences: AbsolutePath=" << pathLink << " RefPath: " << refData.RefPath );
-#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
-
-            if (smart_ptr_isValid(refData.Property))
+            if (refData.Property)
             {
-                smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLink.ToDirString() );
+                cPath::sPathLink pathLink;
+                auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(refData.Property->Parent()));
+                cPath::PreparePathLink(refData.RefPath, pathLink, propertyParent);
 
-                if (smart_ptr_isValid(targetProp))
+                if (smart_ptr_isValid(refData.Property))
                 {
-                    refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp));
-                    it = m_referencePathMap.erase(it);
-#ifdef CODE_FRAME_REFERENCE_MANAGER_DEBUG
-                    LOGGER( LOG_INFO << "ResolveReferences: REFERENCE CONNECTED!!! Map size= " << m_referencePathMap.size() );
-#endif // CODE_FRAME_REFERENCE_MANAGER_DEBUG
-                }
-                else
-                {
-                    it++;
+                    smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLink.ToDirString() );
+
+                    if (smart_ptr_isValid(targetProp))
+                    {
+                        refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp));
+                        it = m_referencePathMap.erase(it);
+                    }
+                    else
+                    {
+                        it++;
+                    }
                 }
             }
         }
@@ -151,30 +127,39 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 ******************************************************************************/
 void ReferenceManager::LogUnresolvedReferences()
 {
-    for (auto it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++)
+    for (const auto& iteam: m_referencePathMap)
     {
-        sReferenceData refData( it->second );
+        const sReferenceData refData( iteam.second );
 
         if (smart_ptr_isValid(refData.Property))
         {
-            smart_ptr<ObjectNode> propertyParent(refData.Property->Parent());
+            const smart_ptr<ObjectNode> propertyParent(refData.Property->Parent());
             std::string propertyParentPath( "NULL" );
 
             if (nullptr != propertyParent)
             {
                 propertyParentPath = propertyParent->Path().PathString();
-                LOGGER( LOG_INFO << "LogUnresolvedReferences PathString: " << propertyParentPath );
             }
 
             propertyParentPath += std::string(".") + refData.Property->Name();
 
-            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << propertyParentPath );
+            LOGGER( LOG_INFO << "Unresolved reference to: " << iteam.first << " from object: " << propertyParentPath );
         }
         else
         {
-            LOGGER( LOG_ERROR << "Unresolved reference to: " << it->first << " from object: NULL" );
+            LOGGER( LOG_ERROR << "Unresolved reference to: " << iteam.first << " from object: NULL" );
         }
     }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+unsigned int ReferenceManager::UnresolvedReferencesCount()
+{
+    return m_referencePathMap.size();
 }
 
 }

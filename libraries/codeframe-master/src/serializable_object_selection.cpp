@@ -39,23 +39,6 @@ ObjectSelection::ObjectSelection() :
   * @brief
  **
 ******************************************************************************/
-ObjectSelection::~ObjectSelection()
-{
-    if ( smart_ptr_isValid(m_selection) )
-    {
-        LOGGER( LOG_INFO << "ObjectSelection destructor with selection: " << m_selection->ObjectName() << " cnt: " << smart_ptr_getCount(m_selection) );
-    }
-    else
-    {
-        LOGGER( LOG_INFO << "ObjectSelection destructor null selection");
-    }
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
 smart_ptr<PropertyNode> ObjectSelection::Property(const std::string& name)
 {
     if ( smart_ptr_isValid(m_selection) )
@@ -162,8 +145,6 @@ smart_ptr<ObjectSelection> ObjectSelection::Root()
 {
     if ( smart_ptr_isValid(m_selection) )
     {
-        LOGGER( LOG_INFO << "ObjectSelection::Root(): " << m_selection->ObjectName() );
-
         return m_selection->Path().GetRootObject();
     }
 
@@ -213,6 +194,20 @@ smart_ptr<ObjectSelection> ObjectSelection::GetObjectById( const uint32_t id )
     }
 
     return smart_ptr<ObjectSelection>(nullptr);
+}
+
+/*****************************************************************************/
+/**
+  * @brief This method should return true if all objects in selection exist
+ **
+******************************************************************************/
+bool_t ObjectSelection::IsValid() const
+{
+    if ( smart_ptr_isValid(m_selection) )
+    {
+        return true;
+    }
+    return false;
 }
 
 /*****************************************************************************/

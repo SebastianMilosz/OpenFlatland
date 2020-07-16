@@ -31,16 +31,6 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cXmlFormatter::~cXmlFormatter()
-    {
-
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     void cXmlFormatter::ReplaceAll(std::string& str, const std::string& old, const std::string& repl)
     {
         size_t pos = 0;

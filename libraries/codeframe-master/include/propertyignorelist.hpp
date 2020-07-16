@@ -40,11 +40,11 @@ namespace codeframe
             m_vectorIgnoreEntry.push_back( sIgnoreEntry( name, className, buildType, ignore ) );
         }
 
-        bool IsIgnored( ObjectNode* serObj )
+        bool IsIgnored( ObjectNode* serObj ) const
         {
             if( m_vectorIgnoreEntry.empty() == false && serObj )
             {
-                for( std::vector<sIgnoreEntry>::iterator it = m_vectorIgnoreEntry.begin(); it != m_vectorIgnoreEntry.end(); ++it )
+                for( std::vector<sIgnoreEntry>::const_iterator it = m_vectorIgnoreEntry.cbegin(); it != m_vectorIgnoreEntry.cend(); ++it )
                 {
                     sIgnoreEntry entry = *it;
 

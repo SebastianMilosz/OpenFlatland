@@ -70,7 +70,7 @@ class classTest_Container : public codeframe::ObjectContainer
             {
                 smart_ptr<classTest_Dynamic> obj = smart_ptr<classTest_Dynamic>(new classTest_Dynamic(objName, this));
 
-                int id = InsertObject(obj);
+                InsertObject(obj);
 
                 return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
             }

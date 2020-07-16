@@ -2,7 +2,7 @@
 
 #include "test_serializable_fixture.hpp"
 
-TEST_CASE( "codeframe library object path", "[Object::Path]" )
+TEST_CASE( "codeframe library object path", "[codeframe][Object][Path]" )
 {
     smart_ptr<ObjectNode> staticSerializableObject( new classTest_Static("testNameStatic", nullptr) );
     smart_ptr<ObjectNode> staticContainerObject( new classTest_Container("testNameContainerStatic", staticSerializableObject) );
@@ -26,7 +26,7 @@ TEST_CASE( "codeframe library object path", "[Object::Path]" )
         REQUIRE( node3->PathString() == "testNameStatic/testNameContainerStatic/node[3]" );
         REQUIRE( node4->PathString() == "testNameStatic/testNameContainerStatic/node[4]" );
 
-        // Direct property access
+        // Property access by path
         smart_ptr<PropertyNode> propNode = staticSerializableObject->PropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );
         REQUIRE( smart_ptr_isValid( propNode ) );
         REQUIRE( propNode->GetValue<int>() == 100 );

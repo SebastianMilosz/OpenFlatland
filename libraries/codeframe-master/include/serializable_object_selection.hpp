@@ -5,6 +5,7 @@
 #include <vector>
 #include <sigslot.h>
 #include <smartpointer.h>
+#include <typedefs.hpp>
 
 namespace codeframe
 {
@@ -52,7 +53,7 @@ namespace codeframe
 
         public:
                     ObjectSelection( smart_ptr<ObjectNode> obj );
-           virtual ~ObjectSelection();
+           virtual ~ObjectSelection() = default;
 
             virtual smart_ptr<PropertyNode> Property(const std::string& name);
             virtual smart_ptr<PropertyNode> PropertyFromPath(const std::string& path);
@@ -67,6 +68,9 @@ namespace codeframe
             virtual smart_ptr<ObjectSelection> ObjectFromPath( const std::string& path );
             virtual smart_ptr<ObjectSelection> GetObjectByName( const std::string& name );
             virtual smart_ptr<ObjectSelection> GetObjectById( const uint32_t id );
+
+            /// This method should return true if all objects in selection exist
+            virtual bool_t IsValid() const;
 
             ObjectSelectionIterator begin()
             {

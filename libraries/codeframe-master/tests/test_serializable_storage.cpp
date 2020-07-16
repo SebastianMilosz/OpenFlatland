@@ -2,7 +2,7 @@
 
 #include "test_serializable_fixture.hpp"
 
-TEST_CASE( "codeframe library Object save and load", "[codeframe::Object]" )
+TEST_CASE( "codeframe Object save and restore", "[codeframe][Object][Storage]" )
 {
     const std::string apiDir( utilities::file::GetExecutablePath() );
     const std::string dataFilePath( apiDir + std::string("\\test_data.xml") );
@@ -51,7 +51,7 @@ TEST_CASE( "codeframe library Object save and load", "[codeframe::Object]" )
 
         REQUIRE( node0->Property("Property1")->GetValue<unsigned int>() == 3301U );
 
-        staticSerializableObject->Storage().SaveToFile( dataFilePath );
+        REQUIRE_NOTHROW( staticSerializableObject->Storage().SaveToFile( dataFilePath ) );
 
         node0->Property("Property1")->SetValue(4401U);
         node0->Property("Property2")->SetValue(4402U);
@@ -80,15 +80,30 @@ TEST_CASE( "codeframe library Object save and load", "[codeframe::Object]" )
 
         REQUIRE( node0->Property("Property1")->GetValue<unsigned int>() == 4401U );
 
-        staticSerializableObject->Storage().LoadFromFile( dataFilePath );
+        // Restore object state from a file
+        REQUIRE_NOTHROW( staticSerializableObject->Storage().LoadFromFile( dataFilePath ) );
 
-        // Update object pointers after load
+        // After load all dynamic object selection should not be valid
+        REQUIRE( node0->IsValid() == false );
+        REQUIRE( node1->IsValid() == false );
+        REQUIRE( node2->IsValid() == false );
+        REQUIRE( node3->IsValid() == false );
+        REQUIRE( node4->IsValid() == false );
+
+        // Update selections after load
         node0 = staticContainerObject->Child("node[0]");    // node[0]
         node1 = staticContainerObject->Child("node[1]");    // node[1]
         node2 = staticContainerObject->Child("node[2]");    // node[2]
         node3 = staticContainerObject->Child("node[3]");    // node[3]
         node4 = staticContainerObject->Child("node[4]");    // node[4]
 
+        // Verify loaded values
         REQUIRE( node0->Property("Property1")->GetValue<unsigned int>() == 3301U );
+        REQUIRE( node1->Property("Property1")->GetValue<unsigned int>() == 3311U );
+        REQUIRE( node2->Property("Property1")->GetValue<unsigned int>() == 3321U );
+        REQUIRE( node3->Property("Property1")->GetValue<unsigned int>() == 3331U );
+        REQUIRE( node4->Property("Property1")->GetValue<unsigned int>() == 3341U );
+
+        REQUIRE( ReferenceManager::UnresolvedReferencesCount() == 0U );
     }
 }

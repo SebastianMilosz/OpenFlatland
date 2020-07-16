@@ -28,7 +28,7 @@ namespace codeframe
     {
     public:
         cXmlFormatter( ObjectNode& serializableObject, int shareLevel = 1 ); ///< Tworzymy formater z obiektu, domyslnie pelna rekurencyjna serializacja
-       ~cXmlFormatter();
+       ~cXmlFormatter() = default;
 
         cXML           SaveToXML  ();               ///< Zwraca xml z powiazanego obiektu
         cXmlFormatter& LoadFromXML( cXML& xml );    ///< Przypisuje xml z kontenera o nazwie name do powiazanego obiektu

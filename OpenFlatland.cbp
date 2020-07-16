@@ -100,6 +100,7 @@
 				<Option object_output="../bin/OpenFlatland/obj/test/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="--durations yes" />
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-m32" />

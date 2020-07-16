@@ -2,12 +2,12 @@
 
 #include "test_serializable_fixture.hpp"
 
-TEST_CASE( "codeframe library Object Container construction and destruction", "[codeframe::Object]" )
+TEST_CASE( "codeframe library Object Container", "[codeframe][ObjectContainer]" )
 {
     smart_ptr<ObjectNode> staticSerializableObject( new classTest_Static("testNameStatic", nullptr) );
     smart_ptr<ObjectNode> staticContainerObject( new classTest_Container("testNameContainerStatic", staticSerializableObject) );
 
-    SECTION( "test Create/Dispose" )
+    SECTION( "test Create/Dispose ByBuildType" )
     {
         REQUIRE( staticContainerObject->Path().IsNameUnique("node[0]") == true );
         REQUIRE( staticContainerObject->Path().IsNameUnique("node[1]") == true );

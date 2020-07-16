@@ -222,6 +222,23 @@ smart_ptr<ObjectSelection> ObjectMultipleSelection::GetObjectById( const uint32_
 
 /*****************************************************************************/
 /**
+  * @brief This method should return true if all objects in selection exist
+ **
+******************************************************************************/
+bool_t ObjectMultipleSelection::IsValid() const
+{
+    for (auto const& value: m_selection)
+    {
+        if ( smart_ptr_isValid(value) == false )
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+/*****************************************************************************/
+/**
   * @brief
  **
 ******************************************************************************/

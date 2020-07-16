@@ -46,7 +46,7 @@ namespace codeframe
             virtual bool Dispose( const unsigned int id );
             virtual bool Dispose( const std::string& objName );
             virtual bool Dispose( smart_ptr<ObjectNode> obj );
-            virtual bool DisposeByBuildType( eBuildType serType, cIgnoreList ignore = cIgnoreList() );
+            virtual bool DisposeByBuildType( const eBuildType buildType, const cIgnoreList ignoreList = cIgnoreList() );
             virtual bool Dispose();
 
             bool         IsName( const std::string& name );
@@ -70,8 +70,6 @@ namespace codeframe
 
             std::vector< smart_ptr<Object> > m_containerVector;
             smart_ptr<ObjectNode> m_selected;
-
-            unsigned int m_size;
     };
 
 }

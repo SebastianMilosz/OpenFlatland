@@ -82,8 +82,6 @@ namespace codeframe
 
         if( m_temporary == false )
         {
-            LOGGER( LOG_INFO << "PropertyBase destructor try unregister: " << m_name );
-
             UnRegisterProperty();
         }
     }
@@ -97,6 +95,7 @@ namespace codeframe
     {
         if (m_parentpc == nullptr)
         {
+            m_temporary = true;
             return;
         }
 
