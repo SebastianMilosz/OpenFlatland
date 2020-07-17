@@ -20,6 +20,10 @@ namespace codeframe
     PropertyMultipleSelection::PropertyMultipleSelection( const PropertyMultipleSelection& prop )
     {
         m_selectionVector = prop.m_selectionVector;
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->signalDeleted.connect(this, &PropertyMultipleSelection::OnDelete);
+        }
     }
 
     /*****************************************************************************/
@@ -42,6 +46,7 @@ namespace codeframe
         if ( smart_ptr_isValid( prop ) )
         {
             m_selectionVector.push_back( prop );
+            prop->signalDeleted.connect(this, &PropertyMultipleSelection::OnDelete);
         }
     }
 
@@ -595,7 +600,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    PropertyNode* PropertyMultipleSelection::Reference() const
+    smart_ptr<PropertyNode> PropertyMultipleSelection::Reference() const
     {
         return nullptr;
     }
@@ -615,7 +620,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    ObjectNode* PropertyMultipleSelection::Parent() const
+    smart_ptr<ObjectNode> PropertyMultipleSelection::Parent() const
     {
         return nullptr;
     }
@@ -783,5 +788,15 @@ namespace codeframe
         {
             propSelection->EmitChanges();
         }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::OnDelete(void* deletedPtr)
+    {
+
     }
 }

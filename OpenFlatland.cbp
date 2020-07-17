@@ -17,7 +17,9 @@
 					<Add option="-m32" />
 					<Add option="-Og" />
 					<Add option="-g" />
+					<Add option="-DCODE_FRAME_REFERENCE_MANAGER_DEBUG" />
 					<Add option="-DENTITY_VISION_DEBUG" />
+					<Add option="-DPATH_FIELD" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
@@ -98,12 +100,14 @@
 				<Option object_output="../bin/OpenFlatland/obj/test/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="--durations yes" />
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-m32" />
 					<Add option="-Og" />
 					<Add option="-g" />
 					<Add option="-DENTITY_VISION_DEBUG" />
+					<Add option="-DCODE_FRAME_REFERENCE_MANAGER_DEBUG" />
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
@@ -333,6 +337,7 @@
 		<Unit filename="libraries/codeframe-master/include/serializable_lua.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_container.hpp" />
+		<Unit filename="libraries/codeframe-master/include/serializable_object_dummy.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_list.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_multiple_selection.hpp" />
 		<Unit filename="libraries/codeframe-master/include/serializable_object_node.hpp" />
@@ -401,10 +406,16 @@
 		<Unit filename="libraries/codeframe-master/tests/catch.hpp">
 			<Option target="Test CodeFrame" />
 		</Unit>
-		<Unit filename="libraries/codeframe-master/tests/test_serializable.cpp">
+		<Unit filename="libraries/codeframe-master/tests/test_serializable_container.cpp">
+			<Option target="Test CodeFrame" />
+		</Unit>
+		<Unit filename="libraries/codeframe-master/tests/test_serializable_fixture.hpp">
 			<Option target="Test CodeFrame" />
 		</Unit>
 		<Unit filename="libraries/codeframe-master/tests/test_serializable_path.cpp">
+			<Option target="Test CodeFrame" />
+		</Unit>
+		<Unit filename="libraries/codeframe-master/tests/test_serializable_storage.cpp">
 			<Option target="Test CodeFrame" />
 		</Unit>
 		<Unit filename="libraries/codeframe-master/tests/test_serializable_utilities.cpp">

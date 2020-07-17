@@ -54,6 +54,9 @@ ObjectNode& cStorage::LoadFromFile( const std::string& filePath, const std::stri
     {
         LOGGER( LOG_INFO  << m_sint.Identity().ObjectName() << "-> LoadFromFile(" << filePath << ")" );
 
+        // We temporary suspend reference resolving
+        ReferenceManager::Inhibit referenceManagerLock(m_sint);
+
         if ( createIfNotExist )
         {
             if ( !utilities::file::IsFileExist( filePath ) )

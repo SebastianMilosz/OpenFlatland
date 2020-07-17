@@ -74,7 +74,7 @@ World::World( const std::string& name, ObjectNode* parent ) :
   * @brief
  **
 ******************************************************************************/
-void World::AddShell( std::shared_ptr<Entity> entity )
+void World::AddShell( smart_ptr<Entity> entity )
 {
     PhysicsBody::sDescriptor& desc = entity->GetDescriptor();
 
@@ -92,7 +92,7 @@ void World::AddShell( std::shared_ptr<Entity> entity )
   * @brief
  **
 ******************************************************************************/
-void World::AddConst( std::shared_ptr<ConstElement> constElement )
+void World::AddConst( smart_ptr<ConstElement> constElement )
 {
     PhysicsBody::sDescriptor& desc = constElement->GetDescriptor();
 

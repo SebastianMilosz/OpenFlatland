@@ -9,7 +9,9 @@
 namespace codeframe
 {
 
-std::map<std::string, ReferenceManager::sReferenceData> ReferenceManager::m_referencePathMap;
+std::map<PropertyNode*, ReferenceManager::sReferenceData> ReferenceManager::m_referencePathMap;
+
+bool_t ReferenceManager::m_inhibitResolveReferences = false;
 
 /*****************************************************************************/
 /**
@@ -20,17 +22,6 @@ ReferenceManager::ReferenceManager() :
     m_referencePath(""),
     m_property( nullptr )
 {
-
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-ReferenceManager::~ReferenceManager()
-{
-
 }
 
 /*****************************************************************************/
@@ -41,18 +32,22 @@ ReferenceManager::~ReferenceManager()
 void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* prop )
 {
     m_referencePath = refPath;
-    m_property = prop;
 
-    if ( m_referencePath != "" )
+    if (prop)
     {
-        if ( nullptr != m_property )
+        m_property = smart_ptr<PropertyNode>(new PropertySelection(prop));
+
+        if (m_referencePath != "")
         {
-            std::string referenceAbsolutePath( PreparePath( m_referencePath, m_property ) );
             sReferenceData refData;
             refData.Property = m_property;
             refData.RefPath = m_referencePath;
-            m_referencePathMap.insert( std::pair<std::string, sReferenceData>(referenceAbsolutePath, refData) );
+            m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
         }
+    }
+    else
+    {
+        m_property = smart_ptr<PropertyNode>(nullptr);
     }
 }
 
@@ -63,14 +58,17 @@ void ReferenceManager::SetReference( const std::string& refPath, PropertyBase* p
 ******************************************************************************/
 void ReferenceManager::SetProperty( PropertyBase* prop )
 {
-    if ( (m_referencePath != "") && (nullptr != prop) && (nullptr == m_property) )
+    if (prop)
     {
-        m_property = prop;
-        std::string referenceAbsolutePath( PreparePath( m_referencePath, m_property ) );
-        sReferenceData refData;
-        refData.Property = m_property;
-        refData.RefPath = m_referencePath;
-        m_referencePathMap.insert( std::pair<std::string, sReferenceData>(referenceAbsolutePath, refData) );
+        m_property = smart_ptr<PropertyNode>( new PropertySelection(prop) );
+
+        if (m_referencePath != "")
+        {
+            sReferenceData refData;
+            refData.Property = m_property;
+            refData.RefPath = m_referencePath;
+            m_referencePathMap.insert( std::pair<PropertyNode*, sReferenceData>(prop, refData) );
+        }
     }
 }
 
@@ -91,25 +89,33 @@ const std::string& ReferenceManager::Get() const
 ******************************************************************************/
 void ReferenceManager::ResolveReferences( ObjectNode& root )
 {
-    for ( auto it = m_referencePathMap.begin(); it != m_referencePathMap.end();  )
+    if (m_inhibitResolveReferences == false)
     {
-        sReferenceData refData = it->second;
-        std::string path( it->first );
-
-        std::string referenceAbsolutePath( PreparePath( refData.RefPath, refData.Property ) );
-
-        if ( (PropertyBase*)nullptr != refData.Property )
+        for (auto it = m_referencePathMap.begin(); it != m_referencePathMap.end();)
         {
-            smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( referenceAbsolutePath );
+            const sReferenceData refData = it->second;
 
-            if ( smart_ptr_isValid( targetProp ) )
+            if (refData.Property)
             {
-                targetProp->ConnectReference( smart_ptr<PropertyNode>( new PropertySelection( refData.Property ) ) );
-                it = m_referencePathMap.erase( it );
-            }
-            else
-            {
-                it++;
+                cPath::sPathLink pathLink;
+                auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(refData.Property->Parent()));
+                cPath::PreparePathLink(refData.RefPath, pathLink, propertyParent);
+
+                if (smart_ptr_isValid(refData.Property))
+                {
+                    const std::string pathLinkString(pathLink.ToDirString());
+                    smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLinkString );
+
+                    if (smart_ptr_isValid(targetProp))
+                    {
+                        refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp));
+                        it = m_referencePathMap.erase(it);
+                    }
+                    else
+                    {
+                        it++;
+                    }
+                }
             }
         }
     }
@@ -122,27 +128,27 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 ******************************************************************************/
 void ReferenceManager::LogUnresolvedReferences()
 {
-    for ( auto it = m_referencePathMap.begin(); it != m_referencePathMap.end(); it++ )
+    for (const auto& iteam: m_referencePathMap)
     {
-        sReferenceData refData( it->second );
+        const sReferenceData refData( iteam.second );
 
-        if ( (PropertyBase*)nullptr != refData.Property )
+        if (smart_ptr_isValid(refData.Property))
         {
-            ObjectNode* propertyParent( refData.Property->Parent() );
+            const smart_ptr<ObjectNode> propertyParent(refData.Property->Parent());
             std::string propertyParentPath( "NULL" );
 
-            if ( nullptr != propertyParent )
+            if (nullptr != propertyParent)
             {
                 propertyParentPath = propertyParent->Path().PathString();
             }
 
             propertyParentPath += std::string(".") + refData.Property->Name();
 
-            LOGGER( LOG_INFO << "Unresolved reference to: " << it->first << " from object: " << propertyParentPath );
+            LOGGER( LOG_INFO << "Unresolved reference to: " << refData.RefPath << " from object: " << propertyParentPath );
         }
         else
         {
-            LOGGER( LOG_ERROR << "Unresolved reference to: " << it->first << " from object: NULL" );
+            LOGGER( LOG_ERROR << "Unresolved reference to: " << refData.RefPath << " from object: NULL" );
         }
     }
 }
@@ -152,37 +158,9 @@ void ReferenceManager::LogUnresolvedReferences()
   * @brief
  **
 ******************************************************************************/
-std::string ReferenceManager::PreparePath( const std::string& path, PropertyBase* prop )
+unsigned int ReferenceManager::UnresolvedReferencesCount()
 {
-    ObjectNode* propertyParent = prop->Parent();
-
-    std::string retString( path );
-
-    if ( nullptr != propertyParent )
-    {
-        bool isDownHierarchy = (strncmp(retString.c_str(), "..", std::strlen("..")) == 0);
-        bool isRelative = (strncmp(retString.c_str(), "/", std::strlen("/")) == 0);
-
-        if ( isRelative || isDownHierarchy )
-        {
-            std::string propertyPath( propertyParent->Path().PathString() );
-
-            retString.erase(0, retString.find("/")+1);
-
-            // We have to make path absolute
-            if ( isDownHierarchy )
-            {
-                if ( propertyPath.rfind("/") )
-                {
-                    propertyPath.erase(propertyPath.rfind("/"), propertyPath.size());
-                }
-            }
-
-            retString = propertyPath + std::string("/") + retString;
-        }
-    }
-
-    return retString;
+    return m_referencePathMap.size();
 }
 
 }

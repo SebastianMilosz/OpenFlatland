@@ -20,7 +20,7 @@ class PropertyEditorWidget : public sigslot::has_slots<>
     private:
         void ShowHelpMarker(const char* desc );
         void ShowObject(smart_ptr<codeframe::ObjectNode> obj);
-        void ShowRawObject(codeframe::ObjectNode* obj);
+        void ShowRawObject(smart_ptr<codeframe::ObjectNode> obj);
         void ShowRawProperty(codeframe::PropertyBase* prop);
 
         template<typename PROPERTY_TYPE>

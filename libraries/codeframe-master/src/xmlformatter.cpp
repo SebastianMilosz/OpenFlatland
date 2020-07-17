@@ -31,16 +31,6 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cXmlFormatter::~cXmlFormatter()
-    {
-
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     void cXmlFormatter::ReplaceAll(std::string& str, const std::string& old, const std::string& repl)
     {
         size_t pos = 0;
@@ -114,7 +104,7 @@ namespace codeframe
         // Po wszystkich obiektach dzieci ladujemy zawartosc
         for( cObjectList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
         {
-            ObjectNode* iser = *it;
+            smart_ptr<ObjectNode> iser = *it;
 
             // Jesli jest to kontener to po jego dzieciach czyli obiektach
             if( iser->Role() == CONTAINER )
@@ -127,7 +117,7 @@ namespace codeframe
 
                     if( childNodeObject.IsValid() == true )
                     {
-                        ObjectNode* iserc = *itc;
+                        smart_ptr<ObjectNode> iserc = *itc;
 
                         // Po wszystkich polach serializacji tego obiektu
                         for( PropertyIterator itcp = iserc->PropertyList().begin(); itcp != iserc->PropertyList().end(); ++itcp )
@@ -370,7 +360,7 @@ namespace codeframe
         rootNode.AppendAttribute( "class",     m_serializableObject.Class().c_str() );
         rootNode.AppendAttribute( "construct", m_serializableObject.ConstructPatern().c_str() );
 #ifdef PATH_FIELD
-        rootNode.AppendAttribute("path", m_serializableObject.Path().c_str());
+        rootNode.AppendAttribute("path", m_serializableObject.Path().PathString().c_str());
 #endif
 
         // Po wszystkich polach serializacji
@@ -456,7 +446,7 @@ namespace codeframe
 
                 for ( cObjectList::iterator it = m_serializableObject.ChildList().begin(); it != m_serializableObject.ChildList().end(); ++it )
                 {
-                    ObjectNode* iser = *it;
+                    smart_ptr<ObjectNode> iser = *it;
 
                     if ( iser )
                     {
@@ -495,6 +485,10 @@ namespace codeframe
         {
             LOGGER( LOG_ERROR << "LoadFromXML runtime exception: " << re.what() );
         }
+        catch(const std::exception& ex)
+        {
+            LOGGER( LOG_ERROR << "LoadFromXML std::exception: " << ex.what() );
+        }
         catch (...)
         {
             LOGGER( LOG_ERROR << "Caught an unknown exception\n" );
@@ -517,14 +511,6 @@ namespace codeframe
 
             if ( iser->Info().GetXmlMode() & XMLMODE_R )
             {
-                // Dozwolone sa tylko pola unikalne na danym poziomie
-                if ( obj.PropertyList().IsPropertyUnique( iser->Name() ) == false )
-                {
-                    std::string throwString( std::string("cXmlFormatter::LoadFromXML() PropertyBase is not Unique: ") + iser->Name() );
-
-                    throw std::runtime_error( throwString );
-                }
-
                 cXMLNode propertyNode = node.FindChildByAttribute(XMLTAG_PROPERTY, "name", iser->Name().c_str());
 
                 // Jesli znaleziono wezel
@@ -617,7 +603,7 @@ namespace codeframe
             // Po wszystkich obiektach dzieci ladujemy zawartosc
             for ( cObjectList::iterator it = obj.ChildList().begin(); it != obj.ChildList().end(); ++it )
             {
-                ObjectNode* iser = *it;
+                smart_ptr<ObjectNode> iser = *it;
                 cXmlFormatter formatter( *iser );
 
                 cXMLNode childNode = node.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr(childLp).c_str());
@@ -635,6 +621,7 @@ namespace codeframe
                     std::string throwString = std::string("cXmlFormatter::LoadFromXML() Cant find childNode Id: " ) +
                                               utilities::math::IntToStr( childLp ) +
                                               std::string(" for object ") + parentName +
+                                              std::string(" object ChildList size: ") + utilities::math::IntToStr(obj.ChildList().size()) +
                                               std::string(" inside node: ") + childNodeContainerName;
                     throw std::runtime_error( throwString );
                 }

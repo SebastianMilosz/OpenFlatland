@@ -35,6 +35,7 @@ SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, Objec
     Input           ( this, "Input", thrust::host_vector<RayData>(),
                         cPropertyInfo().
                             Kind(KIND_VECTOR_THRUST_HOST).
+                            ReferencePath("../../Vision.VisionVector").
                             Description("Input")),
     Output          ( this, "Output", thrust::host_vector<float>(0),
                         cPropertyInfo().
@@ -74,7 +75,7 @@ bool SerializableNeuronLayer::InitializeNetwork()
   * @brief
  **
 ******************************************************************************/
-void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::PropertyBase* prop )
+void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::PropertyNode* prop )
 {
     if ( InitializeNetwork() == true )
     {

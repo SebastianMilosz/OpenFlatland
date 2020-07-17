@@ -57,7 +57,7 @@ bool cSelectable::IsSelected()
 ******************************************************************************/
 void cSelectable::DisconectFromContainer()
 {
-    m_smartThis = smart_ptr<ObjectNode>( nullptr );
+    //m_smartThis = smart_ptr<ObjectNode>( nullptr );
     signalSelectionChanged.disconnect_all();
 }
 

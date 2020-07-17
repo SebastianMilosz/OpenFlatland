@@ -5,7 +5,7 @@
 
 #include <utilities/DataTypesUtilities.h>
 
-TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataTypesUtilities:CircularBuffer]" )
+TEST_CASE( "codeframe library DataTypesUtilities : CircularBuffer", "[codeframe][DataTypesUtilities][CircularBuffer]" )
 {
     class TestDataStorage : public utilities::data::DataStorage
     {
@@ -45,7 +45,7 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
     g_CircularBuffer_w.Save( ds );
     g_CircularBuffer_r.Load( ds );
 
-    SECTION( "Test PeekPrew and PeekNext functionality before load" )
+    SECTION( "Test CircularBuffer PeekPrew and PeekNext functionality before load" )
     {
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/6" );
@@ -61,7 +61,7 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
         REQUIRE( g_CircularBuffer_w.PeekPrew() == "Test/String/7" );
     }
 
-    SECTION( "Test PeekPrew and PeekNext functionality before load" )
+    SECTION( "Test CircularBuffer PeekPrew and PeekNext functionality after load" )
     {
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/7" );
         REQUIRE( g_CircularBuffer_r.PeekPrew() == "Test/String/6" );
@@ -85,7 +85,7 @@ TEST_CASE( "Serializable library DataTypesUtilities.h : CircularBuffer", "[DataT
     g_CircularBuffer_w.Push( "Test/String/F" );
     g_CircularBuffer_w.Push( "Test/String/G" );
 
-    SECTION( "Test buffer overload" )
+    SECTION( "Test CircularBuffer overload" )
     {
         g_CircularBuffer_w.PeekReset();
 

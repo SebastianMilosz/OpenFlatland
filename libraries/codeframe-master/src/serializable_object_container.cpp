@@ -11,8 +11,18 @@ using namespace codeframe;
 ******************************************************************************/
 ObjectContainer::ObjectContainer( const std::string& name, ObjectNode* parentObject ) :
     Object( name, parentObject ),
-    m_selected( smart_ptr<Object>( nullptr ) ),
-    m_size( 0U )
+    m_selected( smart_ptr<Object>( nullptr ) )
+{
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+ObjectContainer::ObjectContainer( const std::string& name, smart_ptr<ObjectNode> parentObject ) :
+    Object( name, parentObject ),
+    m_selected( smart_ptr<Object>( nullptr ) )
 {
 }
 
@@ -33,7 +43,7 @@ ObjectContainer::~ObjectContainer()
 ******************************************************************************/
 unsigned int ObjectContainer::Count() const
 {
-    return m_size;
+    return m_containerVector.size();
 }
 
 /*****************************************************************************/
@@ -84,7 +94,7 @@ std::string ObjectContainer::CreateUniqueName( const std::string& nameBase )
 {
     std::string uniqueName( nameBase );
 
-    for ( int curIter = 0; curIter < MAXID; curIter++ )
+    for ( unsigned int curIter = 0U; curIter < MAXID; curIter++ )
     {
         std::string name( nameBase + utilities::math::IntToStr( curIter ) );
 
@@ -116,11 +126,6 @@ bool ObjectContainer::Dispose( const unsigned int id )
     {
         m_containerVector[ id ]->Selection().DisconectFromContainer();
         m_containerVector[ id ] = smart_ptr<Object>(nullptr);
-
-        if ( m_size )
-        {
-            m_size--;
-        }
         return true;
     }
 
@@ -143,22 +148,23 @@ bool ObjectContainer::Dispose( const std::string& objName )
   * @brief
  **
 ******************************************************************************/
-bool ObjectContainer::DisposeByBuildType( eBuildType serType, cIgnoreList ignore )
+bool ObjectContainer::DisposeByBuildType( const eBuildType buildType, const cIgnoreList ignoreList )
 {
     for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); )
     {
         smart_ptr<Object> sptr = *it;
 
-        if ( smart_ptr_isValid( sptr ) && sptr->BuildType() == serType && ignore.IsIgnored( smart_ptr_getRaw( sptr ) ) == false )
+        if (
+             smart_ptr_isValid( sptr ) &&
+             sptr->BuildType() == buildType &&
+             ignoreList.IsIgnored( smart_ptr_getRaw( sptr ) ) == false
+           )
         {
             sptr->Selection().DisconectFromContainer();
-            *it = smart_ptr<Object>( nullptr );
-
-            if ( m_size )
-            {
-                m_size--;
-            }
+            sptr->Unbound();
             signalContainerSelectionChanged.Emit( sptr );
+
+            it = m_containerVector.erase(it);
         }
         else
         {
@@ -186,10 +192,7 @@ bool ObjectContainer::Dispose( smart_ptr<ObjectNode> obj )
             {
                 sptr->Selection().DisconectFromContainer();
                 *it = smart_ptr<Object>();
-                if ( m_size )
-                {
-                    m_size--;
-                }
+
                 signalContainerSelectionChanged.Emit( sptr );
                 return true;
             }
@@ -206,26 +209,25 @@ bool ObjectContainer::Dispose( smart_ptr<ObjectNode> obj )
 ******************************************************************************/
 bool ObjectContainer::Dispose()
 {
-    if( m_containerVector.size() == 0 ) return true;    // Pusty kontener zwracamy prawde bo nie ma nic do usuwania
-
-    for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); ++it )
+    if( m_containerVector.size() != 0U )
     {
-        smart_ptr<Object> obj = *it;
+        for ( auto it = m_containerVector.begin(); it != m_containerVector.end(); ++it )
+        {
+            smart_ptr<Object> obj = *it;
 
-        // Usuwamy tylko jesli nikt inny nie korzysta z obiektu
-        if ( smart_ptr_getCount( obj ) <= 2 )
-        {
-            obj->Selection().DisconectFromContainer();
-            obj = smart_ptr<Object>( nullptr );
+            if ( smart_ptr_getCount( obj ) <= 2 )
+            {
+                obj->Selection().DisconectFromContainer();
+                obj = smart_ptr<Object>( nullptr );
+            }
+            else
+            {
+                return false;
+            }
         }
-        else // Nie mozna usunac obiektu
-        {
-            return false;
-        }
+
+        m_containerVector.clear();
     }
-
-    m_containerVector.clear();
-    m_size = 0U;
 
     return true;
 }
@@ -245,9 +247,47 @@ bool ObjectContainer::IsInRange( const unsigned int cnt ) const
   * @brief
  **
 ******************************************************************************/
-smart_ptr<ObjectNode> ObjectContainer::operator[]( int i )
+smart_ptr<ObjectSelection> ObjectContainer::operator[]( const unsigned int i )
 {
-    return Get( i );
+    return Child(i);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectContainer::operator[]( const std::string& name )
+{
+    return Child(name);
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectContainer::Child( const unsigned int i )
+{
+    return smart_ptr<ObjectSelection>( new ObjectSelection( Get( i ) ) );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+smart_ptr<ObjectSelection> ObjectContainer::Child( const std::string& name )
+{
+    for (const auto& iteam: m_containerVector)
+    {
+        if (smart_ptr_isValid( iteam ) && iteam->Identity().ObjectName() == name)
+        {
+            return smart_ptr<ObjectSelection>( new ObjectSelection( iteam ) );
+        }
+    }
+
+    return smart_ptr<ObjectSelection>( nullptr );
 }
 
 /*****************************************************************************/
@@ -351,7 +391,6 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, const int pos )
 
                 if ( smart_ptr_isValid( obj ) == false )
                 {
-                    // Znalezlismy wiec zapisujemy
                     *it = classType;
                     found = true;
                     retPos = std::distance( m_containerVector.begin(), it );
@@ -361,7 +400,7 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, const int pos )
         }
     }
 
-    // poza zakresem dodajemy do wektora nowa pozycje
+    // if out of range we add it at the end
     if ( found == false )
     {
         m_containerVector.push_back( classType );
@@ -372,13 +411,13 @@ int ObjectContainer::InsertObject( smart_ptr<Object> classType, const int pos )
     if ( nullptr == classType->Path().Parent() )
     {
         ObjectNode* serPar = static_cast<ObjectNode*>( this );
-        classType->Path().ParentBound( serPar );
+        classType->Path().ParentBound( smart_ptr_wild<ObjectNode>(serPar, [](ObjectNode* p) {}) );
     }
 
     classType->Selection().ConectToContainer<ObjectContainer>( this, classType );
     classType->Identity().SetId( retPos );
 
-    m_size++;
+    ReferenceManager::ResolveReferences(*(ObjectNode*)this);
 
     return retPos;
 }
@@ -394,8 +433,6 @@ void ObjectContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
 
     if ( (Object*)nullptr != serializableObjectNew )
     {
-        std::string name( serializableObjectNew->Identity().ObjectName() );
-
         if ( serializableObjectNew->Selection().IsSelected() == true )
         {
             Object* serializableObjectSel = static_cast<Object*>( smart_ptr_getRaw(m_selected) );
@@ -414,7 +451,7 @@ void ObjectContainer::slotSelectionChanged( smart_ptr<ObjectNode> obj )
         }
         else
         {
-            LOGGER( LOG_INFO << "Object Deselected: " << name );
+            LOGGER( LOG_INFO << "Object Deselected: " << serializableObjectNew->Identity().ObjectName() );
         }
     }
 }

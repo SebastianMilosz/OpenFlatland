@@ -2,12 +2,18 @@
 #define SERIALIZABLE_PROPERTY_ITERATOR_HPP_INCLUDED
 
 #include <iterator>
+#include <map>
 
 namespace codeframe
 {
     class PropertyBase;
     class cPropertyList;
 
+    /*****************************************************************************/
+    /**
+      * @brief Bidirectional iterator for property list
+     **
+    ******************************************************************************/
     class PropertyIterator : public std::iterator<std::input_iterator_tag, PropertyBase*>
     {
         friend class cPropertyList;
@@ -18,20 +24,13 @@ namespace codeframe
         PropertyBase*     operator *();
         PropertyIterator& operator ++();
 
-        // Operatory porownania
-        bool operator< (const PropertyIterator& n);
-        bool operator> (const PropertyIterator& n);
-        bool operator<=(const PropertyIterator& n);
-        bool operator>=(const PropertyIterator& n);
         bool operator==(const PropertyIterator& n);
         bool operator!=(const PropertyIterator& n);
 
     private:
-        PropertyIterator( cPropertyList& pm, int n );
+        PropertyIterator( std::map<std::string, PropertyBase*>::iterator iter );
 
-        cPropertyList& m_PropertyManager;
-        PropertyBase*  m_param;
-        int            m_curId;
+        std::map<std::string, PropertyBase*>::iterator m_iterator;
     };
 }
 

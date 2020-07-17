@@ -30,25 +30,25 @@ namespace codeframe
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
         public:
-                     ObjectContainer( const std::string& name, ObjectNode* parentObject );
+                     ObjectContainer( const std::string& name, ObjectNode* parentObject = nullptr );
+                     ObjectContainer( const std::string& name, smart_ptr<ObjectNode> parentObject );
             virtual ~ObjectContainer();
 
-            virtual smart_ptr<ObjectNode> Create(
-                                                  const std::string& className,
-                                                  const std::string& objName,
-                                                  const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                 ) = 0;
+            unsigned int Count() const override;
 
-            smart_ptr<ObjectNode> operator[]( int i );
+            smart_ptr<ObjectSelection> operator[]( const unsigned int i );
+            smart_ptr<ObjectSelection> operator[]( const std::string& name );
+
+            smart_ptr<ObjectSelection> Child( const unsigned int i ) override;
+            smart_ptr<ObjectSelection> Child( const std::string& name ) override;
 
             virtual void CreateRange( const std::string& className, const std::string& objName, const int range );
             virtual bool Dispose( const unsigned int id );
             virtual bool Dispose( const std::string& objName );
             virtual bool Dispose( smart_ptr<ObjectNode> obj );
-            virtual bool DisposeByBuildType( eBuildType serType, cIgnoreList ignore = cIgnoreList() );
+            virtual bool DisposeByBuildType( const eBuildType buildType, const cIgnoreList ignoreList = cIgnoreList() );
             virtual bool Dispose();
 
-            unsigned int Count() const;
             bool         IsName( const std::string& name );
             std::string  CreateUniqueName( const std::string& nameBase );
             bool         IsInRange( const unsigned int cnt ) const;
@@ -70,8 +70,6 @@ namespace codeframe
 
             std::vector< smart_ptr<Object> > m_containerVector;
             smart_ptr<ObjectNode> m_selected;
-
-            unsigned int m_size;
     };
 
 }

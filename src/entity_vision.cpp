@@ -15,7 +15,7 @@ EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     RaysSize         ( this, "RaysSize"         , 100U                  , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
     RaysStartingAngle( this, "RaysStartingAngle", -45                   , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
     RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                   , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), nullptr, std::bind(&EntityVision::SetRaysEndingAngle, this, std::placeholders::_1) ),
-    VisionVector     ( this, "VisionVector"     , std::vector<RayData>(), cPropertyInfo().Kind( KIND_VECTOR ).ReferencePath("../ANN/AnnLayer[0].Input").Description("VisionVector"), std::bind(&EntityVision::GetVisionVector, this) )
+    VisionVector     ( this, "VisionVector"     , std::vector<RayData>(), cPropertyInfo().Kind( KIND_VECTOR ).Description("VisionVector"), std::bind(&EntityVision::GetVisionVector, this) )
 {
 }
 

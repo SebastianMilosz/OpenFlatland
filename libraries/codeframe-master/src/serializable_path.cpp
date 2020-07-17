@@ -1,13 +1,16 @@
 #include "serializable_path.hpp"
 
+#include <cstring>      // std::strlen
 #include <vector>
-#include <TextUtilities.h>
+
 #include <LoggerUtilities.h>
 
 #include "serializable_object_node.hpp"
 
 namespace codeframe
 {
+    const std::string cPath::m_delimiters("/\\");
+
     /*****************************************************************************/
     /**
       * @brief
@@ -16,16 +19,6 @@ namespace codeframe
     cPath::cPath( ObjectNode& sint ) :
         m_sint( sint ),
         m_parent( nullptr )
-    {
-
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
-    cPath::~cPath()
     {
 
     }
@@ -43,7 +36,7 @@ namespace codeframe
 
         if( smart_ptr_isValid( parentSelection ) )
         {
-            path = parentSelection->GetNode()->Path().PathString() + "/" + path;
+            path = parentSelection->PathString() + "/" + path;
         }
 
         path += m_sint.Identity().ObjectName( true );
@@ -56,14 +49,15 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    void cPath::ParentBound( ObjectNode* parent )
+    bool_t cPath::ParentBound( smart_ptr<ObjectNode> parent )
     {
-        // Rejestrujemy sie u rodzica
-        if( parent )
+        if( smart_ptr_isValid(parent) )
         {
             m_parent = parent;
-            m_parent->ChildList().Register( &m_sint );
+            m_parent->ChildList().Register( smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {}) );
+            return true;
         }
+        return false;
     }
 
     /*****************************************************************************/
@@ -73,10 +67,10 @@ namespace codeframe
     ******************************************************************************/
     void cPath::ParentUnbound()
     {
-        if( m_parent )
+        if( smart_ptr_isValid(m_parent) )
         {
-            m_parent->ChildList().UnRegister( &m_sint );
-            m_parent = nullptr;
+            m_parent->ChildList().UnRegister( smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {}) );
+            m_parent = smart_ptr<ObjectNode>(nullptr);
         }
     }
 
@@ -85,39 +79,34 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    bool cPath::IsNameUnique( const std::string& name, const bool checkParent ) const
+    bool_t cPath::IsNameUnique( const std::string& name, const bool_t checkParent ) const
     {
-        int octcnt = 0;
-
-        // Jesli niema rodzica to jestesmy rootem wiec na tym poziomie jestesmy wyjatkowi
-        if ( m_parent == nullptr )
+        // If there is no parent on this level we are unique
+        if ( smart_ptr_isValid(m_parent) == false )
         {
             return true;
         }
 
-        // Rodzica sprawdzamy tylko na wyrazne zyczenie
         if ( checkParent )
         {
-            // Sprawdzamy czy rodzic jest wyj¹tkowy
-            bool isParentUnique = m_parent->Path().IsNameUnique( m_parent->Identity().ObjectName() );
+            // Check unique of the parent
+            bool_t isParentUnique = m_parent->Path().IsNameUnique( m_parent->Identity().ObjectName() );
 
-            // Jesli rodzic nie jest wyjatkowy to dzieci tez nie s¹ wiec niesprawdzamy dalej
-            if( isParentUnique == false )
+            if ( isParentUnique == false )
             {
                 return false;
             }
         }
 
-        // Jesli rodzic jest wyjatkowy sprawdzamy dzieci
-        for ( auto it = m_parent->ChildList().begin(); it != m_parent->ChildList().end(); ++it )
-        {
-            ObjectNode* iser = *it;
+        uint32_t occurrenceCount = 0U;
 
-            if ( iser != nullptr )
+        for ( const auto& iteam: m_sint.ChildList() )
+        {
+            if ( smart_ptr_isValid(iteam) )
             {
-                if ( iser->Identity().ObjectName() == name )
+                if ( iteam->ObjectName(true) == name )
                 {
-                    octcnt++;
+                    occurrenceCount++;
                 }
             }
             else
@@ -126,7 +115,7 @@ namespace codeframe
             }
         }
 
-        if ( octcnt == 1 )
+        if ( occurrenceCount == 0U )
         {
             return true;
         }
@@ -141,7 +130,7 @@ namespace codeframe
     ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::Parent() const
     {
-        if ( m_parent != nullptr )
+        if ( smart_ptr_isValid(m_parent) )
         {
             return smart_ptr<ObjectSelection>( new ObjectSelection(m_parent) );
         }
@@ -154,113 +143,124 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<ObjectSelection> cPath::GetChildByName( const std::string& name )
-    {
-        // Separate * symbol
-        std::size_t foundRangeOpen  = name.find_last_of("[");
-
-        // Multi selection
-        if ( foundRangeOpen != std::string::npos )
-        {
-            if ( name.at( foundRangeOpen + 1U ) == '*' )
-            {
-                auto  nameCore( name.substr( 0, foundRangeOpen + 1U ) );
-
-                smart_ptr<ObjectMultipleSelection> multipleSelection = smart_ptr<ObjectMultipleSelection>( new ObjectMultipleSelection );
-
-                for ( auto it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
-                {
-                    ObjectNode* iser = *it;
-                    auto  objectName( iser->Identity().ObjectName( true ) );
-                    auto  refName( nameCore + ( std::to_string( (int)it ).append( "]" ) ) );
-
-                    if ( objectName == refName )
-                    {
-                        multipleSelection->Add( iser );
-                    }
-                }
-
-                return multipleSelection;
-            }
-        }
-
-        // Single selection
-        for ( auto it = m_sint.ChildList().begin(); it != m_sint.ChildList().end(); ++it )
-        {
-            ObjectNode* iser = *it;
-            auto objectName( iser->Identity().ObjectName( true ) );
-
-            if ( objectName == name )
-            {
-                return smart_ptr<ObjectSelection>( new ObjectSelection( iser ) );
-            }
-        }
-        return smart_ptr<ObjectSelection>(  nullptr );
-    }
-
-    /*****************************************************************************/
-    /**
-      * @brief
-     **
-    ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::GetRootObject()
     {
         if ( smart_ptr_isValid( Parent() ) )
         {
-            return Parent()->GetNode()->Path().GetRootObject();
+            return Parent()->Root();
         }
 
-        return smart_ptr<ObjectSelection>( new ObjectSelection( &m_sint ) );
+        return smart_ptr<ObjectSelection>( new ObjectSelection( smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {}) ) );
     }
 
     /*****************************************************************************/
     /**
-      * @brief Return serializable object from string path
+      * @brief Return object from string path
      **
     ******************************************************************************/
     smart_ptr<ObjectSelection> cPath::GetObjectFromPath( const std::string& path )
     {
-        // Rozdzelamy stringa na kawalki
-        std::vector<std::string>   tokens;
-        std::string                delimiters("/");
-        smart_ptr<ObjectSelection> curObjectSelection = smart_ptr<ObjectSelection>( new ObjectSelection( &m_sint ) );
+        auto thisNode = smart_ptr<ObjectSelection>(new ObjectSelection(smart_ptr_wild<ObjectNode>(&m_sint, [](ObjectNode* p) {})));
+        cPath::sPathLink pathLink;
+        PreparePathLink(path, pathLink, thisNode );
 
-        utilities::text::split( path, delimiters, tokens);
+        smart_ptr<ObjectSelection> curObjectSelection = m_sint.Path().GetRootObject();
 
-        // Sprawdzamy czy root sie zgadza
-        if ( tokens.size() == 0 )
+        if ( smart_ptr_isValid( curObjectSelection ) )
         {
-            if ( curObjectSelection->GetNode()->Identity().ObjectName() != path )
+            if ( pathLink.size() )
             {
-                return smart_ptr<ObjectSelection>( nullptr );
-            }
-        }
-        else
-        {
-            std::string tempStr( tokens.at(0) );
-            if ( curObjectSelection->GetNode()->Identity().ObjectName() != tempStr )
-            {
-                return smart_ptr<ObjectSelection>( nullptr );
-            }
-        }
+                if (pathLink.at(0) == curObjectSelection->ObjectName())
+                {
+                    for ( unsigned int i = 1U; i < pathLink.size(); i++ )
+                    {
+                        std::string levelName( pathLink.at(i) );
 
-        // Po wszystkich skladnikach sciezki
-        for ( unsigned int i = 1U; i < tokens.size(); i++ )
-        {
-            std::string levelName( tokens.at(i) );
+                        curObjectSelection = curObjectSelection->GetObjectByName(levelName);
 
-            smart_ptr<ObjectSelection> objectSelection = curObjectSelection->GetNode()->Path().GetChildByName( levelName );
-
-            if ( smart_ptr_isValid( objectSelection ) )
-            {
-                curObjectSelection = objectSelection;
+                        if ( smart_ptr_isValid( curObjectSelection ) == false )
+                        {
+                            curObjectSelection = smart_ptr<ObjectSelection>( nullptr );
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    curObjectSelection = smart_ptr<ObjectSelection>( nullptr );
+                }
             }
             else
             {
-                return smart_ptr<ObjectSelection>( nullptr );
+                curObjectSelection = smart_ptr<ObjectSelection>( nullptr );
             }
         }
 
         return curObjectSelection;
     }
+
+/*****************************************************************************/
+/**
+  * @brief This method change relative paths to absolute ones
+ **
+******************************************************************************/
+void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pathLink, smart_ptr<ObjectSelection> propertyParent)
+{
+    std::string retString( pathString );
+
+    // With parent we may be able resolve relative paths
+    if (smart_ptr_isValid(propertyParent))
+    {
+        if (IsDownHierarchy(retString))
+        {
+            smart_ptr<ObjectSelection> parentNode = propertyParent->Parent();
+
+            if (retString.find_first_of("/\\") == 0)
+            {
+                retString.erase(0, retString.find_first_of("/\\")+1);
+            }
+            retString.erase(0, retString.find_first_of("/\\"));
+
+            PreparePathLink(retString, pathLink, parentNode );
+        }
+        else if (IsRelativeHierarchy(retString))
+        {
+            if (pathLink.size() == 0U)
+            {
+                std::string pathPropertyString = propertyParent->PathString();
+                pathLink.FromDirString(pathPropertyString);
+            }
+
+            retString.erase(0, retString.find_first_of("/\\")+1);
+            pathLink.FromDirString(retString);
+        }
+        else
+        {
+            pathLink.FromDirString(pathString);
+        }
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+bool_t cPath::IsDownHierarchy(const std::string& path)
+{
+    bool_t retVal = (strncmp(path.c_str(), "/..", std::strlen("/..")) == 0);
+    retVal |= (strncmp(path.c_str(), "..", std::strlen("..")) == 0);
+    retVal |= (strncmp(path.c_str(), "\\..", std::strlen("\\..")) == 0);
+    return retVal;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+bool_t cPath::IsRelativeHierarchy(const std::string& path)
+{
+    return (path.find_first_of("/\\") == 0U);
+}
 }

@@ -39,6 +39,8 @@ namespace codeframe
             virtual eBuildRole  Role()            const = 0;    ///< Class role meta data
             virtual eBuildType  BuildType()       const = 0;    ///< Class build type meta data
 
+            virtual ~ObjectNode();
+
             virtual cPath&          Path() = 0;
             virtual cStorage&       Storage() = 0;
             virtual cSelectable&    Selection() = 0;
@@ -47,13 +49,35 @@ namespace codeframe
             virtual cObjectList&    ChildList() = 0;
             virtual cIdentity&      Identity() = 0;
 
+            virtual smart_ptr<ObjectSelection> Create(
+                                                  const std::string& className,
+                                                  const std::string& objName,
+                                                  const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                 ) = 0;
+
+            virtual unsigned int Count() const = 0;
+
+            virtual smart_ptr<ObjectSelection> operator[]( const unsigned int i ) = 0;
+            virtual smart_ptr<ObjectSelection> operator[]( const std::string& name ) = 0;
+
+            virtual smart_ptr<ObjectSelection> Child( const unsigned int i ) = 0;
+            virtual smart_ptr<ObjectSelection> Child( const std::string& name ) = 0;
+
+            virtual smart_ptr<PropertyNode> Property(const std::string& name) = 0;
+            virtual smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) = 0;
+
+            virtual std::string ObjectName( bool idSuffix = true ) const = 0;
+
             virtual void PulseChanged( bool fullTree = false ) = 0;
             virtual void CommitChanges() = 0;
             virtual void Enable( bool val ) = 0;
 
+            virtual void Unbound() = 0;
+
+            // Signals
+            sigslot::signal1<void*> signalDeleted;
         protected:
-                     ObjectNode();
-            virtual ~ObjectNode();
+            ObjectNode();
     };
 
 }

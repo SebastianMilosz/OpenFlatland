@@ -5,6 +5,7 @@
 #include "typedefs.hpp"
 
 #include <string>
+#include <sigslot.h>
 #include <smartpointer.h>
 
 namespace codeframe
@@ -55,10 +56,10 @@ namespace codeframe
             virtual bool_t        NameIs( const std::string& name ) const = 0;
             virtual eType         Type() const = 0;
             virtual std::string   Path( bool_t addName = true ) const = 0;
-            virtual PropertyNode* Reference() const = 0;
+            virtual smart_ptr<PropertyNode> Reference() const = 0;
             virtual uint32_t      Id() const = 0;
 
-            virtual ObjectNode* Parent() const = 0;
+            virtual smart_ptr<ObjectNode> Parent() const = 0;
             virtual std::string ParentName() const = 0;
 
             virtual bool_t      ConnectReference( smart_ptr<PropertyNode> refNode ) = 0;
@@ -76,11 +77,27 @@ namespace codeframe
             virtual void        SetString( const std::string&  val ) = 0;
             virtual std::string GetString() const = 0;
 
+            template<typename T>
+            T GetValue()
+            {
+                return (T)*this;
+            }
+
+            template<typename T>
+            void SetValue(T value)
+            {
+                *this = value;
+            }
+
             virtual void Lock() const = 0;
             virtual void Unlock() const = 0;
 
             virtual bool_t IsChanged() const = 0;
             virtual void   EmitChanges() = 0;
+
+            // Signals
+            sigslot::signal1<PropertyNode*> signalChanged;
+            sigslot::signal1<void*>         signalDeleted;
     };
 }
 

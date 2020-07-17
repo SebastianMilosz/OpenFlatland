@@ -26,7 +26,8 @@ namespace codeframe
         public:
             std::string ConstructPatern() const;
 
-                     Object( const std::string& name, ObjectNode* parent = NULL );
+                     Object( const std::string& name, ObjectNode* parent = nullptr );
+                     Object( const std::string& name, smart_ptr<ObjectNode> parent );
             virtual ~Object();
 
             cPath&         Path() override;
@@ -37,9 +38,30 @@ namespace codeframe
             cObjectList&   ChildList() override;
             cIdentity&     Identity() override;
 
+            smart_ptr<ObjectSelection> Create(
+                                            const std::string& className,
+                                            const std::string& objName,
+                                            const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                         ) override;
+
+            unsigned int Count() const override;
+
+            smart_ptr<ObjectSelection> operator[]( const unsigned int i ) override;
+            smart_ptr<ObjectSelection> operator[]( const std::string& name ) override;
+
+            smart_ptr<ObjectSelection> Child( const unsigned int i ) override;
+            smart_ptr<ObjectSelection> Child( const std::string& name ) override;
+
+            smart_ptr<PropertyNode> Property(const std::string& name) override;
+            smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) override;
+
+            std::string ObjectName( bool idSuffix = true ) const override;
+
             void PulseChanged( bool fullTree = false ) override;
             void CommitChanges() override;
             void Enable( bool val ) override;
+
+            void Unbound() override;
 
         private:
             cPath         m_SerializablePath;

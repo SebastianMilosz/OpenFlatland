@@ -22,7 +22,7 @@ class SerializableNeuronLayerContainer : public codeframe::ObjectContainer
         codeframe::Property<unsigned int> LayersCnt;
 
     protected:
-        smart_ptr<codeframe::ObjectNode> Create(
+        smart_ptr<codeframe::ObjectSelection> Create(
                                                  const std::string& className,
                                                  const std::string& objName,
                                                  const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()

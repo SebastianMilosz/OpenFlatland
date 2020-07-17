@@ -25,11 +25,11 @@ class ConstElementsFactory : public codeframe::ObjectContainer
         signal1< smart_ptr<ConstElement> > signalElementDel;
 
     protected:
-        smart_ptr<codeframe::ObjectNode> Create(
-                                                 const std::string& className,
-                                                 const std::string& objName,
-                                                 const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                               );
+        smart_ptr<codeframe::ObjectSelection> Create(
+                                                         const std::string& className,
+                                                         const std::string& objName,
+                                                         const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                    );
 
     private:
 

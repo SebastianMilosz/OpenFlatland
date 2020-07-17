@@ -35,7 +35,35 @@ namespace codeframe
         m_PropertyList( *this ),
         m_Identity( name, *this )
     {
-        m_SerializablePath.ParentBound( parent );
+        if (m_SerializablePath.ParentBound( smart_ptr_wild<ObjectNode>(parent, [](ObjectNode* p) {}) ) == true)
+        {
+            // For containers we resolve references on inserting stage
+            if (parent->Role() != codeframe::CONTAINER)
+            {
+                // Resolve references only at root node
+                ReferenceManager::ResolveReferences(*(ObjectNode*)this);
+            }
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    Object::Object( const std::string& name, smart_ptr<ObjectNode> parent ) :
+        m_SerializablePath( *this ),
+        m_SerializableStorage( *this ),
+        m_SerializableSelectable( *this ),
+        m_SerializableScript( *this ),
+        m_PropertyList( *this ),
+        m_Identity( name, *this )
+    {
+        if (m_SerializablePath.ParentBound( parent ) == true)
+        {
+            // Resolve references only at root node
+            ReferenceManager::ResolveReferences(*(ObjectNode*)this);
+        }
     }
 
     /*****************************************************************************/
@@ -60,10 +88,20 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    void Object::Unbound()
+    {
+        m_SerializablePath.ParentUnbound();
+        signalDeleted.Emit(this);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     Object::~Object()
     {
-        // Wyrejestrowywujemy sie u rodzica
-        m_SerializablePath.ParentUnbound();
+        Unbound();
         m_PropertyList.ClearPropertyList();
     }
 
@@ -135,6 +173,100 @@ namespace codeframe
     cIdentity& Object::Identity()
     {
         return m_Identity;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::Create(
+                                    const std::string& className,
+                                    const std::string& objName,
+                                    const std::vector<codeframe::VariantValue>& params
+                                 )
+    {
+        return smart_ptr<ObjectSelection>();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    unsigned int Object::Count() const
+    {
+        return 0U;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::operator[]( const unsigned int i )
+    {
+        return m_childList.GetObjectById(i);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::operator[]( const std::string& name )
+    {
+        return m_childList.GetObjectByName(name);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::Child( const unsigned int i )
+    {
+        return m_childList.GetObjectById(i);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::Child( const std::string& name )
+    {
+        return m_childList.GetObjectByName(name);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<PropertyNode> Object::Property(const std::string& name)
+    {
+        return m_PropertyList.GetPropertyByName(name);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<PropertyNode> Object::PropertyFromPath(const std::string& path)
+    {
+        return m_PropertyList.GetPropertyFromPath(path);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    std::string Object::ObjectName( bool idSuffix ) const
+    {
+        return m_Identity.ObjectName(idSuffix);
     }
 
     /*****************************************************************************/

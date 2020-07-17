@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <algorithm>
+#include <LoggerUtilities.h>
 
 #include "instance_manager.hpp"
 #include "serializable_object.hpp"
@@ -42,7 +43,6 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase::PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
         m_reference(nullptr),
-        m_referenceParent(nullptr),
         m_type(type),
         m_parentpc( parentpc ),
         m_name(name),
@@ -62,7 +62,6 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase::PropertyBase( const PropertyBase& sval ) :
         m_reference      (sval.m_reference),
-        m_referenceParent(sval.m_referenceParent),
         m_type           (sval.m_type),
         m_parentpc       (sval.m_parentpc),
         m_name           (sval.m_name),
@@ -79,6 +78,8 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase::~PropertyBase()
     {
+        signalDeleted.Emit(this);
+
         if( m_temporary == false )
         {
             UnRegisterProperty();
@@ -92,28 +93,17 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::RegisterProperty()
     {
-        if ( m_parentpc == nullptr )
+        if (m_parentpc == nullptr)
         {
+            m_temporary = true;
             return;
         }
 
         m_Mutex.Lock();
-
-        int size = m_parentpc->PropertyList().GetObjectFieldCnt();
-
+        int size = m_parentpc->PropertyList().size();
         m_id = GetHashId( Name(), 255 * s_globalParConCnt + size );
-
-        m_parentpc->PropertyList().RegisterProperty( this );
-
-        ObjectNode* rootNode = m_parentpc->Path().GetRootObject()->GetNode();
-
-        if (rootNode)
-        {
-            ReferenceManager::ResolveReferences( *rootNode );
-        }
-
+        m_parentpc->PropertyList().RegisterProperty( Name(), this );
         s_globalParConCnt++;
-
         m_Mutex.Unlock();
     }
 
@@ -124,14 +114,14 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::UnRegisterProperty()
     {
-        if( m_parentpc == nullptr )
+        if (m_parentpc == nullptr)
         {
             return;
         }
 
         m_Mutex.Lock();
 
-        m_parentpc->PropertyList().UnRegisterProperty( this );
+        m_parentpc->PropertyList().UnRegisterProperty( Name(), this );
 
         s_globalParConCnt--;
 
@@ -463,7 +453,7 @@ namespace codeframe
     {
         std::string propPath;
 
-        if ( (ObjectNode*)nullptr != m_parentpc )
+        if ( smart_ptr_isValid(m_parentpc) )
         {
             propPath = m_parentpc->Path().PathString();
             if ( addName )
@@ -484,7 +474,7 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    ObjectNode* PropertyBase::Parent() const
+    smart_ptr<ObjectNode> PropertyBase::Parent() const
     {
         return m_parentpc;
     }
@@ -496,7 +486,7 @@ namespace codeframe
     ******************************************************************************/
     std::string PropertyBase::ParentName() const
     {
-        if ( (ObjectNode*)nullptr != m_parentpc )
+        if ( smart_ptr_isValid(m_parentpc) )
         {
             return m_parentpc->Identity().ObjectName();
         }
@@ -544,8 +534,7 @@ namespace codeframe
         if ( smart_ptr_isValid( refNode ) && (this->Type() == refNode->Type()) )
         {
             m_Mutex.Lock();
-            m_referenceParent = refNode->Parent();
-            m_reference       = smart_ptr_getRaw( refNode );
+            m_reference = refNode;
             m_Mutex.Unlock();
             return true;
         }
@@ -765,9 +754,12 @@ namespace codeframe
     ******************************************************************************/
     bool_t PropertyBase::IsReference() const
     {
-        if ( cInstanceManager::IsInstance( dynamic_cast<cInstanceManager*>(m_referenceParent) ) )
+        if (m_reference)
         {
-            return true;
+            if (cInstanceManager::IsInstance( smart_ptr_getRaw(std::dynamic_pointer_cast<cInstanceManager>(m_reference->Parent()))) )
+            {
+                return true;
+            }
         }
         return false;
     }

@@ -3,6 +3,10 @@
 
 #include <map>
 #include <string>
+#include <smartpointer.h>
+
+#include "serializable_property_node.hpp"
+#include "serializable_object_selection.hpp"
 
 namespace codeframe
 {
@@ -12,28 +16,45 @@ namespace codeframe
     class ReferenceManager
     {
         public:
+            class Inhibit
+            {
+                public:
+                    Inhibit(ObjectNode& node) :
+                        m_node(node)
+                    {
+                        ReferenceManager::m_inhibitResolveReferences = true;
+                    }
+                   ~Inhibit()
+                    {
+                        ReferenceManager::m_inhibitResolveReferences = false;
+                        ReferenceManager::ResolveReferences(m_node);
+                    }
+                private:
+                    ObjectNode& m_node;
+            };
+
             ReferenceManager();
-            ~ReferenceManager();
+           ~ReferenceManager() = default;
 
             void SetReference( const std::string& refPath, PropertyBase* prop = NULL );
             void SetProperty( PropertyBase* prop );
             const std::string& Get() const;
 
             static void ResolveReferences( ObjectNode& root );
-
             static void LogUnresolvedReferences();
+            static unsigned int UnresolvedReferencesCount();
         private:
+            friend class Inhibit;
             struct sReferenceData
             {
-                PropertyBase* Property;
-                std::string   RefPath;
+                smart_ptr<PropertyNode> Property;
+                std::string RefPath;
             };
 
-            static std::string PreparePath( const std::string& path, PropertyBase* prop );
-
+            static bool_t m_inhibitResolveReferences;
             std::string m_referencePath;
-            PropertyBase* m_property;
-            static std::map<std::string, sReferenceData> m_referencePathMap;
+            smart_ptr<PropertyNode> m_property;
+            static std::map<PropertyNode*, sReferenceData> m_referencePathMap;
     };
 }
 

@@ -4,11 +4,12 @@
 #include <ThreadUtilities.h>
 #include <sigslot.h>
 #include <string>
-#include <vector>
+#include <map>
 #include <smartpointer.h>
 
 #include "serializable_property_iterator.hpp"
 #include "serializable_property_base.hpp"
+#include "serializable_path.hpp"
 
 namespace codeframe
 {
@@ -33,33 +34,26 @@ namespace codeframe
             void PulseChanged();
             void CommitChanges();
             void Enable( bool val );
-            void RegisterProperty  ( PropertyBase* prop );
-            void UnRegisterProperty( PropertyBase* prop );
+            void RegisterProperty  ( const std::string& name, PropertyBase* prop );
+            void UnRegisterProperty( const std::string& name, PropertyBase* prop );
             void ClearPropertyList ();
-            bool IsPropertyUnique( const std::string& name ) const;
-
-            /// Zwraca wartosc pola do serializacji
-            PropertyBase* GetObjectFieldValue( int cnt );
-
-            /// Zwraca ilosc skladowych do serializacji
-            int GetObjectFieldCnt() const;
 
             /// Iterators
             PropertyIterator begin() throw();
             PropertyIterator end()   throw();
             int              size()  const;
 
-            signal1<PropertyBase*> signalPropertyChanged;                   ///< Emitowany gdy propertis zosta³ zmieniony razem z wskaznikiem na niego
-            signal1<PropertyBase*> signalPropertyUpdateFail;                ///< Emitowany gdy oczekiwano ustawienia propertisa
+            signal1<PropertyNode*> signalPropertyChanged;                   ///< Emitowany gdy propertis zosta³ zmieniony razem z wskaznikiem na niego
+            signal1<PropertyNode*> signalPropertyUpdateFail;                ///< Emitowany gdy oczekiwano ustawienia propertisa
 
         private:
-            void slotPropertyChangedGlobal( PropertyBase* prop );
-            void slotPropertyChanged( PropertyBase* prop );
+            void slotPropertyChangedGlobal( PropertyNode* prop );
+            void slotPropertyChanged( PropertyNode* prop );
 
             ObjectNode& m_sint;
 
             /// Kontenet zawierajacy wskazniki do parametrow
-            std::vector<PropertyBase*>  m_vMainPropertyList;
+            std::map<std::string, PropertyBase*>  m_PropertyMap;
 
             ///
             PropertyBase m_dummyProperty;

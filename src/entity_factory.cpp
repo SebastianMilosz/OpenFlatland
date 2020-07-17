@@ -54,7 +54,7 @@ smart_ptr<Entity> EntityFactory::Create( int x, int y, int z )
   * @brief
  **
 ******************************************************************************/
-smart_ptr<codeframe::ObjectNode> EntityFactory::Create(
+smart_ptr<codeframe::ObjectSelection> EntityFactory::Create(
                                                         const std::string& className,
                                                         const std::string& objName,
                                                         const std::vector<codeframe::VariantValue>& params )
@@ -85,8 +85,8 @@ smart_ptr<codeframe::ObjectNode> EntityFactory::Create(
 
         signalEntityAdd.Emit( obj );
 
-        return obj;
+        return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
     }
 
-    return smart_ptr<codeframe::ObjectNode>();
+    return smart_ptr<codeframe::ObjectSelection>();
 }

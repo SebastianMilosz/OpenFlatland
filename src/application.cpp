@@ -50,7 +50,7 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
     window.setView(view);
 
     // Connect Signals
-    m_EntityFactory.signalEntityAdd .connect( &m_World, &World::AddShell );
+    m_EntityFactory.signalEntityAdd.connect( &m_World, &World::AddShell );
     m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetPropertyEditorWidget(), &PropertyEditorWidget::SetObject );
     m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetAnnViewerWidget(), &AnnViewerWidget::SetObject );
     m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetVisionViewerWidget(), &VisionViewerWidget::SetObject );
@@ -104,6 +104,8 @@ void Application::ProcesseEvents( sf::Event& event )
     // catch window close event
     if ( event.type == sf::Event::Closed )
     {
+        LOGGER( LOG_INFO << "Application closed event" );
+
         codeframe::ReferenceManager::LogUnresolvedReferences();
 
         // Add fps note to performance log

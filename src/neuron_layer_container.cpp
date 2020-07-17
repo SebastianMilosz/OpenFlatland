@@ -21,7 +21,7 @@ SerializableNeuronLayerContainer::SerializableNeuronLayerContainer( const std::s
 ******************************************************************************/
 void SerializableNeuronLayerContainer::Calculate()
 {
-    for ( unsigned int n = 0; n < Count(); n++ )
+    for ( unsigned int n = 0U; n < Count(); n++ )
     {
         smart_ptr<ObjectNode> serializableObj = Get( n );
 
@@ -39,22 +39,22 @@ void SerializableNeuronLayerContainer::Calculate()
   * @brief
  **
 ******************************************************************************/
-smart_ptr<codeframe::ObjectNode> SerializableNeuronLayerContainer::Create(
+smart_ptr<codeframe::ObjectSelection> SerializableNeuronLayerContainer::Create(
                                                      const std::string& className,
                                                      const std::string& objName,
                                                      const std::vector<codeframe::VariantValue>& params
                                                     )
 {
-    if ( className == "SerializableNeuronLayer" )
+    if ( className == "NeuronLayer" )
     {
         auto obj = smart_ptr<SerializableNeuronLayer>( new SerializableNeuronLayer( objName, NULL ) );
 
         (void)InsertObject( obj );
 
-        return obj;
+        return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
     }
 
-    return smart_ptr<codeframe::ObjectNode>();
+    return smart_ptr<codeframe::ObjectSelection>();
 }
 
 /*****************************************************************************/
@@ -69,6 +69,6 @@ void SerializableNeuronLayerContainer::SetLayersCnt( unsigned int cnt )
     if ( cnt > thisCnt )
     {
         unsigned int newCnt( cnt - thisCnt );
-        CreateRange( "SerializableNeuronLayer", "AnnLayer", newCnt );
+        CreateRange( "NeuronLayer", "AnnLayer", newCnt );
     }
 }

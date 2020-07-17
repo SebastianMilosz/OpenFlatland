@@ -11,7 +11,7 @@ namespace codeframe
      /*****************************************************************************
      * @class This class stores Property's from selection
      *****************************************************************************/
-    class PropertySelection : public PropertyNode
+    class PropertySelection : public PropertyNode, public sigslot::has_slots<>
     {
         public:
             PropertySelection( PropertyNode* prop );
@@ -23,10 +23,10 @@ namespace codeframe
             std::string   ToString() const override;
             eType         Type() const override;
             std::string   Path( bool_t addName = true ) const;
-            PropertyNode* Reference() const override;
+            smart_ptr<PropertyNode> Reference() const override;
             uint32_t      Id() const override;
 
-            ObjectNode* Parent() const override;
+            smart_ptr<ObjectNode> Parent() const override;
             std::string ParentName() const override;
             bool_t ConnectReference( smart_ptr<PropertyNode> refNode ) override;
             std::string TypeString() const override;
@@ -87,6 +87,7 @@ namespace codeframe
 
         private:
             void EmitChanges() override;
+            void OnDelete(void* deletedPtr);
 
             PropertyNode* m_selection;
     };

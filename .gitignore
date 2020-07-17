@@ -7,3 +7,4 @@ build
 /.vscode/launch.json
 /.vscode/c_cpp_properties.json
 /include/gitinfo.hpp
+/include/gitinfo.hpp
