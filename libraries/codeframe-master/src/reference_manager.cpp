@@ -103,7 +103,8 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
                 if (smart_ptr_isValid(refData.Property))
                 {
-                    smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLink.ToDirString() );
+                    const std::string pathLinkString(pathLink.ToDirString());
+                    smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLinkString );
 
                     if (smart_ptr_isValid(targetProp))
                     {
@@ -143,11 +144,11 @@ void ReferenceManager::LogUnresolvedReferences()
 
             propertyParentPath += std::string(".") + refData.Property->Name();
 
-            LOGGER( LOG_INFO << "Unresolved reference to: " << iteam.first << " from object: " << propertyParentPath );
+            LOGGER( LOG_INFO << "Unresolved reference to: " << refData.RefPath << " from object: " << propertyParentPath );
         }
         else
         {
-            LOGGER( LOG_ERROR << "Unresolved reference to: " << iteam.first << " from object: NULL" );
+            LOGGER( LOG_ERROR << "Unresolved reference to: " << refData.RefPath << " from object: NULL" );
         }
     }
 }

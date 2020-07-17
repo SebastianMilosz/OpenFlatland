@@ -26,6 +26,10 @@ TEST_CASE( "codeframe library object path", "[codeframe][Object][Path]" )
         REQUIRE( node3->PathString() == "testNameStatic/testNameContainerStatic/node[3]" );
         REQUIRE( node4->PathString() == "testNameStatic/testNameContainerStatic/node[4]" );
 
+        // First check some improper path strings
+        smart_ptr<PropertyNode> propNodeInvalid = staticSerializableObject->PropertyFromPath( "" );
+        REQUIRE( smart_ptr_isValid( propNodeInvalid ) == false );
+
         // Property access by path
         smart_ptr<PropertyNode> propNode = staticSerializableObject->PropertyFromPath( "testNameStatic/testNameContainerStatic/node[0].Property1" );
         REQUIRE( smart_ptr_isValid( propNode ) );

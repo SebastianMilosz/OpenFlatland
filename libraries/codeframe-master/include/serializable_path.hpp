@@ -115,12 +115,16 @@ namespace codeframe
     inline std::string cPath::sPathLink::ToDirString() const
     {
         std::string dirString;
-        for (auto it = m_ObjectPath.begin(); it != m_ObjectPath.end(); ++it)
+        if (m_ObjectPath.size())
         {
-            dirString += *it;
-            dirString += "/";
+            for (auto it = m_ObjectPath.begin(); it != m_ObjectPath.end(); ++it)
+            {
+                dirString += *it;
+                dirString += "/";
+            }
+
+            dirString.pop_back();   // Remove last / char
         }
-        dirString.pop_back();   // Remove last / char
         return dirString;
     }
 
