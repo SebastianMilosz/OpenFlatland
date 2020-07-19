@@ -7,14 +7,14 @@ This project is aim to create a sandbox for reinforcement learning experiments o
 ![screenshot](https://raw.githubusercontent.com/SebastianMilosz/OpenFlatland/master/doc/OpenFlatland_scr001.png)
 
 -----
-Basic class relations can be sawn on below diagram:
+Basic Entity class relations design can be sawn on below diagram:
 ![BasicDependencyDiagram](https://raw.githubusercontent.com/SebastianMilosz/OpenFlatland/master/doc/BasicDependencyDiagram.jpg)
 
 Basic entity class hierarchy:
 * PhysicsBody - This class reprezent physicals of the entity, so it is connected with physical engine (Box2D library) that calculate interactions between objects.
 * EntityShell - This class contains all sub components that will be used as inputs/outputs for neuron engine like: Vision, Motion, Energy ect..
-* EntityGhost - 
-* ArtificialNeuronEngine - 
+* EntityGhost - This class add neuron engine into EntityShell and provide inputs and manage outputs from neural engine component
+* ArtificialNeuronEngine - Here should the real magic take place (it will be described in separate document)
 
 Additional supporting classes:
 * EntityVision - This class is responsible for getting environment visual informations using raycast. It create vector of distance data within some defined angle.
@@ -22,6 +22,11 @@ Additional supporting classes:
 * EntityEnergy - This class handle energy calculations and energy gathering from environment
 * NeuronLayer - This is only interface data layer between entity and environment, we can add any number of inputs and outputs to the neuron engine
 
+-----
+Basic layered design can be sawn on below diagram:
+
+
+-----
 This project use codeframe library that provide additional meta layer to the code. 
 We are able to control all objects within  the application
 by its properties that are available automaticaly from gui interface:
