@@ -181,6 +181,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/artificial_neuron_engine.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/colorize_circle_shape.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -211,6 +216,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/drawable_entity_energy.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/drawable_entity_motion.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -227,6 +237,11 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="include/entity.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="include/entity_energy.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -282,11 +297,6 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="include/neuron_layer.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="include/neuron_layer_container.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -499,6 +509,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="src/artificial_neuron_engine.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="src/colorize_circle_shape.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -529,6 +544,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="src/drawable_entity_energy.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="src/drawable_entity_motion.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -545,6 +565,11 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="src/entity.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/entity_energy.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
@@ -600,11 +625,6 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="src/neuron_layer.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
-		<Unit filename="src/neuron_layer_container.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />

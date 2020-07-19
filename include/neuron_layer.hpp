@@ -1,5 +1,5 @@
-#ifndef SERIALIZABLENEURONLAYER_HPP_INCLUDED
-#define SERIALIZABLENEURONLAYER_HPP_INCLUDED
+#ifndef NEURON_LAYER_HPP_INCLUDED
+#define NEURON_LAYER_HPP_INCLUDED
 
 #include <sigslot.h>
 #include <serializable_object_node.hpp>
@@ -13,14 +13,14 @@
 
 #include "entity_vision_node.hpp"
 
-class SerializableNeuronLayer : public codeframe::Object
+class NeuronLayer : public codeframe::Object
 {
         CODEFRAME_META_CLASS_NAME( "NeuronLayer" );
         CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:
-                 SerializableNeuronLayer( const std::string& name, ObjectNode* parent );
-        virtual ~SerializableNeuronLayer() = default;
+                 NeuronLayer( const std::string& name, ObjectNode* parent );
+        virtual ~NeuronLayer() = default;
 
         void Calculate();
 
@@ -47,4 +47,4 @@ class SerializableNeuronLayer : public codeframe::Object
 
 };
 
-#endif // SERIALIZABLENEURONLAYER_HPP_INCLUDED
+#endif // NEURON_LAYER_HPP_INCLUDED

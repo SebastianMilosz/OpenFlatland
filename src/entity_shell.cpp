@@ -25,6 +25,7 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     m_triangle( sDescriptor::PIXELS_IN_METER * 0.5f, 3 ),
     m_vision( this ),
     m_motion( this ),
+    m_energy( this ),
     m_curX(0),
     m_curY(0),
     m_curR(0.0F)
@@ -83,7 +84,8 @@ EntityShell::EntityShell( const EntityShell& other ) :
     Density ( other.Density ),
     Friction( other.Friction ),
     m_vision( other.m_vision ),
-    m_motion( other.m_motion )
+    m_motion( other.m_motion ),
+    m_energy( other.m_energy )
 {
 }
 

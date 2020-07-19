@@ -14,7 +14,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, ObjectNode* parent ) :
+NeuronLayer::NeuronLayer( const std::string& name, ObjectNode* parent ) :
     Object( name, parent ),
     Activation      ( this, "Activation", 0,
                         cPropertyInfo().
@@ -25,9 +25,9 @@ SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, Objec
                         cPropertyInfo().
                             Kind(KIND_VECTOR, KIND_NUMBER).
                             Description("WeightDimensions"),
-                        std::bind(&SerializableNeuronLayer::GetWeightDimensionsConstVector, this),
+                        std::bind(&NeuronLayer::GetWeightDimensionsConstVector, this),
                         nullptr,
-                        std::bind(&SerializableNeuronLayer::GetWeightDimensionsVector, this)),
+                        std::bind(&NeuronLayer::GetWeightDimensionsVector, this)),
     WeightMatrix    ( this, "WeightMatrix", thrust::host_vector<float>(0),
                         cPropertyInfo().
                             Kind(KIND_VECTOR_THRUST_HOST, KIND_REAL).
@@ -43,7 +43,7 @@ SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, Objec
                             Description("Output"))
 {
     // Signal On property change connection
-    WeightDimensions.signalChanged.connect( this, &SerializableNeuronLayer::OnWeightDimensionsVectorChanged );
+    WeightDimensions.signalChanged.connect( this, &NeuronLayer::OnWeightDimensionsVectorChanged );
 }
 
 /*****************************************************************************/
@@ -51,7 +51,7 @@ SerializableNeuronLayer::SerializableNeuronLayer( const std::string& name, Objec
   * @brief
  **
 ******************************************************************************/
-void SerializableNeuronLayer::Calculate()
+void NeuronLayer::Calculate()
 {
 
 }
@@ -61,7 +61,7 @@ void SerializableNeuronLayer::Calculate()
   * @brief
  **
 ******************************************************************************/
-bool SerializableNeuronLayer::InitializeNetwork()
+bool NeuronLayer::InitializeNetwork()
 {
     if ( m_WeightDimensions.size() > 0U )
     {
@@ -75,7 +75,7 @@ bool SerializableNeuronLayer::InitializeNetwork()
   * @brief
  **
 ******************************************************************************/
-void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::PropertyNode* prop )
+void NeuronLayer::OnWeightDimensionsVectorChanged( codeframe::PropertyNode* prop )
 {
     if ( InitializeNetwork() == true )
     {
@@ -131,7 +131,7 @@ void SerializableNeuronLayer::OnWeightDimensionsVectorChanged( codeframe::Proper
   * @brief
  **
 ******************************************************************************/
-const std::vector<unsigned int>& SerializableNeuronLayer::GetWeightDimensionsConstVector()
+const std::vector<unsigned int>& NeuronLayer::GetWeightDimensionsConstVector()
 {
     return m_WeightDimensions;
 }
@@ -141,7 +141,7 @@ const std::vector<unsigned int>& SerializableNeuronLayer::GetWeightDimensionsCon
   * @brief
  **
 ******************************************************************************/
-std::vector<unsigned int>& SerializableNeuronLayer::GetWeightDimensionsVector()
+std::vector<unsigned int>& NeuronLayer::GetWeightDimensionsVector()
 {
     return m_WeightDimensions;
 }

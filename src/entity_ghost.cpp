@@ -9,7 +9,7 @@
 ******************************************************************************/
 EntityGhost::EntityGhost( const std::string& name, int x, int y ) :
     EntityShell( name, x, y ),
-    m_NeuronLayerContainer( "ANN", this )
+    m_NeuronEngine( "NeuronEngine", this )
 {
     //ctor
 }
@@ -21,7 +21,7 @@ EntityGhost::EntityGhost( const std::string& name, int x, int y ) :
 ******************************************************************************/
 EntityGhost::EntityGhost(const EntityGhost& other) :
     EntityShell( other ),
-    m_NeuronLayerContainer( "ANN", this )
+    m_NeuronEngine( "NeuronEngine", this )
 {
     //copy ctor
 }
@@ -45,5 +45,5 @@ EntityGhost& EntityGhost::operator=(const EntityGhost& rhs)
 ******************************************************************************/
 void EntityGhost::CalculateNeuralNetworks()
 {
-    m_NeuronLayerContainer.Calculate();
+    m_NeuronEngine.Calculate();
 }

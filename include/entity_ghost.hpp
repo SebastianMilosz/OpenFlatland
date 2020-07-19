@@ -2,7 +2,7 @@
 #define ENTITYGHOST_HPP
 
 #include "entity_shell.hpp"
-#include "neuron_layer_container.hpp"
+#include "artificial_neuron_engine.hpp"
 
 class EntityGhost : public EntityShell
 {
@@ -18,7 +18,7 @@ class EntityGhost : public EntityShell
 
         void CalculateNeuralNetworks();
     protected:
-        SerializableNeuronLayerContainer m_NeuronLayerContainer;
+        ArtificialNeuronEngine m_NeuronEngine;
 
     private:
 };

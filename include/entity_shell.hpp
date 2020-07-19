@@ -5,6 +5,7 @@
 #include "drawable_object.hpp"
 #include "drawable_entity_motion.hpp"
 #include "drawable_entity_vision.hpp"
+#include "drawable_entity_energy.hpp"
 
 class EntityShell : public PhysicsBody, public DrawableObject
 {
@@ -48,8 +49,10 @@ class EntityShell : public PhysicsBody, public DrawableObject
     private:
         b2Vec2               m_zeroVector;
         sf::CircleShape      m_triangle;
+
         DrawableEntityVision m_vision;
         DrawableEntityMotion m_motion;
+        DrawableEntityEnergy m_energy;
 
         int     m_curX;
         int     m_curY;

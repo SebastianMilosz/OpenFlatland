@@ -6,6 +6,25 @@ This project is aim to create a sandbox for reinforcement learning experiments o
 
 ![screenshot](https://raw.githubusercontent.com/SebastianMilosz/OpenFlatland/master/doc/OpenFlatland_scr001.png)
 
+-----
+Basic class relations can be sawn on below diagram:
+![BasicDependencyDiagram](https://raw.githubusercontent.com/SebastianMilosz/OpenFlatland/master/doc/BasicDependencyDiagram.jpg){:height="50%" width="50%"}
+
+Basic class description:
+* EntityVision
+* EntityMotion
+* EntityEnergy
+* EntityShell
+* EntityGhost
+* ArtificialNeuronEngine
+* NeuronLayer
+* PhysicsBody
+
+This project use codeframe library that provide additional meta layer to the code. We are able to control all objects within  the application
+by its properties that are available automaticaly from gui interface:
+
+![CodeFrameGuiInterface](https://raw.githubusercontent.com/SebastianMilosz/OpenFlatland/master/doc/CodeFrameGuiInterface.png)
+
 ## Dependencies
 -----
 
