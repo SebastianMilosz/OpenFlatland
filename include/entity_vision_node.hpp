@@ -23,7 +23,8 @@ class EntityVisionNode
                  EntityVisionNode();
         virtual ~EntityVisionNode() = default;
 
-        virtual const std::vector<RayData>& GetVisionVector() const = 0;
+        virtual const std::vector<RayData>& GetConstVisionVector() const = 0;
+        virtual std::vector<RayData>& GetVisionVector() = 0;
 };
 
 #endif // ENTITY_VISION_NODE_H

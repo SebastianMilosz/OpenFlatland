@@ -43,6 +43,11 @@ namespace codeframe
 
             const PROPERTY_TYPE& GetConstValue() const
             {
+                if ( m_reference )
+                {
+                    //return m_reference->GetConstValue();
+                }
+
                 if ( m_GetConstValueFunction )
                 {
                     return m_GetConstValueFunction();
@@ -52,6 +57,11 @@ namespace codeframe
 
             PROPERTY_TYPE& GetValue()
             {
+                if ( m_reference )
+                {
+                    //return m_reference->GetValue();
+                }
+
                 if ( m_GetValueFunction )
                 {
                     return m_GetValueFunction();

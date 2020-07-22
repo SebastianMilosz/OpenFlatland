@@ -26,7 +26,8 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
         codeframe::Property<int                   > RaysEndingAngle;
         codeframe::Property< std::vector<RayData> > VisionVector;
 
-        const std::vector<RayData>& GetVisionVector() const override;
+        const std::vector<RayData>& GetConstVisionVector() const override;
+              std::vector<RayData>& GetVisionVector() override;
 
         void CastRays(b2World& world, const b2Vec2& p1);
 

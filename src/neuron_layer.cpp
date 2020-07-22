@@ -34,7 +34,7 @@ NeuronLayer::NeuronLayer( const std::string& name, ObjectNode* parent ) :
                             Description("WeightMatrix")),
     Input           ( this, "Input", thrust::host_vector<RayData>(),
                         cPropertyInfo().
-                            Kind(KIND_VECTOR_THRUST_HOST).
+                            Kind(KIND_VECTOR_THRUST_HOST, KIND_RAY_DATA).
                             ReferencePath("../../Vision.VisionVector").
                             Description("Input")),
     Output          ( this, "Output", thrust::host_vector<float>(0),

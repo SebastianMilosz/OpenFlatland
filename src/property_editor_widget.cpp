@@ -1,5 +1,6 @@
 #include "property_editor_widget.hpp"
 
+#include <ray_data.hpp>
 #include <thrust/device_vector.h>
 #include <imgui_internal.h> // Currently imgui dosn't have disable/enable control feature
 #include <MathUtilities.h>
@@ -220,6 +221,84 @@ bool_t PropertyEditorWidget::ShowVectorProperty(codeframe::PropertyBase* prop)
   * @brief
  **
 ******************************************************************************/
+template<>
+bool_t PropertyEditorWidget::ShowVectorProperty<RayData>(codeframe::PropertyBase* prop)
+{
+    auto propVector = dynamic_cast<codeframe::Property< std::vector<RayData> >*>(prop);
+
+    if (nullptr != propVector)
+    {
+        std::vector<RayData>& internalVector = propVector->GetValue();
+
+        float value;
+        float valuePrew;
+        static size_t index = 0;
+        std::string vectorSizeIndexText = std::string("/") + std::to_string(internalVector.size()) + std::string(")");
+        volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
+        float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
+        vectorSizeIndexText +=  std::string("##vector_index");
+
+        if (internalVector.size() > 0U)
+        {
+            if (index >= internalVector.size())
+            {
+                index = internalVector.size() - 1U;
+            }
+            value = valuePrew = internalVector[index].Distance;
+            ImGui::PushItemWidth(width * 0.6F);
+            ImGui::InputFloat("=vector(", &value, 0.1f); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            ImGui::PushItemWidth(width * 0.4F);
+            ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            internalVector[index].Distance = value;
+            if (ImGui::Button("-"))
+            {
+                internalVector.erase(internalVector.begin() + index);
+                prop->PulseChanged();
+            }
+            ImGui::SameLine();
+
+            if (valuePrew != value)
+            {
+                prop->PulseChanged();
+            }
+        }
+        else
+        {
+            ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+            ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+            ImGui::PushItemWidth(width * 0.6F);
+            ImGui::InputInt("=vector(##_value", reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            ImGui::PushItemWidth(width * 0.4F);
+            ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            if (ImGui::Button("-"))
+            {
+            }
+            ImGui::SameLine();
+            ImGui::PopItemFlag();
+            ImGui::PopStyleVar();
+        }
+
+        if (ImGui::Button("+"))
+        {
+            internalVector.insert(internalVector.begin() + index, RayData());
+            prop->PulseChanged();
+        }
+        ImGui::SameLine();
+
+        return true;
+    }
+    return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 template<typename PROPERTY_TYPE>
 bool_t PropertyEditorWidget::ShowVectorThrustHostProperty(codeframe::PropertyBase* prop)
 {
@@ -246,6 +325,86 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty(codeframe::PropertyBas
             value = valuePrew = internalVector[index];
             ImGui::PushItemWidth(width * 0.6F);
             ImGui::InputInt("=thrust(", reinterpret_cast<int*>(&value), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            ImGui::PushItemWidth(width * 0.4F);
+            ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+
+            if (ImGui::Button("-"))
+            {
+                internalVector.erase(internalVector.begin() + index);
+                prop->PulseChanged();
+            }
+            ImGui::SameLine();
+
+            if (valuePrew != value)
+            {
+                prop->PulseChanged();
+            }
+        }
+        else
+        {
+            ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+            ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+            ImGui::PushItemWidth(width * 0.6F);
+            ImGui::InputInt("=thrust(##_value", reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            ImGui::PushItemWidth(width * 0.4F);
+            ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+            ImGui::PopItemWidth();
+            if (ImGui::Button("-"))
+            {
+            }
+            ImGui::SameLine();
+            ImGui::PopItemFlag();
+            ImGui::PopStyleVar();
+        }
+
+        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+        if (ImGui::Button("+"))
+        {
+        }
+        ImGui::SameLine();
+        ImGui::PopItemFlag();
+        ImGui::PopStyleVar();
+
+        return true;
+    }
+    return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+bool_t PropertyEditorWidget::ShowVectorThrustHostProperty<RayData>(codeframe::PropertyBase* prop)
+{
+    auto propThrustHostVector = dynamic_cast<codeframe::Property< thrust::host_vector<RayData> >*>(prop);
+
+    if (nullptr != propThrustHostVector)
+    {
+        thrust::host_vector<RayData>& internalVector = propThrustHostVector->GetValue();
+
+        float value;
+        float valuePrew;
+        static size_t index = 0;
+        std::string vectorSizeIndexText = std::string("/") + std::to_string(internalVector.size()) + std::string(")");
+        volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
+        float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
+        vectorSizeIndexText +=  std::string("##thrust_vector_index");
+
+        if (internalVector.size() > 0U)
+        {
+            if (index >= internalVector.size())
+            {
+                index = internalVector.size() - 1U;
+            }
+            value = valuePrew = internalVector[index].Distance;
+            ImGui::PushItemWidth(width * 0.6F);
+            ImGui::InputFloat("=thrust(", &value, 1); ImGui::SameLine();
             ImGui::PopItemWidth();
             ImGui::PushItemWidth(width * 0.4F);
             ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
@@ -456,6 +615,10 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                         }
                         break;
                     }
+                    case codeframe::KIND_RAY_DATA:
+                    {
+                        ShowVectorProperty<RayData>(prop);
+                    }
                     default:
                     {
                     }
@@ -481,6 +644,10 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                             ShowVectorThrustHostProperty<double>(prop);
                         }
                         break;
+                    }
+                    case codeframe::KIND_RAY_DATA:
+                    {
+                        ShowVectorThrustHostProperty<RayData>(prop);
                     }
                     default:
                     {

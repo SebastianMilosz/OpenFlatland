@@ -29,6 +29,7 @@ namespace codeframe
         KIND_2DPOINT,
         KIND_VECTOR,
         KIND_VECTOR_THRUST_HOST,
+        KIND_RAY_DATA
     };
 
     enum eDepth
