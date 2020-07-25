@@ -2,6 +2,7 @@
 #define COLORIZE_RAY_DATA_HPP
 
 #include <SFML/Graphics.hpp>
+#include <thrust/device_vector.h>
 
 #include "entity_vision_node.hpp"
 
@@ -20,17 +21,17 @@ class ColorizeRayData
             ShiftGray
         };
 
-        void Colorize( const eColorizeMode mode, const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize( const eColorizeMode mode, const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
 
     public:
-        void Colorize_IronBow     ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_RedYellow   ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_BlueRed     ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_BlackRed    ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_BlueRedBin  ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_BlueGreenRed( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_Grayscale   ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
-        void Colorize_ShiftGray   ( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift );
+        void Colorize_IronBow     ( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_RedYellow   ( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_BlueRed     ( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_BlackRed    ( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_BlueRedBin  ( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_BlueGreenRed( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_Grayscale   ( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize );
+        void Colorize_ShiftGray   ( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift );
 };
 
 #endif // COLORIZE_RAY_DATA_HPP

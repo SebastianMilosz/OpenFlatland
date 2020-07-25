@@ -4,6 +4,7 @@
 #include "serializable_register.hpp"
 #include "serializable_property_info.hpp"
 #include "serializable_property_node.hpp"
+#include "serializable_property_selection.hpp"
 #include "typeinfo.hpp"
 #include "ThreadUtilities.h"
 #include "DataTypesUtilities.h"

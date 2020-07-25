@@ -15,7 +15,7 @@ EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     RaysSize         ( this, "RaysSize"         , 100U                  , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
     RaysStartingAngle( this, "RaysStartingAngle", -45                   , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
     RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                   , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), nullptr, std::bind(&EntityVision::SetRaysEndingAngle, this, std::placeholders::_1) ),
-    VisionVector     ( this, "VisionVector"     , std::vector<RayData>(), cPropertyInfo().Kind( KIND_VECTOR, KIND_RAY_DATA ).Description("VisionVector"), std::bind(&EntityVision::GetConstVisionVector, this), nullptr, std::bind(&EntityVision::GetVisionVector, this) )
+    VisionVector     ( this, "VisionVector"     , thrust::host_vector<RayData>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_RAY_DATA ).Description("VisionVector"), std::bind(&EntityVision::GetConstVisionVector, this), nullptr, std::bind(&EntityVision::GetVisionVector, this) )
 {
 }
 
@@ -113,7 +113,7 @@ void EntityVision::StartFrame()
 void EntityVision::AddRay(EntityVision::Ray ray)
 {
     m_visionVector.emplace_back( ray );
-    m_visionDataVector.emplace_back( RayData( (ray.P2-ray.P1).Length(), ray.Fixture ) );
+    m_visionDataVector.push_back( RayData( (ray.P2-ray.P1).Length(), ray.Fixture ) );
 }
 
 /*****************************************************************************/
@@ -170,7 +170,7 @@ void EntityVision::EndFrame()
   * @brief
  **
 ******************************************************************************/
-const std::vector<RayData>& EntityVision::GetConstVisionVector() const
+const thrust::host_vector<RayData>& EntityVision::GetConstVisionVector() const
 {
     return m_visionDataVector;
 }
@@ -180,7 +180,7 @@ const std::vector<RayData>& EntityVision::GetConstVisionVector() const
   * @brief
  **
 ******************************************************************************/
-std::vector<RayData>& EntityVision::GetVisionVector()
+thrust::host_vector<RayData>& EntityVision::GetVisionVector()
 {
     return m_visionDataVector;
 }

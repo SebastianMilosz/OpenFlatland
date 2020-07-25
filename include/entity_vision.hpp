@@ -4,6 +4,7 @@
 #include <vector>
 #include <Box2D/Box2D.h>
 #include <serializable_object.hpp>
+#include <thrust/device_vector.h>
 
 #include "physics_body.hpp"
 #include "colorize_circle_shape.hpp"
@@ -19,15 +20,15 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
          EntityVision(const EntityVision& other);
         ~EntityVision();
 
-        codeframe::Property<bool                  > DrawRays;
-        codeframe::Property<unsigned int          > RaysCnt;
-        codeframe::Property<unsigned int          > RaysSize;
-        codeframe::Property<int                   > RaysStartingAngle;
-        codeframe::Property<int                   > RaysEndingAngle;
-        codeframe::Property< std::vector<RayData> > VisionVector;
+        codeframe::Property<bool                          > DrawRays;
+        codeframe::Property<unsigned int                  > RaysCnt;
+        codeframe::Property<unsigned int                  > RaysSize;
+        codeframe::Property<int                           > RaysStartingAngle;
+        codeframe::Property<int                           > RaysEndingAngle;
+        codeframe::Property< thrust::host_vector<RayData> > VisionVector;
 
-        const std::vector<RayData>& GetConstVisionVector() const override;
-              std::vector<RayData>& GetVisionVector() override;
+        const thrust::host_vector<RayData>& GetConstVisionVector() const override;
+              thrust::host_vector<RayData>& GetVisionVector() override;
 
         void CastRays(b2World& world, const b2Vec2& p1);
 
@@ -49,7 +50,7 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
         virtual void SetRaysCnt(const unsigned int cnt);
 
         std::vector<EntityVision::Ray> m_visionVector;
-        std::vector<RayData> m_visionDataVector;
+        thrust::host_vector<RayData> m_visionDataVector;
 
     private:
         static constexpr float NUMBER_PI = 3.141592654F;

@@ -25,7 +25,7 @@ class ColorizeCircleShape : public Drawable, public Transformable
 
         void setFillColor(const Color& color);
         void setOutlineColor(const Color& color);
-        void setOutlineColor(const std::vector<RayData>& floatVevtor);
+        void setOutlineColor(const thrust::host_vector<RayData>& floatVevtor);
         void setOutlineThickness(float thickness);
         const Color& getFillColor() const;
         float getOutlineThickness() const;

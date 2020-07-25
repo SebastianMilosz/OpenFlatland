@@ -8,6 +8,8 @@
 
 namespace codeframe
 {
+     template <typename PROPERTY_TYPE> class Property;
+
      /*****************************************************************************
      * @class This class stores Property's from selection
      *****************************************************************************/
@@ -35,6 +37,36 @@ namespace codeframe
             std::string CurentValueString() const override;
             int         PreviousValueInteger() const override;
             int         CurentValueInteger() const override;
+
+            template<typename T>
+            const T& GetConstValue() const
+            {
+                if (m_selection)
+                {
+                    auto propertyObject = dynamic_cast< codeframe::Property<T>* >(m_selection);
+                    if (propertyObject)
+                    {
+                        return propertyObject->GetConstValue();
+                    }
+                }
+                static T dummyValue;
+                return dummyValue;
+            }
+
+            template<typename T>
+            T& GetValue()
+            {
+                if (m_selection)
+                {
+                    auto propertyObject = dynamic_cast< codeframe::Property<T>* >(m_selection);
+                    if (propertyObject)
+                    {
+                        return propertyObject->GetValue();
+                    }
+                }
+                static T dummyValue;
+                return dummyValue;
+            }
 
             bool_t operator==(const int& sval) const override;
             bool_t operator!=(const int& sval) const override;

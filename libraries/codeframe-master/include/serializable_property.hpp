@@ -2,12 +2,15 @@
 #define _SERIALIZABLE_PROPERTY_H
 
 #include "serializable_property_base.hpp"
+#include "serializable_property_selection.hpp"
 #include "extpoint2d.hpp"
 #include "extvector.hpp"
 
+#include <LoggerUtilities.h>
 #include <functional>
 #include <climits>
 #include <string>
+#include <typeinfo>     // operator typeid
 
 namespace codeframe
 {
@@ -45,7 +48,11 @@ namespace codeframe
             {
                 if ( m_reference )
                 {
-                    //return m_reference->GetConstValue();
+                    auto referencePropertySelection = dynamic_cast<codeframe::PropertySelection* >(smart_ptr_getRaw(m_reference));
+                    if (referencePropertySelection)
+                    {
+                        return referencePropertySelection->GetConstValue<PROPERTY_TYPE>();
+                    }
                 }
 
                 if ( m_GetConstValueFunction )
@@ -59,7 +66,11 @@ namespace codeframe
             {
                 if ( m_reference )
                 {
-                    //return m_reference->GetValue();
+                    auto referencePropertySelection = dynamic_cast<codeframe::PropertySelection* >(smart_ptr_getRaw(m_reference));
+                    if (referencePropertySelection)
+                    {
+                        return referencePropertySelection->GetValue<PROPERTY_TYPE>();
+                    }
                 }
 
                 if ( m_GetValueFunction )

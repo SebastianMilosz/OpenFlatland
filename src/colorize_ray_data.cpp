@@ -5,7 +5,7 @@
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize( const eColorizeMode mode, const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize( const eColorizeMode mode, const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     switch ( mode )
     {
@@ -25,7 +25,7 @@ void ColorizeRayData::Colorize( const eColorizeMode mode, const std::vector<RayD
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize_IronBow( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_IronBow( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -57,7 +57,7 @@ void ColorizeRayData::Colorize_IronBow( const std::vector<RayData>& dataIn, sf::
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize_RedYellow( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_RedYellow( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r;
     uint16_t g;
@@ -83,7 +83,7 @@ void ColorizeRayData::Colorize_RedYellow( const std::vector<RayData>& dataIn, sf
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize_BlueRed( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_BlueRed( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -133,7 +133,7 @@ void ColorizeRayData::Colorize_BlueRed( const std::vector<RayData>& dataIn, sf::
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize_BlackRed( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_BlackRed( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -184,7 +184,7 @@ void ColorizeRayData::Colorize_BlackRed( const std::vector<RayData>& dataIn, sf:
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize_BlueRedBin( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_BlueRedBin( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -210,7 +210,7 @@ void ColorizeRayData::Colorize_BlueRedBin( const std::vector<RayData>& dataIn, s
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize_BlueGreenRed( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_BlueGreenRed( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
     uint16_t g = 0;
@@ -259,7 +259,7 @@ void ColorizeRayData::Colorize_BlueGreenRed( const std::vector<RayData>& dataIn,
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize_Grayscale( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
+void ColorizeRayData::Colorize_Grayscale( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
     uint16_t r = 0;
 
@@ -281,7 +281,7 @@ void ColorizeRayData::Colorize_Grayscale( const std::vector<RayData>& dataIn, sf
   * @brief
  **
 ******************************************************************************/
-void ColorizeRayData::Colorize_ShiftGray( const std::vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift )
+void ColorizeRayData::Colorize_ShiftGray( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift )
 {
     uint16_t r = 0;
 

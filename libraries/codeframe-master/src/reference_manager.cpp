@@ -108,8 +108,10 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
                     if (smart_ptr_isValid(targetProp))
                     {
-                        refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp));
-                        it = m_referencePathMap.erase(it);
+                        if ( refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp)) )
+                        {
+                            it = m_referencePathMap.erase(it);
+                        }
                     }
                     else
                     {

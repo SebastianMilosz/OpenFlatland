@@ -6,6 +6,7 @@
 #include <Box2D/Box2D.h>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
+#include <thrust/device_vector.h>
 
 class EntityVisionNode
 {
@@ -23,8 +24,8 @@ class EntityVisionNode
                  EntityVisionNode();
         virtual ~EntityVisionNode() = default;
 
-        virtual const std::vector<RayData>& GetConstVisionVector() const = 0;
-        virtual std::vector<RayData>& GetVisionVector() = 0;
+        virtual const thrust::host_vector<RayData>& GetConstVisionVector() const = 0;
+        virtual thrust::host_vector<RayData>& GetVisionVector() = 0;
 };
 
 #endif // ENTITY_VISION_NODE_H

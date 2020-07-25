@@ -123,7 +123,7 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
 
         EntityVision& vision = m_objEntity->Vision();
 
-        const std::vector<RayData>& visionVector = vision.GetVisionVector();
+        const thrust::host_vector<RayData>& visionVector = vision.GetVisionVector();
 
         const float w = (const float)SCREEN_WIDTH / (const float)visionVector.size();
 
