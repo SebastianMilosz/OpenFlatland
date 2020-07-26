@@ -19,7 +19,7 @@ class ArtificialNeuronEngine : public codeframe::ObjectContainer
 
         void Calculate();
 
-        codeframe::Property<unsigned int> InterfaceLayersCnt;
+        void OnWeightDimensionsVectorChanged( codeframe::PropertyNode* prop );
 
     protected:
         smart_ptr<codeframe::ObjectSelection> Create(
@@ -27,8 +27,6 @@ class ArtificialNeuronEngine : public codeframe::ObjectContainer
                                                  const std::string& objName,
                                                  const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                 );
-
-    void SetInterfaceLayersCnt( unsigned int cnt );
 };
 
 #endif // ARTIFICIAL_NEURON_ENGINE_HPP_INCLUDED

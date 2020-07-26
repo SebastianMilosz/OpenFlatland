@@ -108,7 +108,18 @@ void PropertyEditorWidget::ShowRawObject( smart_ptr<codeframe::ObjectNode> obj )
     // Take object pointer as unique id
     ImGui::PushID( uid );
     ImGui::AlignTextToFramePadding();
-    bool node_open = ImGui::TreeNode( "Object", "%s", obj->Identity().ObjectName().c_str() );
+
+    std::string objectName = obj->Identity().ObjectName();
+    bool node_open = false;
+
+    if (obj->Role() == eBuildRole::CONTAINER)
+    {
+        node_open = ImGui::TreeNode( "Object", "%s[%d]", objectName.c_str(), obj->Count() );
+    }
+    else
+    {
+        node_open = ImGui::TreeNode( "Object", "%s", objectName.c_str() );
+    }
 
     ImGui::NextColumn();
     ImGui::AlignTextToFramePadding();

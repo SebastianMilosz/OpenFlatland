@@ -10,12 +10,12 @@ using namespace codeframe;
 ******************************************************************************/
 EntityVision::EntityVision( codeframe::ObjectNode* parent ) :
     Object( "Vision", parent ),
-    DrawRays         ( this, "DrawRays"         , false                 , cPropertyInfo().Kind( KIND_LOGIC  ).Description("DrawRays") ),
-    RaysCnt          ( this, "RaysCnt"          , 100U                  , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysCnt"), nullptr, std::bind(&EntityVision::SetRaysCnt, this, std::placeholders::_1) ),
-    RaysSize         ( this, "RaysSize"         , 100U                  , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysSize") ),
-    RaysStartingAngle( this, "RaysStartingAngle", -45                   , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
-    RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                   , cPropertyInfo().Kind( KIND_NUMBER ).Description("RaysEndingAngle"), nullptr, std::bind(&EntityVision::SetRaysEndingAngle, this, std::placeholders::_1) ),
-    VisionVector     ( this, "VisionVector"     , thrust::host_vector<RayData>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_RAY_DATA ).Description("VisionVector"), std::bind(&EntityVision::GetConstVisionVector, this), nullptr, std::bind(&EntityVision::GetVisionVector, this) )
+    DrawRays         ( this, "DrawRays"         , false                 , cPropertyInfo().Kind(KIND_LOGIC).Description("DrawRays") ),
+    RaysCnt          ( this, "RaysCnt"          , 100U                  , cPropertyInfo().Kind(KIND_NUMBER).Description("RaysCnt"), nullptr, std::bind(&EntityVision::SetRaysCnt, this, std::placeholders::_1) ),
+    RaysSize         ( this, "RaysSize"         , 100U                  , cPropertyInfo().Kind(KIND_NUMBER).Description("RaysSize") ),
+    RaysStartingAngle( this, "RaysStartingAngle", -45                   , cPropertyInfo().Kind(KIND_NUMBER).Description("RaysStartingAngle"), nullptr, std::bind(&EntityVision::SetRaysStartingAngle, this, std::placeholders::_1) ),
+    RaysEndingAngle  ( this, "RaysEndingAngle"  ,  45                   , cPropertyInfo().Kind(KIND_NUMBER).Description("RaysEndingAngle"), nullptr, std::bind(&EntityVision::SetRaysEndingAngle, this, std::placeholders::_1) ),
+    VisionVector     ( this, "VisionVector"     , thrust::host_vector<RayData>(), cPropertyInfo().Kind(KIND_VECTOR_THRUST_HOST, KIND_RAY_DATA).Description("VisionVector"), std::bind(&EntityVision::GetConstVisionVector, this), nullptr, std::bind(&EntityVision::GetVisionVector, this) )
 {
 }
 
