@@ -16,11 +16,11 @@ using namespace codeframe;
 ******************************************************************************/
 NeuronLayerVector::NeuronLayerVector( const std::string& name, ObjectNode* parent, const std::string& link ) :
     NeuronLayer( name, parent, link ),
-    Input( this, "Input", thrust::host_vector<float>(),
+    Data( this, "Data", thrust::host_vector<float>(),
            cPropertyInfo().
            Kind(KIND_VECTOR_THRUST_HOST, KIND_REAL).
-          ReferencePath("../../Energy.EnergyVector").
-           Description("Input"))
+          ReferencePath(link).
+           Description("Data"))
 {
 
 }
@@ -30,7 +30,7 @@ NeuronLayerVector::NeuronLayerVector( const std::string& name, ObjectNode* paren
   * @brief
  **
 ******************************************************************************/
-void NeuronLayerVector::Calculate()
+void NeuronLayerVector::ProcessData(thrust::host_vector<float>& vectInData, thrust::host_vector<float>& vectOutData)
 {
 
 }

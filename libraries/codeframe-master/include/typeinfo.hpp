@@ -29,6 +29,18 @@ namespace codeframe
     /// @todo Przeprojektowac!!!!
     struct VariantValue
     {
+        VariantValue() :
+            Type(TYPE_NON),
+            Name("")
+        {
+        }
+
+        VariantValue(eType type, std::string name) :
+            Type(type),
+            Name(name)
+        {
+        }
+
         bool IsName( const std::string& name ) const
         {
             if (name == Name)

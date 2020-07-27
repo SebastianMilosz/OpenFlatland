@@ -13,15 +13,15 @@
 class NeuronLayerVector : public NeuronLayer
 {
     CODEFRAME_META_CLASS_NAME( "NeuronLayerVector" );
-    CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
+    CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
                  NeuronLayerVector( const std::string& name, ObjectNode* parent, const std::string& link );
         virtual ~NeuronLayerVector() = default;
 
-        codeframe::Property< thrust::host_vector<float> > Input;
+        codeframe::Property< thrust::host_vector<float> > Data;
 
-        void Calculate() override;
+        void ProcessData(thrust::host_vector<float>& vectInData, thrust::host_vector<float>& vectOutData) override;
 
 };
 

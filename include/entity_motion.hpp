@@ -2,6 +2,7 @@
 #define ENTITY_MOTION_HPP
 
 #include <physics_body.hpp>
+#include <thrust/device_vector.h>
 
 class EntityMotion : public PhysicsBody
 {
@@ -14,6 +15,7 @@ class EntityMotion : public PhysicsBody
 
         codeframe::Property<float> VelocityForward;
         codeframe::Property<float> VelocityRotation;
+        codeframe::Property< thrust::host_vector<float> > MotionVector;
 
         void synchronize( b2Body& body ) override;
 

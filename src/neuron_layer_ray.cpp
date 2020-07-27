@@ -16,11 +16,11 @@ using namespace codeframe;
 ******************************************************************************/
 NeuronLayerRay::NeuronLayerRay( const std::string& name, ObjectNode* parent, const std::string& link ) :
     NeuronLayer( name, parent, link ),
-    Input( this, "Input", thrust::host_vector<RayData>(),
+    Data( this, "Data", thrust::host_vector<RayData>(),
            cPropertyInfo().
            Kind(KIND_VECTOR_THRUST_HOST, KIND_RAY_DATA).
-           ReferencePath("../../Vision.VisionVector").
-           Description("Input"))
+           ReferencePath(link).
+           Description("Data"))
 {
 
 }
@@ -30,7 +30,7 @@ NeuronLayerRay::NeuronLayerRay( const std::string& name, ObjectNode* parent, con
   * @brief
  **
 ******************************************************************************/
-void NeuronLayerRay::Calculate()
+void NeuronLayerRay::ProcessData(thrust::host_vector<float>& vectInData, thrust::host_vector<float>& vectOutData)
 {
 
 }

@@ -12,7 +12,8 @@ using namespace codeframe;
 EntityMotion::EntityMotion(codeframe::ObjectNode* parent) :
     PhysicsBody("Motion", parent),
     VelocityForward( this, "VelocityForward"  , 0.0F , cPropertyInfo().Kind(KIND_REAL).Description("VelocityForward") ),
-    VelocityRotation( this, "VelocityRotation", 0.0F , cPropertyInfo().Kind(KIND_REAL).Description("VelocityRotation") )
+    VelocityRotation( this, "VelocityRotation", 0.0F , cPropertyInfo().Kind(KIND_REAL).Description("VelocityRotation") ),
+    MotionVector    ( this, "MotionVector"    , thrust::host_vector<float>(), cPropertyInfo().Kind(KIND_VECTOR_THRUST_HOST, KIND_REAL).Description("MotionVector"))
 {
     //ctor
 }

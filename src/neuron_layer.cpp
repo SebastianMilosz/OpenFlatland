@@ -18,13 +18,3 @@ NeuronLayer::NeuronLayer( const std::string& name, ObjectNode* parent, const std
     Object( name, parent )
 {
 }
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void NeuronLayer::Calculate()
-{
-
-}

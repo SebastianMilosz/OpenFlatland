@@ -14,15 +14,15 @@
 class NeuronLayerRay : public NeuronLayer
 {
     CODEFRAME_META_CLASS_NAME( "NeuronLayerRay" );
-    CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
+    CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
                  NeuronLayerRay( const std::string& name, ObjectNode* parent, const std::string& link );
         virtual ~NeuronLayerRay() = default;
 
-        codeframe::Property< thrust::host_vector<RayData> > Input;
+        codeframe::Property< thrust::host_vector<RayData> > Data;
 
-        void Calculate() override;
+        void ProcessData(thrust::host_vector<float>& vectInData, thrust::host_vector<float>& vectOutData) override;
 };
 
 #endif // NEURON_LAYER_RAY_HPP_INCLUDED
