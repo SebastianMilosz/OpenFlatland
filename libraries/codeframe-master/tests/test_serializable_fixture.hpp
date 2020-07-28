@@ -27,9 +27,11 @@ class classTest_Dynamic : public codeframe::Object
         codeframe::Property<int> Property2;
         codeframe::Property<int> Property3;
         codeframe::Property<int> Property4;
+        codeframe::Property<int> Property_rew;
 
         codeframe::Property<int> PropertyLink;
         codeframe::Property<int> PropertyLink_rel;
+        codeframe::Property<int> PropertyLink_rel_rew;
 
     public:
         classTest_Dynamic( const std::string& name, ObjectNode* parent ) :
@@ -38,6 +40,7 @@ class classTest_Dynamic : public codeframe::Object
             Property2( this, "Property2", 200U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property2_desc") ),
             Property3( this, "Property3", 300U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property3_desc") ),
             Property4( this, "Property4", 400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property4_desc") ),
+            Property_rew( this, "Property_rew", 400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property_rew_desc") ),
 
             PropertyLink( this, "PropertyLink", 500U,
                             cPropertyInfo().
@@ -49,7 +52,12 @@ class classTest_Dynamic : public codeframe::Object
                 cPropertyInfo().
                     Kind( KIND_NUMBER ).
                     ReferencePath("/../node[0].Property1").
-                    Description("PropertyLink_rel_desc") )
+                    Description("PropertyLink_rel_desc") ),
+            PropertyLink_rel_rew( this, "PropertyLink_rel_rew", 700U,
+                cPropertyInfo().
+                    Kind( KIND_NUMBER ).
+                    ReferencePath("/../node[0].Property_rew>").
+                    Description("PropertyLink_rel_rew") )
         {
         }
 };

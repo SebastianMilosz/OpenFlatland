@@ -99,4 +99,10 @@ TEST_CASE( "codeframe library object path", "[codeframe][Object][Path]" )
         staticContainerObject->Child(1)->Property("PropertyLink_rel")->SetValue(6522U);
         REQUIRE( staticContainerObject->Child(0)->Property("Property1")->GetValue<int>() == 6522U );
     }
+
+    SECTION( "Test Property Reverse ReferencePath" )
+    {
+        staticContainerObject->Child(1)->Property("Property_rew")->SetValue(5544U);
+        REQUIRE( staticContainerObject->Child(0)->Property("PropertyLink_rel_rew")->GetValue<int>() == 5544U );
+    }
 }

@@ -24,6 +24,11 @@ namespace codeframe
             struct sPathLink
             {
                 public:
+                    sPathLink() :
+                        m_reverseDirection(false)
+                    {
+                    }
+
                     void PathPushBack(const std::string& val);
                     size_t size() const noexcept;
                     std::string at(size_t pos);
@@ -32,8 +37,11 @@ namespace codeframe
                     std::string ToDirString() const;
                     operator std::string() const;
 
+                    void SetReverseDirection(bool_t rev) { m_reverseDirection = rev; }
+                    bool_t IsReverseDirection() const { return m_reverseDirection; }
                 private:
                     std::vector<std::string> m_ObjectPath;
+                    bool_t m_reverseDirection;
             };
 
             std::string PathString() const;
@@ -50,6 +58,7 @@ namespace codeframe
 
         private:
             static const std::string m_delimiters;
+            static bool_t IsReverseDirection(const std::string& path);
             static bool_t IsDownHierarchy(const std::string& path);
             static bool_t IsRelativeHierarchy(const std::string& path);
 

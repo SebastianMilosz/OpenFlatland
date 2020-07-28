@@ -211,6 +211,12 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
     // With parent we may be able resolve relative paths
     if (smart_ptr_isValid(propertyParent))
     {
+        if (IsReverseDirection(retString))
+        {
+            pathLink.SetReverseDirection(true);
+            retString.pop_back();
+        }
+
         if (IsDownHierarchy(retString))
         {
             smart_ptr<ObjectSelection> parentNode = propertyParent->Parent();
@@ -239,6 +245,23 @@ void cPath::PreparePathLink(const std::string& pathString, cPath::sPathLink& pat
             pathLink.FromDirString(pathString);
         }
     }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+bool_t cPath::IsReverseDirection(const std::string& path)
+{
+    if (path.empty() == false)
+    {
+        if (path.back() == '>')
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 /*****************************************************************************/

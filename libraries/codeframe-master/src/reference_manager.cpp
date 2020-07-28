@@ -108,9 +108,19 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
 
                     if (smart_ptr_isValid(targetProp))
                     {
-                        if ( refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp)) )
+                        if (pathLink.IsReverseDirection())
                         {
-                            it = m_referencePathMap.erase(it);
+                            if ( targetProp->ConnectReference(refData.Property) )
+                            {
+                                it = m_referencePathMap.erase(it);
+                            }
+                        }
+                        else
+                        {
+                            if ( refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp)) )
+                            {
+                                it = m_referencePathMap.erase(it);
+                            }
                         }
                     }
                     else
