@@ -756,10 +756,11 @@ namespace codeframe
     {
         if (m_reference)
         {
-            if (cInstanceManager::IsInstance( smart_ptr_getRaw(std::dynamic_pointer_cast<cInstanceManager>(m_reference->Parent()))) )
-            {
+            // @todo uncomment and fix
+            //if (cInstanceManager::IsInstance( smart_ptr_getRaw(std::dynamic_pointer_cast<cInstanceManager>(m_reference->Parent()))) )
+            //{
                 return true;
-            }
+            //}
         }
         return false;
     }

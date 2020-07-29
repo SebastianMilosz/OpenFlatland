@@ -31,7 +31,6 @@ class classTest_Dynamic : public codeframe::Object
 
         codeframe::Property<int> PropertyLink;
         codeframe::Property<int> PropertyLink_rel;
-        codeframe::Property<int> PropertyLink_rel_rew;
 
     public:
         classTest_Dynamic( const std::string& name, ObjectNode* parent ) :
@@ -52,11 +51,32 @@ class classTest_Dynamic : public codeframe::Object
                 cPropertyInfo().
                     Kind( KIND_NUMBER ).
                     ReferencePath("/../node[0].Property1").
+                    Description("PropertyLink_rel_desc") )
+        {
+        }
+};
+
+class classTest_Dynamic_rel : public codeframe::Object
+{
+    public:
+        CODEFRAME_META_CLASS_NAME( "classTest_Dynamic_rel" );
+        CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
+
+        codeframe::Property<int> PropertyLink_rel;
+        codeframe::Property<int> PropertyLink_rel_rew;
+
+    public:
+        classTest_Dynamic_rel( const std::string& name, ObjectNode* parent ) :
+            Object( name, parent ),
+            PropertyLink_rel( this, "PropertyLink_rel", 600U,
+                cPropertyInfo().
+                    Kind( KIND_NUMBER ).
+                    ReferencePath("/../node[4].Property1").
                     Description("PropertyLink_rel_desc") ),
             PropertyLink_rel_rew( this, "PropertyLink_rel_rew", 700U,
                 cPropertyInfo().
                     Kind( KIND_NUMBER ).
-                    ReferencePath("/../node[0].Property_rew>").
+                    ReferencePath("/../node[4].Property_rew>").
                     Description("PropertyLink_rel_rew") )
         {
         }
@@ -77,6 +97,14 @@ class classTest_Container : public codeframe::ObjectContainer
             if (className == "classTest_Dynamic")
             {
                 smart_ptr<classTest_Dynamic> obj = smart_ptr<classTest_Dynamic>(new classTest_Dynamic(objName, this));
+
+                InsertObject(obj);
+
+                return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
+            }
+            else if (className == "classTest_Dynamic_rel")
+            {
+                smart_ptr<classTest_Dynamic_rel> obj = smart_ptr<classTest_Dynamic_rel>(new classTest_Dynamic_rel(objName, this));
 
                 InsertObject(obj);
 

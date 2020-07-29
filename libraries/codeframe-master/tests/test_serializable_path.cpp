@@ -7,18 +7,19 @@ TEST_CASE( "codeframe library object path", "[codeframe][Object][Path]" )
     smart_ptr<ObjectNode> staticSerializableObject( new classTest_Static("testNameStatic", nullptr) );
     smart_ptr<ObjectNode> staticContainerObject( new classTest_Container("testNameContainerStatic", staticSerializableObject) );
 
-    smart_ptr<ObjectSelection> node0 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[0]
-    smart_ptr<ObjectSelection> node1 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[1]
-    smart_ptr<ObjectSelection> node2 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[2]
-    smart_ptr<ObjectSelection> node3 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[3]
-    smart_ptr<ObjectSelection> node4 = staticContainerObject->Create("classTest_Dynamic", "node");    // node[4]
+    smart_ptr<ObjectSelection> node0 = staticContainerObject->Create("classTest_Dynamic"    , "node"); // node[0]
+    smart_ptr<ObjectSelection> node1 = staticContainerObject->Create("classTest_Dynamic"    , "node"); // node[1]
+    smart_ptr<ObjectSelection> node2 = staticContainerObject->Create("classTest_Dynamic"    , "node"); // node[2]
+    smart_ptr<ObjectSelection> node3 = staticContainerObject->Create("classTest_Dynamic"    , "node"); // node[3]
+    smart_ptr<ObjectSelection> node4 = staticContainerObject->Create("classTest_Dynamic"    , "node"); // node[4]
+    smart_ptr<ObjectSelection> node5 = staticContainerObject->Create("classTest_Dynamic_rel", "node"); // node[5]
 
     SECTION( "Basic codeframe library objects tests" )
     {
         REQUIRE( staticSerializableObject->ObjectName() == "testNameStatic" );
         REQUIRE( staticSerializableObject->Child("testNameContainerStatic")->ObjectName() == "testNameContainerStatic" );
 
-        REQUIRE( staticContainerObject->Count() == 5 );
+        REQUIRE( staticContainerObject->Count() == 6 );
 
         REQUIRE( staticContainerObject->Child(0)->Property("Property1")->GetValue<int>() == 100 );
 
@@ -102,7 +103,7 @@ TEST_CASE( "codeframe library object path", "[codeframe][Object][Path]" )
 
     SECTION( "Test Property Reverse ReferencePath" )
     {
-        staticContainerObject->Child(1)->Property("Property_rew")->SetValue(5544U);
-        REQUIRE( staticContainerObject->Child(0)->Property("PropertyLink_rel_rew")->GetValue<int>() == 5544U );
+        staticContainerObject->Child(4)->Property("Property_rew")->SetValue(5544U);
+        REQUIRE( staticContainerObject->Child(5)->Property("PropertyLink_rel_rew")->GetValue<int>() == 5544U );
     }
 }

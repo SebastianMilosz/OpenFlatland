@@ -340,7 +340,7 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty(codeframe::PropertyBas
             ImGui::PushItemWidth(width * 0.4F);
             ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
             ImGui::PopItemWidth();
-
+            internalVector[index] = value;
             if (ImGui::Button("-"))
             {
                 internalVector.erase(internalVector.begin() + index);
@@ -371,14 +371,12 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty(codeframe::PropertyBas
             ImGui::PopStyleVar();
         }
 
-        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
         if (ImGui::Button("+"))
         {
+            internalVector.insert(internalVector.begin() + index, value);
+            prop->PulseChanged();
         }
         ImGui::SameLine();
-        ImGui::PopItemFlag();
-        ImGui::PopStyleVar();
 
         return true;
     }
@@ -420,7 +418,7 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty<RayData>(codeframe::Pr
             ImGui::PushItemWidth(width * 0.4F);
             ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
             ImGui::PopItemWidth();
-
+            internalVector[index].Distance = value;
             if (ImGui::Button("-"))
             {
                 internalVector.erase(internalVector.begin() + index);
@@ -451,14 +449,12 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty<RayData>(codeframe::Pr
             ImGui::PopStyleVar();
         }
 
-        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
         if (ImGui::Button("+"))
         {
+            internalVector.insert(internalVector.begin() + index, RayData());
+            prop->PulseChanged();
         }
         ImGui::SameLine();
-        ImGui::PopItemFlag();
-        ImGui::PopStyleVar();
 
         return true;
     }
@@ -482,7 +478,15 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
         ImGui::AlignTextToFramePadding();
 
         ImGui::Bullet();
+
         ImGui::Selectable( prop->Name().c_str() );
+
+        if (prop->IsReference())
+        {
+            ImGui::PushStyleColor(ImGuiCol_Text, 0xFFFF0000); ImGui::SameLine();
+            ImGui::Text("link");
+            ImGui::PopStyleColor();
+        }
 
         ImGui::NextColumn();
         ImGui::PushItemWidth(-1);
