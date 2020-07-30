@@ -166,6 +166,7 @@ bool_t PropertyEditorWidget::ShowVectorProperty(codeframe::PropertyBase* prop)
         PROPERTY_TYPE value = 0U;
         PROPERTY_TYPE valuePrew = 0U;
         static size_t index = 0;
+        size_t indexPrew = 0;
         std::string vectorSizeIndexText = std::string("/") + std::to_string(internalVector.size()) + std::string(")");
         volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
         float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
@@ -178,13 +179,14 @@ bool_t PropertyEditorWidget::ShowVectorProperty(codeframe::PropertyBase* prop)
                 index = internalVector.size() - 1U;
             }
             value = valuePrew = internalVector[index];
+            indexPrew = index;
             ImGui::PushItemWidth(width * 0.6F);
             ImGui::InputInt("=vector(", reinterpret_cast<int*>(&value), 1); ImGui::SameLine();
             ImGui::PopItemWidth();
             ImGui::PushItemWidth(width * 0.4F);
             ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
             ImGui::PopItemWidth();
-            internalVector[index] = value;
+            internalVector[indexPrew] = value;
             if (ImGui::Button("-"))
             {
                 internalVector.erase(internalVector.begin() + index);
@@ -244,6 +246,7 @@ bool_t PropertyEditorWidget::ShowVectorProperty<RayData>(codeframe::PropertyBase
         float value;
         float valuePrew;
         static size_t index = 0;
+        size_t indexPrew = 0;
         std::string vectorSizeIndexText = std::string("/") + std::to_string(internalVector.size()) + std::string(")");
         volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
         float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
@@ -256,13 +259,14 @@ bool_t PropertyEditorWidget::ShowVectorProperty<RayData>(codeframe::PropertyBase
                 index = internalVector.size() - 1U;
             }
             value = valuePrew = internalVector[index].Distance;
+            indexPrew = index;
             ImGui::PushItemWidth(width * 0.6F);
             ImGui::InputFloat("=vector(", &value, 0.1f); ImGui::SameLine();
             ImGui::PopItemWidth();
             ImGui::PushItemWidth(width * 0.4F);
             ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
             ImGui::PopItemWidth();
-            internalVector[index].Distance = value;
+            internalVector[indexPrew].Distance = value;
             if (ImGui::Button("-"))
             {
                 internalVector.erase(internalVector.begin() + index);
@@ -322,6 +326,7 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty(codeframe::PropertyBas
         PROPERTY_TYPE value = 0U;
         PROPERTY_TYPE valuePrew = 0U;
         static size_t index = 0;
+        size_t indexPrew = 0;
         std::string vectorSizeIndexText = std::string("/") + std::to_string(internalVector.size()) + std::string(")");
         volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
         float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
@@ -334,13 +339,14 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty(codeframe::PropertyBas
                 index = internalVector.size() - 1U;
             }
             value = valuePrew = internalVector[index];
+            indexPrew = index;
             ImGui::PushItemWidth(width * 0.6F);
             ImGui::InputInt("=thrust(", reinterpret_cast<int*>(&value), 1); ImGui::SameLine();
             ImGui::PopItemWidth();
             ImGui::PushItemWidth(width * 0.4F);
             ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
             ImGui::PopItemWidth();
-            internalVector[index] = value;
+            internalVector[indexPrew] = value;
             if (ImGui::Button("-"))
             {
                 internalVector.erase(internalVector.begin() + index);
@@ -400,6 +406,7 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty<RayData>(codeframe::Pr
         float value;
         float valuePrew;
         static size_t index = 0;
+        size_t indexPrew = 0;
         std::string vectorSizeIndexText = std::string("/") + std::to_string(internalVector.size()) + std::string(")");
         volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
         float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
@@ -412,13 +419,14 @@ bool_t PropertyEditorWidget::ShowVectorThrustHostProperty<RayData>(codeframe::Pr
                 index = internalVector.size() - 1U;
             }
             value = valuePrew = internalVector[index].Distance;
+            indexPrew = index;
             ImGui::PushItemWidth(width * 0.6F);
             ImGui::InputFloat("=thrust(", &value, 1); ImGui::SameLine();
             ImGui::PopItemWidth();
             ImGui::PushItemWidth(width * 0.4F);
             ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
             ImGui::PopItemWidth();
-            internalVector[index].Distance = value;
+            internalVector[indexPrew].Distance = value;
             if (ImGui::Button("-"))
             {
                 internalVector.erase(internalVector.begin() + index);
@@ -486,6 +494,9 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
             ImGui::PushStyleColor(ImGuiCol_Text, 0xFFFF0000); ImGui::SameLine();
             ImGui::Text("link");
             ImGui::PopStyleColor();
+
+            if (ImGui::IsItemHovered())
+                ImGui::SetTooltip(prop->Reference()->Path().c_str());
         }
 
         ImGui::NextColumn();

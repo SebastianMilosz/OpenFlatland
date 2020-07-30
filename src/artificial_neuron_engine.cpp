@@ -12,9 +12,9 @@ using namespace codeframe;
 ArtificialNeuronEngine::ArtificialNeuronEngine( const std::string& name, ObjectNode* parent ) :
     ObjectContainer( name, parent )
 {
-    Create( "NeuronLayerVector", "InterfaceEnergyLayer", std::vector<VariantValue>(1U, VariantValue(TYPE_TEXT, "../../Energy.EnergyVector")) );
-    Create( "NeuronLayerRay"   , "InterfaceVisionLayer", std::vector<VariantValue>(1U, VariantValue(TYPE_TEXT, "../../Vision.VisionVector")) );
-    Create( "NeuronLayerVector", "InterfaceMotionLayer", std::vector<VariantValue>(1U, VariantValue(TYPE_TEXT, "../../Motion.MotionVector")) );
+    Create( "NeuronLayerVector", "InterfaceEnergyLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../Energy.EnergyVector")) );
+    Create( "NeuronLayerRay"   , "InterfaceVisionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../Vision.VisionVector")) );
+    Create( "NeuronLayerVector", "InterfaceMotionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../Motion.MotionVector>")) );
 }
 
 /*****************************************************************************/

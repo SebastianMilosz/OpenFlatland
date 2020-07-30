@@ -35,9 +35,10 @@ namespace codeframe
         {
         }
 
-        VariantValue(eType type, std::string name) :
-            Type(type),
-            Name(name)
+        VariantValue(const std::string& name, const std::string& value) :
+            Type(TYPE_TEXT),
+            Name(name),
+            ValueString(value)
         {
         }
 
