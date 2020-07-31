@@ -26,13 +26,13 @@ before_script:
   # switch to build directory
   - cd build
   # Install the development librairies and headers for freeglut3
-  - apt-get install freeglut3-dev -y --force-yes
+  - sudo apt-get install freeglut3-dev -y --force-yes
   # Install the Xrandr used by SFML to set the size, orientation and/or reflection of the outputs for a screen. It can also set the screen size.
-  - apt-get install libxrandr-dev -y --force-yes
-  - apt-get install libxinerama-dev -y --force-yes
-  - apt-get install libxcursor-dev -y --force-yes
+  - sudo apt-get install libxrandr-dev -y --force-yes
+  - sudo apt-get install libxinerama-dev -y --force-yes
+  - sudo apt-get install libxcursor-dev -y --force-yes
   # Install the UDev library used by SFML
-  - apt-get install libudev-dev -y --force-yes
+  - sudo apt-get install libudev-dev -y --force-yes
   # run cmake; here we assume that the project's
   # top-level CMakeLists.txt is located at '..'
   - cmake ..
