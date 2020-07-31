@@ -1,5 +1,7 @@
 # OpenFlatland
 
+[![Build Status](https://travis-ci.com/SebastianMilosz/OpenFlatland.svg?branch=master)](https://travis-ci.com/SebastianMilosz/OpenFlatland)
+
 ## Basic information
 -----
 This project is aim to create a sandbox for reinforcement learning experiments on artificial creatures that will act in complex simulated environment.
