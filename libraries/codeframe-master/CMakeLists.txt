@@ -138,3 +138,5 @@ add_subdirectory(qtexample)
 endif (USE_QT)
 
 add_library(codeframe ALIAS ${PROJECT_NAME})
+
+add_subdirectory(tests)

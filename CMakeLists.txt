@@ -22,9 +22,11 @@ set(OpenFlatland_AppSRC
     src/entity_ghost.cpp
     src/entity_shell.cpp
     src/entity_motion.cpp
+    src/drawable_entity_energy.cpp
     src/drawable_entity_motion.cpp
     src/drawable_entity_vision.cpp
     src/drawable_object.cpp
+    src/entity_energy.cpp
     src/entity_vision.cpp
     src/entity_vision_node.cpp
     src/ray_data.cpp
@@ -35,6 +37,8 @@ set(OpenFlatland_AppSRC
     src/physics_body.cpp
     src/property_editor_widget.cpp
     src/neuron_layer.cpp
+    src/neuron_layer_ray.cpp
+    src/neuron_layer_vector.cpp
     src/artificial_neuron_engine.cpp
     src/world.cpp
 )

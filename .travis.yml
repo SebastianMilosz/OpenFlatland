@@ -1,0 +1,35 @@
+dist: trusty
+sudo: require
+
+language: cpp
+os: linux
+compiler: gcc
+
+#Disable the default Travis submodule behavior.
+git:
+  submodules: false
+
+addons:
+  apt:
+    packages:
+      - gcc
+      - g++
+
+# Safelist - branches to be built.
+branches:
+  only:
+  - master
+
+before_script:
+  # create a build folder for the out-of-source build
+  - mkdir build
+  # switch to build directory
+  - cd build
+  # run cmake; here we assume that the project's
+  # top-level CMakeLists.txt is located at '..'
+  - cmake ..
+
+script:
+  - VERBOSE=1 make
+  - make
+  - make CODEFRAME_TESTS
