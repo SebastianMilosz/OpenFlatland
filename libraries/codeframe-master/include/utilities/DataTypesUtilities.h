@@ -376,14 +376,14 @@ namespace utilities
             }
 
             return iRec( 0, 0, width, height );
-        };
+        }
 
         dRec inline GetFitRecFactor( const iRec& targetRec, const iRec& srcRec, int mode = FILL_BEST )
         {
             iRec tempRec = GetFitRec( targetRec, srcRec, mode );
             return dRec( tempRec.X, tempRec.Y, (double)tempRec.W / (double)srcRec.W, (double)tempRec.H / (double)srcRec.H );
-        };
-    };
-};
+        }
+    }
+}
 
 #endif // DataTypesUtilitiesH

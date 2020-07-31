@@ -29,7 +29,8 @@ void cXML::Initialize(void)
 ******************************************************************************/
 cXML::cXML() :
     m_valid(false),
-    m_xmlDocument( nullptr )
+    m_xmlDocument( nullptr ),
+    m_nodePointer("")
 {
     Initialize();
     m_valid = true;
@@ -42,7 +43,8 @@ cXML::cXML() :
 ******************************************************************************/
 cXML::cXML( const std::string& filePath ) :
     m_valid(false),
-    m_xmlDocument( nullptr )
+    m_xmlDocument( nullptr ),
+    m_nodePointer("")
 {
     Initialize();
     FromFile( filePath );
@@ -55,7 +57,8 @@ cXML::cXML( const std::string& filePath ) :
 ******************************************************************************/
 cXML::cXML( const cXML& xml ) :
     m_valid(false),
-    m_xmlDocument( nullptr )
+    m_xmlDocument( nullptr ),
+    m_nodePointer("")
 {
     Initialize();
     m_xmlDocument->reset( *xml.m_xmlDocument );
@@ -69,7 +72,8 @@ cXML::cXML( const cXML& xml ) :
 ******************************************************************************/
 cXML::cXML( const char* data, int dsize ) :
     m_valid(false),
-    m_xmlDocument( nullptr )
+    m_xmlDocument( nullptr ),
+    m_nodePointer("")
 {
     Initialize();
     FromBuffer( data, dsize );
@@ -82,7 +86,8 @@ cXML::cXML( const char* data, int dsize ) :
 ******************************************************************************/
 cXML::cXML( cXMLNode xmlNode ) :
     m_valid(false),
-    m_xmlDocument( nullptr )
+    m_xmlDocument( nullptr ),
+    m_nodePointer("")
 {
     Initialize();
     m_xmlDocument->root().append_copy( *xmlNode.m_xmlNode );

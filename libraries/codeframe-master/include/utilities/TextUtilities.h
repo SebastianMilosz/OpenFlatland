@@ -34,14 +34,14 @@ namespace utilities
                 // Find next "non-delimiter"
                 pos = str.find_first_of(delimiters, lastPos);
             }
-        };
+        }
 
         inline std::string stringtoupper( const std::string& in )
         {
             std::string out( in );
             std::transform(out.begin(), out.end(), out.begin(), (int(*)(int))std::toupper);
             return out;
-        };
+        }
 
         const std::string WHITESPACE = " \n\r\t\f\v";
 

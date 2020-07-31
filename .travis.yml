@@ -34,6 +34,5 @@ before_script:
   - cmake ..
 
 script:
-  - VERBOSE=1 make
   - make
   - make CODEFRAME_TESTS

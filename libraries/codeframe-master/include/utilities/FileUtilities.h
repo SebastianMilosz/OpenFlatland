@@ -148,6 +148,6 @@ namespace utilities
                 uint8_t addr[4];
         };
     }
-};
+}
 
 #endif
