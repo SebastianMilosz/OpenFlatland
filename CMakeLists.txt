@@ -109,6 +109,7 @@ target_link_libraries( OpenFlatland_App
     sfml-system 
     Box2D 
     lualib
+    pthread
 )
 
 if(SFML_OS_WINDOWS OR SFML_OS_ANDROID OR SFML_OS_IOS)

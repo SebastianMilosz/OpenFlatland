@@ -21,4 +21,5 @@ set_target_properties(CODEFRAME_TESTS PROPERTIES
 target_link_libraries( CODEFRAME_TESTS
     codeframe 
     lualib
+    pthread
 )
