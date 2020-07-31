@@ -70,13 +70,13 @@ void InformationWidget::Draw( const char* title, bool* p_open )
 
     ImGui::Text( "Box2d Coordinates: (%3.2f, %3.2f)", worldPos.x/PhysicsBody::sDescriptor::PIXELS_IN_METER, worldPos.y/PhysicsBody::sDescriptor::PIXELS_IN_METER );
 
-    ImGui::Text( PerformanceLogger::GetInstance().PointToString( PERFORMANCE_BOX2D_FULL_PHYSIC_SYM ).c_str() );
+    ImGui::Text( "%s", PerformanceLogger::GetInstance().PointToString( PERFORMANCE_BOX2D_FULL_PHYSIC_SYM ).c_str() );
 
-    ImGui::Text( PerformanceLogger::GetInstance().PointToString( PERFORMANCE_BOX2D_RAYS_CAST ).c_str() );
+    ImGui::Text( "%s", PerformanceLogger::GetInstance().PointToString( PERFORMANCE_BOX2D_RAYS_CAST ).c_str() );
 
-    ImGui::Text( PerformanceLogger::GetInstance().PointToString( PERFORMANCE_CALCULATE_NEURONS ).c_str() );
+    ImGui::Text( "%s", PerformanceLogger::GetInstance().PointToString( PERFORMANCE_CALCULATE_NEURONS ).c_str() );
 
-    ImGui::Text( PerformanceLogger::GetInstance().PointToString( PERFORMANCE_RENDER_GRAPHIC ).c_str() );
+    ImGui::Text( "%s", PerformanceLogger::GetInstance().PointToString( PERFORMANCE_RENDER_GRAPHIC ).c_str() );
 
     ImGui::End();
 }

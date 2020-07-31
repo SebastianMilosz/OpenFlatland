@@ -7,7 +7,7 @@
   * @brief
  **
 ******************************************************************************/
-std::string utilities::math::IntToStr(const uint32_t nbr)
+std::string utilities::math::IntToStr(const int32_t nbr)
 {
     std::ostringstream s;
     s << nbr;

@@ -28,14 +28,14 @@ namespace utilities
     {
         typedef float float32;
 
-        std::string IntToStr( const uint32_t nbr );
+        std::string IntToStr( const int32_t nbr );
 
         /*****************************************************************************/
         /**
           * @brief
          **
         ******************************************************************************/
-        inline std::string IntToHex(const uint32_t nbr, const std::string& prefix = "", const std::string& separator = ":", char trim = 0)
+        inline std::string IntToHex(const uint64_t nbr, const std::string& prefix = "", const std::string& separator = ":", char trim = 0)
         {
             const uint8_t* buf = (const uint8_t*)(&nbr);
 
@@ -99,7 +99,8 @@ namespace utilities
         ******************************************************************************/
         inline std::string PointerToHex(void* ptr)
         {
-            return IntToHex( *((uint32_t*)&ptr) );
+
+            return IntToHex( (uint64_t)ptr );
         }
 
         /*****************************************************************************/
@@ -110,7 +111,7 @@ namespace utilities
         ******************************************************************************/
         inline std::string LongToHex( long nbr )
         {
-            return IntToHex( (uint32_t)nbr );
+            return IntToHex( (uint64_t)nbr );
         }
 
         /*****************************************************************************/

@@ -496,7 +496,7 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
             ImGui::PopStyleColor();
 
             if (ImGui::IsItemHovered())
-                ImGui::SetTooltip(prop->Reference()->Path().c_str());
+                ImGui::SetTooltip("%s", prop->Reference()->Path().c_str());
         }
 
         ImGui::NextColumn();
@@ -574,7 +574,7 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                             bool_t is_selected = (static_cast<unsigned int>(*prop) == n);
                             if (ImGui::Selectable(elems[n].c_str(), is_selected))
                             {
-                                (*prop) = n;
+                                (*prop) = (unsigned int)n;
                             }
                             if (is_selected)
                             {
