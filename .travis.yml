@@ -36,3 +36,6 @@ before_script:
 script:
   - make
   - make CODEFRAME_TESTS
+
+after_success:
+  - CODEFRAME_TESTS
