@@ -39,4 +39,4 @@ script:
 
 after_success:
   - cd ${TRAVIS_BUILD_DIR}
-  - CODEFRAME_TESTS
+  - ./CODEFRAME_TESTS
