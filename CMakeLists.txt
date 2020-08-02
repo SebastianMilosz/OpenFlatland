@@ -63,7 +63,7 @@ include_directories( libraries/SFML-master/include )
 include_directories( libraries/imgui-sfml )
 include_directories( libraries/imgui )
 include_directories( libraries/box2d/include )
-include_directories( libraries/thrust-1.8.1 )
+include_directories( libraries/thrust )
 
 set(BOX2D_BUILD_EXAMPLES     OFF CACHE BOOL "BOX2D build examples")
 set(BOX2D_BUILD_STATIC       ON  CACHE BOOL "BOX2D static build")
@@ -92,7 +92,7 @@ set_target_properties(OpenFlatland_App PROPERTIES
 )
 
 set_target_properties(OpenFlatland_App PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD 14
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )

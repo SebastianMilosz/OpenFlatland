@@ -150,7 +150,7 @@
 			<Add directory="libraries/codeframe-master/thirdparty/pugixml-1.7/src" />
 			<Add directory="libraries/codeframe-master/thirdparty/smartpointer" />
 			<Add directory="libraries/codeframe-master/thirdparty/plf_nanotimer-master" />
-			<Add directory="libraries/thrust-1.8.1" />
+			<Add directory="libraries/thrust" />
 		</Compiler>
 		<Linker>
 			<Add option="-static-libstdc++" />

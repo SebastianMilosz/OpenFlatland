@@ -8,3 +8,7 @@
 [submodule "libraries/box2d"]
 	path = libraries/box2d
 	url = https://github.com/SebastianMilosz/box2d.git
+[submodule "libraries/thrust"]
+	path = libraries/thrust
+	url = https://github.com/thrust/thrust.git
+	branch = master
