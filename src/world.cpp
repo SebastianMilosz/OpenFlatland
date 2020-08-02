@@ -4,7 +4,7 @@
 
 #include <string>
 #include <sstream>
-#include <math.h>
+#include <cmath>
 #include <omp.h>
 
 #include <utilities/LoggerUtilities.h>

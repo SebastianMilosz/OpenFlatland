@@ -1,10 +1,11 @@
 #ifndef ENTITYVISION_HPP_INCLUDED
 #define ENTITYVISION_HPP_INCLUDED
 
-#include <vector>
 #include <Box2D/Box2D.h>
 #include <serializable_object.hpp>
 #include <thrust/device_vector.h>
+
+#include <vector>
 
 #include "physics_body.hpp"
 #include "colorize_circle_shape.hpp"
@@ -70,8 +71,8 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
                     Reset();
                 }
 
-                float32 ReportFixture( b2Fixture* fixture, const b2Vec2& point,
-                                       const b2Vec2& normal, const float32 fraction )
+                float ReportFixture( b2Fixture* fixture, const b2Vec2& point,
+                                     const b2Vec2& normal, const float fraction )
                 {
                     m_hit    = true;
                     m_point  = point;

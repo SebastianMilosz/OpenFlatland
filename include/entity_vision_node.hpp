@@ -3,7 +3,7 @@
 
 #include "ray_data.hpp"
 
-#include <Box2D/Box2D.h>
+#include <box2d/box2d.h>
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 #include <thrust/device_vector.h>

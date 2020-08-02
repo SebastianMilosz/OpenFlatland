@@ -5,3 +5,6 @@
 [submodule "libraries/imgui-sfml"]
 	path = libraries/imgui-sfml
 	url = https://github.com/SebastianMilosz/imgui-sfml.git
+[submodule "libraries/box2d"]
+	path = libraries/box2d
+	url = https://github.com/SebastianMilosz/box2d.git

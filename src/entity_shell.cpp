@@ -153,7 +153,7 @@ const int& EntityShell::GetX()
   * @brief Return X coordinates in meters
  **
 ******************************************************************************/
-float32 EntityShell::GetPhysicalX()
+float EntityShell::GetPhysicalX()
 {
     if ( (b2Body*)nullptr == GetDescriptor().Body )
     {
@@ -192,7 +192,7 @@ const int& EntityShell::GetY()
   * @brief Return Y coordinates in meters
  **
 ******************************************************************************/
-float32 EntityShell::GetPhysicalY()
+float EntityShell::GetPhysicalY()
 {
     if ( (b2Body*)nullptr == GetDescriptor().Body )
     {
@@ -217,7 +217,7 @@ void EntityShell::SetY(int val)
   * @brief
  **
 ******************************************************************************/
-const float32& EntityShell::GetRotation()
+const float& EntityShell::GetRotation()
 {
     b2Body* body = GetDescriptor().Body;
 

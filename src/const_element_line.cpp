@@ -18,7 +18,7 @@ ConstElementLine::ConstElementLine( const std::string& name, codeframe::Point2D<
     float h( endPoint.Y() / sDescriptor::PIXELS_IN_METER - sy );
 
     b2EdgeShape * lineShape = new b2EdgeShape ();
-    lineShape->Set(
+    lineShape->SetTwoSided(
                    b2Vec2( 0, 0 ),
                    b2Vec2( w, h )
                   );

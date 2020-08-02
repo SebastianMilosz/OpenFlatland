@@ -31,13 +31,13 @@ class EntityShell : public PhysicsBody, public DrawableObject
         void synchronize( b2Body& body ) override;
 
         const int& GetX();
-        float32 GetPhysicalX();
+        float GetPhysicalX();
         void SetX(int val);
         const int& GetY();
-        float32 GetPhysicalY();
+        float GetPhysicalY();
         void SetY(int val);
 
-        const float32& GetRotation();
+        const float& GetRotation();
 
         void SetRotation( float rotation );
 
@@ -54,9 +54,9 @@ class EntityShell : public PhysicsBody, public DrawableObject
         DrawableEntityMotion m_motion;
         DrawableEntityEnergy m_energy;
 
-        int     m_curX;
-        int     m_curY;
-        float32 m_curR;
+        int   m_curX;
+        int   m_curY;
+        float m_curR;
 
         void slotSelectionChanged( smart_ptr<ObjectNode> );
 };

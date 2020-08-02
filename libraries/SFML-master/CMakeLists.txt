@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 
 # define a macro that helps defining an option
 macro(sfml_set_option var default type docstring)

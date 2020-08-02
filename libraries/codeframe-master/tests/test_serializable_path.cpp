@@ -106,4 +106,31 @@ TEST_CASE( "codeframe library object path", "[codeframe][Object][Path]" )
         staticContainerObject->Child(4)->Property("Property_rew")->SetValue(5544U);
         REQUIRE( staticContainerObject->Child(5)->Property("PropertyLink_rel_rew")->GetValue<int>() == 5544U );
     }
+
+    SECTION( "Test Script multiple selection" )
+    {
+        staticSerializableObject->Script().RunString("CF:GetProperty('testNameStatic/testNameContainerStatic/node[*].Property1').Number = 67892");
+
+        REQUIRE( staticContainerObject->Child(0)->Property("Property1")->GetValue<int>() == 67892U );
+        REQUIRE( staticContainerObject->Child(1)->Property("Property1")->GetValue<int>() == 67892U );
+        REQUIRE( staticContainerObject->Child(2)->Property("Property1")->GetValue<int>() == 67892U );
+        REQUIRE( staticContainerObject->Child(3)->Property("Property1")->GetValue<int>() == 67892U );
+        REQUIRE( staticContainerObject->Child(4)->Property("Property1")->GetValue<int>() == 67892U );
+
+        staticSerializableObject->Script().RunString("CF:GetProperty('testNameStatic/testNameContainerStatic/node[*].Property_float').Number = 5674");
+
+        REQUIRE( staticContainerObject->Child(0)->Property("Property_float")->GetValue<float>() == 5674U );
+        REQUIRE( staticContainerObject->Child(1)->Property("Property_float")->GetValue<float>() == 5674U );
+        REQUIRE( staticContainerObject->Child(2)->Property("Property_float")->GetValue<float>() == 5674U );
+        REQUIRE( staticContainerObject->Child(3)->Property("Property_float")->GetValue<float>() == 5674U );
+        REQUIRE( staticContainerObject->Child(4)->Property("Property_float")->GetValue<float>() == 5674U );
+
+        staticContainerObject->Script().RunString("CF:GetProperty('testNameStatic/testNameContainerStatic/node[*].Property_float').Number = 88888");
+
+        REQUIRE( staticContainerObject->Child(0)->Property("Property_float")->GetValue<float>() == 88888U );
+        REQUIRE( staticContainerObject->Child(1)->Property("Property_float")->GetValue<float>() == 88888U );
+        REQUIRE( staticContainerObject->Child(2)->Property("Property_float")->GetValue<float>() == 88888U );
+        REQUIRE( staticContainerObject->Child(3)->Property("Property_float")->GetValue<float>() == 88888U );
+        REQUIRE( staticContainerObject->Child(4)->Property("Property_float")->GetValue<float>() == 88888U );
+    }
 }

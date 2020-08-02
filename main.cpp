@@ -1,10 +1,11 @@
-#include <iostream>
+#include <Box2D/Box2D.h>
+#include <SFML/Graphics.hpp>
 
 #include <utilities/LoggerUtilities.h>
 #include <utilities/FileUtilities.h>
 #include <serializable_object.hpp>
-#include <SFML/Graphics.hpp>
-#include <Box2D/Box2D.h>
+
+#include <iostream>
 
 #include "application.hpp"
 #include "console_widget.hpp"

@@ -56,14 +56,14 @@ void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
 
     unsigned int rayLength  ( (unsigned int)RaysSize );
     unsigned int rayCntLimit( (unsigned int)RaysCnt  );
-    float32      rotation( TO_RADIAN( getRotation() ) );
+    float        rotation( TO_RADIAN( getRotation() ) );
     volatile uint32_t     fixture = 0U;
 
     int rayAngleStart( (int)RaysStartingAngle );
     int rayAngleEnd( (int)RaysEndingAngle );
 
-    float32 currentRayAngle( TO_RADIAN( (std::min(rayAngleStart,rayAngleEnd)) ) ); //
-    float32 rayAngleStep( TO_RADIAN((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float32)rayCntLimit) );
+    float currentRayAngle( TO_RADIAN( (std::min(rayAngleStart,rayAngleEnd)) ) ); //
+    float rayAngleStep( TO_RADIAN((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float)rayCntLimit) );
 
     m_rayCastCallback.Reset();
 

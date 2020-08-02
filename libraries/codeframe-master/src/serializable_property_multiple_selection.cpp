@@ -464,7 +464,7 @@ namespace codeframe
     {
         for ( auto propSelection : m_selectionVector )
         {
-            *propSelection = val;
+            propSelection->SetNumber(val);
         }
     }
 
@@ -487,7 +487,7 @@ namespace codeframe
     {
         for ( auto propSelection : m_selectionVector )
         {
-            *propSelection = val;
+            propSelection->SetReal(val);
         }
     }
 
@@ -510,7 +510,7 @@ namespace codeframe
     {
         for ( auto propSelection : m_selectionVector )
         {
-            *propSelection = val;
+            propSelection->SetString(val);
         }
     }
 

@@ -25,10 +25,10 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library="sfml-graphics-s" />
-					<Add library="sfml-network-s" />
-					<Add library="sfml-window-s" />
-					<Add library="sfml-system-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-network" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
 					<Add library="sfml-main" />
 					<Add library="opengl32" />
 					<Add library="freetype" />
@@ -51,13 +51,13 @@
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
-					<Add option="-O3" />
 					<Add option="-s" />
 					<Add option="-m32" />
-					<Add library="sfml-graphics-s" />
-					<Add library="sfml-network-s" />
-					<Add library="sfml-window-s" />
-					<Add library="sfml-system-s" />
+					<Add option="-O3" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-network" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
 					<Add library="sfml-main" />
 					<Add library="ws2_32" />
 					<Add library="freetype" />
@@ -114,10 +114,10 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library="sfml-graphics-s" />
-					<Add library="sfml-network-s" />
-					<Add library="sfml-window-s" />
-					<Add library="sfml-system-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-network" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
 					<Add library="opengl32" />
 					<Add library="freetype" />
 					<Add library="ws2_32" />
@@ -139,7 +139,7 @@
 			<Add directory="libraries/imgui" />
 			<Add directory="libraries/imgui-sfml" />
 			<Add directory="libraries/SFML-master/include" />
-			<Add directory="libraries/Box2D-master/Box2D" />
+			<Add directory="libraries/box2d/include" />
 			<Add directory="libraries/TinyThread++-1.0/source" />
 			<Add directory="libraries/CTPL-master" />
 			<Add directory="libraries/codeframe-master/include" />
@@ -167,7 +167,7 @@
 			<Add library="lua" />
 			<Add directory="libraries/SFML-master/extlibs/libs-mingw/x86" />
 			<Add directory="build/libraries/SFML-master/lib" />
-			<Add directory="build/libraries/Box2D-master/Box2D/Box2D" />
+			<Add directory="build/libraries/box2d/src" />
 			<Add directory="build/libraries/codeframe-master/thirdparty/lua-5.3.5/src" />
 		</Linker>
 		<ExtraCommands>

@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.8)
 
-project (OpenFlatland)
+project (OpenFlatland VERSION 0.1.1)
 
 # enable project folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -62,12 +62,14 @@ include_directories( libraries/TinyThread++-1.0/source )
 include_directories( libraries/SFML-master/include )
 include_directories( libraries/imgui-sfml )
 include_directories( libraries/imgui )
-include_directories( libraries/Box2D-master/Box2D )
+include_directories( libraries/box2d/include )
 include_directories( libraries/thrust-1.8.1 )
 
 set(BOX2D_BUILD_EXAMPLES     OFF CACHE BOOL "BOX2D build examples")
 set(BOX2D_BUILD_STATIC       ON  CACHE BOOL "BOX2D static build")
 set(BOX2D_BUILD_SHARED       OFF CACHE BOOL "BOX2D shared build")
+set(BOX2D_BUILD_TESTBED      OFF CACHE BOOL "BOX2D testbed build")
+set(BOX2D_BUILD_UNIT_TESTS   OFF CACHE BOOL "BOX2D unit tests build")
 set(SFML_USE_STATIC_STD_LIBS ON  CACHE BOOL "SFML use static std libs")
 set(SFML_BUILD_AUDIO         OFF CACHE BOOL "SFML build audio")
 set(BUILD_SHARED_LIBS        OFF CACHE BOOL "Build shared libs")
@@ -76,7 +78,7 @@ set(BUILD_SHARED_LIBS        OFF CACHE BOOL "Build shared libs")
 add_subdirectory(libraries/codeframe-master )
 add_subdirectory(libraries/codeframe-master/thirdparty/lua-5.3.5/src )
 add_subdirectory(libraries/codeframe-master/thirdparty/luabridge-master )
-add_subdirectory(libraries/Box2D-master/Box2D )
+add_subdirectory(libraries/box2d )
 add_subdirectory(libraries/SFML-master )
 
 add_executable(OpenFlatland_App
@@ -107,7 +109,7 @@ target_link_libraries( OpenFlatland_App
     sfml-network 
     sfml-window 
     sfml-system 
-    Box2D 
+    box2d 
     lualib
     pthread
 )

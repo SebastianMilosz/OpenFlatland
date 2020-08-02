@@ -28,6 +28,7 @@ class classTest_Dynamic : public codeframe::Object
         codeframe::Property<int> Property3;
         codeframe::Property<int> Property4;
         codeframe::Property<int> Property_rew;
+        codeframe::Property<float> Property_float;
 
         codeframe::Property<int> PropertyLink;
         codeframe::Property<int> PropertyLink_rel;
@@ -40,6 +41,7 @@ class classTest_Dynamic : public codeframe::Object
             Property3( this, "Property3", 300U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property3_desc") ),
             Property4( this, "Property4", 400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property4_desc") ),
             Property_rew( this, "Property_rew", 400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property_rew_desc") ),
+            Property_float( this, "Property_float", 1.2f , cPropertyInfo().Kind( KIND_REAL ).Description("Property_float") ),
 
             PropertyLink( this, "PropertyLink", 500U,
                             cPropertyInfo().
