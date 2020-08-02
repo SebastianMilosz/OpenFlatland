@@ -1,7 +1,7 @@
 #ifndef ENTITYVISION_HPP_INCLUDED
 #define ENTITYVISION_HPP_INCLUDED
 
-#include <Box2D/Box2D.h>
+#include <box2d/box2d.h>
 #include <serializable_object.hpp>
 #include <thrust/device_vector.h>
 
