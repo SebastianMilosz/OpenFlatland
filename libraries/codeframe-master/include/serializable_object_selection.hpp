@@ -58,7 +58,7 @@ namespace codeframe
             virtual smart_ptr<PropertyNode> Property(const std::string& name);
             virtual smart_ptr<PropertyNode> PropertyFromPath(const std::string& path);
 
-            virtual unsigned int GetNodeCount();
+            virtual unsigned int GetNodeCount() const;
 
             virtual std::string ObjectName( bool idSuffix = true ) const;
             virtual std::string PathString() const;
@@ -80,6 +80,11 @@ namespace codeframe
             ObjectSelectionIterator end()
             {
                 return ObjectSelectionIterator( this, GetNodeCount() );
+            }
+
+            unsigned int size() const
+            {
+                return GetNodeCount();
             }
 
         protected:

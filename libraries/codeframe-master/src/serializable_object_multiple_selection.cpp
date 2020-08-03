@@ -89,7 +89,7 @@ smart_ptr<ObjectNode> ObjectMultipleSelection::GetNode( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-unsigned int ObjectMultipleSelection::GetNodeCount()
+unsigned int ObjectMultipleSelection::GetNodeCount() const
 {
     return m_selection.size();
 }

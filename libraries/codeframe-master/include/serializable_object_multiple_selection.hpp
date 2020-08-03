@@ -26,7 +26,7 @@ namespace codeframe
             smart_ptr<PropertyNode> PropertyFromPath(const std::string& path) override;
 
             smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
-            unsigned int GetNodeCount();
+            unsigned int GetNodeCount() const override;
 
             std::string ObjectName( bool idSuffix = true ) const override;
             std::string PathString() const override;

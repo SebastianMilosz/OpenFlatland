@@ -14,7 +14,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-Wall" />
-					<Add option="-std=c++11" />
+					<Add option="-std=c++14" />
 					<Add option="-m32" />
 					<Add option="-Og" />
 					<Add option="-g" />
@@ -45,7 +45,7 @@
 				<Compiler>
 					<Add option="-O3" />
 					<Add option="-Wall" />
-					<Add option="-std=c++11" />
+					<Add option="-std=c++14" />
 					<Add option="-m32" />
 					<Add option="-DNDEBUG" />
 					<Add directory="include" />
@@ -73,7 +73,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add option="-std=c++11" />
+					<Add option="-std=c++14" />
 					<Add option="-m32" />
 					<Add option="-fopenmp" />
 					<Add directory="include" />
@@ -104,7 +104,7 @@
 				<Option compiler="gcc" />
 				<Option parameters="--durations yes" />
 				<Compiler>
-					<Add option="-std=c++11" />
+					<Add option="-std=c++14" />
 					<Add option="-m32" />
 					<Add option="-Og" />
 					<Add option="-g" />
@@ -127,7 +127,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-std=c++11" />
+			<Add option="-std=c++14" />
 			<Add option="-fexceptions" />
 			<Add option="-pthread" />
 			<Add option="-DSFML_STATIC" />

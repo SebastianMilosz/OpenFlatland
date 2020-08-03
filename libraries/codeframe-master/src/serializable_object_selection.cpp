@@ -81,7 +81,7 @@ smart_ptr<ObjectNode> ObjectSelection::GetNode( unsigned int id )
   * @brief
  **
 ******************************************************************************/
-unsigned int ObjectSelection::GetNodeCount()
+unsigned int ObjectSelection::GetNodeCount() const
 {
     if ( smart_ptr_isValid(m_selection) )
     {

@@ -132,5 +132,13 @@ TEST_CASE( "codeframe library object path", "[codeframe][Object][Path]" )
         REQUIRE( staticContainerObject->Child(2)->Property("Property_float")->GetValue<float>() == 88888U );
         REQUIRE( staticContainerObject->Child(3)->Property("Property_float")->GetValue<float>() == 88888U );
         REQUIRE( staticContainerObject->Child(4)->Property("Property_float")->GetValue<float>() == 88888U );
+
+        staticContainerObject->Script().RunString("CF:GetProperty('testNameStatic/testNameContainerStatic/node[*]/InternalObject.Property_float').Number = 123456");
+
+        REQUIRE( staticContainerObject->Child(0)->GetObjectByName("InternalObject")->Property("Property_float")->GetValue<float>() == 123456U );
+        REQUIRE( staticContainerObject->Child(1)->GetObjectByName("InternalObject")->Property("Property_float")->GetValue<float>() == 123456U );
+        REQUIRE( staticContainerObject->Child(2)->GetObjectByName("InternalObject")->Property("Property_float")->GetValue<float>() == 123456U );
+        REQUIRE( staticContainerObject->Child(3)->GetObjectByName("InternalObject")->Property("Property_float")->GetValue<float>() == 123456U );
+        REQUIRE( staticContainerObject->Child(4)->GetObjectByName("InternalObject")->Property("Property_float")->GetValue<float>() == 123456U );
     }
 }

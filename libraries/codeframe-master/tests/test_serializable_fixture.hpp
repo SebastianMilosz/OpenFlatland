@@ -17,6 +17,30 @@ class classTest_Static : public codeframe::Object
         }
 };
 
+class classTest_SubInternal : public codeframe::Object
+{
+    public:
+        CODEFRAME_META_CLASS_NAME( "classTest_SubInternal" );
+        CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
+
+        codeframe::Property<int> Property1;
+        codeframe::Property<int> Property2;
+        codeframe::Property<int> Property3;
+        codeframe::Property<int> Property4;
+        codeframe::Property<int> Property_rew;
+        codeframe::Property<float> Property_float;
+
+        classTest_SubInternal( const std::string& name, ObjectNode* parent ) : Object( name, parent ),
+            Property1( this, "Property1", 8100U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property1_desc") ),
+            Property2( this, "Property2", 8200U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property2_desc") ),
+            Property3( this, "Property3", 8300U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property3_desc") ),
+            Property4( this, "Property4", 8400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property4_desc") ),
+            Property_rew( this, "Property_rew", 8400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property_rew_desc") ),
+            Property_float( this, "Property_float", 81.2f , cPropertyInfo().Kind( KIND_REAL ).Description("Property_float") )
+        {
+        }
+};
+
 class classTest_Dynamic : public codeframe::Object
 {
     public:
@@ -32,6 +56,8 @@ class classTest_Dynamic : public codeframe::Object
 
         codeframe::Property<int> PropertyLink;
         codeframe::Property<int> PropertyLink_rel;
+
+        classTest_SubInternal InternalObject;
 
     public:
         classTest_Dynamic( const std::string& name, ObjectNode* parent ) :
@@ -53,7 +79,8 @@ class classTest_Dynamic : public codeframe::Object
                 cPropertyInfo().
                     Kind( KIND_NUMBER ).
                     ReferencePath("/../node[0].Property1").
-                    Description("PropertyLink_rel_desc") )
+                    Description("PropertyLink_rel_desc") ),
+            InternalObject("InternalObject", this)
         {
         }
 };
