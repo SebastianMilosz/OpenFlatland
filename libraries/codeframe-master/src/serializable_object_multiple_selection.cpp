@@ -136,6 +136,22 @@ void ObjectMultipleSelection::Add( smart_ptr<ObjectNode> obj )
 
 /*****************************************************************************/
 /**
+  * @brief
+ **
+******************************************************************************/
+void ObjectMultipleSelection::Add( smart_ptr<ObjectSelection> sel )
+{
+    if (smart_ptr_isValid(sel))
+    {
+        for(auto const& selectionValue: *sel)
+        {
+            m_selection.push_back( selectionValue );
+        }
+    }
+}
+
+/*****************************************************************************/
+/**
   * @brief Return parent of object inside selection
   * @note selection can be taken only for objects on the same level of the path
   * thats why parent from any object within selection will be correct

@@ -57,6 +57,12 @@ namespace codeframe
 
             std::string ObjectName( bool idSuffix = true ) const override;
 
+            smart_ptr<ObjectSelection> Parent() const override;
+            smart_ptr<ObjectSelection> Root() override;
+            smart_ptr<ObjectSelection> ObjectFromPath( const std::string& path ) override;
+            smart_ptr<ObjectSelection> GetObjectByName( const std::string& name ) override;
+            smart_ptr<ObjectSelection> GetObjectById( const uint32_t id ) override;
+
             void PulseChanged( bool fullTree = false ) override;
             void CommitChanges() override;
             void Enable( bool val ) override;

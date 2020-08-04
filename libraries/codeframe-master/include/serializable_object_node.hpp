@@ -68,6 +68,12 @@ namespace codeframe
 
             virtual std::string ObjectName( bool idSuffix = true ) const = 0;
 
+            virtual smart_ptr<ObjectSelection> Parent() const = 0;
+            virtual smart_ptr<ObjectSelection> Root() = 0;
+            virtual smart_ptr<ObjectSelection> ObjectFromPath( const std::string& path ) = 0;
+            virtual smart_ptr<ObjectSelection> GetObjectByName( const std::string& name ) = 0;
+            virtual smart_ptr<ObjectSelection> GetObjectById( const uint32_t id ) = 0;
+
             virtual void PulseChanged( bool fullTree = false ) = 0;
             virtual void CommitChanges() = 0;
             virtual void Enable( bool val ) = 0;

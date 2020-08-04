@@ -271,6 +271,56 @@ namespace codeframe
 
     /*****************************************************************************/
     /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::Parent() const
+    {
+        return m_SerializablePath.Parent();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::Root()
+    {
+        return m_SerializablePath.GetRootObject();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::ObjectFromPath( const std::string& path )
+    {
+        return m_SerializablePath.GetObjectFromPath(path);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::GetObjectByName( const std::string& name )
+    {
+        return m_childList.GetObjectByName(name);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    smart_ptr<ObjectSelection> Object::GetObjectById( const uint32_t id )
+    {
+        return Child(id);
+    }
+
+    /*****************************************************************************/
+    /**
       * @brief Zatwierdzenie wszystkich zmian obiektu i jego potomnych
      **
     ******************************************************************************/

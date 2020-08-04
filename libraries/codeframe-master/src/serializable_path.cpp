@@ -176,7 +176,19 @@ namespace codeframe
                     {
                         std::string levelName( pathLink.at(i) );
 
-                        curObjectSelection = curObjectSelection->GetObjectByName(levelName);
+                        if (curObjectSelection->size() > 1U)
+                        {
+                            smart_ptr<ObjectMultipleSelection> newObjectSelection(new ObjectMultipleSelection());
+                            for(auto const& selectionValue: *curObjectSelection)
+                            {
+                                newObjectSelection->Add(selectionValue->GetObjectByName(levelName));
+                            }
+                            curObjectSelection = newObjectSelection;
+                        }
+                        else
+                        {
+                            curObjectSelection = curObjectSelection->GetObjectByName(levelName);
+                        }
 
                         if ( smart_ptr_isValid( curObjectSelection ) == false )
                         {

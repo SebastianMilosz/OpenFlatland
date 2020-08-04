@@ -32,6 +32,7 @@ namespace codeframe
             std::string PathString() const override;
 
             void Add( smart_ptr<ObjectNode> obj );
+            void Add( smart_ptr<ObjectSelection> sel );
 
             smart_ptr<ObjectSelection> Parent() const override;
             smart_ptr<ObjectSelection> Root() override;
