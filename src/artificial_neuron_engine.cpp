@@ -26,9 +26,15 @@ void ArtificialNeuronEngine::Calculate()
 {
     for ( unsigned int n = 0U; n < Count(); n++ )
     {
-        smart_ptr<ObjectNode> serializableObj = Get( n );
+        smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(Get( n ));
 
+        if (smart_ptr_isValid(neuronLayerObj))
+        {
+            neuronLayerObj->ProcessData(m_vectInData, m_vectOutData);
+        }
     }
+
+
 }
 
 /*****************************************************************************/

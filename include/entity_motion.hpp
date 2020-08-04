@@ -16,6 +16,7 @@ class EntityMotion : public PhysicsBody
         codeframe::Property<float> VelocityForward;
         codeframe::Property<float> VelocityRotation;
         codeframe::Property< thrust::host_vector<float> > MotionVector;
+        codeframe::Property<float> EnergyConsumer;
 
         void synchronize( b2Body& body ) override;
 

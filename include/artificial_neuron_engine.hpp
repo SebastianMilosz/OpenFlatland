@@ -27,6 +27,10 @@ class ArtificialNeuronEngine : public codeframe::ObjectContainer
                                                  const std::string& objName,
                                                  const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
                                                 );
+
+    private:
+        thrust::host_vector<float> m_vectInData;
+        thrust::host_vector<float> m_vectOutData;
 };
 
 #endif // ARTIFICIAL_NEURON_ENGINE_HPP_INCLUDED

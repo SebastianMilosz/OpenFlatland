@@ -11,9 +11,10 @@ using namespace codeframe;
 ******************************************************************************/
 EntityMotion::EntityMotion(codeframe::ObjectNode* parent) :
     PhysicsBody("Motion", parent),
-    VelocityForward( this, "VelocityForward"  , 0.0F , cPropertyInfo().Kind(KIND_REAL).Description("VelocityForward") ),
+    VelocityForward ( this, "VelocityForward" , 0.0F , cPropertyInfo().Kind(KIND_REAL).Description("VelocityForward") ),
     VelocityRotation( this, "VelocityRotation", 0.0F , cPropertyInfo().Kind(KIND_REAL).Description("VelocityRotation") ),
-    MotionVector    ( this, "MotionVector"    , thrust::host_vector<float>(), cPropertyInfo().Kind(KIND_VECTOR_THRUST_HOST, KIND_REAL).Description("MotionVector"))
+    MotionVector    ( this, "MotionVector"    , thrust::host_vector<float>(), cPropertyInfo().Kind(KIND_VECTOR_THRUST_HOST, KIND_REAL).Description("MotionVector")),
+    EnergyConsumer  ( this, "EnergyConsumer"  , 0.0F , cPropertyInfo().Kind(KIND_REAL).ReferencePath("../Energy.Energy").Description("EnergyConsumer") )
 {
     //ctor
 }
@@ -40,6 +41,11 @@ void EntityMotion::synchronize(b2Body& body)
 
         m_velocityRotationPrew = velocityRotation;
         m_velocityForwardPrew = velocityForward;
+
+        if ((float)EnergyConsumer > 0.0)
+        {
+            EnergyConsumer = (float)EnergyConsumer - 1.0;
+        }
     }
     else if (std::fabs(m_velocityRotationPrew) > 0.0F || std::fabs(m_velocityForwardPrew) > 0.0F)
     {
