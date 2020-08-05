@@ -38,6 +38,8 @@ void ArtificialNeuronEngine::Calculate()
 ******************************************************************************/
 void ArtificialNeuronEngine::CollectInputs()
 {
+    m_vectInData.clear();
+
     for ( unsigned int n = 0U; n < m_Inputs.Count(); n++ )
     {
         smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_Inputs.Get( n ));

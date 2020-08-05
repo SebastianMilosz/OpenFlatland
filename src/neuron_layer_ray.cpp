@@ -32,7 +32,7 @@ NeuronLayerRay::NeuronLayerRay( const std::string& name, ObjectNode* parent, con
 ******************************************************************************/
 void NeuronLayerRay::ProcessData(thrust::host_vector<float>& vectData)
 {
-    //thrust::host_vector<RayData>& internalVector = Data.GetValue();
+    thrust::host_vector<RayData>& internalVector = Data.GetValue();
 
-    //thrust::for_each(vectData.begin(), vectData.end(), normalize_functor());
+    thrust::for_each(internalVector.begin(), internalVector.end(), normalize_functor(vectData));
 }
