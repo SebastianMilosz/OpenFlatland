@@ -22,7 +22,7 @@ class NeuronLayerRay : public NeuronLayer
 
         codeframe::Property< thrust::host_vector<RayData> > Data;
 
-        void ProcessData(thrust::host_vector<float>& vectInData, thrust::host_vector<float>& vectOutData) override;
+        void ProcessData(thrust::host_vector<float>& vectData) override;
 };
 
 #endif // NEURON_LAYER_RAY_HPP_INCLUDED

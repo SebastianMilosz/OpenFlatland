@@ -22,7 +22,7 @@ class NeuronLayer : public codeframe::Object
                  NeuronLayer( const std::string& name, ObjectNode* parent, const std::string& link );
         virtual ~NeuronLayer() = default;
 
-        virtual void ProcessData(thrust::host_vector<float>& vectInData, thrust::host_vector<float>& vectOutData) = 0;
+        virtual void ProcessData(thrust::host_vector<float>& vectData) = 0;
 };
 
 #endif // NEURON_LAYER_HPP_INCLUDED

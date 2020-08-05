@@ -10,11 +10,13 @@ using namespace codeframe;
  **
 ******************************************************************************/
 ArtificialNeuronEngine::ArtificialNeuronEngine( const std::string& name, ObjectNode* parent ) :
-    ObjectContainer( name, parent )
+    Object( name, parent ),
+    m_Inputs("NeuronInputs", this),
+    m_Outputs("NeuronOutputs", this)
 {
-    Create( "NeuronLayerVector", "InterfaceEnergyLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../Energy.EnergyVector")) );
-    Create( "NeuronLayerRay"   , "InterfaceVisionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../Vision.VisionVector")) );
-    Create( "NeuronLayerVector", "InterfaceMotionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../Motion.MotionVector>")) );
+    m_Inputs.Create ( "NeuronLayerVector", "InterfaceEnergyLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Energy.EnergyVector")) );
+    m_Inputs.Create ( "NeuronLayerRay"   , "InterfaceVisionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Vision.VisionVector")) );
+    m_Outputs.Create( "NeuronLayerVector", "InterfaceMotionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Motion.MotionVector>")) );
 }
 
 /*****************************************************************************/
@@ -24,17 +26,9 @@ ArtificialNeuronEngine::ArtificialNeuronEngine( const std::string& name, ObjectN
 ******************************************************************************/
 void ArtificialNeuronEngine::Calculate()
 {
-    for ( unsigned int n = 0U; n < Count(); n++ )
-    {
-        smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(Get( n ));
+    CollectInputs();
 
-        if (smart_ptr_isValid(neuronLayerObj))
-        {
-            neuronLayerObj->ProcessData(m_vectInData, m_vectOutData);
-        }
-    }
-
-
+    ProcesseOutputs();
 }
 
 /*****************************************************************************/
@@ -42,43 +36,35 @@ void ArtificialNeuronEngine::Calculate()
   * @brief
  **
 ******************************************************************************/
-smart_ptr<codeframe::ObjectSelection> ArtificialNeuronEngine::Create(
-                                                     const std::string& className,
-                                                     const std::string& objName,
-                                                     const std::vector<codeframe::VariantValue>& params
-                                                    )
+void ArtificialNeuronEngine::CollectInputs()
 {
-    std::string link("");
-
-    for ( auto it = params.begin(); it != params.end(); ++it )
+    for ( unsigned int n = 0U; n < m_Inputs.Count(); n++ )
     {
-        if ( it->GetType() == codeframe::TYPE_TEXT )
+        smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_Inputs.Get( n ));
+
+        if (smart_ptr_isValid(neuronLayerObj))
         {
-                 if ( it->IsName( "href" ) )
-            {
-                link = it->ValueString;
-            }
+            neuronLayerObj->ProcessData(m_vectInData);
         }
     }
+}
 
-    if ( className == "NeuronLayerVector" )
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ArtificialNeuronEngine::ProcesseOutputs()
+{
+    for ( unsigned int n = 0U; n < m_Outputs.Count(); n++ )
     {
-        auto obj = smart_ptr<NeuronLayer>( new NeuronLayerVector( objName, this, link ) );
+        smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_Outputs.Get( n ));
 
-        (void)InsertObject( obj );
-
-        return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
+        if (smart_ptr_isValid(neuronLayerObj))
+        {
+            neuronLayerObj->ProcessData(m_vectOutData);
+        }
     }
-    else if ( className == "NeuronLayerRay" )
-    {
-        auto obj = smart_ptr<NeuronLayer>( new NeuronLayerRay( objName, this, link ) );
-
-        (void)InsertObject( obj );
-
-        return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
-    }
-
-    return smart_ptr<codeframe::ObjectSelection>();
 }
 
 /*****************************************************************************/

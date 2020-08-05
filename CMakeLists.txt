@@ -37,6 +37,7 @@ set(OpenFlatland_AppSRC
     src/physics_body.cpp
     src/property_editor_widget.cpp
     src/neuron_layer.cpp
+    src/neuron_layer_container.cpp
     src/neuron_layer_ray.cpp
     src/neuron_layer_vector.cpp
     src/artificial_neuron_engine.cpp

@@ -303,6 +303,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/neuron_layer_container.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/neuron_layer_ray.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -637,6 +642,11 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="src/neuron_layer.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
+		<Unit filename="src/neuron_layer_container.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
 			<Option target="ReleaseMP" />

@@ -33,17 +33,17 @@ void EntityMotion::synchronize(b2Body& body)
 
     if (std::fabs(velocityRotation) > 0.0F || std::fabs(velocityForward) > 0.0F)
     {
-        float  angle(-body.GetAngle());
-        b2Vec2 velocityDirection(std::sin(angle) * velocityForward , std::cos(angle) * velocityForward);
-
-        body.SetLinearVelocity(velocityDirection);
-        body.SetAngularVelocity(velocityRotation * DEGTORAD);
-
-        m_velocityRotationPrew = velocityRotation;
-        m_velocityForwardPrew = velocityForward;
-
         if ((float)EnergyConsumer > 0.0)
         {
+            float  angle(-body.GetAngle());
+            b2Vec2 velocityDirection(std::sin(angle) * velocityForward , std::cos(angle) * velocityForward);
+
+            body.SetLinearVelocity(velocityDirection);
+            body.SetAngularVelocity(velocityRotation * DEGTORAD);
+
+            m_velocityRotationPrew = velocityRotation;
+            m_velocityForwardPrew = velocityForward;
+
             EnergyConsumer = (float)EnergyConsumer - 1.0;
         }
     }

@@ -30,7 +30,7 @@ NeuronLayerVector::NeuronLayerVector( const std::string& name, ObjectNode* paren
   * @brief
  **
 ******************************************************************************/
-void NeuronLayerVector::ProcessData(thrust::host_vector<float>& vectInData, thrust::host_vector<float>& vectOutData)
+void NeuronLayerVector::ProcessData(thrust::host_vector<float>& vectData)
 {
 
 }
