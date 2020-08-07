@@ -38,6 +38,13 @@ NeuronLayerVector::NeuronLayerVector( const std::string& name, ObjectNode* paren
 ******************************************************************************/
 void NeuronLayerVector::ProcessData(thrust::host_vector<float>& vectData)
 {
+    float tmpMax = std::numeric_limits<float>::min();
+    float tmpMin = std::numeric_limits<float>::max();
+
     thrust::host_vector<float>& internalVector = Data.GetValue();
-    thrust::for_each(internalVector.begin(), internalVector.end(), normalize_functor(vectData));
+    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor(vectData, tmpMax, tmpMin));
+    thrust::for_each(vectData.begin()      , vectData.end()      , normalize_functor(tmpMax, tmpMin));
+
+    m_Max = tmpMax;
+    m_Min = tmpMin;
 }

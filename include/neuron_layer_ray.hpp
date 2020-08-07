@@ -38,10 +38,10 @@ class NeuronLayerRay : public NeuronLayer
         float m_MinFixture;
         float m_EvgFixture;
 
-        struct normalize_functor
+        struct copy_functor
         {
             public:
-                normalize_functor(thrust::host_vector<float>& vect, float& max, float& min) :
+                copy_functor(thrust::host_vector<float>& vect, float& max, float& min) :
                     m_vect(vect),
                     m_Max(max),
                     m_Min(min)

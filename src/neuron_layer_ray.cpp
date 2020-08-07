@@ -45,6 +45,14 @@ NeuronLayerRay::NeuronLayerRay( const std::string& name, ObjectNode* parent, con
 ******************************************************************************/
 void NeuronLayerRay::ProcessData(thrust::host_vector<float>& vectData)
 {
+    float tmpMaxDistance = std::numeric_limits<float>::min();
+    float tmpMinDistance = std::numeric_limits<float>::max();
+
     thrust::host_vector<RayData>& internalVector = Data.GetValue();
-    thrust::for_each(internalVector.begin(), internalVector.end(), normalize_functor(vectData, m_MaxDistance, m_MinDistance));
+    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor     (vectData, tmpMaxDistance, tmpMinDistance));
+    thrust::for_each(vectData.begin()      , vectData.end()      , normalize_functor(tmpMaxDistance, tmpMinDistance));
+
+    m_MaxDistance = tmpMaxDistance;
+    m_MinDistance = tmpMinDistance;
+    m_EvgDistance = (tmpMaxDistance - tmpMinDistance)/2.0f;
 }

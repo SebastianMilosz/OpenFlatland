@@ -23,6 +23,26 @@ class NeuronLayer : public codeframe::Object
         virtual ~NeuronLayer() = default;
 
         virtual void ProcessData(thrust::host_vector<float>& vectData) = 0;
+
+    protected:
+        struct normalize_functor
+        {
+            public:
+                normalize_functor(float& max, float& min) :
+                    m_Max(max),
+                    m_Min(min)
+                {
+                }
+
+                __device__ __host__ void operator()(float& refData)
+                {
+
+                }
+
+            private:
+                float& m_Max;
+                float& m_Min;
+        };
 };
 
 #endif // NEURON_LAYER_HPP_INCLUDED

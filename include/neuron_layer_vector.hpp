@@ -31,11 +31,13 @@ class NeuronLayerVector : public NeuronLayer
         float m_Min;
         float m_Evg;
 
-        struct normalize_functor
+        struct copy_functor
         {
             public:
-                normalize_functor(thrust::host_vector<float>& vect) :
-                    m_vect(vect)
+                copy_functor(thrust::host_vector<float>& vect, float& max, float& min) :
+                    m_vect(vect),
+                    m_Max(max),
+                    m_Min(min)
                 {
                 }
 
@@ -46,6 +48,8 @@ class NeuronLayerVector : public NeuronLayer
 
             private:
                 thrust::host_vector<float>& m_vect;
+                float& m_Max;
+                float& m_Min;
         };
 };
 
