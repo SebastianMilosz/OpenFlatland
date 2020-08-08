@@ -22,14 +22,12 @@ class NeuronLayerVector : public NeuronLayer
         codeframe::Property< thrust::host_vector<float> > Data;
         codeframe::Property<float> Max;
         codeframe::Property<float> Min;
-        codeframe::Property<float> Evg;
 
         void ProcessData(thrust::host_vector<float>& vectData) override;
 
     private:
         float m_Max;
         float m_Min;
-        float m_Evg;
 
         struct copy_functor
         {
