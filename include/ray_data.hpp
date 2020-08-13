@@ -8,7 +8,7 @@
 struct RayData
 {
     RayData();
-    RayData(const float distance, const uint32_t fixture);
+    RayData(const float distance, const uint32_t fixture = 0U);
 
     bool operator==(const RayData& rval) const
     {

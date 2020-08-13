@@ -36,8 +36,7 @@ class NeuronLayer : public codeframe::Object
 
                 __device__ __host__ void operator()(float& refData)
                 {
-                    float out = refData;
-                    refData = (out - m_Min) / (m_Max-m_Min);
+                    refData = (float)((float)(refData - m_Min) / (float)(m_Max-m_Min));
                 }
 
             private:

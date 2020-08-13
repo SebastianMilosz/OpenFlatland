@@ -16,6 +16,40 @@ namespace codeframe
 {
     class Object;
 
+    template <typename PROPERTY_TYPE>
+    struct PropertyIndex
+    {
+        friend class Property<PROPERTY_TYPE>;
+
+        public:
+            PropertyIndex& operator=( std::size_t val )
+            {
+                m_index = val;
+                return *this;
+            }
+
+            operator std::size_t() const
+            {
+                return m_index;
+            }
+
+        private:
+            PropertyIndex(Property<PROPERTY_TYPE>& prop) :
+                m_index(0U),
+                m_prop(prop)
+                {
+
+                }
+            PropertyIndex(Property<PROPERTY_TYPE>& prop, std::size_t index) :
+                m_index(index),
+                m_prop(prop)
+                {
+                }
+
+            std::size_t m_index = 0U;
+            Property<PROPERTY_TYPE>& m_prop;
+    };
+
     /*****************************************************************************
      * @class Property
      *****************************************************************************/
@@ -32,6 +66,7 @@ namespace codeframe
                       std::function<PROPERTY_TYPE&()> getValueFunc = nullptr
                      ) : PropertyBase( parentpc, name, GetTypeInfo<PROPERTY_TYPE>().GetTypeCode(), info ),
                      m_baseValue(val),
+                     m_Index(*this, 0U),
                      m_GetConstValueFunction(getConstValueFunc),
                      m_GetValueFunction(getValueFunc),
                      m_SetValueFunction(setValueFunc)
@@ -42,6 +77,11 @@ namespace codeframe
             virtual ~Property()
             {
 
+            }
+
+            PropertyIndex<PROPERTY_TYPE>& Index()
+            {
+                return m_Index;
             }
 
             const PROPERTY_TYPE& GetConstValue() const
@@ -58,6 +98,10 @@ namespace codeframe
                 if ( m_GetConstValueFunction )
                 {
                     return m_GetConstValueFunction();
+                }
+                else if ( m_GetValueFunction )
+                {
+                    return m_GetValueFunction();
                 }
                 return m_baseValue;
             }
@@ -86,7 +130,8 @@ namespace codeframe
             }
 
             // Copy operator
-            Property( const Property& sval ) : PropertyBase( sval )
+            Property( const Property& sval ) : PropertyBase( sval ),
+                m_Index(*this, sval.m_Index.m_index)
             {
                 // Values
                 m_baseValue = sval.GetConstValue();
@@ -694,6 +739,8 @@ namespace codeframe
         private:
             PROPERTY_TYPE m_baseValue;
             PROPERTY_TYPE m_baseValuePrew;
+
+            PropertyIndex<PROPERTY_TYPE> m_Index;
 
             std::function<const PROPERTY_TYPE&()> m_GetConstValueFunction;
             std::function<PROPERTY_TYPE&()>       m_GetValueFunction;

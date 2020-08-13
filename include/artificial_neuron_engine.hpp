@@ -16,6 +16,9 @@ class ArtificialNeuronEngine : public codeframe::Object
                  ArtificialNeuronEngine( const std::string& name, ObjectNode* parent );
         virtual ~ArtificialNeuronEngine() = default;
 
+        codeframe::Property< thrust::host_vector<float> > Input;
+        codeframe::Property< thrust::host_vector<float> > Output;
+
         void Calculate();
 
         void OnWeightDimensionsVectorChanged( codeframe::PropertyNode* prop );
