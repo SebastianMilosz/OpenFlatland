@@ -142,7 +142,7 @@ class GUIWidgetsLayer
         void AddGuiRegion( int x, int y, int w, int h );
 
         bool MouseOnGui();
-        bool HandleEvent( sf::Event& event );
+        void HandleEvent( sf::Event& event );
         void Draw();
 
         void        SetMouseModeString( std::string mode );

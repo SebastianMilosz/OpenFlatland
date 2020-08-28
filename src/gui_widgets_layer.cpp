@@ -121,10 +121,9 @@ bool GUIWidgetsLayer::MouseOnGui()
   * @brief
  **
 ******************************************************************************/
-bool GUIWidgetsLayer::HandleEvent( sf::Event& event )
+void GUIWidgetsLayer::HandleEvent( sf::Event& event )
 {
     ImGui::SFML::ProcessEvent( event );
-    return true;
 }
 
 /*****************************************************************************/

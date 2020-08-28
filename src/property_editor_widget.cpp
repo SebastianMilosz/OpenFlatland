@@ -43,17 +43,7 @@ InputControlCreate(const std::string& name, const ValueType& valueBase, const bo
 {
     ImGuiDisabled disableGui(readOnly);
     int value = static_cast<int>(valueBase);
-    if (readOnly)
-    {
-        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-    }
     ImGui::InputInt(name.c_str(), &value, 1U);
-    if (readOnly)
-    {
-        ImGui::PopItemFlag();
-        ImGui::PopStyleVar();
-    }
     return value;
 }
 
@@ -68,17 +58,7 @@ InputControlCreate(const std::string& name, const ValueType& valueBase, const bo
 {
     ImGuiDisabled disableGui(readOnly);
     float value = static_cast<float>(valueBase);
-    if (readOnly)
-    {
-        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-    }
     ImGui::InputFloat(name.c_str(), &value, 0.1f);
-    if (readOnly)
-    {
-        ImGui::PopItemFlag();
-        ImGui::PopStyleVar();
-    }
     return value;
 }
 
@@ -93,17 +73,7 @@ InputControlCreate(const std::string& name, const ValueType& valueBase, const bo
 {
     ImGuiDisabled disableGui(readOnly);
     float value = valueBase.Distance;
-    if (readOnly)
-    {
-        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-    }
     ImGui::InputFloat(name.c_str(), &value, 0.1f);
-    if (readOnly)
-    {
-        ImGui::PopItemFlag();
-        ImGui::PopStyleVar();
-    }
     return value;
 }
 
@@ -114,18 +84,8 @@ InputControlCreate(const std::string& name, const ValueType& valueBase, const bo
 ******************************************************************************/
 inline bool_t ButtonCreate(const std::string& name, const bool_t readOnly)
 {
-    if (readOnly)
-    {
-        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-    }
-    bool_t retValue = ImGui::Button(name.c_str());
-    if (readOnly)
-    {
-        ImGui::PopItemFlag();
-        ImGui::PopStyleVar();
-    }
-    return retValue;
+    ImGuiDisabled disableGui(readOnly);
+    return ImGui::Button(name.c_str());
 }
 
 /*****************************************************************************/
