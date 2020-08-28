@@ -164,13 +164,13 @@ class GUIWidgetsLayer
         sf::Clock         m_deltaClock;
 
         GuiDataStorage m_GuiConsoleDataStorage;
-        int            m_MouseMode;
-        bool           m_mouseCapturedByGui;
-        bool           m_ConsoleWidgetOpen;
-        bool           m_PropertyEditorOpen;
-        bool           m_AnnViewerWidgetOpen;
-        bool           m_VisionViewerWidgetOpen;
-        bool           m_InformationWidgetOpen;
+        int            m_MouseMode = 0;
+        bool           m_mouseCapturedByGui = false;
+        bool           m_ConsoleWidgetOpen = false;
+        bool           m_PropertyEditorOpen = false;
+        bool           m_AnnViewerWidgetOpen = false;
+        bool           m_VisionViewerWidgetOpen = false;
+        bool           m_InformationWidgetOpen = false;
 
         std::vector< sf::Rect<int> > m_guiRegions;
 

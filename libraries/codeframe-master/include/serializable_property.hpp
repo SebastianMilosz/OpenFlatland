@@ -124,6 +124,18 @@ namespace codeframe
                 return m_baseValue;
             }
 
+            constexpr bool_t IsValueReadOnly() const
+            {
+                if ( m_GetValueFunction == false )
+                {
+                    if ( m_GetConstValueFunction )
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             PROPERTY_TYPE& GetBaseValue()
             {
                 return m_baseValue;

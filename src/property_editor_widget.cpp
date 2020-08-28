@@ -7,6 +7,31 @@
 
 using namespace codeframe;
 
+class ImGuiDisabled
+{
+    public:
+        ImGuiDisabled(const bool_t disabled = false) :
+            m_disabled(disabled)
+        {
+            if (m_disabled)
+            {
+                ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+                ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+            }
+        }
+
+        ~ImGuiDisabled()
+        {
+            if (m_disabled)
+            {
+                ImGui::PopItemFlag();
+                ImGui::PopStyleVar();
+            }
+        }
+    private:
+        const bool_t m_disabled;
+};
+
 /*****************************************************************************/
 /**
   * @brief
@@ -14,10 +39,21 @@ using namespace codeframe;
 ******************************************************************************/
 template<typename ValueType>
 inline typename std::enable_if< std::is_integral< ValueType >::value, ValueType >::type
-InputControlCreate(const std::string& name, const ValueType& valueBase)
+InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly)
 {
+    ImGuiDisabled disableGui(readOnly);
     int value = static_cast<int>(valueBase);
+    if (readOnly)
+    {
+        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+    }
     ImGui::InputInt(name.c_str(), &value, 1U);
+    if (readOnly)
+    {
+        ImGui::PopItemFlag();
+        ImGui::PopStyleVar();
+    }
     return value;
 }
 
@@ -28,10 +64,21 @@ InputControlCreate(const std::string& name, const ValueType& valueBase)
 ******************************************************************************/
 template<typename ValueType>
 inline typename std::enable_if< std::is_floating_point< ValueType >::value, ValueType >::type
-InputControlCreate(const std::string& name, const ValueType& valueBase)
+InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly)
 {
+    ImGuiDisabled disableGui(readOnly);
     float value = static_cast<float>(valueBase);
+    if (readOnly)
+    {
+        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+    }
     ImGui::InputFloat(name.c_str(), &value, 0.1f);
+    if (readOnly)
+    {
+        ImGui::PopItemFlag();
+        ImGui::PopStyleVar();
+    }
     return value;
 }
 
@@ -42,11 +89,43 @@ InputControlCreate(const std::string& name, const ValueType& valueBase)
 ******************************************************************************/
 template<typename ValueType>
 inline typename std::enable_if< std::is_class< ValueType >::value, ValueType >::type
-InputControlCreate(const std::string& name, const ValueType& valueBase)
+InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly)
 {
+    ImGuiDisabled disableGui(readOnly);
     float value = valueBase.Distance;
+    if (readOnly)
+    {
+        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+    }
     ImGui::InputFloat(name.c_str(), &value, 0.1f);
+    if (readOnly)
+    {
+        ImGui::PopItemFlag();
+        ImGui::PopStyleVar();
+    }
     return value;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+inline bool_t ButtonCreate(const std::string& name, const bool_t readOnly)
+{
+    if (readOnly)
+    {
+        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+    }
+    bool_t retValue = ImGui::Button(name.c_str());
+    if (readOnly)
+    {
+        ImGui::PopItemFlag();
+        ImGui::PopStyleVar();
+    }
+    return retValue;
 }
 
 /*****************************************************************************/
@@ -57,67 +136,64 @@ InputControlCreate(const std::string& name, const ValueType& valueBase)
 template<template<typename, typename> class ContainerType, typename ValueType, typename Allocator=std::allocator<ValueType>>
 void ImgVectorEditor(codeframe::Property<ContainerType<ValueType, Allocator>>& propertyVectorObject)
 {
-    ContainerType<ValueType, Allocator>& internalVector = propertyVectorObject.GetValue();
+    auto& internalVector            = propertyVectorObject.GetValue();
+    const auto& internalConstVector = propertyVectorObject.GetConstValue();
+    bool_t readOnly = propertyVectorObject.IsValueReadOnly();
 
     ValueType value(0);
     ValueType valuePrew(0);
     size_t index = propertyVectorObject.Index();
     size_t indexPrew = 0;
-    std::string vectorSizeIndexText = std::string("/") + std::to_string(internalVector.size()) + std::string(")");
+    std::string vectorSizeIndexText = std::string("/") + std::to_string(internalConstVector.size()) + std::string(")");
     volatile ImVec2 vectorSizeIndexTextSize = ImGui::CalcTextSize(vectorSizeIndexText.c_str());
     float width = ImGui::GetColumnWidth() - 128.0F - vectorSizeIndexTextSize.x;
     vectorSizeIndexText +=  std::string("##thrust_vector_index");
 
-    if (internalVector.size() == 0U)
+    if (internalConstVector.size() > 0U)
     {
-        ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-    }
-
-    if (internalVector.size() > 0U)
-    {
-        if (index >= internalVector.size())
+        if (index >= internalConstVector.size())
         {
-            index = internalVector.size() - 1U;
+            index = internalConstVector.size() - 1U;
         }
-        value = valuePrew = internalVector[index];
+        value = valuePrew = internalConstVector[index];
         indexPrew = index;
         ImGui::PushItemWidth(width * 0.6F);
-        value = InputControlCreate<ValueType>("=thrust(", value); ImGui::SameLine();
+        value = InputControlCreate<ValueType>("=thrust(", value, readOnly); ImGui::SameLine();
         ImGui::PopItemWidth();
+
         ImGui::PushItemWidth(width * 0.4F);
-        ImGui::InputInt(vectorSizeIndexText.c_str(), reinterpret_cast<int*>(&index), 1); ImGui::SameLine();
+        index = InputControlCreate(vectorSizeIndexText.c_str(), index, false); ImGui::SameLine();
         ImGui::PopItemWidth();
-        internalVector[indexPrew] = value;
-        if (ImGui::Button("-"))
+
+        if (readOnly == false)
+        {
+            if (valuePrew != value)
+            {
+                internalVector[indexPrew] = value;
+                propertyVectorObject.PulseChanged();
+            }
+        }
+
+        if (ButtonCreate("-", readOnly))
         {
             internalVector.erase(internalVector.begin() + index);
             propertyVectorObject.PulseChanged();
         }
+
         ImGui::SameLine();
-
-        if (indexPrew != index)
-        {
-            propertyVectorObject.Index() = index;
-        }
-
-        if (valuePrew != value)
-        {
-            propertyVectorObject.PulseChanged();
-        }
     }
 
-    if (internalVector.size() == 0U)
+    if (indexPrew != index)
     {
-        ImGui::PopItemFlag();
-        ImGui::PopStyleVar();
+        propertyVectorObject.Index() = index;
     }
 
-    if (ImGui::Button("+"))
+    if (ButtonCreate("+", readOnly))
     {
         internalVector.insert(internalVector.begin() + index, value);
         propertyVectorObject.PulseChanged();
     }
+
     ImGui::SameLine();
 }
 
