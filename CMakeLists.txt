@@ -36,6 +36,7 @@ set(OpenFlatland_AppSRC
     src/performance_logger.cpp
     src/physics_body.cpp
     src/property_editor_widget.cpp
+    src/neuron_cell_pooll.cpp
     src/neuron_layer.cpp
     src/neuron_layer_container.cpp
     src/neuron_layer_ray.cpp
