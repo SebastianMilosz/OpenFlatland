@@ -17,6 +17,12 @@ class NeuronLayerRay : public NeuronLayer
     CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
+        enum class Layer
+        {
+            LAYER_DISTANCE = 0U,
+            LAYER_FIXTURE = 1U
+        };
+
                  NeuronLayerRay( const std::string& name, ObjectNode* parent, const std::string& link );
         virtual ~NeuronLayerRay() = default;
 
@@ -34,43 +40,52 @@ class NeuronLayerRay : public NeuronLayer
         float m_MaxFixture;
         float m_MinFixture;
 
-        template<unsigned int LAYER>
+        template<Layer LAYER>
         struct copy_functor
         {
             public:
-                copy_functor(thrust::host_vector<float>& vect, unsigned int layer, float& max, float& min) :
+                copy_functor(thrust::host_vector<float>& vect, float& max, float& min) :
                     m_vect(vect),
                     m_Max(max),
-                    m_Min(min),
-                    m_layer(layer)
+                    m_Min(min)
                 {
                 }
 
-                __device__ __host__ void operator()(RayData& refData)
-                {
-                    float value = 0.0f;
-
-                    if (m_layer == 0U)
-                    {
-                        value = refData.Distance;
-                    }
-                    else
-                    {
-                        value = refData.Fixture;
-                    }
-
-                    m_Min = std::fmin(m_Min,value);
-                    m_Max = std::fmax(m_Max,value);
-
-                    m_vect.push_back(value);
-                }
+                __device__ __host__ void operator()(RayData& refData);
 
             private:
                 thrust::host_vector<float>& m_vect;
                 float& m_Max;
                 float& m_Min;
-                unsigned int m_layer;
         };
+};
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+__device__ __host__ inline void NeuronLayerRay::copy_functor<NeuronLayerRay::Layer::LAYER_DISTANCE>::operator()(RayData& refData)
+{
+    m_Min = std::fmin(m_Min,refData.Distance);
+    m_Max = std::fmax(m_Max,refData.Distance);
+
+    m_vect.push_back(refData.Distance);
+};
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+__device__ __host__ inline void NeuronLayerRay::copy_functor<NeuronLayerRay::Layer::LAYER_FIXTURE>::operator()(RayData& refData)
+{
+    m_Min = std::fmin(m_Min,refData.Fixture);
+    m_Max = std::fmax(m_Max,refData.Fixture);
+
+    m_vect.push_back(refData.Fixture);
 };
 
 #endif // NEURON_LAYER_RAY_HPP_INCLUDED

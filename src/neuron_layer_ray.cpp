@@ -52,11 +52,11 @@ void NeuronLayerRay::ProcessData(thrust::host_vector<float>& vectData)
     auto normalizeBegin = std::distance(vectData.begin(), vectData.end());
 
     thrust::host_vector<RayData>& internalVector = Data.GetValue();
-    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor<0U>(vectData, 0U, tmpMaxDistance, tmpMinDistance));
+    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor<Layer::LAYER_DISTANCE>(vectData, tmpMaxDistance, tmpMinDistance));
     thrust::for_each(std::next(vectData.begin(), normalizeBegin), vectData.end(), normalize_functor(tmpMaxDistance, tmpMinDistance));
 
     normalizeBegin = std::distance(vectData.begin(), vectData.end());
-    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor<1U>(vectData, 1U, tmpMaxFixture, tmpMinFixture));
+    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor<Layer::LAYER_FIXTURE>(vectData, tmpMaxFixture, tmpMinFixture));
     thrust::for_each(std::next(vectData.begin(), normalizeBegin), vectData.end(), normalize_functor(tmpMaxFixture, tmpMinFixture));
 
     m_MaxDistance = tmpMaxDistance;
