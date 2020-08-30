@@ -3,9 +3,6 @@
 #include <utilities/MathUtilities.h>
 #include <utilities/LoggerUtilities.h>
 
-#include <thrust/extrema.h>
-#include <thrust/pair.h>
-
 #include <iostream>
 #include <random>
 #include <chrono>

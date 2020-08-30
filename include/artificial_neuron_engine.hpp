@@ -6,6 +6,7 @@
 #include <serializable_object.hpp>
 
 #include "neuron_layer_container.hpp"
+#include "neuron_cell_pool.hpp"
 
 class ArtificialNeuronEngine : public codeframe::Object
 {
@@ -26,6 +27,8 @@ class ArtificialNeuronEngine : public codeframe::Object
     protected:
         NeuronLayerContainer m_Inputs;
         NeuronLayerContainer m_Outputs;
+
+        NeuronCellPool m_NeuronCellPool;
 
         virtual void CollectInputs();
         virtual void ProcesseOutputs();
