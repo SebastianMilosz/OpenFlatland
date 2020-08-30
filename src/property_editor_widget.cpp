@@ -58,7 +58,7 @@ InputControlCreate(const std::string& name, const ValueType& valueBase, const bo
 {
     ImGuiDisabled disableGui(readOnly);
     float value = static_cast<float>(valueBase);
-    ImGui::InputFloat(name.c_str(), &value, 0.1f);
+    ImGui::InputFloat(name.c_str(), &value, 0.1f, 0.1f, "%.2E");
     return value;
 }
 

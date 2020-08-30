@@ -34,6 +34,7 @@ class NeuronLayerRay : public NeuronLayer
         float m_MaxFixture;
         float m_MinFixture;
 
+        template<unsigned int LAYER>
         struct copy_functor
         {
             public:
@@ -58,14 +59,9 @@ class NeuronLayerRay : public NeuronLayer
                         value = refData.Fixture;
                     }
 
-                    if (value > m_Max)
-                    {
-                        m_Max = value;
-                    }
-                    else if (value < m_Min)
-                    {
-                        m_Min = value;
-                    }
+                    m_Min = std::fmin(m_Min,value);
+                    m_Max = std::fmax(m_Max,value);
+
                     m_vect.push_back(value);
                 }
 

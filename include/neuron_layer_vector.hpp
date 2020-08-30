@@ -41,6 +41,8 @@ class NeuronLayerVector : public NeuronLayer
 
                 __device__ __host__ void operator()(float& refData)
                 {
+                    m_Min = std::fmin(m_Min,refData);
+                    m_Max = std::fmax(m_Max,refData);
                     m_vect.push_back(refData);
                 }
 

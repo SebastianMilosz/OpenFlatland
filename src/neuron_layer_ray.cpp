@@ -3,6 +3,9 @@
 #include <utilities/MathUtilities.h>
 #include <utilities/LoggerUtilities.h>
 
+#include <thrust/extrema.h>
+#include <thrust/pair.h>
+
 #include <iostream>
 #include <random>
 #include <chrono>
@@ -46,15 +49,15 @@ void NeuronLayerRay::ProcessData(thrust::host_vector<float>& vectData)
     float tmpMaxFixture  = std::numeric_limits<float>::min();
     float tmpMinFixture  = std::numeric_limits<float>::max();
 
-    unsigned int baseIndex = std::distance(vectData.begin(), vectData.end());
+    auto normalizeBegin = std::distance(vectData.begin(), vectData.end());
 
     thrust::host_vector<RayData>& internalVector = Data.GetValue();
-    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor(vectData, 0U, tmpMaxDistance, tmpMinDistance));
-    thrust::for_each(std::next(vectData.begin(), baseIndex), vectData.end(), normalize_functor(tmpMaxDistance, tmpMinDistance));
+    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor<0U>(vectData, 0U, tmpMaxDistance, tmpMinDistance));
+    thrust::for_each(std::next(vectData.begin(), normalizeBegin), vectData.end(), normalize_functor(tmpMaxDistance, tmpMinDistance));
 
-    baseIndex = std::distance(vectData.begin(), vectData.end());
-    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor(vectData, 1U, tmpMaxFixture, tmpMinFixture));
-    thrust::for_each(std::next(vectData.begin(), baseIndex), vectData.end(), normalize_functor(tmpMaxFixture, tmpMinFixture));
+    normalizeBegin = std::distance(vectData.begin(), vectData.end());
+    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor<1U>(vectData, 1U, tmpMaxFixture, tmpMinFixture));
+    thrust::for_each(std::next(vectData.begin(), normalizeBegin), vectData.end(), normalize_functor(tmpMaxFixture, tmpMinFixture));
 
     m_MaxDistance = tmpMaxDistance;
     m_MinDistance = tmpMinDistance;

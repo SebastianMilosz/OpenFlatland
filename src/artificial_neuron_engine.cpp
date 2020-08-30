@@ -60,6 +60,8 @@ void ArtificialNeuronEngine::CollectInputs()
 ******************************************************************************/
 void ArtificialNeuronEngine::ProcesseOutputs()
 {
+    m_vectOutData.clear();
+
     for ( unsigned int n = 0U; n < m_Outputs.Count(); n++ )
     {
         smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_Outputs.Get( n ));
