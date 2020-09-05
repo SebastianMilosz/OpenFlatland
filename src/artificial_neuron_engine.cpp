@@ -11,13 +11,15 @@ using namespace codeframe;
 ******************************************************************************/
 ArtificialNeuronEngine::ArtificialNeuronEngine( const std::string& name, ObjectNode* parent ) :
     Object( name, parent ),
-    CellPoolSize              (this, "CellPoolSize"              , 100U                           , cPropertyInfo().Kind( KIND_NUMBER ).Description("CellPoolSize")),
-    Input                     (this, "Input"                     , thrust::host_vector<float>()   , cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Input") , [this]() -> const thrust::host_vector<float>& { return this->m_vectInData; }),
-    Output                    (this, "Output"                    , thrust::host_vector<float>()   , cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Output"), [this]() -> const thrust::host_vector<float>& { return this->m_vectOutData; }),
+    CellPoolSize              (this, "CellPoolSize", 100U                        , cPropertyInfo().Kind( KIND_NUMBER ).Description("CellPoolSize")),
+    Input                     (this, "Input"       , thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Input") , [this]() -> const thrust::host_vector<float>& { return this->m_vectInData; }),
+    Output                    (this, "Output"      , thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Output"), [this]() -> const thrust::host_vector<float>& { return this->m_vectOutData; }),
     m_Inputs("NeuronInputs", this),
     m_Outputs("NeuronOutputs", this),
     m_NeuronCellPool("NeuronCellPool", this)
 {
+    CellPoolSize.signalChanged.connect( this, &ArtificialNeuronEngine::OnCellPoolSize );
+
     m_Inputs.Create ( "NeuronLayerVector", "InterfaceEnergyLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Energy.EnergyVector")) );
     m_Inputs.Create ( "NeuronLayerRay"   , "InterfaceVisionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Vision.VisionVector")) );
     m_Outputs.Create( "NeuronLayerVector", "InterfaceMotionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Motion.MotionVector>")) );
@@ -36,6 +38,16 @@ void ArtificialNeuronEngine::Calculate()
     m_NeuronCellPool.Populate();
 
     ProcesseOutputs();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void ArtificialNeuronEngine::OnCellPoolSize(codeframe::PropertyNode* prop)
+{
+    m_NeuronCellPool.Initialize(static_cast<unsigned int>(*prop));
 }
 
 /*****************************************************************************/

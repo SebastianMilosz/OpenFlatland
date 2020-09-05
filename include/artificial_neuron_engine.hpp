@@ -23,6 +23,8 @@ class ArtificialNeuronEngine : public codeframe::Object
 
         void Calculate();
 
+        void OnCellPoolSize(codeframe::PropertyNode* prop);
+
     protected:
         NeuronLayerContainer m_Inputs;
         NeuronLayerContainer m_Outputs;

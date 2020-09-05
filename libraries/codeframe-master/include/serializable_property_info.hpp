@@ -46,6 +46,12 @@ namespace codeframe
         XMLMODE_RW = 0x03
     };
 
+    enum eGUIMode
+    {
+        GUIMODE_NON = 0x00,
+        GUIMODE_DISABLED = 0x01,
+    };
+
     /*****************************************************************************
     * @class cPropertyInfo
     * @brief cPropertyInfo(this).Config1(a).Config2(b)
@@ -74,6 +80,7 @@ namespace codeframe
             cPropertyInfo& Max          ( int max );
             cPropertyInfo& Enable       ( int state );
             cPropertyInfo& XMLMode      ( eXMLMode mode );
+            cPropertyInfo& GUIMode      ( eGUIMode mode );
 
             // Accessors
             cRegister&         GetRegister();
@@ -86,6 +93,7 @@ namespace codeframe
             int                GetMin() const;
             int                GetMax() const;
             bool               GetEnable() const;
+            bool               GetGuiEnable() const;
 
             // Operators
             cPropertyInfo& operator=(cPropertyInfo val);
@@ -104,6 +112,7 @@ namespace codeframe
             bool                    m_enable;
             cRegister               m_register;
             eXMLMode                m_xmlmode;
+            eGUIMode                m_guimode;
             ReferenceManager        m_refmgr;
             PropertyBase*           m_serializableProperty;
     };
@@ -206,6 +215,16 @@ namespace codeframe
     inline bool cPropertyInfo::GetEnable() const
     {
         return m_enable;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline bool cPropertyInfo::GetGuiEnable() const
+    {
+        return (m_guimode & GUIMODE_DISABLED);
     }
 }
 

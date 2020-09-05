@@ -98,7 +98,7 @@ void ImgVectorEditor(codeframe::Property<ContainerType<ValueType, Allocator>>& p
 {
     auto& internalVector            = propertyVectorObject.GetValue();
     const auto& internalConstVector = propertyVectorObject.GetConstValue();
-    bool_t readOnly = propertyVectorObject.IsValueReadOnly();
+    bool_t readOnly = propertyVectorObject.IsValueReadOnly() || propertyVectorObject.Info().GetGuiEnable();
 
     ValueType value(0);
     ValueType valuePrew(0);

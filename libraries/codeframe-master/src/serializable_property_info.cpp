@@ -13,6 +13,7 @@ void cPropertyInfo::Init()
     m_kind[0U]      = KIND_NON;
     m_kind[1U]      = KIND_NON;
     m_xmlmode       = XMLMODE_RW;
+    m_guimode       = GUIMODE_NON;
     m_eventEnable   = true;
     m_min           = INT_MIN;
     m_max           = INT_MAX;
@@ -45,6 +46,7 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval) :
     m_enable(sval.m_enable) ,
     m_register(sval.m_register),
     m_xmlmode(sval.m_xmlmode),
+    m_guimode(sval.m_guimode),
     m_refmgr(sval.m_refmgr),
     m_serializableProperty(sval.m_serializableProperty)
 {
@@ -66,6 +68,7 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval, PropertyBase* serializab
     m_enable(sval.m_enable) ,
     m_register(sval.m_register),
     m_xmlmode(sval.m_xmlmode),
+    m_guimode(sval.m_guimode),
     m_refmgr(sval.m_refmgr),
     m_serializableProperty( serializableProperty )
 {
@@ -196,12 +199,24 @@ cPropertyInfo& cPropertyInfo::XMLMode( eXMLMode mode )
   * @brief
  **
 ******************************************************************************/
+cPropertyInfo& cPropertyInfo::GUIMode( eGUIMode mode )
+{
+    m_guimode = mode;
+    return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 cPropertyInfo& cPropertyInfo::operator=(cPropertyInfo val)
 {
     m_description           = val.m_description;
     m_kind[0U]              = val.m_kind[0U];
     m_kind[1U]              = val.m_kind[1U];
     m_xmlmode               = val.m_xmlmode;
+    m_guimode               = val.m_guimode;
     m_enumArray	            = val.m_enumArray;
     m_register              = val.m_register;
     m_eventEnable           = val.m_eventEnable;

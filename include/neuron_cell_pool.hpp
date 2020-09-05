@@ -54,20 +54,9 @@ class NeuronCellPool : public codeframe::Object
         NeuronCellPool( const std::string& name, ObjectNode* parent );
         virtual ~NeuronCellPool();
 
-        void Initialize()
-        {
-
-        }
-
-        void Calculate()
-        {
-
-        }
-
-        void Populate()
-        {
-
-        }
+        void Initialize(const uint32_t cnt);
+        void Calculate();
+        void Populate();
 
     private:
         OffsetVector               m_Offset;
