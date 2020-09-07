@@ -19,36 +19,19 @@ class NeuronCellPool : public codeframe::Object
     CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
+        codeframe::Property< unsigned int > NeuronSynapseLimit;
+        codeframe::Property< unsigned int > NeuronOutputLimit;
+
         // Those vectors are used to store current neuron pool state in nvs
-        codeframe::Property< thrust::host_vector<uint32_t> > CellPoolSynapseLink;
-        codeframe::Property< thrust::host_vector<float> >    CellPoolSynapseWeight;
-        codeframe::Property< thrust::host_vector<uint32_t> > CellPoolOffsetSynapse;
-        codeframe::Property< thrust::host_vector<uint32_t> > CellPoolOffsetWeight;
-        codeframe::Property< thrust::host_vector<uint32_t> > CellPoolOffsetOutput;
-        codeframe::Property< thrust::host_vector<uint32_t> > CellPoolSizeSynapse;
-        codeframe::Property< thrust::host_vector<uint32_t> > CellPoolSizeWeight;
-        codeframe::Property< thrust::host_vector<uint32_t> > CellPoolSizeOutput;
-        codeframe::Property< thrust::host_vector<float> >    CellPoolIntegrateThreshold;
-        codeframe::Property< thrust::host_vector<float> >    CellPoolIntegrateLevel;
+        codeframe::Property< thrust::host_vector<uint32_t> > SynapseLink;
+        codeframe::Property< thrust::host_vector<float> >    SynapseWeight;
+        codeframe::Property< thrust::host_vector<float> >    IntegrateThreshold;
+        codeframe::Property< thrust::host_vector<float> >    IntegrateLevel;
 
         struct SynapseVector
         {
             thrust::host_vector<uint32_t> Link;
             thrust::host_vector<float>    Weight;
-        };
-
-        struct OffsetVector
-        {
-            thrust::host_vector<uint32_t> Synapse;
-            thrust::host_vector<uint32_t> Weight;
-            thrust::host_vector<uint32_t> Output;
-        };
-
-        struct SizeVector
-        {
-            thrust::host_vector<uint32_t> Synapse;
-            thrust::host_vector<uint32_t> Weight;
-            thrust::host_vector<uint32_t> Output;
         };
 
         NeuronCellPool( const std::string& name, ObjectNode* parent );
@@ -59,13 +42,17 @@ class NeuronCellPool : public codeframe::Object
         void Populate();
 
     private:
-        OffsetVector               m_Offset;
-        SizeVector                 m_Size;
+        constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
+        constexpr static uint8_t MAX_OUTPUT_CNT = 100U;
 
         SynapseVector              m_Synapse;
         thrust::host_vector<float> m_IntegrateLevel;
         thrust::host_vector<float> m_IntegrateThreshold;
         thrust::host_vector<bool>  m_Output;
+
+        uint32_t m_CurrentSize = 0U;
+        uint32_t m_CurrentSynapseLimit = 0U;
+        uint32_t m_CurrentOutputLimit = 0U;
 
         std::mt19937 m_generator;
         std::exponential_distribution<> m_distribution;
