@@ -33,6 +33,7 @@ class ArtificialNeuronEngine : public codeframe::Object
 
         virtual void CollectInputs();
         virtual void ProcesseOutputs();
+
     private:
         thrust::host_vector<float> m_vectInData;
         thrust::host_vector<float> m_vectOutData;

@@ -34,7 +34,8 @@ NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent ) :
     m_generator(std::random_device()()),
     m_distribution(1)
 {
-    //ctor
+    NeuronSynapseLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronSynapseLimit );
+    NeuronOutputLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronOutputLimit );
 }
 
 /*****************************************************************************/
@@ -52,42 +53,55 @@ NeuronCellPool::~NeuronCellPool()
   * @brief
  **
 ******************************************************************************/
+void NeuronCellPool::OnNeuronSynapseLimit(codeframe::PropertyNode* prop)
+{
+    Initialize(m_IntegrateLevel.size());
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void NeuronCellPool::OnNeuronOutputLimit(codeframe::PropertyNode* prop)
+{
+    Initialize(m_IntegrateLevel.size());
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void NeuronCellPool::Initialize(const uint32_t cnt)
 {
-    uint32_t currentSize = m_IntegrateLevel.size();
+    const uint32_t currentSize = m_IntegrateLevel.size();
+    const uint32_t slim  = std::min((uint32_t)NeuronSynapseLimit, static_cast<uint32_t>(MAX_SYNAPSE_CNT));
+    const uint32_t solim = std::min((uint32_t)NeuronOutputLimit, static_cast<uint32_t>(MAX_OUTPUT_CNT));
 
-    if (currentSize != cnt)
+    if (currentSize != cnt || slim != m_CurrentSynapseLimit || solim != m_CurrentOutputLimit)
     {
-        uint32_t slim  = (uint32_t)NeuronSynapseLimit;
-        uint32_t solim = (uint32_t)NeuronOutputLimit;
-
-        if (slim > MAX_SYNAPSE_CNT)
-        {
-            slim = MAX_SYNAPSE_CNT;
-            NeuronSynapseLimit = slim;
-        }
-        if (solim > MAX_OUTPUT_CNT)
-        {
-            solim = MAX_OUTPUT_CNT;
-            NeuronOutputLimit = solim;
-        }
-
         thrust::host_vector<uint32_t> newSynapseLink(slim * cnt, 0U);
         thrust::host_vector<float>    newSynapseWeight(slim * cnt, 0.0f);
-        thrust::host_vector<uint32_t> newIntegrateLevel(cnt, 0.0f);
-        thrust::host_vector<uint32_t> newIntegrateThreshold(cnt, 0.0f);
+        thrust::host_vector<float>    newIntegrateLevel(cnt, 0.0f);
+        thrust::host_vector<float>    newIntegrateThreshold(cnt, 0.0f);
         thrust::host_vector<bool>     newOutput(solim * cnt, false);
+
+        thrust::for_each(m_Synapse.Link.begin()      , m_Synapse.Link.end()      , copy_range_functor<uint32_t>(newSynapseLink       , slim));
+        thrust::for_each(m_Synapse.Weight.begin()    , m_Synapse.Weight.end()    , copy_range_functor<float>   (newSynapseWeight     , slim));
+        thrust::for_each(m_Output.begin()            , m_Output.end()            , copy_range_functor<bool>    (newOutput            , solim));
+        thrust::for_each(m_IntegrateLevel.begin()    , m_IntegrateLevel.end()    , copy_range_functor<float>   (newIntegrateLevel    , 1U));
+        thrust::for_each(m_IntegrateThreshold.begin(), m_IntegrateThreshold.end(), copy_range_functor<float>   (newIntegrateThreshold, 1U));
 
         m_Synapse.Link = newSynapseLink;
         m_Synapse.Weight = newSynapseWeight;
         m_IntegrateLevel = newIntegrateLevel;
         m_IntegrateThreshold = newIntegrateThreshold;
         m_Output = newOutput;
-
-        m_CurrentSize = currentSize;
-        m_CurrentSynapseLimit = slim;
-        m_CurrentOutputLimit = solim;
     }
+
+    NeuronSynapseLimit = m_CurrentSynapseLimit = slim;
+    NeuronOutputLimit  = m_CurrentOutputLimit = solim;
 }
 
 /*****************************************************************************/

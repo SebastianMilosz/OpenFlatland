@@ -11,9 +11,9 @@ using namespace codeframe;
 ******************************************************************************/
 ArtificialNeuronEngine::ArtificialNeuronEngine( const std::string& name, ObjectNode* parent ) :
     Object( name, parent ),
-    CellPoolSize              (this, "CellPoolSize", 100U                        , cPropertyInfo().Kind( KIND_NUMBER ).Description("CellPoolSize")),
-    Input                     (this, "Input"       , thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Input") , [this]() -> const thrust::host_vector<float>& { return this->m_vectInData; }),
-    Output                    (this, "Output"      , thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Output"), [this]() -> const thrust::host_vector<float>& { return this->m_vectOutData; }),
+    CellPoolSize(this, "CellPoolSize", 100U                        , cPropertyInfo().Kind( KIND_NUMBER ).Description("CellPoolSize")),
+    Input       (this, "Input"       , thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Input") , [this]() -> const thrust::host_vector<float>& { return this->m_vectInData; }),
+    Output      (this, "Output"      , thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Output"), [this]() -> const thrust::host_vector<float>& { return this->m_vectOutData; }),
     m_Inputs("NeuronInputs", this),
     m_Outputs("NeuronOutputs", this),
     m_NeuronCellPool("NeuronCellPool", this)

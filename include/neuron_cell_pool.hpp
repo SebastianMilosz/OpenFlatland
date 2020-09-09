@@ -37,11 +37,34 @@ class NeuronCellPool : public codeframe::Object
         NeuronCellPool( const std::string& name, ObjectNode* parent );
         virtual ~NeuronCellPool();
 
+        void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);
+        void OnNeuronOutputLimit(codeframe::PropertyNode* prop);
+
         void Initialize(const uint32_t cnt);
         void Calculate();
         void Populate();
 
     private:
+        template<typename T>
+        struct copy_range_functor
+        {
+            public:
+                copy_range_functor(thrust::host_vector<T>& targetVector, const uint32_t targetSize) :
+                    m_targetVector(targetVector),
+                    m_targetSize(targetSize)
+                {
+                }
+
+                __device__ __host__ void operator()(T value)
+                {
+
+                }
+
+            private:
+                thrust::host_vector<T>& m_targetVector;
+                const uint32_t m_targetSize;
+        };
+
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
         constexpr static uint8_t MAX_OUTPUT_CNT = 100U;
 
