@@ -51,18 +51,23 @@ class NeuronCellPool : public codeframe::Object
             public:
                 copy_range_functor(thrust::host_vector<T>& targetVector, const uint32_t targetSize) :
                     m_targetVector(targetVector),
-                    m_targetSize(targetSize)
+                    m_targetSize(targetSize),
+                    m_currentTargetPos(0U)
                 {
                 }
 
                 __device__ __host__ void operator()(T value)
                 {
-
+                    if (m_currentTargetPos < m_targetSize)
+                    {
+                        m_targetVector[m_currentTargetPos++] = value;
+                    }
                 }
 
             private:
                 thrust::host_vector<T>& m_targetVector;
                 const uint32_t m_targetSize;
+                uint32_t m_currentTargetPos;
         };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
