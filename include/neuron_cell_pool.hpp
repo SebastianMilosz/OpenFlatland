@@ -40,7 +40,7 @@ class NeuronCellPool : public codeframe::Object
         void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);
         void OnNeuronOutputLimit(codeframe::PropertyNode* prop);
 
-        void Initialize(const uint32_t cnt);
+        void Initialize(const codeframe::Point2D<unsigned int>& poolSize);
         void Calculate();
         void Populate();
 
@@ -78,7 +78,8 @@ class NeuronCellPool : public codeframe::Object
         thrust::host_vector<float> m_IntegrateThreshold;
         thrust::host_vector<bool>  m_Output;
 
-        uint32_t m_CurrentSize = 0U;
+        codeframe::Point2D<unsigned int> m_CurrentSize = codeframe::Point2D<unsigned int>(0U,0U);
+
         uint32_t m_CurrentSynapseLimit = 0U;
         uint32_t m_CurrentOutputLimit = 0U;
 

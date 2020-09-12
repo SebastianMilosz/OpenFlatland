@@ -13,6 +13,25 @@ namespace codeframe
  **
 ******************************************************************************/
 template<>
+void Point2D<unsigned int>::FromStringCallback ( const StringType& value )
+{
+    // Split using ; separator
+    std::vector<std::string> pointPartsStrings;
+    utilities::text::split(value, ";", pointPartsStrings);
+
+    if( pointPartsStrings.size() == 2U )
+    {
+        m_x = utilities::math::StrToInt( pointPartsStrings[0] );
+        m_y = utilities::math::StrToInt( pointPartsStrings[1] );
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
 void Point2D<int>::FromStringCallback ( const StringType& value )
 {
     // Split using ; separator
@@ -51,6 +70,37 @@ void Point2D<float>::FromStringCallback ( const StringType& value )
  **
 ******************************************************************************/
 template<>
+void Point2D<double>::FromStringCallback ( const StringType& value )
+{
+    // Split using ; separator
+    std::vector<std::string> pointPartsStrings;
+    utilities::text::split(value, ";", pointPartsStrings);
+
+    if( pointPartsStrings.size() == 2U )
+    {
+        m_x = utilities::math::StrToInt( pointPartsStrings[0] );
+        m_y = utilities::math::StrToInt( pointPartsStrings[1] );
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+void Point2D<unsigned int>::FromIntegerCallback( const IntegerType& value )
+{
+    m_x = value;
+    m_y = value;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
 void Point2D<int>::FromIntegerCallback( const IntegerType& value )
 {
     m_x = value;
@@ -64,6 +114,30 @@ void Point2D<int>::FromIntegerCallback( const IntegerType& value )
 ******************************************************************************/
 template<>
 void Point2D<float>::FromIntegerCallback( const IntegerType& value )
+{
+    m_x = value;
+    m_y = value;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+void Point2D<double>::FromIntegerCallback( const IntegerType& value )
+{
+    m_x = value;
+    m_y = value;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+void Point2D<unsigned int>::FromRealCallback( const RealType& value )
 {
     m_x = value;
     m_y = value;
@@ -91,6 +165,34 @@ void Point2D<float>::FromRealCallback( const RealType& value )
 {
     m_x = value;
     m_y = value;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+void Point2D<double>::FromRealCallback( const RealType& value )
+{
+    m_x = value;
+    m_y = value;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+StringType Point2D<unsigned int>::ToStringCallback() const
+{
+    std::string xString = utilities::math::IntToStr( m_x );
+    std::string yString = utilities::math::IntToStr( m_y );
+
+    std::string retVal = xString + std::string(";") + yString;
+
+    return retVal;
 }
 
 /*****************************************************************************/
@@ -131,6 +233,33 @@ StringType Point2D<float>::ToStringCallback() const
  **
 ******************************************************************************/
 template<>
+StringType Point2D<double>::ToStringCallback() const
+{
+    std::string xString = utilities::math::IntToStr( m_x );
+    std::string yString = utilities::math::IntToStr( m_y );
+
+    std::string retVal = xString + std::string(";") + yString;
+
+    return retVal;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+IntegerType Point2D<unsigned int>::ToIntegerCallback() const
+{
+    return 0U;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
 IntegerType Point2D<int>::ToIntegerCallback() const
 {
     return 0;
@@ -145,6 +274,28 @@ template<>
 IntegerType Point2D<float>::ToIntegerCallback() const
 {
     return 0;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+IntegerType Point2D<double>::ToIntegerCallback() const
+{
+    return 0;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+RealType Point2D<unsigned int>::ToRealCallback() const
+{
+    return 0.0F;
 }
 
 /*****************************************************************************/
@@ -175,6 +326,31 @@ RealType Point2D<float>::ToRealCallback() const
  **
 ******************************************************************************/
 template<>
+RealType Point2D<double>::ToRealCallback() const
+{
+    return 0.0F;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+Point2D<unsigned int>& Point2D<unsigned int>::operator=(const Point2D<unsigned int>& other)
+{
+    m_x = other.m_x;
+    m_y = other.m_y;
+
+    return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
 Point2D<int>& Point2D<int>::operator=(const Point2D<int>& other)
 {
     m_x = other.m_x;
@@ -197,6 +373,33 @@ Point2D<float>& Point2D<float>::operator=(const Point2D<float>& other)
     return *this;
 }
 
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+Point2D<double>& Point2D<double>::operator=(const Point2D<double>& other)
+{
+    m_x = other.m_x;
+    m_y = other.m_y;
+
+    return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+Point2D<unsigned int>& Point2D<unsigned int>::operator+(const Point2D<unsigned int>& rhs)
+{
+    m_x = m_x + rhs.m_x;
+    m_y = m_y + rhs.m_y;
+
+    return *this;
+}
 
 /*****************************************************************************/
 /**
@@ -224,6 +427,35 @@ Point2D<float>& Point2D<float>::operator+(const Point2D<float>& rhs)
     m_y = m_y + rhs.m_y;
 
     return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+Point2D<double>& Point2D<double>::operator+(const Point2D<double>& rhs)
+{
+    m_x = m_x + rhs.m_x;
+    m_y = m_y + rhs.m_y;
+
+    return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+bool Point2D<unsigned int>::operator==(const Point2D<unsigned int>& sval) const
+{
+    if( (m_x == sval.m_x) && (m_y == sval.m_y) )
+    {
+        return true;
+    }
+    return false;
 }
 
 /*****************************************************************************/
@@ -262,6 +494,36 @@ bool Point2D<float>::operator==(const Point2D<float>& sval) const
  **
 ******************************************************************************/
 template<>
+bool Point2D<double>::operator==(const Point2D<double>& sval) const
+{
+    if( (m_x == sval.m_x) && (m_y == sval.m_y) )
+    {
+        return true;
+    }
+    return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+bool Point2D<unsigned int>::operator!=(const Point2D<unsigned int>& sval) const
+{
+    if( (m_x != sval.m_x) || (m_y != sval.m_y) )
+    {
+        return true;
+    }
+    return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
 bool Point2D<int>::operator!=(const Point2D<int>& sval) const
 {
     if( (m_x != sval.m_x) || (m_y != sval.m_y) )
@@ -278,6 +540,21 @@ bool Point2D<int>::operator!=(const Point2D<int>& sval) const
 ******************************************************************************/
 template<>
 bool Point2D<float>::operator!=(const Point2D<float>& sval) const
+{
+    if( (m_x != sval.m_x) || (m_y != sval.m_y) )
+    {
+        return true;
+    }
+    return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<>
+bool Point2D<double>::operator!=(const Point2D<double>& sval) const
 {
     if( (m_x != sval.m_x) || (m_y != sval.m_y) )
     {

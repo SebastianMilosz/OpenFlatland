@@ -17,7 +17,7 @@ class ArtificialNeuronEngine : public codeframe::Object
                  ArtificialNeuronEngine( const std::string& name, ObjectNode* parent );
         virtual ~ArtificialNeuronEngine() = default;
 
-        codeframe::Property< unsigned int >               CellPoolSize;
+        codeframe::Property< codeframe::Point2D<unsigned int> > CellPoolSize;
         codeframe::Property< thrust::host_vector<float> > Input;
         codeframe::Property< thrust::host_vector<float> > Output;
 

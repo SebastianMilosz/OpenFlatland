@@ -162,6 +162,35 @@ void ImgVectorEditor(codeframe::Property<ContainerType<ValueType, Allocator>>& p
   * @brief
  **
 ******************************************************************************/
+template<template<typename> class ContainerType, typename ValueType>
+void ImgPoint2dEditor(const std::string& label1, const std::string& label2, codeframe::Property< codeframe::Point2D<ValueType> >& propertyPoint2Object)
+{
+    auto& internalPoint = propertyPoint2Object.GetValue();
+
+    ValueType valueX(internalPoint.X());
+    ValueType valueXPrew(0);
+    ValueType valueY(internalPoint.Y());
+    ValueType valueYPrew(0);
+
+    float widthText = ImGui::CalcTextSize(label1.c_str()).x + ImGui::CalcTextSize(label2.c_str()).x;
+    float width = ImGui::GetColumnWidth() - widthText - 40;
+
+    ImGui::PushItemWidth(width * 0.5f);
+    ImGui::Text( label1.c_str() ); ImGui::SameLine();
+    valueX = InputControlCreate<ValueType>("##valueX(", valueX, false); ImGui::SameLine();
+    ImGui::PopItemWidth();
+
+    ImGui::PushItemWidth(width * 0.5f);
+    ImGui::Text( label2.c_str() ); ImGui::SameLine();
+    valueY = InputControlCreate<ValueType>("##valueY(", valueY, false); ImGui::SameLine();
+    ImGui::PopItemWidth();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 template<template<typename, typename> class ContainerType, typename ValueType, typename Allocator = std::allocator<ValueType>>
 inline bool_t ShowVectorProperty(codeframe::PropertyBase* prop)
 {
@@ -170,6 +199,24 @@ inline bool_t ShowVectorProperty(codeframe::PropertyBase* prop)
     if (nullptr != propVector)
     {
         ImgVectorEditor<ContainerType, ValueType>(*propVector);
+        return true;
+    }
+    return false;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+template<template<typename> class ContainerType, typename ValueType>
+inline bool_t ShowPoint2dProperty(codeframe::PropertyBase* prop)
+{
+    auto propVector = dynamic_cast<codeframe::Property< ContainerType<ValueType> >*>(prop);
+
+    if (nullptr != propVector)
+    {
+        ImgPoint2dEditor<ContainerType, ValueType>("W:", "H:", *propVector);
         return true;
     }
     return false;
@@ -524,6 +571,35 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                     {
                     }
                 }
+                break;
+            }
+            case KIND_2DPOINT:
+            {
+                switch ( prop->Info().GetKind(DEPTH_INTERNAL_KIND) )
+                {
+                    case codeframe::KIND_NUMBER:
+                    {
+                        if (ShowPoint2dProperty<codeframe::Point2D, int>(prop) == false)
+                        {
+                            ShowPoint2dProperty<codeframe::Point2D, unsigned int>(prop);
+                        }
+
+                        break;
+                    }
+                    case codeframe::KIND_REAL:
+                    {
+                        if (ShowPoint2dProperty<codeframe::Point2D, float>(prop) == false)
+                        {
+                            ShowPoint2dProperty<codeframe::Point2D, double>(prop);
+                        }
+
+                        break;
+                    }
+                    default:
+                    {
+                    }
+                }
+
                 break;
             }
             default:
