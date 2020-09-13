@@ -168,9 +168,9 @@ void ImgPoint2dEditor(const std::string& label1, const std::string& label2, code
     auto& internalPoint = propertyPoint2Object.GetValue();
 
     ValueType valueX(internalPoint.X());
-    ValueType valueXPrew(0);
+    ValueType valueXPrew(valueX);
     ValueType valueY(internalPoint.Y());
-    ValueType valueYPrew(0);
+    ValueType valueYPrew(valueY);
 
     float widthText = ImGui::CalcTextSize(label1.c_str()).x + ImGui::CalcTextSize(label2.c_str()).x;
     float width = ImGui::GetColumnWidth() - widthText - 40;
@@ -184,6 +184,12 @@ void ImgPoint2dEditor(const std::string& label1, const std::string& label2, code
     ImGui::Text( label2.c_str() ); ImGui::SameLine();
     valueY = InputControlCreate<ValueType>("##valueY(", valueY, false); ImGui::SameLine();
     ImGui::PopItemWidth();
+
+    if (valueX != valueXPrew || valueY != valueYPrew)
+    {
+        internalPoint.Set(valueX, valueY);
+        propertyPoint2Object.PulseChanged();
+    }
 }
 
 /*****************************************************************************/

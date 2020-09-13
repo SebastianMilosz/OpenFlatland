@@ -30,8 +30,13 @@ namespace codeframe
             virtual bool     operator==(const Point2D& sval) const;
             virtual bool     operator!=(const Point2D& sval) const;
 
-            T X() const { return m_x; }
-            T Y() const { return m_y; }
+            inline T X() const { return m_x; }
+            inline T Y() const { return m_y; }
+
+            inline void Set(const T val1, const T val2) {m_x = val1; m_y = val2;}
+
+            inline void SetX(const T val) {m_x = val;}
+            inline void SetY(const T val) {m_y = val;}
 
         static Point2D<T> Point2DFromString( const std::string& value )
         {
