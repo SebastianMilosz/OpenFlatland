@@ -11,10 +11,10 @@ NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent ) :
     Object( name, parent ),
     NeuronSynapseLimit(this, "NeuronSynapseLimit", 100U, cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronSynapseLimit")),
     NeuronOutputLimit (this, "NeuronOutputLimit", 10U, cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronOutputLimit")),
-    SynapseLink       (this, "SynapseLink"       , thrust::host_vector<uint32_t>(), cPropertyInfo().GUIMode( GUIMODE_DISABLED ).Kind( KIND_VECTOR_THRUST_HOST, KIND_NUMBER ).Description("SynapseLink"),
-                        [this]() -> const thrust::host_vector<uint32_t>& { return this->m_Synapse.Link; },
+    SynapseLink       (this, "SynapseLink"       , thrust::host_vector<float>(), cPropertyInfo().GUIMode( GUIMODE_DISABLED ).Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("SynapseLink"),
+                        [this]() -> const thrust::host_vector<float>& { return this->m_Synapse.Link; },
                         nullptr,
-                        [this]() -> thrust::host_vector<uint32_t>& { return this->m_Synapse.Link; }
+                        [this]() -> thrust::host_vector<float>& { return this->m_Synapse.Link; }
                       ),
     SynapseWeight     (this, "SynapseWeight"     , thrust::host_vector<float>()   , cPropertyInfo().GUIMode( GUIMODE_DISABLED ).Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("SynapseWeight"),
                         [this]() -> const thrust::host_vector<float>& { return this->m_Synapse.Weight; },
@@ -84,17 +84,17 @@ void NeuronCellPool::Initialize(const codeframe::Point2D<unsigned int>& poolSize
 
     if (currentSize != newSize || slim != m_CurrentSynapseLimit || solim != m_CurrentOutputLimit)
     {
-        thrust::host_vector<uint32_t> newSynapseLink(slim * newSize, 0U);
-        thrust::host_vector<float>    newSynapseWeight(slim * newSize, 0.0f);
-        thrust::host_vector<float>    newIntegrateLevel(newSize, 0.0f);
-        thrust::host_vector<float>    newIntegrateThreshold(newSize, 0.0f);
-        thrust::host_vector<bool>     newOutput(solim * newSize, false);
+        thrust::host_vector<float> newSynapseLink(slim * newSize, 0U);
+        thrust::host_vector<float> newSynapseWeight(slim * newSize, 0.0f);
+        thrust::host_vector<float> newIntegrateLevel(newSize, 0.0f);
+        thrust::host_vector<float> newIntegrateThreshold(newSize, 0.0f);
+        thrust::host_vector<bool>  newOutput(solim * newSize, false);
 
-        thrust::for_each(m_Synapse.Link.begin()      , m_Synapse.Link.end()      , copy_range_functor<uint32_t>(newSynapseLink       , slim));
-        thrust::for_each(m_Synapse.Weight.begin()    , m_Synapse.Weight.end()    , copy_range_functor<float>   (newSynapseWeight     , slim));
-        thrust::for_each(m_Output.begin()            , m_Output.end()            , copy_range_functor<bool>    (newOutput            , solim));
-        thrust::for_each(m_IntegrateLevel.begin()    , m_IntegrateLevel.end()    , copy_range_functor<float>   (newIntegrateLevel    , 1U));
-        thrust::for_each(m_IntegrateThreshold.begin(), m_IntegrateThreshold.end(), copy_range_functor<float>   (newIntegrateThreshold, 1U));
+        thrust::for_each(m_Synapse.Link.begin()      , m_Synapse.Link.end()      , copy_range_functor<float>(newSynapseLink       , slim));
+        thrust::for_each(m_Synapse.Weight.begin()    , m_Synapse.Weight.end()    , copy_range_functor<float>(newSynapseWeight     , slim));
+        thrust::for_each(m_Output.begin()            , m_Output.end()            , copy_range_functor<bool> (newOutput            , solim));
+        thrust::for_each(m_IntegrateLevel.begin()    , m_IntegrateLevel.end()    , copy_range_functor<float>(newIntegrateLevel    , 1U));
+        thrust::for_each(m_IntegrateThreshold.begin(), m_IntegrateThreshold.end(), copy_range_functor<float>(newIntegrateThreshold, 1U));
 
         m_Synapse.Link = newSynapseLink;
         m_Synapse.Weight = newSynapseWeight;
@@ -114,7 +114,15 @@ void NeuronCellPool::Initialize(const codeframe::Point2D<unsigned int>& poolSize
 ******************************************************************************/
 void NeuronCellPool::Calculate()
 {
+    auto beginSynapse = thrust::make_zip_iterator(thrust::make_tuple(m_Synapse.Link.begin(), m_Synapse.Weight.begin()));
+    auto endSynapse   = thrust::make_zip_iterator(thrust::make_tuple(m_Synapse.Link.end(), m_Synapse.Weight.end()));
+    auto beginState   = thrust::make_zip_iterator(thrust::make_tuple(m_IntegrateLevel.begin(), m_IntegrateThreshold.begin()));
+    auto endState     = thrust::make_zip_iterator(thrust::make_tuple(m_IntegrateLevel.end(), m_IntegrateThreshold.end()));
 
+    auto neuronBegin = thrust::make_zip_iterator(thrust::make_tuple(beginSynapse, beginState));
+    auto neuronEnd   = thrust::make_zip_iterator(thrust::make_tuple(endSynapse, endState));
+
+    thrust::for_each(neuronBegin, neuronEnd, neuron_calculate_functor(m_Output));
 }
 
 /*****************************************************************************/

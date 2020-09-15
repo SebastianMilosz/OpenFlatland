@@ -23,15 +23,15 @@ class NeuronCellPool : public codeframe::Object
         codeframe::Property< unsigned int > NeuronOutputLimit;
 
         // Those vectors are used to store current neuron pool state in nvs
-        codeframe::Property< thrust::host_vector<uint32_t> > SynapseLink;
-        codeframe::Property< thrust::host_vector<float> >    SynapseWeight;
-        codeframe::Property< thrust::host_vector<float> >    IntegrateThreshold;
-        codeframe::Property< thrust::host_vector<float> >    IntegrateLevel;
+        codeframe::Property< thrust::host_vector<float> > SynapseLink;
+        codeframe::Property< thrust::host_vector<float> > SynapseWeight;
+        codeframe::Property< thrust::host_vector<float> > IntegrateThreshold;
+        codeframe::Property< thrust::host_vector<float> > IntegrateLevel;
 
         struct SynapseVector
         {
-            thrust::host_vector<uint32_t> Link;
-            thrust::host_vector<float>    Weight;
+            thrust::host_vector<float> Link;
+            thrust::host_vector<float> Weight;
         };
 
         NeuronCellPool( const std::string& name, ObjectNode* parent );
@@ -68,6 +68,24 @@ class NeuronCellPool : public codeframe::Object
                 thrust::host_vector<T>& m_targetVector;
                 const uint32_t m_targetSize;
                 uint32_t m_currentTargetPos;
+        };
+
+        struct neuron_calculate_functor
+        {
+            public:
+                neuron_calculate_functor(thrust::host_vector<bool>& outputConsumedVector) :
+                    m_outputConsumedVector(outputConsumedVector)
+                {
+                }
+
+                template<typename Tuple>
+                __device__ __host__ void operator()(Tuple value)
+                {
+
+                }
+
+            private:
+                thrust::host_vector<bool>& m_outputConsumedVector;
         };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
