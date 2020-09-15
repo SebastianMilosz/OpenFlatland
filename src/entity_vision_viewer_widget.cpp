@@ -139,7 +139,7 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
             m_rectangle.setPosition(x_rec, y_rec);
             m_rectangle.setSize( sf::Vector2f(w, h) );
 
-            const sf::Color cl(SetColorBrightness( sf::Color(visionData.Fixture), CalculateBrightness(visionData.Distance) ));
+            const sf::Color cl(std::move(SetColorBrightness( sf::Color(visionData.Fixture), CalculateBrightness(visionData.Distance) )));
 
             m_rectangle.setFillColor( cl );
 
@@ -161,7 +161,7 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
   * @brief
  **
 ******************************************************************************/
-const sf::Color&& VisionViewerWidget::SetColorBrightness(const sf::Color& cl, const float bri) const
+const sf::Color VisionViewerWidget::SetColorBrightness(const sf::Color& cl, const float bri) const
 {
     return std::move(sf::Color(cl.r * bri, cl.g * bri, cl.b * bri));
 }

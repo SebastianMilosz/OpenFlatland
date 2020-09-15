@@ -95,7 +95,7 @@ namespace codeframe
                     }
                 }
 
-                if ( m_GetConstValueFunction )
+                if ( static_cast<bool>(m_GetConstValueFunction) )
                 {
                     return m_GetConstValueFunction();
                 }
@@ -117,7 +117,7 @@ namespace codeframe
                     }
                 }
 
-                if ( m_GetValueFunction )
+                if ( static_cast<bool>(m_GetValueFunction) )
                 {
                     return m_GetValueFunction();
                 }
@@ -126,9 +126,9 @@ namespace codeframe
 
             constexpr bool_t IsValueReadOnly() const
             {
-                if ( m_GetValueFunction == false )
+                if ( static_cast<bool>(m_GetValueFunction) == false )
                 {
-                    if ( m_GetConstValueFunction )
+                    if ( static_cast<bool>(m_GetConstValueFunction) )
                     {
                         return true;
                     }

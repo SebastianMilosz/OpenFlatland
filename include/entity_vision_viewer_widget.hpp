@@ -22,7 +22,7 @@ class VisionViewerWidget : public sigslot::has_slots<>
         static constexpr unsigned int SCREEN_HEIGHT = 200U;
         static constexpr unsigned int DISTANCE_TO_SCREEN_FACTOR = 2000U;
     private:
-        const sf::Color&& SetColorBrightness(const sf::Color& cl, const float bri) const;
+        const sf::Color SetColorBrightness(const sf::Color& cl, const float bri) const;
         const float CalculateBrightness(const float distance ) const;
 
         void UpdateSelectedObject();

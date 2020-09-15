@@ -3,12 +3,7 @@
 
 #include <memory>
 
-template<typename T>
-class smart_ptr : public std::shared_ptr<T>
-{
-    public:
-        using std::shared_ptr<T>::shared_ptr;
-};
+#define smart_ptr std::shared_ptr
 
 #define smart_ptr_wild smart_ptr
 
