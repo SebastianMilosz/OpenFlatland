@@ -73,33 +73,44 @@ class NeuronCellPool : public codeframe::Object
         struct neuron_calculate_functor
         {
             public:
-                neuron_calculate_functor(thrust::host_vector<bool>& outputConsumedVector) :
-                    m_outputConsumedVector(outputConsumedVector)
+                neuron_calculate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector, thrust::host_vector<float>& integrateLevelVector) :
+                    m_outputConsumedVector(outputConsumedVector),
+                    m_integrateLevelVector(integrateLevelVector)
                 {
                 }
 
                 template<typename Tuple>
                 __device__ __host__ void operator()(Tuple value)
                 {
+                    double link = thrust::get<0>(value);
 
+                    if (link > 0.0d)
+                    {
+                        double intpart;
+                        double fractpart = modf(thrust::get<0>(value) , &intpart);
+
+                        double weight = thrust::get<1>(value);
+                        uint64_t outVal = m_outputConsumedVector[intpart];
+
+                    }
                 }
 
             private:
-                thrust::host_vector<bool>& m_outputConsumedVector;
+                const thrust::host_vector<uint64_t>& m_outputConsumedVector;
+                thrust::host_vector<float>&          m_integrateLevelVector;
         };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
-        constexpr static uint8_t MAX_OUTPUT_CNT = 100U;
 
-        SynapseVector              m_Synapse;
-        thrust::host_vector<float> m_IntegrateLevel;
-        thrust::host_vector<float> m_IntegrateThreshold;
-        thrust::host_vector<bool>  m_Output;
+        SynapseVector                 m_Synapse;
+        thrust::host_vector<float>    m_IntegrateLevel;
+        thrust::host_vector<float>    m_IntegrateThreshold;
+        thrust::host_vector<uint32_t> m_IntegrateInterval;
+        thrust::host_vector<uint64_t> m_Output;
 
         codeframe::Point2D<unsigned int> m_CurrentSize = codeframe::Point2D<unsigned int>(0U,0U);
 
         uint32_t m_CurrentSynapseLimit = 0U;
-        uint32_t m_CurrentOutputLimit = 0U;
 
         std::mt19937 m_generator;
         std::exponential_distribution<> m_distribution;
