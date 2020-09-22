@@ -54,6 +54,7 @@
 					<Add option="-s" />
 					<Add option="-m32" />
 					<Add option="-O3" />
+					<Add library="libpthread.a" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-network" />
 					<Add library="sfml-window" />
@@ -81,14 +82,13 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="-m32" />
-					<Add option="-gomp" />
 					<Add option="-pthread" />
 					<Add library="libpthread.a" />
 					<Add library="libgomp.a" />
-					<Add library="sfml-graphics-s" />
-					<Add library="sfml-network-s" />
-					<Add library="sfml-window-s" />
-					<Add library="sfml-system-s" />
+					<Add library="sfml-graphics" />
+					<Add library="sfml-network" />
+					<Add library="sfml-window" />
+					<Add library="sfml-system" />
 					<Add library="sfml-main" />
 					<Add library="ws2_32" />
 					<Add library="freetype" />

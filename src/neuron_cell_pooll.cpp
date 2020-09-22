@@ -81,7 +81,7 @@ void NeuronCellPool::Initialize(const codeframe::Point2D<unsigned int>& poolSize
     const uint32_t currentSize = m_IntegrateLevel.size();
     const uint32_t slim  = std::min((uint32_t)NeuronSynapseLimit, static_cast<uint32_t>(MAX_SYNAPSE_CNT));
 
-    if (currentSize != newSize || slim != m_CurrentSynapseLimit)
+    if (currentSize != newSize || slim != m_Synapse.Size)
     {
         thrust::host_vector<float>    newSynapseLink  (slim * newSize, 0.0f);
         thrust::host_vector<float>    newSynapseWeight(slim * newSize, 0.0f);
@@ -105,7 +105,7 @@ void NeuronCellPool::Initialize(const codeframe::Point2D<unsigned int>& poolSize
         m_Output = newOutput;
     }
 
-    NeuronSynapseLimit = m_CurrentSynapseLimit = slim;
+    NeuronSynapseLimit = m_Synapse.Size = slim;
 }
 
 /*****************************************************************************/
@@ -115,10 +115,17 @@ void NeuronCellPool::Initialize(const codeframe::Point2D<unsigned int>& poolSize
 ******************************************************************************/
 void NeuronCellPool::Calculate()
 {
-    auto beginSynapse = thrust::make_zip_iterator(thrust::make_tuple(m_Synapse.Link.begin(), m_Synapse.Weight.begin()));
-    auto endSynapse   = thrust::make_zip_iterator(thrust::make_tuple(m_Synapse.Link.end(), m_Synapse.Weight.end()));
+    const uint32_t poolSize = m_CurrentSize.X() * m_CurrentSize.Y();
 
-    thrust::for_each(beginSynapse, endSynapse, neuron_calculate_functor(m_Output, m_IntegrateLevel));
+    thrust::counting_iterator<uint32_t> first(0U);
+    thrust::counting_iterator<uint32_t> last = first + poolSize;
+
+    thrust::for_each(
+                     thrust::make_zip_iterator(
+                                               thrust::make_tuple(first, m_IntegrateLevel.begin())),
+                     thrust::make_zip_iterator(thrust::make_tuple(last, m_IntegrateLevel.end())),
+                     neuron_calculate_functor(m_Output, m_Synapse)
+                    );
 }
 
 /*****************************************************************************/
