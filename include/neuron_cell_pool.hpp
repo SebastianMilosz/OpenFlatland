@@ -35,7 +35,9 @@ class NeuronCellPool : public codeframe::Object
             uint32_t                   Size = 0U;
         };
 
-        NeuronCellPool( const std::string& name, ObjectNode* parent );
+        NeuronCellPool( const std::string& name, ObjectNode* parent,
+                        const thrust::host_vector<float>& inData,
+                              thrust::host_vector<float>& outData );
         virtual ~NeuronCellPool();
 
         void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);
@@ -74,31 +76,45 @@ class NeuronCellPool : public codeframe::Object
         struct neuron_calculate_functor
         {
             public:
-                neuron_calculate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector, const SynapseVector& synapseConsumedVector) :
+                neuron_calculate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
+                                         const SynapseVector& synapseConsumedVector,
+                                         const thrust::host_vector<float>& inData) :
                     m_outputConsumedVector(outputConsumedVector),
-                    m_synapseConsumedVector(synapseConsumedVector)
+                    m_synapseConsumedVector(synapseConsumedVector),
+                    m_inData(inData)
                 {
                 }
 
                 template <typename Tuple>
                 __device__ __host__ void operator()(Tuple& value)
                 {
-                    volatile uint32_t n = thrust::get<0>(value);
-                    volatile double link = m_synapseConsumedVector.Link[n];
-                    volatile double weight = m_synapseConsumedVector.Weight[n];
+                    uint32_t n = thrust::get<0>(value);
+                    uint32_t s = m_synapseConsumedVector.Size;
 
-                    if (link > 0.0d)
+                    for (uint32_t i = 0; i < s; i++)
                     {
-                        double intpart;
-                        double fractpart = modf(link , &intpart);
-                        uint64_t outVal = m_outputConsumedVector[intpart];
+                        double link = m_synapseConsumedVector.Link[n * s + i];
 
+                        if (link > 0.0d)
+                        {
+                            double intpart;
+                            uint8_t bitPos = 64U * modf(link , &intpart);
+                            uint64_t outVal = m_outputConsumedVector[intpart];
+                            double weight = m_synapseConsumedVector.Weight[n * s + i];
+
+                            thrust::get<1>(value) = (outVal & (1U<<bitPos)) * weight;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
 
             private:
                 const thrust::host_vector<uint64_t>& m_outputConsumedVector;
                 const SynapseVector&                 m_synapseConsumedVector;
+                const thrust::host_vector<float>&    m_inData;
         };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
@@ -108,6 +124,9 @@ class NeuronCellPool : public codeframe::Object
         thrust::host_vector<float>    m_IntegrateThreshold;
         thrust::host_vector<float>    m_IntegrateInterval;
         thrust::host_vector<uint64_t> m_Output;
+
+        const thrust::host_vector<float>& m_vectInData;
+              thrust::host_vector<float>& m_vectOutData;
 
         codeframe::Point2D<unsigned int> m_CurrentSize = codeframe::Point2D<unsigned int>(0U,0U);
 

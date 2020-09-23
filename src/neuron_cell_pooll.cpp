@@ -7,7 +7,9 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent ) :
+NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent,
+                                const thrust::host_vector<float>& inData,
+                                      thrust::host_vector<float>& outData ) :
     Object( name, parent ),
     NeuronSynapseLimit(this, "NeuronSynapseLimit", 100U, cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronSynapseLimit")),
     NeuronOutputLimit (this, "NeuronOutputLimit", 10U, cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronOutputLimit")),
@@ -31,6 +33,8 @@ NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent ) :
                         nullptr,
                         [this]() -> thrust::host_vector<float>& { return this->m_IntegrateLevel; }
                       ),
+    m_vectInData(inData),
+    m_vectOutData(outData),
     m_generator(std::random_device()()),
     m_distribution(1)
 {
@@ -124,7 +128,7 @@ void NeuronCellPool::Calculate()
                      thrust::make_zip_iterator(
                                                thrust::make_tuple(first, m_IntegrateLevel.begin())),
                      thrust::make_zip_iterator(thrust::make_tuple(last, m_IntegrateLevel.end())),
-                     neuron_calculate_functor(m_Output, m_Synapse)
+                     neuron_calculate_functor(m_Output, m_Synapse, m_vectInData)
                     );
 }
 
