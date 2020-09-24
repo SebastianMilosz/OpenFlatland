@@ -81,7 +81,8 @@ class NeuronCellPool : public codeframe::Object
                                          const thrust::host_vector<float>& inData) :
                     m_outputConsumedVector(outputConsumedVector),
                     m_synapseConsumedVector(synapseConsumedVector),
-                    m_inData(inData)
+                    m_inData(inData),
+                    m_inDataSize(m_inData.size())
                 {
                 }
 
@@ -95,6 +96,7 @@ class NeuronCellPool : public codeframe::Object
                     {
                         double link = m_synapseConsumedVector.Link[n * s + i];
 
+                        // Link to internal pool space
                         if (link > 0.0d)
                         {
                             double intpart;
@@ -102,7 +104,18 @@ class NeuronCellPool : public codeframe::Object
                             uint64_t outVal = m_outputConsumedVector[intpart];
                             double weight = m_synapseConsumedVector.Weight[n * s + i];
 
-                            thrust::get<1>(value) = (outVal & (1U<<bitPos)) * weight;
+                            thrust::get<1>(value) += (outVal & (1U<<bitPos)) * weight;
+                        }
+                        // Link to external inputs space
+                        else if (link < 0.0d)
+                        {
+                            unsigned int inPos = static_cast<unsigned int>(link);
+                            if (inPos < m_inDataSize)
+                            {
+                                double weight = m_synapseConsumedVector.Weight[n * s + i];
+
+                                thrust::get<1>(value) += m_inData[inPos] * weight;
+                            }
                         }
                         else
                         {
@@ -115,6 +128,37 @@ class NeuronCellPool : public codeframe::Object
                 const thrust::host_vector<uint64_t>& m_outputConsumedVector;
                 const SynapseVector&                 m_synapseConsumedVector;
                 const thrust::host_vector<float>&    m_inData;
+                const unsigned int                   m_inDataSize;
+        };
+
+        struct neuron_output_calculate_functor
+        {
+            public:
+                neuron_output_calculate_functor()
+                {
+                }
+
+                template <typename Tuple>
+                __device__ __host__ void operator()(Tuple& value)
+                {
+
+                }
+        };
+
+        struct neuron_output_take_functor
+        {
+            public:
+                neuron_output_take_functor(thrust::host_vector<float>& integrateLevelVector) :
+                    m_integrateLevelVector(integrateLevelVector)
+                {
+                }
+
+                __device__ __host__ void operator()(float value)
+                {
+
+                }
+            private:
+                thrust::host_vector<float>& m_integrateLevelVector;
         };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;

@@ -124,12 +124,38 @@ void NeuronCellPool::Calculate()
     thrust::counting_iterator<uint32_t> first(0U);
     thrust::counting_iterator<uint32_t> last = first + poolSize;
 
+    // Synthesize all synapse inputs into one value for each neuron
     thrust::for_each(
-                     thrust::make_zip_iterator(
-                                               thrust::make_tuple(first, m_IntegrateLevel.begin())),
-                     thrust::make_zip_iterator(thrust::make_tuple(last, m_IntegrateLevel.end())),
+                     thrust::make_zip_iterator(thrust::make_tuple(
+                                                                  first,
+                                                                  m_IntegrateLevel.begin()
+                                                                 )),
+                     thrust::make_zip_iterator(thrust::make_tuple(
+                                                                  last,
+                                                                  m_IntegrateLevel.end()
+                                                                 )),
                      neuron_calculate_functor(m_Output, m_Synapse, m_vectInData)
                     );
+
+    // Calculate and propagate it through output
+    thrust::for_each(
+                     thrust::make_zip_iterator(thrust::make_tuple(
+                                                                  m_IntegrateLevel.begin(),
+                                                                  m_IntegrateThreshold.begin(),
+                                                                  m_IntegrateInterval.begin(),
+                                                                  m_Output.begin()
+                                                                 )),
+                     thrust::make_zip_iterator(thrust::make_tuple(
+                                                                  m_IntegrateLevel.end(),
+                                                                  m_IntegrateThreshold.end(),
+                                                                  m_IntegrateInterval.end(),
+                                                                  m_Output.end()
+                                                                 )),
+                     neuron_output_calculate_functor()
+                    );
+
+    // Outputs vector connection
+    thrust::for_each(m_vectOutData.begin(), m_vectOutData.end(), neuron_output_take_functor(m_IntegrateLevel));
 }
 
 /*****************************************************************************/
