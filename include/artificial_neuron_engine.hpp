@@ -37,6 +37,8 @@ class ArtificialNeuronEngine : public codeframe::Object
     private:
         thrust::host_vector<float> m_vectInData;
         thrust::host_vector<float> m_vectOutData;
+
+        uint32_t m_populateDelay;
 };
 
 #endif // ARTIFICIAL_NEURON_ENGINE_HPP_INCLUDED

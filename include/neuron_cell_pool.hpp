@@ -134,6 +134,11 @@ class NeuronCellPool : public codeframe::Object
         struct neuron_output_calculate_functor
         {
             public:
+                constexpr static uint8_t TUPLE_POS_INTEGRATE_LEVEL = 0U;
+                constexpr static uint8_t TUPLE_POS_INTEGRATE_THRESHOLD = 1U;
+                constexpr static uint8_t TUPLE_POS_INTEGRATE_INTERVAL = 2U;
+                constexpr static uint8_t TUPLE_POS_INTEGRATE_OUTPUT = 3U;
+
                 neuron_output_calculate_functor()
                 {
                 }
@@ -141,23 +146,34 @@ class NeuronCellPool : public codeframe::Object
                 template <typename Tuple>
                 __device__ __host__ void operator()(Tuple& value)
                 {
+                    thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) = thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) << 1U;
 
+                    if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > thrust::get<TUPLE_POS_INTEGRATE_THRESHOLD>(value))
+                    {
+                        thrust::get<TUPLE_POS_INTEGRATE_INTERVAL>(value)++;
+                        thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = 0.0f;
+                        thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) &= static_cast<uint64_t>(0x01U);
+                    }
                 }
         };
 
+        template<class T>
         struct neuron_output_take_functor
         {
             public:
                 neuron_output_take_functor(thrust::host_vector<float>& integrateLevelVector) :
+                    m_countValue(0U),
                     m_integrateLevelVector(integrateLevelVector)
                 {
                 }
 
-                __device__ __host__ void operator()(float value)
+                __device__ __host__ T operator()(T& value)
                 {
-
+                    volatile float newValue = m_integrateLevelVector[m_integrateLevelVector.size() - 1U - m_countValue++];
+                    return newValue;
                 }
             private:
+                uint32_t m_countValue;
                 thrust::host_vector<float>& m_integrateLevelVector;
         };
 

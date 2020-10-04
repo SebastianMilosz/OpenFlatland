@@ -16,7 +16,8 @@ ArtificialNeuronEngine::ArtificialNeuronEngine( const std::string& name, ObjectN
     Output      (this, "Output"      , thrust::host_vector<float>()     , cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Output"), [this]() -> const thrust::host_vector<float>& { return this->m_vectOutData; }),
     m_Inputs("NeuronInputs", this),
     m_Outputs("NeuronOutputs", this),
-    m_NeuronCellPool("NeuronCellPool", this, m_vectInData, m_vectOutData)
+    m_NeuronCellPool("NeuronCellPool", this, m_vectInData, m_vectOutData),
+    m_populateDelay(0U)
 {
     CellPoolSize.signalChanged.connect( this, &ArtificialNeuronEngine::OnCellPoolSize );
 
@@ -35,7 +36,16 @@ void ArtificialNeuronEngine::Calculate()
     CollectInputs();
 
     m_NeuronCellPool.Calculate();
-    m_NeuronCellPool.Populate();
+
+    if (m_populateDelay > 100)
+    {
+        m_populateDelay = 0U;
+        m_NeuronCellPool.Populate();
+    }
+    else
+    {
+        m_populateDelay++;
+    }
 
     ProcesseOutputs();
 }
