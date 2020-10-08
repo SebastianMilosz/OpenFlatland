@@ -151,8 +151,21 @@ class NeuronCellPool : public codeframe::Object
                     if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > thrust::get<TUPLE_POS_INTEGRATE_THRESHOLD>(value))
                     {
                         thrust::get<TUPLE_POS_INTEGRATE_INTERVAL>(value)++;
-                        thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = 0.0f;
+                        thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = -10.0f; // Hyperpolaryzation begin
                         thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) &= static_cast<uint64_t>(0x01U);
+                    }
+                    else
+                    {
+                        if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > 0.0f)
+                        {
+                            // Normal charge pump positive depolarization
+                            thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) -= 0.0001;
+                        }
+                        else if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) < 0.0f) // Hyperpolaryzation
+                        {
+                            // Normal charge pump negative depolarization
+                            thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) += 1.0f;
+                        }
                     }
                 }
         };
@@ -175,6 +188,32 @@ class NeuronCellPool : public codeframe::Object
             private:
                 uint32_t m_countValue;
                 thrust::host_vector<float>& m_integrateLevelVector;
+        };
+
+        struct neuron_populate_functor
+        {
+            public:
+                neuron_populate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
+                                        const SynapseVector& synapseConsumedVector,
+                                        const thrust::host_vector<float>& inData) :
+                    m_outputConsumedVector(outputConsumedVector),
+                    m_synapseConsumedVector(synapseConsumedVector),
+                    m_inData(inData),
+                    m_inDataSize(m_inData.size())
+                {
+                }
+
+                template <typename Tuple>
+                __device__ __host__ void operator()(Tuple& value)
+                {
+
+                }
+
+            private:
+                const thrust::host_vector<uint64_t>& m_outputConsumedVector;
+                const SynapseVector&                 m_synapseConsumedVector;
+                const thrust::host_vector<float>&    m_inData;
+                const unsigned int                   m_inDataSize;
         };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;

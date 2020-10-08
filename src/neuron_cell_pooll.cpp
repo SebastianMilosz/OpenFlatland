@@ -165,5 +165,21 @@ void NeuronCellPool::Calculate()
 ******************************************************************************/
 void NeuronCellPool::Populate()
 {
+    const uint32_t poolSize = m_CurrentSize.X() * m_CurrentSize.Y();
 
+    thrust::counting_iterator<uint32_t> first(0U);
+    thrust::counting_iterator<uint32_t> last = first + poolSize;
+
+    // Synthesize all synapse inputs into one value for each neuron
+    thrust::for_each(
+                     thrust::make_zip_iterator(thrust::make_tuple(
+                                                                  first,
+                                                                  m_IntegrateLevel.begin()
+                                                                 )),
+                     thrust::make_zip_iterator(thrust::make_tuple(
+                                                                  last,
+                                                                  m_IntegrateLevel.end()
+                                                                 )),
+                     neuron_populate_functor(m_Output, m_Synapse, m_vectInData)
+                    );
 }
