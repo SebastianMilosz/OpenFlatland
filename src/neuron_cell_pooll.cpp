@@ -180,6 +180,6 @@ void NeuronCellPool::Populate()
                                                                   last,
                                                                   m_IntegrateLevel.end()
                                                                  )),
-                     neuron_populate_functor(m_Output, m_Synapse, m_vectInData)
+                     neuron_populate_functor(m_Output, m_Synapse, m_vectInData, m_CurrentSize)
                     );
 }

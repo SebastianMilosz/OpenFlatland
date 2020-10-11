@@ -195,25 +195,42 @@ class NeuronCellPool : public codeframe::Object
             public:
                 neuron_populate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
                                         const SynapseVector& synapseConsumedVector,
-                                        const thrust::host_vector<float>& inData) :
+                                        const thrust::host_vector<float>& inData,
+                                        const codeframe::Point2D<unsigned int>& poolSize) :
                     m_outputConsumedVector(outputConsumedVector),
                     m_synapseConsumedVector(synapseConsumedVector),
                     m_inData(inData),
-                    m_inDataSize(m_inData.size())
+                    m_inDataSize(m_inData.size()),
+                    m_poolSize(poolSize)
                 {
                 }
 
                 template <typename Tuple>
                 __device__ __host__ void operator()(Tuple& value)
                 {
+                    //uint32_t n = thrust::get<0>(value);
 
                 }
 
             private:
-                const thrust::host_vector<uint64_t>& m_outputConsumedVector;
-                const SynapseVector&                 m_synapseConsumedVector;
-                const thrust::host_vector<float>&    m_inData;
-                const unsigned int                   m_inDataSize;
+                uint32_t CoordinateToOffset(uint32_t x, uint32_t y) const
+                {
+                    return m_poolSize.Y() * y + x;
+                }
+
+                codeframe::Point2D<unsigned int> OffsetToCoordinate(uint32_t offset) const
+                {
+                    codeframe::Point2D<unsigned int> retValue;
+                    retValue.SetX(offset % m_poolSize.X());
+                    retValue.SetY(std::floor(offset / m_poolSize.X()));
+                    return retValue;
+                }
+
+                const thrust::host_vector<uint64_t>&    m_outputConsumedVector;
+                const SynapseVector&                    m_synapseConsumedVector;
+                const thrust::host_vector<float>&       m_inData;
+                const unsigned int                      m_inDataSize;
+                const codeframe::Point2D<unsigned int>& m_poolSize;
         };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
