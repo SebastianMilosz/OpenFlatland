@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1">
+    <paths>
+        <dir name="src"/>
+        <dir name="include"/>
+        <dir name="libraries/codeframe-master/include"/>
+        <dir name="libraries/codeframe-master/src"/>
+        <dir name="libraries/codeframe-master/include/utilities"/>
+        <dir name="libraries/codeframe-master/src/utilities"/>
+    </paths>
+</project>

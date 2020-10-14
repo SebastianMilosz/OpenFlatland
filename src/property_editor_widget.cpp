@@ -122,7 +122,7 @@ void ImgVectorEditor(codeframe::Property<ContainerType<ValueType, Allocator>>& p
         ImGui::PopItemWidth();
 
         ImGui::PushItemWidth(width * 0.4F);
-        index = InputControlCreate(vectorSizeIndexText.c_str(), index, false); ImGui::SameLine();
+        index = InputControlCreate(vectorSizeIndexText, index, false); ImGui::SameLine();
         ImGui::PopItemWidth();
 
         if (readOnly == false)

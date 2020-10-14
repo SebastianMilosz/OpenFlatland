@@ -33,10 +33,9 @@ NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent,
                         nullptr,
                         [this]() -> thrust::host_vector<float>& { return this->m_IntegrateLevel; }
                       ),
-    m_vectInData(inData),
-    m_vectOutData(outData),
     m_generator(std::random_device()()),
-    m_distribution(1)
+    m_vectInData(inData),
+    m_vectOutData(outData)
 {
     NeuronSynapseLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronSynapseLimit );
     NeuronOutputLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronOutputLimit );
@@ -180,6 +179,6 @@ void NeuronCellPool::Populate()
                                                                   last,
                                                                   m_IntegrateLevel.end()
                                                                  )),
-                     neuron_populate_functor(m_Output, m_Synapse, m_vectInData, m_CurrentSize)
+                     neuron_populate_functor(m_Output, m_Synapse, m_vectInData, m_CurrentSize, m_generator)
                     );
 }
