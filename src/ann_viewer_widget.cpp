@@ -7,7 +7,8 @@
 ******************************************************************************/
 AnnViewerWidget::AnnViewerWidget()
 {
-
+    m_renderStates.blendMode = sf::BlendMode(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
+    m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 /*****************************************************************************/
@@ -34,13 +35,20 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
         return;
     }
 
+    // Center vision screen inside imgui widget
+    m_cursorPos = ImGui::GetWindowSize();
+    m_cursorPos.x = (m_cursorPos.x - SCREEN_WIDTH) * 0.5f;
+    m_cursorPos.y = (m_cursorPos.y - SCREEN_HEIGHT) * 0.5f;
+    ImGui::SetCursorPos( m_cursorPos );
+
     ImGui::PushStyleVar( ImGuiStyleVar_FramePadding, ImVec2(2,2) );
-    ImGui::Columns( 2 );
-    ImGui::Separator();
 
+    m_displayTexture.clear();
+    m_displayTexture.draw(m_rectangle, m_renderStates);
 
-    ImGui::Columns( 1 );
-    ImGui::Separator();
+    m_displayTexture.display();
+    ImGui::Image( m_displayTexture.getTexture() );
+
     ImGui::PopStyleVar();
     ImGui::End();
 }

@@ -17,6 +17,13 @@ class AnnViewerWidget : public sigslot::has_slots<>
         void Draw( const char* title, bool* p_open = nullptr );
 
     private:
+        static constexpr unsigned int SCREEN_WIDTH = 320U;
+        static constexpr unsigned int SCREEN_HEIGHT = 320U;
+
+        ImVec2             m_cursorPos;
+        sf::RectangleShape m_rectangle;
+        sf::RenderTexture  m_displayTexture;
+        sf::RenderStates   m_renderStates;
         smart_ptr<codeframe::ObjectNode> m_obj;
 };
 

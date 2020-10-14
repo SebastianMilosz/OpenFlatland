@@ -2,6 +2,7 @@
 #define NEURON_CELL_POOL_HPP
 
 #include <random>
+#include <chrono>
 #include <sigslot.h>
 #include <serializable_object_node.hpp>
 #include <serializable_object.hpp>
@@ -212,6 +213,8 @@ class NeuronCellPool : public codeframe::Object
                 template <typename Tuple>
                 __device__ __host__ void operator()(Tuple& value)
                 {
+                    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+                    m_generator.seed(seed);
                     uint32_t n = thrust::get<0>(value);
                     uint32_t s = m_synapseConsumedVector.Size;
 
