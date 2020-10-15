@@ -6,6 +6,7 @@
 #include <sigslot.h>
 #include <smartpointer.h>
 #include <serializable_object.hpp>
+#include <entity.hpp>
 
 class AnnViewerWidget : public sigslot::has_slots<>
 {
@@ -24,7 +25,7 @@ class AnnViewerWidget : public sigslot::has_slots<>
         sf::RectangleShape m_rectangle;
         sf::RenderTexture  m_displayTexture;
         sf::RenderStates   m_renderStates;
-        smart_ptr<codeframe::ObjectNode> m_obj;
+        smart_ptr<Entity>  m_objEntity;
 };
 
 

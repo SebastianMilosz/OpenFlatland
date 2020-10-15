@@ -18,7 +18,7 @@ AnnViewerWidget::AnnViewerWidget()
 ******************************************************************************/
 void AnnViewerWidget::SetObject( smart_ptr<codeframe::ObjectNode> obj )
 {
-    m_obj = obj;
+    m_objEntity = smart_dynamic_pointer_cast<Entity>(obj);
 }
 
 /*****************************************************************************/
@@ -44,7 +44,24 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
     ImGui::PushStyleVar( ImGuiStyleVar_FramePadding, ImVec2(2,2) );
 
     m_displayTexture.clear();
-    m_displayTexture.draw(m_rectangle, m_renderStates);
+
+    if ( smart_ptr_isValid(m_objEntity) )
+    {
+        ArtificialNeuronEngine& engine = m_objEntity->GetEngine();
+        NeuronCellPool& neuronPool = engine.GetPool();
+
+        codeframe::Property< thrust::host_vector<float> >& integrateLevelProperty = neuronPool.IntegrateLevel;
+        const thrust::host_vector<float> integrateLevelVector = integrateLevelProperty.GetConstValue();
+
+        for(const auto& value : integrateLevelVector)
+        {
+            const sf::Color cl(value);
+
+            m_rectangle.setFillColor( cl );
+
+            m_displayTexture.draw(m_rectangle, m_renderStates);
+        }
+    }
 
     m_displayTexture.display();
     ImGui::Image( m_displayTexture.getTexture() );

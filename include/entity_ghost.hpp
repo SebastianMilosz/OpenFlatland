@@ -17,6 +17,8 @@ class EntityGhost : public EntityShell
         EntityGhost& operator=(const EntityGhost& other);
 
         void CalculateNeuralNetworks();
+
+        ArtificialNeuronEngine& GetEngine() { return m_NeuronEngine; }
     protected:
         ArtificialNeuronEngine m_NeuronEngine;
 
