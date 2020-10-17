@@ -48,18 +48,61 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
     if ( smart_ptr_isValid(m_objEntity) )
     {
         ArtificialNeuronEngine& engine = m_objEntity->GetEngine();
+
+        const codeframe::Point2D<unsigned int>& poolSize = engine.CellPoolSize.GetConstValue();
+        const thrust::host_vector<float>& input = engine.Input.GetConstValue();
+
         NeuronCellPool& neuronPool = engine.GetPool();
 
         codeframe::Property< thrust::host_vector<float> >& integrateLevelProperty = neuronPool.IntegrateLevel;
         const thrust::host_vector<float> integrateLevelVector = integrateLevelProperty.GetConstValue();
 
+        unsigned int neuronBoxW = 3U;
+        unsigned int neuronBoxH = 3U;
+
+        unsigned int neuronBoxDW = (SCREEN_WIDTH  - (3U * poolSize.X())) / (poolSize.X() + 1U);
+        unsigned int neuronBoxDH = (SCREEN_HEIGHT - (3U * poolSize.Y())) / (poolSize.Y() + 1U);
+
+        unsigned int curX = 0;
+        unsigned int curY = 0;
+
+        unsigned int inW = SCREEN_WIDTH / input.size();
+
+        for(const auto& value : input)
+        {
+            (void)value;
+            m_rectangle.setOutlineColor(sf::Color::White);
+            m_rectangle.setOutlineThickness(1U);
+            m_rectangle.setFillColor( sf::Color::Blue );
+            m_rectangle.setPosition(curX, curY);
+            m_rectangle.setSize( sf::Vector2f(inW, 5) );
+
+            m_displayTexture.draw(m_rectangle, m_renderStates);
+
+            curX += inW + 2U;
+        }
+
+        curX = neuronBoxDW;
+        curY = neuronBoxDH;
+
         for(const auto& value : integrateLevelVector)
         {
             const sf::Color cl(value);
 
+            m_rectangle.setPosition(curX, curY);
+            m_rectangle.setSize( sf::Vector2f(neuronBoxW, neuronBoxH) );
+            m_rectangle.setOutlineColor(sf::Color::White);
+            m_rectangle.setOutlineThickness(2U);
             m_rectangle.setFillColor( cl );
 
             m_displayTexture.draw(m_rectangle, m_renderStates);
+
+            curX += (neuronBoxW + neuronBoxDW);
+            if (curX > (SCREEN_WIDTH - (neuronBoxH + neuronBoxDH)))
+            {
+                curX = neuronBoxDW;
+                curY += (neuronBoxH + neuronBoxDH);
+            }
         }
     }
 
