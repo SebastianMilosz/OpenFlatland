@@ -1,4 +1,5 @@
 #include "colorize_ray_data.hpp"
+#include "colorize_number.hpp"
 
 /*****************************************************************************/
 /**
@@ -27,28 +28,9 @@ void ColorizeRayData::Colorize( const eColorizeMode mode, const thrust::host_vec
 ******************************************************************************/
 void ColorizeRayData::Colorize_IronBow( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
-    uint16_t r = 0;
-    uint16_t g = 0;
-    uint16_t b = 0;
-
-    for ( unsigned int n = 0; n < dataSize; n++)
+    for ( unsigned int n = 0U; n < dataSize; n++)
     {
-            uint16_t data = dataIn[ n ].Distance * 1000;
-
-            r = data >> 6;
-            if ( r > 255       ) r = 255;
-            if ( data & 0x2000 ) g = 0x0ff & ( data >> 5 ); else g = 0;
-            b = 0;
-
-
-            if ( (data & 0x3800) == 0x0000 ) { b = 0x0ff & (( data >> 3 )); }
-            if ( (data & 0x3800) == 0x0800 ) { b = 0x0ff & (( data >> 4 )); b = 255 - b; b = b + 127; }
-            if ( (data & 0x3800) == 0x1000 ) { b = 0x0ff & (( data >> 4 )); b = 128 - b; }
-            if ( (data & 0x3000) == 0x3000 ) { b = 0x0ff & (( data >> 4 )); }
-
-            dataOut[n].r = r;
-            dataOut[n].g = g;
-            dataOut[n].b = b;
+        dataOut[n] = ColorizeNumber_IronBown<float>(dataIn[ n ].Distance);
     }
 }
 
@@ -59,22 +41,9 @@ void ColorizeRayData::Colorize_IronBow( const thrust::host_vector<RayData>& data
 ******************************************************************************/
 void ColorizeRayData::Colorize_RedYellow( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
-    uint16_t r;
-    uint16_t g;
-    uint16_t b;
-
-    for ( unsigned int n = 0; n < dataSize; n++)
+    for ( unsigned int n = 0U; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ].Distance * 1000;
-
-        r = data >> 6;
-        if (r > 255) r = 255;
-        if (data & 0x2000) g = (0x0ff & (data >> 5)); else g = 0;
-        b = 0;
-
-        dataOut[n].r = r;
-        dataOut[n].g = g;
-        dataOut[n].b = b;
+        dataOut[n] = ColorizeNumber_RedYellow<float>(dataIn[ n ].Distance);
     }
 }
 
@@ -85,46 +54,9 @@ void ColorizeRayData::Colorize_RedYellow( const thrust::host_vector<RayData>& da
 ******************************************************************************/
 void ColorizeRayData::Colorize_BlueRed( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
-    uint16_t r = 0;
-    uint16_t g = 0;
-    uint16_t b = 0;
-
-    for ( unsigned int n = 0; n < dataSize; n++)
+    for ( unsigned int n = 0U; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ].Distance * 1000;
-
-        if( (data & 0x3000) == 0 )
-        {
-            g = 0;
-            b = 0x07f & (data >> 5);
-            b = b + 128;
-            r = 0;
-        }
-        else if( (data & 0x3000) == 0x1000 )
-        {
-            b = 0x07f & (data >> 5);
-            b = 255 - b;
-            g = 0;
-            r = 0x07f & (data >> 5);
-        }
-        else if( (data & 0x3000) == 0x2000 )
-        {
-            b = 0x07f & (data >> 5);
-            b = 128 - b;
-            r = 0x07f & (data >> 5);
-            r = r + 128;
-            g = 0;
-        }
-        else if((data & 0x3000) == 0x3000)
-        {
-            b = 0;
-            r = 255;
-            g = 0x0ff & (data >> 4);
-        }
-
-        dataOut[n].r = r;
-        dataOut[n].g = g;
-        dataOut[n].b = b;
+        dataOut[n] = ColorizeNumber_BlueRed<float>(dataIn[ n ].Distance);
     }
 }
 
@@ -135,47 +67,9 @@ void ColorizeRayData::Colorize_BlueRed( const thrust::host_vector<RayData>& data
 ******************************************************************************/
 void ColorizeRayData::Colorize_BlackRed( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
-    uint16_t r = 0;
-    uint16_t g = 0;
-    uint16_t b = 0;
-
-    for ( unsigned int n = 0; n < dataSize; n++)
+    for ( unsigned int n = 0U; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ].Distance * 1000;
-
-        if ((data & 0x3000) == 0)
-        {
-            g = 0;
-            b = (data >> 4);
-            b = b & 0xff;
-            r = 0;
-        }
-        else if ((data & 0x3000) == 0x1000)
-        {
-            b = 0x07f & (data >> 5);
-            b = 255 - b;
-            g = 0;
-            r = 0x07f & (data >> 5);
-        }
-        else if ((data & 0x3000) == 0x2000)
-        {
-            b = 0x07f & (data >> 5);
-            b = 128 - b;
-            r = 0x07f & (data >> 5);
-            r = r + 128;
-            g = 0;
-        }
-        else if ((data & 0x3000) == 0x3000)
-        {
-
-            b = 0;
-            r = 255;
-            g = 0x0ff & (data >> 4);
-        }
-
-        dataOut[n].r = r;
-        dataOut[n].g = g;
-        dataOut[n].b = b;
+        dataOut[n] = ColorizeNumber_BlackRed<float>(dataIn[ n ].Distance);
     }
 }
 
@@ -186,22 +80,9 @@ void ColorizeRayData::Colorize_BlackRed( const thrust::host_vector<RayData>& dat
 ******************************************************************************/
 void ColorizeRayData::Colorize_BlueRedBin( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
-    uint16_t r = 0;
-    uint16_t g = 0;
-    uint16_t b = 0;
-
-    for ( unsigned int n = 0; n < dataSize; n++)
+    for ( unsigned int n = 0U; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ].Distance * 1000;
-
-        r = data >> 6;
-        if (r > 255) r = 255;
-        b = data >> 6;
-        if (b > 255) b = 255;
-
-        dataOut[n].r = r;
-        dataOut[n].g = g;
-        dataOut[n].b = b;
+        dataOut[n] = ColorizeNumber_BlueRedBin<float>(dataIn[ n ].Distance);
     }
 }
 
@@ -212,45 +93,9 @@ void ColorizeRayData::Colorize_BlueRedBin( const thrust::host_vector<RayData>& d
 ******************************************************************************/
 void ColorizeRayData::Colorize_BlueGreenRed( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
-    uint16_t r = 0;
-    uint16_t g = 0;
-    uint16_t b = 0;
-
-    for ( unsigned int n = 0; n < dataSize; n++)
+    for ( unsigned int n = 0U; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ].Distance * 1000;
-
-        if ((data & 0x3000) == 0)
-        {
-            b = 255;
-            g = 0x0ff & (data >> 4);
-            r = 0;
-        }
-        else if ((data & 0x3000) == 0x1000)
-        {
-            b = 0x0ff & (data >> 4);
-            b = 255 - b;
-            g = 255;
-            r = 0;
-        }
-        else if ((data & 0x3000) == 0x2000)
-        {
-            b = 0;
-            g = 255;
-            r = 0x0ff & (data >> 4);
-        }
-        else if ((data & 0x3000) == 0x3000)
-        {
-
-            b = 0;
-            g = 0x0ff & (data >> 4);
-            g = 255 - g;
-            r = 255;
-        }
-
-        dataOut[n].r = r;
-        dataOut[n].g = g;
-        dataOut[n].b = b;
+        dataOut[n] = ColorizeNumber_BlueGreenRed<float>(dataIn[ n ].Distance);
     }
 }
 
@@ -261,18 +106,9 @@ void ColorizeRayData::Colorize_BlueGreenRed( const thrust::host_vector<RayData>&
 ******************************************************************************/
 void ColorizeRayData::Colorize_Grayscale( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize )
 {
-    uint16_t r = 0;
-
-    for ( unsigned int n = 0; n < dataSize; n++)
+    for ( unsigned int n = 0U; n < dataSize; n++)
     {
-        volatile float dataFloat = dataIn[ n ].Distance;
-        uint16_t data = dataFloat * 1000;
-
-        r = data >> 6;
-
-        dataOut[n].r = r;
-        dataOut[n].g = r;
-        dataOut[n].b = r;
+        dataOut[n] = ColorizeNumber_Grayscale<float>(dataIn[ n ].Distance);
     }
 }
 
@@ -283,17 +119,8 @@ void ColorizeRayData::Colorize_Grayscale( const thrust::host_vector<RayData>& da
 ******************************************************************************/
 void ColorizeRayData::Colorize_ShiftGray( const thrust::host_vector<RayData>& dataIn, sf::Color* dataOut, unsigned int dataSize, uint8_t shift )
 {
-    uint16_t r = 0;
-
-    for ( unsigned int n = 0; n < dataSize; n++)
+    for ( unsigned int n = 0U; n < dataSize; n++)
     {
-        uint16_t data = dataIn[ n ].Distance * 1000;
-
-        r = data >> shift;
-        if (r > 255) r = 255;
-
-        dataOut[n].r = r;
-        dataOut[n].g = r;
-        dataOut[n].b = r;
+        dataOut[n] = ColorizeNumber_ShiftGray<float>(dataIn[ n ].Distance, shift);
     }
 }

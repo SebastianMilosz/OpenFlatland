@@ -194,6 +194,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/colorize_number.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/colorize_ray_data.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />

@@ -1,4 +1,5 @@
 #include "ann_viewer_widget.hpp"
+#include "colorize_number.hpp"
 
 /*****************************************************************************/
 /**
@@ -72,14 +73,14 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
         {
             (void)value;
             m_rectangle.setOutlineColor(sf::Color::White);
-            m_rectangle.setOutlineThickness(1U);
-            m_rectangle.setFillColor( sf::Color::Blue );
+            m_rectangle.setOutlineThickness(0U);
+            m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
             m_rectangle.setPosition(curX, curY);
-            m_rectangle.setSize( sf::Vector2f(inW, 5) );
+            m_rectangle.setSize( sf::Vector2f(inW, 10) );
 
             m_displayTexture.draw(m_rectangle, m_renderStates);
 
-            curX += inW + 2U;
+            curX += inW;
         }
 
         curX = neuronBoxDW;
@@ -87,13 +88,11 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
 
         for(const auto& value : integrateLevelVector)
         {
-            const sf::Color cl(value);
-
             m_rectangle.setPosition(curX, curY);
             m_rectangle.setSize( sf::Vector2f(neuronBoxW, neuronBoxH) );
             m_rectangle.setOutlineColor(sf::Color::White);
             m_rectangle.setOutlineThickness(2U);
-            m_rectangle.setFillColor( cl );
+            m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
 
             m_displayTexture.draw(m_rectangle, m_renderStates);
 
