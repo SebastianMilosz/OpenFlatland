@@ -6,6 +6,7 @@
 #include <sigslot.h>
 #include <serializable_object_node.hpp>
 #include <serializable_object.hpp>
+#include <thrust/random.h>
 
 #include <thrust/device_vector.h>
 
@@ -41,12 +42,27 @@ class NeuronCellPool : public codeframe::Object
                               thrust::host_vector<float>& outData );
         virtual ~NeuronCellPool();
 
+        uint32_t GetSynapseSize() { return m_Synapse.Size; }
+
         void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);
         void OnNeuronOutputLimit(codeframe::PropertyNode* prop);
 
         void Initialize(const codeframe::Point2D<unsigned int>& poolSize);
         void Calculate();
         void Populate();
+
+        uint32_t CoordinateToOffset(const uint32_t x, const uint32_t y) const
+        {
+            return m_CurrentSize.Y() * y + x;
+        }
+
+        codeframe::Point2D<unsigned int> OffsetToCoordinate(const uint32_t offset) const
+        {
+            codeframe::Point2D<unsigned int> retValue;
+            retValue.SetX(offset % m_CurrentSize.X());
+            retValue.SetY(std::floor(offset / m_CurrentSize.X()));
+            return retValue;
+        }
 
     private:
         template<typename T>
@@ -102,10 +118,13 @@ class NeuronCellPool : public codeframe::Object
                         {
                             double intpart;
                             uint8_t bitPos = 64U * modf(link , &intpart);
-                            uint64_t outVal = m_outputConsumedVector[intpart];
-                            double weight = m_synapseConsumedVector.Weight[n * s + i];
 
-                            thrust::get<1>(value) += (outVal & (1U<<bitPos)) * weight;
+                            if (intpart < m_outputConsumedVector.size())
+                            {
+                                uint64_t outVal = m_outputConsumedVector[intpart];
+                                double weight = m_synapseConsumedVector.Weight[n * s + i];
+                                thrust::get<1>(value) += (outVal & (1U<<bitPos)) * weight;
+                            }
                         }
                         // Link to external inputs space
                         else if (link < 0.0d)
@@ -203,18 +222,20 @@ class NeuronCellPool : public codeframe::Object
                     m_synapseConsumedVector(synapseConsumedVector),
                     m_inData(inData),
                     m_inDataSize(m_inData.size()),
-                    m_poolSize(poolSize),
-                    m_distribution(1.0f),
+                    m_poolSizeWidth(poolSize.X()),
+                    m_poolSizeHeight(poolSize.Y()),
+                    m_distributionReal_1(-2.0f, 2.0f),
+                    m_distributionReal_2(0.0f, 1.0f),
                     m_generator(generator)
 
                 {
+                    unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
+                    m_generator.seed(seed);
                 }
 
                 template <typename Tuple>
                 __device__ __host__ void operator()(Tuple& value)
                 {
-                    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-                    m_generator.seed(seed);
                     uint32_t n = thrust::get<0>(value);
                     uint32_t s = m_synapseConsumedVector.Size;
 
@@ -223,34 +244,55 @@ class NeuronCellPool : public codeframe::Object
                         if (m_synapseConsumedVector.Link[n * s + i] == 0.0 ||
                             m_synapseConsumedVector.Weight[n * s + i] < 0.02)
                         {
-                            volatile float nodeLinkRandom = m_distribution(m_generator);
-                            m_synapseConsumedVector.Link[n * s + i] = nodeLinkRandom;
+                            m_generator.discard(m_generator.state_size);
+
+                            volatile float nodeLinkRandomX = (float)OffsetToCoordinate(n).X() + (float)m_distributionReal_1(m_generator);
+                            volatile float nodeLinkRandomY = (float)OffsetToCoordinate(n).Y() + (float)m_distributionReal_1(m_generator);
+
+                            volatile float targetLink = CoordinateToOffset((int)nodeLinkRandomX, (int)nodeLinkRandomY) + m_distributionReal_2(m_generator);
+
+                            m_synapseConsumedVector.Link[n * s + i] = targetLink;
                             m_synapseConsumedVector.Weight[n * s + i] = 0.01;
                             break;
                         }
                     }
                 }
 
-            private:
-                uint32_t CoordinateToOffset(const uint32_t x, const uint32_t y) const
+                float CoordinateToOffset(const float x, const float y) const
                 {
-                    return m_poolSize.Y() * y + x;
+                    return (float)m_poolSizeWidth * y + x;
+                }
+
+                int CoordinateToOffset(const int x, const int y) const
+                {
+                    return m_poolSizeWidth * y + x;
                 }
 
                 codeframe::Point2D<unsigned int> OffsetToCoordinate(const uint32_t offset) const
                 {
                     codeframe::Point2D<unsigned int> retValue;
-                    retValue.SetX(offset % m_poolSize.X());
-                    retValue.SetY(std::floor(offset / m_poolSize.X()));
+                    retValue.SetX(offset % m_poolSizeWidth);
+                    retValue.SetY(std::floor(offset / m_poolSizeWidth));
                     return retValue;
                 }
 
+                codeframe::Point2D<int> OffsetToCoordinate(const int32_t offset) const
+                {
+                    codeframe::Point2D<int> retValue;
+                    retValue.SetX(offset % m_poolSizeWidth);
+                    retValue.SetY(std::floor(offset / m_poolSizeWidth));
+                    return retValue;
+                }
+
+            private:
                 const thrust::host_vector<uint64_t>&    m_outputConsumedVector;
                       SynapseVector&                    m_synapseConsumedVector;
                 const thrust::host_vector<float>&       m_inData;
                 const unsigned int                      m_inDataSize;
-                const codeframe::Point2D<unsigned int>& m_poolSize;
-                std::exponential_distribution<float>    m_distribution;
+                const unsigned int                      m_poolSizeWidth;
+                const unsigned int                      m_poolSizeHeight;
+                std::uniform_real_distribution<>        m_distributionReal_1;
+                std::uniform_real_distribution<>        m_distributionReal_2;
                 std::mt19937&                           m_generator;
         };
 

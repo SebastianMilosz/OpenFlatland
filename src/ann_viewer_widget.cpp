@@ -10,6 +10,13 @@ AnnViewerWidget::AnnViewerWidget()
 {
     m_renderStates.blendMode = sf::BlendMode(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
     m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    m_text.setFont(FontFactory::GetFont());
+    m_text.setColor(sf::Color::Red);
+    m_text.setCharacterSize(12);
+    m_text.setFillColor(sf::Color::Red);
+
+    line[0].color = sf::Color::Blue;
 }
 
 /*****************************************************************************/
@@ -56,7 +63,13 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
         NeuronCellPool& neuronPool = engine.GetPool();
 
         codeframe::Property< thrust::host_vector<float> >& integrateLevelProperty = neuronPool.IntegrateLevel;
-        const thrust::host_vector<float> integrateLevelVector = integrateLevelProperty.GetConstValue();
+        const thrust::host_vector<float>& integrateLevelVector = integrateLevelProperty.GetConstValue();
+
+        codeframe::Property< thrust::host_vector<float> >& synapseLinkProperty = neuronPool.SynapseLink;
+        codeframe::Property< thrust::host_vector<float> >& synapseWeightProperty = neuronPool.SynapseWeight;
+
+        const thrust::host_vector<float>& synapseLinkVector = synapseLinkProperty.GetConstValue();
+        const thrust::host_vector<float>& synapseWeightVector = synapseWeightProperty.GetConstValue();
 
         unsigned int neuronBoxW = 3U;
         unsigned int neuronBoxH = 3U;
@@ -71,8 +84,6 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
 
         for(const auto& value : input)
         {
-            (void)value;
-            m_rectangle.setOutlineColor(sf::Color::White);
             m_rectangle.setOutlineThickness(0U);
             m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
             m_rectangle.setPosition(curX, curY);
@@ -86,21 +97,58 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
         curX = neuronBoxDW;
         curY = neuronBoxDH;
 
-        for(const auto& value : integrateLevelVector)
+        m_rectangle.setOutlineColor(sf::Color::White);
+        m_rectangle.setOutlineThickness(2U);
+        m_rectangle.setSize( sf::Vector2f(neuronBoxW, neuronBoxH) );
+
+        for (unsigned int y = 0U; y < poolSize.Y(); y++)
         {
-            m_rectangle.setPosition(curX, curY);
-            m_rectangle.setSize( sf::Vector2f(neuronBoxW, neuronBoxH) );
-            m_rectangle.setOutlineColor(sf::Color::White);
-            m_rectangle.setOutlineThickness(2U);
-            m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
-
-            m_displayTexture.draw(m_rectangle, m_renderStates);
-
-            curX += (neuronBoxW + neuronBoxDW);
-            if (curX > (SCREEN_WIDTH - (neuronBoxH + neuronBoxDH)))
+            for (unsigned int x = 0U; x < poolSize.X(); x++)
             {
-                curX = neuronBoxDW;
-                curY += (neuronBoxH + neuronBoxDH);
+                unsigned int offset = neuronPool.CoordinateToOffset(x, y);
+                float value = integrateLevelVector[offset];
+                curX = x * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
+                curY = y * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
+
+                m_rectangle.setPosition(curX, curY);
+                m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
+                m_displayTexture.draw(m_rectangle, m_renderStates);
+
+                for (unsigned int n = 0U; n < 100U; n++)
+                {
+                    const float linkValue = synapseLinkVector[offset * neuronPool.GetSynapseSize() + n];
+                    const float weightValue = synapseWeightVector[offset * neuronPool.GetSynapseSize() + n];
+
+                    if (linkValue > 0.5f)
+                    {
+                        volatile unsigned int linkX = neuronPool.OffsetToCoordinate(linkValue).X();
+                        volatile unsigned int linkY = neuronPool.OffsetToCoordinate(linkValue).Y();
+
+                        line[0].position.x = x * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
+                        line[0].position.y = y * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
+                        line[1].position.x = linkX * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
+                        line[1].position.y = linkY * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
+                        line[1].color = sf::Color::Red;
+                        m_displayTexture.draw(line, 2, sf::Lines);
+                    }
+                    else if (linkValue < 0.0f)
+                    {
+                        line[0].position.x = x * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
+                        line[0].position.y = y * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
+                        line[1].position.x = std::fabs(linkValue) * 10U;
+                        line[1].position.y = 10U;
+                        line[1].color = sf::Color::Yellow;
+                        m_displayTexture.draw(line, 2, sf::Lines);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                m_text.setString( utilities::math::IntToStr(offset) );
+                m_text.setPosition(curX+2, curY+2);
+                m_displayTexture.draw(m_text);
             }
         }
     }

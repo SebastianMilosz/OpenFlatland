@@ -37,7 +37,7 @@ void ArtificialNeuronEngine::Calculate()
 
     m_NeuronCellPool.Calculate();
 
-    if (m_populateDelay > 100)
+    if (m_populateDelay > 1)
     {
         m_populateDelay = 0U;
         m_NeuronCellPool.Populate();
