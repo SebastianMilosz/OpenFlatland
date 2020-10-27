@@ -71,8 +71,8 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
         const thrust::host_vector<float>& synapseLinkVector = synapseLinkProperty.GetConstValue();
         const thrust::host_vector<float>& synapseWeightVector = synapseWeightProperty.GetConstValue();
 
-        unsigned int neuronBoxW = 3U;
-        unsigned int neuronBoxH = 3U;
+        unsigned int neuronBoxW = 10U;
+        unsigned int neuronBoxH = 10U;
 
         unsigned int neuronBoxDW = (SCREEN_WIDTH  - (3U * poolSize.X())) / (poolSize.X() + 1U);
         unsigned int neuronBoxDH = (SCREEN_HEIGHT - (3U * poolSize.Y())) / (poolSize.Y() + 1U);
@@ -147,7 +147,7 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
                 }
 
                 m_text.setString( utilities::math::IntToStr(offset) );
-                m_text.setPosition(curX+2, curY+2);
+                m_text.setPosition(curX + neuronBoxW +2, curY + neuronBoxH +2);
                 m_displayTexture.draw(m_text);
             }
         }

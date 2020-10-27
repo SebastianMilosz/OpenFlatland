@@ -94,7 +94,7 @@ class NeuronCellPool : public codeframe::Object
         {
             public:
                 neuron_calculate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
-                                         const SynapseVector& synapseConsumedVector,
+                                               SynapseVector& synapseConsumedVector,
                                          const thrust::host_vector<float>& inData) :
                     m_outputConsumedVector(outputConsumedVector),
                     m_synapseConsumedVector(synapseConsumedVector),
@@ -111,7 +111,7 @@ class NeuronCellPool : public codeframe::Object
 
                     for (uint32_t i = 0U; i < s; i++)
                     {
-                        double link = m_synapseConsumedVector.Link[n * s + i];
+                        volatile double link = m_synapseConsumedVector.Link[n * s + i];
 
                         // Link to internal pool space
                         if (link > 0.0d)
@@ -129,12 +129,19 @@ class NeuronCellPool : public codeframe::Object
                         // Link to external inputs space
                         else if (link < 0.0d)
                         {
-                            unsigned int inPos = static_cast<unsigned int>(link);
+                            volatile unsigned int inPos = std::fabs(link);
                             if (inPos < m_inDataSize)
                             {
-                                double weight = m_synapseConsumedVector.Weight[n * s + i];
+                                volatile double weight = m_synapseConsumedVector.Weight[n * s + i];
+                                volatile double inValue = m_inData[inPos];
 
-                                thrust::get<1>(value) += m_inData[inPos] * weight;
+                                volatile double newValue = thrust::get<1>(value) + inValue * weight;
+                                thrust::get<1>(value) = newValue;
+
+                                if (newValue > 0)
+                                {
+                                    m_synapseConsumedVector.Weight[n * s + i] += 0.1f;
+                                }
                             }
                         }
                         else
@@ -146,7 +153,7 @@ class NeuronCellPool : public codeframe::Object
 
             private:
                 const thrust::host_vector<uint64_t>& m_outputConsumedVector;
-                const SynapseVector&                 m_synapseConsumedVector;
+                      SynapseVector&                 m_synapseConsumedVector;
                 const thrust::host_vector<float>&    m_inData;
                 const unsigned int                   m_inDataSize;
         };
