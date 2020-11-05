@@ -46,15 +46,52 @@ void NeuronLayerRay::ProcessData(thrust::host_vector<float>& vectData)
     float tmpMaxFixture  = std::numeric_limits<float>::min();
     float tmpMinFixture  = std::numeric_limits<float>::max();
 
-    auto normalizeBegin = std::distance(vectData.begin(), vectData.end());
-
     thrust::host_vector<RayData>& internalVector = Data.GetValue();
-    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor<Layer::LAYER_DISTANCE>(vectData, tmpMaxDistance, tmpMinDistance));
-    thrust::for_each(std::next(vectData.begin(), normalizeBegin), vectData.end(), normalize_functor(tmpMaxDistance, tmpMinDistance));
 
-    normalizeBegin = std::distance(vectData.begin(), vectData.end());
-    thrust::for_each(internalVector.begin(), internalVector.end(), copy_functor<Layer::LAYER_FIXTURE>(vectData, tmpMaxFixture, tmpMinFixture));
-    thrust::for_each(std::next(vectData.begin(), normalizeBegin), vectData.end(), normalize_functor(tmpMaxFixture, tmpMinFixture));
+    thrust::host_vector<float> vectDistanceData;
+    thrust::host_vector<float> vectFixtureData;
+
+    vectDistanceData.reserve(internalVector.size());
+    vectFixtureData.reserve(internalVector.size());
+
+    thrust::for_each(
+                         internalVector.begin(),
+                         internalVector.end(),
+                         copy_functor<Layer::LAYER_DISTANCE>(vectDistanceData, tmpMaxDistance, tmpMinDistance)
+                    );
+    thrust::for_each(
+                         vectDistanceData.begin(),
+                         vectDistanceData.end(),
+                         normalize_functor(tmpMaxDistance, tmpMinDistance)
+                    );
+
+    thrust::for_each(
+                         internalVector.begin(),
+                         internalVector.end(),
+                         copy_functor<Layer::LAYER_FIXTURE>(vectFixtureData, tmpMaxFixture, tmpMinFixture)
+                    );
+    thrust::for_each(
+                         vectFixtureData.begin(),
+                         vectFixtureData.end(),
+                         normalize_functor(tmpMaxFixture, tmpMinFixture)
+                    );
+
+    thrust::counting_iterator<uint32_t> first(0U);
+    thrust::counting_iterator<uint32_t> last = first + internalVector.size();
+
+    thrust::for_each(
+                         thrust::make_zip_iterator(thrust::make_tuple(
+                                                                      first,
+                                                                      vectDistanceData.begin(),
+                                                                      vectFixtureData.begin()
+                                                                     )),
+                         thrust::make_zip_iterator(thrust::make_tuple(
+                                                                      last,
+                                                                      vectDistanceData.end(),
+                                                                      vectFixtureData.end()
+                                                                     )),
+                        marge_functor(vectData)
+                    );
 
     m_MaxDistance = tmpMaxDistance;
     m_MinDistance = tmpMinDistance;

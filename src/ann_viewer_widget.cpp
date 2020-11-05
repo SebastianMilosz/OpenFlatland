@@ -12,7 +12,7 @@ AnnViewerWidget::AnnViewerWidget()
     m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     m_text.setFont(FontFactory::GetFont());
-    m_text.setColor(sf::Color::Red);
+    m_text.setOutlineColor(sf::Color::Red);
     m_text.setCharacterSize(12);
     m_text.setFillColor(sf::Color::Red);
 
@@ -128,16 +128,16 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
                         line[0].position.y = y * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
                         line[1].position.x = linkX * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
                         line[1].position.y = linkY * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
-                        line[1].color = sf::Color::Red;
+                        line[1].color = ColorizeNumber_IronBown<float>(weightValue);
                         m_displayTexture.draw(line, 2, sf::Lines);
                     }
                     else if (linkValue < 0.0f)
                     {
                         line[0].position.x = x * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
                         line[0].position.y = y * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
-                        line[1].position.x = std::fabs(linkValue) * 10U;
+                        line[1].position.x = std::fabs(linkValue) * inW;
                         line[1].position.y = 10U;
-                        line[1].color = sf::Color::Yellow;
+                        line[1].color = ColorizeNumber_IronBown<float>(weightValue);
                         m_displayTexture.draw(line, 2, sf::Lines);
                     }
                     else

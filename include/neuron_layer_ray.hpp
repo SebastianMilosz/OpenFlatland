@@ -58,6 +58,25 @@ class NeuronLayerRay : public NeuronLayer
                 float& m_Max;
                 float& m_Min;
         };
+
+        struct marge_functor
+        {
+            public:
+                marge_functor(thrust::host_vector<float>& vect) :
+                    m_vect(vect)
+                    {
+                    }
+
+                template <typename Tuple>
+                __device__ __host__ void operator()(Tuple& value)
+                {
+                    m_vect.push_back(thrust::get<1>(value));
+                    m_vect.push_back(thrust::get<2>(value));
+                }
+
+            private:
+                thrust::host_vector<float>& m_vect;
+        };
 };
 
 /*****************************************************************************/

@@ -233,6 +233,7 @@ class NeuronCellPool : public codeframe::Object
                     m_poolSizeHeight(poolSize.Y()),
                     m_distributionReal_1(-2.0f, 2.0f),
                     m_distributionReal_2(0.0f, 1.0f),
+                    m_distributionReal_3((-1.0f) * (float)m_inDataSize, 0.0f),
                     m_generator(generator)
 
                 {
@@ -257,6 +258,11 @@ class NeuronCellPool : public codeframe::Object
                             volatile float nodeLinkRandomY = (float)OffsetToCoordinate(n).Y() + (float)m_distributionReal_1(m_generator);
 
                             volatile float targetLink = CoordinateToOffset((int)nodeLinkRandomX, (int)nodeLinkRandomY) + m_distributionReal_2(m_generator);
+
+                            if (targetLink < 0.0f)
+                            {
+                                targetLink = m_distributionReal_3(m_generator);
+                            }
 
                             m_synapseConsumedVector.Link[n * s + i] = targetLink;
                             m_synapseConsumedVector.Weight[n * s + i] = 0.01;
@@ -292,15 +298,16 @@ class NeuronCellPool : public codeframe::Object
                 }
 
             private:
-                const thrust::host_vector<uint64_t>&    m_outputConsumedVector;
-                      SynapseVector&                    m_synapseConsumedVector;
-                const thrust::host_vector<float>&       m_inData;
-                const unsigned int                      m_inDataSize;
-                const unsigned int                      m_poolSizeWidth;
-                const unsigned int                      m_poolSizeHeight;
-                std::uniform_real_distribution<>        m_distributionReal_1;
-                std::uniform_real_distribution<>        m_distributionReal_2;
-                std::mt19937&                           m_generator;
+                const thrust::host_vector<uint64_t>&  m_outputConsumedVector;
+                      SynapseVector&                  m_synapseConsumedVector;
+                const thrust::host_vector<float>&     m_inData;
+                const unsigned int                    m_inDataSize;
+                const unsigned int                    m_poolSizeWidth;
+                const unsigned int                    m_poolSizeHeight;
+                std::uniform_real_distribution<float> m_distributionReal_1;
+                std::uniform_real_distribution<float> m_distributionReal_2;
+                std::uniform_real_distribution<float> m_distributionReal_3;
+                std::mt19937&                         m_generator;
         };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
