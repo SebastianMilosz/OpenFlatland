@@ -124,6 +124,18 @@ class NeuronCellPool : public codeframe::Object
                                 uint64_t outVal = m_outputConsumedVector[intpart];
                                 double weight = m_synapseConsumedVector.Weight[n * s + i];
                                 thrust::get<1>(value) += (outVal & (1U<<bitPos)) * weight;
+
+                                if (thrust::get<1>(value) > 0)
+                                {
+                                    m_synapseConsumedVector.Weight[n * s + i] += 0.1f;
+                                }
+                                else
+                                {
+                                    if (m_synapseConsumedVector.Weight[n * s + i] > 0.0f)
+                                    {
+                                        m_synapseConsumedVector.Weight[n * s + i] -= 0.001f;
+                                    }
+                                }
                             }
                         }
                         // Link to external inputs space
@@ -140,7 +152,17 @@ class NeuronCellPool : public codeframe::Object
 
                                 if (newValue > 0)
                                 {
-                                    m_synapseConsumedVector.Weight[n * s + i] += 0.1f;
+                                    if (weight < 1.0f)
+                                    {
+                                        m_synapseConsumedVector.Weight[n * s + i] += 0.1f;
+                                    }
+                                }
+                                else
+                                {
+                                    if (weight > 0.0f)
+                                    {
+                                        m_synapseConsumedVector.Weight[n * s + i] -= 0.001f;
+                                    }
                                 }
                             }
                         }

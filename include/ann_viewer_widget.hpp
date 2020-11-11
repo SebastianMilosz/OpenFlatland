@@ -23,6 +23,8 @@ class AnnViewerWidget : public sigslot::has_slots<>
         static constexpr unsigned int SCREEN_WIDTH = 520U;
         static constexpr unsigned int SCREEN_HEIGHT = 520U;
 
+        static constexpr unsigned int MENU_LEFT_OFFSET = 200U;
+
         sf::Vertex line[2] =
         {
             sf::Vertex(sf::Vector2f()),
