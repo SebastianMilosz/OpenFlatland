@@ -309,6 +309,7 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/neuron_column_model_s1.hpp" />
 		<Unit filename="include/neuron_layer.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
