@@ -154,7 +154,12 @@ void NeuronCellPool::Calculate()
                     );
 
     // Outputs vector connection
-    thrust::transform(m_vectOutData.begin(), m_vectOutData.end(), m_vectOutData.begin(), neuron_output_take_functor<float>(m_IntegrateLevel));
+    thrust::transform(
+                        m_vectOutData.begin(),
+                        m_vectOutData.end(),
+                        m_vectOutData.begin(),
+                        neuron_output_take_functor<float>(m_IntegrateLevel)
+                     );
 }
 
 /*****************************************************************************/
