@@ -28,6 +28,9 @@ class ArtificialNeuronEngine : public codeframe::Object
         NeuronCellPool& GetPool() {return m_NeuronCellPool;}
 
     protected:
+        NeuronCellPool::ExternalData_S1 m_inputData;
+        NeuronCellPool::ExternalData_S1 m_outputData;
+
         NeuronLayerContainer m_Inputs;
         NeuronLayerContainer m_Outputs;
 

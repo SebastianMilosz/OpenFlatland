@@ -35,7 +35,7 @@ void ArtificialNeuronEngine::Calculate()
 {
     CollectInputs();
 
-    m_NeuronCellPool.Calculate();
+    m_NeuronCellPool.Calculate(m_inputData, m_outputData);
 
     if (m_populateDelay > 70)
     {
@@ -60,7 +60,7 @@ void ArtificialNeuronEngine::OnCellPoolSize(codeframe::PropertyNode* prop)
     auto propSize = dynamic_cast< codeframe::Property< codeframe::Point2D<unsigned int> >* >(prop);
     if (propSize)
     {
-        m_NeuronCellPool.Initialize(propSize->GetConstValue());
+        m_NeuronCellPool.Initialize();
     }
 }
 

@@ -17,12 +17,15 @@
   * @brief
  **
 ******************************************************************************/
-class NeuronCellPool : public codeframe::Object
+class NeuronCellPool : public NeuronModel::Column::Model_S1, public codeframe::Object
 {
     CODEFRAME_META_CLASS_NAME( "NeuronCellPool" );
     CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
+        using InternalData_S1 = NeuronModel::Column::InternalData_S1;
+        using ExternalData_S1 = NeuronModel::Column::ExternalData_S1;
+
         codeframe::Property< unsigned int > NeuronSynapseLimit;
         codeframe::Property< unsigned int > NeuronOutputLimit;
 
@@ -42,9 +45,11 @@ class NeuronCellPool : public codeframe::Object
         void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);
         void OnNeuronOutputLimit(codeframe::PropertyNode* prop);
 
-        void Initialize(const codeframe::Point2D<unsigned int>& poolSize);
-        void Calculate();
+        void Initialize() override;
+        void Calculate(const NeuronModel::Column::ExternalData& dataInput, NeuronModel::Column::ExternalData& dataOutput) override;
         void Populate();
+
+        void Resize(uint32_t width, uint32_t height);
 
         uint32_t CoordinateToOffset(const uint32_t x, const uint32_t y) const
         {
@@ -60,6 +65,8 @@ class NeuronCellPool : public codeframe::Object
         }
 
     private:
+        InternalData_S1 m_internalData;
+
         template<typename T>
         struct copy_range_functor
         {

@@ -35,7 +35,8 @@ NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent,
                       ),
     m_generator(std::random_device()()),
     m_vectInData(inData),
-    m_vectOutData(outData)
+    m_vectOutData(outData),
+    Model_S1(10, 10, m_internalData)
 {
     NeuronSynapseLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronSynapseLimit );
     NeuronOutputLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronOutputLimit );
@@ -58,7 +59,7 @@ NeuronCellPool::~NeuronCellPool()
 ******************************************************************************/
 void NeuronCellPool::OnNeuronSynapseLimit(codeframe::PropertyNode* prop)
 {
-    Initialize(m_CurrentSize);
+    //Initialize(m_CurrentSize);
 }
 
 /*****************************************************************************/
@@ -68,7 +69,7 @@ void NeuronCellPool::OnNeuronSynapseLimit(codeframe::PropertyNode* prop)
 ******************************************************************************/
 void NeuronCellPool::OnNeuronOutputLimit(codeframe::PropertyNode* prop)
 {
-    Initialize(m_CurrentSize);
+    //Initialize(m_CurrentSize);
 }
 
 /*****************************************************************************/
@@ -76,11 +77,21 @@ void NeuronCellPool::OnNeuronOutputLimit(codeframe::PropertyNode* prop)
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Initialize(const codeframe::Point2D<unsigned int>& poolSize)
+void NeuronCellPool::Resize(const uint32_t width, const uint32_t height)
 {
-    m_CurrentSize = poolSize;
 
-    const uint32_t newSize = poolSize.X() * poolSize.Y();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void NeuronCellPool::Initialize()
+{
+    m_CurrentSize = codeframe::Point2D<unsigned int>(10,10);
+
+    const uint32_t newSize = m_CurrentSize.X() * m_CurrentSize.Y();
     const uint32_t currentSize = m_IntegrateLevel.size();
     const uint32_t slim  = std::min((uint32_t)NeuronSynapseLimit, static_cast<uint32_t>(MAX_SYNAPSE_CNT));
 
@@ -116,7 +127,8 @@ void NeuronCellPool::Initialize(const codeframe::Point2D<unsigned int>& poolSize
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Calculate()
+void NeuronCellPool::Calculate(const NeuronModel::Column::ExternalData& dataInput,
+                                     NeuronModel::Column::ExternalData& dataOutput)
 {
     const uint32_t poolSize = m_CurrentSize.X() * m_CurrentSize.Y();
 

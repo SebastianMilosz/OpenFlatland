@@ -10,253 +10,346 @@ struct SynapseVector
     uint32_t                   Size = 0U;
 };
 
-struct neuron_calculate_functor
+namespace NeuronModel
 {
-    public:
-        neuron_calculate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
-                                       SynapseVector& synapseConsumedVector,
-                                 const thrust::host_vector<float>& inData) :
-            m_outputConsumedVector(outputConsumedVector),
-            m_synapseConsumedVector(synapseConsumedVector),
-            m_inData(inData),
-            m_inDataSize(m_inData.size())
+    /*****************************************************************************/
+    /**
+      * @brief Neuronal column interface
+     **
+    ******************************************************************************/
+    namespace Column
+    {
+        /*****************************************************************************/
+        /**
+          * @brief Neuronal column internal data space
+         **
+        ******************************************************************************/
+        class InternalData
         {
-        }
+            public:
+                virtual void SaveToFile(const std::string& file) const = 0;
+                virtual void LoadFromFile(const std::string& file) = 0;
+                virtual void SaveToString(const std::string& str) const = 0;
+                virtual void LoadFromString(const std::string& str) = 0;
+        };
 
-        template <typename Tuple>
-        __device__ __host__ void operator()(Tuple& value)
+        /*****************************************************************************/
+        /**
+          * @brief Neuronal column external data space
+         **
+        ******************************************************************************/
+        class ExternalData
         {
-            uint32_t n = thrust::get<0>(value);
-            uint32_t s = m_synapseConsumedVector.Size;
+            public:
+        };
 
-            for (uint32_t i = 0U; i < s; i++)
-            {
-                volatile double link = m_synapseConsumedVector.Link[n * s + i];
+        /*****************************************************************************/
+        /**
+          * @brief Neuronal column model
+         **
+        ******************************************************************************/
+        class Model
+        {
+            virtual void Initialize() = 0;
+            virtual void Calculate(const ExternalData& dataInput, ExternalData& dataOutput) = 0;
+        };
+    };
+};
 
-                // Link to internal pool space
-                if (link > 0.0d)
+namespace NeuronModel
+{
+    namespace Column
+    {
+        class InternalData_S1 : public NeuronModel::Column::InternalData
+        {
+            public:
+                void SaveToFile(const std::string& file) const {}
+                void LoadFromFile(const std::string& file) {}
+                void SaveToString(const std::string& str) const {}
+                void LoadFromString(const std::string& str) {}
+        };
+
+        class ExternalData_S1 : public NeuronModel::Column::ExternalData
+        {
+            public:
+        };
+
+        class Model_S1 : public NeuronModel::Column::Model
+        {
+            public:
+                Model_S1(uint32_t width, uint32_t height, NeuronModel::Column::InternalData& data)
                 {
-                    double intpart;
-                    uint8_t bitPos = 64U * modf(link , &intpart);
 
-                    if (intpart < m_outputConsumedVector.size())
-                    {
-                        uint64_t outVal = m_outputConsumedVector[intpart];
-                        double weight = m_synapseConsumedVector.Weight[n * s + i];
-                        thrust::get<1>(value) += (outVal & (1U<<bitPos)) * weight;
-
-                        if (thrust::get<1>(value) > 0)
-                        {
-                            if (weight < 1.0f)
-                            {
-                                m_synapseConsumedVector.Weight[n * s + i] += 0.1f;
-                            }
-                        }
-                        else
-                        {
-                            if (m_synapseConsumedVector.Weight[n * s + i] > 0.0f)
-                            {
-                                m_synapseConsumedVector.Weight[n * s + i] -= 0.001f;
-                            }
-                        }
-                    }
                 }
-                // Link to external inputs space
-                else if (link < 0.0d)
+
+                void Initialize() override
                 {
-                    volatile unsigned int inPos = std::fabs(link);
-                    if (inPos < m_inDataSize)
-                    {
-                        volatile double weight = m_synapseConsumedVector.Weight[n * s + i];
-                        volatile double inValue = m_inData[inPos];
 
-                        volatile double newValue = thrust::get<1>(value) + inValue * weight;
-                        thrust::get<1>(value) = newValue;
+                }
 
-                        if (newValue > 0)
+                void Calculate(const NeuronModel::Column::ExternalData& dataInput, NeuronModel::Column::ExternalData& dataOutput) override
+                {
+
+                }
+
+                void CalculateInternal()
+                {
+                }
+
+                void PopulateInternal()
+                {
+                }
+
+                struct neuron_calculate_functor
+                {
+                    public:
+                        neuron_calculate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
+                                                       SynapseVector& synapseConsumedVector,
+                                                 const thrust::host_vector<float>& inData) :
+                            m_outputConsumedVector(outputConsumedVector),
+                            m_synapseConsumedVector(synapseConsumedVector),
+                            m_inData(inData),
+                            m_inDataSize(m_inData.size())
                         {
-                            if (weight < 1.0f)
+                        }
+
+                        template <typename Tuple>
+                        __device__ __host__ void operator()(Tuple& value)
+                        {
+                            uint32_t n = thrust::get<0>(value);
+                            uint32_t s = m_synapseConsumedVector.Size;
+
+                            for (uint32_t i = 0U; i < s; i++)
                             {
-                                m_synapseConsumedVector.Weight[n * s + i] += 0.1f;
+                                volatile double link = m_synapseConsumedVector.Link[n * s + i];
+
+                                // Link to internal pool space
+                                if (link > 0.0d)
+                                {
+                                    double intpart;
+                                    uint8_t bitPos = 64U * modf(link , &intpart);
+
+                                    if (intpart < m_outputConsumedVector.size())
+                                    {
+                                        uint64_t outVal = m_outputConsumedVector[intpart];
+                                        double weight = m_synapseConsumedVector.Weight[n * s + i];
+                                        thrust::get<1>(value) += (outVal & (1U<<bitPos)) * weight;
+
+                                        if (thrust::get<1>(value) > 0)
+                                        {
+                                            if (weight < 1.0f)
+                                            {
+                                                m_synapseConsumedVector.Weight[n * s + i] += 0.1f;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (m_synapseConsumedVector.Weight[n * s + i] > 0.0f)
+                                            {
+                                                m_synapseConsumedVector.Weight[n * s + i] -= 0.001f;
+                                            }
+                                        }
+                                    }
+                                }
+                                // Link to external inputs space
+                                else if (link < 0.0d)
+                                {
+                                    volatile unsigned int inPos = std::fabs(link);
+                                    if (inPos < m_inDataSize)
+                                    {
+                                        volatile double weight = m_synapseConsumedVector.Weight[n * s + i];
+                                        volatile double inValue = m_inData[inPos];
+
+                                        volatile double newValue = thrust::get<1>(value) + inValue * weight;
+                                        thrust::get<1>(value) = newValue;
+
+                                        if (newValue > 0)
+                                        {
+                                            if (weight < 1.0f)
+                                            {
+                                                m_synapseConsumedVector.Weight[n * s + i] += 0.1f;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (weight > 0.0f)
+                                            {
+                                                m_synapseConsumedVector.Weight[n * s + i] -= 0.001f;
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
                         }
-                        else
+
+                    private:
+                        const thrust::host_vector<uint64_t>& m_outputConsumedVector;
+                              SynapseVector&                 m_synapseConsumedVector;
+                        const thrust::host_vector<float>&    m_inData;
+                        const unsigned int                   m_inDataSize;
+                };
+
+                struct neuron_output_calculate_functor
+                {
+                    public:
+                        constexpr static uint8_t TUPLE_POS_INTEGRATE_LEVEL = 0U;
+                        constexpr static uint8_t TUPLE_POS_INTEGRATE_THRESHOLD = 1U;
+                        constexpr static uint8_t TUPLE_POS_INTEGRATE_INTERVAL = 2U;
+                        constexpr static uint8_t TUPLE_POS_INTEGRATE_OUTPUT = 3U;
+
+                        neuron_output_calculate_functor()
                         {
-                            if (weight > 0.0f)
+                        }
+
+                        template <typename Tuple>
+                        __device__ __host__ void operator()(Tuple& value)
+                        {
+                            thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) = thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) << 1U;
+
+                            if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > thrust::get<TUPLE_POS_INTEGRATE_THRESHOLD>(value))
                             {
-                                m_synapseConsumedVector.Weight[n * s + i] -= 0.001f;
+                                thrust::get<TUPLE_POS_INTEGRATE_INTERVAL>(value)++;
+                                thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = -10.0f; // Hyperpolaryzation begin
+                                thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) &= static_cast<uint64_t>(0x01U);
                             }
                             else
                             {
-
+                                if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > 0.0f)
+                                {
+                                    // Normal charge pump positive depolarization
+                                    thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) -= 0.0001;
+                                }
+                                else if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) < 0.0f) // Hyperpolaryzation
+                                {
+                                    // Normal charge pump negative depolarization
+                                    thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) += 1.0f;
+                                }
                             }
                         }
-                    }
-                }
-                else
+                };
+
+                template<class T>
+                struct neuron_output_take_functor
                 {
-                    break;
-                }
-            }
-        }
+                    public:
+                        neuron_output_take_functor(thrust::host_vector<float>& integrateLevelVector) :
+                            m_countValue(0U),
+                            m_integrateLevelVector(integrateLevelVector)
+                        {
+                        }
 
-    private:
-        const thrust::host_vector<uint64_t>& m_outputConsumedVector;
-              SynapseVector&                 m_synapseConsumedVector;
-        const thrust::host_vector<float>&    m_inData;
-        const unsigned int                   m_inDataSize;
-};
+                        __device__ __host__ T operator()(T& value)
+                        {
+                            volatile float newValue = m_integrateLevelVector[m_integrateLevelVector.size() - 1U - m_countValue++];
+                            return newValue;
+                        }
+                    private:
+                        uint32_t m_countValue;
+                        thrust::host_vector<float>& m_integrateLevelVector;
+                };
 
-struct neuron_output_calculate_functor
-{
-    public:
-        constexpr static uint8_t TUPLE_POS_INTEGRATE_LEVEL = 0U;
-        constexpr static uint8_t TUPLE_POS_INTEGRATE_THRESHOLD = 1U;
-        constexpr static uint8_t TUPLE_POS_INTEGRATE_INTERVAL = 2U;
-        constexpr static uint8_t TUPLE_POS_INTEGRATE_OUTPUT = 3U;
-
-        neuron_output_calculate_functor()
-        {
-        }
-
-        template <typename Tuple>
-        __device__ __host__ void operator()(Tuple& value)
-        {
-            thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) = thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) << 1U;
-
-            if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > thrust::get<TUPLE_POS_INTEGRATE_THRESHOLD>(value))
-            {
-                thrust::get<TUPLE_POS_INTEGRATE_INTERVAL>(value)++;
-                thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = -10.0f; // Hyperpolaryzation begin
-                thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) &= static_cast<uint64_t>(0x01U);
-            }
-            else
-            {
-                if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > 0.0f)
+                struct neuron_populate_functor
                 {
-                    // Normal charge pump positive depolarization
-                    thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) -= 0.0001;
-                }
-                else if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) < 0.0f) // Hyperpolaryzation
-                {
-                    // Normal charge pump negative depolarization
-                    thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) += 1.0f;
-                }
-            }
-        }
-};
+                    public:
+                        neuron_populate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
+                                                      SynapseVector& synapseConsumedVector,
+                                                const thrust::host_vector<float>& inData,
+                                                const codeframe::Point2D<unsigned int>& poolSize,
+                                                std::mt19937& generator) :
+                            m_outputConsumedVector(outputConsumedVector),
+                            m_synapseConsumedVector(synapseConsumedVector),
+                            m_inData(inData),
+                            m_inDataSize(m_inData.size()),
+                            m_poolSizeWidth(poolSize.X()),
+                            m_poolSizeHeight(poolSize.Y()),
+                            m_distributionReal_1(-2.0f, 2.0f),
+                            m_distributionReal_2(0.0f, 1.0f),
+                            m_distributionReal_3((-1.0f) * (float)m_inDataSize, 0.0f),
+                            m_generator(generator)
 
-template<class T>
-struct neuron_output_take_functor
-{
-    public:
-        neuron_output_take_functor(thrust::host_vector<float>& integrateLevelVector) :
-            m_countValue(0U),
-            m_integrateLevelVector(integrateLevelVector)
-        {
-        }
+                        {
+                            unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
+                            m_generator.seed(seed);
+                        }
 
-        __device__ __host__ T operator()(T& value)
-        {
-            volatile float newValue = m_integrateLevelVector[m_integrateLevelVector.size() - 1U - m_countValue++];
-            return newValue;
-        }
-    private:
-        uint32_t m_countValue;
-        thrust::host_vector<float>& m_integrateLevelVector;
-};
+                        template <typename Tuple>
+                        __device__ __host__ void operator()(Tuple& value)
+                        {
+                            uint32_t n = thrust::get<0>(value);
+                            uint32_t s = m_synapseConsumedVector.Size;
 
-struct neuron_populate_functor
-{
-    public:
-        neuron_populate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
-                                      SynapseVector& synapseConsumedVector,
-                                const thrust::host_vector<float>& inData,
-                                const codeframe::Point2D<unsigned int>& poolSize,
-                                std::mt19937& generator) :
-            m_outputConsumedVector(outputConsumedVector),
-            m_synapseConsumedVector(synapseConsumedVector),
-            m_inData(inData),
-            m_inDataSize(m_inData.size()),
-            m_poolSizeWidth(poolSize.X()),
-            m_poolSizeHeight(poolSize.Y()),
-            m_distributionReal_1(-2.0f, 2.0f),
-            m_distributionReal_2(0.0f, 1.0f),
-            m_distributionReal_3((-1.0f) * (float)m_inDataSize, 0.0f),
-            m_generator(generator)
+                            for (uint32_t i = 0U; i < s; i++)
+                            {
+                                if (m_synapseConsumedVector.Link[n * s + i] == 0.0 ||
+                                    m_synapseConsumedVector.Weight[n * s + i] < 0.02)
+                                {
+                                    m_generator.discard(m_generator.state_size);
 
-        {
-            unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
-            m_generator.seed(seed);
-        }
+                                    volatile float nodeLinkRandomX = (float)OffsetToCoordinate(n).X() + (float)m_distributionReal_1(m_generator);
+                                    volatile float nodeLinkRandomY = (float)OffsetToCoordinate(n).Y() + (float)m_distributionReal_1(m_generator);
 
-        template <typename Tuple>
-        __device__ __host__ void operator()(Tuple& value)
-        {
-            uint32_t n = thrust::get<0>(value);
-            uint32_t s = m_synapseConsumedVector.Size;
+                                    volatile float targetLink = CoordinateToOffset((int)nodeLinkRandomX, (int)nodeLinkRandomY) + m_distributionReal_2(m_generator);
 
-            for (uint32_t i = 0U; i < s; i++)
-            {
-                if (m_synapseConsumedVector.Link[n * s + i] == 0.0 ||
-                    m_synapseConsumedVector.Weight[n * s + i] < 0.02)
-                {
-                    m_generator.discard(m_generator.state_size);
+                                    if (targetLink < 0.0f)
+                                    {
+                                        targetLink = m_distributionReal_3(m_generator);
+                                    }
 
-                    volatile float nodeLinkRandomX = (float)OffsetToCoordinate(n).X() + (float)m_distributionReal_1(m_generator);
-                    volatile float nodeLinkRandomY = (float)OffsetToCoordinate(n).Y() + (float)m_distributionReal_1(m_generator);
+                                    m_synapseConsumedVector.Link[n * s + i] = targetLink;
+                                    m_synapseConsumedVector.Weight[n * s + i] = 0.01;
+                                    break;
+                                }
+                            }
+                        }
 
-                    volatile float targetLink = CoordinateToOffset((int)nodeLinkRandomX, (int)nodeLinkRandomY) + m_distributionReal_2(m_generator);
+                        float CoordinateToOffset(const float x, const float y) const
+                        {
+                            return (float)m_poolSizeWidth * y + x;
+                        }
 
-                    if (targetLink < 0.0f)
-                    {
-                        targetLink = m_distributionReal_3(m_generator);
-                    }
+                        int CoordinateToOffset(const int x, const int y) const
+                        {
+                            return m_poolSizeWidth * y + x;
+                        }
 
-                    m_synapseConsumedVector.Link[n * s + i] = targetLink;
-                    m_synapseConsumedVector.Weight[n * s + i] = 0.01;
-                    break;
-                }
-            }
-        }
+                        codeframe::Point2D<unsigned int> OffsetToCoordinate(const uint32_t offset) const
+                        {
+                            codeframe::Point2D<unsigned int> retValue;
+                            retValue.SetX(offset % m_poolSizeWidth);
+                            retValue.SetY(std::floor(offset / m_poolSizeWidth));
+                            return retValue;
+                        }
 
-        float CoordinateToOffset(const float x, const float y) const
-        {
-            return (float)m_poolSizeWidth * y + x;
-        }
+                        codeframe::Point2D<int> OffsetToCoordinate(const int32_t offset) const
+                        {
+                            codeframe::Point2D<int> retValue;
+                            retValue.SetX(offset % m_poolSizeWidth);
+                            retValue.SetY(std::floor(offset / m_poolSizeWidth));
+                            return retValue;
+                        }
 
-        int CoordinateToOffset(const int x, const int y) const
-        {
-            return m_poolSizeWidth * y + x;
-        }
-
-        codeframe::Point2D<unsigned int> OffsetToCoordinate(const uint32_t offset) const
-        {
-            codeframe::Point2D<unsigned int> retValue;
-            retValue.SetX(offset % m_poolSizeWidth);
-            retValue.SetY(std::floor(offset / m_poolSizeWidth));
-            return retValue;
-        }
-
-        codeframe::Point2D<int> OffsetToCoordinate(const int32_t offset) const
-        {
-            codeframe::Point2D<int> retValue;
-            retValue.SetX(offset % m_poolSizeWidth);
-            retValue.SetY(std::floor(offset / m_poolSizeWidth));
-            return retValue;
-        }
-
-    private:
-        const thrust::host_vector<uint64_t>&  m_outputConsumedVector;
-              SynapseVector&                  m_synapseConsumedVector;
-        const thrust::host_vector<float>&     m_inData;
-        const unsigned int                    m_inDataSize;
-        const unsigned int                    m_poolSizeWidth;
-        const unsigned int                    m_poolSizeHeight;
-        std::uniform_real_distribution<float> m_distributionReal_1;
-        std::uniform_real_distribution<float> m_distributionReal_2;
-        std::uniform_real_distribution<float> m_distributionReal_3;
-        std::mt19937&                         m_generator;
-};
+                    private:
+                        const thrust::host_vector<uint64_t>&  m_outputConsumedVector;
+                              SynapseVector&                  m_synapseConsumedVector;
+                        const thrust::host_vector<float>&     m_inData;
+                        const unsigned int                    m_inDataSize;
+                        const unsigned int                    m_poolSizeWidth;
+                        const unsigned int                    m_poolSizeHeight;
+                        std::uniform_real_distribution<float> m_distributionReal_1;
+                        std::uniform_real_distribution<float> m_distributionReal_2;
+                        std::uniform_real_distribution<float> m_distributionReal_3;
+                        std::mt19937&                         m_generator;
+                };
+        };
+    };
+}
 
 #endif // NEURON_COLUMN_MODEL_S1_HPP_INCLUDED
