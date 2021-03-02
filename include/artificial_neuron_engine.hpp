@@ -17,20 +17,14 @@ class ArtificialNeuronEngine : public codeframe::Object
                  ArtificialNeuronEngine( const std::string& name, ObjectNode* parent );
         virtual ~ArtificialNeuronEngine() = default;
 
-        codeframe::Property< codeframe::Point2D<unsigned int> > CellPoolSize;
         codeframe::Property< thrust::host_vector<float> > Input;
         codeframe::Property< thrust::host_vector<float> > Output;
 
         void Calculate();
 
-        void OnCellPoolSize(codeframe::PropertyNode* prop);
-
         NeuronCellPool& GetPool() {return m_NeuronCellPool;}
 
     protected:
-        NeuronCellPool::ExternalData_S1 m_inputData;
-        NeuronCellPool::ExternalData_S1 m_outputData;
-
         NeuronLayerContainer m_Inputs;
         NeuronLayerContainer m_Outputs;
 
@@ -42,8 +36,6 @@ class ArtificialNeuronEngine : public codeframe::Object
     private:
         thrust::host_vector<float> m_vectInData;
         thrust::host_vector<float> m_vectOutData;
-
-        uint32_t m_populateDelay;
 };
 
 #endif // ARTIFICIAL_NEURON_ENGINE_HPP_INCLUDED

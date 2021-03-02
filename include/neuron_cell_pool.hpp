@@ -17,39 +17,26 @@
   * @brief
  **
 ******************************************************************************/
-class NeuronCellPool : public NeuronModel::Column::Model_S1, public codeframe::Object
+class NeuronCellPool : public NeuronModel::Column::Model_SNN
 {
     CODEFRAME_META_CLASS_NAME( "NeuronCellPool" );
     CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
-        using InternalData_S1 = NeuronModel::Column::InternalData_S1;
-        using ExternalData_S1 = NeuronModel::Column::ExternalData_S1;
+        codeframe::Property< codeframe::Point2D<unsigned int> > CellPoolSize;
+        codeframe::Property< unsigned int >                     NeuronSynapseLimit;
+        codeframe::Property< unsigned int >                     NeuronOutputLimit;
+        codeframe::Property< thrust::host_vector<float> >       SynapseLink;
+        codeframe::Property< thrust::host_vector<float> >       SynapseWeight;
+        codeframe::Property< thrust::host_vector<float> >       IntegrateThreshold;
+        codeframe::Property< thrust::host_vector<float> >       IntegrateLevel;
 
-        codeframe::Property< unsigned int > NeuronSynapseLimit;
-        codeframe::Property< unsigned int > NeuronOutputLimit;
-
-        // Those vectors are used to store current neuron pool state in nvs
-        codeframe::Property< thrust::host_vector<float> > SynapseLink;
-        codeframe::Property< thrust::host_vector<float> > SynapseWeight;
-        codeframe::Property< thrust::host_vector<float> > IntegrateThreshold;
-        codeframe::Property< thrust::host_vector<float> > IntegrateLevel;
-
-        NeuronCellPool( const std::string& name, ObjectNode* parent,
-                        const thrust::host_vector<float>& inData,
-                              thrust::host_vector<float>& outData );
+                 NeuronCellPool(const std::string& name, ObjectNode* parent);
         virtual ~NeuronCellPool();
 
+        void Calculate(const thrust::host_vector<float>& dataInput, thrust::host_vector<float>& dataOutput) override;
+
         uint32_t GetSynapseSize() { return m_Synapse.Size; }
-
-        void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);
-        void OnNeuronOutputLimit(codeframe::PropertyNode* prop);
-
-        void Initialize() override;
-        void Calculate(const NeuronModel::Column::ExternalData& dataInput, NeuronModel::Column::ExternalData& dataOutput) override;
-        void Populate();
-
-        void Resize(uint32_t width, uint32_t height);
 
         uint32_t CoordinateToOffset(const uint32_t x, const uint32_t y) const
         {
@@ -65,7 +52,13 @@ class NeuronCellPool : public NeuronModel::Column::Model_S1, public codeframe::O
         }
 
     private:
-        InternalData_S1 m_internalData;
+        void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);
+        void OnNeuronOutputLimit(codeframe::PropertyNode* prop);
+        void OnCellPoolSize(codeframe::PropertyNode* prop);
+
+        void Initialize(unsigned int w, unsigned int h);
+        void Resize(uint32_t width, uint32_t height);
+        void Populate(const thrust::host_vector<float>& dataInput, thrust::host_vector<float>& dataOutput);
 
         template<typename T>
         struct copy_range_functor
@@ -100,9 +93,7 @@ class NeuronCellPool : public NeuronModel::Column::Model_S1, public codeframe::O
         thrust::host_vector<float>    m_IntegrateInterval;
         thrust::host_vector<uint64_t> m_Output;
         std::mt19937                  m_generator;
-
-        const thrust::host_vector<float>& m_vectInData;
-              thrust::host_vector<float>& m_vectOutData;
+        uint32_t                      m_populateDelay;
 
         codeframe::Point2D<unsigned int> m_CurrentSize = codeframe::Point2D<unsigned int>(0U,0U);
 };

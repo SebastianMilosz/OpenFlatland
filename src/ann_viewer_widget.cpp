@@ -60,11 +60,10 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
     if ( smart_ptr_isValid(m_objEntity) )
     {
         ArtificialNeuronEngine& engine = m_objEntity->GetEngine();
-
-        const codeframe::Point2D<unsigned int>& poolSize = engine.CellPoolSize.GetConstValue();
-        const thrust::host_vector<float>& input = engine.Input.GetConstValue();
-
         NeuronCellPool& neuronPool = engine.GetPool();
+
+        const codeframe::Point2D<unsigned int>& poolSize = neuronPool.CellPoolSize.GetConstValue();
+        const thrust::host_vector<float>& input = engine.Input.GetConstValue();
 
         codeframe::Property< thrust::host_vector<float> >& integrateLevelProperty = neuronPool.IntegrateLevel;
         const thrust::host_vector<float>& integrateLevelVector = integrateLevelProperty.GetConstValue();
@@ -149,7 +148,7 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
 
                 sf::Color nodeColor = sf::Color::White;
 
-                if (selectX == x && selectY == y)
+                if (selectX == (int)x && selectY == (int)y)
                 {
                     ImGui::BeginChild("OuterRegion", ImVec2(MENU_LEFT_OFFSET, 300), false);
 

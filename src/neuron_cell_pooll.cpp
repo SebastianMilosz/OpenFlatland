@@ -7,10 +7,9 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent,
-                                const thrust::host_vector<float>& inData,
-                                      thrust::host_vector<float>& outData ) :
-    Object( name, parent ),
+NeuronCellPool::NeuronCellPool(const std::string& name, ObjectNode* parent) :
+    Model_SNN(name, parent),
+    CellPoolSize      (this, "CellPoolSize", Point2D<unsigned int>( 10U, 10U ), cPropertyInfo().Kind( KIND_2DPOINT, KIND_NUMBER ).Description("CellPoolSize")),
     NeuronSynapseLimit(this, "NeuronSynapseLimit", 100U, cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronSynapseLimit")),
     NeuronOutputLimit (this, "NeuronOutputLimit", 10U, cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronOutputLimit")),
     SynapseLink       (this, "SynapseLink"       , thrust::host_vector<float>(), cPropertyInfo().GUIMode( GUIMODE_DISABLED ).Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("SynapseLink"),
@@ -34,12 +33,11 @@ NeuronCellPool::NeuronCellPool( const std::string& name, ObjectNode* parent,
                         [this]() -> thrust::host_vector<float>& { return this->m_IntegrateLevel; }
                       ),
     m_generator(std::random_device()()),
-    m_vectInData(inData),
-    m_vectOutData(outData),
-    Model_S1(10, 10, m_internalData)
+    m_populateDelay(0U)
 {
     NeuronSynapseLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronSynapseLimit );
     NeuronOutputLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronOutputLimit );
+    CellPoolSize.signalChanged.connect( this, &NeuronCellPool::OnCellPoolSize );
 }
 
 /*****************************************************************************/
@@ -87,9 +85,9 @@ void NeuronCellPool::Resize(const uint32_t width, const uint32_t height)
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Initialize()
+void NeuronCellPool::Initialize(unsigned int w, unsigned int h)
 {
-    m_CurrentSize = codeframe::Point2D<unsigned int>(10,10);
+    m_CurrentSize = codeframe::Point2D<unsigned int>(w,h);
 
     const uint32_t newSize = m_CurrentSize.X() * m_CurrentSize.Y();
     const uint32_t currentSize = m_IntegrateLevel.size();
@@ -127,8 +125,22 @@ void NeuronCellPool::Initialize()
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Calculate(const NeuronModel::Column::ExternalData& dataInput,
-                                     NeuronModel::Column::ExternalData& dataOutput)
+void NeuronCellPool::OnCellPoolSize(codeframe::PropertyNode* prop)
+{
+    auto propSize = dynamic_cast< codeframe::Property< codeframe::Point2D<unsigned int> >* >(prop);
+    if (propSize)
+    {
+        Initialize(propSize->GetConstValue().X(), propSize->GetConstValue().Y());
+    }
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void NeuronCellPool::Calculate(const thrust::host_vector<float>& dataInput,
+                                     thrust::host_vector<float>& dataOutput)
 {
     const uint32_t poolSize = m_CurrentSize.X() * m_CurrentSize.Y();
 
@@ -145,7 +157,7 @@ void NeuronCellPool::Calculate(const NeuronModel::Column::ExternalData& dataInpu
                                                                   last,
                                                                   m_IntegrateLevel.end()
                                                                  )),
-                     neuron_calculate_functor(m_Output, m_Synapse, m_vectInData)
+                     neuron_calculate_functor(m_Output, m_Synapse, dataInput)
                     );
 
     // Calculate and propagate it through output
@@ -167,11 +179,21 @@ void NeuronCellPool::Calculate(const NeuronModel::Column::ExternalData& dataInpu
 
     // Outputs vector connection
     thrust::transform(
-                        m_vectOutData.begin(),
-                        m_vectOutData.end(),
-                        m_vectOutData.begin(),
+                        dataOutput.begin(),
+                        dataOutput.end(),
+                        dataOutput.begin(),
                         neuron_output_take_functor<float>(m_IntegrateLevel)
                      );
+
+    if (m_populateDelay > 70)
+    {
+        m_populateDelay = 0U;
+        Populate(dataInput, dataOutput);
+    }
+    else
+    {
+        m_populateDelay++;
+    }
 }
 
 /*****************************************************************************/
@@ -179,7 +201,8 @@ void NeuronCellPool::Calculate(const NeuronModel::Column::ExternalData& dataInpu
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Populate()
+void NeuronCellPool::Populate(const thrust::host_vector<float>& dataInput,
+                                    thrust::host_vector<float>& dataOutput)
 {
     const uint32_t poolSize = m_CurrentSize.X() * m_CurrentSize.Y();
 
@@ -196,6 +219,6 @@ void NeuronCellPool::Populate()
                                                                   last,
                                                                   m_IntegrateLevel.end()
                                                                  )),
-                     neuron_populate_functor(m_Output, m_Synapse, m_vectInData, m_CurrentSize, m_generator)
+                     neuron_populate_functor(m_Output, m_Synapse, dataInput, m_CurrentSize, m_generator)
                     );
 }

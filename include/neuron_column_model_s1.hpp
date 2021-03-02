@@ -1,6 +1,8 @@
 #ifndef NEURON_COLUMN_MODEL_S1_HPP_INCLUDED
 #define NEURON_COLUMN_MODEL_S1_HPP_INCLUDED
 
+#include <serializable_object_node.hpp>
+#include <serializable_object.hpp>
 #include <thrust/device_vector.h>
 
 struct SynapseVector
@@ -21,37 +23,18 @@ namespace NeuronModel
     {
         /*****************************************************************************/
         /**
-          * @brief Neuronal column internal data space
-         **
-        ******************************************************************************/
-        class InternalData
-        {
-            public:
-                virtual void SaveToFile(const std::string& file) const = 0;
-                virtual void LoadFromFile(const std::string& file) = 0;
-                virtual void SaveToString(const std::string& str) const = 0;
-                virtual void LoadFromString(const std::string& str) = 0;
-        };
-
-        /*****************************************************************************/
-        /**
-          * @brief Neuronal column external data space
-         **
-        ******************************************************************************/
-        class ExternalData
-        {
-            public:
-        };
-
-        /*****************************************************************************/
-        /**
           * @brief Neuronal column model
          **
         ******************************************************************************/
-        class Model
+        class Model : public codeframe::Object
         {
-            virtual void Initialize() = 0;
-            virtual void Calculate(const ExternalData& dataInput, ExternalData& dataOutput) = 0;
+            public:
+                Model(const std::string& name, ObjectNode* parent) :
+                    Object(name, parent)
+                {
+                }
+
+                virtual void Calculate(const thrust::host_vector<float>& dataInput, thrust::host_vector<float>& dataOutput) = 0;
         };
     };
 };
@@ -60,34 +43,15 @@ namespace NeuronModel
 {
     namespace Column
     {
-        class InternalData_S1 : public NeuronModel::Column::InternalData
+        class Model_SNN : public Model
         {
             public:
-                void SaveToFile(const std::string& file) const {}
-                void LoadFromFile(const std::string& file) {}
-                void SaveToString(const std::string& str) const {}
-                void LoadFromString(const std::string& str) {}
-        };
-
-        class ExternalData_S1 : public NeuronModel::Column::ExternalData
-        {
-            public:
-        };
-
-        class Model_S1 : public NeuronModel::Column::Model
-        {
-            public:
-                Model_S1(uint32_t width, uint32_t height, NeuronModel::Column::InternalData& data)
+                Model_SNN(const std::string& name, ObjectNode* parent) :
+                    Model(name, parent)
                 {
-
                 }
 
-                void Initialize() override
-                {
-
-                }
-
-                void Calculate(const NeuronModel::Column::ExternalData& dataInput, NeuronModel::Column::ExternalData& dataOutput) override
+                void Calculate(const thrust::host_vector<float>& dataInput, thrust::host_vector<float>& dataOutput) override
                 {
 
                 }
