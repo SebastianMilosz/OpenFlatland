@@ -60,7 +60,7 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
     if ( smart_ptr_isValid(m_objEntity) )
     {
         ArtificialNeuronEngine& engine = m_objEntity->GetEngine();
-        NeuronCellPool& neuronPool = engine.GetPool();
+        SpikingNeuralNetwork& neuronPool = dynamic_cast<SpikingNeuralNetwork&>(engine.GetPool());
 
         const codeframe::Point2D<unsigned int>& poolSize = neuronPool.CellPoolSize.GetConstValue();
         const thrust::host_vector<float>& input = engine.Input.GetConstValue();

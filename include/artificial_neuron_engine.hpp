@@ -22,13 +22,13 @@ class ArtificialNeuronEngine : public codeframe::Object
 
         void Calculate();
 
-        NeuronCellPool& GetPool() {return m_NeuronCellPool;}
+        NeuronModel::Column::Model& GetPool() {return m_NeuronCellPool;}
 
     protected:
         NeuronLayerContainer m_Inputs;
         NeuronLayerContainer m_Outputs;
 
-        NeuronCellPool m_NeuronCellPool;
+        SpikingNeuralNetwork m_NeuronCellPool;
 
         virtual void CollectInputs();
         virtual void ProcesseOutputs();

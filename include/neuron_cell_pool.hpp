@@ -10,6 +10,7 @@
 
 #include <thrust/device_vector.h>
 
+#include "drawable_object.hpp"
 #include "neuron_column_model_s1.hpp"
 
 /*****************************************************************************/
@@ -17,9 +18,9 @@
   * @brief
  **
 ******************************************************************************/
-class NeuronCellPool : public NeuronModel::Column::Model_SNN
+class SpikingNeuralNetwork : public NeuronModel::Column::Model_SNN, public DrawableObject
 {
-    CODEFRAME_META_CLASS_NAME( "NeuronCellPool" );
+    CODEFRAME_META_CLASS_NAME( "SpikingNeuralNetwork" );
     CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
     public:
@@ -31,25 +32,17 @@ class NeuronCellPool : public NeuronModel::Column::Model_SNN
         codeframe::Property< thrust::host_vector<float> >       IntegrateThreshold;
         codeframe::Property< thrust::host_vector<float> >       IntegrateLevel;
 
-                 NeuronCellPool(const std::string& name, ObjectNode* parent);
-        virtual ~NeuronCellPool();
+                 SpikingNeuralNetwork(const std::string& name, ObjectNode* parent);
+        virtual ~SpikingNeuralNetwork();
 
         void Calculate(const thrust::host_vector<float>& dataInput, thrust::host_vector<float>& dataOutput) override;
 
+        void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
+
+        // Move to Drawable layer
         uint32_t GetSynapseSize() { return m_Synapse.Size; }
-
-        uint32_t CoordinateToOffset(const uint32_t x, const uint32_t y) const
-        {
-            return m_CurrentSize.Y() * y + x;
-        }
-
-        codeframe::Point2D<unsigned int> OffsetToCoordinate(const uint32_t offset) const
-        {
-            codeframe::Point2D<unsigned int> retValue;
-            retValue.SetX(offset % m_CurrentSize.X());
-            retValue.SetY(std::floor(offset / m_CurrentSize.X()));
-            return retValue;
-        }
+        uint32_t CoordinateToOffset(const uint32_t x, const uint32_t y) const;
+        codeframe::Point2D<unsigned int> OffsetToCoordinate(const uint32_t offset) const;
 
     private:
         void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);

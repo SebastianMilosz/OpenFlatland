@@ -7,7 +7,7 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-NeuronCellPool::NeuronCellPool(const std::string& name, ObjectNode* parent) :
+SpikingNeuralNetwork::SpikingNeuralNetwork(const std::string& name, ObjectNode* parent) :
     Model_SNN(name, parent),
     CellPoolSize      (this, "CellPoolSize", Point2D<unsigned int>( 10U, 10U ), cPropertyInfo().Kind( KIND_2DPOINT, KIND_NUMBER ).Description("CellPoolSize")),
     NeuronSynapseLimit(this, "NeuronSynapseLimit", 100U, cPropertyInfo().Kind( KIND_NUMBER ).Description("NeuronSynapseLimit")),
@@ -35,9 +35,9 @@ NeuronCellPool::NeuronCellPool(const std::string& name, ObjectNode* parent) :
     m_generator(std::random_device()()),
     m_populateDelay(0U)
 {
-    NeuronSynapseLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronSynapseLimit );
-    NeuronOutputLimit.signalChanged.connect( this, &NeuronCellPool::OnNeuronOutputLimit );
-    CellPoolSize.signalChanged.connect( this, &NeuronCellPool::OnCellPoolSize );
+    NeuronSynapseLimit.signalChanged.connect( this, &SpikingNeuralNetwork::OnNeuronSynapseLimit );
+    NeuronOutputLimit.signalChanged.connect( this, &SpikingNeuralNetwork::OnNeuronOutputLimit );
+    CellPoolSize.signalChanged.connect( this, &SpikingNeuralNetwork::OnCellPoolSize );
 }
 
 /*****************************************************************************/
@@ -45,7 +45,7 @@ NeuronCellPool::NeuronCellPool(const std::string& name, ObjectNode* parent) :
   * @brief
  **
 ******************************************************************************/
-NeuronCellPool::~NeuronCellPool()
+SpikingNeuralNetwork::~SpikingNeuralNetwork()
 {
     //dtor
 }
@@ -55,7 +55,17 @@ NeuronCellPool::~NeuronCellPool()
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::OnNeuronSynapseLimit(codeframe::PropertyNode* prop)
+void SpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderStates states ) const
+{
+
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void SpikingNeuralNetwork::OnNeuronSynapseLimit(codeframe::PropertyNode* prop)
 {
     //Initialize(m_CurrentSize);
 }
@@ -65,7 +75,7 @@ void NeuronCellPool::OnNeuronSynapseLimit(codeframe::PropertyNode* prop)
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::OnNeuronOutputLimit(codeframe::PropertyNode* prop)
+void SpikingNeuralNetwork::OnNeuronOutputLimit(codeframe::PropertyNode* prop)
 {
     //Initialize(m_CurrentSize);
 }
@@ -75,7 +85,7 @@ void NeuronCellPool::OnNeuronOutputLimit(codeframe::PropertyNode* prop)
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Resize(const uint32_t width, const uint32_t height)
+void SpikingNeuralNetwork::Resize(const uint32_t width, const uint32_t height)
 {
 
 }
@@ -85,7 +95,7 @@ void NeuronCellPool::Resize(const uint32_t width, const uint32_t height)
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Initialize(unsigned int w, unsigned int h)
+void SpikingNeuralNetwork::Initialize(unsigned int w, unsigned int h)
 {
     m_CurrentSize = codeframe::Point2D<unsigned int>(w,h);
 
@@ -125,7 +135,7 @@ void NeuronCellPool::Initialize(unsigned int w, unsigned int h)
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::OnCellPoolSize(codeframe::PropertyNode* prop)
+void SpikingNeuralNetwork::OnCellPoolSize(codeframe::PropertyNode* prop)
 {
     auto propSize = dynamic_cast< codeframe::Property< codeframe::Point2D<unsigned int> >* >(prop);
     if (propSize)
@@ -139,7 +149,7 @@ void NeuronCellPool::OnCellPoolSize(codeframe::PropertyNode* prop)
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Calculate(const thrust::host_vector<float>& dataInput,
+void SpikingNeuralNetwork::Calculate(const thrust::host_vector<float>& dataInput,
                                      thrust::host_vector<float>& dataOutput)
 {
     const uint32_t poolSize = m_CurrentSize.X() * m_CurrentSize.Y();
@@ -201,7 +211,7 @@ void NeuronCellPool::Calculate(const thrust::host_vector<float>& dataInput,
   * @brief
  **
 ******************************************************************************/
-void NeuronCellPool::Populate(const thrust::host_vector<float>& dataInput,
+void SpikingNeuralNetwork::Populate(const thrust::host_vector<float>& dataInput,
                                     thrust::host_vector<float>& dataOutput)
 {
     const uint32_t poolSize = m_CurrentSize.X() * m_CurrentSize.Y();
@@ -221,4 +231,27 @@ void NeuronCellPool::Populate(const thrust::host_vector<float>& dataInput,
                                                                  )),
                      neuron_populate_functor(m_Output, m_Synapse, dataInput, m_CurrentSize, m_generator)
                     );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+uint32_t SpikingNeuralNetwork::CoordinateToOffset(const uint32_t x, const uint32_t y) const
+{
+    return m_CurrentSize.Y() * y + x;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+codeframe::Point2D<unsigned int> SpikingNeuralNetwork::OffsetToCoordinate(const uint32_t offset) const
+{
+    codeframe::Point2D<unsigned int> retValue;
+    retValue.SetX(offset % m_CurrentSize.X());
+    retValue.SetY(std::floor(offset / m_CurrentSize.X()));
+    return retValue;
 }
