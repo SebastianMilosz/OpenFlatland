@@ -6,7 +6,7 @@
 #include <serializable_object.hpp>
 
 #include "neuron_layer_container.hpp"
-#include "neuron_cell_pool.hpp"
+#include "drawable_spiking_neural_network.hpp"
 
 class ArtificialNeuronEngine : public codeframe::Object
 {
@@ -28,7 +28,7 @@ class ArtificialNeuronEngine : public codeframe::Object
         NeuronLayerContainer m_Inputs;
         NeuronLayerContainer m_Outputs;
 
-        SpikingNeuralNetwork m_NeuronCellPool;
+        DrawableSpikingNeuralNetwork m_NeuronCellPool;
 
         virtual void CollectInputs();
         virtual void ProcesseOutputs();

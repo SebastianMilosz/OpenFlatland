@@ -244,6 +244,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/drawable_spiking_neural_network.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/entity.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -304,11 +309,6 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="include/neuron_cell_pool.hpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
 		<Unit filename="include/neuron_column_model_s1.hpp" />
 		<Unit filename="include/neuron_layer.hpp">
 			<Option target="Debug" />
@@ -351,6 +351,11 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="include/ray_data.hpp" />
+		<Unit filename="include/spiking_neural_network.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/version.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -593,6 +598,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="src/drawable_spiking_neural_network.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="src/entity.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -653,11 +663,6 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Unit filename="src/neuron_cell_pooll.cpp">
-			<Option target="Debug" />
-			<Option target="Release" />
-			<Option target="ReleaseMP" />
-		</Unit>
 		<Unit filename="src/neuron_layer.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />
@@ -694,6 +699,11 @@
 			<Option target="ReleaseMP" />
 		</Unit>
 		<Unit filename="src/ray_data.cpp" />
+		<Unit filename="src/spiking_neural_network.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="src/world.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />

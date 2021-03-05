@@ -18,7 +18,7 @@
   * @brief
  **
 ******************************************************************************/
-class SpikingNeuralNetwork : public NeuronModel::Column::Model_SNN, public DrawableObject
+class SpikingNeuralNetwork : public NeuronModel::Column::Model_SNN
 {
     CODEFRAME_META_CLASS_NAME( "SpikingNeuralNetwork" );
     CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
@@ -37,12 +37,9 @@ class SpikingNeuralNetwork : public NeuronModel::Column::Model_SNN, public Drawa
 
         void Calculate(const thrust::host_vector<float>& dataInput, thrust::host_vector<float>& dataOutput) override;
 
-        void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
-
-        // Move to Drawable layer
-        uint32_t GetSynapseSize() { return m_Synapse.Size; }
-        uint32_t CoordinateToOffset(const uint32_t x, const uint32_t y) const;
-        codeframe::Point2D<unsigned int> OffsetToCoordinate(const uint32_t offset) const;
+    protected:
+        SynapseVector m_Synapse;
+        codeframe::Point2D<unsigned int> m_CurrentSize = codeframe::Point2D<unsigned int>(0U,0U);
 
     private:
         void OnNeuronSynapseLimit(codeframe::PropertyNode* prop);
@@ -80,15 +77,12 @@ class SpikingNeuralNetwork : public NeuronModel::Column::Model_SNN, public Drawa
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
 
-        SynapseVector                 m_Synapse;
         thrust::host_vector<float>    m_IntegrateLevel;
         thrust::host_vector<float>    m_IntegrateThreshold;
         thrust::host_vector<float>    m_IntegrateInterval;
         thrust::host_vector<uint64_t> m_Output;
         std::mt19937                  m_generator;
         uint32_t                      m_populateDelay;
-
-        codeframe::Point2D<unsigned int> m_CurrentSize = codeframe::Point2D<unsigned int>(0U,0U);
 };
 
 #endif // NEURON_CELL_POOL_HPP

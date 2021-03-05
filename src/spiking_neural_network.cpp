@@ -1,4 +1,4 @@
-#include "neuron_cell_pool.hpp"
+#include "spiking_neural_network.hpp"
 
 using namespace codeframe;
 
@@ -48,16 +48,6 @@ SpikingNeuralNetwork::SpikingNeuralNetwork(const std::string& name, ObjectNode* 
 SpikingNeuralNetwork::~SpikingNeuralNetwork()
 {
     //dtor
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-void SpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderStates states ) const
-{
-
 }
 
 /*****************************************************************************/
@@ -231,27 +221,4 @@ void SpikingNeuralNetwork::Populate(const thrust::host_vector<float>& dataInput,
                                                                  )),
                      neuron_populate_functor(m_Output, m_Synapse, dataInput, m_CurrentSize, m_generator)
                     );
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-uint32_t SpikingNeuralNetwork::CoordinateToOffset(const uint32_t x, const uint32_t y) const
-{
-    return m_CurrentSize.Y() * y + x;
-}
-
-/*****************************************************************************/
-/**
-  * @brief
- **
-******************************************************************************/
-codeframe::Point2D<unsigned int> SpikingNeuralNetwork::OffsetToCoordinate(const uint32_t offset) const
-{
-    codeframe::Point2D<unsigned int> retValue;
-    retValue.SetX(offset % m_CurrentSize.X());
-    retValue.SetY(std::floor(offset / m_CurrentSize.X()));
-    return retValue;
 }
