@@ -26,6 +26,7 @@ set(OpenFlatland_AppSRC
     src/drawable_entity_motion.cpp
     src/drawable_entity_vision.cpp
     src/drawable_object.cpp
+    src/drawable_spiking_neural_network.cpp
     src/entity_energy.cpp
     src/entity_vision.cpp
     src/entity_vision_node.cpp

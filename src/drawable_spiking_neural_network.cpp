@@ -155,6 +155,19 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
   * @brief
  **
 ******************************************************************************/
+std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::GetBlockInfo(uint32_t x, uint32_t y)
+{
+    std::vector<std::tuple<std::string, std::string>> retInfo;
+    retInfo.push_back(std::make_tuple("Test", "Testa"));
+    retInfo.push_back(std::make_tuple("Test2", "Testa2"));
+    return retInfo;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 uint32_t DrawableSpikingNeuralNetwork::CoordinateToOffset(const uint32_t x, const uint32_t y) const
 {
     return m_CurrentSize.Y() * y + x;

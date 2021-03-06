@@ -22,6 +22,7 @@ class DrawableSpikingNeuralNetwork : public SpikingNeuralNetwork, public Drawabl
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
 
         void Select(uint32_t x, uint32_t y);
+        std::vector<std::tuple<std::string, std::string>> GetBlockInfo(uint32_t x, uint32_t y);
     private:
         const uint32_t neuronBoxW = 10U;
         const uint32_t neuronBoxH = 10U;

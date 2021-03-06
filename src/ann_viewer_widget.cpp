@@ -47,6 +47,30 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
         ImGui::Text( "Y = " ); ImGui::SameLine();
         ImGui::InputInt("##Y=", &selectY, 1U);
 
+    m_displayTexture.clear();
+
+    if ( smart_ptr_isValid(m_objEntity) )
+    {
+        ArtificialNeuronEngine& engine = m_objEntity->GetEngine();
+        DrawableSpikingNeuralNetwork& neuronPool = dynamic_cast<DrawableSpikingNeuralNetwork&>(engine.GetPool());
+
+        neuronPool.Select(selectX, selectY);
+        auto blockInfo = neuronPool.GetBlockInfo(selectX, selectY);
+        m_displayTexture.draw(neuronPool, m_renderStates);
+
+        ImGui::BeginChild("OuterRegion", ImVec2(MENU_LEFT_OFFSET, 300), false);
+        // Display selected block info
+
+        for (auto &infoLine : blockInfo)
+        {
+            ImGui::Text(std::get<0>(infoLine).c_str());
+            ImGui::SameLine();
+            ImGui::Text(std::get<1>(infoLine).c_str());
+        }
+
+        ImGui::EndChild();
+    }
+
     ImGui::PopItemWidth();
     ImGui::NextColumn();
 
@@ -64,17 +88,6 @@ void AnnViewerWidget::Draw( const char* title, bool* p_open )
 
     ImGui::SetCursorPos( m_cursorPos );
     ImGui::PushStyleVar( ImGuiStyleVar_FramePadding, ImVec2(2,2) );
-
-    m_displayTexture.clear();
-
-    if ( smart_ptr_isValid(m_objEntity) )
-    {
-        ArtificialNeuronEngine& engine = m_objEntity->GetEngine();
-        DrawableSpikingNeuralNetwork& neuronPool = dynamic_cast<DrawableSpikingNeuralNetwork&>(engine.GetPool());
-
-        neuronPool.Select(selectX, selectY);
-        m_displayTexture.draw(neuronPool, m_renderStates);
-    }
 
     m_displayTexture.display();
     ImGui::Image( m_displayTexture.getTexture() );
