@@ -39,6 +39,10 @@ class SpikingNeuralNetwork : public NeuronModel::Column::Model_SNN
 
     protected:
         SynapseVector m_Synapse;
+        thrust::host_vector<uint64_t> m_Output;
+        thrust::host_vector<float>    m_IntegrateLevel;
+        thrust::host_vector<float>    m_IntegrateThreshold;
+        thrust::host_vector<float>    m_IntegrateInterval;
         codeframe::Point2D<unsigned int> m_CurrentSize = codeframe::Point2D<unsigned int>(0U,0U);
 
     private:
@@ -77,10 +81,6 @@ class SpikingNeuralNetwork : public NeuronModel::Column::Model_SNN
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
 
-        thrust::host_vector<float>    m_IntegrateLevel;
-        thrust::host_vector<float>    m_IntegrateThreshold;
-        thrust::host_vector<float>    m_IntegrateInterval;
-        thrust::host_vector<uint64_t> m_Output;
         std::mt19937                  m_generator;
         uint32_t                      m_populateDelay;
 };

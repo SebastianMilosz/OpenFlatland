@@ -157,10 +157,52 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
 ******************************************************************************/
 std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::GetBlockInfo(uint32_t x, uint32_t y)
 {
+    unsigned int offset = CoordinateToOffset(x, y);
+
     std::vector<std::tuple<std::string, std::string>> retInfo;
-    retInfo.push_back(std::make_tuple("Test", "Testa"));
-    retInfo.push_back(std::make_tuple("Test2", "Testa2"));
-    retInfo.push_back(std::make_tuple("Test3", "Testa3"));
+    std::string linkText2 = "(" + utilities::math::IntToStr(m_Output[offset]) + "," +
+                                  utilities::math::IntToStr(m_IntegrateLevel[offset]) + "," +
+                                  utilities::math::IntToStr(m_IntegrateInterval[offset]) +
+                            ")";
+    std::string linkText = "(" +
+            utilities::math::IntToStr(x) +
+            ","  +
+            utilities::math::IntToStr(y) + ")";
+
+    retInfo.push_back(std::make_tuple(linkText, linkText2));
+
+    for (unsigned int n = 0U; n < 100U; n++)
+    {
+        const float linkValue = SynapseLink.GetConstValue()[offset * GetSynapseSize() + n];
+        const float weightValue = SynapseWeight.GetConstValue()[offset * GetSynapseSize() + n];
+
+        if (linkValue > 0.0f)
+        {
+            volatile unsigned int linkX = OffsetToCoordinate(linkValue).X();
+            volatile unsigned int linkY = OffsetToCoordinate(linkValue).Y();
+
+            linkText = "(" +
+            utilities::math::IntToStr(linkX) +
+            ","  +
+            utilities::math::IntToStr(linkY) +
+            ")(" +
+            utilities::math::FloatToStr(weightValue) + ")";
+        }
+        else if (linkValue < 0.0f)
+        {
+            linkText = "(" +
+            utilities::math::IntToStr(std::fabs(linkValue)) +
+            ")(" + utilities::math::FloatToStr(weightValue) + ")";
+        }
+        else
+        {
+            break;
+        }
+
+        linkText2 = "link" + utilities::math::IntToStr(n) + ":";
+        retInfo.push_back(std::make_tuple(linkText2, linkText));
+    }
+
     return retInfo;
 }
 
