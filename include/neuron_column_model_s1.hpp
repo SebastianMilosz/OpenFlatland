@@ -66,6 +66,9 @@ namespace NeuronModel
 
                 struct neuron_calculate_functor
                 {
+                    constexpr static uint8_t ID = 0U;
+                    constexpr static uint8_t INTEGRATE_LEVEL = 1U;
+
                     public:
                         neuron_calculate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
                                                        SynapseVector& synapseConsumedVector,
@@ -80,7 +83,7 @@ namespace NeuronModel
                         template <typename Tuple>
                         __device__ __host__ void operator()(Tuple& value)
                         {
-                            uint32_t n = thrust::get<0>(value);
+                            uint32_t n = thrust::get<ID>(value);
                             uint32_t s = m_synapseConsumedVector.Size;
 
                             for (uint32_t i = 0U; i < s; i++)
@@ -97,9 +100,9 @@ namespace NeuronModel
                                     {
                                         uint64_t outVal = m_outputConsumedVector[intpart];
                                         double weight = m_synapseConsumedVector.Weight[n * s + i];
-                                        thrust::get<1>(value) += (outVal & (1U<<bitPos)) * weight;
+                                        thrust::get<INTEGRATE_LEVEL>(value) += (outVal & (1U<<bitPos)) * weight;
 
-                                        if (thrust::get<1>(value) > 0)
+                                        if (thrust::get<INTEGRATE_LEVEL>(value) > 0)
                                         {
                                             if (weight < 1.0f)
                                             {
@@ -124,8 +127,8 @@ namespace NeuronModel
                                         volatile double weight = m_synapseConsumedVector.Weight[n * s + i];
                                         volatile double inValue = m_inData[inPos];
 
-                                        volatile double newValue = thrust::get<1>(value) + inValue * weight;
-                                        thrust::get<1>(value) = newValue;
+                                        volatile double newValue = thrust::get<INTEGRATE_LEVEL>(value) + inValue * weight;
+                                        thrust::get<INTEGRATE_LEVEL>(value) = newValue;
 
                                         if (newValue > 0)
                                         {
@@ -222,6 +225,9 @@ namespace NeuronModel
 
                 struct neuron_populate_functor
                 {
+                    constexpr static uint8_t ID = 0U;
+                    constexpr static uint8_t INTEGRATE_LEVEL = 1U;
+
                     public:
                         neuron_populate_functor(const thrust::host_vector<uint64_t>& outputConsumedVector,
                                                       SynapseVector& synapseConsumedVector,
@@ -247,7 +253,7 @@ namespace NeuronModel
                         template <typename Tuple>
                         __device__ __host__ void operator()(Tuple& value)
                         {
-                            uint32_t n = thrust::get<0>(value);
+                            uint32_t n = thrust::get<ID>(value);
                             uint32_t s = m_synapseConsumedVector.Size;
 
                             for (uint32_t i = 0U; i < s; i++)

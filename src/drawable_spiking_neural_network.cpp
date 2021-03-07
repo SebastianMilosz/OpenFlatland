@@ -160,6 +160,7 @@ std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::
     std::vector<std::tuple<std::string, std::string>> retInfo;
     retInfo.push_back(std::make_tuple("Test", "Testa"));
     retInfo.push_back(std::make_tuple("Test2", "Testa2"));
+    retInfo.push_back(std::make_tuple("Test3", "Testa3"));
     return retInfo;
 }
 
