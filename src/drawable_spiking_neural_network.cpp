@@ -161,7 +161,7 @@ std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::
 
     std::vector<std::tuple<std::string, std::string>> retInfo;
     std::string linkText2 = "(" + utilities::math::IntToStr(m_Output[offset]) + "," +
-                                  utilities::math::IntToStr(m_IntegrateLevel[offset]) + "," +
+                                  utilities::math::FloatToStr(m_IntegrateLevel[offset]) + "," +
                                   utilities::math::IntToStr(m_IntegrateInterval[offset]) +
                             ")";
     std::string linkText = "(" +
