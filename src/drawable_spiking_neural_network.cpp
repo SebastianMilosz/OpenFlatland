@@ -160,11 +160,20 @@ std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::
     unsigned int offset = CoordinateToOffset(x, y);
 
     std::vector<std::tuple<std::string, std::string>> retInfo;
-    std::string linkText2 = "(" + utilities::math::IntToStr(m_Output[offset]) + "," +
-                                  utilities::math::FloatToStr(m_IntegrateLevel[offset]) + "," +
+    std::string linkText2 = "(" + utilities::math::IntToHex(m_Output[offset]) + "," +
                                   utilities::math::IntToStr(m_IntegrateInterval[offset]) +
                             ")";
     std::string linkText = "(" +
+            utilities::math::IntToStr(x) +
+            ","  +
+            utilities::math::IntToStr(y) + ")";
+
+    retInfo.push_back(std::make_tuple(linkText, linkText2));
+
+    linkText2 = "(" + utilities::math::FloatToStr(m_IntegrateLevel[offset]) + "," +
+                      utilities::math::FloatToStr(m_IntegrateThreshold[offset]) +
+                ")";
+    linkText = "(" +
             utilities::math::IntToStr(x) +
             ","  +
             utilities::math::IntToStr(y) + ")";
@@ -175,6 +184,7 @@ std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::
     {
         const float linkValue = SynapseLink.GetConstValue()[offset * GetSynapseSize() + n];
         const float weightValue = SynapseWeight.GetConstValue()[offset * GetSynapseSize() + n];
+        const float value = 0;
 
         if (linkValue > 0.0f)
         {
@@ -186,7 +196,9 @@ std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::
             ","  +
             utilities::math::IntToStr(linkY) +
             ")(" +
-            utilities::math::FloatToStr(weightValue) + ")";
+            utilities::math::FloatToStr(weightValue) + ", " +
+            utilities::math::FloatToStr(value) +
+            ")";
         }
         else if (linkValue < 0.0f)
         {

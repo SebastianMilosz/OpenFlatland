@@ -109,6 +109,8 @@ void SpikingNeuralNetwork::Initialize(unsigned int w, unsigned int h)
         thrust::for_each(m_IntegrateThreshold.begin(), m_IntegrateThreshold.end(), copy_range_functor<float>(newIntegrateThreshold, 1U));
         thrust::for_each(m_IntegrateInterval.begin() , m_IntegrateInterval.end() , copy_range_functor<uint32_t>(newIntegrateInterval, 1U));
 
+        thrust::fill(newIntegrateThreshold.begin(), newIntegrateThreshold.end(), 10.0f);
+
         m_Synapse.Link = newSynapseLink;
         m_Synapse.Weight = newSynapseWeight;
         m_IntegrateLevel = newIntegrateLevel;
@@ -185,7 +187,7 @@ void SpikingNeuralNetwork::Calculate(const thrust::host_vector<float>& dataInput
                         neuron_output_take_functor<float>(m_IntegrateLevel)
                      );
 
-    if (m_populateDelay > 7)
+    if (m_populateDelay > 70)
     {
         m_populateDelay = 0U;
         Populate(dataInput, dataOutput);

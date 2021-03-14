@@ -126,8 +126,9 @@ namespace NeuronModel
                                     {
                                         volatile double weight = m_synapseConsumedVector.Weight[n * s + i];
                                         volatile double inValue = m_inData[inPos];
+                                        volatile double inLevel = thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value);
 
-                                        volatile double newValue = thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) + inValue * weight;
+                                        volatile double newValue = inLevel + std::abs(inValue) * weight;
                                         thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = newValue;
 
                                         if (newValue > 0)
@@ -179,16 +180,23 @@ namespace NeuronModel
                         template <typename Tuple>
                         __device__ __host__ void operator()(Tuple& value)
                         {
-                            thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) = thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) << 1U;
+                            volatile uint64_t outValue = thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value);
+                            outValue = outValue << 1U;
+                            thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) = outValue;
 
-                            if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > thrust::get<TUPLE_POS_INTEGRATE_THRESHOLD>(value))
+                            volatile double integrateLevel = thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value);
+                            volatile double integrateTreshold = thrust::get<TUPLE_POS_INTEGRATE_THRESHOLD>(value);
+
+                            if (integrateLevel > integrateTreshold)
                             {
                                 thrust::get<TUPLE_POS_INTEGRATE_INTERVAL>(value)++;
                                 thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = -10.0f; // Hyperpolaryzation begin
-                                thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) &= static_cast<uint64_t>(0x01U);
+                                thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) |= static_cast<uint64_t>(0x01U);
                             }
                             else
                             {
+                                thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) &= static_cast<uint64_t>(0xFFFFFFFFFFFFFFFEU);
+
                                 if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > 0.0f)
                                 {
                                     // Normal charge pump positive depolarization
@@ -196,8 +204,14 @@ namespace NeuronModel
                                 }
                                 else if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) < 0.0f) // Hyperpolaryzation
                                 {
+                                    volatile double inLevel = thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value);
+                                    inLevel += 1.0f;
                                     // Normal charge pump negative depolarization
-                                    thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) += 1.0f;
+                                    thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = inLevel;
+                                }
+                                else
+                                {
+                                    thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = 0.0f;
                                 }
                             }
                         }
