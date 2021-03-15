@@ -100,7 +100,7 @@ namespace NeuronModel
                                     {
                                         uint64_t outVal = m_outputConsumedVector[intpart];
                                         double weight = m_synapseConsumedVector.Weight[n * s + i];
-                                        thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) += (outVal & (1U<<bitPos)) * weight;
+                                        thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) += ((outVal & (1U<<bitPos))>0.0f) * weight;
 
                                         if (thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) > 0)
                                         {

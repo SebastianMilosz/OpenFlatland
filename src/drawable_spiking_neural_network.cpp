@@ -104,30 +104,33 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
                 const float linkValue = synapseLinkVector[offset * GetSynapseSize() + n];
                 const float weightValue = synapseWeightVector[offset * GetSynapseSize() + n];
 
-                if (linkValue > 0.5f)
+                if (weightValue > 0.0f)
                 {
-                    volatile unsigned int linkX = OffsetToCoordinate(linkValue).X();
-                    volatile unsigned int linkY = OffsetToCoordinate(linkValue).Y();
+                    if (linkValue > 0.5f)
+                    {
+                        volatile unsigned int linkX = OffsetToCoordinate(linkValue).X();
+                        volatile unsigned int linkY = OffsetToCoordinate(linkValue).Y();
 
-                    line[0].position.x = curX;
-                    line[0].position.y = curY;
-                    line[1].position.x = linkX * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
-                    line[1].position.y = linkY * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
-                    line[1].color = ColorizeNumber_IronBown<float>(weightValue);
-                    target.draw(line, 2, sf::Lines);
-                }
-                else if (linkValue < 0.0f)
-                {
-                    line[0].position.x = curX;
-                    line[0].position.y = curY;
-                    line[1].position.x = std::fabs(linkValue) * inW;
-                    line[1].position.y = 10U;
-                    line[1].color = ColorizeNumber_IronBown<float>(weightValue);
-                    target.draw(line, 2, sf::Lines);
-                }
-                else
-                {
-                    break;
+                        line[0].position.x = curX;
+                        line[0].position.y = curY;
+                        line[1].position.x = linkX * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
+                        line[1].position.y = linkY * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
+                        line[1].color = ColorizeNumber_IronBown<float>(weightValue);
+                        target.draw(line, 2, sf::Lines);
+                    }
+                    else if (linkValue < 0.0f)
+                    {
+                        line[0].position.x = curX;
+                        line[0].position.y = curY;
+                        line[1].position.x = std::fabs(linkValue) * inW;
+                        line[1].position.y = 10U;
+                        line[1].color = ColorizeNumber_IronBown<float>(weightValue);
+                        target.draw(line, 2, sf::Lines);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
 
@@ -170,8 +173,8 @@ std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::
 
     retInfo.push_back(std::make_tuple(linkText, linkText2));
 
-    linkText2 = "(" + utilities::math::FloatToStr(m_IntegrateLevel[offset]) + "," +
-                      utilities::math::FloatToStr(m_IntegrateThreshold[offset]) +
+    linkText2 = "(" + utilities::math::FloatToStr(m_IntegrateLevel[offset], "%2.3f") + "," +
+                      utilities::math::FloatToStr(m_IntegrateThreshold[offset], "%2.3f") +
                 ")";
     linkText = "(" +
             utilities::math::IntToStr(x) +
@@ -179,40 +182,51 @@ std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::
             utilities::math::IntToStr(y) + ")";
 
     retInfo.push_back(std::make_tuple(linkText, linkText2));
+    retInfo.push_back(std::make_tuple("------", "------"));
 
     for (unsigned int n = 0U; n < 100U; n++)
     {
         const float linkValue = SynapseLink.GetConstValue()[offset * GetSynapseSize() + n];
         const float weightValue = SynapseWeight.GetConstValue()[offset * GetSynapseSize() + n];
-        const float value = 0;
 
-        if (linkValue > 0.0f)
+        if (weightValue > 0.0f)
         {
-            volatile unsigned int linkX = OffsetToCoordinate(linkValue).X();
-            volatile unsigned int linkY = OffsetToCoordinate(linkValue).Y();
+            if (linkValue > 0.0f)
+            {
+                volatile unsigned int linkX = OffsetToCoordinate(linkValue).X();
+                volatile unsigned int linkY = OffsetToCoordinate(linkValue).Y();
 
-            linkText = "(" +
-            utilities::math::IntToStr(linkX) +
-            ","  +
-            utilities::math::IntToStr(linkY) +
-            ")(" +
-            utilities::math::FloatToStr(weightValue) + ", " +
-            utilities::math::FloatToStr(value) +
-            ")";
-        }
-        else if (linkValue < 0.0f)
-        {
-            linkText = "(" +
-            utilities::math::IntToStr(std::fabs(linkValue)) +
-            ")(" + utilities::math::FloatToStr(weightValue) + ")";
-        }
-        else
-        {
-            break;
-        }
+                linkText = "(" +
+                utilities::math::IntToStr(linkX) +
+                ","  +
+                utilities::math::IntToStr(linkY) +
+                ")(" +
+                utilities::math::FloatToStr(weightValue, "%2.3f") +
+                ")";
 
-        linkText2 = "link" + utilities::math::IntToStr(n) + ":";
-        retInfo.push_back(std::make_tuple(linkText2, linkText));
+                double intpart;
+                uint8_t bitPos = 64U * modf(linkValue , &intpart);
+                uint64_t outVal = m_Output[intpart];
+                float value = ((outVal & (1U<<bitPos)) > 0.0f);
+                linkText2 = "(" + utilities::math::FloatToStr(value, "%2.3f") + ") :";
+            }
+            else if (linkValue < 0.0f)
+            {
+                linkText = "(" +
+                utilities::math::IntToStr(std::fabs(linkValue)) +
+                ")(" + utilities::math::FloatToStr(weightValue, "%2.3f") + ")";
+
+                unsigned int inPos = std::fabs(linkValue);
+                float value = m_dataInput[inPos];
+                linkText2 = "(" + utilities::math::FloatToStr(value, "%2.3f") + ") :";
+            }
+            else
+            {
+                break;
+            }
+
+            retInfo.push_back(std::make_tuple(linkText2, linkText));
+        }
     }
 
     return retInfo;

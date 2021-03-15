@@ -119,11 +119,11 @@ namespace utilities
         * @brief
         **
         ******************************************************************************/
-        inline std::string FloatToStr( float nbr )
+        inline std::string FloatToStr( float nbr, const char* format = "%f" )
         {
             if(nbr > 999999999) return std::string("GetStringFromInt - Overload");
             char buffer [12];
-            sprintf (buffer, "%f",nbr);
+            sprintf (buffer, format, nbr);
             return std::string(buffer);
         }
 
