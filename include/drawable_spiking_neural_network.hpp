@@ -4,9 +4,6 @@
 #include "drawable_object.hpp"
 #include "spiking_neural_network.hpp"
 
-#include <imgui.h>
-#include <imgui-SFML.h>
-
 /*****************************************************************************/
 /**
   * @brief
@@ -15,6 +12,8 @@
 class DrawableSpikingNeuralNetwork : public SpikingNeuralNetwork, public DrawableObject
 {
     public:
+        using BlockInfo = std::vector<std::tuple<std::string, std::string>>;
+
                  DrawableSpikingNeuralNetwork(const std::string& name, ObjectNode* parent);
         virtual ~DrawableSpikingNeuralNetwork();
 
@@ -22,7 +21,7 @@ class DrawableSpikingNeuralNetwork : public SpikingNeuralNetwork, public Drawabl
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
 
         void Select(uint32_t x, uint32_t y);
-        std::vector<std::tuple<std::string, std::string>> GetBlockInfo(uint32_t x, uint32_t y);
+        BlockInfo GetBlockInfo(uint32_t x, uint32_t y);
     private:
         const uint32_t neuronBoxW = 10U;
         const uint32_t neuronBoxH = 10U;

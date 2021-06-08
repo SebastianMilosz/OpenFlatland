@@ -10,8 +10,8 @@
 
 #include <thrust/device_vector.h>
 
-#include "drawable_object.hpp"
 #include "neuron_column_model_s1.hpp"
+#include "copy_range_functor.hpp"
 
 /*****************************************************************************/
 /**
@@ -53,31 +53,6 @@ class SpikingNeuralNetwork : public NeuronModel::Column::Model_SNN
         void Initialize(unsigned int w, unsigned int h);
         void Resize(uint32_t width, uint32_t height);
         void Populate(const thrust::host_vector<float>& dataInput, thrust::host_vector<float>& dataOutput);
-
-        template<typename T>
-        struct copy_range_functor
-        {
-            public:
-                copy_range_functor(thrust::host_vector<T>& targetVector, const uint32_t targetSize) :
-                    m_targetVector(targetVector),
-                    m_targetSize(targetSize),
-                    m_currentTargetPos(0U)
-                {
-                }
-
-                __device__ __host__ void operator()(T value)
-                {
-                    if (m_currentTargetPos < m_targetSize)
-                    {
-                        m_targetVector[m_currentTargetPos++] = value;
-                    }
-                }
-
-            private:
-                thrust::host_vector<T>& m_targetVector;
-                const uint32_t m_targetSize;
-                uint32_t m_currentTargetPos;
-        };
 
         constexpr static uint8_t MAX_SYNAPSE_CNT = 100U;
 

@@ -187,7 +187,7 @@ void SpikingNeuralNetwork::Calculate(const thrust::host_vector<float>& dataInput
                         neuron_output_take_functor<float>(m_IntegrateLevel)
                      );
 
-    if (m_populateDelay > 7)
+    if (m_populateDelay > 2)
     {
         m_populateDelay = 0U;
         Populate(dataInput, dataOutput);

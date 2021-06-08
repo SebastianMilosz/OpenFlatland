@@ -158,11 +158,11 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
   * @brief
  **
 ******************************************************************************/
-std::vector<std::tuple<std::string, std::string>> DrawableSpikingNeuralNetwork::GetBlockInfo(uint32_t x, uint32_t y)
+DrawableSpikingNeuralNetwork::BlockInfo DrawableSpikingNeuralNetwork::GetBlockInfo(uint32_t x, uint32_t y)
 {
     unsigned int offset = CoordinateToOffset(x, y);
 
-    std::vector<std::tuple<std::string, std::string>> retInfo;
+    BlockInfo retInfo;
     std::string linkText2 = "(" + utilities::math::IntToHex(m_Output[offset]) + "," +
                                   utilities::math::IntToStr(m_IntegrateInterval[offset]) +
                             ")";

@@ -224,6 +224,11 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
+		<Unit filename="include/copy_range_functor.hpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+			<Option target="ReleaseMP" />
+		</Unit>
 		<Unit filename="include/drawable_entity_energy.hpp">
 			<Option target="Debug" />
 			<Option target="Release" />

@@ -190,7 +190,7 @@ namespace NeuronModel
                             if (integrateLevel > integrateTreshold)
                             {
                                 thrust::get<TUPLE_POS_INTEGRATE_INTERVAL>(value)++;
-                                thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = -10.0f; // Hyperpolaryzation begin
+                                thrust::get<TUPLE_POS_INTEGRATE_LEVEL>(value) = -100.0f; // Hyperpolaryzation begin
                                 thrust::get<TUPLE_POS_INTEGRATE_OUTPUT>(value) |= static_cast<uint64_t>(0x01U);
                             }
                             else
