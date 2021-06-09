@@ -37,6 +37,7 @@ class DrawableSpikingNeuralNetwork : public SpikingNeuralNetwork, public Drawabl
         };
 
         thrust::host_vector<float> m_dataInput;
+        thrust::host_vector<float> m_dataOutput;
         mutable sf::Text           m_text;
 
         int32_t m_selectX = 0;

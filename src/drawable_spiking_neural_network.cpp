@@ -38,6 +38,7 @@ void DrawableSpikingNeuralNetwork::Calculate(const thrust::host_vector<float>& d
 {
     m_dataInput = dataInput;
     SpikingNeuralNetwork::Calculate(dataInput, dataOutput);
+    m_dataOutput = dataOutput;
 }
 
 /*****************************************************************************/
@@ -70,6 +71,7 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
     unsigned int curY = 0;
 
     sf::RectangleShape m_rectangle;
+    // Draw imput data
     for(const auto& value : m_dataInput)
     {
         m_rectangle.setOutlineThickness(0U);
@@ -80,6 +82,27 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
         target.draw(m_rectangle, states);
 
         curX += inW;
+    }
+
+    if (m_dataOutput.size() > 0)
+    {
+        curX = 0;
+        curY = target.getSize().y - 10U;
+        unsigned int outW  = target.getSize().x / m_dataOutput.size();
+        m_rectangle.setOutlineColor(sf::Color::Blue);
+
+        // Draw output data
+        for(const auto& value : m_dataOutput)
+        {
+            m_rectangle.setOutlineThickness(1U);
+            m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
+            m_rectangle.setPosition(curX, curY);
+            m_rectangle.setSize( sf::Vector2f(outW, 10) );
+
+            target.draw(m_rectangle, states);
+
+            curX += outW;
+        }
     }
 
     curX = neuronBoxDW;

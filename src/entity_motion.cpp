@@ -28,8 +28,17 @@ void EntityMotion::synchronize(b2Body& body)
 {
     static const float DEGTORAD = 0.0174532925199432957F;
 
-    const float velocityRotation((float)VelocityRotation);
-    const float velocityForward((float)VelocityForward);
+    float velocityRotation((float)VelocityRotation);
+    float velocityForward((float)VelocityForward);
+
+    if (MotionVector.GetConstValue().size() > 0)
+    {
+        velocityRotation = MotionVector.GetConstValue()[0];
+    }
+    if (MotionVector.GetConstValue().size() > 1)
+    {
+        velocityForward = MotionVector.GetConstValue()[1];
+    }
 
     if (std::fabs(velocityRotation) > 0.0F || std::fabs(velocityForward) > 0.0F)
     {
