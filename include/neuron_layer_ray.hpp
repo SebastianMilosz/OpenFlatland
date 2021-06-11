@@ -32,7 +32,8 @@ class NeuronLayerRay : public NeuronLayer
         codeframe::Property<float> MaxFixture;
         codeframe::Property<float> MinFixture;
 
-        void ProcessData(thrust::host_vector<float>& vectData) override;
+        void GiveData(thrust::host_vector<float>& vectData) override;
+        void TakeData(thrust::host_vector<float>& vectData) override;
 
     private:
         float m_MaxDistance;

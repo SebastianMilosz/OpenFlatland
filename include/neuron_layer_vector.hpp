@@ -23,7 +23,8 @@ class NeuronLayerVector : public NeuronLayer
         codeframe::Property<float> Max;
         codeframe::Property<float> Min;
 
-        void ProcessData(thrust::host_vector<float>& vectData) override;
+        void GiveData(thrust::host_vector<float>& vectData) override;
+        void TakeData(thrust::host_vector<float>& vectData) override;
 
     private:
         float m_Max;

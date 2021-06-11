@@ -22,7 +22,8 @@ class NeuronLayer : public codeframe::Object
                  NeuronLayer( const std::string& name, ObjectNode* parent, const std::string& link );
         virtual ~NeuronLayer() = default;
 
-        virtual void ProcessData(thrust::host_vector<float>& vectData) = 0;
+        virtual void GiveData(thrust::host_vector<float>& vectData) = 0;
+        virtual void TakeData(thrust::host_vector<float>& vectData) = 0;
 
     protected:
         struct normalize_functor

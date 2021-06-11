@@ -34,7 +34,7 @@ NeuronLayerVector::NeuronLayerVector( const std::string& name, ObjectNode* paren
   * @brief
  **
 ******************************************************************************/
-void NeuronLayerVector::ProcessData(thrust::host_vector<float>& vectData)
+void NeuronLayerVector::GiveData(thrust::host_vector<float>& vectData)
 {
     float tmpMax = std::numeric_limits<float>::min();
     float tmpMin = std::numeric_limits<float>::max();
@@ -47,4 +47,14 @@ void NeuronLayerVector::ProcessData(thrust::host_vector<float>& vectData)
 
     m_Max = tmpMax;
     m_Min = tmpMin;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void NeuronLayerVector::TakeData(thrust::host_vector<float>& vectData)
+{
+
 }

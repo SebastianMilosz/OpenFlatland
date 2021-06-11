@@ -39,7 +39,7 @@ NeuronLayerRay::NeuronLayerRay( const std::string& name, ObjectNode* parent, con
   * @brief
  **
 ******************************************************************************/
-void NeuronLayerRay::ProcessData(thrust::host_vector<float>& vectData)
+void NeuronLayerRay::GiveData(thrust::host_vector<float>& vectData)
 {
     float tmpMaxDistance = std::numeric_limits<float>::min();
     float tmpMinDistance = std::numeric_limits<float>::max();
@@ -97,4 +97,14 @@ void NeuronLayerRay::ProcessData(thrust::host_vector<float>& vectData)
     m_MinDistance = tmpMinDistance;
     m_MaxFixture  = tmpMaxFixture;
     m_MinFixture  = tmpMinFixture;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+void NeuronLayerRay::TakeData(thrust::host_vector<float>& vectData)
+{
+
 }
