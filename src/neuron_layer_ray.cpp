@@ -104,7 +104,8 @@ void NeuronLayerRay::GiveData(thrust::host_vector<float>& vectData)
   * @brief
  **
 ******************************************************************************/
-void NeuronLayerRay::TakeData(thrust::host_vector<float>& vectData)
+uint32_t NeuronLayerRay::TakeData(thrust::host_vector<float>& vectData, uint32_t vectPos)
 {
 
+    return 0U;
 }

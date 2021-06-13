@@ -61,13 +61,14 @@ void ArtificialNeuronEngine::CollectInputs()
 ******************************************************************************/
 void ArtificialNeuronEngine::ProcesseOutputs()
 {
-    for ( unsigned int n = 0U; n < m_Outputs.Count(); n++ )
+    uint32_t vectPos = 0U;
+    for ( uint32_t n = 0U; n < m_Outputs.Count(); n++ )
     {
         smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_Outputs.Get( n ));
 
         if (smart_ptr_isValid(neuronLayerObj))
         {
-            neuronLayerObj->TakeData(m_vectOutData);
+            vectPos += neuronLayerObj->TakeData(m_vectOutData, vectPos);
         }
     }
 }

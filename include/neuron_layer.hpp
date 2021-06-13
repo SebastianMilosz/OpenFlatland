@@ -23,7 +23,7 @@ class NeuronLayer : public codeframe::Object
         virtual ~NeuronLayer() = default;
 
         virtual void GiveData(thrust::host_vector<float>& vectData) = 0;
-        virtual void TakeData(thrust::host_vector<float>& vectData) = 0;
+        virtual uint32_t TakeData(thrust::host_vector<float>& vectData, uint32_t vectPos) = 0;
 
     protected:
         struct normalize_functor
