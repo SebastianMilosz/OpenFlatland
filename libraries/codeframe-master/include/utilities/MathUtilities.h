@@ -123,7 +123,7 @@ namespace utilities
         {
             if(nbr > 999999999) return std::string("GetStringFromInt - Overload");
             char buffer [12];
-            sprintf (buffer, format, nbr);
+            snprintf(buffer, 12, format, nbr);
             return std::string(buffer);
         }
 

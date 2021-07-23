@@ -3,6 +3,10 @@
 #include <sys/stat.h>
 #include <sys/time.h>
 
+#define HAVE_STRUCT_TIMESPEC            // redefinition of struct timespec
+
+#include <pthread.h>
+
 #include <utilities/ThreadUtilities.h>
 #include <utilities/DataTypesUtilities.h>
 
