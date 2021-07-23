@@ -2,7 +2,9 @@
 #define THREADWRAPPER_H
 
 #define __CLEANUP_CXX
+#define HAVE_STRUCT_TIMESPEC            // redefinition of struct timespec
 
+#include <pthread.h>
 #include <errno.h>
 #include <string>
 #include <sigslot.h>
