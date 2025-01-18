@@ -2,6 +2,7 @@
 #define OBJECT_NODE_H_INCLUDED
 
 #include <vector>
+#include <array>
 #include <string>
 #include <map>
 #include <typeinfo>
@@ -49,7 +50,19 @@ namespace codeframe
             virtual cObjectList&    ChildList() = 0;
             virtual cIdentity&      Identity() = 0;
 
-            virtual smart_ptr<ObjectSelection> Create(
+            virtual const std::vector< std::string >& ClassSet() const
+            {
+                static std::vector< std::string > tmp;
+                return tmp;
+            }
+
+            virtual const std::vector< std::vector<std::string> >& ClassParameterSet() const
+            {
+                static std::vector< std::vector<std::string> > tmp;
+                return tmp;
+            }
+
+            virtual smart_ptr<codeframe::Object> Create(
                                                   const std::string& className,
                                                   const std::string& objName,
                                                   const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()

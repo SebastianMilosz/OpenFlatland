@@ -68,6 +68,7 @@ namespace codeframe
             virtual smart_ptr<ObjectSelection> ObjectFromPath( const std::string& path );
             virtual smart_ptr<ObjectSelection> GetObjectByName( const std::string& name );
             virtual smart_ptr<ObjectSelection> GetObjectById( const uint32_t id );
+            virtual smart_ptr<ObjectNode>      GetNode( unsigned int id = 0U );
 
             /// This method should return true if all objects in selection exist
             virtual bool_t IsValid() const;
@@ -89,7 +90,6 @@ namespace codeframe
 
         protected:
             ObjectSelection();
-            virtual smart_ptr<ObjectNode> GetNode( unsigned int id = 0U );
 
         private:
             void OnDelete(void* deletedPtr);

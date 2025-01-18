@@ -1,11 +1,17 @@
 #include "typeinfo.hpp"
 
 #include <MathUtilities.h>
-#include <entity_vision_node.hpp>
 
 #include "extvector.hpp"
 #include "extfundamental.hpp"
+
+#ifdef USE_RAYDATA_EXT_TYPE
+#include <entity_vision_node.hpp>
+#endif
+
+#ifdef USE_THRUST_EXT_TYPE
 #include "extthrust.hpp"
+#endif
 
 namespace codeframe
 {
@@ -137,10 +143,14 @@ namespace codeframe
     REGISTER_TYPE( Point2D<double>                  , "vec"  );
     REGISTER_TYPE( std::vector<float>               , "vec"  );
     REGISTER_TYPE( std::vector<unsigned int>        , "vec"  );
+#ifdef USE_RAYDATA_EXT_TYPE
     REGISTER_TYPE( std::vector<RayData>             , "vec"  );
+#endif
+#ifdef USE_THRUST_EXT_TYPE
     REGISTER_TYPE( thrust::host_vector<float>       , "vec"  );
     REGISTER_TYPE( thrust::host_vector<unsigned int>, "vec"  );
     REGISTER_TYPE( thrust::host_vector<RayData>     , "vec"  );
+#endif
 
     /*****************************************************************************/
     /**
@@ -161,10 +171,14 @@ namespace codeframe
         GetTypeInfo<Point2D<double>       >().SetFromStringCallback( &Point2D<double>::Point2DFromString );
         GetTypeInfo<std::vector<float>    >().SetFromStringCallback( &PropertyVector<float>::VectorFromString );
         GetTypeInfo<std::vector<unsigned int> >().SetFromStringCallback( &PropertyVector<unsigned int>::VectorFromString );
+#ifdef USE_RAYDATA_EXT_TYPE
         GetTypeInfo<std::vector<RayData>  >().SetFromStringCallback( &PropertyVector<RayData>::VectorFromString );
+#endif
+#ifdef USE_THRUST_EXT_TYPE
         GetTypeInfo<thrust::host_vector<float> >().SetFromStringCallback( &PropertyThrustVector<float>::VectorFromString );
         GetTypeInfo<thrust::host_vector<unsigned int> >().SetFromStringCallback( &PropertyThrustVector<unsigned int>::VectorFromString );
         GetTypeInfo<thrust::host_vector<RayData> >().SetFromStringCallback( &PropertyThrustVector<RayData>::VectorFromString );
+#endif
 
         GetTypeInfo<bool                  >().SetToStringCallback( &FundamentalTypes<bool>::BoolToString    );
         GetTypeInfo<int                   >().SetToStringCallback( &FundamentalTypes<int>::IntToString     );
@@ -178,10 +192,14 @@ namespace codeframe
         GetTypeInfo<Point2D<double>       >().SetToStringCallback( &Point2D<double>::Point2DToString );
         GetTypeInfo<std::vector<float>    >().SetToStringCallback( &PropertyVector<float>::VectorToString );
         GetTypeInfo<std::vector<unsigned int> >().SetToStringCallback( &PropertyVector<unsigned int>::VectorToString );
+#ifdef USE_RAYDATA_EXT_TYPE
         GetTypeInfo<std::vector<RayData>  >().SetToStringCallback( &PropertyVector<RayData>::VectorToString );
+#endif
+#ifdef USE_THRUST_EXT_TYPE
         GetTypeInfo<thrust::host_vector<float> >().SetToStringCallback( &PropertyThrustVector<float>::VectorToString );
         GetTypeInfo<thrust::host_vector<unsigned int> >().SetToStringCallback( &PropertyThrustVector<unsigned int>::VectorToString );
         GetTypeInfo<thrust::host_vector<RayData> >().SetToStringCallback( &PropertyThrustVector<RayData>::VectorToString );
+#endif
 
         GetTypeInfo<bool                  >().SetFromIntegerCallback( &FundamentalTypes<bool>::BoolFromInt   );
         GetTypeInfo<int                   >().SetFromIntegerCallback( &FundamentalTypes<int>::IntFromInt    );

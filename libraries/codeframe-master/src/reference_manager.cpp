@@ -95,38 +95,55 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
         {
             const sReferenceData refData = it->second;
 
-            if (refData.Property)
+            if (smart_ptr_isValid(refData.Property))
             {
                 cPath::sPathLink pathLink;
-                auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(refData.Property->Parent()));
-                cPath::PreparePathLink(refData.RefPath, pathLink, propertyParent);
+                smart_ptr<ObjectNode> propertyParentNode = refData.Property->Parent();
 
-                if (smart_ptr_isValid(refData.Property))
+                if (smart_ptr_isValid(propertyParentNode))
                 {
-                    const std::string pathLinkString(pathLink.ToDirString());
-                    smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLinkString );
+                    auto propertyParent = smart_ptr<ObjectSelection>(new ObjectSelection(propertyParentNode));
+                    cPath::PreparePathLink(refData.RefPath, pathLink, propertyParent);
 
-                    if (smart_ptr_isValid(targetProp))
+                    if (smart_ptr_isValid(refData.Property))
                     {
-                        if (pathLink.IsReverseDirection())
+                        const std::string pathLinkString(pathLink.ToDirString());
+                        smart_ptr<PropertyNode> targetProp = root.PropertyList().GetPropertyFromPath( pathLinkString );
+
+                        if (smart_ptr_isValid(targetProp))
                         {
-                            if ( targetProp->ConnectReference(refData.Property) )
+                            if (pathLink.IsReverseDirection())
                             {
-                                it = m_referencePathMap.erase(it);
+                                if ( targetProp->ConnectReference(refData.Property) )
+                                {
+                                    it = m_referencePathMap.erase(it);
+                                }
+                                else
+                                {
+                                    it++;
+                                }
+                            }
+                            else
+                            {
+                                if ( refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp)) )
+                                {
+                                    it = m_referencePathMap.erase(it);
+                                }
+                                else
+                                {
+                                    it++;
+                                }
                             }
                         }
                         else
                         {
-                            if ( refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp)) )
-                            {
-                                it = m_referencePathMap.erase(it);
-                            }
+                            it++;
                         }
                     }
-                    else
-                    {
-                        it++;
-                    }
+                }
+                else
+                {
+                    it = m_referencePathMap.erase(it);
                 }
             }
         }

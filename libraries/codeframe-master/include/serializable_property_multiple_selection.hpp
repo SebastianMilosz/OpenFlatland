@@ -11,7 +11,7 @@ namespace codeframe
      /*****************************************************************************
      * @class This class stores Property's from selection
      *****************************************************************************/
-    class PropertyMultipleSelection : public PropertyNode, public sigslot::has_slots<>
+    class PropertyMultipleSelection : public PropertyNode
     {
         public:
             PropertyMultipleSelection();

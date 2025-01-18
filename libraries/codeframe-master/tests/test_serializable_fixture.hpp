@@ -15,6 +15,11 @@ class classTest_Static : public codeframe::Object
         classTest_Static( const std::string& name, ObjectNode* parent ) : Object( name, parent )
         {
         }
+
+        ~classTest_Static() override
+        {
+
+        }
 };
 
 class classTest_SubInternal : public codeframe::Object
@@ -38,6 +43,11 @@ class classTest_SubInternal : public codeframe::Object
             Property_rew( this, "Property_rew", 8400U , cPropertyInfo().Kind( KIND_NUMBER ).Description("Property_rew_desc") ),
             Property_float( this, "Property_float", 81.2f , cPropertyInfo().Kind( KIND_REAL ).Description("Property_float") )
         {
+        }
+
+        ~classTest_SubInternal() override
+        {
+
         }
 };
 
@@ -83,6 +93,11 @@ class classTest_Dynamic : public codeframe::Object
             InternalObject("InternalObject", this)
         {
         }
+
+        ~classTest_Dynamic() override
+        {
+
+        }
 };
 
 class classTest_Dynamic_rel : public codeframe::Object
@@ -117,7 +132,12 @@ class classTest_Container : public codeframe::ObjectContainer
         CODEFRAME_META_CLASS_NAME( "classTest_Container" );
         CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
 
-        virtual smart_ptr<ObjectSelection> Create(
+        classTest_Container( const std::string& name, smart_ptr<ObjectNode> parent ) :
+            ObjectContainer( name, parent )
+        {
+        }
+
+        virtual smart_ptr<codeframe::Object> Create(
                                                     const std::string& className,
                                                     const std::string& objName,
                                                     const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
@@ -129,7 +149,7 @@ class classTest_Container : public codeframe::ObjectContainer
 
                 InsertObject(obj);
 
-                return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
+                return smart_ptr<codeframe::Object>(obj);
             }
             else if (className == "classTest_Dynamic_rel")
             {
@@ -137,14 +157,62 @@ class classTest_Container : public codeframe::ObjectContainer
 
                 InsertObject(obj);
 
-                return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
+                return smart_ptr<codeframe::Object>(obj);
             }
 
-            return smart_ptr<codeframe::ObjectSelection>();
+            return smart_ptr<codeframe::Object>();
         }
 
     public:
-        using codeframe::ObjectContainer::ObjectContainer;
+        //using codeframe::ObjectContainer::ObjectContainer;
+};
+
+class classTestStaticDynamic_Container : public codeframe::ObjectContainer
+{
+    public:
+        CODEFRAME_META_CLASS_NAME( "classTestStaticDynamic_Container" );
+        CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
+
+        classTestStaticDynamic_Container( const std::string& name, smart_ptr<ObjectNode> parent ) :
+            ObjectContainer( name, parent ),
+            StaticInternalObject("StaticInternalObject", this)
+        {
+        }
+
+        ~classTestStaticDynamic_Container()
+        {
+        }
+
+        classTest_SubInternal StaticInternalObject;
+
+        virtual smart_ptr<codeframe::Object> Create(
+                                                    const std::string& className,
+                                                    const std::string& objName,
+                                                    const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                                 )
+        {
+            if (className == "classTest_Dynamic")
+            {
+                smart_ptr<classTest_Dynamic> obj = smart_ptr<classTest_Dynamic>(new classTest_Dynamic(objName, this));
+
+                InsertObject(obj);
+
+                return smart_ptr<codeframe::Object>(obj);
+            }
+            else if (className == "classTest_Dynamic_rel")
+            {
+                smart_ptr<classTest_Dynamic_rel> obj = smart_ptr<classTest_Dynamic_rel>(new classTest_Dynamic_rel(objName, this));
+
+                InsertObject(obj);
+
+                return smart_ptr<codeframe::Object>(obj);
+            }
+
+            return smart_ptr<codeframe::Object>();
+        }
+
+    public:
+        //using codeframe::ObjectContainer::ObjectContainer;
 };
 
 #endif // TEST_CODEFRAME_FIXTURE_HPP_INCLUDED

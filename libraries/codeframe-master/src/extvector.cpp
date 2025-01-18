@@ -2,12 +2,16 @@
 
 #include <MathUtilities.h>
 #include <TextUtilities.h>
+
+#ifdef USE_RAYDATA_EXT_TYPE
 #include <ray_data.hpp>
+#endif
 
 #include "base64.hpp"
 
 namespace codeframe
 {
+#ifdef USE_RAYDATA_EXT_TYPE
     /*****************************************************************************/
     /**
       * @brief
@@ -48,6 +52,7 @@ namespace codeframe
         std::string retValue = base64_encode(indata, vectorByteSize);
         return retValue;
     }
+#endif
 
     /*****************************************************************************/
     /**

@@ -45,7 +45,7 @@ smart_ptr<ConstElement> ConstElementsFactory::CreateLine( codeframe::Point2D<int
   * @brief
  **
 ******************************************************************************/
-smart_ptr<codeframe::ObjectSelection> ConstElementsFactory::Create(
+smart_ptr<codeframe::Object> ConstElementsFactory::Create(
                                                      const std::string& className,
                                                      const std::string& objName,
                                                      const std::vector<codeframe::VariantValue>& params
@@ -77,8 +77,8 @@ smart_ptr<codeframe::ObjectSelection> ConstElementsFactory::Create(
 
         signalElementAdd.Emit( obj );
 
-        return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
+        return obj;
     }
 
-    return smart_ptr<codeframe::ObjectSelection>();
+    return smart_ptr<codeframe::Object>();
 }

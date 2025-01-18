@@ -44,13 +44,14 @@ namespace codeframe
     PropertyBase::PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info ) :
         m_reference(nullptr),
         m_type(type),
-        m_parentpc( parentpc ),
+        m_parentpc( smart_ptr_wild<ObjectNode>(parentpc, [&](ObjectNode* p) {m_temporary = true;}) ),
         m_name(name),
         m_id(0),
         m_isWaitForUpdate( false ),
         m_waitForUpdateCnt(0),
         m_propertyInfo( info, this ),
-        m_temporary( false )
+        m_temporary( false ),
+        m_registered( false )
         {
             RegisterProperty();
         }
@@ -67,7 +68,8 @@ namespace codeframe
         m_name           (sval.m_name),
         m_id             (sval.m_id),
         m_propertyInfo   (sval.m_propertyInfo),
-        m_temporary      ( true )
+        m_temporary      ( true ),
+        m_registered     ( false )
     {
     }
 
@@ -78,12 +80,12 @@ namespace codeframe
     ******************************************************************************/
     PropertyBase::~PropertyBase()
     {
-        signalDeleted.Emit(this);
-
         if( m_temporary == false )
         {
             UnRegisterProperty();
         }
+
+        signalDeleted.Emit(this);
     }
 
     /*****************************************************************************/
@@ -103,7 +105,9 @@ namespace codeframe
         int size = m_parentpc->PropertyList().size();
         m_id = GetHashId( Name(), 255 * s_globalParConCnt + size );
         m_parentpc->PropertyList().RegisterProperty( Name(), this );
+        m_parentpc->signalDeleted.connect(this, PropertyBase::OnParentDelete);
         s_globalParConCnt++;
+        m_registered = true;
         m_Mutex.Unlock();
     }
 
@@ -114,7 +118,7 @@ namespace codeframe
     ******************************************************************************/
     void PropertyBase::UnRegisterProperty()
     {
-        if (m_parentpc == nullptr)
+        if (m_parentpc == nullptr || m_registered == false)
         {
             return;
         }
@@ -124,8 +128,19 @@ namespace codeframe
         m_parentpc->PropertyList().UnRegisterProperty( Name(), this );
 
         s_globalParConCnt--;
+        m_registered = false;
 
         m_Mutex.Unlock();
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyBase::OnParentDelete(void* deletedPtr)
+    {
+        m_registered = false;
     }
 
     /*****************************************************************************/

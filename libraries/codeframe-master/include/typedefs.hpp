@@ -3,12 +3,14 @@
 
 // Typy Danych
 typedef int8_t   bool_t;
+typedef char     char_t;
 typedef int8_t   s8_t;
 typedef uint8_t  u8_t;
 typedef int16_t  s16_t;
 typedef uint16_t u16_t;
 typedef int32_t  s32_t;
 typedef uint32_t u32_t;
+typedef float    float32_t;
 
 #define PIXEL32 int32_t
 

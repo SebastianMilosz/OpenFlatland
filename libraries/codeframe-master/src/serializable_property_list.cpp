@@ -222,6 +222,7 @@ namespace codeframe
         if (it != m_PropertyMap.end())
         {
             it->second->signalChanged.disconnect( this );
+            it->second->signalDeleted.disconnect( this );
             m_PropertyMap.erase(it);
         }
         m_Mutex.Unlock();

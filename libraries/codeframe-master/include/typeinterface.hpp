@@ -12,6 +12,7 @@ namespace codeframe
     class TypeInterface
     {
         public:
+            virtual ~TypeInterface() = default;
             virtual void FromStringCallback ( const StringType&  value ) = 0;
             virtual void FromIntegerCallback( const IntegerType& value ) = 0;
             virtual void FromRealCallback   ( const RealType&    value ) = 0;

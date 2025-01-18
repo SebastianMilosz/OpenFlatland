@@ -162,6 +162,7 @@ bool ObjectContainer::DisposeByBuildType( const eBuildType buildType, const cIgn
         {
             sptr->Selection().DisconectFromContainer();
             sptr->Unbound();
+
             signalContainerSelectionChanged.Emit( sptr );
 
             it = m_containerVector.erase(it);
@@ -191,9 +192,12 @@ bool ObjectContainer::Dispose( smart_ptr<ObjectNode> obj )
             if ( sptr->Identity().ObjectName() == obj->Identity().ObjectName() )
             {
                 sptr->Selection().DisconectFromContainer();
-                *it = smart_ptr<Object>();
+                sptr->Unbound();
 
                 signalContainerSelectionChanged.Emit( sptr );
+
+                it = m_containerVector.erase(it);
+
                 return true;
             }
         }

@@ -33,6 +33,10 @@ namespace codeframe
     ******************************************************************************/
     PropertySelection::~PropertySelection()
     {
+        if (m_selection)
+        {
+            m_selection->signalDeleted.disconnect(this);
+        }
     }
 
     /*****************************************************************************/

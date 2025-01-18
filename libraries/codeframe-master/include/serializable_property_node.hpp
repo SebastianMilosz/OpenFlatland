@@ -15,7 +15,7 @@ namespace codeframe
     /*****************************************************************************
      * @class Interface for all properties classes
      *****************************************************************************/
-    class PropertyNode
+    class PropertyNode : public sigslot::has_slots<>
     {
         public:
             virtual PropertyNode& operator=(const bool_t        val) = 0;
@@ -76,6 +76,10 @@ namespace codeframe
             virtual double      GetReal() const = 0;
             virtual void        SetString( const std::string&  val ) = 0;
             virtual std::string GetString() const = 0;
+
+            virtual ~PropertyNode()
+            {
+            }
 
             template<typename T>
             T GetValue()

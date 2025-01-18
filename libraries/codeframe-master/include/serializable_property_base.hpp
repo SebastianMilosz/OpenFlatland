@@ -25,9 +25,9 @@ namespace codeframe
 
         public:
 
-            PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info );
-            PropertyBase( const PropertyBase& sval );
-            virtual ~PropertyBase();
+             PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info );
+             PropertyBase( const PropertyBase& sval );
+            ~PropertyBase() override;
 
             bool_t operator==(const int& sval) const override;
             bool_t operator!=(const int& sval) const override;
@@ -118,10 +118,12 @@ namespace codeframe
             int                     m_waitForUpdateCnt;
             cPropertyInfo           m_propertyInfo;
             bool_t                  m_temporary;
+            bool_t                  m_registered;
 
             void RegisterProperty();
             void UnRegisterProperty();
             void EmitChanges() override;
+            void OnParentDelete(void* deletedPtr);
 
             static uint32_t GetHashId( const std::string& str, uint16_t mod = 0 );
     };

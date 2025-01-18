@@ -21,6 +21,7 @@ namespace utilities
         class DataStorage
         {
             public:
+               virtual ~DataStorage() = default;
                virtual void Add( const std::string& key, const std::string& value ) = 0;
                virtual void Get( const std::string& key, std::string& value ) = 0;
         };

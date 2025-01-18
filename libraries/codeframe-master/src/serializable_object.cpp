@@ -180,13 +180,13 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    smart_ptr<ObjectSelection> Object::Create(
+    smart_ptr<codeframe::Object> Object::Create(
                                     const std::string& className,
                                     const std::string& objName,
                                     const std::vector<codeframe::VariantValue>& params
                                  )
     {
-        return smart_ptr<ObjectSelection>();
+        return smart_ptr<codeframe::Object>();
     }
 
     /*****************************************************************************/

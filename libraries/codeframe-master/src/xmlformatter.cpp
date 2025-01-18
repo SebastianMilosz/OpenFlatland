@@ -206,7 +206,7 @@ namespace codeframe
 
         if ( serializableObjectId >= 0 ) // If Id then unique is Id
         {
-            rootObjNode = xml.FindChildByAttribute(XMLTAG_OBJECT, "lp", utilities::math::IntToStr( serializableObjectId ).c_str());
+            rootObjNode = xml.FindChildByAttribute(XMLTAG_OBJECT, "id", utilities::math::IntToStr( serializableObjectId ).c_str());
 
             // Name will have to also match
             std::string name( rootObjNode.GetAttributeAsString("name") );
@@ -232,7 +232,7 @@ namespace codeframe
         {
             std::string errormsg = std::string("cXmlFormatter::LoadFromXML() rootObjNode == NULL no object name ");
             errormsg += serializableObjectName;
-            errormsg += std::string("inside xml document");
+            errormsg += std::string(" inside xml document");
 
 
             throw std::runtime_error( errormsg.c_str() );
@@ -376,7 +376,7 @@ namespace codeframe
                 descr.AppendAttribute("type", iser->TypeString().c_str());
 
 #ifdef ID_FIELD
-                descr.AppendAttribute("id", LongToHex( iser->Id() ).c_str());
+                descr.AppendAttribute("id", utilities::math::LongToHex( iser->Id() ).c_str());
 #endif
 
                 descr.AppendAttribute("value", ((std::string)(*iser)).c_str());
@@ -456,6 +456,12 @@ namespace codeframe
 
                         cXMLNode rootObjNode = childXml.FirstChild();
                         rootObjNode.AppendAttribute("lp", utilities::math::IntToStr(lp++).c_str());
+
+                        if (iser->BuildType() == eBuildType::DYNAMIC)
+                        {
+                            rootObjNode.AppendAttribute("id", utilities::math::IntToStr(iser->Identity().GetId()).c_str() );
+                        }
+
                         childNode.AppendCopy( rootObjNode );
                     }
                     else

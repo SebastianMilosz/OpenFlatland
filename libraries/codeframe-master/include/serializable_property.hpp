@@ -74,7 +74,7 @@ namespace codeframe
             }
 
             // Destructor
-            virtual ~Property()
+            ~Property() override
             {
 
             }
@@ -726,7 +726,7 @@ namespace codeframe
 
             bool_t IsChanged() const override
             {
-                if ( (PropertyBase::IsChanged()) || (m_baseValuePrew != GetConstValue()) )
+                if ( (PropertyBase::IsChanged()) || (m_baseValuePrew != m_baseValue) )
                 {
                     return true;
                 }

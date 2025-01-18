@@ -15,11 +15,11 @@ TEST_CASE( "codeframe library Object Container", "[codeframe][ObjectContainer]" 
         REQUIRE( staticContainerObject->Path().IsNameUnique("node[3]") == true );
         REQUIRE( staticContainerObject->Path().IsNameUnique("node[4]") == true );
 
-        smart_ptr<ObjectSelection> node0 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[0]
-        smart_ptr<ObjectSelection> node1 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[1]
-        smart_ptr<ObjectSelection> node2 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[2]
-        smart_ptr<ObjectSelection> node3 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[3]
-        smart_ptr<ObjectSelection> node4 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[4]
+        smart_ptr<codeframe::Object> node0 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[0]
+        smart_ptr<codeframe::Object> node1 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[1]
+        smart_ptr<codeframe::Object> node2 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[2]
+        smart_ptr<codeframe::Object> node3 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[3]
+        smart_ptr<codeframe::Object> node4 = staticContainerObject->Create( "classTest_Dynamic", "node" );    // node[4]
 
         REQUIRE( smart_ptr_isValid( node0 ) );
         REQUIRE( smart_ptr_isValid( node1 ) );

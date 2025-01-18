@@ -8,14 +8,21 @@ TEST_CASE( "codeframe Object save and restore", "[codeframe][Object][Storage]" )
     const std::string dataFilePath( apiDir + std::string("\\test_data.xml") );
 
     smart_ptr<ObjectNode> staticSerializableObject( new classTest_Static("testNameStatic", nullptr) );
-    smart_ptr<ObjectNode> staticContainerObject( new classTest_Container("testNameContainerStatic", staticSerializableObject) );
+    smart_ptr<ObjectNode> staticContainerObject( new classTestStaticDynamic_Container("testNameContainerStatic", staticSerializableObject) );
 
-    smart_ptr<ObjectSelection> node0 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[0]
-    smart_ptr<ObjectSelection> node1 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[1]
-    smart_ptr<ObjectSelection> node2 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[2]
-    smart_ptr<ObjectSelection> node3 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[3]
-    smart_ptr<ObjectSelection> node4 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[4]
-    smart_ptr<ObjectSelection> node5 = staticContainerObject->Create( "classTest_Dynamic_rel", "node" ); // node[5]
+    smart_ptr<codeframe::Object> node0 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[0]
+    smart_ptr<codeframe::Object> node1 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[1]
+    smart_ptr<codeframe::Object> node2 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[2]
+    smart_ptr<codeframe::Object> node3 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[3]
+    smart_ptr<codeframe::Object> node4 = staticContainerObject->Create( "classTest_Dynamic"    , "node" ); // node[4]
+    smart_ptr<codeframe::Object> node5 = staticContainerObject->Create( "classTest_Dynamic_rel", "node" ); // node[5]
+
+    smart_ptr<codeframe::ObjectSelection> nodeSelection0 = staticContainerObject->Child("node[0]");    // node[0]
+    smart_ptr<codeframe::ObjectSelection> nodeSelection1 = staticContainerObject->Child("node[1]");    // node[1]
+    smart_ptr<codeframe::ObjectSelection> nodeSelection2 = staticContainerObject->Child("node[2]");    // node[2]
+    smart_ptr<codeframe::ObjectSelection> nodeSelection3 = staticContainerObject->Child("node[3]");    // node[3]
+    smart_ptr<codeframe::ObjectSelection> nodeSelection4 = staticContainerObject->Child("node[4]");    // node[4]
+    smart_ptr<codeframe::ObjectSelection> nodeSelection5 = staticContainerObject->Child("node[5]");    // node[5]
 
     SECTION( "test get object name" )
     {
@@ -85,25 +92,26 @@ TEST_CASE( "codeframe Object save and restore", "[codeframe][Object][Storage]" )
         REQUIRE_NOTHROW( staticSerializableObject->Storage().LoadFromFile( dataFilePath ) );
 
         // After load all dynamic object selection should not be valid
-        REQUIRE( node0->IsValid() == false );
-        REQUIRE( node1->IsValid() == false );
-        REQUIRE( node2->IsValid() == false );
-        REQUIRE( node3->IsValid() == false );
-        REQUIRE( node4->IsValid() == false );
+        REQUIRE( nodeSelection0->IsValid() == false );
+        REQUIRE( nodeSelection1->IsValid() == false );
+        REQUIRE( nodeSelection2->IsValid() == false );
+        REQUIRE( nodeSelection3->IsValid() == false );
+        REQUIRE( nodeSelection4->IsValid() == false );
+        REQUIRE( nodeSelection5->IsValid() == false );
 
         // Update selections after load
-        node0 = staticContainerObject->Child("node[0]");    // node[0]
-        node1 = staticContainerObject->Child("node[1]");    // node[1]
-        node2 = staticContainerObject->Child("node[2]");    // node[2]
-        node3 = staticContainerObject->Child("node[3]");    // node[3]
-        node4 = staticContainerObject->Child("node[4]");    // node[4]
+        nodeSelection0 = staticContainerObject->Child("node[0]");    // node[0]
+        nodeSelection1 = staticContainerObject->Child("node[1]");    // node[1]
+        nodeSelection2 = staticContainerObject->Child("node[2]");    // node[2]
+        nodeSelection3 = staticContainerObject->Child("node[3]");    // node[3]
+        nodeSelection4 = staticContainerObject->Child("node[4]");    // node[4]
 
         // Verify loaded values
-        REQUIRE( node0->Property("Property1")->GetValue<unsigned int>() == 3301U );
-        REQUIRE( node1->Property("Property1")->GetValue<unsigned int>() == 3311U );
-        REQUIRE( node2->Property("Property1")->GetValue<unsigned int>() == 3321U );
-        REQUIRE( node3->Property("Property1")->GetValue<unsigned int>() == 3331U );
-        REQUIRE( node4->Property("Property1")->GetValue<unsigned int>() == 3341U );
+        REQUIRE( nodeSelection0->Property("Property1")->GetValue<unsigned int>() == 3301U );
+        REQUIRE( nodeSelection1->Property("Property1")->GetValue<unsigned int>() == 3311U );
+        REQUIRE( nodeSelection2->Property("Property1")->GetValue<unsigned int>() == 3321U );
+        REQUIRE( nodeSelection3->Property("Property1")->GetValue<unsigned int>() == 3331U );
+        REQUIRE( nodeSelection4->Property("Property1")->GetValue<unsigned int>() == 3341U );
 
         REQUIRE( ReferenceManager::UnresolvedReferencesCount() == 0U );
     }

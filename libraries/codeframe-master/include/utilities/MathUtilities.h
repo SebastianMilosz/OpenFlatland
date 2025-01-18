@@ -30,6 +30,16 @@ namespace utilities
 
         std::string IntToStr( const int32_t nbr );
 
+        inline std::string CharToStr( const uint8_t nbr )
+        {
+            std::ostringstream s;
+            s << std::hex << std::setfill('0') << std::uppercase << "0x";
+            s << std::setw(2) << (uint32_t)nbr;
+            std::string retString = s.str();
+
+            return retString;
+        }
+
         /*****************************************************************************/
         /**
           * @brief
@@ -123,7 +133,7 @@ namespace utilities
         {
             if(nbr > 999999999) return std::string("GetStringFromInt - Overload");
             char buffer [12];
-            snprintf(buffer, 12, format, nbr);
+            sprintf (buffer, format, nbr);
             return std::string(buffer);
         }
 

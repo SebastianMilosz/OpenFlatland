@@ -16,11 +16,11 @@ class NeuronLayerContainer : public codeframe::ObjectContainer
                  NeuronLayerContainer( const std::string& name, ObjectNode* parent );
         virtual ~NeuronLayerContainer() = default;
 
-        smart_ptr<codeframe::ObjectSelection> Create(
-                                                 const std::string& className,
-                                                 const std::string& objName,
-                                                 const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
-                                                );
+        smart_ptr<codeframe::Object> Create(
+                                             const std::string& className,
+                                             const std::string& objName,
+                                             const std::vector<codeframe::VariantValue>& params = std::vector<codeframe::VariantValue>()
+                                           );
 };
 
 #endif // NEURON_LAYER_CONTAINER_HPP_INCLUDED

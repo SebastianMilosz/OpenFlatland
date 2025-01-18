@@ -20,7 +20,7 @@ NeuronLayerContainer::NeuronLayerContainer( const std::string& name, ObjectNode*
   * @brief
  **
 ******************************************************************************/
-smart_ptr<codeframe::ObjectSelection> NeuronLayerContainer::Create(
+smart_ptr<codeframe::Object> NeuronLayerContainer::Create(
                                                      const std::string& className,
                                                      const std::string& objName,
                                                      const std::vector<codeframe::VariantValue>& params
@@ -45,7 +45,7 @@ smart_ptr<codeframe::ObjectSelection> NeuronLayerContainer::Create(
 
         (void)InsertObject( obj );
 
-        return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
+        return obj;
     }
     else if ( className == "NeuronLayerRay" )
     {
@@ -53,8 +53,8 @@ smart_ptr<codeframe::ObjectSelection> NeuronLayerContainer::Create(
 
         (void)InsertObject( obj );
 
-        return smart_ptr<codeframe::ObjectSelection>(new codeframe::ObjectSelection(obj));
+        return obj;
     }
 
-    return smart_ptr<codeframe::ObjectSelection>();
+    return smart_ptr<codeframe::Object>();
 }
