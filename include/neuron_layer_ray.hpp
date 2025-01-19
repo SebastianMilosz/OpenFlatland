@@ -14,7 +14,7 @@
 class NeuronLayerRay : public NeuronLayer
 {
     CODEFRAME_META_CLASS_NAME( "NeuronLayerRay" );
-    CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
+    CODEFRAME_META_BUILD_TYPE( codeframe::DYNAMIC );
 
     public:
         enum class Layer

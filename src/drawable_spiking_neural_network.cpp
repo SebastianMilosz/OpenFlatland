@@ -63,6 +63,12 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
     const thrust::host_vector<float>& synapseLinkVector   = SynapseLink.GetConstValue();
     const thrust::host_vector<float>& synapseWeightVector = SynapseWeight.GetConstValue();
 
+    // If no data do nothing
+    if (m_dataInput.size() == 0U)
+    {
+        return;
+    }
+
     unsigned int neuronBoxDW = (target.getSize().x - neuronBoxW * (poolSize.X()+1U))/(poolSize.X()+1U);
     unsigned int neuronBoxDH = (target.getSize().y - neuronBoxH * (poolSize.Y()+1U))/(poolSize.Y()+1U);
     unsigned int inW = target.getSize().x / m_dataInput.size();

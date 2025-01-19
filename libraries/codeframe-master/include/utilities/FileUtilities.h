@@ -23,6 +23,10 @@ namespace utilities
 {
 	namespace file
 	{
+	    #if !defined(PATH_MAX)
+            #define PATH_MAX 4096
+	    #endif
+
 	    std::string GetFileName( const std::string& pathname );
 
 		/*****************************************************************************/

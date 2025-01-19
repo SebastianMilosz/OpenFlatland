@@ -26,6 +26,9 @@
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+					<Add option="-static" />
 					<Add option="-m32" />
 					<Add library="sfml-graphics" />
 					<Add library="sfml-network" />
@@ -728,10 +731,6 @@
 			<Option target="Release" />
 			<Option target="ReleaseMP" />
 		</Unit>
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
