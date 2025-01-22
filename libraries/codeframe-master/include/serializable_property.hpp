@@ -227,8 +227,7 @@ namespace codeframe
                 return *this;
             }
 
-            // From fundamental type bool
-            Property& operator=( bool_t val ) override
+            void SetValue(const bool_t val, bool triggerEvent = true) override
             {
                 if ( Info().GetEnable() == true )
                 {
@@ -249,11 +248,9 @@ namespace codeframe
                         *m_reference = val;
                     }
                 }
-                return *this;
             }
 
-            // From fundamental type char
-            Property& operator=( char val ) override
+            void SetValue(const char val, bool triggerEvent = true) override
             {
                 if ( Info().GetEnable() == true )
                 {
@@ -274,11 +271,9 @@ namespace codeframe
                         *m_reference = val;
                     }
                 }
-                return *this;
             }
 
-            // From fundamental type unsigned char
-            Property& operator=(unsigned char val) override
+            void SetValue(const unsigned char val, bool triggerEvent = true) override
             {
                 if ( Info().GetEnable() == true )
                 {
@@ -299,11 +294,9 @@ namespace codeframe
                         *m_reference = val;
                     }
                 }
-                return *this;
             }
 
-            // From fundamental type int
-            Property& operator=( int val ) override
+            void SetValue(const int val, bool triggerEvent = true) override
             {
                 if ( Info().GetEnable() == true )
                 {
@@ -324,11 +317,9 @@ namespace codeframe
                         *m_reference = val;
                     }
                 }
-                return *this;
             }
 
-            // From fundamental type unsigned int
-            Property& operator=( unsigned int val ) override
+            void SetValue(const unsigned int val, bool triggerEvent = true) override
             {
                 if ( Info().GetEnable() == true )
                 {
@@ -349,11 +340,55 @@ namespace codeframe
                         *m_reference = val;
                     }
                 }
-                return *this;
             }
 
-            // From fundamental type float
-            Property& operator=(float val) override
+            void SetValue(const short val, bool triggerEvent = true) override
+            {
+                if ( Info().GetEnable() == true )
+                {
+                    m_Mutex.Lock();
+                    m_baseValuePrew = GetConstValue();
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
+                    m_Mutex.Unlock();
+
+                    // Values external
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
+
+                    // Przypisanie wartosci zdalnej referencji
+                    if ( m_reference )
+                    {
+                        *m_reference = val;
+                    }
+                }
+            }
+
+            void SetValue(const unsigned short val, bool triggerEvent = true) override
+            {
+                if ( Info().GetEnable() == true )
+                {
+                    m_Mutex.Lock();
+                    m_baseValuePrew = GetConstValue();
+                    m_baseValue = GetTypeInfo<PROPERTY_TYPE>().FromInteger( val );
+                    m_Mutex.Unlock();
+
+                    // Values external
+                    if ( IsChanged() == true  )
+                    {
+                        EmitChanges();
+                    }
+
+                    // Przypisanie wartosci zdalnej referencji
+                    if ( m_reference )
+                    {
+                        *m_reference = val;
+                    }
+                }
+            }
+
+            void SetValue(const float val, bool triggerEvent = true) override
             {
                 if ( Info().GetEnable() == true )
                 {
@@ -374,11 +409,9 @@ namespace codeframe
                         *m_reference = val;
                     }
                 }
-                return *this;
             }
 
-            // From fundamental type double
-            Property& operator=(double val) override
+            void SetValue(const double val, bool triggerEvent = true) override
             {
                 if ( Info().GetEnable() == true )
                 {
@@ -399,11 +432,9 @@ namespace codeframe
                         *m_reference = val;
                     }
                 }
-                return *this;
             }
 
-            // From extended type std::string
-            Property& operator=( const std::string& val ) override
+            void SetValue(const std::string&  val, bool triggerEvent = true) override
             {
                 if ( Info().GetEnable() == true )
                 {
@@ -424,6 +455,75 @@ namespace codeframe
                         *m_reference = val;
                     }
                 }
+            }
+
+            // From fundamental type bool
+            Property& operator=( bool_t val ) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From fundamental type char
+            Property& operator=( char val ) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From fundamental type unsigned char
+            Property& operator=(unsigned char val) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From fundamental type int
+            Property& operator=( int val ) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From fundamental type unsigned int
+            Property& operator=( unsigned int val ) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From fundamental type short
+            Property& operator=( short val ) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From fundamental type unsigned short
+            Property& operator=( unsigned short val ) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From fundamental type float
+            Property& operator=(float val) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From fundamental type double
+            Property& operator=(double val) override
+            {
+                SetValue(val);
+                return *this;
+            }
+
+            // From extended type std::string
+            Property& operator=( const std::string& val ) override
+            {
+                SetValue(val);
                 return *this;
             }
 
@@ -610,6 +710,38 @@ namespace codeframe
                 }
 
                 unsigned int retVal(0U);
+
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );
+                m_Mutex.Unlock();
+
+                return retVal;
+            }
+
+            operator short() const override
+            {
+                if( m_reference )
+                {
+                    return (short)(*m_reference);
+                }
+
+                short retVal(0U);
+
+                m_Mutex.Lock();
+                retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );
+                m_Mutex.Unlock();
+
+                return retVal;
+            }
+
+            operator unsigned short() const override
+            {
+                if( m_reference )
+                {
+                    return (unsigned short)(*m_reference);
+                }
+
+                unsigned short retVal(0U);
 
                 m_Mutex.Lock();
                 retVal = GetTypeInfo<PROPERTY_TYPE>().ToInteger( GetConstValue() );

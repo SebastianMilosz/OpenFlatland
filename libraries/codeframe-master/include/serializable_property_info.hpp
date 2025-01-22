@@ -29,7 +29,10 @@ namespace codeframe
         KIND_2DPOINT,
         KIND_VECTOR,
         KIND_VECTOR_THRUST_HOST,
-        KIND_RAY_DATA
+        KIND_RAY_DATA,
+        KIND_EVENT,
+        KIND_BIT_FIELD_1S,
+        KIND_BIT_FIELD_2S
     };
 
     enum eDepth
@@ -73,9 +76,11 @@ namespace codeframe
                                       );
             cPropertyInfo& Description  ( const std::string& desc );
             cPropertyInfo& Kind         ( eKind kind1, eKind kind2=KIND_NON );
+            cPropertyInfo& Kind         ( eKind kind1, uint8_t visibleRange );
             cPropertyInfo& Enum         ( const std::string& enuma );
             cPropertyInfo& ReferencePath( const std::string& referencePath );
             cPropertyInfo& Event        ( int e );
+            cPropertyInfo& EventValue   ( uint32_t value );
             cPropertyInfo& Min          ( int min );
             cPropertyInfo& Max          ( int max );
             cPropertyInfo& Enable       ( int state );
@@ -90,10 +95,13 @@ namespace codeframe
             const std::string& GetEnum() const;
             const std::string& GetReferencePath() const;
             bool               IsEventEnable() const;
+            uint32_t           GetEventValue() const;
             int                GetMin() const;
             int                GetMax() const;
             bool               GetEnable() const;
             bool               GetGuiEnable() const;
+
+            uint8_t            GetVisibleRange() const;
 
             // Operators
             cPropertyInfo& operator=(cPropertyInfo val);
@@ -107,6 +115,7 @@ namespace codeframe
             eKind                   m_kind[KIND_DEPTH];
             std::string             m_enumArray;
             bool                    m_eventEnable;
+            uint32_t                m_eventValue;
             int                     m_min;
             int                     m_max;
             bool                    m_enable;
@@ -115,6 +124,8 @@ namespace codeframe
             eGUIMode                m_guimode;
             ReferenceManager        m_refmgr;
             PropertyBase*           m_serializableProperty;
+
+            uint8_t                 m_visibleRange;
     };
 
     /*****************************************************************************/
@@ -192,6 +203,16 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    inline uint32_t cPropertyInfo::GetEventValue() const
+    {
+        return m_eventValue;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     inline int cPropertyInfo::GetMin() const
     {
         return m_min;
@@ -225,6 +246,16 @@ namespace codeframe
     inline bool cPropertyInfo::GetGuiEnable() const
     {
         return (m_guimode & GUIMODE_DISABLED);
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    inline uint8_t cPropertyInfo::GetVisibleRange() const
+    {
+        return m_visibleRange;
     }
 }
 

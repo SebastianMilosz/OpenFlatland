@@ -6,6 +6,7 @@
 #include <sigslot.h>
 #include <smartpointer.h>
 #include <serializable_object.hpp>
+#include <serializable_object_container.hpp>
 
 class PropertyEditorWidget : public sigslot::has_slots<>
 {

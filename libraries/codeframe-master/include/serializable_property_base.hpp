@@ -24,7 +24,6 @@ namespace codeframe
         friend class cPropertyInfo;
 
         public:
-
              PropertyBase( ObjectNode* parentpc, const std::string& name, eType type, cPropertyInfo info );
              PropertyBase( const PropertyBase& sval );
             ~PropertyBase() override;
@@ -32,15 +31,28 @@ namespace codeframe
             bool_t operator==(const int& sval) const override;
             bool_t operator!=(const int& sval) const override;
 
+            void SetValue(const bool_t         val, bool triggerEvent = true) override;
+            void SetValue(const char           val, bool triggerEvent = true) override;
+            void SetValue(const unsigned char  val, bool triggerEvent = true) override;
+            void SetValue(const int            val, bool triggerEvent = true) override;
+            void SetValue(const unsigned int   val, bool triggerEvent = true) override;
+            void SetValue(const short          val, bool triggerEvent = true) override;
+            void SetValue(const unsigned short val, bool triggerEvent = true) override;
+            void SetValue(const float          val, bool triggerEvent = true) override;
+            void SetValue(const double         val, bool triggerEvent = true) override;
+            void SetValue(const std::string&   val, bool triggerEvent = true) override;
+
             // Operatory przypisania
-            PropertyNode& operator=(const bool_t        val) override;
-            PropertyNode& operator=(const char          val) override;
-            PropertyNode& operator=(const unsigned char val) override;
-            PropertyNode& operator=(const int           val) override;
-            PropertyNode& operator=(const unsigned int  val) override;
-            PropertyNode& operator=(const float         val) override;
-            PropertyNode& operator=(const double        val) override;
-            PropertyNode& operator=(const std::string&  val) override;
+            PropertyNode& operator=(const bool_t         val) override;
+            PropertyNode& operator=(const char           val) override;
+            PropertyNode& operator=(const unsigned char  val) override;
+            PropertyNode& operator=(const int            val) override;
+            PropertyNode& operator=(const unsigned int   val) override;
+            PropertyNode& operator=(const short          val) override;
+            PropertyNode& operator=(const unsigned short val) override;
+            PropertyNode& operator=(const float          val) override;
+            PropertyNode& operator=(const double         val) override;
+            PropertyNode& operator=(const std::string&   val) override;
             PropertyNode& operator++() override;
             PropertyNode& operator--() override;
             PropertyNode& operator+=(const int rhs) override;
@@ -60,6 +72,7 @@ namespace codeframe
             operator unsigned char() const override;
             operator int() const override;
             operator unsigned int() const override;
+            operator short() const override;
             operator unsigned short() const override;
             operator double() const override;
             operator float() const override;

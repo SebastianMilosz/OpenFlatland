@@ -118,20 +118,12 @@ void ReferenceManager::ResolveReferences( ObjectNode& root )
                                 {
                                     it = m_referencePathMap.erase(it);
                                 }
-                                else
-                                {
-                                    it++;
-                                }
                             }
                             else
                             {
                                 if ( refData.Property->ConnectReference(smart_ptr<PropertyNode>(targetProp)) )
                                 {
                                     it = m_referencePathMap.erase(it);
-                                }
-                                else
-                                {
-                                    it++;
                                 }
                             }
                         }

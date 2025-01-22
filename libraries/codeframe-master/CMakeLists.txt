@@ -38,7 +38,7 @@ set(CODEFRAME_LIB_HDRS
 
 set(CODEFRAME_LIB_SRC
     src/base64.cpp
-    src/cxml.cpp  
+    src/cxml.cpp
     src/cxmlnode.cpp
     src/extpoint2d.cpp
     src/extthrust.cpp

@@ -16,7 +16,8 @@ namespace codeframe
     enum eBuildRole
     {
         OBJECT,
-        CONTAINER
+        CONTAINER,
+        HIDDEN
     };
 
     class cIdentity

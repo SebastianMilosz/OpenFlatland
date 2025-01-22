@@ -121,6 +121,136 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const bool_t val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const char val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const unsigned char val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const int val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const unsigned int val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const short val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const unsigned short val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const float val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const double val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertyMultipleSelection::SetValue(const std::string& val, bool triggerEvent)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            propSelection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=(const bool_t val)
     {
         for ( auto propSelection : m_selectionVector )
@@ -182,6 +312,36 @@ namespace codeframe
      **
     ******************************************************************************/
     PropertyNode& PropertyMultipleSelection::operator=(const unsigned int val)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            *propSelection = val;
+        }
+
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyNode& PropertyMultipleSelection::operator =(const short val)
+    {
+        for ( auto propSelection : m_selectionVector )
+        {
+            *propSelection = val;
+        }
+
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyNode& PropertyMultipleSelection::operator =(const unsigned short val)
     {
         for ( auto propSelection : m_selectionVector )
         {
@@ -385,6 +545,16 @@ namespace codeframe
      **
     ******************************************************************************/
     PropertyMultipleSelection::operator unsigned int() const
+    {
+        return 0U;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyMultipleSelection::operator short() const
     {
         return 0U;
     }

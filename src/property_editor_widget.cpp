@@ -1,9 +1,60 @@
 #include "property_editor_widget.hpp"
 
+#ifdef USE_RAYDATA_EXT_TYPE
 #include <ray_data.hpp>
+#endif
+
+#ifdef USE_THRUST_EXT_TYPE
 #include <thrust/device_vector.h>
+#endif
+
 #include <imgui_internal.h> // Currently imgui dosn't have disable/enable control feature
 #include <MathUtilities.h>
+
+namespace ImGui
+{
+    enum ImGuiTristateFlags
+    {
+        TristateL = 0x00,
+        TristateX = 0x01,
+        TristateY = 0x02,
+        TristateH = 0x03
+    };
+
+    bool CheckBoxTristate(const char* label, uint32_t* v_tristate)
+    {
+        bool ret;
+        if ((*v_tristate == TristateX) || (*v_tristate == TristateY))
+        {
+            ImGui::PushItemFlag(ImGuiItemFlags_MixedValue, true);
+            bool b = false;
+            ret = ImGui::Checkbox(label, &b);
+            if (ret)
+            {
+                *v_tristate = TristateH;
+            }
+            ImGui::PopItemFlag();
+        }
+        else
+        {
+            bool b = (*v_tristate != TristateL);
+            ret = ImGui::Checkbox(label, &b);
+
+            if (ret)
+            {
+                if (*v_tristate == TristateH)
+                {
+                    *v_tristate = TristateL;
+                }
+                else
+                {
+                    *v_tristate = TristateX;
+                }
+            }
+        }
+        return ret;
+    }
+}
 
 using namespace codeframe;
 
@@ -335,37 +386,88 @@ void PropertyEditorWidget::ShowRawObject( smart_ptr<codeframe::ObjectNode> obj )
 
     if (obj->Role() == eBuildRole::CONTAINER)
     {
-        node_open = ImGui::TreeNode( "Object", "%s[%d]", objectName.c_str(), obj->Count() );
-    }
-    else
-    {
-        node_open = ImGui::TreeNode( "Object", "%s", objectName.c_str() );
-    }
+        node_open = ImGui::TreeNodeEx( "Object", ImGuiTreeNodeFlags_AllowItemOverlap, "%s[%d]", objectName.c_str(), obj->Count() );
 
-    ImGui::NextColumn();
-    ImGui::AlignTextToFramePadding();
-    ImGui::Text( "Class: %s", obj->Class().c_str() );
-    ImGui::NextColumn();
+        const std::vector< std::string >& classSet = obj->ClassSet();
 
-    if ( node_open == true )
-    {
-        // Iterate through properties in object
-        for ( auto it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
+        if (classSet.size())
         {
-            codeframe::PropertyBase* iser = *it;
+            ImGui::SameLine();
+            if (ImGui::Button("+")) ImGui::OpenPopup("ElementList");
 
-            ShowRawProperty( iser );
+            if (ImGui::BeginPopup("ElementList"))
+            {
+                for(const auto& className : classSet)
+                {
+                    if (ImGui::MenuItem(className.c_str()))
+                    {
+                        std::string objectName = className + std::string("Obj");
+                        obj->Create(className, objectName);
+                    }
+                }
+                ImGui::EndPopup();
+            }
         }
 
-        // Iterate through childs in the object
-        for ( auto it = obj->ChildList().begin(); it != obj->ChildList().end(); ++it )
+        if (obj->BuildType() == eBuildType::DYNAMIC)
         {
-            auto childObject = *it;
+            ImGui::SameLine();
+            if (ImGui::Button("-"))
+            {
 
-            ShowRawObject( childObject );
+            }
         }
+    }
+    else if (obj->Role() == eBuildRole::OBJECT)
+    {
+        node_open = ImGui::TreeNodeEx( "Object", ImGuiTreeNodeFlags_AllowItemOverlap, "%s", objectName.c_str() );
 
-        ImGui::TreePop();
+        if (obj->BuildType() == eBuildType::DYNAMIC)
+        {
+            ImGui::SameLine();
+            if (ImGui::Button("-"))
+            {
+                smart_ptr<ObjectNode> parentNode = obj->Parent()->GetNode();
+                if (smart_ptr_isValid(parentNode) && parentNode->Role() == eBuildRole::CONTAINER)
+                {
+                    smart_ptr<ObjectContainer> containerNode = smart_dynamic_pointer_cast<ObjectContainer>(parentNode);
+
+                    if (smart_ptr_isValid(containerNode))
+                    {
+                        containerNode->Dispose(obj);
+                    }
+                }
+            }
+        }
+    }
+
+    if (obj->Role() != eBuildRole::HIDDEN)
+    {
+        ImGui::NextColumn();
+        ImGui::AlignTextToFramePadding();
+        ImGui::Text( "Class: %s", obj->Class().c_str() );
+        ImGui::NextColumn();
+
+        if ( node_open == true )
+        {
+            // Iterate through properties in object
+            for ( auto it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
+            {
+                codeframe::PropertyBase* iser = *it;
+
+                ShowRawProperty( iser );
+            }
+
+            // Iterate through childs in the object
+            for ( auto it = obj->ChildList().begin(); it != obj->ChildList().end(); ++it )
+            {
+                auto childObject = *it;
+
+                ShowRawObject( childObject );
+            }
+
+            ImGui::TreePop();
+        }
     }
     ImGui::PopID();
 }
@@ -519,6 +621,30 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
 
                 break;
             }
+            case codeframe::KIND_BIT_FIELD_2S:
+            {
+                uint8_t visibleRange = prop->Info().GetVisibleRange();
+                uint32_t flagsIn = static_cast<unsigned int>(*prop);
+                uint32_t flagsOut = 0U;
+
+                for (uint8_t n = 0U; n < visibleRange; n++ )
+                {
+                    uint32_t flags = (flagsIn >> n*2U) & 0x03U;
+
+                    std::string checkboxNameFinal = std::string("##") + prop->Name() + utilities::math::IntToStr(n);
+
+                    if ( ImGui::CheckBoxTristate( checkboxNameFinal.c_str(), &flags ) )
+                    {
+                    }
+                    ImGui::SameLine();
+
+                    flagsOut |= (flags << n*2U);
+                }
+
+                *prop = flagsOut;
+
+                break;
+            }
             case codeframe::KIND_VECTOR:
             {
                 switch ( prop->Info().GetKind(DEPTH_INTERNAL_KIND) )
@@ -539,16 +665,19 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                         }
                         break;
                     }
+#ifdef USE_RAYDATA_EXT_TYPE
                     case codeframe::KIND_RAY_DATA:
                     {
                         ShowVectorProperty<std::vector, RayData>(prop);
                     }
+#endif
                     default:
                     {
                     }
                 }
                 break;
             }
+#ifdef USE_THRUST_EXT_TYPE
             case codeframe::KIND_VECTOR_THRUST_HOST:
             {
                 switch ( prop->Info().GetKind(DEPTH_INTERNAL_KIND) )
@@ -579,6 +708,7 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                 }
                 break;
             }
+#endif
             case KIND_2DPOINT:
             {
                 switch ( prop->Info().GetKind(DEPTH_INTERNAL_KIND) )
@@ -604,6 +734,16 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                     default:
                     {
                     }
+                }
+
+                break;
+            }
+            case KIND_EVENT:
+            {
+                if (ImGui::Button((prop->Name()+"##").c_str()))
+                {
+                    uint32_t eventValue = prop->Info().GetEventValue();
+                    (*prop) = eventValue;
                 }
 
                 break;

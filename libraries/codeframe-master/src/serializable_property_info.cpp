@@ -9,15 +9,17 @@ namespace codeframe
 ******************************************************************************/
 void cPropertyInfo::Init()
 {
-    m_description   = "";
-    m_kind[0U]      = KIND_NON;
-    m_kind[1U]      = KIND_NON;
-    m_xmlmode       = XMLMODE_RW;
-    m_guimode       = GUIMODE_NON;
-    m_eventEnable   = true;
-    m_min           = INT_MIN;
-    m_max           = INT_MAX;
-    m_enable        = true;
+    m_description     = "";
+    m_kind[0U]        = KIND_NON;
+    m_kind[1U]        = KIND_NON;
+    m_xmlmode         = XMLMODE_RW;
+    m_guimode         = GUIMODE_NON;
+    m_eventEnable     = true;
+    m_eventValue      = 0U;
+    m_min             = INT_MIN;
+    m_max             = INT_MAX;
+    m_enable          = true;
+    m_visibleRange  = 0U;
 }
 
 /*****************************************************************************/
@@ -41,6 +43,7 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval) :
     m_description(sval.m_description),
     m_enumArray(sval.m_enumArray),
     m_eventEnable(sval.m_eventEnable),
+    m_eventValue(sval.m_eventValue),
     m_min(sval.m_min),
     m_max(sval.m_max),
     m_enable(sval.m_enable) ,
@@ -48,7 +51,8 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval) :
     m_xmlmode(sval.m_xmlmode),
     m_guimode(sval.m_guimode),
     m_refmgr(sval.m_refmgr),
-    m_serializableProperty(sval.m_serializableProperty)
+    m_serializableProperty(sval.m_serializableProperty),
+    m_visibleRange(sval.m_visibleRange)
 {
     m_kind[0U] = sval.m_kind[0U];
     m_kind[1U] = sval.m_kind[1U];
@@ -63,6 +67,7 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval, PropertyBase* serializab
     m_description(sval.m_description),
     m_enumArray(sval.m_enumArray),
     m_eventEnable(sval.m_eventEnable),
+    m_eventValue(sval.m_eventValue),
     m_min(sval.m_min),
     m_max(sval.m_max),
     m_enable(sval.m_enable) ,
@@ -70,7 +75,8 @@ cPropertyInfo::cPropertyInfo(const cPropertyInfo& sval, PropertyBase* serializab
     m_xmlmode(sval.m_xmlmode),
     m_guimode(sval.m_guimode),
     m_refmgr(sval.m_refmgr),
-    m_serializableProperty( serializableProperty )
+    m_serializableProperty( serializableProperty ),
+    m_visibleRange(sval.m_visibleRange)
 {
     m_kind[0U] = sval.m_kind[0U];
     m_kind[1U] = sval.m_kind[1U];
@@ -114,6 +120,24 @@ cPropertyInfo& cPropertyInfo::Kind( eKind kind1, eKind kind2 )
 {
     m_kind[0] = kind1;
     m_kind[1] = kind2;
+
+    m_visibleRange = 0U;
+
+    return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+cPropertyInfo& cPropertyInfo::Kind( eKind kind1, uint8_t visibleRange )
+{
+    m_kind[0] = kind1;
+    m_kind[1] = KIND_NON;
+
+    m_visibleRange = visibleRange;
+
     return *this;
 }
 
@@ -147,6 +171,17 @@ cPropertyInfo& cPropertyInfo::ReferencePath( const std::string& referencePath )
 cPropertyInfo& cPropertyInfo::Event( int e )
 {
     m_eventEnable = e;
+    return *this;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
+cPropertyInfo& cPropertyInfo::EventValue( uint32_t value )
+{
+    m_eventValue = value;
     return *this;
 }
 
@@ -220,6 +255,7 @@ cPropertyInfo& cPropertyInfo::operator=(cPropertyInfo val)
     m_enumArray	            = val.m_enumArray;
     m_register              = val.m_register;
     m_eventEnable           = val.m_eventEnable;
+    m_eventValue            = val.m_eventValue;
     m_min                   = val.m_min;
     m_max                   = val.m_max;
     m_enable                = val.m_enable;

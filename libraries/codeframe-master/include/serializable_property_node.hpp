@@ -18,14 +18,27 @@ namespace codeframe
     class PropertyNode : public sigslot::has_slots<>
     {
         public:
-            virtual PropertyNode& operator=(const bool_t        val) = 0;
-            virtual PropertyNode& operator=(const char          val) = 0;
-            virtual PropertyNode& operator=(const unsigned char val) = 0;
-            virtual PropertyNode& operator=(const int           val) = 0;
-            virtual PropertyNode& operator=(const unsigned int  val) = 0;
-            virtual PropertyNode& operator=(const float         val) = 0;
-            virtual PropertyNode& operator=(const double        val) = 0;
-            virtual PropertyNode& operator=(const std::string&  val) = 0;
+            virtual void SetValue(const bool_t         val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const char           val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const unsigned char  val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const int            val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const unsigned int   val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const short          val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const unsigned short val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const float          val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const double         val, bool triggerEvent = true) = 0;
+            virtual void SetValue(const std::string&   val, bool triggerEvent = true) = 0;
+
+            virtual PropertyNode& operator=(const bool_t         val) = 0;
+            virtual PropertyNode& operator=(const char           val) = 0;
+            virtual PropertyNode& operator=(const unsigned char  val) = 0;
+            virtual PropertyNode& operator=(const int            val) = 0;
+            virtual PropertyNode& operator=(const unsigned int   val) = 0;
+            virtual PropertyNode& operator=(const short          val) = 0;
+            virtual PropertyNode& operator=(const unsigned short val) = 0;
+            virtual PropertyNode& operator=(const float          val) = 0;
+            virtual PropertyNode& operator=(const double         val) = 0;
+            virtual PropertyNode& operator=(const std::string&   val) = 0;
             virtual PropertyNode& operator++() = 0;
             virtual PropertyNode& operator--() = 0;
             virtual PropertyNode& operator+=(const int rhs) = 0;
@@ -44,6 +57,7 @@ namespace codeframe
             virtual operator unsigned char() const = 0;
             virtual operator int() const = 0;
             virtual operator unsigned int() const = 0;
+            virtual operator short() const = 0;
             virtual operator unsigned short() const = 0;
             virtual operator double() const = 0;
             virtual operator float() const = 0;

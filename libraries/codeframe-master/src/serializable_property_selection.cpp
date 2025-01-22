@@ -105,6 +105,136 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
+    void PropertySelection::SetValue(const bool_t val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const char val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const unsigned char val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const int val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const unsigned int val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const short val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const unsigned short val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const float val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const double val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    void PropertySelection::SetValue(const std::string& val, bool triggerEvent)
+    {
+        if (m_selection)
+        {
+            m_selection->SetValue(val, triggerEvent);
+        }
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const bool_t val)
     {
         if (m_selection)
@@ -162,6 +292,34 @@ namespace codeframe
      **
     ******************************************************************************/
     PropertyNode& PropertySelection::operator=(const unsigned int val)
+    {
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyNode& PropertySelection::operator=(const short val)
+    {
+        if (m_selection)
+        {
+            *m_selection = val;
+        }
+        return *this;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertyNode& PropertySelection::operator=(const unsigned short val)
     {
         if (m_selection)
         {
@@ -585,6 +743,20 @@ namespace codeframe
         if (m_selection)
         {
             return (unsigned int)(*m_selection);
+        }
+        return 0U;
+    }
+
+    /*****************************************************************************/
+    /**
+      * @brief
+     **
+    ******************************************************************************/
+    PropertySelection::operator short() const
+    {
+        if (m_selection)
+        {
+            return (short)(*m_selection);
         }
         return 0U;
     }
