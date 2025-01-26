@@ -19,6 +19,7 @@ class World : public codeframe::Object, public DrawableObject
         virtual ~World() = default;
 
         void AddShell( smart_ptr<Entity>       entity );
+		void DelShell( smart_ptr<Entity>       entity );
         void AddConst( smart_ptr<ConstElement> constElement );
 
         bool PhysisStep(sf::RenderWindow& window);

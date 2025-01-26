@@ -92,6 +92,18 @@ void World::AddShell( smart_ptr<Entity> entity )
   * @brief
  **
 ******************************************************************************/
+void World::DelShell( smart_ptr<Entity> entity )
+{
+	PhysicsBody::sDescriptor& desc = entity->GetDescriptor();
+
+	m_World.DestroyBody( desc.Body );
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void World::AddConst( smart_ptr<ConstElement> constElement )
 {
     PhysicsBody::sDescriptor& desc = constElement->GetDescriptor();

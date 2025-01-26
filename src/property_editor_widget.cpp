@@ -399,12 +399,28 @@ void PropertyEditorWidget::ShowRawObject( smart_ptr<codeframe::ObjectNode> obj )
             {
                 for(const auto& className : classSet)
                 {
-                    if (ImGui::MenuItem(className.c_str()))
+                    if (ImGui::Button(className.c_str(), ImVec2(200.0, 0.0f)))
                     {
                         std::string objectName = className + std::string("Obj");
                         obj->Create(className, objectName);
                     }
+
+                    ImGui::SameLine();
+
+                    if (ImGui::BeginMenu("##LinkMenu"))
+                    {
+                        if (ImGui::BeginPopupModal("LinkPopup"))
+                        {
+                            if (ImGui::MenuItem(className.c_str()))
+                            {
+
+                            }
+                            ImGui::EndPopup();
+                        }
+                        ImGui::EndMenu();
+                    }
                 }
+
                 ImGui::EndPopup();
             }
         }
