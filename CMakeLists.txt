@@ -58,6 +58,8 @@ add_definitions(-DSFML_STATIC)
 add_definitions(-DGLEW_STATIC)
 add_definitions(-DSERIALIZABLE_USE_LUA)
 add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
+add_definitions(-DUSE_RAYDATA_EXT_TYPE)
+add_definitions(-DUSE_THRUST_EXT_TYPE)
 
 include_directories( include )
 include_directories( libraries/CTPL-master )

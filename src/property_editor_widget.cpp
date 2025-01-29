@@ -373,6 +373,60 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
   * @brief
  **
 ******************************************************************************/
+smart_ptr<codeframe::ObjectNode> PropertyEditorWidget::ShowSelectParameterDialog(smart_ptr<codeframe::ObjectNode> obj,
+                                                                                 codeframe::eKind kindFilter)
+{
+    uint32_t uid( obj->Identity().GetUId() );
+
+    // Take object pointer as unique id
+    ImGui::PushID( uid );
+
+    std::string objectName = obj->Identity().ObjectName();
+    bool node_open = false;
+
+    if (obj->Role() == eBuildRole::CONTAINER)
+    {
+        node_open = ImGui::TreeNodeEx( "Object", ImGuiTreeNodeFlags_AllowItemOverlap, "%s[%d]", objectName.c_str(), obj->Count() );
+    }
+    else
+    {
+        node_open = ImGui::TreeNodeEx( "Object", ImGuiTreeNodeFlags_AllowItemOverlap, "%s", objectName.c_str() );
+    }
+
+    if ( node_open == true )
+    {
+        // Iterate through properties in object
+        for ( auto it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
+        {
+            codeframe::PropertyBase* iser = *it;
+
+            if (iser)
+            {
+                ImGui::Text(iser->Name().c_str());
+            }
+        }
+
+        // Iterate through childs in the object
+        for ( auto it = obj->ChildList().begin(); it != obj->ChildList().end(); ++it )
+        {
+            auto childObject = *it;
+
+            ShowSelectParameterDialog( childObject );
+        }
+
+        ImGui::TreePop();
+    }
+
+    ImGui::PopID();
+
+    return nullptr;
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void PropertyEditorWidget::ShowRawObject( smart_ptr<codeframe::ObjectNode> obj )
 {
     uint32_t uid( obj->Identity().GetUId() );
@@ -393,31 +447,37 @@ void PropertyEditorWidget::ShowRawObject( smart_ptr<codeframe::ObjectNode> obj )
         if (classSet.size())
         {
             ImGui::SameLine();
-            if (ImGui::Button("+")) ImGui::OpenPopup("ElementList");
+            if (ImGui::Button("+"))
+            {
+                ImGui::OpenPopup("ElementList");
+            }
 
             if (ImGui::BeginPopup("ElementList"))
             {
                 for(const auto& className : classSet)
                 {
-                    if (ImGui::Button(className.c_str(), ImVec2(200.0, 0.0f)))
+                    if (ImGui::Button(className.c_str()))
                     {
-                        std::string objectName = className + std::string("Obj");
-                        obj->Create(className, objectName);
+                        ImGui::OpenPopup(className.c_str());
                     }
 
-                    ImGui::SameLine();
-
-                    if (ImGui::BeginMenu("##LinkMenu"))
+                    if (ImGui::BeginPopupModal(className.c_str()))
                     {
-                        if (ImGui::BeginPopupModal("LinkPopup"))
-                        {
-                            if (ImGui::MenuItem(className.c_str()))
-                            {
+                        smart_ptr<codeframe::ObjectNode> obj = ShowSelectParameterDialog(m_obj, codeframe::KIND_VECTOR);
 
-                            }
-                            ImGui::EndPopup();
+                        if (smart_ptr_isValid(obj))
+                        {
+                            std::string objectName = className + std::string("Obj");
+                            obj->Create(className, objectName);
+                            ImGui::CloseCurrentPopup();
                         }
-                        ImGui::EndMenu();
+
+                        if (ImGui::Button("cancel"))
+                        {
+                            ImGui::CloseCurrentPopup();
+                        }
+
+                        ImGui::EndPopup();
                     }
                 }
 

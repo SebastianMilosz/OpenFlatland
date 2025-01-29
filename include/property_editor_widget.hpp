@@ -24,6 +24,9 @@ class PropertyEditorWidget : public sigslot::has_slots<>
         void ShowRawObject(smart_ptr<codeframe::ObjectNode> obj);
         void ShowRawProperty(codeframe::PropertyBase* prop);
 
+        smart_ptr<codeframe::ObjectNode> ShowSelectParameterDialog(smart_ptr<codeframe::ObjectNode> obj,
+                                                                   codeframe::eKind kindFilter = codeframe::eKind::KIND_NON);
+
         smart_ptr<codeframe::ObjectNode> m_obj;
 };
 
