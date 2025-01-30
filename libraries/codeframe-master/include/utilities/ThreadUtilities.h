@@ -8,6 +8,7 @@
 #include <string>
 #include <sigslot.h>
 #include <pthread.h>
+#include <stdint.h>
 
 using namespace sigslot;
 

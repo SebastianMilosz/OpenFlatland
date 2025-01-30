@@ -2,6 +2,7 @@
 #define SERIALIZABLEIDENTITY_HPP_INCLUDED
 
 #include <string>
+#include <stdint.h>
 
 namespace codeframe
 {

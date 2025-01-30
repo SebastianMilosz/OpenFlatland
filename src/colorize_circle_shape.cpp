@@ -142,7 +142,7 @@ namespace sf
     ColorizeCircleShape::ColorizeCircleShape(float radius, std::size_t pointCount, const int startAngle, const int endAngle) :
     m_fillColor       (255, 255, 255),
     m_outlineThickness(0),
-    m_outlineVertices (TriangleStrip),
+    m_outlineVertices (PrimitiveType::TriangleStrip),
     m_insideBounds    (),
     m_bounds          (),
     m_radius          (radius),

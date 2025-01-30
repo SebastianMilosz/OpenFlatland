@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project (OpenFlatland VERSION 0.1.1)
+project (OpenFlatland VERSION 0.1.2)
 
 # enable project folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -84,6 +84,7 @@ add_subdirectory(libraries/codeframe-master )
 add_subdirectory(libraries/codeframe-master/thirdparty/lua-5.3.5/src )
 add_subdirectory(libraries/codeframe-master/thirdparty/luabridge-master )
 add_subdirectory(libraries/box2d )
+add_subdirectory(libraries/imgui-sfml )
 add_subdirectory(libraries/SFML-master )
 
 add_executable(OpenFlatland_App
@@ -97,7 +98,7 @@ set_target_properties(OpenFlatland_App PROPERTIES
 )
 
 set_target_properties(OpenFlatland_App PROPERTIES
-    CXX_STANDARD 14
+    CXX_STANDARD 17
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )

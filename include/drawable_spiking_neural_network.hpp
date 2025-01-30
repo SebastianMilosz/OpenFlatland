@@ -32,8 +32,8 @@ class DrawableSpikingNeuralNetwork : public SpikingNeuralNetwork, public Drawabl
 
         mutable sf::Vertex line[2] =
         {
-            sf::Vertex(sf::Vector2f()),
-            sf::Vertex(sf::Vector2f())
+            sf::Vertex{sf::Vector2f()},
+            sf::Vertex{sf::Vector2f()}
         };
 
         thrust::host_vector<float> m_dataInput;

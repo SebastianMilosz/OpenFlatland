@@ -12,7 +12,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600, 32), "" );
+    sf::RenderWindow window(sf::VideoMode(sf::Vector2u(800, 600)), "" );
     Application      application( "Application", window );
 
     while ( window.isOpen() )

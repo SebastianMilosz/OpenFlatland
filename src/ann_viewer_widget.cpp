@@ -10,7 +10,7 @@
 ******************************************************************************/
 AnnViewerWidget::AnnViewerWidget()
 {
-    m_renderStates.blendMode = sf::BlendMode(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
+    m_renderStates.blendMode = sf::BlendMode(sf::BlendMode::Factor::One, sf::BlendMode::Factor::OneMinusSrcAlpha);
     m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
