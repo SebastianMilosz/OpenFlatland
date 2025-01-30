@@ -9,3 +9,7 @@
 	path = libraries/SFML
 	url = https://github.com/SFML/SFML.git
 	branch = master
+[submodule "libraries/imgui-sfml"]
+	path = libraries/imgui-sfml
+	url = https://github.com/SFML/imgui-sfml.git
+	branch = master
