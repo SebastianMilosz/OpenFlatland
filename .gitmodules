@@ -1,14 +1,11 @@
-[submodule "libraries/imgui"]
-	path = libraries/imgui
-	url = https://github.com/SebastianMilosz/imgui.git
-	branch = docking
-[submodule "libraries/imgui-sfml"]
-	path = libraries/imgui-sfml
-	url = https://github.com/SebastianMilosz/imgui-sfml.git
 [submodule "libraries/box2d"]
 	path = libraries/box2d
 	url = https://github.com/SebastianMilosz/box2d.git
 [submodule "libraries/thrust"]
 	path = libraries/thrust
 	url = https://github.com/thrust/thrust.git
+	branch = master
+[submodule "libraries/SFML"]
+	path = libraries/SFML
+	url = https://github.com/SFML/SFML.git
 	branch = master
