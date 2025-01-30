@@ -8,3 +8,5 @@ build
 /.vscode/c_cpp_properties.json
 /include/gitinfo.hpp
 /include/gitinfo.hpp
+/OpenFlatland_gui.ini
+/OpenFlatland_log.txt
