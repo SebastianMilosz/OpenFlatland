@@ -139,7 +139,7 @@
 			<Add option="-DSERIALIZABLE_USE_LUA" />
 			<Add directory="libraries/imgui" />
 			<Add directory="libraries/imgui-sfml" />
-			<Add directory="libraries/SFML-master/include" />
+			<Add directory="libraries/SFML/include" />
 			<Add directory="libraries/box2d/include" />
 			<Add directory="libraries/TinyThread++-1.0/source" />
 			<Add directory="libraries/CTPL-master" />
