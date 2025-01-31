@@ -16,8 +16,14 @@ namespace codeframe
         friend class iterator;
 
         public:
-            class iterator : public std::iterator< std::input_iterator_tag, smart_ptr<ObjectNode> >
+            class iterator
             {
+                using iterator_category = std::input_iterator_tag;
+                using value_type = smart_ptr<ObjectNode>;
+                using difference_type = std::ptrdiff_t;
+                using pointer = smart_ptr<ObjectNode>*;
+                using reference = smart_ptr<ObjectNode>&;
+
                 friend class cObjectList;
 
                 private:

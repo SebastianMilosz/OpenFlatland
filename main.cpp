@@ -13,16 +13,15 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(sf::Vector2u(800, 600)), "" );
-    Application      application( "Application", window );
+    Application      application("Application", window);
 
-    while ( window.isOpen() )
+    while (window.isOpen())
     {
         application.ProcesseLogic();
 
-        sf::Event event;
-        while ( window.pollEvent( event ) )
+        while (const std::optional event = window.pollEvent())
         {
-            application.ProcesseEvents( event );
+            application.ProcesseEvents(event);
         }
     }
 

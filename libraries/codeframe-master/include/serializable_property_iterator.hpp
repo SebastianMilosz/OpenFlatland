@@ -1,8 +1,8 @@
 #ifndef SERIALIZABLE_PROPERTY_ITERATOR_HPP_INCLUDED
 #define SERIALIZABLE_PROPERTY_ITERATOR_HPP_INCLUDED
 
-#include <iterator>
 #include <map>
+#include <string>
 
 namespace codeframe
 {
@@ -14,8 +14,14 @@ namespace codeframe
       * @brief Bidirectional iterator for property list
      **
     ******************************************************************************/
-    class PropertyIterator : public std::iterator<std::input_iterator_tag, PropertyBase*>
+    class PropertyIterator
     {
+        using iterator_category = std::input_iterator_tag;
+        using value_type = PropertyBase*;
+        using difference_type = std::ptrdiff_t;
+        using pointer = PropertyBase**;
+        using reference = PropertyBase*&;
+
         friend class cPropertyList;
 
     public:

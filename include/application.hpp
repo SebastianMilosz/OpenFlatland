@@ -12,18 +12,18 @@
 
 class Application : public codeframe::Object
 {
-        CODEFRAME_META_CLASS_NAME( "Application" );
-        CODEFRAME_META_BUILD_TYPE( codeframe::STATIC );
+        CODEFRAME_META_CLASS_NAME("Application");
+        CODEFRAME_META_BUILD_TYPE(codeframe::STATIC);
 
     public:
-                 Application( std::string name, sf::RenderWindow& window );
+                 Application(std::string name, sf::RenderWindow& window);
         virtual ~Application() = default;
 
-        void ProcesseEvents( sf::Event& event );
-        void ProcesseLogic( void );
+        void ProcesseEvents(const std::optional<sf::Event>& event);
+        void ProcesseLogic();
 
     private:
-            void ZoomViewAt( sf::Vector2i pixel, sf::RenderWindow& window, const float zoom );
+            void ZoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, const float zoom);
 
             const float         m_zoomAmount;
 

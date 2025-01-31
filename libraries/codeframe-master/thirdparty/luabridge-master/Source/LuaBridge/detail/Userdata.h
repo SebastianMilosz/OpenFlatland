@@ -114,7 +114,7 @@ private:
     // E.g. nonConstFn (constObj)
     // -> canBeConst = false, isConst = true
     // -> 'Class' registry table, 'const Class' object table
-    // -> 'expected Class, got const Class' 
+    // -> 'expected Class, got const Class'
     bool isConst = lua_isnil (L, -1); // Stack: ot | nil, nil, rt
     if (isConst && canBeConst)
     {
@@ -235,8 +235,8 @@ template <class T>
 class UserdataValue : public Userdata
 {
 private:
-  UserdataValue <T> (UserdataValue <T> const&);
-  UserdataValue <T> operator= (UserdataValue <T> const&);
+  UserdataValue(UserdataValue<T> const&);
+  UserdataValue<T> operator=(UserdataValue<T> const&);
 
   char m_storage [sizeof (T)];
 

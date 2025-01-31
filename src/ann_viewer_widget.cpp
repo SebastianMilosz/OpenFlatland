@@ -11,7 +11,7 @@
 AnnViewerWidget::AnnViewerWidget()
 {
     m_renderStates.blendMode = sf::BlendMode(sf::BlendMode::Factor::One, sf::BlendMode::Factor::OneMinusSrcAlpha);
-    m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+    (void)m_displayTexture.resize({SCREEN_WIDTH, SCREEN_HEIGHT});
 }
 
 /*****************************************************************************/

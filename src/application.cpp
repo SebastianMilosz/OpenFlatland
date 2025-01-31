@@ -94,16 +94,16 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
   * @brief
  **
 ******************************************************************************/
-void Application::ProcesseEvents( sf::Event& event )
+void Application::ProcesseEvents(const std::optional<sf::Event>& event)
 {
     // get the current mouse position in the window
-    sf::Vector2i pixelPos = sf::Mouse::getPosition( m_Window );
+    sf::Vector2i pixelPos = sf::Mouse::getPosition(m_Window);
 
     // convert it to world coordinates
-    sf::Vector2f worldPos = m_Window.mapPixelToCoords( pixelPos );
+    sf::Vector2f worldPos = m_Window.mapPixelToCoords(pixelPos);
 
     // catch window close event
-    if ( event.type == sf::Event::Closed )
+    if (event->is<sf::Event::Closed>())
     {
         LOGGER( LOG_INFO << "Application closed event" );
 
@@ -123,27 +123,27 @@ void Application::ProcesseEvents( sf::Event& event )
     }
 
     // catch the resize events
-    if ( event.type == sf::Event::Resized )
+    if (const auto* eventResized = event->getIf<sf::Event::Resized>())
     {
         // update the view to the new size of the window
-        sf::FloatRect visibleArea( 0, 0, event.size.width, event.size.height );
+        sf::FloatRect visibleArea( sf::Vector2f(0,0), sf::Vector2f(eventResized->size) );
         m_Window.setView( sf::View( visibleArea ) );
     }
 
     // catch MouseWheel event
-    else if ( event.type == sf::Event::MouseWheelScrolled )
+    else if (const auto* eventMouseWheelScrolled = event->getIf<sf::Event::MouseWheelScrolled>())
     {
-        if (event.mouseWheelScroll.delta > 0)
+        if (eventMouseWheelScrolled->delta > 0)
         {
-            ZoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, m_Window, (1.f / m_zoomAmount));
+            ZoomViewAt({ eventMouseWheelScrolled->position.x, eventMouseWheelScrolled->position.y }, m_Window, (1.f / m_zoomAmount));
         }
-        else if (event.mouseWheelScroll.delta < 0)
+        else if (eventMouseWheelScrolled->delta < 0)
         {
-            ZoomViewAt({ event.mouseWheelScroll.x, event.mouseWheelScroll.y }, m_Window, m_zoomAmount);
+            ZoomViewAt({ eventMouseWheelScrolled->position.x, eventMouseWheelScrolled->position.y }, m_Window, m_zoomAmount);
         }
     }
 
-    else if ( event.type == sf::Event::MouseButtonReleased )
+    else if (event->is<sf::Event::MouseButtonReleased>())
     {
         m_World.MouseUp( worldPos.x, worldPos.y );
 
@@ -157,27 +157,27 @@ void Application::ProcesseEvents( sf::Event& event )
         }
     }
 
-    else if ( event.type == sf::Event::MouseMoved )
+    else if (event->is<sf::Event::MouseMoved>())
     {
-        m_World.MouseMove( worldPos.x, worldPos.y );
+        m_World.MouseMove(worldPos.x, worldPos.y);
 
-        if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
+        if(m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE)
         {
-            if( lineCreateState == 2 )
+            if(lineCreateState == 2)
             {
                 endPoint = worldPos;
             }
         }
     }
 
-    else if ( event.type == sf::Event::KeyPressed )
+    else if (const auto* eventKeyPressed = event->getIf<sf::Event::KeyPressed>())
     {
-        m_Widgets.GetVisionViewerWidget().OnKeyPressed(event.key.code);
+        m_Widgets.GetVisionViewerWidget().OnKeyPressed(eventKeyPressed->code);
     }
 
-    else if ( event.type == sf::Event::KeyReleased )
+    else if (const auto* eventKeyPressed = event->getIf<sf::Event::KeyReleased>())
     {
-        m_Widgets.GetVisionViewerWidget().OnKeyReleased(event.key.code);
+        m_Widgets.GetVisionViewerWidget().OnKeyReleased(eventKeyPressed->code);
     }
 
     m_Widgets.HandleEvent(event);
