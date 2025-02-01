@@ -158,7 +158,6 @@
 			<Add option="-static-libgcc" />
 			<Add option="-static" />
 			<Add option="-pthread" />
-			<Add library="openal32" />
 			<Add library="freetype" />
 			<Add library="ws2_32" />
 			<Add library="gdi32" />
@@ -166,7 +165,9 @@
 			<Add library="winmm" />
 			<Add library="Box2D" />
 			<Add library="lua" />
+			<Add library="libImGui-SFML" />
 			<Add directory="build/libraries/SFML/lib" />
+			<Add directory="build/libraries/imgui-sfml" />
 			<Add directory="build/libraries/box2d/src" />
 			<Add directory="build/libraries/codeframe-master/thirdparty/lua-5.3.5/src" />
 		</Linker>

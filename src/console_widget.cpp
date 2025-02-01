@@ -62,7 +62,7 @@ void ConsoleWidget::Draw( const char* title, bool* p_open )
     m_Filter.Draw("Filter", -100.0f);
     ImGui::Separator();
     const float footer_height_to_reserve = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing(); // 1 separator, 1 input text
-    ImGui::BeginChild("scrolling", ImVec2(0, -footer_height_to_reserve), false, ImGuiWindowFlags_HorizontalScrollbar|ImGuiWindowFlags_AlwaysAutoResize);
+    ImGui::BeginChild("scrolling", ImVec2(0, -footer_height_to_reserve), ImGuiChildFlags_AlwaysAutoResize|ImGuiChildFlags_AutoResizeY, ImGuiWindowFlags_HorizontalScrollbar);
 
     if ( copy_to_clipboard == true )
     {

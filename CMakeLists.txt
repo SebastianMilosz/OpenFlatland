@@ -64,7 +64,7 @@ add_definitions(-DUSE_THRUST_EXT_TYPE)
 include_directories( include )
 include_directories( libraries/CTPL-master )
 include_directories( libraries/TinyThread++-1.0/source )
-include_directories( libraries/SFML-master/include )
+include_directories( libraries/SFML/include )
 include_directories( libraries/imgui-sfml )
 include_directories( libraries/imgui )
 include_directories( libraries/box2d/include )
@@ -85,7 +85,7 @@ add_subdirectory(libraries/codeframe-master/thirdparty/lua-5.3.5/src )
 add_subdirectory(libraries/codeframe-master/thirdparty/luabridge-master )
 add_subdirectory(libraries/box2d )
 add_subdirectory(libraries/imgui-sfml )
-add_subdirectory(libraries/SFML-master )
+add_subdirectory(libraries/SFML )
 
 add_executable(OpenFlatland_App
     ${OpenFlatland_AppSRC}
