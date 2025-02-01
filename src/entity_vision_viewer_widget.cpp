@@ -13,8 +13,8 @@ VisionViewerWidget::VisionViewerWidget() :
     m_up(false),
     m_down(false)
 {
-    m_renderStates.blendMode = sf::BlendMode(sf::BlendMode::One, sf::BlendMode::OneMinusSrcAlpha);
-    m_displayTexture.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+    m_renderStates.blendMode = sf::BlendMode(sf::BlendMode::Factor::One, sf::BlendMode::Factor::OneMinusSrcAlpha);
+    (void)m_displayTexture.resize({SCREEN_WIDTH, SCREEN_HEIGHT});
 }
 
 /*****************************************************************************/
@@ -22,23 +22,23 @@ VisionViewerWidget::VisionViewerWidget() :
   * @brief
  **
 ******************************************************************************/
-void VisionViewerWidget::OnKeyPressed( const sf::Keyboard::Key key )
+void VisionViewerWidget::OnKeyPressed(const sf::Keyboard::Key key)
 {
     if ( m_moveSelectedObject )
     {
-        if (key == sf::Keyboard::Left)
+        if (key == sf::Keyboard::Key::Left)
         {
             m_left = true;
         }
-        else if (key == sf::Keyboard::Right)
+        else if (key == sf::Keyboard::Key::Right)
         {
             m_right = true;
         }
-        else if (key == sf::Keyboard::Up)
+        else if (key == sf::Keyboard::Key::Up)
         {
             m_up = true;
         }
-        else if (key == sf::Keyboard::Down)
+        else if (key == sf::Keyboard::Key::Down)
         {
             m_down = true;
         }
@@ -52,23 +52,23 @@ void VisionViewerWidget::OnKeyPressed( const sf::Keyboard::Key key )
   * @brief
  **
 ******************************************************************************/
-void VisionViewerWidget::OnKeyReleased( const sf::Keyboard::Key key )
+void VisionViewerWidget::OnKeyReleased(const sf::Keyboard::Key key)
 {
     if ( m_moveSelectedObject )
     {
-        if (key == sf::Keyboard::Left)
+        if (key == sf::Keyboard::Key::Left)
         {
             m_left = false;
         }
-        else if (key == sf::Keyboard::Right)
+        else if (key == sf::Keyboard::Key::Right)
         {
             m_right = false;
         }
-        else if (key == sf::Keyboard::Up)
+        else if (key == sf::Keyboard::Key::Up)
         {
             m_up = false;
         }
-        else if (key == sf::Keyboard::Down)
+        else if (key == sf::Keyboard::Key::Down)
         {
             m_down = false;
         }
@@ -82,7 +82,7 @@ void VisionViewerWidget::OnKeyReleased( const sf::Keyboard::Key key )
   * @brief
  **
 ******************************************************************************/
-void VisionViewerWidget::SetObject( smart_ptr<codeframe::ObjectNode> obj )
+void VisionViewerWidget::SetObject(smart_ptr<codeframe::ObjectNode> obj)
 {
     if ( m_lockObjectChange == false )
     {
@@ -95,18 +95,18 @@ void VisionViewerWidget::SetObject( smart_ptr<codeframe::ObjectNode> obj )
   * @brief
  **
 ******************************************************************************/
-void VisionViewerWidget::Draw( const char* title, bool* p_open )
+void VisionViewerWidget::Draw(const char* title, bool* p_open)
 {
-    ImGui::SetNextWindowSize( ImVec2( 430, 450 ), ImGuiCond_FirstUseEver );
-    if ( !ImGui::Begin( title, p_open ) )
+    ImGui::SetNextWindowSize(ImVec2( 430, 450 ), ImGuiCond_FirstUseEver);
+    if (!ImGui::Begin(title, p_open))
     {
         ImGui::End();
         return;
     }
 
-    ImGui::PushStyleVar( ImGuiStyleVar_FramePadding, ImVec2(2,2) );
+    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2,2));
 
-    if ( smart_ptr_isValid(m_objEntity) )
+    if (smart_ptr_isValid(m_objEntity))
     {
         // Lock object change
         ImGui::Checkbox("Lock Object Change: ", &m_lockObjectChange);
@@ -119,7 +119,7 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
         m_cursorPos = ImGui::GetWindowSize();
         m_cursorPos.x = (m_cursorPos.x - SCREEN_WIDTH) * 0.5f;
         m_cursorPos.y = (m_cursorPos.y - SCREEN_HEIGHT) * 0.5f;
-        ImGui::SetCursorPos( m_cursorPos );
+        ImGui::SetCursorPos(m_cursorPos);
 
         EntityVision& vision = m_objEntity->Vision();
 
@@ -131,17 +131,17 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
 
         float x_rec = 0.0F;
 
-        for ( const auto& visionData : visionVector )
+        for (const auto& visionData : visionVector)
         {
             float h = SCREEN_HEIGHT - visionData.Distance/SCREEN_HEIGHT * DISTANCE_TO_SCREEN_FACTOR;
             float y_rec = (SCREEN_HEIGHT / 2.0F) - (h / 2.0F);
 
-            m_rectangle.setPosition(x_rec, y_rec);
-            m_rectangle.setSize( sf::Vector2f(w, h) );
+            m_rectangle.setPosition({x_rec, y_rec});
+            m_rectangle.setSize({w, h});
 
-            const sf::Color cl(std::move(SetColorBrightness( sf::Color(visionData.Fixture), CalculateBrightness(visionData.Distance) )));
+            const sf::Color cl(std::move(SetColorBrightness(sf::Color(visionData.Fixture), CalculateBrightness(visionData.Distance))));
 
-            m_rectangle.setFillColor( cl );
+            m_rectangle.setFillColor(cl);
 
             m_displayTexture.draw(m_rectangle, m_renderStates);
 
@@ -149,7 +149,7 @@ void VisionViewerWidget::Draw( const char* title, bool* p_open )
         }
 
         m_displayTexture.display();
-        ImGui::Image( m_displayTexture.getTexture() );
+        ImGui::Image(m_displayTexture.getTexture());
     }
 
     ImGui::PopStyleVar();
@@ -193,11 +193,11 @@ const float VisionViewerWidget::CalculateBrightness(const float distance) const
 ******************************************************************************/
 void VisionViewerWidget::UpdateSelectedObject()
 {
-    if ( smart_ptr_isValid(m_objEntity) )
+    if (smart_ptr_isValid(m_objEntity))
     {
         EntityMotion& motion = m_objEntity->Motion();
 
-        if ( m_moveSelectedObject )
+        if (m_moveSelectedObject)
         {
             if (m_left)
             {

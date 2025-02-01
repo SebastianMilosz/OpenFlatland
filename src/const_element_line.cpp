@@ -63,7 +63,7 @@ ConstElementLine& ConstElementLine::operator=(const ConstElementLine& other)
 ******************************************************************************/
 void ConstElementLine::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
-    target.draw( m_line, 2, sf::Lines );
+    target.draw( m_line, 2, sf::PrimitiveType::Lines );
 }
 
 /*****************************************************************************/

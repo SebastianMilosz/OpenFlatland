@@ -7,20 +7,23 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-DrawableEntityVision:: DrawableEntityVision( codeframe::ObjectNode* parent ) :
-    EntityVision( parent ),
-    ColorizeMode( this, "ColorizeMode", 0U, cPropertyInfo().Kind(KIND_ENUM).Enum("IronBow,RedYellow,BlueRed,BlackRed,BlueRedBin,BlueGreenRed,Grayscale,ShiftGray").Description("ColorizeMode"), nullptr, std::bind(&sf::ColorizeCircleShape::setColorizeMode, &m_visionShape, std::placeholders::_1) ),
-    m_visionShape( PhysicsBody::sDescriptor::PIXELS_IN_METER * 0.6f, 16 ),
-    m_rayLines( 2U * (unsigned int)RaysCnt )
+DrawableEntityVision:: DrawableEntityVision(codeframe::ObjectNode* parent) :
+    EntityVision(parent),
+    ColorizeMode(this, "ColorizeMode", 0U, cPropertyInfo()
+                 .Kind(KIND_ENUM)
+                 .Enum("IronBow,RedYellow,BlueRed,BlackRed,BlueRedBin,BlueGreenRed,Grayscale,ShiftGray")
+                 .Description("ColorizeMode"), nullptr, std::bind(&sf::ColorizeCircleShape::setColorizeMode, &m_visionShape, std::placeholders::_1)),
+    m_visionShape(PhysicsBody::sDescriptor::PIXELS_IN_METER * 0.6f, 16),
+    m_rayLines(2U * (unsigned int)RaysCnt)
 {
     m_visionShape.setOutlineThickness(1);
-    m_visionShape.setOrigin(15.0F, 15.0F);
+    m_visionShape.setOrigin({15.0F, 15.0F});
 
-    m_visionShape.setStartAngle( -45 );
-    m_visionShape.setEndAngle( 45 );
+    m_visionShape.setStartAngle(-45);
+    m_visionShape.setEndAngle(45);
 
-    m_visionShape.setOutlineColor( sf::Color::White );
-    m_visionShape.setFillColor( sf::Color::Transparent );
+    m_visionShape.setOutlineColor(sf::Color::White);
+    m_visionShape.setFillColor(sf::Color::Transparent);
 
 #ifdef ENTITY_VISION_DEBUG
     m_directionRayLine[0].color = sf::Color::Red;
@@ -33,10 +36,10 @@ DrawableEntityVision:: DrawableEntityVision( codeframe::ObjectNode* parent ) :
   * @brief
  **
 ******************************************************************************/
-DrawableEntityVision::DrawableEntityVision( const DrawableEntityVision& other ) :
-    EntityVision( other ),
-    ColorizeMode( other.ColorizeMode ),
-    m_rayLines( other.m_rayLines )
+DrawableEntityVision::DrawableEntityVision(const DrawableEntityVision& other) :
+    EntityVision(other),
+    ColorizeMode(other.ColorizeMode),
+    m_rayLines(other.m_rayLines)
 {
 }
 
@@ -45,10 +48,10 @@ DrawableEntityVision::DrawableEntityVision( const DrawableEntityVision& other ) 
   * @brief
  **
 ******************************************************************************/
-void DrawableEntityVision::setPosition(float x, float y)
+void DrawableEntityVision::setPosition(sf::Vector2f position)
 {
-    EntityVision::setPosition( x, y );
-    m_visionShape.setPosition( x, y );
+    EntityVision::setPosition(position);
+    m_visionShape.setPosition(position);
 }
 
 /*****************************************************************************/
@@ -56,10 +59,10 @@ void DrawableEntityVision::setPosition(float x, float y)
   * @brief
  **
 ******************************************************************************/
-void DrawableEntityVision::setRotation(float angle)
+void DrawableEntityVision::setRotation(sf::Angle angle)
 {
-    EntityVision::setRotation( angle );
-    m_visionShape.setRotation( angle );
+    EntityVision::setRotation(angle);
+    m_visionShape.setRotation(angle);
 }
 
 
@@ -68,15 +71,15 @@ void DrawableEntityVision::setRotation(float angle)
   * @brief
  **
 ******************************************************************************/
-void DrawableEntityVision::draw( sf::RenderTarget& target, sf::RenderStates states ) const
+void DrawableEntityVision::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // Drawing rays if configured
-    if ( (bool)DrawRays == true )
+    if ((bool)DrawRays == true)
     {
-        target.draw( m_rayLines.data(), m_rayLines.size(), sf::Lines );
+        target.draw(m_rayLines.data(), m_rayLines.size(), sf::PrimitiveType::Lines);
 
 #ifdef ENTITY_VISION_DEBUG
-        target.draw( m_directionRayLine, 2U, sf::Lines );
+        target.draw(m_directionRayLine, 2U, sf::PrimitiveType::Lines);
 #endif // ENTITY_VISION_DEBUG
     }
 

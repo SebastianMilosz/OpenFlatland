@@ -13,8 +13,8 @@ class DrawableEntityVision : public EntityVision, public DrawableObject
 
         codeframe::Property<unsigned int> ColorizeMode;
 
-        void setPosition(float x, float y) override;
-        void setRotation(float angle) override;
+        void setPosition(sf::Vector2f position) override;
+        void setRotation(sf::Angle angle) override;
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
 
     protected:

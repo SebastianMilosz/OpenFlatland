@@ -33,8 +33,8 @@ class EntityVision : public codeframe::Object, public EntityVisionNode, public s
 
         void CastRays(b2World& world, const b2Vec2& p1);
 
-        virtual void setPosition(float x, float y);
-        virtual void setRotation(float angle);
+        virtual void setPosition(sf::Vector2f position);
+        virtual void setRotation(sf::Angle angle);
 
     protected:
         virtual void SetRaysStartingAngle(const int value);

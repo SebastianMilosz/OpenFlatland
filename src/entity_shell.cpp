@@ -13,11 +13,14 @@ using namespace codeframe;
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell( const std::string& name, int x, int y ) :
+EntityShell::EntityShell(const std::string& name, int x, int y) :
     PhysicsBody( name, nullptr ),
     X       ( this, "X"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Xpos"), std::bind(&EntityShell::GetX, this) ),
     Y       ( this, "Y"       , 0    , cPropertyInfo().Kind( KIND_NUMBER ).Description("Ypos"), std::bind(&EntityShell::GetY, this) ),
-    Rotation( this, "R"       , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"), std::bind(&EntityShell::GetRotation, this), std::bind(&EntityShell::SetRotation, this, std::placeholders::_1) ),
+    Rotation( this, "R"       , 0.0F , cPropertyInfo().Kind( KIND_REAL   ).Description("Rotation"),
+             std::bind(&EntityShell::GetRotation, this),
+             std::bind(&EntityShell::SetRotation, this,
+             std::placeholders::_1) ),
     Name    ( this, "Name"    , ""   , cPropertyInfo().Kind( KIND_TEXT   ).Description("Name") ),
     Density ( this, "Density" , 1.F  , cPropertyInfo().Kind( KIND_REAL   ).Description("Density") ),
     Friction( this, "Friction", 0.7F , cPropertyInfo().Kind( KIND_REAL   ).Description("Friction") ),
@@ -47,10 +50,10 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
     GetDescriptor().Color               = sf::Color::Blue;
 
     m_triangle.setOutlineThickness(1);
-    m_triangle.setOrigin(12.5F, 12.5F);
-    m_triangle.setFillColor( sf::Color::Transparent );
+    m_triangle.setOrigin({12.5F, 12.5F});
+    m_triangle.setFillColor(sf::Color::Transparent);
 
-    Selection().signalSelectionChanged.connect( this, &EntityShell::slotSelectionChanged );
+    Selection().signalSelectionChanged.connect(this, &EntityShell::slotSelectionChanged);
 }
 
 /*****************************************************************************/
@@ -58,11 +61,11 @@ EntityShell::EntityShell( const std::string& name, int x, int y ) :
   * @brief
  **
 ******************************************************************************/
-void EntityShell::slotSelectionChanged( smart_ptr<ObjectNode> )
+void EntityShell::slotSelectionChanged(smart_ptr<ObjectNode>)
 {
-    if ( Selection().IsSelected() == true )
+    if (Selection().IsSelected() == true)
     {
-        m_triangle.setFillColor( sf::Color::Blue );
+        m_triangle.setFillColor(sf::Color::Blue);
     }
     else
     {
@@ -75,7 +78,7 @@ void EntityShell::slotSelectionChanged( smart_ptr<ObjectNode> )
   * @brief
  **
 ******************************************************************************/
-EntityShell::EntityShell( const EntityShell& other ) :
+EntityShell::EntityShell(const EntityShell& other) :
     PhysicsBody( other ),
     X       ( other.X ),
     Y       ( other.Y ),
@@ -94,7 +97,7 @@ EntityShell::EntityShell( const EntityShell& other ) :
   * @brief
  **
 ******************************************************************************/
-EntityShell& EntityShell::operator=( const EntityShell& rhs )
+EntityShell& EntityShell::operator=(const EntityShell& rhs)
 {
     PhysicsBody::operator = (rhs);
 
@@ -107,11 +110,11 @@ EntityShell& EntityShell::operator=( const EntityShell& rhs )
   * @brief
  **
 ******************************************************************************/
-void EntityShell::draw( sf::RenderTarget& target, sf::RenderStates states ) const
+void EntityShell::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    target.draw( m_vision );
-    target.draw( m_motion );
-    target.draw( m_triangle );
+    target.draw(m_vision);
+    target.draw(m_motion);
+    target.draw(m_triangle);
 }
 
 /*****************************************************************************/
@@ -119,19 +122,19 @@ void EntityShell::draw( sf::RenderTarget& target, sf::RenderStates states ) cons
   * @brief
  **
 ******************************************************************************/
-void EntityShell::synchronize( b2Body& body )
+void EntityShell::synchronize(b2Body& body)
 {
-    float xpos( body.GetPosition().x * sDescriptor::PIXELS_IN_METER );
-    float ypos( body.GetPosition().y * sDescriptor::PIXELS_IN_METER );
-    float rot ( body.GetAngle() * 180.0F/b2_pi );
+    float xpos(body.GetPosition().x * sDescriptor::PIXELS_IN_METER);
+    float ypos(body.GetPosition().y * sDescriptor::PIXELS_IN_METER);
+    float rot (body.GetAngle() * 180.0F/b2_pi);
 
-    m_vision.setPosition( xpos, ypos );
-    m_vision.setRotation( rot );
+    m_vision.setPosition({xpos, ypos});
+    m_vision.setRotation(sf::degrees(rot));
 
-    m_triangle.setPosition( xpos, ypos );
-    m_triangle.setRotation( rot );
+    m_triangle.setPosition({xpos, ypos});
+    m_triangle.setRotation(sf::degrees(rot));
 
-    m_motion.synchronize( body );
+    m_motion.synchronize(body);
 }
 
 /*****************************************************************************/

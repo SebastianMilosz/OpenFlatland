@@ -13,20 +13,20 @@
   * @brief
  **
 ******************************************************************************/
-Application::Application( std::string name, sf::RenderWindow& window ) :
-    Object( name, NULL ),
-    m_zoomAmount( 1.1F ), // zoom by 10%
-    m_apiDir( utilities::file::GetExecutablePath() ),
-    m_cfgFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_cfg.xml") ),
-    m_perFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_per.csv") ),
-    m_logFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_log.txt") ),
-    m_guiFilePath( m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_gui.ini") ),
-    m_Window ( window ),
-    m_Widgets( m_Window, *this, m_guiFilePath ),
-    m_World  ( "World", this ),
-    m_EntityFactory( "EntityFactory", this ),
-    m_ConstElementsFactory( "ConstElementsFactory", this ),
-    m_FontFactory( "FontFactory", this ),
+Application::Application(std::string name, sf::RenderWindow& window) :
+    Object(name, NULL),
+    m_zoomAmount(1.1F), // zoom by 10%
+    m_apiDir(utilities::file::GetExecutablePath()),
+    m_cfgFilePath(m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_cfg.xml")),
+    m_perFilePath(m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_per.csv")),
+    m_logFilePath(m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_log.txt")),
+    m_guiFilePath(m_apiDir + std::string("\\") + std::string( APPLICATION_NAME ) + std::string("_gui.ini")),
+    m_Window (window),
+    m_Widgets(m_Window, *this, m_guiFilePath),
+    m_World  ("World", this),
+    m_EntityFactory("EntityFactory", this),
+    m_ConstElementsFactory("ConstElementsFactory", this),
+    m_FontFactory("FontFactory", this),
     lineCreateState(0)
 {
     std::string applicationId  = "0.01";
@@ -41,23 +41,23 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Start Initializing" );
 
-    PERFORMANCE_INITIALIZE( applicationId );
+    PERFORMANCE_INITIALIZE(applicationId);
 
-    m_Window.setTitle( std::string( APPLICATION_NAME ) + std::string(" Rev: ") + applicationId );
+    m_Window.setTitle(std::string(APPLICATION_NAME) + std::string(" Rev: ") + applicationId);
 
-    sf::View view( window.getDefaultView() );
+    sf::View view(window.getDefaultView());
 
     window.setView(view);
 
     // Connect Signals
-    m_EntityFactory.signalEntityAdd.connect( &m_World, &World::AddShell );
-	m_EntityFactory.signalEntityDel.connect( &m_World, &World::DelShell );
-    m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetPropertyEditorWidget(), &PropertyEditorWidget::SetObject );
-    m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetAnnViewerWidget(), &AnnViewerWidget::SetObject );
-    m_EntityFactory.signalContainerSelectionChanged.connect( &m_Widgets.GetVisionViewerWidget(), &VisionViewerWidget::SetObject );
-    m_ConstElementsFactory.signalElementAdd.connect( &m_World, &World::AddConst );
+    m_EntityFactory.signalEntityAdd.connect(&m_World, &World::AddShell);
+	m_EntityFactory.signalEntityDel.connect(&m_World, &World::DelShell);
+    m_EntityFactory.signalContainerSelectionChanged.connect(&m_Widgets.GetPropertyEditorWidget(), &PropertyEditorWidget::SetObject);
+    m_EntityFactory.signalContainerSelectionChanged.connect(&m_Widgets.GetAnnViewerWidget(), &AnnViewerWidget::SetObject);
+    m_EntityFactory.signalContainerSelectionChanged.connect(&m_Widgets.GetVisionViewerWidget(), &VisionViewerWidget::SetObject);
+    m_ConstElementsFactory.signalElementAdd.connect(&m_World, &World::AddConst);
 
-    m_Widgets.GetInformationWidget().SetEntityFactory(  m_EntityFactory  );
+    m_Widgets.GetInformationWidget().SetEntityFactory(m_EntityFactory);
 
     LOGGER( LOG_INFO << APPLICATION_NAME << " Initialized" );
 
@@ -73,8 +73,8 @@ Application::Application( std::string name, sf::RenderWindow& window ) :
 
     PERFORMANCE_ENTER( PERFORMANCE_LOAD_XML_FILE );
 
-    this->Storage().LoadFromFile( m_cfgFilePath );
-    this->PulseChanged( true );
+    this->Storage().LoadFromFile(m_cfgFilePath);
+    this->PulseChanged(true);
 
     PERFORMANCE_LEAVE( PERFORMANCE_LOAD_XML_FILE );
 
@@ -111,11 +111,11 @@ void Application::ProcesseEvents(const std::optional<sf::Event>& event)
 
         // Add fps note to performance log
         std::string note  = std::string("FPS="  ) + m_Widgets.GetInformationWidget().FpsToString();
-                    note += std::string(", CNT=") + utilities::math::IntToStr( m_EntityFactory.Count() );
-        PerformanceLogger::GetInstance().AddNote( note );
+                    note += std::string(", CNT=") + utilities::math::IntToStr(m_EntityFactory.Count());
+        PerformanceLogger::GetInstance().AddNote(note);
 
         PERFORMANCE_ENTER( PERFORMANCE_SAVE_XML_FILE );
-        this->Storage().SaveToFile( m_cfgFilePath );
+        this->Storage().SaveToFile(m_cfgFilePath);
         PERFORMANCE_LEAVE( PERFORMANCE_SAVE_XML_FILE );
 
         PERFORMANCE_SAVE( m_perFilePath );
@@ -126,8 +126,8 @@ void Application::ProcesseEvents(const std::optional<sf::Event>& event)
     if (const auto* eventResized = event->getIf<sf::Event::Resized>())
     {
         // update the view to the new size of the window
-        sf::FloatRect visibleArea( sf::Vector2f(0,0), sf::Vector2f(eventResized->size) );
-        m_Window.setView( sf::View( visibleArea ) );
+        sf::FloatRect visibleArea(sf::Vector2f(0,0), sf::Vector2f(eventResized->size));
+        m_Window.setView(sf::View(visibleArea));
     }
 
     // catch MouseWheel event
@@ -145,11 +145,11 @@ void Application::ProcesseEvents(const std::optional<sf::Event>& event)
 
     else if (event->is<sf::Event::MouseButtonReleased>())
     {
-        m_World.MouseUp( worldPos.x, worldPos.y );
+        m_World.MouseUp(worldPos.x, worldPos.y);
 
-        if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
+        if (m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE)
         {
-            if( lineCreateState == 1 )
+            if (lineCreateState == 1)
             {
                 lineCreateState = 2;
                 startPoint = worldPos;
@@ -188,39 +188,39 @@ void Application::ProcesseEvents(const std::optional<sf::Event>& event)
   * @brief
  **
 ******************************************************************************/
-void Application::ProcesseLogic( void )
+void Application::ProcesseLogic()
 {
     // get the current mouse position in the window
-    sf::Vector2i pixelPos = sf::Mouse::getPosition( m_Window );
+    sf::Vector2i pixelPos = sf::Mouse::getPosition(m_Window);
 
     // convert it to world coordinates
-    sf::Vector2f worldPos = m_Window.mapPixelToCoords( pixelPos );
+    sf::Vector2f worldPos = m_Window.mapPixelToCoords(pixelPos);
 
-    if ( m_Widgets.MouseOnGui() == false )
+    if (m_Widgets.MouseOnGui() == false)
     {
-        if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
+        if (sf::Mouse::isButtonPressed( sf::Mouse::Button::Left ))
         {
-            if ( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_ENTITY )
+            if (m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_ENTITY)
             {
-                m_EntityFactory.Create( worldPos.x, worldPos.y, 0 );
+                m_EntityFactory.Create(worldPos.x, worldPos.y, 0);
             }
-            else if ( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_SEL_ENTITY )
+            else if (m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_SEL_ENTITY)
             {
-                m_World.MouseDown( worldPos.x, worldPos.y );
+                m_World.MouseDown(worldPos.x, worldPos.y);
             }
-            else if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
+            else if (m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE)
             {
-                if( lineCreateState == 0 )
+                if (lineCreateState == 0)
                 {
                     startPoint = worldPos;
                     lineCreateState = 1;
                 }
-                else if( lineCreateState == 2 )
+                else if (lineCreateState == 2)
                 {
                     lineCreateState = 0;
 
                     // Create solid line
-                    m_ConstElementsFactory.CreateLine( codeframe::Point2D<int>( startPoint ), codeframe::Point2D<int>( endPoint ) );
+                    m_ConstElementsFactory.CreateLine(codeframe::Point2D<int>( startPoint ), codeframe::Point2D<int>( endPoint ));
                 }
             }
             else
@@ -236,7 +236,7 @@ void Application::ProcesseLogic( void )
     PERFORMANCE_ENTER( PERFORMANCE_BOX2D_FULL_PHYSIC_SYM );
 
     /** Simulate the world */
-    m_World.PhysisStep( m_Window );
+    m_World.PhysisStep(m_Window);
 
     PERFORMANCE_LEAVE( PERFORMANCE_BOX2D_FULL_PHYSIC_SYM );
 
@@ -249,19 +249,19 @@ void Application::ProcesseLogic( void )
     PERFORMANCE_ENTER( PERFORMANCE_RENDER_GRAPHIC );
 
     m_World.synchronize();
-    m_World.draw( m_Window, sf::RenderStates::Default );
+    m_World.draw(m_Window, sf::RenderStates::Default);
 
-    if( m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE )
+    if (m_Widgets.GetMouseModeId() == GUIWidgetsLayer::MOUSE_MODE_ADD_LINE)
     {
-        if( lineCreateState == 2 )
+        if (lineCreateState == 2)
         {
             sf::Vertex line[] =
             {
-                sf::Vertex( startPoint ),
-                sf::Vertex( endPoint )
+                sf::Vertex{startPoint},
+                sf::Vertex{endPoint}
             };
 
-            m_Window.draw(line, 2, sf::Lines);
+            m_Window.draw(line, 2, sf::PrimitiveType::Lines);
         }
     }
 

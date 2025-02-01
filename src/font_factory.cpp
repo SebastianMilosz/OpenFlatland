@@ -14,7 +14,7 @@ FontFactory::FontFactory( const std::string& name, ObjectNode* parent ) :
     if( m_initialized == false )
     {
         // Load it from a file
-        if ( m_font.loadFromFile( "arial.ttf" ) )
+        if ( m_font.openFromFile( "arial.ttf" ) )
         {
             m_initialized = true;
         }

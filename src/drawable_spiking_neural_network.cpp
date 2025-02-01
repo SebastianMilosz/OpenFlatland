@@ -9,9 +9,9 @@
  **
 ******************************************************************************/
 DrawableSpikingNeuralNetwork::DrawableSpikingNeuralNetwork(const std::string& name, ObjectNode* parent) :
-    SpikingNeuralNetwork(name, parent)
+    SpikingNeuralNetwork(name, parent),
+    m_text(FontFactory::GetFont())
 {
-    m_text.setFont(FontFactory::GetFont());
     m_text.setOutlineColor(sf::Color::Red);
     m_text.setCharacterSize(12);
     m_text.setFillColor(sf::Color::Red);
@@ -82,7 +82,7 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
     {
         m_rectangle.setOutlineThickness(0U);
         m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
-        m_rectangle.setPosition(curX, curY);
+        m_rectangle.setPosition({curX, curY});
         m_rectangle.setSize( sf::Vector2f(inW, 10) );
 
         target.draw(m_rectangle, states);
@@ -98,12 +98,12 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
         m_rectangle.setOutlineColor(sf::Color::Blue);
 
         // Draw output data
-        for(const auto& value : m_dataOutput)
+        for (const auto& value : m_dataOutput)
         {
             m_rectangle.setOutlineThickness(1U);
-            m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
-            m_rectangle.setPosition(curX, curY);
-            m_rectangle.setSize( sf::Vector2f(outW, 10) );
+            m_rectangle.setFillColor(ColorizeNumber_IronBown<float>(value));
+            m_rectangle.setPosition({curX, curY});
+            m_rectangle.setSize({outW, 10});
 
             target.draw(m_rectangle, states);
 
@@ -116,7 +116,7 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
 
     m_rectangle.setOutlineColor(sf::Color::White);
     m_rectangle.setOutlineThickness(2U);
-    m_rectangle.setSize( sf::Vector2f(neuronBoxW, neuronBoxH) );
+    m_rectangle.setSize(sf::Vector2f(neuronBoxW, neuronBoxH));
 
     for (unsigned int y = 0U; y < poolSize.Y(); y++)
     {
@@ -145,7 +145,7 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
                         line[1].position.x = linkX * (neuronBoxW + neuronBoxDW) + neuronBoxDW;
                         line[1].position.y = linkY * (neuronBoxH + neuronBoxDH) + neuronBoxDH;
                         line[1].color = ColorizeNumber_IronBown<float>(weightValue);
-                        target.draw(line, 2, sf::Lines);
+                        target.draw(line, 2, sf::PrimitiveType::Lines);
                     }
                     else if (linkValue < 0.0f)
                     {
@@ -154,7 +154,7 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
                         line[1].position.x = std::fabs(linkValue) * inW;
                         line[1].position.y = 10U;
                         line[1].color = ColorizeNumber_IronBown<float>(weightValue);
-                        target.draw(line, 2, sf::Lines);
+                        target.draw(line, 2, sf::PrimitiveType::Lines);
                     }
                     else
                     {
@@ -171,12 +171,12 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
             }
 
             m_rectangle.setOutlineColor(nodeColor);
-            m_rectangle.setPosition(curX, curY);
+            m_rectangle.setPosition({curX, curY});
             m_rectangle.setFillColor( ColorizeNumber_IronBown<float>(value) );
             target.draw(m_rectangle, states);
 
             m_text.setString( utilities::math::IntToStr(offset) );
-            m_text.setPosition(curX + neuronBoxW +2, curY + neuronBoxH +2);
+            m_text.setPosition({curX + neuronBoxW +2, curY + neuronBoxH +2});
             target.draw(m_text);
         }
     }

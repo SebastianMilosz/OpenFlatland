@@ -54,13 +54,13 @@ void EntityVision::CastRays(b2World& world, const b2Vec2& p1)
 {
     StartFrame();
 
-    unsigned int rayLength  ( (unsigned int)RaysSize );
-    unsigned int rayCntLimit( (unsigned int)RaysCnt  );
-    float        rotation( TO_RADIAN( getRotation() ) );
-    volatile uint32_t     fixture = 0U;
+    unsigned int rayLength  ((unsigned int)RaysSize);
+    unsigned int rayCntLimit((unsigned int)RaysCnt);
+    float        rotation(getRotation().asRadians());
+    volatile uint32_t fixture = 0U;
 
-    int rayAngleStart( (int)RaysStartingAngle );
-    int rayAngleEnd( (int)RaysEndingAngle );
+    int rayAngleStart((int)RaysStartingAngle);
+    int rayAngleEnd((int)RaysEndingAngle);
 
     float currentRayAngle( TO_RADIAN( (std::min(rayAngleStart,rayAngleEnd)) ) ); //
     float rayAngleStep( TO_RADIAN((std::abs(std::max(rayAngleStart,rayAngleEnd) - std::min(rayAngleStart,rayAngleEnd))) / (float)rayCntLimit) );
@@ -121,9 +121,9 @@ void EntityVision::AddRay(EntityVision::Ray ray)
   * @brief
  **
 ******************************************************************************/
-void EntityVision::setPosition(float x, float y)
+void EntityVision::setPosition(sf::Vector2f position)
 {
-    sf::Transformable::setPosition(x, y);
+    sf::Transformable::setPosition(position);
 }
 
 /*****************************************************************************/
@@ -131,7 +131,7 @@ void EntityVision::setPosition(float x, float y)
   * @brief
  **
 ******************************************************************************/
-void EntityVision::setRotation(float angle)
+void EntityVision::setRotation(sf::Angle angle)
 {
     sf::Transformable::setRotation(angle);
 }

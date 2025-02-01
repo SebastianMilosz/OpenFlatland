@@ -67,32 +67,34 @@ int GUIWidgetsLayer::GetMouseModeId()
   * @brief
  **
 ******************************************************************************/
-GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, ObjectNode& parent, const std::string& configFile ) :
-    m_window( window ),
-    m_GuiConsoleDataStorage( "console" ),
-    m_MouseMode( MOUSE_MODE_SEL_ENTITY ),
-    m_mouseCapturedByGui( false ),
-    m_ConsoleWidgetOpen( true ),
-    m_PropertyEditorOpen( true ),
-    m_AnnViewerWidgetOpen( true ),
-    m_VisionViewerWidgetOpen( true ),
-    m_InformationWidgetOpen( true ),
-    m_ConsoleWidget( parent ),
-    m_InformationWidget( window )
+GUIWidgetsLayer::GUIWidgetsLayer(sf::RenderWindow& window, ObjectNode& parent, const std::string& configFile) :
+    m_window(window),
+    m_GuiConsoleDataStorage("console"),
+    m_MouseMode(MOUSE_MODE_SEL_ENTITY),
+    m_mouseCapturedByGui(false),
+    m_ConsoleWidgetOpen(true),
+    m_PropertyEditorOpen(true),
+    m_AnnViewerWidgetOpen(true),
+    m_VisionViewerWidgetOpen(true),
+    m_InformationWidgetOpen(true),
+    m_ConsoleWidget(parent),
+    m_InformationWidget(window)
 {
-    ImGui::SFML::Init( m_window );
-    GuiDataStorage::Init( ImGui::GetCurrentContext() );
-
-    // Change imgui config file
-    ImGuiIO& IOS = ImGui::GetIO();
-    IOS.IniFilename = configFile.c_str();
-
-    if (IOS.IniFilename)
+    if (ImGui::SFML::Init(m_window))
     {
-        ImGui::LoadIniSettingsFromDisk( IOS.IniFilename );
-    }
+        GuiDataStorage::Init(ImGui::GetCurrentContext());
 
-    m_ConsoleWidget.Load( m_GuiConsoleDataStorage );
+        // Change imgui config file
+        ImGuiIO& IOS = ImGui::GetIO();
+        IOS.IniFilename = configFile.c_str();
+
+        if (IOS.IniFilename)
+        {
+            ImGui::LoadIniSettingsFromDisk(IOS.IniFilename);
+        }
+
+        m_ConsoleWidget.Load(m_GuiConsoleDataStorage);
+    }
 }
 
 /*****************************************************************************/
@@ -102,7 +104,7 @@ GUIWidgetsLayer::GUIWidgetsLayer( sf::RenderWindow& window, ObjectNode& parent, 
 ******************************************************************************/
 GUIWidgetsLayer::~GUIWidgetsLayer()
 {
-    m_ConsoleWidget.Save( m_GuiConsoleDataStorage );
+    m_ConsoleWidget.Save(m_GuiConsoleDataStorage);
     ImGui::SFML::Shutdown();
 }
 
@@ -123,7 +125,10 @@ bool GUIWidgetsLayer::MouseOnGui()
 ******************************************************************************/
 void GUIWidgetsLayer::HandleEvent(const std::optional<sf::Event>& event)
 {
-    ImGui::SFML::ProcessEvent(event);
+    if (event.has_value())
+    {
+        ImGui::SFML::ProcessEvent(m_window, event.value());
+    }
 }
 
 /*****************************************************************************/
@@ -172,32 +177,32 @@ void GUIWidgetsLayer::Draw()
         ImGui::EndMainMenuBar();
     }
 
-    if ( m_InformationWidgetOpen == true )
+    if (m_InformationWidgetOpen == true)
     {
-        m_InformationWidget.Draw( "Information", &m_InformationWidgetOpen );
+        m_InformationWidget.Draw("Information", &m_InformationWidgetOpen);
     }
 
-    if ( m_ConsoleWidgetOpen == true )
+    if (m_ConsoleWidgetOpen == true)
     {
-        m_ConsoleWidget.Draw( "Console", &m_ConsoleWidgetOpen );
+        m_ConsoleWidget.Draw("Console", &m_ConsoleWidgetOpen);
     }
 
-    if ( m_PropertyEditorOpen == true )
+    if (m_PropertyEditorOpen == true)
     {
-        m_PropertyEditorWidget.Draw( "Property Editor", &m_PropertyEditorOpen );
+        m_PropertyEditorWidget.Draw("Property Editor", &m_PropertyEditorOpen);
     }
 
-    if ( m_AnnViewerWidgetOpen == true )
+    if (m_AnnViewerWidgetOpen == true)
     {
-        m_AnnViewerWidget.Draw( "Ann Viewer", &m_AnnViewerWidgetOpen );
+        m_AnnViewerWidget.Draw("Ann Viewer", &m_AnnViewerWidgetOpen);
     }
 
-    if ( m_VisionViewerWidgetOpen == true )
+    if (m_VisionViewerWidgetOpen == true)
     {
-        m_VisionViewerWidget.Draw( "Vision Viewer", &m_VisionViewerWidgetOpen );
+        m_VisionViewerWidget.Draw("Vision Viewer", &m_VisionViewerWidgetOpen);
     }
 
-    ImGui::SFML::Render( m_window );
+    ImGui::SFML::Render(m_window);
 
     ImGuiIO& IOS = ImGui::GetIO();
 
@@ -209,8 +214,8 @@ void GUIWidgetsLayer::Draw()
   * @brief
  **
 ******************************************************************************/
-void GUIWidgetsLayer::AddGuiRegion( int x, int y, int w, int h )
+void GUIWidgetsLayer::AddGuiRegion(int x, int y, int w, int h)
 {
-    sf::Rect<int> rec( x, y, w, h );
-    m_guiRegions.push_back( rec );
+    sf::Rect<int> rec({x, y}, {w, h});
+    m_guiRegions.push_back(rec);
 }

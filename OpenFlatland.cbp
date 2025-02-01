@@ -166,9 +166,7 @@
 			<Add library="winmm" />
 			<Add library="Box2D" />
 			<Add library="lua" />
-			<Add directory="libraries/SFML-master/extlibs/libs-mingw/x86" />
-			<Add directory="libraries/SFML-master/extlibs/libs-mingw/x64" />
-			<Add directory="build/libraries/SFML-master/lib" />
+			<Add directory="build/libraries/SFML/lib" />
 			<Add directory="build/libraries/box2d/src" />
 			<Add directory="build/libraries/codeframe-master/thirdparty/lua-5.3.5/src" />
 		</Linker>
