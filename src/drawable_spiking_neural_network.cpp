@@ -71,10 +71,10 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
 
     unsigned int neuronBoxDW = (target.getSize().x - neuronBoxW * (poolSize.X()+1U))/(poolSize.X()+1U);
     unsigned int neuronBoxDH = (target.getSize().y - neuronBoxH * (poolSize.Y()+1U))/(poolSize.Y()+1U);
-    unsigned int inW = target.getSize().x / m_dataInput.size();
+    float inW = target.getSize().x / m_dataInput.size();
 
-    unsigned int curX = 0;
-    unsigned int curY = 0;
+    float curX = 0;
+    float curY = 0;
 
     sf::RectangleShape m_rectangle;
     // Draw imput data
@@ -94,7 +94,7 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
     {
         curX = 0;
         curY = target.getSize().y - 10U;
-        unsigned int outW  = target.getSize().x / m_dataOutput.size();
+        float outW  = target.getSize().x / m_dataOutput.size();
         m_rectangle.setOutlineColor(sf::Color::Blue);
 
         // Draw output data
@@ -103,7 +103,7 @@ void DrawableSpikingNeuralNetwork::draw( sf::RenderTarget& target, sf::RenderSta
             m_rectangle.setOutlineThickness(1U);
             m_rectangle.setFillColor(ColorizeNumber_IronBown<float>(value));
             m_rectangle.setPosition({curX, curY});
-            m_rectangle.setSize({outW, 10});
+            m_rectangle.setSize({outW, 10.0});
 
             target.draw(m_rectangle, states);
 
