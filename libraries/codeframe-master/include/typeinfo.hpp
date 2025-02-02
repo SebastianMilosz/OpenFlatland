@@ -42,6 +42,11 @@ namespace codeframe
         {
         }
 
+        bool IsValid()
+        {
+            return (Type != TYPE_NON);
+        }
+
         bool IsName( const std::string& name ) const
         {
             if (name == Name)

@@ -373,45 +373,61 @@ void PropertyEditorWidget::ShowObject( smart_ptr<codeframe::ObjectNode> obj )
   * @brief
  **
 ******************************************************************************/
-smart_ptr<codeframe::ObjectNode> PropertyEditorWidget::ShowSelectParameterDialog(smart_ptr<codeframe::ObjectNode> obj,
-                                                                                 codeframe::eKind kindFilter)
+codeframe::VariantValue PropertyEditorWidget::ShowSelectParameterDialog(smart_ptr<codeframe::ObjectNode> obj,
+                                                                                 codeframe::eType typeFilter)
 {
-    uint32_t uid( obj->Identity().GetUId() );
+    codeframe::VariantValue retValue = codeframe::VariantValue();
+
+    uint32_t uid(obj->Identity().GetUId());
 
     // Take object pointer as unique id
-    ImGui::PushID( uid );
+    ImGui::PushID(uid);
 
     std::string objectName = obj->Identity().ObjectName();
     bool node_open = false;
 
     if (obj->Role() == eBuildRole::CONTAINER)
     {
-        node_open = ImGui::TreeNodeEx( "Object", ImGuiTreeNodeFlags_AllowItemOverlap, "%s[%d]", objectName.c_str(), obj->Count() );
+        node_open = ImGui::TreeNodeEx("Object", ImGuiTreeNodeFlags_AllowItemOverlap, "%s[%d]", objectName.c_str(), obj->Count());
     }
     else
     {
-        node_open = ImGui::TreeNodeEx( "Object", ImGuiTreeNodeFlags_AllowItemOverlap, "%s", objectName.c_str() );
+        node_open = ImGui::TreeNodeEx("Object", ImGuiTreeNodeFlags_AllowItemOverlap, "%s", objectName.c_str());
     }
 
-    if ( node_open == true )
+    if (node_open == true)
     {
         // Iterate through properties in object
-        for ( auto it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it )
+        for (auto it = obj->PropertyList().begin(); it != obj->PropertyList().end(); ++it)
         {
             codeframe::PropertyBase* iser = *it;
 
             if (iser)
             {
-                ImGui::Text(iser->Name().c_str());
+                if ((typeFilter == codeframe::eType::TYPE_NON) || (iser->Type() == typeFilter))
+                {
+                    if (ImGui::TextLink(iser->Name().c_str()))
+                    {
+                        retValue = codeframe::VariantValue("href", iser->Path());
+                    }
+                }
             }
         }
 
-        // Iterate through childs in the object
-        for ( auto it = obj->ChildList().begin(); it != obj->ChildList().end(); ++it )
+        if (!retValue.IsValid())
         {
-            auto childObject = *it;
+            // Iterate through childs in the object
+            for (auto it = obj->ChildList().begin(); it != obj->ChildList().end(); ++it)
+            {
+                auto childObject = *it;
 
-            ShowSelectParameterDialog( childObject );
+                codeframe::VariantValue value = ShowSelectParameterDialog(childObject, typeFilter);
+                if (value.IsValid())
+                {
+                    retValue = value;
+                    break;
+                }
+            }
         }
 
         ImGui::TreePop();
@@ -419,7 +435,7 @@ smart_ptr<codeframe::ObjectNode> PropertyEditorWidget::ShowSelectParameterDialog
 
     ImGui::PopID();
 
-    return nullptr;
+    return retValue;
 }
 
 /*****************************************************************************/
@@ -463,12 +479,12 @@ void PropertyEditorWidget::ShowRawObject( smart_ptr<codeframe::ObjectNode> obj )
 
                     if (ImGui::BeginPopupModal(className.c_str()))
                     {
-                        smart_ptr<codeframe::ObjectNode> obj = ShowSelectParameterDialog(m_obj, codeframe::KIND_VECTOR);
+                        codeframe::VariantValue value = ShowSelectParameterDialog(m_obj, codeframe::eType::TYPE_VECTOR);
 
-                        if (smart_ptr_isValid(obj))
+                        if (value.IsValid())
                         {
                             std::string objectName = className + std::string("Obj");
-                            obj->Create(className, objectName);
+                            obj->Create(className, objectName, std::vector<codeframe::VariantValue>{value});
                             ImGui::CloseCurrentPopup();
                         }
 
