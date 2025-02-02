@@ -71,6 +71,8 @@ set(SFML_USE_STATIC_STD_LIBS ON  CACHE BOOL "SFML use static std libs")
 set(SFML_BUILD_AUDIO         OFF CACHE BOOL "SFML build audio")
 set(BUILD_SHARED_LIBS        OFF CACHE BOOL "Build shared libs")
 
+option(IMGUI_SFML_FIND_SFML "Use find_package to find SFML" OFF)
+
 # Add sub-directories
 add_subdirectory(libraries/codeframe-master )
 add_subdirectory(libraries/codeframe-master/thirdparty/lua-5.3.5/src )
