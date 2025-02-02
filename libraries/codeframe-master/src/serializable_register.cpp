@@ -8,23 +8,20 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cRegister::cRegister()
+    cRegister::cRegister() :
+        m_registerMode(0),
+        m_enable(false),
+        m_registerRead(0),
+        m_registerSizeRead(0),
+        m_cellOffsetRead(0),
+        m_cellSizeRead(0),
+        m_bitMaskRead(0),
+        m_registerWrite(0),
+        m_registerSizeWrite(0),
+        m_cellOffsetWrite(0),
+        m_cellSizeWrite(0),
+        m_bitMaskWrite(0)
     {
-        m_registerMode      = 0;
-        m_enable            = false;
-
-        m_registerRead      = 0;
-        m_registerSizeRead  = 0;
-        m_cellOffsetRead    = 0;
-        m_cellSizeRead      = 0;
-
-        m_registerWrite     = 0;
-        m_registerSizeWrite = 0;
-        m_cellOffsetWrite   = 0;
-        m_cellSizeWrite     = 0;
-
-        m_bitMaskRead		= 0;
-        m_bitMaskWrite		= 0;
     }
 
     /*****************************************************************************/
@@ -32,7 +29,8 @@ namespace codeframe
       * @brief
      **
     ******************************************************************************/
-    cRegister::cRegister( eREG_MODE mod, uint16_t reg, uint16_t regSize, uint16_t cellOffset, uint16_t cellSize, uint16_t bitMask )
+    cRegister::cRegister( eREG_MODE mod, uint16_t reg, uint16_t regSize, uint16_t cellOffset, uint16_t cellSize, uint16_t bitMask ) :
+        cRegister()
     {
         Set( mod, reg, regSize, cellOffset, cellSize, bitMask );
     }

@@ -46,14 +46,6 @@ set(OpenFlatland_AppSRC
     src/world.cpp
 )
 
-set(OpenFlatland_ImGuiSRC
-    libraries/imgui/imgui.cpp
-    libraries/imgui/imgui_demo.cpp
-    libraries/imgui/imgui_draw.cpp
-    libraries/imgui/imgui_widgets.cpp
-    libraries/imgui-sfml/imgui-SFML.cpp
-)
-
 add_definitions(-DSFML_STATIC)
 add_definitions(-DGLEW_STATIC)
 add_definitions(-DSERIALIZABLE_USE_LUA)
@@ -84,12 +76,11 @@ add_subdirectory(libraries/codeframe-master )
 add_subdirectory(libraries/codeframe-master/thirdparty/lua-5.3.5/src )
 add_subdirectory(libraries/codeframe-master/thirdparty/luabridge-master )
 add_subdirectory(libraries/box2d )
-add_subdirectory(libraries/imgui-sfml )
 add_subdirectory(libraries/SFML )
+add_subdirectory(libraries/imgui-sfml )
 
 add_executable(OpenFlatland_App
     ${OpenFlatland_AppSRC}
-    ${OpenFlatland_ImGuiSRC}
 )
 
 set_target_properties(OpenFlatland_App PROPERTIES
@@ -115,6 +106,7 @@ target_link_libraries( OpenFlatland_App
     sfml-network 
     sfml-window 
     sfml-system 
+    libImGui-SFML
     box2d 
     lualib
     pthread

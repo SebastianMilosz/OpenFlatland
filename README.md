@@ -1,6 +1,5 @@
 # OpenFlatland
 
-[![Build Status](https://travis-ci.com/SebastianMilosz/OpenFlatland.svg?branch=master)](https://travis-ci.com/SebastianMilosz/OpenFlatland)
 
 ## Basic information
 -----
