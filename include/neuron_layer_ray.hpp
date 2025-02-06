@@ -32,6 +32,7 @@ class NeuronLayerRay : public NeuronLayer
         codeframe::Property<float> MaxFixture;
         codeframe::Property<float> MinFixture;
 
+        uint32_t size() const override;
         void GiveData(thrust::host_vector<float>& vectData) override;
         uint32_t TakeData(thrust::host_vector<float>& vectData, uint32_t vectPos) override;
 

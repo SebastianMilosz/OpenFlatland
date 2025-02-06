@@ -34,6 +34,16 @@ NeuronLayerVector::NeuronLayerVector( const std::string& name, ObjectNode* paren
   * @brief
  **
 ******************************************************************************/
+uint32_t NeuronLayerVector::size() const
+{
+    return Data.GetConstValue().size();
+}
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void NeuronLayerVector::GiveData(thrust::host_vector<float>& vectData)
 {
     float tmpMax = std::numeric_limits<float>::min();
@@ -56,6 +66,15 @@ void NeuronLayerVector::GiveData(thrust::host_vector<float>& vectData)
 ******************************************************************************/
 uint32_t NeuronLayerVector::TakeData(thrust::host_vector<float>& vectData, uint32_t vectPos)
 {
+    float tmpMax = std::numeric_limits<float>::min();
+    float tmpMin = std::numeric_limits<float>::max();
 
-    return 0U;
+    thrust::host_vector<float>& internalVector = Data.GetValue();
+    auto normalizeBegin = std::distance(internalVector.begin(), internalVector.end());
+
+    thrust::for_each(vectData.begin(), vectData.end(), copy_functor(internalVector, tmpMax, tmpMin));
+
+    thrust::for_each(std::next(internalVector.begin(), normalizeBegin), internalVector.end()  , normalize_functor(tmpMax, tmpMin));
+
+    return internalVector.size();
 }

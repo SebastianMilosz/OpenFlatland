@@ -22,6 +22,7 @@ class NeuronLayer : public codeframe::Object
                  NeuronLayer( const std::string& name, ObjectNode* parent, const std::string& link );
         virtual ~NeuronLayer() = default;
 
+        virtual uint32_t size() const = 0;
         virtual void GiveData(thrust::host_vector<float>& vectData) = 0;
         virtual uint32_t TakeData(thrust::host_vector<float>& vectData, uint32_t vectPos) = 0;
 

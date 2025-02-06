@@ -31,13 +31,19 @@ void EntityMotion::synchronize(b2Body& body)
     float velocityRotation((float)VelocityRotation);
     float velocityForward((float)VelocityForward);
 
-    if (MotionVector.GetConstValue().size() > 0)
+    if (MotionVector.GetConstValue().size() > 0U)
     {
         velocityRotation = MotionVector.GetConstValue()[0];
     }
-    if (MotionVector.GetConstValue().size() > 1)
+    if (MotionVector.GetConstValue().size() > 1U)
     {
         velocityForward = MotionVector.GetConstValue()[1];
+    }
+
+    // Limit to maximum 3 axis
+    if (MotionVector.GetConstValue().size() > 3U)
+    {
+        MotionVector.GetValue().resize(3U);
     }
 
     if (std::fabs(velocityRotation) > 0.0F || std::fabs(velocityForward) > 0.0F)

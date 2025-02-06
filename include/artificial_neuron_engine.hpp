@@ -25,8 +25,8 @@ class ArtificialNeuronEngine : public codeframe::Object
         NeuronModel::Column::Model& GetPool() {return m_NeuronCellPool;}
 
     protected:
-        NeuronLayerContainer m_Inputs;
-        NeuronLayerContainer m_Outputs;
+        NeuronLayerContainer m_InputsObjects;
+        NeuronLayerContainer m_OutputsObjects;
 
         DrawableSpikingNeuralNetwork m_NeuronCellPool;
 

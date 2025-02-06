@@ -39,6 +39,17 @@ NeuronLayerRay::NeuronLayerRay( const std::string& name, ObjectNode* parent, con
   * @brief
  **
 ******************************************************************************/
+uint32_t NeuronLayerRay::size() const
+{
+    return Data.GetConstValue().size();
+}
+
+
+/*****************************************************************************/
+/**
+  * @brief
+ **
+******************************************************************************/
 void NeuronLayerRay::GiveData(thrust::host_vector<float>& vectData)
 {
     float tmpMaxDistance = std::numeric_limits<float>::min();

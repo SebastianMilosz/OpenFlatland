@@ -23,6 +23,7 @@ class NeuronLayerVector : public NeuronLayer
         codeframe::Property<float> Max;
         codeframe::Property<float> Min;
 
+        uint32_t size() const override;
         void GiveData(thrust::host_vector<float>& vectData) override;
         uint32_t TakeData(thrust::host_vector<float>& vectData, uint32_t vectPos) override;
 
@@ -36,7 +37,8 @@ class NeuronLayerVector : public NeuronLayer
                 copy_functor(thrust::host_vector<float>& vect, float& max, float& min) :
                     m_vect(vect),
                     m_Max(max),
-                    m_Min(min)
+                    m_Min(min),
+                    destPos(0U)
                 {
                 }
 
@@ -44,13 +46,17 @@ class NeuronLayerVector : public NeuronLayer
                 {
                     m_Min = std::fmin(m_Min,refData);
                     m_Max = std::fmax(m_Max,refData);
-                    m_vect.push_back(refData);
+                    if (destPos < m_vect.size())
+                    {
+                        m_vect[destPos++] = refData;
+                    }
                 }
 
             private:
                 thrust::host_vector<float>& m_vect;
                 float& m_Max;
                 float& m_Min;
+                uint32_t destPos;
         };
 };
 

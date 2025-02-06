@@ -11,15 +11,21 @@ using namespace codeframe;
 ******************************************************************************/
 ArtificialNeuronEngine::ArtificialNeuronEngine( const std::string& name, ObjectNode* parent ) :
     Object( name, parent ),
-    Input       (this, "Input" , thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Input") , [this]() -> const thrust::host_vector<float>& { return this->m_vectInData; }),
-    Output      (this, "Output", thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).Description("Output"), [this]() -> const thrust::host_vector<float>& { return this->m_vectOutData; }),
-    m_Inputs("NeuronInputs", this),
-    m_Outputs("NeuronOutputs", this),
+    Input(this, "Input" , thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).
+                                                                        Description("Input") , [this]() -> const thrust::host_vector<float>&
+                                                                        {
+                                                                            return this->m_vectInData;
+                                                                        }),
+    Output(this, "Output", thrust::host_vector<float>(), cPropertyInfo().Kind( KIND_VECTOR_THRUST_HOST, KIND_REAL ).
+                                                                         Description("Output"), [this]() -> const thrust::host_vector<float>&
+                                                                        {
+                                                                            return this->m_vectOutData;
+                                                                        }),
+    m_InputsObjects("NeuronInputsObjects", this),
+    m_OutputsObjects("NeuronOutputsObjects", this),
     m_NeuronCellPool("NeuronCellPool", this)
 {
-    m_Inputs.Create ( "NeuronLayerVector", "InterfaceEnergyLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Energy.EnergyVector")) );
-    m_Inputs.Create ( "NeuronLayerRay"   , "InterfaceVisionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Vision.VisionVector")) );
-    m_Outputs.Create( "NeuronLayerVector", "InterfaceMotionLayer", std::vector<VariantValue>(1U, VariantValue("href", "../../../Motion.MotionVector>")) );
+    //m_vectOutData.resize(3U);
 }
 
 /*****************************************************************************/
@@ -43,9 +49,9 @@ void ArtificialNeuronEngine::CollectInputs()
 {
     m_vectInData.clear();
 
-    for ( unsigned int n = 0U; n < m_Inputs.Count(); n++ )
+    for ( unsigned int n = 0U; n < m_InputsObjects.Count(); n++ )
     {
-        smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_Inputs.Get( n ));
+        smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_InputsObjects.Get( n ));
 
         if (smart_ptr_isValid(neuronLayerObj))
         {
@@ -62,13 +68,20 @@ void ArtificialNeuronEngine::CollectInputs()
 void ArtificialNeuronEngine::ProcesseOutputs()
 {
     uint32_t vectPos = 0U;
-    for ( uint32_t n = 0U; n < m_Outputs.Count(); n++ )
+    uint32_t vectSize = 0U;
+    for ( uint32_t n = 0U; n < m_OutputsObjects.Count(); n++ )
     {
-        smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_Outputs.Get( n ));
+        smart_ptr<NeuronLayer> neuronLayerObj = smart_dynamic_pointer_cast<NeuronLayer>(m_OutputsObjects.Get( n ));
 
         if (smart_ptr_isValid(neuronLayerObj))
         {
             vectPos += neuronLayerObj->TakeData(m_vectOutData, vectPos);
+            vectSize += neuronLayerObj->size();
         }
+    }
+
+    if (m_vectOutData.size() != vectSize)
+    {
+        m_vectOutData.resize(vectSize);
     }
 }
