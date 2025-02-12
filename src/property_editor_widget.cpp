@@ -90,7 +90,7 @@ class ImGuiDisabled
 ******************************************************************************/
 template<typename ValueType>
 inline typename std::enable_if< std::is_integral< ValueType >::value, ValueType >::type
-InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly)
+InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly, uint32_t options = 0U)
 {
     ImGuiDisabled disableGui(readOnly);
     int value = static_cast<int>(valueBase);
@@ -105,11 +105,30 @@ InputControlCreate(const std::string& name, const ValueType& valueBase, const bo
 ******************************************************************************/
 template<typename ValueType>
 inline typename std::enable_if< std::is_floating_point< ValueType >::value, ValueType >::type
-InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly)
+InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly, uint32_t options = 0U)
 {
     ImGuiDisabled disableGui(readOnly);
     float value = static_cast<float>(valueBase);
     ImGui::InputFloat(name.c_str(), &value, 0.1f, 0.1f, "%.2E");
+
+    // Check if the input field is hovered
+    if (options)
+    {
+        if (ImGui::IsItemHovered())
+        {
+            ImGui::BeginTooltip();
+
+            static uint8_t i = 0U;
+            static std::array<float, 20U> values = {0U};
+            values[i++ % 20U] = value;
+            if (i > 20U) i = 0U;
+
+            // Display the graph
+            ImGui::PlotLines("##Values", values.data(), values.size());
+            ImGui::EndTooltip();
+        }
+    }
+
     return value;
 }
 
@@ -120,7 +139,7 @@ InputControlCreate(const std::string& name, const ValueType& valueBase, const bo
 ******************************************************************************/
 template<typename ValueType>
 inline typename std::enable_if< std::is_class< ValueType >::value, ValueType >::type
-InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly)
+InputControlCreate(const std::string& name, const ValueType& valueBase, const bool_t readOnly, uint32_t options = 0U)
 {
     ImGuiDisabled disableGui(readOnly);
     float value = valueBase.Distance;
@@ -145,7 +164,7 @@ inline bool_t ButtonCreate(const std::string& name, const bool_t readOnly)
  **
 ******************************************************************************/
 template<template<typename, typename> class ContainerType, typename ValueType, typename Allocator=std::allocator<ValueType>>
-void ImgVectorEditor(codeframe::Property<ContainerType<ValueType, Allocator>>& propertyVectorObject)
+void ImgVectorEditor(codeframe::Property<ContainerType<ValueType, Allocator>>& propertyVectorObject, uint32_t options = 0U)
 {
     auto& internalVector            = propertyVectorObject.GetValue();
     const auto& internalConstVector = propertyVectorObject.GetConstValue();
@@ -169,11 +188,11 @@ void ImgVectorEditor(codeframe::Property<ContainerType<ValueType, Allocator>>& p
         value = valuePrew = internalConstVector[index];
         indexPrew = index;
         ImGui::PushItemWidth(width * 0.6F);
-        value = InputControlCreate<ValueType>("=thrust(", value, readOnly); ImGui::SameLine();
+        value = InputControlCreate<ValueType>("=thrust(", value, readOnly, options); ImGui::SameLine();
         ImGui::PopItemWidth();
 
         ImGui::PushItemWidth(width * 0.4F);
-        index = InputControlCreate(vectorSizeIndexText, index, false); ImGui::SameLine();
+        index = InputControlCreate(vectorSizeIndexText, index, false, options); ImGui::SameLine();
         ImGui::PopItemWidth();
 
         if (readOnly == false)
@@ -249,13 +268,13 @@ void ImgPoint2dEditor(const std::string& label1, const std::string& label2, code
  **
 ******************************************************************************/
 template<template<typename, typename> class ContainerType, typename ValueType, typename Allocator = std::allocator<ValueType>>
-inline bool_t ShowVectorProperty(codeframe::PropertyBase* prop)
+inline bool_t ShowVectorProperty(codeframe::PropertyBase* prop, uint32_t options = 0U)
 {
     auto propVector = dynamic_cast<codeframe::Property< ContainerType<ValueType, Allocator> >*>(prop);
 
     if (nullptr != propVector)
     {
-        ImgVectorEditor<ContainerType, ValueType>(*propVector);
+        ImgVectorEditor<ContainerType, ValueType>(*propVector, options);
         return true;
     }
     return false;
@@ -324,6 +343,15 @@ void PropertyEditorWidget::ShowHelpMarker( const char* desc )
         ImGui::TextUnformatted(desc);
         ImGui::PopTextWrapPos();
         ImGui::EndTooltip();
+    }
+    ImGui::SameLine();
+
+    if (ImGui::TextLink(valueChangeGraphEnable ? "(G)" : " G "))
+    {
+        if (valueChangeGraphEnable)
+            valueChangeGraphEnable = false;
+        else
+            valueChangeGraphEnable = true;
     }
 }
 
@@ -743,24 +771,24 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                 {
                     case codeframe::KIND_NUMBER:
                     {
-                        if (ShowVectorProperty<std::vector, unsigned int>(prop) == false)
+                        if (ShowVectorProperty<std::vector, unsigned int>(prop, valueChangeGraphEnable) == false)
                         {
-                            ShowVectorProperty<std::vector, int>(prop);
+                            ShowVectorProperty<std::vector, int>(prop, valueChangeGraphEnable);
                         }
                         break;
                     }
                     case codeframe::KIND_REAL:
                     {
-                        if (ShowVectorProperty<std::vector, float>(prop) == false)
+                        if (ShowVectorProperty<std::vector, float>(prop, valueChangeGraphEnable) == false)
                         {
-                            ShowVectorProperty<std::vector, double>(prop);
+                            ShowVectorProperty<std::vector, double>(prop, valueChangeGraphEnable);
                         }
                         break;
                     }
 #ifdef USE_RAYDATA_EXT_TYPE
                     case codeframe::KIND_RAY_DATA:
                     {
-                        ShowVectorProperty<std::vector, RayData>(prop);
+                        ShowVectorProperty<std::vector, RayData>(prop, valueChangeGraphEnable);
                     }
 #endif
                     default:
@@ -776,23 +804,23 @@ void PropertyEditorWidget::ShowRawProperty( codeframe::PropertyBase* prop )
                 {
                     case codeframe::KIND_NUMBER:
                     {
-                        if (ShowVectorProperty<thrust::host_vector, int>(prop) == false)
+                        if (ShowVectorProperty<thrust::host_vector, int>(prop, valueChangeGraphEnable) == false)
                         {
-                            ShowVectorProperty<thrust::host_vector, unsigned int>(prop);
+                            ShowVectorProperty<thrust::host_vector, unsigned int>(prop, valueChangeGraphEnable);
                         }
                         break;
                     }
                     case codeframe::KIND_REAL:
                     {
-                        if (ShowVectorProperty<thrust::host_vector, float>(prop) == false)
+                        if (ShowVectorProperty<thrust::host_vector, float>(prop, valueChangeGraphEnable) == false)
                         {
-                            ShowVectorProperty<thrust::host_vector, double>(prop);
+                            ShowVectorProperty<thrust::host_vector, double>(prop, valueChangeGraphEnable);
                         }
                         break;
                     }
                     case codeframe::KIND_RAY_DATA:
                     {
-                        ShowVectorProperty<thrust::host_vector, RayData>(prop);
+                        ShowVectorProperty<thrust::host_vector, RayData>(prop, valueChangeGraphEnable);
                     }
                     default:
                     {

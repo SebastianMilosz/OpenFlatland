@@ -28,6 +28,7 @@ class PropertyEditorWidget : public sigslot::has_slots<>
                                               codeframe::eType typeFilter = codeframe::eType::TYPE_NON);
 
         smart_ptr<codeframe::ObjectNode> m_obj;
+        bool_t valueChangeGraphEnable = false;
 };
 
 #endif // PROPERTY_EDITOR_WIDGET_HPP

@@ -25,7 +25,6 @@ ArtificialNeuronEngine::ArtificialNeuronEngine( const std::string& name, ObjectN
     m_OutputsObjects("NeuronOutputsObjects", this),
     m_NeuronCellPool("NeuronCellPool", this)
 {
-    //m_vectOutData.resize(3U);
 }
 
 /*****************************************************************************/

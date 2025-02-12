@@ -72,7 +72,7 @@ uint32_t NeuronLayerVector::TakeData(thrust::host_vector<float>& vectData, uint3
     thrust::host_vector<float>& internalVector = Data.GetValue();
     auto normalizeBegin = std::distance(internalVector.begin(), internalVector.end());
 
-    thrust::for_each(vectData.begin(), vectData.end(), copy_functor(internalVector, tmpMax, tmpMin));
+    thrust::for_each(vectData.begin() + vectPos, vectData.end(), copy_functor(internalVector, tmpMax, tmpMin));
 
     thrust::for_each(std::next(internalVector.begin(), normalizeBegin), internalVector.end()  , normalize_functor(tmpMax, tmpMin));
 

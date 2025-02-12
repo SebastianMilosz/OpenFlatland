@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+set(CMAKE_CXX_EXTENSIONS NO)
+
 project (OpenFlatland VERSION 0.1.2)
 
 # enable project folders
@@ -70,6 +74,7 @@ set(BOX2D_BUILD_UNIT_TESTS   OFF CACHE BOOL "BOX2D unit tests build")
 set(SFML_USE_STATIC_STD_LIBS ON  CACHE BOOL "SFML use static std libs")
 set(SFML_BUILD_AUDIO         OFF CACHE BOOL "SFML build audio")
 set(BUILD_SHARED_LIBS        OFF CACHE BOOL "Build shared libs")
+set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libraries/imgui)
 
 option(IMGUI_SFML_FIND_SFML "Use find_package to find SFML" OFF)
 
