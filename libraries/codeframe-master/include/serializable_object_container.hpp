@@ -4,7 +4,6 @@
 #include <exception>
 #include <stdexcept>
 #include <vector>
-#include <cstdbool>
 
 #include <MathUtilities.h>
 #include <smartpointer.h>

@@ -545,6 +545,12 @@ namespace codeframe
                 return *this;
             }
 
+            // Keep base PropertyNode overloads visible next to the typed ones below
+            using PropertyBase::operator+=;
+            using PropertyBase::operator-=;
+            using PropertyBase::operator+;
+            using PropertyBase::operator-;
+
             // +=
             virtual Property& operator+=(const Property& rhs)
             {

@@ -1,8 +1,18 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.22)
+
+# Old subprojects (freetype, lua, luabridge) declare cmake_minimum_required < 3.10,
+# which CMake 4 rejects or warns about
+set(CMAKE_POLICY_VERSION_MINIMUM 3.10)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
-set(CMAKE_CXX_EXTENSIONS NO)
+# gnu++17 like the Code::Blocks project. With strict c++17 GCC does not predefine WIN32,
+# so sigslot picks a different mutex type depending on whether <windows.h> was included first
+set(CMAKE_CXX_EXTENSIONS YES)
+
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
+endif()
 
 project (OpenFlatland VERSION 0.1.2)
 
@@ -57,6 +67,13 @@ add_definitions(-DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP)
 add_definitions(-DUSE_RAYDATA_EXT_TYPE)
 add_definitions(-DUSE_THRUST_EXT_TYPE)
 
+# Same debug switches as the Code::Blocks Debug target
+add_compile_definitions(
+    $<$<CONFIG:Debug>:CODE_FRAME_REFERENCE_MANAGER_DEBUG>
+    $<$<CONFIG:Debug>:ENTITY_VISION_DEBUG>
+    $<$<CONFIG:Debug>:PATH_FIELD>
+)
+
 include_directories( include )
 include_directories( libraries/CTPL-master )
 include_directories( libraries/TinyThread++-1.0/source )
@@ -98,7 +115,7 @@ set_target_properties(OpenFlatland_App PROPERTIES
 set_target_properties(OpenFlatland_App PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO
+    CXX_EXTENSIONS YES
 )
 
 target_include_directories( OpenFlatland_App
@@ -112,12 +129,18 @@ target_link_libraries( OpenFlatland_App
     sfml-graphics 
     sfml-network 
     sfml-window 
-    sfml-system 
-    libImGui-SFML
-    box2d 
+    sfml-system
+    ImGui-SFML::ImGui-SFML
+    box2d
     lualib
     pthread
 )
+
+target_compile_options( OpenFlatland_App PRIVATE -Wall )
+
+if(MINGW)
+target_link_options( OpenFlatland_App PRIVATE -static -static-libgcc -static-libstdc++ )
+endif()
 
 if(SFML_OS_WINDOWS OR SFML_OS_ANDROID OR SFML_OS_IOS)
 target_link_libraries( OpenFlatland_App sfml-main )

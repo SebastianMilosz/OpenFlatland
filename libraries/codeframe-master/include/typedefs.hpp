@@ -1,6 +1,8 @@
 #ifndef TYPEDEFS_HPP_INCLUDED
 #define TYPEDEFS_HPP_INCLUDED
 
+#include <cstdint>
+
 // Typy Danych
 typedef int8_t   bool_t;
 typedef char     char_t;

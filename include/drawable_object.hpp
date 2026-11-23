@@ -11,6 +11,7 @@ class DrawableObject : public sf::Drawable
 
         void draw( sf::RenderTarget& target, sf::RenderStates states ) const override;
     protected:
+        static void appendQuad(sf::VertexArray& vec, const sf::Vector2f position, const sf::Vector2f size, const sf::Color color);
 
     private:
 };

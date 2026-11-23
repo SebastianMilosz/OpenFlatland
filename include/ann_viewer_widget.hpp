@@ -26,6 +26,7 @@ class AnnViewerWidget : public sigslot::has_slots<>
         sf::RenderStates   m_renderStates;
         ImVec2             m_cursorPos;
         smart_ptr<Entity>  m_objEntity;
+        int                m_selectedNode = 0;
 };
 
 

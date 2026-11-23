@@ -102,10 +102,12 @@ set_target_properties(CODEFRAME_LIB PROPERTIES
 )
 
 set_target_properties(CODEFRAME_LIB PROPERTIES
-    CXX_STANDARD 14
+    CXX_STANDARD 17
     CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO
+    CXX_EXTENSIONS YES
 )
+
+target_compile_options( CODEFRAME_LIB PRIVATE -Wall )
 
 # Some external dependencies
 include_directories( include )
@@ -118,8 +120,8 @@ include_directories( thirdparty/lua-5.3.5/src )
 include_directories( thirdparty/luabridge-master/Source )
 
 # SFML and thrust related datatypes
-include_directories( ../SFML-master/include )
-include_directories( ../thrust-1.8.1 )
+include_directories( ../SFML/include )
+include_directories( ../thrust )
 
 target_include_directories( CODEFRAME_LIB PUBLIC include/utilities )
 target_include_directories( CODEFRAME_LIB PUBLIC thirdparty/plf_nanotimer-master )
